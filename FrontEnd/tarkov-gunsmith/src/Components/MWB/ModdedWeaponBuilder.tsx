@@ -16,7 +16,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const [ergoOrRecoil, setErgoOrRecoil] = useState(2); // Need to make these values be drawn from something rather than magic numbers
 
-    const [filteredStockWeaponOptions, setFilteredStockWeaponOptions] = useState(StockWeaponOptions);
+    const [filteredStockWeaponOptions, setFilteredStockWeaponOptions] = useState(filterStockWeaponOptions(15));
 
     const [result, setResult] = useState<TransmissionWeaponBuildResult>();
 
