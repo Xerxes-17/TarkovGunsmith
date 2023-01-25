@@ -1,0 +1,3923 @@
+{
+  "data": {
+    "tasks": [
+      {
+        "name": "Debut",
+        "minPlayerLevel": 1,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 1,
+              "item": {
+                "id": "5839a40f24597726f856b511",
+                "name": "Kalashnikov AKS-74UB 5.45x39 assault rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Checking",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Shootout Picnic",
+        "minPlayerLevel": 3,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 1,
+              "item": {
+                "id": "602a9740da11d6478d5a06dc",
+                "name": "Lebedev PL-15 9x19 pistol"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Delivery from the Past",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 1,
+              "item": {
+                "id": "56dff3afd2720bba668b4567",
+                "name": "5.45x39mm PS gs"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Bad Rep Evidence",
+        "minPlayerLevel": 6,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "576fd4ec2459777f0b518431",
+                "name": "BelOMO PSO-1M2-1 4x24 scope"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ice Cream Cones",
+        "minPlayerLevel": 9,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "55d482194bdc2d1d4e8b456b",
+                "name": "AK-74 5.45x39 6L31 60-round magazine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Postman Pat - Part 1",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Postman Pat - Part 2",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 2,
+              "item": {
+                "id": "544fb45d4bdc2dee738b4568",
+                "name": "Salewa first aid kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Shaking up the Teller",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "57ffb0e42459777d047111c5",
+                "name": "AKS-74U PBS-4 5.45x39 sound suppressor"
+              }
+            },
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 2,
+              "item": {
+                "id": "59c0ec5b86f77435b128bfca",
+                "name": "Hexagon 12K 12ga sound suppressor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Shortage",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sanitary Standards - Part 1",
+        "minPlayerLevel": 4,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 1,
+              "item": {
+                "id": "590c661e86f7741e566b646a",
+                "name": "Car first aid kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Operation Aquarius - Part 1",
+        "minPlayerLevel": 6,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Operation Aquarius - Part 2",
+        "minPlayerLevel": 6,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 2,
+              "item": {
+                "id": "5751a25924597722c463c472",
+                "name": "Army bandage"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Painkiller",
+        "minPlayerLevel": 8,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Pharmacist",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 2,
+              "item": {
+                "id": "5aa7cfc0e5b5b00015693143",
+                "name": "6B47 Ratnik-BSh helmet (Digital Flora cover)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Supply Plans",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Kind of Sabotage",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "General Wares",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sanitary Standards - Part 2",
+        "minPlayerLevel": 8,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Car Repair",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Supplier",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 1,
+              "item": {
+                "id": "59f9cabd86f7743a10721f46",
+                "name": "Saiga-9 9x19 carbine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Extortionist",
+        "minPlayerLevel": 7,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 1,
+              "item": {
+                "id": "5a7828548dc32e5a9c28b516",
+                "name": "Remington Model 870 12ga pump-action shotgun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Stirrup",
+        "minPlayerLevel": 8,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 2,
+              "item": {
+                "id": "624d7ae691f0160c7324c402",
+                "name": "Chiappa Rhino 50DS .357 revolver Tactical"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "What’s on the Flash Drive?",
+        "minPlayerLevel": 8,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Golden Swag",
+        "minPlayerLevel": 8,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 1,
+              "item": {
+                "id": "584984812459776a704a82a6",
+                "name": "VOMZ Pilad P1x42 Weaver reflex sight"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Polikhim Hobo",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Chemical - Part 1",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Chemical - Part 2",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5a966f51a2750c00156aacf6",
+                "name": "SOK-12 12/76 SAI-02 10-round magazine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Chemical - Part 3",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Chemical - Part 4",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 3,
+              "item": {
+                "id": "5aa7e4a4e5b5b000137b76f2",
+                "name": "ZSh-1-2M helmet (Black cover)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Out of Curiosity",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Big Customer",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "BP Depot",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 1,
+              "item": {
+                "id": "57f4c844245977379d5c14d1",
+                "name": "PP-9 \"Klin\" 9x18PMM submachine gun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Punisher - Part 1",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "55801eed4bdc2d89578b4588",
+                "name": "SV-98 7.62x54R bolt-action sniper rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Punisher - Part 2",
+        "minPlayerLevel": 18,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "573603562459776430731618",
+                "name": "7.62x25mm TT Pst gzh"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Punisher - Part 3",
+        "minPlayerLevel": 19,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e023d34e8a400319a28ed44",
+                "name": "7.62x54mm R BT gzh"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Trust Regain",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Loyalty Buyout",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "No Offence",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Punisher - Part 4",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "56dff061d2720bb5668b4567",
+                "name": "5.45x39mm BT gs"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Punisher - Part 5",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Punisher - Part 6",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Spa Tour - Part 1",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Spa Tour - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "58d3db5386f77426186285a0",
+                "name": "M67 hand grenade"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Spa Tour - Part 3",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Spa Tour - Part 4",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Spa Tour - Part 5",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Fishing Gear",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "5b3116595acfc40019476364",
+                "name": "SIG Sauer ROMEO4 reflex sight"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "5aafa857e5b5b00018480968",
+                "name": "Springfield Armory M1A 7.62x51 rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tigr Safari",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 1,
+              "item": {
+                "id": "5e00903ae9dc277128008b87",
+                "name": "B&T MP9 9x19 submachine gun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Scrap Metal",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "59411abb86f77478f702b5d2",
+                "name": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) SD"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Eagle Eye",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "58dffd4586f77408a27629b2",
+                "name": "SIG MPX 9x19 submachine gun Silenced"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Humanitarian Supplies",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 2,
+              "item": {
+                "id": "593d493f86f7745e6b2ceb22",
+                "name": "AK-74 Hexagon 5.45x39 sound suppressor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Cult - Part 1",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "59e6906286f7746c9f75e847",
+                "name": "5.56x45mm M856A1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Cult - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Spa Tour - Part 6",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5a608bf24f39f98ffc77720e",
+                "name": "7.62x51mm M62 Tracer"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Spa Tour - Part 7",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Cargo X - Part 1",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Cargo X - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "57da93632459771cb65bf83f",
+                "name": "KAC QDSS NT-4 5.56x45 sound suppressor (Black)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Cargo X - Part 3",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Wet Job - Part 1",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Wet Job - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "59c1383d86f774290a37e0ca",
+                "name": "5.56x45 Magpul PMAG D-60 STANAG 60-round magazine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Wet Job - Part 3",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "5bb2475ed4351e00853264e3",
+                "name": "HK 416A5 5.56x45 assault rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Wet Job - Part 4",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5dcbd56fdbd3d91b3e5468d5",
+                "name": "Desert Tech MDR 7.62x51 assault rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Wet Job - Part 5",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5a367e5dc4a282000e49738f",
+                "name": "Remington R11 RSASS 7.62x51 marksman rifle"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "60098ad7c2240c0fe85c570a",
+                "name": "AFAK tactical individual first aid kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Wet Job - Part 6",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e81ebcd8e146c7080625e15",
+                "name": "FN40GL Mk2 40mm grenade launcher"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Friend from the West - Part 1",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Friend from the West - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5fb64bc92b1b027b1f50bcf2",
+                "name": "TDI KRISS Vector Gen.2 .45 ACP submachine gun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Hippocratic Oath",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Health Care Privacy - Part 1",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 3,
+              "item": {
+                "id": "590c678286f77426c9660122",
+                "name": "IFAK individual first aid kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Health Care Privacy - Part 2",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Health Care Privacy - Part 3",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 4,
+              "item": {
+                "id": "544fb3f34bdc2d03748b456a",
+                "name": "Morphine injector"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Health Care Privacy - Part 4",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Health Care Privacy - Part 5",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Gunsmith - Part 1",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 1,
+              "item": {
+                "id": "56ea8d2fd2720b7c698b4570",
+                "name": "AR-15 Windham Weaponry Rail Gas Block"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 2",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 1,
+              "item": {
+                "id": "5cbda392ae92155f3c17c39f",
+                "name": "AK 100-series polymer handguard"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 3",
+        "minPlayerLevel": 7,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 1,
+              "item": {
+                "id": "5a88ad7b86f77479aa7226af",
+                "name": "Glock 17 9x19 pistol Tac 3"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 16",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d43021ca4b9362eab4b5e25",
+                "name": "Lone Star TX-15 DML 5.56x45 carbine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 13",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "5dfa3d2b0dee1b22f862eade",
+                "name": "KAC PRS/QDC 7.62x51 sound suppressor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 7",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 2,
+              "item": {
+                "id": "56eabcd4d2720b66698b4574",
+                "name": "AR-15 Daniel Defense MK12 Low Profile Gas Block"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Farming - Part 1",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Farming - Part 2",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Farming - Part 3",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Farming - Part 4",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Signal - Part 1",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Signal - Part 2",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Signal - Part 3",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Signal - Part 4",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Bad Habit",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 1,
+              "item": {
+                "id": "62a0a043cf4a99369e2624a5",
+                "name": "Bottle of OLOLO Multivitamins"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Scout",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Insider",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Gunsmith - Part 5",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 1,
+              "item": {
+                "id": "5aafbde786f774389d0cbc0f",
+                "name": "Ammunition case"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 6",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "5a0c59791526d8dba737bba7",
+                "name": "AK GP-25 accessory kit recoil pad"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 8",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Gunsmith - Part 10",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 2,
+              "item": {
+                "id": "5aafbde786f774389d0cbc0f",
+                "name": "Ammunition case"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 15",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "59eb7ebe86f7740b373438ce",
+                "name": "VSS/VAL TOZ 6P29M mount"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Only Business",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Make ULTRA Great Again",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Big Sale",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Blood of War - Part 1",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Dressed to Kill",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Database - Part 1",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Database - Part 2",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sew it Good - Part 1",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sew it Good - Part 2",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sew it Good - Part 3",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sew it Good - Part 4",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Key to Success",
+        "minPlayerLevel": 26,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 3,
+              "item": {
+                "id": "6034d2d697633951dc245ea6",
+                "name": "Eberlestock G2 Gunslinger II backpack (Dry Earth)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Charisma Brings Success",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "No Fuss Needed",
+        "minPlayerLevel": 26,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5b40e1525acfc4771e1c6611",
+                "name": "HighCom Striker ULACH IIIA helmet (Black)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gratitude",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Sales Night",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5b40e2bc5acfc40016388216",
+                "name": "HighCom Striker ULACH IIIA helmet (Desert Tan)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Supervisor",
+        "minPlayerLevel": 40,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5ca21c6986f77479963115a7",
+                "name": "FORT Redut-T5 body armor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 17",
+        "minPlayerLevel": 31,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "588226ef24597767af46e39c",
+                "name": "Magpul AFG tactical foregrip (Olive Drab)"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5a33e75ac4a2826c6e06d759",
+                "name": "AR-15 Hera Arms CQR pistol grip/buttstock"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "5e21ca18e4d47f0da15e77dd",
+                "name": "AK CNC Warrior 5.56x45 muzzle device adapter"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "619b69037b9de8162902673e",
+                "name": "AKM/AK-74 Hera Arms CQR47 pistol grip/buttstock"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 12",
+        "minPlayerLevel": 23,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Gunsmith - Part 18",
+        "minPlayerLevel": 33,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "5b07dd285acfc4001754240d",
+                "name": "Steiner LAS/TAC 2 tactical flashlight"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "615d8e9867085e45ef1409c6",
+                "name": "AKM 7.62x39 Kiba Arms .308 muzzle device adapter"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 20",
+        "minPlayerLevel": 37,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "6130c43c67085e45ef1405a1",
+                "name": "AR-10 KAC QDC 7.62x51 Muzzle Brake Kit"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "58d2912286f7744e27117493",
+                "name": "Magpul MOE Carbine rubber buttpad"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 22",
+        "minPlayerLevel": 39,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5a1eaa87fcdbcb001865f75e",
+                "name": "Trijicon REAP-IR thermal scope"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "60926df0132d4d12c81fd9df",
+                "name": "SilencerCo Saker ASR 556 5.56x45 sound suppressor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Blood of War - Part 2",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Living High is Not a Crime - Part 1",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Hot Delivery",
+        "minPlayerLevel": 29,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5b44cd8b86f774503d30cba2",
+                "name": "IOTV Gen4 body armor (full protection)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Minibus",
+        "minPlayerLevel": 24,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Vitamins - Part 1",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Vitamins - Part 2",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5fc3f2d5900b1d5091531e57",
+                "name": "TDI KRISS Vector Gen.2 9x19 submachine gun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Informed Means Armed",
+        "minPlayerLevel": 24,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Lend-Lease - Part 1",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5df24cf80dee1b22f862e9bc",
+                "name": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Chumming",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 1",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 2",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 1,
+              "item": {
+                "id": "5bc5a372d4351e44f824d17f",
+                "name": "Mosin Rifle AIM Sports MNG rail mount"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 3",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5bbdb83fd4351e44f824c44b",
+                "name": "Mosin Rifle Tacfire Tanker Style 7.62x54R muzzle brake"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5bbde409d4351e003562b036",
+                "name": "Mosin Rifle AIM Sports Recoil Pad"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 4",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5bbdb811d4351e45020113c7",
+                "name": "Mosin Rifle AIM Sports Tri-Rail mount"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5bbde41ed4351e003562b038",
+                "name": "Mosin Rifle Tacfire pistol grip"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 5",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5bc5a351d4351e003477a414",
+                "name": "Mosin Rifle Texas Precision Products 7.62x54R muzzle brake"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 6",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5bbdb870d4351e00367fb67d",
+                "name": "Mosin Rifle ATI Monte Carlo stock"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 7",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5bc5a35cd4351e450201232f",
+                "name": "Mosin Rifle Witt Machine 7.62x54R muzzle brake"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Tarkov Shooter - Part 8",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "5bae13ded4351e44f824bf38",
+                "name": "Mosin Rifle 7.62x54R ProMag Archangel OPFOR 10-round magazine"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "5bae13bad4351e00320204af",
+                "name": "Mosin Rifle ProMag Archangel OPFOR PRS stock"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Bullshit",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5c1127d0d174af29be75cf68",
+                "name": "12/70 RIP ammo pack (5 pcs)"
+              }
+            },
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "606587252535c57a13424cfd",
+                "name": "CMMG Mk47 Mutant 7.62x39 assault rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Silent Caliber",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d6e68c4a4b9361b93413f79",
+                "name": "12/70 makeshift .50 BMG slug"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Insomnia",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Test Drive - Part 1",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c0d668f86f7747ccb7f13b2",
+                "name": "9x39mm SPP gs"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Flint",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "5bffdd7e0db834001b734a1a",
+                "name": "Miller Bros. Blades M-2 Tactical Sword"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "A Shooter Born in Heaven",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "5c127c4486f7745625356c13",
+                "name": "Magazine case"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Psycho Sniper",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "5dd800bde492226366631317",
+                "name": "Kalashnikov AK-104 7.62x39 assault rifle T-SAW"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Private Clinic",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Athlete",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c10c8fd86f7743d7d706df3",
+                "name": "Adrenaline injector"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Lend-Lease - Part 2",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c17a7ed2e2216152142459c",
+                "name": "Crye Precision AirFrame helmet (Tan)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Grenadier",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c1260dc86f7746b106e8748",
+                "name": "9x39mm BP gs ammo pack (8 pcs)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Decontamination Service",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Peacekeeping Mission",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "60a3c68c37ea821725773ef5",
+                "name": "CQC Osprey MK4A plate carrier (Protection, MTP)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Guide",
+        "minPlayerLevel": 40,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c0a2cec0db834001b7ce47d",
+                "name": "EOTech HHS-1 hybrid sight (Tan)"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c0e66e2d174af02a96252f4",
+                "name": "Ops-Core SLAAP armor helmet plate (Tan)"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "59bfe68886f7746004266202",
+                "name": "AR-15 Vltor MUR-1S 5.56x45 upper receiver"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Blood of War - Part 3",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "60a283193cb70855c43a381d",
+                "name": "NFM THOR Integrated Carrier body armor"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Fertilizers",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "619d26ccc7791e3af27ae3cd",
+                "name": "HK USP .45 ACP pistol Match"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Scavenger",
+        "minPlayerLevel": 29,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5bffe7930db834001b734a39",
+                "name": "Crash Axe"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Living High is Not a Crime - Part 2",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5d5d87f786f77427997cfaef",
+                "name": "Ars Arma A18 Skanda plate carrier"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Setup",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c1127bdd174af44217ab8b9",
+                "name": "9x19mm RIP ammo pack (20 pcs)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Perfect Mediator",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Import",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5fc382b6d6fa9c00c571bbc3",
+                "name": ".338 Lapua Magnum TAC-X"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Collector",
+        "minPlayerLevel": 50,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Introduction",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Acquaintance",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Unprotected but Dangerous",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Thrifty",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "590c5d4b86f774784e1b9c45",
+                "name": "Iskra ration pack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Survivalist Path - Zhivchik",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Wounded Beast",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "6259b864ebedf17603599e88",
+                "name": "Benelli M3 Super 90 dual-mode 12ga shotgun"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Survivalist Path - Tough Guy",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Cold Blooded",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Eagle-Owl",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Combat Medic",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Secured Perimeter",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Trophy",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Forest Cleaning",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d6e6911a4b9361bd5780d52",
+                "name": "12/70 flechette"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Huntsman Path - Controller",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Sellout",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Woods Keeper",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "627e14b21713922ded6f2c15",
+                "name": "Accuracy International AXMC .338 LM bolt-action sniper rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Huntsman Path - Justice",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Evil Watchman",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Eraser - Part 1",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Eraser - Part 2",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "606f2696f2cb2e02a42aceb1",
+                "name": "MP-155 Ultima thermal camera"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ambulance",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d02797c86f774203f38e30a",
+                "name": "Surv12 field surgical kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Courtesy Visit",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Shady Business",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Nostalgia",
+        "minPlayerLevel": 28,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Fishing Place",
+        "minPlayerLevel": 28,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Hunting Trip",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d383ee786f7742a15793860",
+                "name": "Remington Model 700 7.62x51 bolt-action sniper rifle ARCH"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d383e1a86f7742a1468ce63",
+                "name": "Remington Model 700 7.62x51 bolt-action sniper rifle AICS"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "5d383f5d86f7742a15793872",
+                "name": "Remington Model 700 7.62x51 bolt-action sniper rifle PRO"
+              }
+            },
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "5d38517786f7742a1468cf6a",
+                "name": "Remington Model 700 7.62x51 bolt-action sniper rifle MRS"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reserve",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Regulated Materials",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 4,
+              "item": {
+                "id": "5cadfbf7ae92152ac412eeef",
+                "name": "ASh-12 12.7x55 assault rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "An Apple a Day Keeps the Doctor Away",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Mentor",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Stylish One",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Textile - Part 1",
+        "minPlayerLevel": 42,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Textile - Part 1",
+        "minPlayerLevel": 42,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Textile - Part 2",
+        "minPlayerLevel": 42,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Textile - Part 2",
+        "minPlayerLevel": 42,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Survivalist Path - Junkie",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Anesthesia",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Sadist",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Colleagues - Part 1",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Colleagues - Part 2",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Rigged Game",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Samples",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5a16b7e1fcdbcb00165aa6c9",
+                "name": "Ops-Core FAST multi-hit ballistic face shield"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e00c1ad86f774747333222c",
+                "name": "Team Wendy EXFIL Ballistic Helmet (Black)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Colleagues - Part 3",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "TerraGroup Employee",
+        "minPlayerLevel": 23,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e01ef6886f77445f643baa4",
+                "name": "Team Wendy EXFIL Ballistic Helmet (Coyote Brown)"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 4,
+              "item": {
+                "id": "5ef1ba28c64c5d0dfc0571a5",
+                "name": "Mesa Tactical Crosshair Hydraulic buffer tube"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Bunker - Part 1",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Bunker - Part 2",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Chemistry Closet",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5b6d9ce188a4501afc1b2b25",
+                "name": "T H I C C Weapon case"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Search Mission",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Hunter",
+        "minPlayerLevel": 33,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "5fc22d7c187fea44d52eda44",
+                "name": "SWORD International Mk-18 .338 LM marksman rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Revision - Reserve",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Classified Technologies",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Documents",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "No Place for Renegades",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Disease History",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Surplus Goods",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Back Door",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Safe Corridor",
+        "minPlayerLevel": 11,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Inventory Check",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 3,
+              "item": {
+                "id": "545cdae64bdc2d39198b4568",
+                "name": "Camelbak Tri-Zip assault backpack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "A Fuel Matter",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Pest Control",
+        "minPlayerLevel": 13,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Factory Chief",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Escort",
+        "minPlayerLevel": 60,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Capturing Outposts",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Intimidator",
+        "minPlayerLevel": 21,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Night Sweep",
+        "minPlayerLevel": 50,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Crisis",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Cleaner",
+        "minPlayerLevel": 40,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Trophies",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Calibration",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Courier",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Long Line",
+        "minPlayerLevel": 40,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5ac3b934156ae10c4430e83c",
+                "name": "Ragman"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e4ac41886f77406a511c9a8",
+                "name": "Ars Arma CPC MOD.2 plate carrier"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Booze",
+        "minPlayerLevel": 50,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Huntsman Path - Relentless",
+        "minPlayerLevel": 65,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Swift One",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Choice",
+        "minPlayerLevel": 50,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Easy Job - Part 1",
+        "minPlayerLevel": 18,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "5df8a4d786f77412672a1e3b",
+                "name": "6Sh118 raid backpack"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Easy Job - Part 2",
+        "minPlayerLevel": 18,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "5cbdc23eae9215001136a407",
+                "name": "AK 7.62x39 Molot 75-round drum magazine"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Huntsman Path - Outcasts",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Seaside Vacation",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 3,
+              "item": {
+                "id": "5af0454c86f7746bf20992e8",
+                "name": "Aluminum splint"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Lost Contact",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb57776803fa99248b456e",
+                "name": "Therapist"
+              },
+              "level": 2,
+              "item": {
+                "id": "590c657e86f77412b013051d",
+                "name": "Grizzly medical kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Overpopulation",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "5b83f22086f77464e15a1d5f",
+                "name": "DS Arms SA-58 7.62x51 assault rifle AUT"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Energy Crisis",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 2,
+              "item": {
+                "id": "619e61e70459e93c12392ba7",
+                "name": "FN SCAR-L 5.56x45 assault rifle (FDE) Contract Wars"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "59fb137a86f7740adb646af1",
+                "name": "Tromix Monster Claw 12ga muzzle brake"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Corporate Secrets",
+        "minPlayerLevel": 14,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 1,
+              "item": {
+                "id": "618ab04934aa2e47480fba2b",
+                "name": "Kalashnikov AK-104 7.62x39 assault rifle RPKT mod.1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Revision - Lighthouse",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "5d67abc1a4b93614ec50137f",
+                "name": "FN Five-seveN MK2 5.7x28 pistol (FDE)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Missing Cargo",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "56eabf3bd2720b75698b4569",
+                "name": "Magpul MOE Carbine stock (Black)"
+              }
+            },
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "5649ae4a4bdc2d1b2b8b4588",
+                "name": "AK Zenit RK-3 pistol grip"
+              }
+            },
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "58d2912286f7744e27117493",
+                "name": "Magpul MOE Carbine rubber buttpad"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Our Own Land",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "5e85a9f4add9fe03027d9bf1",
+                "name": "23x75mm \"Zvezda\" flashbang round"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Counteraction",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "5e85a9f4add9fe03027d9bf1",
+                "name": "23x75mm \"Zvezda\" flashbang round"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Hermit",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Long Road",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 3,
+              "item": {
+                "id": "588892092459774ac91d4b11",
+                "name": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Cargo X - Part 4",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d5e9c74a4b9364855191c40",
+                "name": "MSA ACH TC-2002 MICH Series helmet"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Compensation for Damage - Trust",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Compensation for Damage - Wager",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Compensation for Damage - Barkeep",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Compensation for Damage - Collection",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Network Provider - Part 1",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Network Provider - Part 2",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Assessment - Part 1",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Assessment - Part 2",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Assessment - Part 3",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Key to the Tower",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Knock-Knock",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Getting Acquainted",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Drug Trafficking",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Reconnaissance",
+        "minPlayerLevel": 18,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Top Secret",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Broadcast - Part 1",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Stray Dogs",
+        "minPlayerLevel": 2,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Audit",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Your Car Needs a Service",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "You've Got Mail",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Ballet Lover",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Glory to CPSU",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "573719df2459775a626ccbc2",
+                "name": "9x18mm PM PBM gzh"
+              }
+            },
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 2,
+              "item": {
+                "id": "57372140245977611f70ee91",
+                "name": "9x18mm PM SP7 gzh"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Audiophile",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "House Arrest - Part 1",
+        "minPlayerLevel": 33,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "House Arrest - Part 2",
+        "minPlayerLevel": 33,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Population Census",
+        "minPlayerLevel": 12,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Urban Medicine",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Surveillance",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Revision - Streets of Tarkov",
+        "minPlayerLevel": 17,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 2,
+              "item": {
+                "id": "6193e108c1982475fa2a7f16",
+                "name": "FN SCAR-L 5.56x45 assault rifle (FDE) CQC"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "The Huntsman Path - Administrator",
+        "minPlayerLevel": 23,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Cease Fire!",
+        "minPlayerLevel": 10,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Kings of the Rooftops",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Watching You",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Harley Forever",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Broadcast - Part 2",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Broadcast - Part 4",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Road Closed",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Information Source",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Missing Informant",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "6389c7750ef44505c87f5996",
+                "name": "Microcontroller board"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Snatch",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Return the Favor",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Gunsmith - Part 4",
+        "minPlayerLevel": 9,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 1,
+              "item": {
+                "id": "5a8ae65f86f774377a23ed55",
+                "name": "PP-19-01 \"Vityaz\" 9x19 submachine gun Zenit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 9",
+        "minPlayerLevel": 19,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 3,
+              "item": {
+                "id": "5af08cc686f77424a61595f2",
+                "name": "Colt M4A1 5.56x45 assault rifle SOPMOD I"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5cc86832d7f00c000d3a6e6c",
+                "name": "5.7x28mm R37.F"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 11",
+        "minPlayerLevel": 22,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 2,
+              "item": {
+                "id": "5dd800eae49222636663133b",
+                "name": "Colt M4A1 5.56x45 assault rifle SAI"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 14",
+        "minPlayerLevel": 27,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "5d44069ca4b9361ebd26fc37",
+                "name": "Magpul PRS GEN3 stock (Black)"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 19",
+        "minPlayerLevel": 36,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "58330581ace78e27b8b10cee",
+                "name": "Skier"
+              },
+              "level": 4,
+              "item": {
+                "id": "6087e663132d4d12c81fd96b",
+                "name": "AK Custom Arms AGS-74 PRO + Sniper Kit pistol grip"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Gunsmith - Part 21",
+        "minPlayerLevel": 38,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5d025cc1d7ad1a53845279ef",
+                "name": "AR-15 HK Ergo PSG-1 style pistol grip"
+              }
+            },
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "5c793fb92e221644f31bfb64",
+                "name": "Strike Industries Advanced Receiver Extension buffer tube"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Debtor",
+        "minPlayerLevel": 31,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Broadcast - Part 3",
+        "minPlayerLevel": 20,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 2,
+              "item": {
+                "id": "5d02797c86f774203f38e30a",
+                "name": "Surv12 field surgical kit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Test Drive - Part 2",
+        "minPlayerLevel": 30,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "The Delicious Sausage",
+        "minPlayerLevel": 5,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Best Job in the World",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "62e7e7bbe6da9612f743f1e0",
+                "name": "GP-25 \"Kostyor\" 40mm underbarrel grenade launcher"
+              }
+            },
+            {
+              "trader": {
+                "id": "54cb50c76803fa8b248b4571",
+                "name": "Prapor"
+              },
+              "level": 3,
+              "item": {
+                "id": "5656eb674bdc2d35148b457c",
+                "name": "40mm VOG-25 grenade"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Worst Job in the World",
+        "minPlayerLevel": 25,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "6357c98711fb55120211f7e1",
+                "name": "M203 40mm underbarrel grenade launcher"
+              }
+            },
+            {
+              "trader": {
+                "id": "5935c25fb3acc3127c3d8cd9",
+                "name": "Peacekeeper"
+              },
+              "level": 3,
+              "item": {
+                "id": "5ede475b549eed7c6d5c18fb",
+                "name": "40x46mm M386 (HE) grenade"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Slaughterhouse",
+        "minPlayerLevel": 40,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5c0647fdd443bc2504c2d371",
+                "name": "Jaeger"
+              },
+              "level": 4,
+              "item": {
+                "id": "63920105a83e15700a00f168",
+                "name": "SOG Voodoo Hawk tactical tomahawk"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Dangerous Road",
+        "minPlayerLevel": 15,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Special Equipment",
+        "minPlayerLevel": 60,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Compensation for Damage - Wergild",
+        "minPlayerLevel": 0,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      }
+    ]
+  }
+}

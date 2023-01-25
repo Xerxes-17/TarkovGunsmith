@@ -1,0 +1,502 @@
+[
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 80,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 114,
+    "TraderLevel": -1,
+    "Value": "6038b4b292ec1c3103795a0b",
+    "Label": "LBT-6094A Slick Plate Carrier (Tan)",
+    "ImageLink": "https://assets.tarkov.dev/6038b4b292ec1c3103795a0b-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 85,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 188,
+    "TraderLevel": -1,
+    "Value": "5c0e655586f774045612eeb2",
+    "Label": "HighCom Trooper TFO body armor (Multicam)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 50,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 111,
+    "TraderLevel": -1,
+    "Value": "5c0e5edb86f77461f55ed1f7",
+    "Label": "BNTI \"Zhuk-3\" body armor (Press)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e5edb86f77461f55ed1f7-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 75,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 93,
+    "TraderLevel": -1,
+    "Value": "5c0e625a86f7742d77340f62",
+    "Label": "BNTI \"Zhuk-6a\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5c0e625a86f7742d77340f62-icon.jpg"
+  },
+  {
+    "ArmorClass": 2,
+    "MaxDurability": 40,
+    "ArmorMaterial": 1,
+    "EffectiveDurability": 160,
+    "TraderLevel": -1,
+    "Value": "59e7635f86f7742cbf2c1095",
+    "Label": "BNTI \"Module-3M\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/59e7635f86f7742cbf2c1095-icon.jpg"
+  },
+  {
+    "ArmorClass": 2,
+    "MaxDurability": 50,
+    "ArmorMaterial": 1,
+    "EffectiveDurability": 200,
+    "TraderLevel": 1,
+    "Value": "5648a7494bdc2d9d488b4583",
+    "Label": "PACA Soft Armor",
+    "ImageLink": "https://assets.tarkov.dev/5648a7494bdc2d9d488b4583-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 65,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 81,
+    "TraderLevel": -1,
+    "Value": "5ab8e79e86f7742d8b372e78",
+    "Label": "BNTI \"Gzhel-K\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5ab8e79e86f7742d8b372e78-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 50,
+    "ArmorMaterial": 0,
+    "EffectiveDurability": 83,
+    "TraderLevel": 2,
+    "Value": "5ab8e4ed86f7742d8e50c7fa",
+    "Label": "MF-UNTAR body armor",
+    "ImageLink": "https://assets.tarkov.dev/5ab8e4ed86f7742d8e50c7fa-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 85,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 170,
+    "TraderLevel": -1,
+    "Value": "545cdb794bdc2d3a198b456a",
+    "Label": "6B43 6A \"Zabralo-Sh\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/545cdb794bdc2d3a198b456a-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 47,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 58,
+    "TraderLevel": 3,
+    "Value": "5c0e53c886f7747fa54205c7",
+    "Label": "6B13 assault armor (Digital Flora)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e53c886f7747fa54205c7-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 47,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 58,
+    "TraderLevel": 2,
+    "Value": "5c0e51be86f774598e797894",
+    "Label": "6B13 assault armor (Flora)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e51be86f774598e797894-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 60,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 133,
+    "TraderLevel": -1,
+    "Value": "5c0e541586f7747fa54205c9",
+    "Label": "6B13 M modified assault armor (Tan)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e541586f7747fa54205c9-icon.jpg"
+  },
+  {
+    "ArmorClass": 2,
+    "MaxDurability": 80,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 145,
+    "TraderLevel": 1,
+    "Value": "5df8a2ca86f7740bfe6df777",
+    "Label": "6B2 body armor (Flora)",
+    "ImageLink": "https://assets.tarkov.dev/5df8a2ca86f7740bfe6df777-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 60,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 85,
+    "TraderLevel": 2,
+    "Value": "5c0e5bab86f77461f55ed1f3",
+    "Label": "6B23-1 body armor (Digital Flora)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e5bab86f77461f55ed1f3-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 55,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 68,
+    "TraderLevel": 3,
+    "Value": "5c0e57ba86f7747fa141986d",
+    "Label": "6B23-2 body armor (Mountain Flora)",
+    "ImageLink": "https://assets.tarkov.dev/5c0e57ba86f7747fa141986d-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 50,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 111,
+    "TraderLevel": -1,
+    "Value": "5fd4c474dd870108a754b241",
+    "Label": "5.11 Tactical Hexgrid plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 35,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 70,
+    "TraderLevel": -1,
+    "Value": "609e8540d5c319764c2bc2e9",
+    "Label": "NFM THOR Concealable Reinforced Vest body armor",
+    "ImageLink": "https://assets.tarkov.dev/609e8540d5c319764c2bc2e9-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 55,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 110,
+    "TraderLevel": -1,
+    "Value": "60a283193cb70855c43a381d",
+    "Label": "NFM THOR Integrated Carrier body armor",
+    "ImageLink": "https://assets.tarkov.dev/60a283193cb70855c43a381d-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 70,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 100,
+    "TraderLevel": -1,
+    "Value": "5e9dacf986f774054d6b89f4",
+    "Label": "FORT \"Defender-2\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5e9dacf986f774054d6b89f4-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 60,
+    "ArmorMaterial": 1,
+    "EffectiveDurability": 240,
+    "TraderLevel": -1,
+    "Value": "62a09d79de7ac81993580530",
+    "Label": "DRD body armor",
+    "ImageLink": "https://assets.tarkov.dev/62a09d79de7ac81993580530-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 95,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 172,
+    "TraderLevel": -1,
+    "Value": "5b44cd8b86f774503d30cba2",
+    "Label": "IOTV Gen4 body armor (full protection)",
+    "ImageLink": "https://assets.tarkov.dev/5b44cd8b86f774503d30cba2-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 75,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 136,
+    "TraderLevel": -1,
+    "Value": "5b44cf1486f77431723e3d05",
+    "Label": "IOTV Gen4 body armor (assault kit)",
+    "ImageLink": "https://assets.tarkov.dev/5b44cf1486f77431723e3d05-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 65,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 118,
+    "TraderLevel": -1,
+    "Value": "5b44d0de86f774503d30cba8",
+    "Label": "IOTV Gen4 body armor (high mobility kit)",
+    "ImageLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 70,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 140,
+    "TraderLevel": 2,
+    "Value": "5b44d22286f774172b0c9de8",
+    "Label": "BNTI \"Kirasa-N\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5b44d22286f774172b0c9de8-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 45,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 64,
+    "TraderLevel": 4,
+    "Value": "5f5f41476bdad616ad46d631",
+    "Label": "NPP KlASS \"Korund-VM\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5f5f41476bdad616ad46d631-icon.jpg"
+  },
+  {
+    "ArmorClass": 2,
+    "MaxDurability": 50,
+    "ArmorMaterial": 1,
+    "EffectiveDurability": 200,
+    "TraderLevel": -1,
+    "Value": "607f20859ee58b18e41ecd90",
+    "Label": "PACA Soft Armor (Rivals Edition)",
+    "ImageLink": "https://assets.tarkov.dev/607f20859ee58b18e41ecd90-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 60,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 120,
+    "TraderLevel": 3,
+    "Value": "5ca2151486f774244a3b8d30",
+    "Label": "FORT \"Redut-M\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5ca2151486f774244a3b8d30-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 100,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 200,
+    "TraderLevel": -1,
+    "Value": "5ca21c6986f77479963115a7",
+    "Label": "FORT \"Redut-T5\" body armor",
+    "ImageLink": "https://assets.tarkov.dev/5ca21c6986f77479963115a7-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 80,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 114,
+    "TraderLevel": -1,
+    "Value": "5e4abb5086f77406975c9342",
+    "Label": "LBT-6094A Slick Plate Carrier",
+    "ImageLink": "https://assets.tarkov.dev/5e4abb5086f77406975c9342-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 80,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 114,
+    "TraderLevel": -1,
+    "Value": "6038b4ca92ec1c3103795a0d",
+    "Label": "LBT-6094A Slick Plate Carrier (Olive)",
+    "ImageLink": "https://assets.tarkov.dev/6038b4ca92ec1c3103795a0d-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 50,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 62,
+    "TraderLevel": -1,
+    "Value": "5c0e446786f7742013381639",
+    "Label": "6B5-15 Zh-86 \"Uley\" armored rig",
+    "ImageLink": "https://assets.tarkov.dev/5c0e446786f7742013381639-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 40,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 88,
+    "TraderLevel": -1,
+    "Value": "61bc85697113f767765c7fe7",
+    "Label": "Eagle Industries MMAC plate carrier (Ranger Green)",
+    "ImageLink": "https://assets.tarkov.dev/61bc85697113f767765c7fe7-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 60,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 133,
+    "TraderLevel": -1,
+    "Value": "5e4ac41886f77406a511c9a8",
+    "Label": "Ars Arma CPC MOD.2 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5e4ac41886f77406a511c9a8-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 45,
+    "ArmorMaterial": 0,
+    "EffectiveDurability": 75,
+    "TraderLevel": -1,
+    "Value": "61bcc89aef0f505f0c6cd0fc",
+    "Label": "FirstSpear Strandhogg plate carrier rig (Ranger Green)",
+    "ImageLink": "https://assets.tarkov.dev/61bcc89aef0f505f0c6cd0fc-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 60,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 109,
+    "TraderLevel": -1,
+    "Value": "5ab8dced86f774646209ec87",
+    "Label": "ANA Tactical M2 armored rig",
+    "ImageLink": "https://assets.tarkov.dev/5ab8dced86f774646209ec87-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 80,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 160,
+    "TraderLevel": -1,
+    "Value": "5d5d87f786f77427997cfaef",
+    "Label": "Ars Arma A18 Skanda plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5d5d87f786f77427997cfaef-icon.jpg"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 80,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 145,
+    "TraderLevel": 1,
+    "Value": "5c0e3eb886f7742015526062",
+    "Label": "6B5-16 Zh-86 Uley armored rig",
+    "ImageLink": "https://assets.tarkov.dev/5c0e3eb886f7742015526062-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 45,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 81,
+    "TraderLevel": -1,
+    "Value": "628dc750b910320f4c27a732",
+    "Label": "ECLiPSE RBAV-AF plate carrier (Ranger Green)",
+    "ImageLink": "https://assets.tarkov.dev/628dc750b910320f4c27a732-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 55,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 78,
+    "TraderLevel": -1,
+    "Value": "628d0618d1ba6e4fa07ce5a4",
+    "Label": "NPP KlASS \"Bagariy\" armored rig",
+    "ImageLink": "https://assets.tarkov.dev/628d0618d1ba6e4fa07ce5a4-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 65,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 92,
+    "TraderLevel": -1,
+    "Value": "5c0e722886f7740458316a57",
+    "Label": "ANA Tactical M1 armored rig",
+    "ImageLink": "https://assets.tarkov.dev/5c0e722886f7740458316a57-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 85,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 121,
+    "TraderLevel": 4,
+    "Value": "5c0e746986f7741453628fe5",
+    "Label": "WARTECH TV-110 plate carrier rig",
+    "ImageLink": "https://assets.tarkov.dev/5c0e746986f7741453628fe5-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 60,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 109,
+    "TraderLevel": -1,
+    "Value": "609e860ebd219504d8507525",
+    "Label": "Crye Precision AVS MBAV (Tagilla Edition)",
+    "ImageLink": "https://assets.tarkov.dev/609e860ebd219504d8507525-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 70,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 140,
+    "TraderLevel": -1,
+    "Value": "544a5caa4bdc2d1a388b4568",
+    "Label": "Crye Precision AVS plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/544a5caa4bdc2d1a388b4568-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 40,
+    "ArmorMaterial": 6,
+    "EffectiveDurability": 72,
+    "TraderLevel": 2,
+    "Value": "5d5d646386f7742797261fd9",
+    "Label": "6B3TM-01M armored rig",
+    "ImageLink": "https://assets.tarkov.dev/5d5d646386f7742797261fd9-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 85,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 188,
+    "TraderLevel": -1,
+    "Value": "628b9784bcf6e2659e09b8a2",
+    "Label": "S&S Precision PlateFrame plate carrier (Goons Edition)",
+    "ImageLink": "https://assets.tarkov.dev/628b9784bcf6e2659e09b8a2-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 75,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 150,
+    "TraderLevel": -1,
+    "Value": "628b9c7d45122232a872358f",
+    "Label": "Crye Precision CPC plate carrier (Goons Edition)",
+    "ImageLink": "https://assets.tarkov.dev/628b9c7d45122232a872358f-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 50,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 111,
+    "TraderLevel": -1,
+    "Value": "5b44cad286f77402a54ae7e5",
+    "Label": "5.11 Tactical TacTec plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5b44cad286f77402a54ae7e5-icon.jpg"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 60,
+    "ArmorMaterial": 0,
+    "EffectiveDurability": 100,
+    "TraderLevel": 3,
+    "Value": "60a3c70cde5f453f634816a3",
+    "Label": "CQC Osprey MK4A plate carrier (Assault, MTP)",
+    "ImageLink": "https://assets.tarkov.dev/60a3c70cde5f453f634816a3-icon.jpg"
+  },
+  {
+    "ArmorClass": 5,
+    "MaxDurability": 55,
+    "ArmorMaterial": 4,
+    "EffectiveDurability": 110,
+    "TraderLevel": 4,
+    "Value": "60a3c68c37ea821725773ef5",
+    "Label": "CQC Osprey MK4A plate carrier (Protection, MTP)",
+    "ImageLink": "https://assets.tarkov.dev/60a3c68c37ea821725773ef5-icon.jpg"
+  },
+  {
+    "ArmorClass": 6,
+    "MaxDurability": 40,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 50,
+    "TraderLevel": -1,
+    "Value": "628cd624459354321c4b7fa2",
+    "Label": "Tasmanian Tiger SK plate carrier (Multicam Black)",
+    "ImageLink": "https://assets.tarkov.dev/628cd624459354321c4b7fa2-icon.jpg"
+  }
+]
