@@ -21,8 +21,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --file $GITHUB_WORKSPACE/BackEnd/WishGranter/WishGranter.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --file $GITHUB_WORKSPACE/BackEnd/WishGranter/WishGranter.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --file $GITHUB_WORKSPACE/BackEnd/WishGranter/WishGranter.sln
+    
