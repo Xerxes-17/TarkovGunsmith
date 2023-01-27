@@ -120,7 +120,7 @@
     "AmmoCaliber": "Caliber9x18PM",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 1,
     "Value": "56e0598dd2720bb5668b45a6",
     "Label": "PB 9x18PM silenced pistol",
     "ImageLink": "https://assets.tarkov.dev/584149452459775992479702-grid-image.jpg"
@@ -232,7 +232,7 @@
     "AmmoCaliber": "Caliber9x18PM",
     "BFirerate": 900,
     "traderLevel": -1,
-    "requiredPlayerLevel": 1,
+    "requiredPlayerLevel": 2147483647,
     "Value": "57d14d2524597714373db789",
     "Label": "PP-91 \"Kedr\" 9x18PM submachine gun",
     "ImageLink": "https://assets.tarkov.dev/584149c42459775a77263510-grid-image.jpg"
@@ -400,7 +400,7 @@
     "AmmoCaliber": "Caliber762x39",
     "BFirerate": 600,
     "traderLevel": -1,
-    "requiredPlayerLevel": 1,
+    "requiredPlayerLevel": 2147483647,
     "Value": "59e6152586f77473dc057aa1",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine",
     "ImageLink": "https://assets.tarkov.dev/59ef24b986f77439987b8762-grid-image.jpg"
@@ -498,7 +498,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 700,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 37,
     "Value": "5a367e5dc4a282000e49738f",
     "Label": "Remington R11 RSASS 7.62x51 marksman rifle",
     "ImageLink": "https://assets.tarkov.dev/5a3a85af86f774745637d46c-grid-image.jpg"
@@ -554,7 +554,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 700,
     "traderLevel": -1,
-    "requiredPlayerLevel": 23,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5aafa857e5b5b00018480968",
     "Label": "Springfield Armory M1A 7.62x51 rifle",
     "ImageLink": "https://assets.tarkov.dev/5ac4ad3686f774181345c3da-grid-image.jpg"
@@ -750,7 +750,7 @@
     "AmmoCaliber": "Caliber46x30",
     "BFirerate": 950,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 23,
     "Value": "5ba26383d4351e00334c93d9",
     "Label": "HK MP7A1 4.6x30 submachine gun",
     "ImageLink": "https://assets.tarkov.dev/5bd056fa86f7743aba7658cd-grid-image.jpg"
@@ -946,7 +946,7 @@
     "AmmoCaliber": "Caliber57x28",
     "BFirerate": 900,
     "traderLevel": -1,
-    "requiredPlayerLevel": 23,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5cc82d76e24e8d00134b4b83",
     "Label": "FN P90 5.7x28 submachine gun",
     "ImageLink": "https://assets.tarkov.dev/5d23376786f77459bb77d838-grid-image.jpg"
@@ -1002,7 +1002,7 @@
     "AmmoCaliber": "Caliber57x28",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 14,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5d67abc1a4b93614ec50137f",
     "Label": "FN Five-seveN MK2 5.7x28 pistol (FDE)",
     "ImageLink": "https://assets.tarkov.dev/5d7b845786f7743c1e531da7-grid-image.jpg"
@@ -1016,7 +1016,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 650,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 37,
     "Value": "5dcbd56fdbd3d91b3e5468d5",
     "Label": "Desert Tech MDR 7.62x51 assault rifle",
     "ImageLink": "https://assets.tarkov.dev/5e035eb586f774756048ec12-grid-image.jpg"
@@ -1058,7 +1058,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 28,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5df24cf80dee1b22f862e9bc",
     "Label": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle",
     "ImageLink": "https://assets.tarkov.dev/5e0354f786f77425b53eb6c5-grid-image.jpg"
@@ -1086,7 +1086,7 @@
     "AmmoCaliber": "Caliber9x19PARA",
     "BFirerate": 900,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 1,
     "Value": "5e00903ae9dc277128008b87",
     "Label": "B&T MP9 9x19 submachine gun",
     "ImageLink": "https://assets.tarkov.dev/5e0340ab86f7745bb7339235-grid-image.jpg"
@@ -1128,7 +1128,7 @@
     "AmmoCaliber": "Caliber12g",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 1,
     "Value": "5e870397991fd70db46995c8",
     "Label": "Mossberg 590A1 12ga pump-action shotgun",
     "ImageLink": "https://assets.tarkov.dev/5f06d6bb4010601e3232cd22-grid-image.jpg"
@@ -1156,7 +1156,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 700,
     "traderLevel": -1,
-    "requiredPlayerLevel": 28,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5f2a9575926fd9352339381f",
     "Label": "Kel-Tec RFB 7.62x51 rifle",
     "ImageLink": "https://assets.tarkov.dev/5f676b779ab5ec19f028eaf3-grid-image.jpg"
@@ -1184,7 +1184,7 @@
     "AmmoCaliber": "Caliber1143x23ACP",
     "BFirerate": 1100,
     "traderLevel": -1,
-    "requiredPlayerLevel": 28,
+    "requiredPlayerLevel": 2147483647,
     "Value": "5fb64bc92b1b027b1f50bcf2",
     "Label": "TDI KRISS Vector Gen.2 .45 ACP submachine gun",
     "ImageLink": "https://assets.tarkov.dev/5fd251ee16cac650092f5d02-grid-image.jpg"
@@ -1254,7 +1254,7 @@
     "AmmoCaliber": "Caliber9x19PARA",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 1,
+    "requiredPlayerLevel": 2147483647,
     "Value": "602a9740da11d6478d5a06dc",
     "Label": "Lebedev PL-15 9x19 pistol",
     "ImageLink": "https://assets.tarkov.dev/60479fb29c15b12b9a480fb0-grid-image.jpg"
@@ -1324,7 +1324,7 @@
     "AmmoCaliber": "Caliber762x51",
     "BFirerate": 600,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 37,
     "Value": "6165ac306ef05c2ce828ef74",
     "Label": "FN SCAR-H 7.62x51 assault rifle (FDE)",
     "ImageLink": "https://assets.tarkov.dev/6193e4fae693542ea37d11c6-grid-image.jpg"
@@ -1394,7 +1394,7 @@
     "AmmoCaliber": "Caliber1143x23ACP",
     "BFirerate": 30,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 14,
     "Value": "6193a720f8ee7e52e42109ed",
     "Label": "HK USP .45 ACP pistol",
     "ImageLink": "https://assets.tarkov.dev/619d267f36b5be1f3236f9ba-grid-image.jpg"
@@ -1436,7 +1436,7 @@
     "AmmoCaliber": "Caliber556x45NATO",
     "BFirerate": 750,
     "traderLevel": -1,
-    "requiredPlayerLevel": 2147483647,
+    "requiredPlayerLevel": 14,
     "Value": "623063e994fc3f7b302a9696",
     "Label": "HK G36 5.56x45 assault rifle",
     "ImageLink": "https://assets.tarkov.dev/6297738b9f1b474e440c45b5-grid-image.jpg"
