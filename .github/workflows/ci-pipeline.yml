@@ -1,0 +1,62 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: CI-Pipeline
+
+on:
+  workflow_dispatch:
+  #push:
+    #branches: [ "main" ]
+  #pull_request:
+    #branches: [ "main" ]
+
+jobs:
+  build-test-BE:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      working-directory: ./BackEnd/WishGranter
+      run: dotnet restore
+      
+    - name: Build
+      working-directory: ./BackEnd/WishGranter
+      run: dotnet build --no-restore
+      
+    - name: Test
+      working-directory: ./BackEnd/UnitTests_WishGranter
+      run: dotnet test --no-build --verbosity normal
+
+#https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
+  build-test-FE:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
+    
