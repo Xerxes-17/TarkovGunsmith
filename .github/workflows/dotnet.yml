@@ -27,5 +27,5 @@ jobs:
       working-directory: ./BackEnd/WishGranter
       run: dotnet restore
     - name: Test
-      working-directory: ./BackEnd/WishGranter
+      working-directory: ./BackEnd/UnitTests_WishGranter
       run: dotnet test --no-build --verbosity normal
