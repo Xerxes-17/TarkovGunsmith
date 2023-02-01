@@ -5,7 +5,7 @@ import { StockWeaponOptions } from './WeaponData';
 export default function SelectSingleWeapon(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        props.handleWeaponSelection(selectedOption.value)
+        props.handleWeaponSelection(selectedOption.Value)
         console.log(`Option selected:`, selectedOption);
     };
 
@@ -21,15 +21,16 @@ export default function SelectSingleWeapon(props: any) {
                     isSearchable={true}
                     name="SelectWeapon"
                     options={props.weaponOptions}
+                    getOptionLabel={(option) => option.Label}
+                    getOptionValue={(option) => option.Value}
                     formatOptionLabel={option => (
-
                         <Container>
                             <Row>
                                 <Col>
-                                    <img src={option.imageLink} alt={option.label} className={"weapon_image"} />
+                                    <img src={option.ImageLink} alt={option.Label} className={"weapon_image"} />
                                 </Col>
                                 <Col>
-                                    <span>{option.label}</span>
+                                    <span>{option.Label}</span>
                                 </Col>
                             </Row>
                         </Container>

@@ -46,7 +46,6 @@ export default function ModdedWeaponBuilder(props: any) {
             searchString: selectedWeapon,
         }
         requestWeaponBuild(requestDetails).then(response => {
-            console.log(requestDetails);
             console.log(response);
             setResult(response[0]);
         }).catch(error => {
