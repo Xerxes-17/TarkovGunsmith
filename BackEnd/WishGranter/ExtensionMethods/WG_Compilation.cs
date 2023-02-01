@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Reflection;
+using Force.DeepCloner;
 
 namespace WishGranterProto.ExtensionMethods
 {
@@ -79,14 +80,14 @@ namespace WishGranterProto.ExtensionMethods
 
                 if(temp != null)
                 {
-                    temp = MysteriousCloner(Stock_Weapons.FirstOrDefault(x => x.Id == pair.Key));
+                    temp = Stock_Weapons.FirstOrDefault(x => x.Id == pair.Key).DeepClone();
                 }
 
                 if (temp != null)
                 {
                     temp = WG_Recursion.AddDefaultAttachments(temp, pair.Value, All_Mods);
 
-                    Console.WriteLine($"{temp.ShortName} Stock Preset has been processed");
+                    //Console.WriteLine($"{temp.ShortName} Stock Preset has been processed");
 
                     int index = Stock_Weapons.FindIndex(x => x.Id == temp.Id);
                     Stock_Weapons.RemoveAt(index);
@@ -333,42 +334,6 @@ namespace WishGranterProto.ExtensionMethods
             }
 
             return result;
-        }
-
-        // How does this work? I don't know!
-        public static Weapon MysteriousCloner(Weapon original)
-        {
-            Weapon clone = new();
-
-            PropertyInfo[] properties = typeof(Weapon).GetProperties();
-            foreach (var p in properties.Where(prop => prop.CanRead && prop.CanWrite))
-                p.SetMethod.Invoke(clone, new object[] { p.GetMethod.Invoke(original, null) });
-
-            return clone;
-        }
-
-        // Was seeing if this would fix the issue wioth the CompileDefaultPresets() method.
-        public static WeaponMod MysteriousCloner_WeaponMod(WeaponMod original)
-        {
-            WeaponMod clone = new();
-
-            PropertyInfo[] properties = typeof(WeaponMod).GetProperties();
-            foreach (var p in properties.Where(prop => prop.CanRead && prop.CanWrite))
-                p.SetMethod.Invoke(clone, new object[] { p.GetMethod.Invoke(original, null) });
-
-            return clone;
-        }
-
-        public static T MysteriousCloner_Generic<T>(T original)
-        {
-
-            T clone = (T)Activator.CreateInstance(typeof(T));
-
-            PropertyInfo[] properties = typeof(WeaponMod).GetProperties();
-            foreach (var p in properties.Where(prop => prop.CanRead && prop.CanWrite))
-                p.SetMethod.Invoke(clone, new object[] { p.GetMethod.Invoke(original, null) });
-
-            return clone;
         }
     }
 }
