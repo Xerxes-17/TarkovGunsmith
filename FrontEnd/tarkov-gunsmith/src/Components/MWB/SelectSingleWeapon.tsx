@@ -5,7 +5,7 @@ import { StockWeaponOptions } from './WeaponData';
 export default function SelectSingleWeapon(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        props.handleWeaponSelection(selectedOption.label)
+        props.handleWeaponSelection(selectedOption.value)
         console.log(`Option selected:`, selectedOption);
     };
 

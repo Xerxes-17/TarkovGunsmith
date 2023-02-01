@@ -33,8 +33,13 @@ static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filen
     }
     return result;
 }
-//! Start of Program
-Console.WriteLine("Tarkov Gunsmith is starting.");
+Console.WriteLine("Wishgranter-API is starting.");
+
+// Need this to get Russian chars and symbols.
+CultureInfo ci = new CultureInfo("ru-RU");
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
+
 var watch = new System.Diagnostics.Stopwatch();
 watch.Start();
 
@@ -46,8 +51,7 @@ IEnumerable<Item> All_Mods = RatStashDB.GetItems(m => m is WeaponMod);
 IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
 IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
 IEnumerable<Item> All_Rigs = RatStashDB.GetItems(m => m is ChestRig);
-
-Console.WriteLine("RatStashDB started.");
+Console.WriteLine("RatStashDB started from file.");
 
 // Gets the basic weapon packages.
 JObject DefaultPresetsJSON = TarkovDevQueryAsync("{ items(categoryNames: Weapon) { id name containsItems { item { id name } } } }", "DefaultPresets").Result; //! This needs to be replaced with bundles from the trader offers
@@ -68,14 +72,9 @@ Console.WriteLine("FleaMarketJSON returned.");
 // Gets the imagelinks for all of the items.
 JObject ImageLinksJSON = TarkovDevQueryAsync("{ items(categoryNames: [WeaponMod, Weapon, Armor, ChestRig, Ammo]) { id name iconLink gridImageLink baseImageLink inspectImageLink image512pxLink image8xLink wikiLink properties{... on ItemPropertiesWeapon{defaultPreset{gridImageLink} } } } }", "ImageLinks").Result;
 
-// Need this to get Russian chars and symbols.
-CultureInfo ci = new CultureInfo("ru-RU");
-Console.OutputEncoding = System.Text.Encoding.Unicode;
-Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
-
 // Noting how long the initial data pull takes
 watch.Stop();
-Console.WriteLine($"Program init finished in {watch.ElapsedMilliseconds} ms.");
+Console.WriteLine($"Obtaining TarkovDev data finished in {watch.ElapsedMilliseconds} ms.");
 
 //! Getting list of cash offers.
 var CashOffers = WG_Compilation.MakeListOfCashOffers(TraderOffersJSON);
@@ -215,7 +214,7 @@ string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int mu
 {
     Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
 
-    var WantedWeapons = DefaultWeaponPresets.Where(w => w.Name.Contains(searchString)).ToList();
+    var WantedWeapons = DefaultWeaponPresets.Where(w => w.Id.Contains(searchString)).ToList();
 
     FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
 
