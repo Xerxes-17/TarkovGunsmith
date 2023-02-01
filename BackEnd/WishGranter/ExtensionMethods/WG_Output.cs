@@ -448,50 +448,5 @@ namespace WishGranterProto.ExtensionMethods
 
             return Transmission;
         }
-        public static List<BridgeObject> CreateSimpleObjectFromResultsTuple(List<(Weapon, Ammo)> results)
-        {
-
-            List<BridgeObject> bridgeObjects = new List<BridgeObject>();
-            //  Write the results to teh file
-            results.ForEach(((result) =>
-            {
-                var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-
-                var details = $"Final ergo: { temp.TotalErgo} and final recoil: {temp.TotalRecoil}. \n";
-
-                
-
-                // Create the string of attachments recursively and write it
-                IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
-                string attachedMods = string.Empty;
-                foreach (Slot slot in notNulls)
-                {
-                    attachedMods += RecursiveStringBySlots(slot);
-                }
-
-                details = details + attachedMods + "\n";
-
-                details = details + $"Convergence: {result.Item1.Convergence}";
-
-                var current_item = new BridgeObject(result.Item1.ShortName, result.Item1.Id, details);
-
-
-
-                //// Write the final weapon stats
-                //var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-                //sw.WriteLine($"Final Ergo: {temp.TotalErgo}");
-                //sw.WriteLine($"Final Recoil: {temp.TotalRecoil}");
-                //sw.WriteLine($"Recoil Dispersion: {result.Item1.RecoilDispersion}");
-                //sw.WriteLine($"Convergence: {result.Item1.Convergence}");
-                //sw.WriteLine($"Bullet: {result.Item2.Name}");
-                //sw.WriteLine($"Penetration: {result.Item2.PenetrationPower}");
-                //sw.WriteLine($"Damage: {result.Item2.Damage}");
-                //sw.WriteLine($"Rate of Fire: {result.Item1.BFirerate}");
-                //sw.WriteLine("");
-                bridgeObjects.Add(current_item);
-            }));
-            return bridgeObjects;
-        }
-
     }
 }
