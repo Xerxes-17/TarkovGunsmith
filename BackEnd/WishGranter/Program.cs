@@ -40,7 +40,7 @@ watch.Start();
 
 //This loads all of the weapons, mods and ammo from the items.json into a RatStashDB using the EN localization and creates an IEnumerable of each category.
 //These are the "master list".
-Database RatStashDB = Database.FromFile("ratstash_jsons\\items.json", false, "ratstash_jsons\\en.json");
+Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
 IEnumerable<Item> All_Weapons = RatStashDB.GetItems(m => m is Weapon);
 IEnumerable<Item> All_Mods = RatStashDB.GetItems(m => m is WeaponMod);
 IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
@@ -116,45 +116,53 @@ WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
 watch.Stop();
 Console.WriteLine($"Compiling default weapon presets finished in {watch.ElapsedMilliseconds} ms.\n");
 
-// This is what I had before for the simple API stuff, refer to it later
-const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-var builder = WebApplication.CreateBuilder(args);
+startAPI();
 
-builder.Services.AddCors(options =>
+
+
+
+void startAPI()
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      builder =>
-                      {
-                          builder.WithOrigins("http://localhost:3000",
-                              "https://localhost:5001/",
-                              "https://localhost:5000/");
-                      });
+    const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-});
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+                          builder =>
+                          {
+                              builder.WithOrigins(
+                                  "*"
+                                  );
+                          });
+    });
+    builder.Services.AddHealthChecks();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tarkov-Gunsmith", Description = "Mod your guns, test your armor/ammo", Version = "v1" });
+    });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tarkov-Gunsmith", Description = "Mod your guns, test your armor/ammo", Version = "v1" });
-});
+    var app = builder.Build();
 
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tarkov-Gunsmith API V1");
+    });
 
+    app.UseCors(MyAllowSpecificOrigins);
 
-var app = builder.Build();
+    //app.UseHttpsRedirection();
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tarkov-Gunsmith API V1");
-});
+    app.MapHealthChecks("/health");
+    app.MapGet("/", () => "Hello World!");
+    app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
+    app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc, string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
 
-app.MapGet("/", () => "Hello World!");
-app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode,  string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
-app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc,  string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
-
-app.UseCors(MyAllowSpecificOrigins);
-app.Run();
+    app.Run();
+}
 
 //GetOptionsByPlayerLevel(43, "recoil");
 //getWeaponOptionsByPlayerLevelAndNameFilter(43, "recoil", "5.56");

@@ -1,0 +1,22 @@
+# This will need to be revised later as right now it's not relevant.
+
+services:
+  api:
+    build: .
+    image: xerxes17/tarkov-gunsmith:latest
+    x-aws-pull_credentials: "arn:aws:secretsmanager:us-east-1:531639184061:secret:dockerhubAccessToken-pp6mg6"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - test
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "443"
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "___deleted"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "wishgranter-api.pfx"
+
+networks:
+  # The presence of these objects is sufficient to define them
+  test: {}
