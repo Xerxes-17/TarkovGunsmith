@@ -24,12 +24,6 @@ namespace WishGranterProto.ExtensionMethods
 
         public static List<WeaponMod> ProcessBlockersInListOfMods(List<WeaponMod> inputList, Weapon inputWeapon, string mode)
         {
-            //! Delete this
-            if (inputList.Any(x => x.Id == "5c0e2ff6d174af02a1659d4a"))
-            {
-                Console.Write("");
-            }
-
             // Make a list which will be returned later.
             List<WeaponMod> returnList = new List<WeaponMod>();
             returnList.AddRange(inputList);
@@ -93,7 +87,8 @@ namespace WishGranterProto.ExtensionMethods
                     //! Now we put the blocking object head to head vs the non-blocking options
                     //! Clone the weapon for modeling the blockerMod build with
                     Weapon versionWithBlocker = new Weapon();
-                    versionWithBlocker = WG_Compilation.MysteriousCloner(inputWeapon);
+
+                    versionWithBlocker = inputWeapon.DeepClone();
 
                     foreach(var slot in versionWithBlocker.Slots) // Important to remove all of the "default sub attachments"
                     {
@@ -109,11 +104,12 @@ namespace WishGranterProto.ExtensionMethods
                     //! Model the blockerMod build and output the result.
                     versionWithBlocker = (Weapon)FitCompoundItem(versionWithBlocker, modsListForBlocker, mode);
                     var withBlockerResults = GetCompoundItemTotals<Weapon>(versionWithBlocker);
-                    WG_Output.WriteOutputFileWeapon(versionWithBlocker, "aa_withBlockerBuild");
+
+                    //WG_Output.WriteOutputFileWeapon(versionWithBlocker, "aa_withBlockerBuild");
 
                     //! Clone the weapon for modeling the nonBlocking build with
                     Weapon verionWithNonBlocking = new Weapon();
-                    verionWithNonBlocking = WG_Compilation.MysteriousCloner(inputWeapon);
+                    verionWithNonBlocking = inputWeapon.DeepClone();
 
                     //! Remove any default mods, in case one of them is a blocker (looking at you ADAR)
                     foreach (var slot in verionWithNonBlocking.Slots)
@@ -127,14 +123,14 @@ namespace WishGranterProto.ExtensionMethods
                     //! Model the nonBlocking build and output the result.
                     verionWithNonBlocking = (Weapon)FitCompoundItem(verionWithNonBlocking, modsListForNonBlocking, mode);
                     var withNonBlockingResults = GetCompoundItemTotals<Weapon>(verionWithNonBlocking);
-                    WG_Output.WriteOutputFileWeapon(verionWithNonBlocking, "aa_withNonBlockingBuild");
+                    //WG_Output.WriteOutputFileWeapon(verionWithNonBlocking, "aa_withNonBlockingBuild");
 
                     //TODO: Deal with case where all choices are blocking eg, M4A1 barrels or when the blocking and non-blocking are equal
                     if (mode == "recoil")
                     {
-                        Console.WriteLine($"The blocker {candidateBlocker.Name} is better with recoil: {withBlockerResults.TotalRecoil < withNonBlockingResults.TotalRecoil}");
-                        Console.WriteLine($"The blocker stats:     {withBlockerResults}");
-                        Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with recoil: {withBlockerResults.TotalRecoil < withNonBlockingResults.TotalRecoil}");
+                        //Console.WriteLine($"The blocker stats:     {withBlockerResults}");
+                        //Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
 
                         if(withBlockerResults.TotalRecoil < withNonBlockingResults.TotalRecoil)
                         {
@@ -149,9 +145,9 @@ namespace WishGranterProto.ExtensionMethods
                     }
                     else if (mode == "ergo")
                     {
-                        Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo}");
-                        Console.WriteLine($"The blocker stats:     {withBlockerResults}");
-                        Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo}");
+                        //Console.WriteLine($"The blocker stats:     {withBlockerResults}");
+                        //Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
 
                         if(withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo)
                         {
@@ -164,12 +160,12 @@ namespace WishGranterProto.ExtensionMethods
                             //returnList.Remove(candidateBlocker);
                         }
                     }
-                    Console.WriteLine("");
+                    //Console.WriteLine("");
 
                 }
                 else
                 {
-                    Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
+                    //Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
                 }
             }
 
