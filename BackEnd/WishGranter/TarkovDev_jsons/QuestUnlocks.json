@@ -2969,7 +2969,7 @@
       },
       {
         "name": "Long Line",
-        "minPlayerLevel": 40,
+        "minPlayerLevel": 45,
         "finishRewards": {
           "offerUnlock": [
             {
@@ -3636,7 +3636,54 @@
         }
       },
       {
+        "name": "Payback",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
         "name": "Return the Favor",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Provocation",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Following the Bread Crumbs",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": [
+            {
+              "trader": {
+                "id": "5a7c2eca46aef81a7ca2145d",
+                "name": "Mechanic"
+              },
+              "level": 4,
+              "item": {
+                "id": "6389c7f115805221fb410466",
+                "name": "Far-forward GPS Signal Amplifier Unit"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Spotter",
+        "minPlayerLevel": 35,
+        "finishRewards": {
+          "offerUnlock": []
+        }
+      },
+      {
+        "name": "Make an Impression",
         "minPlayerLevel": 35,
         "finishRewards": {
           "offerUnlock": []
