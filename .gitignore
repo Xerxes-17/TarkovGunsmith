@@ -96,6 +96,8 @@ ClientBin/
 *~
 *.dbmdl
 *.[Pp]ublish.xml
+.vs
+.zip
 
 *.publishsettings
 
@@ -131,3 +133,4 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+BackEnd/WishGranter/token.json

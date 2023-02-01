@@ -1,7 +1,7 @@
 {
   "name": "tarkov-gunsmith",
   "version": "0.1.0",
-  "private": true,
+
   "type": "module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -55,5 +55,9 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
+  },
+  "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
   }
 }

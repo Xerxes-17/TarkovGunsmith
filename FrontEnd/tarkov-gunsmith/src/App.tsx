@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,6 +11,7 @@ import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './links';
 
 function App() {
   return (
@@ -23,10 +22,10 @@ function App() {
           <Row className="justify-content-md-center">
             <Col md="auto">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/moddedweaponbuilder" element={<ModdedWeaponBuilder />} />
-                <Route path="/armordamagecalculator" element={<ArmorDamageCalculator />} />
+                <Route path={HOME} element={<Home />} />
+                <Route path={ABOUT} element={<About />} />
+                <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
+                <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
 
                 {/* Page not found */}
                 <Route path='*' element={<PageNotFound />} />
@@ -36,7 +35,7 @@ function App() {
           </Row>
         </Container>
         <footer>
-          &copy; Copyright 2023. Created by R.Forsey.
+          &copy; Copyright 2023. Created by Xerxes17.
           Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.
         </footer>
       </BrowserRouter>

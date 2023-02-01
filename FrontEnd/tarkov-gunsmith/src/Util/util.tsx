@@ -1,4 +1,7 @@
 
-export const API_URL = "https://localhost:5001";
+// For a deploy, setup the BE first and then get the API URL
+// export const API_URL = "http://ec2-44-199-136-246.compute-1.amazonaws.com";
 
-// Look at LAN 2 example
+export const API_URL = "http://localhost:5000"
+
+// export const API_URL = "http://ec2-44-199-136-246.compute-1.amazonaws.com"

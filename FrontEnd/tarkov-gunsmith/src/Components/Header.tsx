@@ -2,6 +2,7 @@ import { Nav } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from '../links';
 
 function BrandExample() {
     return (
@@ -9,7 +10,7 @@ function BrandExample() {
             <Navbar bg="dark" variant="dark" fixed="top">
                 <Container>
                     <Nav>
-                    <LinkContainer to="/">
+                    <LinkContainer to={HOME}>
                         <Navbar.Brand>
                             <img
                                 alt=""
@@ -21,15 +22,15 @@ function BrandExample() {
                             Tarkov Gunsmith
                         </Navbar.Brand>
                         </LinkContainer>
-                        <LinkContainer to="/moddedweaponbuilder">
+                        <LinkContainer to={MODDED_WEAPON_BUILDER}>
                             <Nav.Link>Modded Weapon Builder</Nav.Link>
                         </LinkContainer>
 
-                        <LinkContainer to="/armordamagecalculator">
+                        <LinkContainer to={ARMOR_DAMAGE_CALC}>
                             <Nav.Link>Armor Damage Calculator</Nav.Link>
                         </LinkContainer>
 
-                        <LinkContainer to="/about">
+                        <LinkContainer to={ABOUT}>
                             <Nav.Link>About</Nav.Link>
                         </LinkContainer>
                     </Nav>
