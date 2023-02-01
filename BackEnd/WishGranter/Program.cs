@@ -80,7 +80,6 @@ Console.WriteLine($"Program init finished in {watch.ElapsedMilliseconds} ms.");
 //! Getting list of cash offers.
 var CashOffers = WG_Compilation.MakeListOfCashOffers(TraderOffersJSON);
 
-
 //! Processing the attachments to remove extraneous options
 watch.Restart();
 watch.Start();
@@ -97,7 +96,6 @@ string[] traderNames =
 {
     "Prapor", "Therapist", "Fence", "Skier", "Peacekeeper","Mechanic", "Ragman", "Jaeger"
 };
-
 
 //! Processing the Default Presets
 watch.Restart();
@@ -215,6 +213,8 @@ string GetOptionsByPlayerLevel(int level, string mode)
 
 string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int muzzleMode, string searchString)
 {
+    Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
+
     var WantedWeapons = DefaultWeaponPresets.Where(w => w.Name.Contains(searchString)).ToList();
 
     FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
@@ -291,6 +291,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 // Might need to make an IEnum list of armors and rigs with AC instead of allowing for search of any rig.
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, string bulletName, double startingDuraPerc, JObject imageLinks)
 {
+    Console.WriteLine($"Request for ADC: [{armorName}, {startingDuraPerc}, {bulletName}]");
+
     TransmissionArmorTestResult result = new();
 
     var armorSearchResult = RatStashDB.GetItem(item=> item.Name.Contains(armorName));
