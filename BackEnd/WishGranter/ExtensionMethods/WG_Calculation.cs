@@ -125,7 +125,7 @@ namespace WishGranterProto.ExtensionMethods
             testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
 
             // Dev Console log
-            Console.WriteLine(testResult.TestName);
+            //Console.WriteLine(testResult.TestName);
 
             while (doneDamage < startingDura)
             {
@@ -135,11 +135,11 @@ namespace WishGranterProto.ExtensionMethods
                 double penetrationChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability) * 100;
 
                 // Dev Console log
-                Console.WriteLine("durability%: " + durability);
-                Console.WriteLine("durability: " + (startingDura - doneDamage));
-                Console.WriteLine("doneDamage: " + doneDamage);
-                Console.WriteLine("penetrationChance: " + penetrationChance);
-                Console.WriteLine("");
+                //Console.WriteLine("durability%: " + durability);
+                //Console.WriteLine("durability: " + (startingDura - doneDamage));
+                //Console.WriteLine("doneDamage: " + doneDamage);
+                //Console.WriteLine("penetrationChance: " + penetrationChance);
+                //Console.WriteLine("");
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
