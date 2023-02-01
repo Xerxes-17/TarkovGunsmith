@@ -228,7 +228,7 @@ namespace WishGranterProto.ExtensionMethods
                 var found = AvailibleWeaponMods.Find(x =>x.Id == id);
                 if(found != null)
                 {
-                    Console.WriteLine(found.Name);
+                    //Console.WriteLine(found.Name);
                     Names.Add(found.Name);
                 }
             }
@@ -325,19 +325,7 @@ namespace WishGranterProto.ExtensionMethods
                     if (candidatesList.Count > 0)
                         slot.ContainedItem = candidatesList.First();                  
                 }
-                if (mode != "base" && slot.Name == "mod_pistol_grip")
-                {
-                    Console.Write("");
-                }
-                // Testing to see if i really need this?
-                //slot.ParentItem = CompItem_CLONE;
             }
-
-            if(mode != "base")
-            {
-                Console.Write("");
-            }
-
             return CompItem_CLONE;
         }
 
@@ -366,7 +354,7 @@ namespace WishGranterProto.ExtensionMethods
             }
             else
             {
-                Console.WriteLine("Incorrect type given to method GetCompoundItemTotals()");
+                Console.Error.WriteLine("Error: Incorrect type given to method GetCompoundItemTotals()");
             }
 
             // Return the values as Ints because that makes comparision easier and we don't care about a .5 ergo difference.

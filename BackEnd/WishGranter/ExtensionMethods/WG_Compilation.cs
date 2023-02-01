@@ -8,7 +8,6 @@ namespace WishGranterProto.ExtensionMethods
 {
     public static class WG_Compilation
     {
-
         public static List<J_CashOffer> MakeListOfCashOffers(JObject TraderOffersJSON)
         {
             var list = new List<J_CashOffer>();
