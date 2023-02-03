@@ -156,5 +156,53 @@ namespace WishGranterProto.ExtensionMethods
             return testResult;
         }
 
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+        {
+            TransmissionArmorTestResult testResult = new();
+            testResult.TestName = $"Custom test of md:{maxDurability}, sd:{startingDurabilityPerc} m:{material},  vs p:{penetration}, adp:{armorDamagePerc}";
+
+            double doneDamage = 0;
+            double startingDura = (double)maxDurability * (startingDurabilityPerc / 100);
+
+            ArmorMaterial armorMaterial = new();
+
+            if (material == "Aramid")
+                armorMaterial = ArmorMaterial.Aramid;
+            else if (material == "UHMWPE")
+                armorMaterial = ArmorMaterial.UHMWPE;
+            else if (material == "Combined")
+                armorMaterial = ArmorMaterial.Combined;
+            else if (material == "Titan")
+                armorMaterial = ArmorMaterial.Titan;
+            else if (material == "Aluminium")
+                armorMaterial = ArmorMaterial.Aluminium;
+            else if (material == "ArmoredSteel")
+                armorMaterial = ArmorMaterial.ArmoredSteel;
+            else if (material == "Ceramic")
+                armorMaterial = ArmorMaterial.Ceramic;
+
+            testResult.ArmorDamagePerShot = DamageToArmor(ac, armorMaterial, penetration, armorDamagePerc);
+
+
+            while (doneDamage < startingDura)
+            {
+                double durability = (startingDura - doneDamage) / maxDurability * 100;
+
+                double penetrationChance = PenetrationChance(ac, penetration, durability) * 100;
+
+                // Package details in Transmission object
+                TransmissionArmorTestShot testShot = new();
+                testShot.DurabilityPerc = (maxDurability - doneDamage) / maxDurability * 100;
+                testShot.DoneDamage = doneDamage;
+                testShot.Durability = startingDura - doneDamage;
+                testShot.PenetrationChance = penetrationChance;
+
+                testResult.Shots.Add(testShot);
+
+                // Add the damage of the current shot so it can be used in the next loop
+                doneDamage = doneDamage + (double) testResult.ArmorDamagePerShot;
+            }
+            return testResult;
+        }
     }
 }

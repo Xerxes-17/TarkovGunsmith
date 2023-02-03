@@ -136,6 +136,9 @@ void startAPI()
     app.MapGet("/", () => "Hello World!");
     app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
     app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc, string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
+    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{maxDurability}/{material}/{penetration}/{armorDamagePerc}",
+        (int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
+        CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
 
     app.Run();
 }
@@ -227,7 +230,7 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 // Might need to make an IEnum list of armors and rigs with AC instead of allowing for search of any rig.
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, string bulletName, double startingDuraPerc, JObject imageLinks)
 {
-    Console.WriteLine($"Request for ADC: [{armorName}, {startingDuraPerc}, {bulletName}]");
+    Console.WriteLine($"Request for ADC_Normal: [{armorName}, {startingDuraPerc}, {bulletName}]");
 
     TransmissionArmorTestResult result = new();
 
@@ -242,3 +245,9 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, 
     return result;
 }
 
+TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+{
+    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}]");
+
+    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc);
+}
