@@ -112,8 +112,6 @@ export default function ArmorDamageCalculator(props: any) {
     const [smallestTraderLevel] = useState(1);
     const [biggestTraderLevel] = useState(6); // 5 is for FLea market, 6 is for FIR
 
-
-
     const [calibers, setCalibers] = useState([
         "Caliber86x70",
         "Caliber127x55",

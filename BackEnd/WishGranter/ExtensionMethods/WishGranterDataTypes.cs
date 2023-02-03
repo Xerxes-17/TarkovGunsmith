@@ -9,22 +9,6 @@ using System.Runtime.InteropServices;
 
 namespace WishGranterProto.ExtensionMethods
 {
-    public class BridgeObject
-    {
-        public string? ShortName { get; set; }
-        public string? Id { get; set; }
-        public string? Details { get; set; }
-
-        public List<BridgeObject>? Children { get; set; }
-
-        public BridgeObject (string _shortname, string _Id, string _details)
-        {
-            ShortName = _shortname;
-            Id = _Id;
-            Details = _details;
-        }
-    }
-
     public class TransmissionWeapon
     {
         public string? ShortName { get; set; }

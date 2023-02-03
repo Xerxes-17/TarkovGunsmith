@@ -33,8 +33,13 @@ static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filen
     }
     return result;
 }
-//! Start of Program
-Console.WriteLine("Tarkov Gunsmith is starting.");
+Console.WriteLine("Wishgranter-API is starting.");
+
+// Need this to get Russian chars and symbols.
+CultureInfo ci = new CultureInfo("ru-RU");
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
+
 var watch = new System.Diagnostics.Stopwatch();
 watch.Start();
 
@@ -44,72 +49,45 @@ Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "rat
 IEnumerable<Item> All_Weapons = RatStashDB.GetItems(m => m is Weapon);
 IEnumerable<Item> All_Mods = RatStashDB.GetItems(m => m is WeaponMod);
 IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
-IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
-IEnumerable<Item> All_Rigs = RatStashDB.GetItems(m => m is ChestRig);
-
-Console.WriteLine("RatStashDB started.");
+Console.WriteLine("RatStashDB started from file.");
 
 // Gets the basic weapon packages.
 JObject DefaultPresetsJSON = TarkovDevQueryAsync("{ items(categoryNames: Weapon) { id name containsItems { item { id name } } } }", "DefaultPresets").Result; //! This needs to be replaced with bundles from the trader offers
 Console.WriteLine("DefaultPresetsJSON returned.");
 
 // Gets the quest unlock values.
-JObject QuestUnlocksJSON = TarkovDevQueryAsync("{ tasks { name minPlayerLevel finishRewards{ offerUnlock{ trader { id name } level item { id name } } } } }", "QuestUnlocks").Result; //! This can probably be replaced with Trader offers
-Console.WriteLine("QuestUnlocksJSON returned.");
+//JObject QuestUnlocksJSON = TarkovDevQueryAsync("{ tasks { name minPlayerLevel finishRewards{ offerUnlock{ trader { id name } level item { id name } } } } }", "QuestUnlocks").Result; //! This can probably be replaced with Trader offers
+//Console.WriteLine("QuestUnlocksJSON returned.");
 
 // Gets the item offers from traders
 JObject TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TraderOffers").Result;
 Console.WriteLine("TraderOffersJSON returned.");
 
 // Gets the flea market data
-JObject FleaMarketJSON = TarkovDevQueryAsync("{ items(categoryNames: [Ammo, Weapon, WeaponMod]) { id name low24hPrice avg24hPrice buyFor{ vendor{ name } price currency priceRUB } } }", "FleaMarketData").Result; // This could also be condensed into the TraderOffers JSON
-Console.WriteLine("FleaMarketJSON returned.");
+//JObject FleaMarketJSON = TarkovDevQueryAsync("{ items(categoryNames: [Ammo, Weapon, WeaponMod]) { id name low24hPrice avg24hPrice buyFor{ vendor{ name } price currency priceRUB } } }", "FleaMarketData").Result; // This could also be condensed into the TraderOffers JSON
+//Console.WriteLine("FleaMarketJSON returned.");
 
 // Gets the imagelinks for all of the items.
 JObject ImageLinksJSON = TarkovDevQueryAsync("{ items(categoryNames: [WeaponMod, Weapon, Armor, ChestRig, Ammo]) { id name iconLink gridImageLink baseImageLink inspectImageLink image512pxLink image8xLink wikiLink properties{... on ItemPropertiesWeapon{defaultPreset{gridImageLink} } } } }", "ImageLinks").Result;
 
-// Need this to get Russian chars and symbols.
-CultureInfo ci = new CultureInfo("ru-RU");
-Console.OutputEncoding = System.Text.Encoding.Unicode;
-Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
-
 // Noting how long the initial data pull takes
 watch.Stop();
-Console.WriteLine($"Program init finished in {watch.ElapsedMilliseconds} ms.");
+Console.WriteLine($"Obtaining TarkovDev data finished in {watch.ElapsedMilliseconds} ms.");
 
 //! Getting list of cash offers.
 var CashOffers = WG_Compilation.MakeListOfCashOffers(TraderOffersJSON);
 
-
-//! Processing the attachments to remove extraneous options
-watch.Restart();
-watch.Start();
-Console.WriteLine("Compiling FilteredModsList");
-var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), 1);
-Console.WriteLine($"Number of mods: {FilteredModsList.Count}");
-
-//WG_Output.WriteOutputFileMods(FilteredModsList.OfType<WeaponMod>().ToList(), "FilteredModsList");
-
-watch.Stop();
-Console.WriteLine($"Compiling FilteredModsList finished in {watch.ElapsedMilliseconds} ms.");
-
 string[] traderNames =
 {
-    "Prapor", "Therapist", "Fence", "Skier", "Peacekeeper","Mechanic", "Ragman", "Jaeger"
+    "Prapor", "Skier", "Peacekeeper","Mechanic", "Jaeger"
 };
 
-
 //! Processing the Default Presets
-watch.Restart();
 watch.Start();
 
-
 Console.WriteLine("Compiling default weapon presets");
-
 var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresetsJSON, All_Weapons.OfType<Weapon>().ToList(), All_Mods.OfType<WeaponMod>().ToList());
 Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
-
-WG_Output.WriteOutputFileWeapons(DefaultWeaponPresets, "DefaultPresets");
 
 WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
 
@@ -118,8 +96,6 @@ Console.WriteLine($"Compiling default weapon presets finished in {watch.ElapsedM
 
 
 startAPI();
-
-
 
 
 void startAPI()
@@ -157,9 +133,12 @@ void startAPI()
     //app.UseHttpsRedirection();
 
     app.MapHealthChecks("/health");
-    app.MapGet("/", () => "Hello World!");
+    app.MapGet("/", () => "Hello World! I use Swagger btw.");
     app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
     app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc, string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
+    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",
+        (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
+        CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
 
     app.Run();
 }
@@ -172,52 +151,13 @@ void startAPI()
 /// </summary>
 /// <param name="level"> The player's level </param>
 /// <param name="mode"> Goal of the fittings, can be "recoil" or "ergo" </param>
-string GetOptionsByPlayerLevel(int level, string mode)
-{
-    //! Make the mask of trader item IDs
-    var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
-
-    //! Apply the mask of trader item IDs to the input lists
-    var LeveledLists = WG_Compilation.GetMaskedTuple(leveledTraderMask, DefaultWeaponPresets, FilteredModsList.OfType<WeaponMod>().ToList(), All_Ammo.OfType<Ammo>().ToList());
-
-    List<(Weapon, Ammo)> finalAnswer = new();
-
-    foreach (var weapon in LeveledLists.Masked_Weapons)
-    {
-        var ids = WG_Recursion.CreateMasterWhiteListIds(weapon, LeveledLists.Masked_Mods.ToList());
-
-        WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
-
-        var shortlistOfMods = WG_Recursion.CreateListOfModsFromIds(ids, LeveledLists.Masked_Mods.ToList());
-
-        var afterblockers = WG_Recursion.ProcessBlockersInListOfMods(shortlistOfMods, weapon, mode);
-
-        var result = WG_Compilation.CompileAWeapon(weapon, afterblockers, LeveledLists.Masked_Ammo, mode, "penetration", CashOffers);
-
-        if (result.Item1 != null && result.Item2 != null)
-        {
-            finalAnswer.Add(result);
-        }
-    }
-
-    WG_Output.WriteOutputFileForResultsTuple(finalAnswer, $"ex_TestResult{mode}Mode_PriceSorting_Method");
-
-    var options = new JsonSerializerSettings
-    {
-        Formatting = Formatting.Indented,
-        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-    };
-
-    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTupleList(finalAnswer, CashOffers), options);
-
-    return jsonString;
-}
-
 string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int muzzleMode, string searchString)
 {
-    var WantedWeapons = DefaultWeaponPresets.Where(w => w.Name.Contains(searchString)).ToList();
+    Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
 
-    FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
+    var WantedWeapons = DefaultWeaponPresets.Where(w => w.Id.Contains(searchString)).ToList();
+
+    var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
 
     //! Make the mask of trader item IDs
     var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
@@ -256,7 +196,6 @@ string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int mu
     return jsonString;
 }
 
-
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc, JObject imageLinks)
 {
     var Armor = RatStashDB.GetItem(armorID);
@@ -291,6 +230,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 // Might need to make an IEnum list of armors and rigs with AC instead of allowing for search of any rig.
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, string bulletName, double startingDuraPerc, JObject imageLinks)
 {
+    Console.WriteLine($"Request for ADC_Normal: [{armorName}, {startingDuraPerc}, {bulletName}]");
+
     TransmissionArmorTestResult result = new();
 
     var armorSearchResult = RatStashDB.GetItem(item=> item.Name.Contains(armorName));
@@ -304,3 +245,9 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, 
     return result;
 }
 
+TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+{
+    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}]");
+
+    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc);
+}

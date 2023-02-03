@@ -2,7 +2,7 @@ import { Nav } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
-import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from '../links';
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER, ADC_CUSTOM } from '../Util/links';
 
 function BrandExample() {
     return (
@@ -28,6 +28,11 @@ function BrandExample() {
 
                         <LinkContainer to={ARMOR_DAMAGE_CALC}>
                             <Nav.Link>Armor Damage Calculator</Nav.Link>
+                        </LinkContainer>
+
+                        
+                        <LinkContainer to={ADC_CUSTOM}>
+                            <Nav.Link>ADC Custom</Nav.Link>
                         </LinkContainer>
 
                         <LinkContainer to={ABOUT}>
