@@ -11,7 +11,8 @@ import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
-import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './links';
+import { ABOUT, ADC_CUSTOM, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
+import ArmorDamageCalculatorCustom from './Components/ADC/ADC_Custom_Page';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                 <Route path={ABOUT} element={<About />} />
                 <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
                 <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
+                <Route path={ADC_CUSTOM} element={<ArmorDamageCalculatorCustom />} />
 
                 {/* Page not found */}
                 <Route path='*' element={<PageNotFound />} />

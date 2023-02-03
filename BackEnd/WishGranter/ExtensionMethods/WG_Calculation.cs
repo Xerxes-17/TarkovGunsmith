@@ -156,13 +156,13 @@ namespace WishGranterProto.ExtensionMethods
             return testResult;
         }
 
-        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
         {
             TransmissionArmorTestResult testResult = new();
-            testResult.TestName = $"Custom test of md:{maxDurability}, sd:{startingDurabilityPerc} m:{material},  vs p:{penetration}, adp:{armorDamagePerc}";
+            testResult.TestName = $"Custom test of ac:{ac} md:{maxDurability}, sd:{startingDurabilityPerc} m:{material},  vs p:{penetration}, adp:{armorDamagePerc}";
 
             double doneDamage = 0;
-            double startingDura = (double)maxDurability * (startingDurabilityPerc / 100);
+            double startingDura = (double)maxDurability * ( (double) startingDurabilityPerc / 100);
 
             ArmorMaterial armorMaterial = new();
 

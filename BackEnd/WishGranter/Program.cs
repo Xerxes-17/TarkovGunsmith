@@ -133,11 +133,11 @@ void startAPI()
     //app.UseHttpsRedirection();
 
     app.MapHealthChecks("/health");
-    app.MapGet("/", () => "Hello World!");
+    app.MapGet("/", () => "Hello World! I use Swagger btw.");
     app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
     app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc, string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
-    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{maxDurability}/{material}/{penetration}/{armorDamagePerc}",
-        (int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
+    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",
+        (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
         CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
 
     app.Run();
@@ -245,7 +245,7 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, 
     return result;
 }
 
-TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, int startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
 {
     Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}]");
 
