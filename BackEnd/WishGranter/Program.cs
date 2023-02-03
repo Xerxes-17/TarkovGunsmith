@@ -49,8 +49,6 @@ Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "rat
 IEnumerable<Item> All_Weapons = RatStashDB.GetItems(m => m is Weapon);
 IEnumerable<Item> All_Mods = RatStashDB.GetItems(m => m is WeaponMod);
 IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
-IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
-IEnumerable<Item> All_Rigs = RatStashDB.GetItems(m => m is ChestRig);
 Console.WriteLine("RatStashDB started from file.");
 
 // Gets the basic weapon packages.
@@ -58,16 +56,16 @@ JObject DefaultPresetsJSON = TarkovDevQueryAsync("{ items(categoryNames: Weapon)
 Console.WriteLine("DefaultPresetsJSON returned.");
 
 // Gets the quest unlock values.
-JObject QuestUnlocksJSON = TarkovDevQueryAsync("{ tasks { name minPlayerLevel finishRewards{ offerUnlock{ trader { id name } level item { id name } } } } }", "QuestUnlocks").Result; //! This can probably be replaced with Trader offers
-Console.WriteLine("QuestUnlocksJSON returned.");
+//JObject QuestUnlocksJSON = TarkovDevQueryAsync("{ tasks { name minPlayerLevel finishRewards{ offerUnlock{ trader { id name } level item { id name } } } } }", "QuestUnlocks").Result; //! This can probably be replaced with Trader offers
+//Console.WriteLine("QuestUnlocksJSON returned.");
 
 // Gets the item offers from traders
 JObject TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TraderOffers").Result;
 Console.WriteLine("TraderOffersJSON returned.");
 
 // Gets the flea market data
-JObject FleaMarketJSON = TarkovDevQueryAsync("{ items(categoryNames: [Ammo, Weapon, WeaponMod]) { id name low24hPrice avg24hPrice buyFor{ vendor{ name } price currency priceRUB } } }", "FleaMarketData").Result; // This could also be condensed into the TraderOffers JSON
-Console.WriteLine("FleaMarketJSON returned.");
+//JObject FleaMarketJSON = TarkovDevQueryAsync("{ items(categoryNames: [Ammo, Weapon, WeaponMod]) { id name low24hPrice avg24hPrice buyFor{ vendor{ name } price currency priceRUB } } }", "FleaMarketData").Result; // This could also be condensed into the TraderOffers JSON
+//Console.WriteLine("FleaMarketJSON returned.");
 
 // Gets the imagelinks for all of the items.
 JObject ImageLinksJSON = TarkovDevQueryAsync("{ items(categoryNames: [WeaponMod, Weapon, Armor, ChestRig, Ammo]) { id name iconLink gridImageLink baseImageLink inspectImageLink image512pxLink image8xLink wikiLink properties{... on ItemPropertiesWeapon{defaultPreset{gridImageLink} } } } }", "ImageLinks").Result;
@@ -79,34 +77,17 @@ Console.WriteLine($"Obtaining TarkovDev data finished in {watch.ElapsedMilliseco
 //! Getting list of cash offers.
 var CashOffers = WG_Compilation.MakeListOfCashOffers(TraderOffersJSON);
 
-//! Processing the attachments to remove extraneous options
-watch.Restart();
-watch.Start();
-Console.WriteLine("Compiling FilteredModsList");
-var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), 1);
-Console.WriteLine($"Number of mods: {FilteredModsList.Count}");
-
-//WG_Output.WriteOutputFileMods(FilteredModsList.OfType<WeaponMod>().ToList(), "FilteredModsList");
-
-watch.Stop();
-Console.WriteLine($"Compiling FilteredModsList finished in {watch.ElapsedMilliseconds} ms.");
-
 string[] traderNames =
 {
-    "Prapor", "Therapist", "Fence", "Skier", "Peacekeeper","Mechanic", "Ragman", "Jaeger"
+    "Prapor", "Skier", "Peacekeeper","Mechanic", "Jaeger"
 };
 
 //! Processing the Default Presets
-watch.Restart();
 watch.Start();
 
-
 Console.WriteLine("Compiling default weapon presets");
-
 var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresetsJSON, All_Weapons.OfType<Weapon>().ToList(), All_Mods.OfType<WeaponMod>().ToList());
 Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
-
-WG_Output.WriteOutputFileWeapons(DefaultWeaponPresets, "DefaultPresets");
 
 WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
 
@@ -115,8 +96,6 @@ Console.WriteLine($"Compiling default weapon presets finished in {watch.ElapsedM
 
 
 startAPI();
-
-
 
 
 void startAPI()
@@ -169,54 +148,13 @@ void startAPI()
 /// </summary>
 /// <param name="level"> The player's level </param>
 /// <param name="mode"> Goal of the fittings, can be "recoil" or "ergo" </param>
-string GetOptionsByPlayerLevel(int level, string mode)
-{
-    //! Make the mask of trader item IDs
-    var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
-
-    //! Apply the mask of trader item IDs to the input lists
-    var LeveledLists = WG_Compilation.GetMaskedTuple(leveledTraderMask, DefaultWeaponPresets, FilteredModsList.OfType<WeaponMod>().ToList(), All_Ammo.OfType<Ammo>().ToList());
-
-    List<(Weapon, Ammo)> finalAnswer = new();
-
-    foreach (var weapon in LeveledLists.Masked_Weapons)
-    {
-        var ids = WG_Recursion.CreateMasterWhiteListIds(weapon, LeveledLists.Masked_Mods.ToList());
-
-        WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
-
-        var shortlistOfMods = WG_Recursion.CreateListOfModsFromIds(ids, LeveledLists.Masked_Mods.ToList());
-
-        var afterblockers = WG_Recursion.ProcessBlockersInListOfMods(shortlistOfMods, weapon, mode);
-
-        var result = WG_Compilation.CompileAWeapon(weapon, afterblockers, LeveledLists.Masked_Ammo, mode, "penetration", CashOffers);
-
-        if (result.Item1 != null && result.Item2 != null)
-        {
-            finalAnswer.Add(result);
-        }
-    }
-
-    WG_Output.WriteOutputFileForResultsTuple(finalAnswer, $"ex_TestResult{mode}Mode_PriceSorting_Method");
-
-    var options = new JsonSerializerSettings
-    {
-        Formatting = Formatting.Indented,
-        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-    };
-
-    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTupleList(finalAnswer, CashOffers), options);
-
-    return jsonString;
-}
-
 string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int muzzleMode, string searchString)
 {
     Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
 
     var WantedWeapons = DefaultWeaponPresets.Where(w => w.Id.Contains(searchString)).ToList();
 
-    FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
+    var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
 
     //! Make the mask of trader item IDs
     var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
@@ -254,7 +192,6 @@ string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int mu
 
     return jsonString;
 }
-
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc, JObject imageLinks)
 {
