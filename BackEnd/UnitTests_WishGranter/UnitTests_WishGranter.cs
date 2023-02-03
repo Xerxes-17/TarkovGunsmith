@@ -87,7 +87,6 @@ namespace WishGranterTests
         static Database RatStashDB = Database.FromFile("ratstash_jsons\\items.json", false, "ratstash_jsons\\en.json");
         static JObject ImageLinksJSON = JObject.Parse(File.ReadAllText("TarkovDev_jsons\\ImageLinks.json"));
 
-
         IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
         IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
         IEnumerable<Item> All_Rigs = RatStashDB.GetItems(m => m is ChestRig);
@@ -140,6 +139,13 @@ namespace WishGranterTests
         {
             var result = WG_Calculation.PenetrationChance(5, 41, 87D);
             Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Output_Runner()
+        {
+            WG_Output.WriteArmorList(RatStashDB);
+            WG_Output.WriteAmmoList(RatStashDB);
         }
     }
 }
