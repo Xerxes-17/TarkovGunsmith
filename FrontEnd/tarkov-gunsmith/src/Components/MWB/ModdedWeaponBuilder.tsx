@@ -21,10 +21,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const [result, setResult] = useState<TransmissionWeaponBuildResult>();
 
-    const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     function handlePlayerLevelChange(input: number) {
         setPlayerLevel(input);
@@ -72,6 +69,9 @@ export default function ModdedWeaponBuilder(props: any) {
         }
     }
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     let ModalInfo = (
         <>
             <Button variant="info" onClick={handleShow}>

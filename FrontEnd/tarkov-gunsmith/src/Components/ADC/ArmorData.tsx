@@ -1,3 +1,19 @@
+export const ARMOR_TYPES: string[] = [
+    "ArmorVest", "ChestRig", "Helmet"
+]
+
+export const ARMOR_CLASSES: number[] = [2, 3, 4, 5, 6]
+
+export const MATERIALS: string[] = [
+    "Aramid",
+    "UHMWPE",
+    "Combined",
+    "Titan",
+    "Aluminium",
+    "ArmoredSteel",
+    "Ceramic"
+]
+
 export enum MaterialType {
     "Aluminium",
     "Aramid",
@@ -34,17 +50,17 @@ export function filterArmorOptions(armorClasses: number[], armorMaterials: numbe
 
 export function sortArmorptions() {
     armorOptions.sort((a, b) => {
-        if (a.label < b.label){
+        if (a.label < b.label) {
             return -1;
         }
-        else if (a.label > b.label){
+        else if (a.label > b.label) {
             return 1
         }
-        else{
+        else {
             return 0;
         }
     })
-  }
+}
 
 export const armorOptions: ArmorOption[] = [
     {

@@ -8,7 +8,7 @@ export default function About(props: any) {
                 <Card bg="dark" border="secondary" text="light" className="xl">
 
                     <Card.Header as="h3">
-                        About Tarkov Wish Granter
+                        About Tarkov-Gunsmith
                     </Card.Header>
                     <Card.Body>
                         <h4>FrontEnd</h4>

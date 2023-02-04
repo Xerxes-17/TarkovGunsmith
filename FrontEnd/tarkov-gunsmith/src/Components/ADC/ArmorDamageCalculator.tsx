@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Row, Col, Form, Button, Stack, Container } from "react-bootstrap";
+import { SetStateAction, useCallback, useState } from 'react';
+import { Row, Col, Form, Button, Stack, Container, Card, Modal, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { TransmissionArmorTestResult } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires } from "../../Context/Requests";
 
@@ -7,8 +7,9 @@ import Shot from './Shot';
 import SelectArmor from './SelectArmor';
 import SelectAmmo from './SelectAmmo';
 import FilterRangeSelector from '../Forms/FilterRangeSelector';
-import { armorOptions, filterArmorOptions } from './ArmorData';
-import { ammoOptions, filterAmmoOptions } from './AmmoData';
+import { armorOptions, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
+import { ammoOptions, AMMO_CALIBERS, filterAmmoOptions } from './AmmoData';
+import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 export default function ArmorDamageCalculator(props: any) {
     const [armorName, setArmorName] = useState("6B3TM-01M armored rig");
@@ -230,6 +231,243 @@ export default function ArmorDamageCalculator(props: any) {
         });
     }
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    let ModalInfo = (
+        <>
+            <Button variant="info" onClick={handleShow}>
+                Info
+            </Button>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Information - ADC</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Press butan, reeciv bacon </p>
+                    <p>Currently doesn't include rounds with less than 20 penetration because either you're doing leg meta or don't know what you're doing.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
+
+    const [newArmorTypes, setNewArmorTypes] = useState(ARMOR_TYPES);
+    const handleNewArmorTypesTBG = (val: SetStateAction<string[]>) => setNewArmorTypes(val);
+
+    const [newArmorClasses, setNewArmorClasses] = useState(ARMOR_CLASSES);
+    const handleNewArmorClassesTBG = (val: SetStateAction<number[]>) => {
+        if (val.length > 0) {
+            setNewArmorClasses(val);
+        }
+    }
+
+    const [newMaterials, setNewMaterials] = useState(MATERIALS);
+    const handleNewMaterialsTBG = (val: SetStateAction<string[]>) => {
+        if (val.length > 0) {
+            setNewMaterials(val);
+        }
+    }
+
+    const FULL_POWER = ["Caliber86x70", "Caliber127x55", "Caliber762x54R", "Caliber762x51"];
+    const FULL_POWER_DISPLAY = ["338 Lapua Mag", "12.7x55mm", "7.62x54mmR", "7.62x51mm"];
+    const [fullPower, setFullPower] = useState(FULL_POWER);
+    const handleNewFullpower = (val: SetStateAction<string[]>) => {
+        setFullPower(val);
+    }
+
+    const INTERMEDIATE = ["Caliber762x39", "Caliber545x39", "Caliber556x45NATO", "Caliber762x35", "Caliber366TKM", "Caliber9x39"];
+    const INTERMEDIATE_DISPLAY = ["7.62x39", "5.45x39", "5.56x45", ".300 Blackout", ".366 TKM", "9x39"];
+    const [intermediate, setIntermediate] = useState(INTERMEDIATE);
+    const handleNewIntermediate = (val: SetStateAction<string[]>) => {
+        setIntermediate(val);
+    }
+
+    const PISTOL = ["Caliber46x30", "Caliber9x21", "Caliber57x28", "Caliber1143x23ACP", "Caliber9x19PARA", "Caliber9x18PM", "Caliber762x25TT", "Caliber9x33R"];
+    const PISTOL_DISPLAY = ["4.6x30", "9x21", "5.7x28", ".45 ACP", "9x19", "9x18", "7.62 TT", ".357"];
+    const [pistol, setPistol] = useState(PISTOL);
+    const handleNewPistol = (val: SetStateAction<string[]>) => {
+        setPistol(val);
+    }
+
+    const SHOTGUN = ["Caliber12g", "Caliber23x75"];
+    const SHOTGUN_DISPLAY = ["12g", "23mm"];
+    const [shotgun, setShotgun] = useState(SHOTGUN);
+    const handleNewShotgun = (val: SetStateAction<string[]>) => {
+        setShotgun(val);
+    }
+
+    const AMMO_CALIBERS = [
+        ["Full Rifle", fullPower, setFullPower, FULL_POWER, FULL_POWER_DISPLAY, handleNewFullpower],
+        ["Intermediate Rifle", intermediate, setIntermediate, INTERMEDIATE, INTERMEDIATE_DISPLAY, handleNewIntermediate],
+        ["PDW / Pistol", pistol, setPistol, PISTOL, PISTOL_DISPLAY, handleNewPistol],
+        ["Shotgun", shotgun, setShotgun, SHOTGUN, SHOTGUN_DISPLAY, handleNewShotgun],
+    ] //     0        1         2          3         4                     5
+
+    // assume that a <div className="row gy-2"> is around the cards
+
+    let topCard = (
+        <Col xl>
+            <Card bg="dark" border="secondary" text="light" className="xl" >
+                <Card.Header as="h2" >
+                    <Stack direction="horizontal" gap={3}>
+                        Armor Damage Calculator
+                        <div className="ms-auto">
+                            {ModalInfo}
+                        </div>
+                    </Stack>
+                </Card.Header>
+                <Form>
+                    <Row>
+                        <Col xl>
+                            <Card.Header as="h4">🛡 Armor filters and selection</Card.Header>
+                            <Card.Body>
+                                Armor Type <br />
+                                <Button disabled size="sm" variant="outline-warning" onClick={(e) => setNewArmorTypes(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
+                                <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
+                                    {ARMOR_TYPES.map((item: any, i: number) => {
+                                        return (
+                                            <ToggleButton disabled key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
+                                                {item}
+                                            </ToggleButton>
+                                        )
+                                    })}
+                                </ToggleButtonGroup>
+
+                                <br />
+                                Armor Class <br />
+                                <Button size="sm" variant="outline-warning" onClick={(e) => setNewArmorClasses(ARMOR_CLASSES)}>All</Button>{' '}
+                                <ToggleButtonGroup size="sm" type="checkbox" value={newArmorClasses} onChange={handleNewArmorClassesTBG}>
+                                    {ARMOR_CLASSES.map((item: any, i: number) => {
+                                        return (
+                                            <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-ac${item}`} value={item}>
+                                                {item}
+                                            </ToggleButton>
+                                        )
+                                    })}
+                                </ToggleButtonGroup>
+
+                                <br />
+                                Armor Material <br />
+                                <Button size="sm" variant="outline-warning" onClick={(e) => setNewMaterials(MATERIALS)}>All</Button>{' '}
+                                <ToggleButtonGroup size="sm" type="checkbox" value={newMaterials} onChange={handleNewMaterialsTBG} style={{ flexWrap: "wrap" }}>
+                                    {MATERIALS.map((item: string, i: number) => {
+                                        return (
+                                            <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
+                                                {item}
+                                            </ToggleButton>
+                                        )
+                                    })}
+                                </ToggleButtonGroup>
+
+                                <br /><br />
+                                <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
+                                <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} />
+                                <br />
+
+                                <Form.Group className="mb-3">
+                                    <Row>
+                                        <Col>
+                                            <Form.Label>Armor Durability</Form.Label>
+                                            <Form.Range value={armorDurabilityNum} max={armorDurabilityMax} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
+                                        </Col>
+                                        <Col style={{ maxWidth: "90px" }}>
+                                            <Form.Label>Number</Form.Label>
+                                            <Form.Control value={armorDurabilityNum} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
+                                        </Col>
+                                        <Col style={{ maxWidth: "110px" }}>
+                                            <Form.Label>Percentage</Form.Label>
+                                            <Form.Control disabled={true} value={(armorDurabilityNum / armorDurabilityMax * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"} onChange={(e) => { setArmorDurabilityPerc(parseInt(e.target.value)) }} />
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
+
+                            </Card.Body>
+                        </Col>
+                        <Col xl>
+                            <Card.Header as="h4">⚔ Ammo filters and selection</Card.Header>
+                            <Card.Body>
+                                <>
+                                    {
+                                        AMMO_CALIBERS.map((caliber: any, i: number) => {
+                                            return (
+                                                <>
+                                                    {caliber[0]}
+                                                    <br />
+                                                    <Button size="sm" variant="outline-success" onClick={(e) => caliber[2](caliber[3])}> All</Button>{' '}
+                                                    <Button size="sm" variant="outline-danger" onClick={(e) => caliber[2](!caliber[3])}> All</Button>{' '}
+                                                    <ToggleButtonGroup size="sm" type="checkbox" value={caliber[1]} onChange={caliber[5]} style={{ flexWrap: "wrap" }}>
+                                                        {caliber[4].map((value: any, i: number) => {
+                                                            return (
+                                                                <ToggleButton key={JSON.stringify(caliber[3][i])} variant='outline-primary' id={`tbg-btn-${caliber[3][i]}`} value={caliber[3][i]}>
+                                                                    {value}
+                                                                </ToggleButton>
+                                                            )
+                                                        })}
+                                                    </ToggleButtonGroup>
+                                                    <br />
+                                                </>
+                                            )
+                                        })
+                                    }
+                                    <Row>
+                                        <Col>
+                                            <FilterRangeSelector
+                                                label={"Minimum Damage"}
+                                                value={minDamage}
+                                                changeValue={handleMinDamageChange}
+                                                min={smallestDamage}
+                                                max={biggestDamage}
+                                            />
+                                            <FilterRangeSelector
+                                                label={"Minimum Penetration Power"}
+                                                value={minPenPower}
+                                                changeValue={handleMinPenPowerChange}
+                                                min={smallestPenPower}
+                                                max={biggestPenPower}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <FilterRangeSelector
+                                                label={"Minimum Armor Damage %"}
+                                                value={minArmorDamPerc}
+                                                changeValue={handleMinArmorDamPercChange}
+                                                min={smallestArmorDamPerc}
+                                                max={biggestArmorDamPerc}
+                                            />
+                                            <FilterRangeSelector
+                                                label={"TL 1-4, Tmax+Flea=5, Tmax+Flea+FIR=6"}
+                                                value={traderLevel}
+                                                changeValue={handleTraderLevelChange}
+                                                min={smallestTraderLevel}
+                                                max={biggestTraderLevel}
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
+                                        <SelectAmmo handleAmmoSelection={setAmmoName} ammoOptions={filteredAmmoOptions} />
+
+                                </>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                    <Card.Footer>
+                        <Button variant="primary" type="submit" className='form-btn'>
+                            Calculate
+                        </Button>
+                    </Card.Footer>
+
+                </Form>
+
+            </Card>
+        </Col>
+    )
+
     let topSection = (
         <>
             <Row className="justify-content-md-center">
@@ -435,6 +673,7 @@ export default function ArmorDamageCalculator(props: any) {
     else {
         content = (
             <>
+                {topCard}
                 {topSection}
             </>
         )

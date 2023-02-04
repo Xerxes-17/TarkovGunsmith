@@ -38,6 +38,12 @@ export default function ArmorDamageCalculatorCustom(props: any) {
         });
     }
 
+    let ArmorCard = (
+        <>
+
+        </>
+    )
+
     let topSection = (
         <>
             <Row className="justify-content-md-center">

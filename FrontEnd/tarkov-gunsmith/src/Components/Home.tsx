@@ -4,7 +4,7 @@ import { Row, Col, Card } from "react-bootstrap";
 export default function Home(props: any) {
     return (
         <>
-            <h1 className="section-title">Welcome to Tarkov gunsmith!</h1>
+            <h1 className="section-title">Welcome to Tarkov-Gunsmith!</h1>
             <br />
             <div className="row gy-2">
                 <Col xl>
