@@ -1,5 +1,5 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 
 import {
   BrowserRouter, Route, Routes
@@ -19,22 +19,17 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <Container className="main-container">
-          <Row className="justify-content-md-center">
-            <Col md="auto">
-              <Routes>
-                <Route path={HOME} element={<Home />} />
-                <Route path={ABOUT} element={<About />} />
-                <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
-                <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
-                <Route path={ADC_CUSTOM} element={<ArmorDamageCalculatorCustom />} />
+        <Container className='main-app-container'>
+          <Routes>
+            <Route path={HOME} element={<Home />} />
+            <Route path={ABOUT} element={<About />} />
+            <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
+            <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
+            <Route path={ADC_CUSTOM} element={<ArmorDamageCalculatorCustom />} />
 
-                {/* Page not found */}
-                <Route path='*' element={<PageNotFound />} />
-
-              </Routes>
-            </Col>
-          </Row>
+            {/* Page not found */}
+            <Route path='*' element={<PageNotFound />} />
+          </Routes>
         </Container>
         <footer>
           &copy; Copyright 2023. Created by Xerxes17.

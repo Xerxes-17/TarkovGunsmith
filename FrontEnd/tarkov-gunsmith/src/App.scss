@@ -38,10 +38,18 @@ footer {
   }
 }
 
+.main-app-container {
+  margin-top: 14px;
+  margin-bottom: 34px;
+}
+
 /* # Home */
-.card-title {
+// .card{
+//   height: 100%;
+// }
+
+.section-title {
   text-align: center;
-  margin-bottom: 30px;
   color: aliceblue;
 }
 
@@ -102,31 +110,100 @@ footer {
   padding: 10px;
 }
 
+// MWB
+.weapon_image {
+  max-width: 160px;
+}
+
+.weapon-stats-box {
+  padding: 5px;
+  background-color: rgba(9, 9, 12, 0.4);
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.hidden-stats-box {
+  padding: 5px;
+  background-color: rgba(70, 78, 100, 0.4);
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.initial-stats-box {
+  padding: 5px;
+  background-color: rgba(100, 87, 70, 0.4);
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.final-stats-box {
+  padding: 5px;
+  background-color: rgba(70, 100, 83, 0.4);
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.ammo-stats-box {
+  padding: 5px;
+  background-color: rgba(9, 9, 12, 0.4);
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
+}
+
 .modBoxes {
   flex-flow: wrap;
 }
 
-.modBox {
+.modRowEven {
+  align-items: center;
+  justify-content: center;
+  margin-left: 0px;
+  padding: 2px;
+  padding-bottom: 2px;
+
+  background-color: #575c61;
+
   border: #353536;
   border-width: 2px;
   border-style: dashed;
-  flex-basis: 180px;
-  margin: 10px;
-  padding: 10px;
+}
+.modRowOdd {
+  align-items: center;
+  justify-content: center;
+  margin-left: 0px;
+  padding: 2px;
+  padding-bottom: 2px;
+
+  background-color: #353536;
+
+  border: #353536;
+  border-width: 2px;
+  border-style: dashed;
 }
 
-.modRow {
-  margin: 4px;
-  padding: 4px;
-
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
+.mod-text-centered {
+  text-align: center;
+  overflow-wrap: break-word;
 }
 
 .mod_img {
   max-width: 160px;
 }
-.weapon_image {
-  max-width: 160px;
+
+@media screen and (max-width: 991px) {
+  .main-app-container {
+    margin-top: 34px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-app-container {
+    margin-top: 54px;
+    margin-bottom: 54px;
+  }
 }
