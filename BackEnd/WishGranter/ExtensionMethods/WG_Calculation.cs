@@ -143,7 +143,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (armorItem.MaxDurability - (armorItem.MaxDurability - startingDura) + doneDamage) / armorItem.MaxDurability * 100;
+                testShot.DurabilityPerc = (startingDura - doneDamage) / armorItem.MaxDurability * 100;
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
@@ -183,7 +183,6 @@ namespace WishGranterProto.ExtensionMethods
 
             testResult.ArmorDamagePerShot = DamageToArmor(ac, armorMaterial, penetration, armorDamagePerc);
 
-
             while (doneDamage < startingDura)
             {
                 double durability = (startingDura - doneDamage) / maxDurability * 100;
@@ -192,7 +191,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (maxDurability - (maxDurability-startingDura) + doneDamage) / maxDurability * 100;
+                testShot.DurabilityPerc = (startingDura- doneDamage) / maxDurability * 100;
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
