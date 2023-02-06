@@ -132,15 +132,15 @@ footer {
   max-width: 160px;
 }
 
-@media screen and (max-width: 991px) {
-  .main-app-container {
-    margin-top: 34px;
-  }
-}
+// @media screen and (max-width: 991px) {
+//   .main-app-container {
+//     margin-top: 34px;
+//   }
+// }
 
 @media screen and (max-width: 768px) {
   .main-app-container {
-    margin-top: 54px;
+    // margin-top: 54px;
     margin-bottom: 54px;
   }
 }

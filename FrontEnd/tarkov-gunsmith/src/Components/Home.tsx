@@ -45,6 +45,9 @@ export default function Home(props: any) {
                                 durability of the armor. Select one of the results of each and then request
                                 the result.
                             </Card.Text>
+                            <Card.Text>
+                                There is also a custom mode too if you'd like to model some theoretical ideas.
+                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>

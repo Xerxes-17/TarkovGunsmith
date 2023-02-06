@@ -7,9 +7,8 @@ import { armorOptions, ArmorOption, MaterialType } from './ArmorData';
 export default function SelectArmor(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        //handleArmorSelection(name: string, maxDurability: number)
         props.handleArmorSelection(selectedOption.label, selectedOption.maxDurability)
-        console.log(`Option selected:`, selectedOption);
+        //console.log(`Option selected:`, selectedOption);
     };
 
     return (

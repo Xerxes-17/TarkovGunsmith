@@ -8,7 +8,7 @@ export default function SelectSingleWeapon(props: any) {
     const handleChange = (selectedOption: any) => {
         if(selectedOption !== undefined){
             props.handleWeaponSelection(selectedOption.Value)
-            console.log(`Option selected:`, selectedOption);
+            // console.log(`Option selected:`, selectedOption);
         }
     };
 

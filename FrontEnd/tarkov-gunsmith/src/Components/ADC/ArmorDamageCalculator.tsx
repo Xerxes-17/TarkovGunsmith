@@ -206,7 +206,7 @@ export default function ArmorDamageCalculator(props: any) {
             setResult(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
-            console.log(error);
+            // console.log(error);
         });
     }
 
@@ -239,11 +239,11 @@ export default function ArmorDamageCalculator(props: any) {
         }
 
         requestArmorTestSerires_Custom(requestDetails).then(response => {
-            console.log(response);
+            // console.log(response);
             setResult(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
-            console.log(error);
+            // console.log(error);
         });
     }
 

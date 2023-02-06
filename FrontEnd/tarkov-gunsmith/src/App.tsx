@@ -19,6 +19,7 @@ function App() {
         <Header />
         <Container className='main-app-container'>
           <Routes>
+            <Route path={"/"} element={<Home />} />
             <Route path={HOME} element={<Home />} />
             <Route path={ABOUT} element={<About />} />
             <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />

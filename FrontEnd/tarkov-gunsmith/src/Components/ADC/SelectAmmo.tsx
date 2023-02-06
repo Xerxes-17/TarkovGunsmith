@@ -8,7 +8,7 @@ export default function SelectAmmo(props: any) {
 
     const handleChange = (selectedOption: any) => {
         props.handleAmmoSelection(selectedOption.label)
-        console.log(`Option selected:`, selectedOption);
+        // console.log(`Option selected:`, selectedOption);
     };
 
     return (

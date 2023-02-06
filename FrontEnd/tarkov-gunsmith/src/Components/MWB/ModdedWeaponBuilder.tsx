@@ -49,20 +49,20 @@ export default function ModdedWeaponBuilder(props: any) {
             searchString: chosenGun.Value
         }
         requestWeaponBuild(requestDetails).then(response => {
-            console.log(response);
+            // console.log(response);
             setResult(response[0]);
         }).catch(error => {
             alert(`The error was: ${error}`);
-            console.log(error);
+            // console.log(error);
         });
     }
 
     const handleWeaponSelectionChange = (selectedOption: any) => {
-        console.log(selectedOption);
+        // console.log(selectedOption);
 
         if (selectedOption !== undefined || selectedOption !== null) {
             setChosenGun(selectedOption)
-            console.log(`Option selected:`, selectedOption);
+            // console.log(`Option selected:`, selectedOption);
         }
         else {
             setChosenGun(undefined)
