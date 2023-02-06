@@ -18,7 +18,7 @@ function BrandExample() {
                                 height="30"
                                 className="d-inline-block align-top"
                             />{' '}
-                            Tarkov-Gunsmith
+                            Tarkov Gunsmith
                         </Navbar.Brand>
                         </LinkContainer>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

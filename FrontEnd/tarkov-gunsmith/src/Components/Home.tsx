@@ -1,15 +1,25 @@
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER } from "../Util/links";
 
 // Renders the home
 export default function Home(props: any) {
     return (
         <>
-            <h1 style={{textAlign:"center", color:"aliceblue"}}> Welcome to Tarkov-Gunsmith!</h1>
-            <br />
+            <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                <Card.Header as="h1">
+                    Welcome to Tarkov Gunsmith!
+                </Card.Header>
+            </Card>
             <div className="row gy-2">
                 <Col xl>
+
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                        <Card.Header as="h5">Modded Weapon Builder</Card.Header>
+                        <LinkContainer to={MODDED_WEAPON_BUILDER}>
+                            <Nav.Link>
+                                <Card.Header as="h5">Modded Weapon Builder</Card.Header>
+                            </Nav.Link>
+                        </LinkContainer>
                         <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/WeaponBuilderInfoPic.png'} />
                         <Card.Body>
                             <Card.Text>
@@ -32,7 +42,11 @@ export default function Home(props: any) {
                 </Col>
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                        <Card.Header as="h5">Armor Damage Calculator</Card.Header>
+                        <LinkContainer to={ARMOR_DAMAGE_CALC}>
+                            <Nav.Link>
+                                <Card.Header as="h5">Armor Damage Calculator</Card.Header>
+                            </Nav.Link>
+                        </LinkContainer>
                         <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} />
                         <Card.Body>
                             <Card.Text>

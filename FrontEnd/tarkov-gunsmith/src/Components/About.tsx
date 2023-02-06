@@ -8,10 +8,10 @@ export default function About(props: any) {
                 <Card bg="dark" border="secondary" text="light" className="xl">
 
                     <Card.Header as="h3">
-                        About Tarkov-Gunsmith
+                        About Tarkov Gunsmith
                     </Card.Header>
                     <Card.Body>
-                        <h4>FrontEnd</h4>
+                        <h4>Front End</h4>
                         <p>
                             The frontend of this website was made using functional React, TypeScript and <a href="https://react-bootstrap.github.io/">React-Bootstrap</a>.
                         </p>
@@ -20,7 +20,7 @@ export default function About(props: any) {
                             as I don't wish to know or track anything about you, aside from it not being needed. I might add user preference cookies for things like saving builds, filters and etc later.
                         </p>
 
-                        <h4>Backend</h4>
+                        <h4>Back End</h4>
                         <p>
                             The backend of this website is a <a href="https://learn.microsoft.com/en-us/training/modules/build-web-api-minimal-api/">C# minimal API</a>  utilizing the <a href="https://github.com/RatScanner/RatStash">RatStash library</a> created by Moritz.
                         </p>
