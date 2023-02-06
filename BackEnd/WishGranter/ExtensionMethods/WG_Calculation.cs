@@ -67,7 +67,7 @@ namespace WishGranterProto.ExtensionMethods
         // bullet_armorDamagePercentage is an int because the BSG files use an integer.
         public static double DamageToArmor(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage)
         {
-            double[,] ArmorDamageMultipliers = new double[,] { { .9, 1, 1.2, 1.5, 1.8 }, { .9, .9, 1, 1, 1.2 }, { .9, .9, .9, 1, 1 }, { .9, .9, .9, .9, 1 }, { .9, .9, .9, .9, .9 } };
+            double[,] ArmorDamageMultipliers = new double[,] { { .9, 1, 1.2, 1.5, 1.8 }, { .9, .9, 1, 1, 1.2 }, { .9, .9, .9, 1, 1 }, { .9, .9, .9, .9, 1 }, { .9, .9, .9, .9, .9 }, { .9, .9, .9, .9, .9 } };
 
             // Need -2 as we aren't concerned with AC 1 or Pen 1-19 items.
             int penetrationIndex = (bullet_penetration / 10) - 2;
@@ -143,7 +143,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (armorItem.MaxDurability - doneDamage) / armorItem.MaxDurability * 100;
+                testShot.DurabilityPerc = (armorItem.MaxDurability - (armorItem.MaxDurability - startingDura) + doneDamage) / armorItem.MaxDurability * 100;
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
@@ -159,7 +159,7 @@ namespace WishGranterProto.ExtensionMethods
         public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
         {
             TransmissionArmorTestResult testResult = new();
-            testResult.TestName = $"Custom test of ac:{ac} md:{maxDurability}, sd:{startingDurabilityPerc} m:{material},  vs p:{penetration}, adp:{armorDamagePerc}";
+            testResult.TestName = $"Custom test of AC:{ac} MaxDura:{maxDurability}, StartDura%:{string.Format("{0:0.00}", startingDurabilityPerc)} Material:{material}, vs Pen:{penetration}, AD%:{armorDamagePerc}";
 
             double doneDamage = 0;
             double startingDura = (double)maxDurability * ( (double) startingDurabilityPerc / 100);
@@ -192,7 +192,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (maxDurability - doneDamage) / maxDurability * 100;
+                testShot.DurabilityPerc = (maxDurability - (maxDurability-startingDura) + doneDamage) / maxDurability * 100;
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
