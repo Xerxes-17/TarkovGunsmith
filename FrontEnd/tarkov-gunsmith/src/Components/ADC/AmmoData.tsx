@@ -1,36 +1,5 @@
 import { useState } from "react";
 
-export const AMMO_CALIBERS = new Map<string, string[][]>([
-  ["Full Rifle", [
-    ["Caliber86x70", "338 Lapua Mag"],
-    ["Caliber127x55", "12.7x55mm"],
-    ["Caliber762x54R", "7.62x54mmR"],
-    ["Caliber762x51", "7.62x51mm"]
-  ]],
-  ["Intermediate Rifle", [
-    ["Caliber762x39", "7.62x39mm"],
-    ["Caliber545x39", "5.45x39mm"],
-    ["Caliber556x45NATO", "5.56x45mm"],
-    ["Caliber762x35", ".300 Blackout"],
-    ["Caliber366TKM", ".366 TKM"],
-    ["Caliber9x39", "9x39mm"],
-  ]],
-  ["PDW / Pistol", [
-    ["Caliber46x30", "4.6x30mm"],
-    ["Caliber9x21", "9x21mm"],
-    ["Caliber57x28", "5.7x28mm"],
-    ["Caliber1143x23ACP", "45 ACP"],
-    ["Caliber9x19PARA", "9x19mm"],
-    ["Caliber9x18PM", "9x18mm"],
-    ["Caliber762x25TT", "7.62x25mm TT"],
-    ["Caliber9x33R", ".357"],
-  ]],
-  ["Shotgun", [
-    ["Caliber12g", "12g"],
-    ["Caliber23x75", "23mm"]
-  ]]
-])
-
 export enum AmmoType {
   "Caliber86x70",
   "Caliber127x55",
@@ -57,7 +26,6 @@ export enum AmmoType {
   "Caliber12g",
   "Caliber23x75"
 }
-
 
 export interface AmmoOption {
   caliber: string;

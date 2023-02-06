@@ -20,7 +20,7 @@ export default function SelectArmor(props: any) {
                     className="basic-single"
                     classNamePrefix="select"
                     defaultValue={armorOptions[8]}
-                    isClearable={true}
+                    isClearable={false}
                     isSearchable={true}
                     name="selectArmor"
                     options={props.armorOptions}

@@ -285,10 +285,10 @@ export default function ModdedWeaponBuilder(props: any) {
                             <Stack direction="horizontal" gap={2}>
                                 <Spinner animation="grow" role="status" size="sm">
 
-                                    <span className="visually-hidden"> Waiting for build!</span>
+                                    <span className="visually-hidden">Awaiting build</span>
                                 </Spinner>
                                 <div className="vr" />
-                                Waiting for build!
+                                Awaiting build
                             </Stack>
 
                         </Button>

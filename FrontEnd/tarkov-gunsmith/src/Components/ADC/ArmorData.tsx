@@ -10,7 +10,7 @@ export const MATERIALS: string[] = [
     "Combined",
     "Titan",
     "Aluminium",
-    "ArmoredSteel",
+    "Steel", //Renamed from ArmoredSteel
     "Ceramic"
 ]
 
@@ -36,19 +36,43 @@ export interface ArmorOption {
     readonly imageLink: string;
 }
 
+function convertArmorStringToEnumVal(armorString: string): number {
+    if (armorString === "Aluminium")
+        return 0;
+    else if (armorString === "Aramid")
+        return 1;
+    else if (armorString === "Steel") //Renamed from ArmoredSteel
+        return 2;
+    else if (armorString === "Ceramic")
+        return 3;
+    else if (armorString === "Combined")
+        return 4;
+    else if (armorString === "Glass")
+        return 5;
+    else if (armorString === "Titan")
+        return 6;
+    else if (armorString === "UHMWPE")
+        return 7;
+    else
+        return -1;
+}
+
 // Gonna need to add a type field to the ArmorOption
-export function filterArmorOptions(armorClasses: number[], armorMaterials: number[]): ArmorOption[] {
+export function filterArmorOptions(armorClasses: number[], armorMaterials: string[]): ArmorOption[] {
+    let materialsFilter: number[] = [];
+
+    armorMaterials.forEach(function(item){
+        materialsFilter.push(convertArmorStringToEnumVal(item)
+    )});
 
     const result = armorOptions.filter(item =>
         armorClasses.includes(item.armorClass) &&
-        armorMaterials.includes(item.armorMaterial)
+        materialsFilter.includes(item.armorMaterial)
     )
-
-
     return result;
 }
 
-export function sortArmorptions() {
+export function sortArmorOptions() {
     armorOptions.sort((a, b) => {
         if (a.label < b.label) {
             return -1;
@@ -565,4 +589,4 @@ export const armorOptions: ArmorOption[] = [
     }
 ]
 
-sortArmorptions();
+sortArmorOptions();

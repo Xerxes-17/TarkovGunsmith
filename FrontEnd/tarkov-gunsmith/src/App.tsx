@@ -4,16 +4,14 @@ import './App.scss';
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Header from './Components/Header';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
-import { ABOUT, ADC_CUSTOM, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
-import ArmorDamageCalculatorCustom from './Components/ADC/ADC_Custom_Page';
-
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
 function App() {
   return (
     <>
@@ -25,7 +23,6 @@ function App() {
             <Route path={ABOUT} element={<About />} />
             <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
             <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
-            <Route path={ADC_CUSTOM} element={<ArmorDamageCalculatorCustom />} />
 
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />
