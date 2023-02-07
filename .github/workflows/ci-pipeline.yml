@@ -59,6 +59,8 @@ jobs:
       - name: Generate build
         working-directory: ./FrontEnd/tarkov-gunsmith
         run: npm run build
+        env:
+          CI: false
 
       # Share artifact inside workflow
       - name: Share artifact inside workflow
