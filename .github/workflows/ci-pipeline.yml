@@ -95,11 +95,11 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Copy build folder to S3
         run: |
-          aws s3 cp react-github-actions-build/ s3://${{ env.S3_BUCKET }}/react-github-actions-build/ --recursive
+          aws s3 cp react-github-actions-build/ s3://${{ secrets.AWS_BUCKET }}/react-github-actions-build/ --recursive
 
 
   # deploy-FE:
