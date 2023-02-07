@@ -72,24 +72,34 @@ jobs:
 
       # Share artifact inside workflow
       - name: Share artifact inside workflow
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: react-github-actions-build
           path: ./FrontEnd/tarkov-gunsmith/build
 
-  upload:
-    runs-on: ubuntu-latest
-    needs: build-test-FE
-    steps:
-      - uses: actions/checkout@master
-      - uses: shallwefootball/s3-upload-action@master
+  deploy-FE:
+      runs-on: ubuntu-latest
+      needs: build-test-FE
+
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
         with:
-          working-directory: react-github-actions-build
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: .
-          destination_dir: './TG_test'
+          name: react-github-actions-build
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Copy build folder to S3
+        run: |
+          aws s3 cp react-github-actions-build/ s3://${{ env.S3_BUCKET }}/react-github-actions-build/ --recursive
 
 
   # deploy-FE:
