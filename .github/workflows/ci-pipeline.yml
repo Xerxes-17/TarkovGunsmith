@@ -60,13 +60,19 @@ jobs:
         working-directory: ./FrontEnd/tarkov-gunsmith
         run: npm run build
 
+      - name: Install tree package and run
+        run: |
+          sudo apt-get -y install tree
+          which tree
+          tree
 
       # Share artifact inside workflow
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v1
         with:
           name: react-github-actions-build
-          path: build
+          path: ./build
+          working-directory: ./FrontEnd/tarkov-gunsmith
 
   deploy-FE:
     runs-on: ubuntu-latest
