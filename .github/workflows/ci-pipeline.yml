@@ -53,8 +53,8 @@ jobs:
       - name: Test
         working-directory: ./FrontEnd/tarkov-gunsmith
         run: npm test
-        env:
-          CI: true
+        # env:
+        #   CI: true
           
       - name: Generate build
         working-directory: ./FrontEnd/tarkov-gunsmith
