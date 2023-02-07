@@ -8,7 +8,7 @@ export default function SelectAmmo(props: any) {
 
     const handleChange = (selectedOption: any) => {
         props.handleAmmoSelection(selectedOption.label)
-        console.log(`Option selected:`, selectedOption);
+        // console.log(`Option selected:`, selectedOption);
     };
 
     return (
@@ -25,25 +25,18 @@ export default function SelectAmmo(props: any) {
                     options={props.ammoOptions}
                     formatOptionLabel={option => (
                         <Row>
-                            <Stack className="armor-option" direction="horizontal" gap={1}>
-                                <Col xs="5">
-                                    <Stack className="armor-option" direction="horizontal" gap={3}>
-                                        <img src={option.imageLink} alt={option.label} />
-                                        <span>{option.label}</span>
-                                    </Stack>
-                                </Col>
-                                <Col>
-                                    <span>{option.caliber}</span>
-                                </Col>
-                                <Col xs="5">
-                                    <Stack direction="horizontal" gap={5}>
-                                        <span>✒{option.penetrationPower}</span>
-                                        <span>📐{option.armorDamagePerc}%</span>
-                                        <span>💀{option.damage}</span>
-                                        <span>👨‍🔧{option.traderLevel}</span>
-                                    </Stack>
-                                </Col>
-                            </Stack>
+                            <Col style={{ maxWidth: "75px" }}>
+                                <img src={option.imageLink} alt={option.label} />
+                            </Col>
+                            <Col>
+                                <span>{option.label}</span>
+                                <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
+                                    <span style={{ minWidth: "55px" }}>✒: {option.penetrationPower}</span>
+                                    <span style={{ minWidth: "55px" }}>📐: {option.armorDamagePerc}</span>
+                                    <span style={{ minWidth: "55px" }}>💀: {option.damage}</span>
+                                    <span>👨‍🔧:{option.traderLevel}</span>
+                                </Stack>
+                            </Col>
                         </Row>
                     )}
                     onChange={handleChange}

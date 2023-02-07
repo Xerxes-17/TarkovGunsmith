@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export enum AmmoType {
   "Caliber86x70",
   "Caliber127x55",
@@ -25,9 +27,8 @@ export enum AmmoType {
   "Caliber23x75"
 }
 
-
 export interface AmmoOption {
-  caliber :string;
+  caliber: string;
   damage: number;
   penetrationPower: number;
   armorDamagePerc: number;
@@ -38,28 +39,28 @@ export interface AmmoOption {
   readonly imageLink: string;
 }
 
-export function filterAmmoOptions(minDam: number, minPen: number, minADP: number, maxTrader: number, calibers: string[]) :AmmoOption[] {
+export function filterAmmoOptions(minDam: number, minPen: number, minADP: number, maxTrader: number, calibers: string[]): AmmoOption[] {
   const result = ammoOptions.filter(item =>
-      item.damage >= minDam &&
-      item.penetrationPower >= minPen &&
-      item.armorDamagePerc >= minADP &&
-      item.traderLevel <= maxTrader &&
-      calibers.includes(item.caliber)
-      )
+    item.damage >= minDam &&
+    item.penetrationPower >= minPen &&
+    item.armorDamagePerc >= minADP &&
+    item.traderLevel <= maxTrader &&
+    calibers.includes(item.caliber)
+  )
   return result;
 }
 
 export function sortAmmoOptions() {
   ammoOptions.sort((a, b) => {
-      if (a.label < b.label){
-          return -1;
-      }
-      else if (a.label > b.label){
-          return 1
-      }
-      else{
-          return 0;
-      }
+    if (a.label < b.label) {
+      return -1;
+    }
+    else if (a.label > b.label) {
+      return 1
+    }
+    else {
+      return 0;
+    }
   })
 }
 
