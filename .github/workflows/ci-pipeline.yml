@@ -70,7 +70,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
           source_dir: ./FrontEnd/tarkov-gunsmith/build
-          destination_dir: './TG_test'
+          destination_dir: ''
 
       # - name: Install tree package and run
       #   run: |
@@ -79,15 +79,24 @@ jobs:
       #     tree
 
       # Share artifact inside workflow
-      # - name: Share artifact inside workflow
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: react-github-actions-build
-      #     path: ./FrontEnd/tarkov-gunsmith/build
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: ./FrontEnd/tarkov-gunsmith/build
 
-  # upload:
-  #   runs-on: ubuntu-latest
-  #   needs: build-test-FE
+  upload:
+    runs-on: ubuntu-latest
+    needs: build-test-FE
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: react-github-actions-build
+          
+      - name: Display structure of downloaded files
+        run: ls -R
   #   steps:
   #     - uses: actions/checkout@master
   #     - uses: shallwefootball/s3-upload-action@master
