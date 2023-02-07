@@ -1,5 +1,3 @@
-import { ammoOptions } from '../ADC/AmmoData';
-import ArmorDamageCalculator from '../ADC/ArmorDamageCalculator';
 import fileJsonData from './MyStockPresets.json';
 
 export type WeaponOption = typeof fileJsonData;
