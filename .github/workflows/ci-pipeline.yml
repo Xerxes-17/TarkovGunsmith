@@ -87,7 +87,7 @@ jobs:
 
   upload:
     runs-on: ubuntu-latest
-    needs: build-test-FE
+    needs: build-test-deploy-FE
     steps:
       - uses: actions/checkout@v3
 
