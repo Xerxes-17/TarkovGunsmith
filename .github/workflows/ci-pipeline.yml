@@ -37,6 +37,10 @@ jobs:
 #https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
   build-test-FE:
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
@@ -89,6 +93,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          
       # Copy the files from build folder to the S3 bucket
       - name: Deploy to S3
         run: aws s3 sync . s3://react-github-actions --acl public-read
