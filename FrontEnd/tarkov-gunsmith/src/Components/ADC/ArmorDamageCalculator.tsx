@@ -33,7 +33,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <p><strong>⚖ Effective Durability:</strong> Durability divided by the armor material factor, allows you to compare armors of different materials directly.</p>
                     <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
                     <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
-                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits.</p>
+                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits/penetrations (before armor flesh damage mitigation that is).</p>
                     <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. -1 or 5 means there isn't one.</p>
                     
                 </Modal.Body>
