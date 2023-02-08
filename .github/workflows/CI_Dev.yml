@@ -1,0 +1,58 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Dev-Testing CI
+
+on:
+  push:
+    branches: [ "dev", "dev-*", "hotfix-*" ]
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+  test-BE:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+  
+  test-FE:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
