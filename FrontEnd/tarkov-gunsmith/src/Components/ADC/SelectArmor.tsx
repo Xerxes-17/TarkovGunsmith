@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { armorOptions, ArmorOption, MaterialType } from './ArmorData';
+import { armorOptions, MaterialType } from './ArmorData';
 
 
 export default function SelectArmor(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        //handleArmorSelection(name: string, maxDurability: number)
         props.handleArmorSelection(selectedOption.label, selectedOption.maxDurability)
-        console.log(`Option selected:`, selectedOption);
+        //console.log(`Option selected:`, selectedOption);
     };
 
     return (
@@ -20,40 +18,26 @@ export default function SelectArmor(props: any) {
                     className="basic-single"
                     classNamePrefix="select"
                     defaultValue={armorOptions[8]}
-                    isClearable={true}
+                    isClearable={false}
                     isSearchable={true}
                     name="selectArmor"
                     options={props.armorOptions}
                     formatOptionLabel={option => (
                         <Row>
-                            <Stack className="armor-option" direction="horizontal" gap={2}>
-                                <Col xs="7">
-                                    <Stack className="armor-option" direction="horizontal" gap={3}>
-                                        <img src={option.imageLink} alt={option.label} />
-                                        <span>{option.label}</span>
-                                    </Stack>
-                                </Col>
-                                <Col xs="3">
-                                    <Stack direction="horizontal" gap={2}>
-                                        <Col xs="3">
-                                            <span>🛡: {option.armorClass}</span>
-                                            <br/>
-                                            <span>⛓: {option.maxDurability}</span>
-                                        </Col>
-                                        <Col xs="9">
-                                            <span>🧱: {MaterialType[option.armorMaterial]}</span>
-                                            <br/>
-                                            <span>⚖: {option.effectiveDurability}</span>
-                                        </Col>
-                                        <Col xs="6">
-                                            
-                                            <span>👨‍🔧: {option.traderLevel}</span>
-                                        </Col>
-                                    </Stack>
-                                </Col>
-                            </Stack>
+                            <Col style={{ maxWidth: "75px" }}>
+                                <img src={option.imageLink} alt={option.label} />
+                            </Col>
+                            <Col>
+                                <span>{option.label}</span>
+                                <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
+                                    <span>🛡: {option.armorClass}</span>
+                                    <span style={{ minWidth: "55px" }}>⛓: {option.maxDurability}</span>
+                                    <span style={{ minWidth: "130px" }}>🧱: {MaterialType[option.armorMaterial]}</span>
+                                    <span style={{ minWidth: "55px" }}>⚖: {option.effectiveDurability}</span>
+                                    <span>👨‍🔧:{option.traderLevel}</span>
+                                </Stack>
+                            </Col>
                         </Row>
-
                     )}
                     onChange={handleChange}
                 />

@@ -1,38 +1,33 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Header from './Components/Header';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
-import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './links';
-
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
-        <Container className="main-container">
-          <Row className="justify-content-md-center">
-            <Col md="auto">
-              <Routes>
-                <Route path={HOME} element={<Home />} />
-                <Route path={ABOUT} element={<About />} />
-                <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
-                <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
+        <Container className='main-app-container'>
+          <Routes>
+            <Route path={"/"} element={<Home />} />
+            <Route path={HOME} element={<Home />} />
+            <Route path={ABOUT} element={<About />} />
+            <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
+            <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
 
-                {/* Page not found */}
-                <Route path='*' element={<PageNotFound />} />
-
-              </Routes>
-            </Col>
-          </Row>
+            {/* Page not found */}
+            <Route path='*' element={<PageNotFound />} />
+          </Routes>
         </Container>
         <footer>
           &copy; Copyright 2023. Created by Xerxes17.

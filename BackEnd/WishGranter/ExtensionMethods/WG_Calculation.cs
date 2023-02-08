@@ -67,7 +67,7 @@ namespace WishGranterProto.ExtensionMethods
         // bullet_armorDamagePercentage is an int because the BSG files use an integer.
         public static double DamageToArmor(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage)
         {
-            double[,] ArmorDamageMultipliers = new double[,] { { .9, 1, 1.2, 1.5, 1.8 }, { .9, .9, 1, 1, 1.2 }, { .9, .9, .9, 1, 1 }, { .9, .9, .9, .9, 1 }, { .9, .9, .9, .9, .9 } };
+            double[,] ArmorDamageMultipliers = new double[,] { { .9, 1, 1.2, 1.5, 1.8 }, { .9, .9, 1, 1, 1.2 }, { .9, .9, .9, 1, 1 }, { .9, .9, .9, .9, 1 }, { .9, .9, .9, .9, .9 }, { .9, .9, .9, .9, .9 } };
 
             // Need -2 as we aren't concerned with AC 1 or Pen 1-19 items.
             int penetrationIndex = (bullet_penetration / 10) - 2;
@@ -125,7 +125,7 @@ namespace WishGranterProto.ExtensionMethods
             testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
 
             // Dev Console log
-            Console.WriteLine(testResult.TestName);
+            //Console.WriteLine(testResult.TestName);
 
             while (doneDamage < startingDura)
             {
@@ -135,15 +135,15 @@ namespace WishGranterProto.ExtensionMethods
                 double penetrationChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability) * 100;
 
                 // Dev Console log
-                Console.WriteLine("durability%: " + durability);
-                Console.WriteLine("durability: " + (startingDura - doneDamage));
-                Console.WriteLine("doneDamage: " + doneDamage);
-                Console.WriteLine("penetrationChance: " + penetrationChance);
-                Console.WriteLine("");
+                //Console.WriteLine("durability%: " + durability);
+                //Console.WriteLine("durability: " + (startingDura - doneDamage));
+                //Console.WriteLine("doneDamage: " + doneDamage);
+                //Console.WriteLine("penetrationChance: " + penetrationChance);
+                //Console.WriteLine("");
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (armorItem.MaxDurability - doneDamage) / armorItem.MaxDurability * 100;
+                testShot.DurabilityPerc = (startingDura - doneDamage) / armorItem.MaxDurability * 100;
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
@@ -156,5 +156,52 @@ namespace WishGranterProto.ExtensionMethods
             return testResult;
         }
 
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+        {
+            TransmissionArmorTestResult testResult = new();
+            testResult.TestName = $"Custom test of AC:{ac} MaxDura:{maxDurability}, StartDura%:{string.Format("{0:0.00}", startingDurabilityPerc)} Material:{material}, vs Pen:{penetration}, AD%:{armorDamagePerc}";
+
+            double doneDamage = 0;
+            double startingDura = (double)maxDurability * ( (double) startingDurabilityPerc / 100);
+
+            ArmorMaterial armorMaterial = new();
+
+            if (material == "Aramid")
+                armorMaterial = ArmorMaterial.Aramid;
+            else if (material == "UHMWPE")
+                armorMaterial = ArmorMaterial.UHMWPE;
+            else if (material == "Combined")
+                armorMaterial = ArmorMaterial.Combined;
+            else if (material == "Titan")
+                armorMaterial = ArmorMaterial.Titan;
+            else if (material == "Aluminium")
+                armorMaterial = ArmorMaterial.Aluminium;
+            else if (material == "ArmoredSteel")
+                armorMaterial = ArmorMaterial.ArmoredSteel;
+            else if (material == "Ceramic")
+                armorMaterial = ArmorMaterial.Ceramic;
+
+            testResult.ArmorDamagePerShot = DamageToArmor(ac, armorMaterial, penetration, armorDamagePerc);
+
+            while (doneDamage < startingDura)
+            {
+                double durability = (startingDura - doneDamage) / maxDurability * 100;
+
+                double penetrationChance = PenetrationChance(ac, penetration, durability) * 100;
+
+                // Package details in Transmission object
+                TransmissionArmorTestShot testShot = new();
+                testShot.DurabilityPerc = (startingDura- doneDamage) / maxDurability * 100;
+                testShot.DoneDamage = doneDamage;
+                testShot.Durability = startingDura - doneDamage;
+                testShot.PenetrationChance = penetrationChance;
+
+                testResult.Shots.Add(testShot);
+
+                // Add the damage of the current shot so it can be used in the next loop
+                doneDamage = doneDamage + (double) testResult.ArmorDamagePerShot;
+            }
+            return testResult;
+        }
     }
 }

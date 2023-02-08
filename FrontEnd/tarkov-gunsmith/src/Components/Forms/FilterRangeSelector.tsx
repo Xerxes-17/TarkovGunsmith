@@ -14,7 +14,7 @@ export default function FilterRangeSelector(props: any) {
                     <Form.Range value={props.value} onChange={(e) => { props.changeValue(parseInt(e.target.value)) }} min={props.min} max={props.max} />
                 </Col>
                 <Col xs="3">
-                    <Form.Control value={props.value} onChange={(e) => { props.changeValue(parseInt(e.target.value)) }} min={props.min} max={props.max} />
+                    <Form.Control disabled value={props.value} onChange={(e) => { props.changeValue(parseInt(e.target.value)) }} min={props.min} max={props.max} />
                 </Col>
             </Row>
         </Form.Group>

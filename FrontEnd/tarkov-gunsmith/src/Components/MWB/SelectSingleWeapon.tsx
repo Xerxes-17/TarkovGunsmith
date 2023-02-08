@@ -1,12 +1,15 @@
+import { useEffect } from 'react';
 import { Col, Container, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { StockWeaponOptions } from './WeaponData';
+import { StockWeaponOptions, WeaponOption } from './WeaponData';
 
 export default function SelectSingleWeapon(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        props.handleWeaponSelection(selectedOption.label)
-        console.log(`Option selected:`, selectedOption);
+        if(selectedOption !== undefined){
+            props.handleWeaponSelection(selectedOption.Value)
+            // console.log(`Option selected:`, selectedOption);
+        }
     };
 
     return (
@@ -16,20 +19,21 @@ export default function SelectSingleWeapon(props: any) {
                     placeholder="Select your weapon..."
                     className="basic-single"
                     classNamePrefix="select"
-                    
+                    required={true}
                     isClearable={true}
                     isSearchable={true}
                     name="SelectWeapon"
                     options={props.weaponOptions}
+                    getOptionLabel={(option) => option.Label}
+                    getOptionValue={(option) => option.Value}
                     formatOptionLabel={option => (
-
                         <Container>
                             <Row>
                                 <Col>
-                                    <img src={option.imageLink} alt={option.label} className={"weapon_image"} />
+                                    <img src={option.ImageLink} alt={option.Label} className={"weapon_image"} />
                                 </Col>
                                 <Col>
-                                    <span>{option.label}</span>
+                                    <span>{option.Label}</span>
                                 </Col>
                             </Row>
                         </Container>

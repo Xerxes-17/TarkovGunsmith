@@ -2,19 +2,18 @@ import { Nav } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
-import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from '../links';
+import { ABOUT, ARMOR_DAMAGE_CALC, HOME, MODDED_WEAPON_BUILDER } from '../Util/links';
 
 function BrandExample() {
     return (
         <>
-            <Navbar bg="dark" variant="dark" fixed="top">
+            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
                 <Container>
-                    <Nav>
                     <LinkContainer to={HOME}>
                         <Navbar.Brand>
                             <img
                                 alt=""
-                                src="/favicon.ico"
+                                src="/TG_icon.png"
                                 width="30"
                                 height="30"
                                 className="d-inline-block align-top"
@@ -22,18 +21,22 @@ function BrandExample() {
                             Tarkov Gunsmith
                         </Navbar.Brand>
                         </LinkContainer>
-                        <LinkContainer to={MODDED_WEAPON_BUILDER}>
-                            <Nav.Link>Modded Weapon Builder</Nav.Link>
-                        </LinkContainer>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav>
+                            <LinkContainer to={MODDED_WEAPON_BUILDER}>
+                                <Nav.Link>Modded Weapon Builder</Nav.Link>
+                            </LinkContainer>
 
-                        <LinkContainer to={ARMOR_DAMAGE_CALC}>
-                            <Nav.Link>Armor Damage Calculator</Nav.Link>
-                        </LinkContainer>
+                            <LinkContainer to={ARMOR_DAMAGE_CALC}>
+                                <Nav.Link>Armor Damage Calculator</Nav.Link>
+                            </LinkContainer>
 
-                        <LinkContainer to={ABOUT}>
-                            <Nav.Link>About</Nav.Link>
-                        </LinkContainer>
-                    </Nav>
+                            <LinkContainer to={ABOUT}>
+                                <Nav.Link>About</Nav.Link>
+                            </LinkContainer>
+                        </Nav>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
         </>

@@ -134,3 +134,7 @@ $RECYCLE.BIN/
 
 _NCrunch*
 BackEnd/WishGranter/token.json
+BackEnd/WishGranter/outputs/MyStockPresets.json
+BackEnd/WishGranter/TarkovDev_jsons/FleaMarketData.json
+BackEnd/WishGranter/TarkovDev_jsons/TestingTraderOffers.json
+BackEnd/WishGranter/TarkovDev_jsons/TraderOffers.json

@@ -63,40 +63,6 @@ namespace WishGranterTests
     [TestClass]
     public class ClonerUnitTests
     {
-
-        [TestMethod]
-        public void MysteriousCloner_Generic_Test_WeaponMod()
-        {
-            WeaponMod test_weaponMod = new WeaponMod();
-            test_weaponMod.Name = "Test Ligma";
-
-            var result = WG_Compilation.MysteriousCloner_Generic<WeaponMod>(test_weaponMod);
-            Console.WriteLine(result.Name);
-
-            result.Name = "Just Ligma";
-
-            Console.WriteLine(result.Name);
-            Console.WriteLine(test_weaponMod.Name);
-        }
-
-        [TestMethod]
-        public void MysteriousCloner_Generic_Test_WeaponMod_In_List()
-        {
-            List<WeaponMod> theList = new();
-            WeaponMod test_weaponMod = new WeaponMod();
-            test_weaponMod.Name = "Test Ligma";
-            theList.Add(test_weaponMod);
-
-
-            var result = WG_Compilation.MysteriousCloner_Generic<WeaponMod>(theList[0]);
-            Console.WriteLine(result.Name);
-
-            result.Name = "Just Ligma";
-
-            Console.WriteLine(result.Name);
-            Console.WriteLine(theList[0].Name);
-        }
-
         [TestMethod]
         public void DeepCloneTest_Weapon()
         {
@@ -120,7 +86,6 @@ namespace WishGranterTests
     {
         static Database RatStashDB = Database.FromFile("ratstash_jsons\\items.json", false, "ratstash_jsons\\en.json");
         static JObject ImageLinksJSON = JObject.Parse(File.ReadAllText("TarkovDev_jsons\\ImageLinks.json"));
-
 
         IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
         IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
@@ -174,6 +139,13 @@ namespace WishGranterTests
         {
             var result = WG_Calculation.PenetrationChance(5, 41, 87D);
             Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Output_Runner()
+        {
+            WG_Output.WriteArmorList(RatStashDB);
+            WG_Output.WriteAmmoList(RatStashDB);
         }
     }
 }
