@@ -28,7 +28,7 @@ jobs:
       
     - name: Build
       working-directory: ./BackEnd/WishGranter
-      run: dotnet publish --no-restore
+      run: dotnet publish --no-restore -o ./publish
       
     # - name: Test
     #   working-directory: ./BackEnd/UnitTests_WishGranter
