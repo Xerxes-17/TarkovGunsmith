@@ -4,13 +4,49 @@
 name: Dev-Testing CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "dev", "dev-*", "hotfix-*" ]
   pull_request:
-    branches: [ "dev" ]
+    # branches: [ "dev" ]
 
 jobs:
+  #https://github.com/orgs/community/discussions/25669#discussioncomment-3248665
+  check-BE:
+    name: Check files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD &gt; files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != BackEnd/* ]]; then
+              echo "This modified file is not under the 'BackEnd' folder."
+              echo "::set-output name=run_job::false"
+              break
+            else
+              echo "::set-output name=run_job::true"
+            fi
+          done &lt; files.txt
+
   test-BE:
+    needs: check-BE
+    if: needs.check-BE.outputs.run_job == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +59,51 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./BackEnd/WishGranter
       
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./BackEnd/WishGranter
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./BackEnd/WishGranter
 
+  check-FE:
+    name: Check files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD &gt; files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != FrontEnd/* ]]; then
+              echo "This modified file is not under the 'FrontEnd' folder."
+              echo "::set-output name=run_job::false"
+              break
+            else
+              echo "::set-output name=run_job::true"
+            fi
+          done &lt; files.txt
   
   test-FE:
+    needs: check-FE
+    if: needs.check-FE.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     
     steps:
