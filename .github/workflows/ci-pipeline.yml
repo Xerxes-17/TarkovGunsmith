@@ -11,28 +11,57 @@ on:
     #branches: [ "main" ]
 
 jobs:
-  # build-test-BE:
+  build-test-BE:
 
-  #   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-#     steps:
-#     - uses: actions/checkout@v3
-#     - name: Setup .NET
-#       uses: actions/setup-dotnet@v3
-#       with:
-#         dotnet-version: 6.0.x
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
         
-#     - name: Restore dependencies
-#       working-directory: ./BackEnd/WishGranter
-#       run: dotnet restore
+    - name: Restore dependencies
+      working-directory: ./BackEnd/WishGranter
+      run: dotnet restore
       
-#     - name: Build
-#       working-directory: ./BackEnd/WishGranter
-#       run: dotnet build --no-restore
+    - name: Build
+      working-directory: ./BackEnd/WishGranter
+      run: dotnet publish --no-restore
       
-#     - name: Test
-#       working-directory: ./BackEnd/UnitTests_WishGranter
-#       run: dotnet test --no-build --verbosity normal
+    - name: Test
+      working-directory: ./BackEnd/UnitTests_WishGranter
+      run: dotnet test --no-build --verbosity normal
+
+    # Share artifact inside workflow
+    - name: Share artifact inside workflow
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-github-actions-publish.zip
+        path: ./BackEnd/WishGranter/publish
+
+  deploy-BE:
+    needs: build-test-BE
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: dotnet-github-actions-publish.zip
+          path: .
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: WishGranter1
+          environment_name: WishGranter1-dev
+          version_label: 12345
+          region: ${{ secrets.AWS_DEFAULT_REGION }}
+          deployment_package: dotnet-github-actions-publish.zip
 
 #https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
   build-test-FE:
