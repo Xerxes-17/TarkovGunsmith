@@ -57,7 +57,13 @@ jobs:
           path: ./publish
 
       - name: Generate deployment package
-        run: zip -r deploy.zip ./publish
+        run: zip -r deploy.zip ./publish/
+
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: 2nd-zip
+          path: ./deploy.zip
 
       - name: Display structure of files
         run: ls -R
