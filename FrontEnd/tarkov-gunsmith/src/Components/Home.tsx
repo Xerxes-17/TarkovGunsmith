@@ -82,8 +82,8 @@ export default function Home(props: any) {
                             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                             
                             />
-                            <Card.Text>
-                                We have a discord too, as you would expect.
+                            <Card.Text style={{textAlign:"left"}}>
+                                There is a discord, as you would expect. Come and thank me, report a bug, request a feature or all of the above!
                             </Card.Text>
                         </Card.Body>
                     </Card>

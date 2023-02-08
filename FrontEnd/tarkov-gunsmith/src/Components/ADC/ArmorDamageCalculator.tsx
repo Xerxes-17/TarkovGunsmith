@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
 import { TransmissionArmorTestResult } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -27,6 +27,15 @@ export default function ArmorDamageCalculator(props: any) {
                 <Modal.Body>
                     <p>Currently doesn't include rounds with less than 20 penetration because because I haven't done my own testing with these yet, and at that range either you're doing leg meta and it doesn't matter or you don't know what you're doing.</p>
                     <p>Custom mode allows you to set the stats of the armor and ammo to whatever you want. The defaults are for RatRig vs 7.62x39 PS.</p>
+                    <h5>Glossary:</h5>
+                    <p><strong>🛡 Armor Class:</strong> How strong your armor can be.</p>
+                    <p><strong>⛓ Max Durability:</strong> How tough your armor can be.</p>
+                    <p><strong>⚖ Effective Durability:</strong> Durability divided by the armor material factor, allows you to compare armors of different materials directly.</p>
+                    <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
+                    <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
+                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits/penetrations (before armor flesh damage mitigation that is).</p>
+                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. -1 or 5 means there isn't one.</p>
+                    
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -223,26 +232,37 @@ export default function ArmorDamageCalculator(props: any) {
     const [penetration, setPenetration] = useState(35);
     const [armorDamagePerc, setArmorDamagePerc] = useState(52);
 
+    const [errorPenetration, setErrorPenetration] = useState("");
+
     const handleCustomSubmit = (e: any) => {
         e.preventDefault();
 
-        const requestDetails = {
-            armorClass: armorClass,
-            armorMaterial: armorMaterial,
-            armorDurabilityPerc: (armorDurabilityNum_Custom / armorDurabilityMax_Custom * 100),
-            armorDurabilityMax: armorDurabilityMax_Custom,
-
-            penetration: penetration,
-            armorDamagePerc: armorDamagePerc
+        if (penetration < 20) {
+            setErrorPenetration("Sorry, value must be above 20 for now.")
         }
+        else if (penetration > 79) {
+            setErrorPenetration("Sorry, value must be below 80 for now.")
+        }
+        else {
+            setErrorPenetration("")
+            const requestDetails = {
+                armorClass: armorClass,
+                armorMaterial: armorMaterial,
+                armorDurabilityPerc: (armorDurabilityNum_Custom / armorDurabilityMax_Custom * 100),
+                armorDurabilityMax: armorDurabilityMax_Custom,
 
-        requestArmorTestSerires_Custom(requestDetails).then(response => {
-            // console.log(response);
-            setResult(response);
-        }).catch(error => {
-            alert(`The error was: ${error}`);
-            // console.log(error);
-        });
+                penetration: penetration,
+                armorDamagePerc: armorDamagePerc
+            }
+
+            requestArmorTestSerires_Custom(requestDetails).then(response => {
+                // console.log(response);
+                setResult(response);
+            }).catch(error => {
+                alert(`The error was: ${error}`);
+                // console.log(error);
+            });
+        }
     }
 
 
@@ -267,47 +287,52 @@ export default function ArmorDamageCalculator(props: any) {
                 <Form onSubmit={handleSubmit}>
                     <Row>
                         <Col xl>
-                            <Card.Header as="h4">🛡 Armor filters and selection</Card.Header>
-                            <Card.Body>
-                                Armor Type <br />
-                                <Button disabled size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
-                                <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
-                                    {ARMOR_TYPES.map((item: any, i: number) => {
-                                        return (
-                                            <ToggleButton disabled key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
-                                                {item}
-                                            </ToggleButton>
-                                        )
-                                    })}
-                                </ToggleButtonGroup>
+                            <Card.Header as="h4">🛡 Armor Selection</Card.Header>
+                            <Accordion flush>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header><strong>Armor Filters</strong></Accordion.Header>
+                                    <Accordion.Body>
+                                        Armor Type <br />
+                                        <Button disabled size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
+                                        <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
+                                            {ARMOR_TYPES.map((item: any, i: number) => {
+                                                return (
+                                                    <ToggleButton disabled key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
+                                                        {item}
+                                                    </ToggleButton>
+                                                )
+                                            })}
+                                        </ToggleButtonGroup>
 
-                                <br />
-                                Armor Class <br />
-                                <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorClassesTBG(ARMOR_CLASSES)}>All</Button>{' '}
-                                <ToggleButtonGroup size="sm" type="checkbox" value={newArmorClasses} onChange={handleNewArmorClassesTBG}>
-                                    {ARMOR_CLASSES.map((item: any, i: number) => {
-                                        return (
-                                            <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-ac${item}`} value={item}>
-                                                {item}
-                                            </ToggleButton>
-                                        )
-                                    })}
-                                </ToggleButtonGroup>
+                                        <br />
+                                        Armor Class <br />
+                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorClassesTBG(ARMOR_CLASSES)}>All</Button>{' '}
+                                        <ToggleButtonGroup size="sm" type="checkbox" value={newArmorClasses} onChange={handleNewArmorClassesTBG}>
+                                            {ARMOR_CLASSES.map((item: any, i: number) => {
+                                                return (
+                                                    <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-ac${item}`} value={item}>
+                                                        {item}
+                                                    </ToggleButton>
+                                                )
+                                            })}
+                                        </ToggleButtonGroup>
 
-                                <br />
-                                Armor Material <br />
-                                <Button size="sm" variant="outline-warning" onClick={(e) => handleNewMaterialsTBG(MATERIALS)}>All</Button>{' '}
-                                <ToggleButtonGroup size="sm" type="checkbox" value={newMaterials} onChange={handleNewMaterialsTBG} style={{ flexWrap: "wrap" }}>
-                                    {MATERIALS.map((item: string, i: number) => {
-                                        return (
-                                            <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
-                                                {item}
-                                            </ToggleButton>
-                                        )
-                                    })}
-                                </ToggleButtonGroup>
-
-                                <br /><br />
+                                        <br />
+                                        Armor Material <br />
+                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewMaterialsTBG(MATERIALS)}>All</Button>{' '}
+                                        <ToggleButtonGroup size="sm" type="checkbox" value={newMaterials} onChange={handleNewMaterialsTBG} style={{ flexWrap: "wrap" }}>
+                                            {MATERIALS.map((item: string, i: number) => {
+                                                return (
+                                                    <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
+                                                        {item}
+                                                    </ToggleButton>
+                                                )
+                                            })}
+                                        </ToggleButtonGroup>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                            <Card.Body style={{ paddingTop: "1px" }}>
                                 <strong>Available Choices:</strong> {filteredArmorOptions.length} <br />
                                 <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
                                 <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} />
@@ -322,11 +347,11 @@ export default function ArmorDamageCalculator(props: any) {
                                         </Col>
                                         <Col style={{ maxWidth: "90px" }}>
                                             <Form.Label>Number</Form.Label>
-                                            <Form.Control value={armorDurabilityNum} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
+                                            <Form.Control disabled value={armorDurabilityNum} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
                                         </Col>
                                         <Col style={{ maxWidth: "110px" }}>
                                             <Form.Label>Percentage</Form.Label>
-                                            <Form.Control disabled={true} value={(armorDurabilityNum / armorDurabilityMax * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"}/>
+                                            <Form.Control disabled={true} value={(armorDurabilityNum / armorDurabilityMax * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"} />
                                         </Col>
                                     </Row>
                                 </Form.Group>
@@ -335,65 +360,74 @@ export default function ArmorDamageCalculator(props: any) {
                         </Col>
 
                         <Col xl>
-                            <Card.Header as="h4">⚔ Ammo filters and selection</Card.Header>
-                            <Card.Body>
+                            <Card.Header as="h4">⚔ Ammo Selection</Card.Header>
+                            <Accordion flush>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header><strong>Ammo Filters</strong></Accordion.Header>
+                                    <Accordion.Body>
+                                        {
+                                            AMMO_CALIBERS.map((caliber: any, i: number) => {
+                                                return (
+                                                    <>
+                                                        {caliber[0]}
+                                                        <br />
+                                                        <Button size="sm" variant="outline-success" onClick={(e) => caliber[5](caliber[3])}> All</Button>{' '}
+                                                        <Button size="sm" variant="outline-danger" onClick={(e) => caliber[5](!caliber[3])}> All</Button>{' '}
+                                                        <ToggleButtonGroup size="sm" type="checkbox" value={caliber[1]} onChange={caliber[5]} style={{ flexWrap: "wrap" }}>
+                                                            {caliber[4].map((value: any, i: number) => {
+                                                                return (
+                                                                    <ToggleButton key={JSON.stringify(caliber[3][i])} variant='outline-primary' id={`tbg-btn-${caliber[3][i]}`} value={caliber[3][i]}>
+                                                                        {value}
+                                                                    </ToggleButton>
+                                                                )
+                                                            })}
+                                                        </ToggleButtonGroup>
+                                                        <br />
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                        <Row>
+                                            <Col>
+                                                <FilterRangeSelector
+                                                    label={"Minimum Damage"}
+                                                    value={minDamage}
+                                                    changeValue={handleMinDamageChange}
+                                                    min={smallestDamage}
+                                                    max={biggestDamage}
+                                                />
+                                                <FilterRangeSelector
+                                                    label={"Minimum Penetration Power"}
+                                                    value={minPenPower}
+                                                    changeValue={handleMinPenPowerChange}
+                                                    min={smallestPenPower}
+                                                    max={biggestPenPower}
+                                                />
+                                            </Col>
+                                            <Col>
+                                                <FilterRangeSelector
+                                                    label={"Minimum Armor Damage %"}
+                                                    value={minArmorDamPerc}
+                                                    changeValue={handleMinArmorDamPercChange}
+                                                    min={smallestArmorDamPerc}
+                                                    max={biggestArmorDamPerc}
+                                                />
+                                                <FilterRangeSelector
+                                                    label={"TL 1-4, Tmax+Flea=5, Tmax+Flea+FIR=6"}
+                                                    value={traderLevel}
+                                                    changeValue={handleTraderLevelChange}
+                                                    min={smallestTraderLevel}
+                                                    max={biggestTraderLevel}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                            </Accordion>
+                            <Card.Body style={{ paddingTop: "1px" }}>
                                 <>
-                                    {
-                                        AMMO_CALIBERS.map((caliber: any, i: number) => {
-                                            return (
-                                                <>
-                                                    {caliber[0]}
-                                                    <br />
-                                                    <Button size="sm" variant="outline-success" onClick={(e) => caliber[5](caliber[3])}> All</Button>{' '}
-                                                    <Button size="sm" variant="outline-danger" onClick={(e) => caliber[5](!caliber[3])}> All</Button>{' '}
-                                                    <ToggleButtonGroup size="sm" type="checkbox" value={caliber[1]} onChange={caliber[5]} style={{ flexWrap: "wrap" }}>
-                                                        {caliber[4].map((value: any, i: number) => {
-                                                            return (
-                                                                <ToggleButton key={JSON.stringify(caliber[3][i])} variant='outline-primary' id={`tbg-btn-${caliber[3][i]}`} value={caliber[3][i]}>
-                                                                    {value}
-                                                                </ToggleButton>
-                                                            )
-                                                        })}
-                                                    </ToggleButtonGroup>
-                                                    <br />
-                                                </>
-                                            )
-                                        })
-                                    }
-                                    <Row>
-                                        <Col>
-                                            <FilterRangeSelector
-                                                label={"Minimum Damage"}
-                                                value={minDamage}
-                                                changeValue={handleMinDamageChange}
-                                                min={smallestDamage}
-                                                max={biggestDamage}
-                                            />
-                                            <FilterRangeSelector
-                                                label={"Minimum Penetration Power"}
-                                                value={minPenPower}
-                                                changeValue={handleMinPenPowerChange}
-                                                min={smallestPenPower}
-                                                max={biggestPenPower}
-                                            />
-                                        </Col>
-                                        <Col>
-                                            <FilterRangeSelector
-                                                label={"Minimum Armor Damage %"}
-                                                value={minArmorDamPerc}
-                                                changeValue={handleMinArmorDamPercChange}
-                                                min={smallestArmorDamPerc}
-                                                max={biggestArmorDamPerc}
-                                            />
-                                            <FilterRangeSelector
-                                                label={"TL 1-4, Tmax+Flea=5, Tmax+Flea+FIR=6"}
-                                                value={traderLevel}
-                                                changeValue={handleTraderLevelChange}
-                                                min={smallestTraderLevel}
-                                                max={biggestTraderLevel}
-                                            />
-                                        </Col>
-                                    </Row>
+
                                     <strong>Available Choices:</strong> {filteredAmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
                                     <SelectAmmo handleAmmoSelection={setAmmoName} ammoOptions={filteredAmmoOptions} />
@@ -439,7 +473,6 @@ export default function ArmorDamageCalculator(props: any) {
                                             <Form.Group className="md" controlId="ArmorClass">
                                                 <Form.Label>Armor Class 🛡</Form.Label>
                                                 <Form.Select aria-label="Default select example" defaultValue={armorClass} onChange={(e) => { setArmorClass(parseInt(e.target.value)) }}>
-                                                    <option value={1}>1</option>
                                                     <option value={2}>2</option>
                                                     <option value={3}>3</option>
                                                     <option value={4}>4</option>
@@ -467,7 +500,16 @@ export default function ArmorDamageCalculator(props: any) {
                                         <Col md={7}>
                                             <Form.Group controlId="MaxDurability">
                                                 <Form.Label>Armor Durability Max</Form.Label>
-                                                <Form.Control type="MaxDurability" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityMax_Custom(parseInt(e.target.value)) }} />
+                                                <Form.Control type="number" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom}
+                                                    onChange={(e) => {
+                                                        if (parseInt(e.target.value) < 1) {
+                                                            e.target.value = "1"
+                                                        } // It's jank, but it werks
+
+                                                        setArmorDurabilityMax_Custom(parseInt(e.target.value))
+                                                        setArmorDurabilityNum_Custom(parseInt(e.target.value))
+                                                    }}
+                                                />
                                                 <Form.Text className="text-muted">
                                                     Eg: "40" without quotes.
                                                 </Form.Text>
@@ -477,11 +519,11 @@ export default function ArmorDamageCalculator(props: any) {
                                                 <Row>
                                                     <Col md>
                                                         <Form.Label>Starting Armor Durability</Form.Label>
-                                                        <Form.Range value={armorDurabilityNum_Custom} max={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
+                                                        <Form.Range value={armorDurabilityNum_Custom} min={1} max={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
                                                     </Col>
                                                     <Col md="3">
                                                         <Form.Label>Number</Form.Label>
-                                                        <Form.Control value={armorDurabilityNum_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
+                                                        <Form.Control disabled value={armorDurabilityNum_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
 
                                                     </Col>
                                                     <Col md="4">
@@ -502,10 +544,27 @@ export default function ArmorDamageCalculator(props: any) {
                                         <Col md={3}>
                                             <Form.Group className="md" controlId="Penetration">
                                                 <Form.Label>Penetration ✒</Form.Label>
-                                                <Form.Control type="Penetration" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
+                                                {errorPenetration === "" &&
+                                                    <>
+                                                        <Form.Control type="number" placeholder="Enter penetration as a number" defaultValue={penetration}
+                                                            onChange={(e) => {
+                                                                if (parseInt(e.target.value) < 1) {
+                                                                    e.target.value = "1"
+                                                                } // It's jank, but it werks
+                                                                setPenetration(parseInt(e.target.value))
+                                                            }}
+                                                        />
+                                                    </>}
+                                                {errorPenetration.includes("Sorry,") &&
+                                                    <>
+                                                        <Form.Control isInvalid type="number" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
+                                                    </>}
                                                 <Form.Text className="text-muted">
                                                     Eg: "35" without quotes.
                                                 </Form.Text>
+                                                <br />
+                                                <Form.Text className="text-danger"> {errorPenetration}</Form.Text>
+
                                             </Form.Group>
                                         </Col>
                                         <Col md={7}>
@@ -517,7 +576,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                     </Col>
                                                     <Col md="3">
                                                         <Form.Text>ADP</Form.Text>
-                                                        <Form.Control value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
+                                                        <Form.Control disabled value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
                                                     </Col>
                                                 </Row>
                                             </Form.Group>
