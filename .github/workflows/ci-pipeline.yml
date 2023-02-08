@@ -28,7 +28,7 @@ jobs:
       
     - name: Publish
       working-directory: ./BackEnd/WishGranter
-      run: 	dotnet publish -r linux-x64 --self-contained false -o ./publish
+      run: 	dotnet publish -r aws.linux-x64 --self-contained true -o ./publish
       
     # - name: Test
     #   working-directory: ./BackEnd/UnitTests_WishGranter
@@ -69,7 +69,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: WishGranter1
           environment_name: WishGranter1-dev
-          version_label: 12345
+          version_label: ${{ github.head_ref }}.${{ github.sha }}
           region: ${{ secrets.AWS_REGION }}
           deployment_package: deploy.zip
 
