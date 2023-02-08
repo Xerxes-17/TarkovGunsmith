@@ -57,7 +57,7 @@ jobs:
           path: ./publish
 
       - name: Generate deployment package
-        run: cd ./publish; zip -r ../deploy.zip *
+        run: cd ./publish; zip -r ../deploy.zip .
 
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v3
