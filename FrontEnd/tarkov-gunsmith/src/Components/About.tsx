@@ -29,12 +29,12 @@ export default function About(props: any) {
                         </p>
                         <h4>Orchestration</h4>
                         <p>
-                            At the moment it's just click-ops onto AWS from a local build, but hopefully soon it'll be a proper CI/CD pipeline. 😅
+                            Currently have the FE CI/CD pipeline running, but still working on the BE. 😅
                         </p>
 
                         <h4>Links</h4>
                         <ul>
-                            <li><a href="https://discord.gg/ZQZc3jkUWv">Discord</a></li>
+                            <li><a href="https://discord.gg/F7GZE4H7fq">Discord</a></li>
                             <li><a href="https://github.com/Xerxes-17/TarkovGunsmith">GitHub repo</a></li>
                             <li><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Tarkov Wiki</a></li>
                         </ul>
