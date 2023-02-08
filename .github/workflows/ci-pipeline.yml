@@ -38,8 +38,12 @@ jobs:
     - name: Share artifact inside workflow
       uses: actions/upload-artifact@v3
       with:
-        name: dotnet-github-actions-publish.zip
+        name: dotnet-github-actions-publish
         path: ./BackEnd/WishGranter/publish
+
+    - name: Display structure of files
+      run: ls -R
+
 
   deploy-BE:
     needs: build-test-BE
@@ -47,9 +51,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Display structure of files
+        run: ls -R
+
       - uses: actions/download-artifact@v3
         with:
-          name: dotnet-github-actions-publish.zip
+          name: dotnet-github-actions-publish
           path: .
 
       - name: Deploy to EB
@@ -64,69 +71,69 @@ jobs:
           deployment_package: dotnet-github-actions-publish.zip
 
 #https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
-  build-test-FE:
-    runs-on: ubuntu-latest
+  # build-test-FE:
+  #   runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   steps:
+  #     - name: Clone repository
+  #       uses: actions/checkout@v3
         
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.x
+  #     - name: Use Node.js 16.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 16.x
           
-      - name: Install dependencies
-        working-directory: ./FrontEnd/tarkov-gunsmith
-        run: npm install    
+  #     - name: Install dependencies
+  #       working-directory: ./FrontEnd/tarkov-gunsmith
+  #       run: npm install    
         
-      - name: Test
-        working-directory: ./FrontEnd/tarkov-gunsmith
-        run: npm test
-        env:
-          CI: true
+  #     - name: Test
+  #       working-directory: ./FrontEnd/tarkov-gunsmith
+  #       run: npm test
+  #       env:
+  #         CI: true
           
-      - name: Generate build
-        working-directory: ./FrontEnd/tarkov-gunsmith
-        run: npm run build
+  #     - name: Generate build
+  #       working-directory: ./FrontEnd/tarkov-gunsmith
+  #       run: npm run build
 
-      # - name: Install tree package and run
-      #   run: |
-      #     sudo apt-get -y install tree
-      #     which tree
-      #     tree
+  #     # - name: Install tree package and run
+  #     #   run: |
+  #     #     sudo apt-get -y install tree
+  #     #     which tree
+  #     #     tree
 
-      # Share artifact inside workflow
-      - name: Share artifact inside workflow
-        uses: actions/upload-artifact@v3
-        with:
-          name: react-github-actions-build
-          path: ./FrontEnd/tarkov-gunsmith/build
+  #     # Share artifact inside workflow
+  #     - name: Share artifact inside workflow
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: react-github-actions-build
+  #         path: ./FrontEnd/tarkov-gunsmith/build
 
-  deploy-FE:
-    runs-on: ubuntu-latest
-    needs: build-test-FE
-    steps:
-      - uses: actions/checkout@v3
+  # deploy-FE:
+  #   runs-on: ubuntu-latest
+  #   needs: build-test-FE
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: react-github-actions-build
-          path: ./build_FE
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: react-github-actions-build
+  #         path: ./build_FE
           
-      - name: Display structure of downloaded files
-        run: ls -R
+  #     - name: Display structure of downloaded files
+  #       run: ls -R
 
-      - uses: shallwefootball/s3-upload-action@master
-        with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: ./build_FE
-          destination_dir: ''
+  #     - uses: shallwefootball/s3-upload-action@master
+  #       with:
+  #         aws_key_id: ${{ secrets.AWS_KEY_ID }}
+  #         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+  #         aws_bucket: ${{ secrets.AWS_BUCKET }}
+  #         source_dir: ./build_FE
+  #         destination_dir: ''
   
 
 
