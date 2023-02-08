@@ -338,7 +338,7 @@ export default function ArmorDamageCalculator(props: any) {
                                         </Col>
                                         <Col style={{ maxWidth: "90px" }}>
                                             <Form.Label>Number</Form.Label>
-                                            <Form.Control value={armorDurabilityNum} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
+                                            <Form.Control disabled value={armorDurabilityNum} onChange={(e) => { setArmorDurabilityNum(parseInt(e.target.value)) }} />
                                         </Col>
                                         <Col style={{ maxWidth: "110px" }}>
                                             <Form.Label>Percentage</Form.Label>
