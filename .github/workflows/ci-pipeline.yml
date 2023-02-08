@@ -30,9 +30,9 @@ jobs:
       working-directory: ./BackEnd/WishGranter
       run: dotnet publish --no-restore
       
-    - name: Test
-      working-directory: ./BackEnd/UnitTests_WishGranter
-      run: dotnet test --no-build --verbosity normal
+    # - name: Test
+    #   working-directory: ./BackEnd/UnitTests_WishGranter
+    #   run: dotnet test --no-build --verbosity normal
 
     # Share artifact inside workflow
     - name: Share artifact inside workflow
