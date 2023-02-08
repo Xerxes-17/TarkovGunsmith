@@ -28,7 +28,7 @@ jobs:
       
     - name: Publish
       working-directory: ./BackEnd/WishGranter
-      run: 	dotnet publish -r linux-x64 --self-contained true -o ./publish
+      run: 	dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
       
     # - name: Test
     #   working-directory: ./BackEnd/UnitTests_WishGranter
@@ -57,7 +57,7 @@ jobs:
           path: ./publish
 
       - name: Generate deployment package
-        run: zip -r deploy.zip ./publish -x '*.git*'
+        run: zip -r deploy.zip ./publish
 
       - name: Display structure of files
         run: ls -R
