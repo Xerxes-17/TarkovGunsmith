@@ -506,7 +506,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                     </Col>
                                                     <Col md="3">
                                                         <Form.Label>Number</Form.Label>
-                                                        <Form.Control value={armorDurabilityNum_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
+                                                        <Form.Control disabled value={armorDurabilityNum_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
 
                                                     </Col>
                                                     <Col md="4">
@@ -552,7 +552,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                     </Col>
                                                     <Col md="3">
                                                         <Form.Text>ADP</Form.Text>
-                                                        <Form.Control value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
+                                                        <Form.Control disabled value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
                                                     </Col>
                                                 </Row>
                                             </Form.Group>
