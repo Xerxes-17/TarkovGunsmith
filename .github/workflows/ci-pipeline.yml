@@ -58,15 +58,16 @@ jobs:
 
       - name: Generate deployment package
         run: cd ./publish; zip -r ../deploy.zip .
+        # zip -r deploy.zip publish might also work
 
-      - name: Share artifact inside workflow
-        uses: actions/upload-artifact@v3
-        with:
-          name: 2nd-zip
-          path: ./deploy.zip
+      # - name: Share artifact inside workflow
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: 2nd-zip
+      #     path: ./deploy.zip
 
-      - name: Display structure of files
-        run: ls -R
+      # - name: Display structure of files
+      #   run: ls -R
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
