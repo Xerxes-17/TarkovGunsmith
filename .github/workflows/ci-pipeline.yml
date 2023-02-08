@@ -5,8 +5,8 @@ name: CI-Pipeline
 
 on:
   workflow_dispatch:
-  #push:
-    #branches: [ "main" ]
+  push:
+    branches: [ "main", "dev-*" ]
   #pull_request:
     #branches: [ "main" ]
 
@@ -26,9 +26,9 @@ jobs:
       working-directory: ./BackEnd/WishGranter
       run: dotnet restore
       
-    - name: Build
+    - name: Publish
       working-directory: ./BackEnd/WishGranter
-      run: dotnet publish --no-restore -o ./publish
+      run: 	dotnet publish -r linux-x64 --self-contained false --no-restore -o ./publish
       
     # - name: Test
     #   working-directory: ./BackEnd/UnitTests_WishGranter
