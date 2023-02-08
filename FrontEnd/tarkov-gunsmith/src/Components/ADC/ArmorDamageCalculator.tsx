@@ -492,11 +492,15 @@ export default function ArmorDamageCalculator(props: any) {
                                         <Col md={7}>
                                             <Form.Group controlId="MaxDurability">
                                                 <Form.Label>Armor Durability Max</Form.Label>
-                                                <Form.Control type="MaxDurability" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom}
+                                                <Form.Control type="number" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom}
                                                     onChange={(e) => {
-                                                         setArmorDurabilityMax_Custom(parseInt(e.target.value))
-                                                         setArmorDurabilityNum_Custom(parseInt(e.target.value))
-                                                         }} 
+                                                        if (parseInt(e.target.value) < 1) {
+                                                            e.target.value = "1"
+                                                        } // It's jank, but it werks
+
+                                                        setArmorDurabilityMax_Custom(parseInt(e.target.value))
+                                                        setArmorDurabilityNum_Custom(parseInt(e.target.value))
+                                                    }}
                                                 />
                                                 <Form.Text className="text-muted">
                                                     Eg: "40" without quotes.
@@ -507,7 +511,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                 <Row>
                                                     <Col md>
                                                         <Form.Label>Starting Armor Durability</Form.Label>
-                                                        <Form.Range value={armorDurabilityNum_Custom} max={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
+                                                        <Form.Range value={armorDurabilityNum_Custom} min={1} max={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityNum_Custom(parseInt(e.target.value)) }} />
                                                     </Col>
                                                     <Col md="3">
                                                         <Form.Label>Number</Form.Label>
@@ -534,11 +538,18 @@ export default function ArmorDamageCalculator(props: any) {
                                                 <Form.Label>Penetration ✒</Form.Label>
                                                 {errorPenetration === "" &&
                                                     <>
-                                                        <Form.Control type="Penetration" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
+                                                        <Form.Control type="number" placeholder="Enter penetration as a number" defaultValue={penetration}
+                                                            onChange={(e) => {
+                                                                if (parseInt(e.target.value) < 1) {
+                                                                    e.target.value = "1"
+                                                                } // It's jank, but it werks
+                                                                setPenetration(parseInt(e.target.value))
+                                                            }}
+                                                        />
                                                     </>}
                                                 {errorPenetration.includes("Sorry,") &&
                                                     <>
-                                                        <Form.Control isInvalid type="Penetration" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
+                                                        <Form.Control isInvalid type="number" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
                                                     </>}
                                                 <Form.Text className="text-muted">
                                                     Eg: "35" without quotes.
