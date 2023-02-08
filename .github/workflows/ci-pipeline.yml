@@ -54,7 +54,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: dotnet-github-actions-publish
-          path: .
+          path: ./publish
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip ./publish -x '*.git*'
 
       - name: Display structure of files
         run: ls -R
@@ -68,7 +71,7 @@ jobs:
           environment_name: WishGranter1-dev
           version_label: 12345
           region: ${{ secrets.AWS_REGION }}
-          deployment_package: dotnet-github-actions-publish
+          deployment_package: deploy.zip
 
 #https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
   # build-test-FE:
