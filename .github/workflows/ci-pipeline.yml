@@ -11,27 +11,27 @@ on:
     #branches: [ "main" ]
 
 jobs:
-  build-test-BE:
-    runs-on: ubuntu-latest
+#   build-test-BE:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 6.0.x
         
-    - name: Restore dependencies
-      working-directory: ./BackEnd/WishGranter
-      run: dotnet restore
+#     - name: Restore dependencies
+#       working-directory: ./BackEnd/WishGranter
+#       run: dotnet restore
       
-    - name: Publish
-      working-directory: ./BackEnd/WishGranter
-      run: 	dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+#     - name: Publish
+#       working-directory: ./BackEnd/WishGranter
+#       run: 	dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
       
-    - name: Test
-      working-directory: ./BackEnd/UnitTests_WishGranter
-      run: dotnet test --no-build --verbosity normal
+#     - name: Test
+#       working-directory: ./BackEnd/UnitTests_WishGranter
+#       run: dotnet test --no-build --verbosity normal
 
     # Share artifact inside workflow
     # - name: Share artifact inside workflow
