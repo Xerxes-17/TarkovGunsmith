@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export enum AmmoType {
   "Caliber86x70",
   "Caliber127x55",

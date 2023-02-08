@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Container, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner } from "react-bootstrap";
 import { TransmissionArmorTestResult } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -8,7 +8,6 @@ import SelectAmmo from './SelectAmmo';
 import FilterRangeSelector from '../Forms/FilterRangeSelector';
 import { armorOptions, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
 import { ammoOptions, filterAmmoOptions } from './AmmoData';
-import { resourceLimits } from 'worker_threads';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -42,7 +41,6 @@ export default function ArmorDamageCalculator(props: any) {
     const [armorName, setArmorName] = useState("6B3TM-01M armored rig");
     const [armorDurabilityMax, setArmorDurabilityMax] = useState(40);
     const [armorDurabilityNum, setArmorDurabilityNum] = useState(40);
-    const [armorDurabilityPerc, setArmorDurabilityPerc] = useState(100);
 
     const [filteredArmorOptions, setFilteredArmorOptions] = useState(armorOptions);
 
@@ -328,7 +326,7 @@ export default function ArmorDamageCalculator(props: any) {
                                         </Col>
                                         <Col style={{ maxWidth: "110px" }}>
                                             <Form.Label>Percentage</Form.Label>
-                                            <Form.Control disabled={true} value={(armorDurabilityNum / armorDurabilityMax * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"} onChange={(e) => { setArmorDurabilityPerc(parseInt(e.target.value)) }} />
+                                            <Form.Control disabled={true} value={(armorDurabilityNum / armorDurabilityMax * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"}/>
                                         </Col>
                                     </Row>
                                 </Form.Group>

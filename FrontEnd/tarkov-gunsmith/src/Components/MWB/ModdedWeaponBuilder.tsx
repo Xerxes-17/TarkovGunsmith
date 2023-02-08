@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Row, Col, Form, Button, Stack, Container, Modal, Card, Spinner } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Modal, Card, Spinner } from "react-bootstrap";
 import Select from 'react-select'
 import { requestWeaponBuild } from "../../Context/Requests";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
-import SelectSingleWeapon from "./SelectSingleWeapon";
-import { WeaponOption, filterStockWeaponOptions, StockWeaponOptions, TransmissionWeaponBuildResult, TransmissionAttachedMod, sortStockWeaponOptions } from './WeaponData';
+import { filterStockWeaponOptions, TransmissionWeaponBuildResult, TransmissionAttachedMod } from './WeaponData';
 
 // Renders the home
 export default function ModdedWeaponBuilder(props: any) {

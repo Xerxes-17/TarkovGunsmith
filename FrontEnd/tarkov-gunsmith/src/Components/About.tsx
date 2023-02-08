@@ -1,4 +1,4 @@
-import { Row, Col, Card, Button, Stack } from "react-bootstrap";
+import { Col, Card } from "react-bootstrap";
 
 // Renders the home
 export default function About(props: any) {

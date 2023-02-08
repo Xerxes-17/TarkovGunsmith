@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { Col, Row, Stack, Table } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { armorOptions, ArmorOption, MaterialType } from './ArmorData';
+import { armorOptions, MaterialType } from './ArmorData';
 
 
 export default function SelectArmor(props: any) {

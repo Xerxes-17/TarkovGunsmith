@@ -1,4 +1,4 @@
-import { Row, Col, Card, Nav } from "react-bootstrap";
+import { Col, Card, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER } from "../Util/links";
 
@@ -9,6 +9,7 @@ export default function Home(props: any) {
             <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                 <Card.Header as="h1">
                     Welcome to Tarkov Gunsmith!
+
                 </Card.Header>
             </Card>
             <div className="row gy-2">
@@ -65,6 +66,31 @@ export default function Home(props: any) {
                         </Card.Body>
                     </Card>
                 </Col>
+
+                <Col xl>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                            <Nav.Link href="https://discord.gg/F7GZE4H7fq">
+                                <Card.Header as="h5">Discord</Card.Header>
+                            </Nav.Link>
+                        <Card.Body style={{textAlign:"center"}}>
+                            <iframe 
+                            src="https://discord.com/widget?id=1071286504623710228&theme=dark" 
+                            width="350" 
+                            height="450" 
+                            allowTransparency={true} 
+                            title="discordWidget" 
+                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                            
+                            />
+                            <Card.Text>
+                                We have a discord too, as you would expect.
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+
+
+
             </div>
         </>
     );
