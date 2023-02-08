@@ -492,7 +492,12 @@ export default function ArmorDamageCalculator(props: any) {
                                         <Col md={7}>
                                             <Form.Group controlId="MaxDurability">
                                                 <Form.Label>Armor Durability Max</Form.Label>
-                                                <Form.Control type="MaxDurability" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom} onChange={(e) => { setArmorDurabilityMax_Custom(parseInt(e.target.value)) }} />
+                                                <Form.Control type="MaxDurability" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom}
+                                                    onChange={(e) => {
+                                                         setArmorDurabilityMax_Custom(parseInt(e.target.value))
+                                                         setArmorDurabilityNum_Custom(parseInt(e.target.value))
+                                                         }} 
+                                                />
                                                 <Form.Text className="text-muted">
                                                     Eg: "40" without quotes.
                                                 </Form.Text>
