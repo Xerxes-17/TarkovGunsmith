@@ -27,6 +27,15 @@ export default function ArmorDamageCalculator(props: any) {
                 <Modal.Body>
                     <p>Currently doesn't include rounds with less than 20 penetration because because I haven't done my own testing with these yet, and at that range either you're doing leg meta and it doesn't matter or you don't know what you're doing.</p>
                     <p>Custom mode allows you to set the stats of the armor and ammo to whatever you want. The defaults are for RatRig vs 7.62x39 PS.</p>
+                    <h5>Glossary:</h5>
+                    <p><strong>🛡 Armor Class:</strong> How strong your armor can be.</p>
+                    <p><strong>⛓ Max Durability:</strong> How tough your armor can be.</p>
+                    <p><strong>⚖ Effective Durability:</strong> Durability divided by the armor material factor, allows you to compare armors of different materials directly.</p>
+                    <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
+                    <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
+                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits.</p>
+                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. -1 or 5 means there isn't one.</p>
+                    
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -464,7 +473,6 @@ export default function ArmorDamageCalculator(props: any) {
                                             <Form.Group className="md" controlId="ArmorClass">
                                                 <Form.Label>Armor Class 🛡</Form.Label>
                                                 <Form.Select aria-label="Default select example" defaultValue={armorClass} onChange={(e) => { setArmorClass(parseInt(e.target.value)) }}>
-                                                    <option value={1}>1</option>
                                                     <option value={2}>2</option>
                                                     <option value={3}>3</option>
                                                     <option value={4}>4</option>
