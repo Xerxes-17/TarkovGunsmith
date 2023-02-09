@@ -22,6 +22,25 @@ namespace WishGranterProto.ExtensionMethods
             return weapon;
         }
 
+        public static void RemoveModFromCompoundItem(CompoundItem compItem, WeaponMod mod)
+        {
+            foreach(var slot in compItem.Slots)
+            {
+                if (slot.ContainedItem != null)
+                {
+                    var slotItem = (CompoundItem) slot.ContainedItem;
+                    if(slotItem.Id == mod.Id)
+                    {
+                        slot.ContainedItem = null;
+                    }
+                    else if (slotItem.Slots.Count > 0)
+                    {
+                        RemoveModFromCompoundItem(slotItem, mod);
+                    }
+                }
+            }
+        }
+
         public static List<WeaponMod> ProcessBlockersInListOfMods(List<WeaponMod> inputList, Weapon inputWeapon, string mode)
         {
             // Make a list which will be returned later.
@@ -33,7 +52,6 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach(WeaponMod weaponMod in inputList)
             {
-                //! Get rid of any limit mods, wtf?
                 foreach(Slot slot in weaponMod.Slots)
                 {
                     slot.ContainedItem = null;
@@ -141,6 +159,9 @@ namespace WishGranterProto.ExtensionMethods
                             // need to remove all of the blockers if the champion fails
                             returnList.RemoveAll(x=> blocking.Contains(x));
                             //returnList.Remove(candidateBlocker);
+
+                            //Also, if the blocker is already fitted as a part of a stock config (looking at you ADAR!) we need to remove the blocker from the weapon.
+                            RemoveModFromCompoundItem(inputWeapon, candidateBlocker);
                         }
                     }
                     else if (mode == "ergo")
@@ -158,15 +179,19 @@ namespace WishGranterProto.ExtensionMethods
                             // need to remove all of the blockers if the champion fails
                             returnList.RemoveAll(x => blocking.Contains(x));
                             //returnList.Remove(candidateBlocker);
+
+
+                            //Also, if the blocker is already fitted as a part of a stock config (looking at you ADAR!) we need to remove the blocker from the weapon.
+                            RemoveModFromCompoundItem(inputWeapon, candidateBlocker);
                         }
                     }
                     //Console.WriteLine("");
 
                 }
-                else
-                {
-                    //Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
-                }
+                //else
+                //{
+                //    //Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
+                //}
             }
 
             return returnList;
