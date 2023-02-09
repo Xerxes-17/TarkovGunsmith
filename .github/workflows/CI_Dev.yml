@@ -13,7 +13,7 @@ on:
 jobs:
   #https://github.com/orgs/community/discussions/25669#discussioncomment-3248665
   check-BE:
-    name: Check files
+    name: Check files (BE)
     outputs:
       run_job: ${{ steps.check_files.outputs.run_job }}
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
       working-directory: ./BackEnd/WishGranter
 
   check-FE:
-    name: Check files
+    name: Check files (FE)
     outputs:
       run_job: ${{ steps.check_files.outputs.run_job }}
     runs-on: ubuntu-latest
