@@ -135,10 +135,14 @@ void startAPI()
     app.MapHealthChecks("/health");
     app.MapGet("/", () => "Hello World! I use Swagger btw.");
     app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
-    app.MapGet("/CalculateArmorVsBulletSeries_Name/{armorName}/{startingDuraPerc}/{bulletName}", (string armorName, double startingDuraPerc, string bulletName) => CalculateArmorVsBulletSeries_Name(armorName, bulletName, startingDuraPerc, ImageLinksJSON));
+    app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}", (string armorId, double startingDuraPerc, string bulletId) => CalculateArmorVsBulletSeries(armorId, bulletId, startingDuraPerc, ImageLinksJSON));
     app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",
         (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
         CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
+
+    app.MapGet("/GetWeaponOptionsList", () => GetWeaponOptionsList());
+    app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
+    app.MapGet("/GetAmmoOptionsList", () => GetAmmoOptionsList());
 
     app.Run();
 }
@@ -151,6 +155,25 @@ void startAPI()
 /// </summary>
 /// <param name="level"> The player's level </param>
 /// <param name="mode"> Goal of the fittings, can be "recoil" or "ergo" </param>
+/// 
+List<SelectionWeapon> GetWeaponOptionsList()
+{
+    Console.WriteLine($"Request for WeaponOptionList");
+    return WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
+}
+
+List<SelectionArmor> GetArmorOptionsList()
+{
+    Console.WriteLine($"Request for ArmorOptionList");
+    return WG_Output.WriteArmorList(RatStashDB);
+}
+List<SelectionAmmo> GetAmmoOptionsList()
+{
+    Console.WriteLine($"Request for AmmoOptionList");
+    return WG_Output.WriteAmmoList(RatStashDB);
+}
+
+
 string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int muzzleMode, string searchString)
 {
     Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
@@ -223,26 +246,17 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
     }
-
-    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, imageLinks);
-}
-
-// Might need to make an IEnum list of armors and rigs with AC instead of allowing for search of any rig.
-TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, string bulletName, double startingDuraPerc, JObject imageLinks)
-{
-    Console.WriteLine($"Request for ADC_Normal: [{armorName}, {startingDuraPerc}, {bulletName}]");
-
-    TransmissionArmorTestResult result = new();
-
-    var armorSearchResult = RatStashDB.GetItem(item=> item.Name.Contains(armorName));
-    var bulletSearchResult = RatStashDB.GetItem(item => item.Name.Contains(bulletName));
-
-    if(armorSearchResult != null && bulletSearchResult != null)
+    else if (Armor.GetType() == typeof(Headwear))
     {
-        result = CalculateArmorVsBulletSeries(armorSearchResult.Id, bulletSearchResult.Id, startingDuraPerc,  imageLinks);
+        var temp = (Headwear)Armor;
+        armorItem.Name = temp.Name;
+        armorItem.Id = temp.Id;
+        armorItem.MaxDurability = temp.MaxDurability;
+        armorItem.ArmorClass = temp.ArmorClass;
+        armorItem.ArmorMaterial = temp.ArmorMaterial;
     }
 
-    return result;
+    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, imageLinks);
 }
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)

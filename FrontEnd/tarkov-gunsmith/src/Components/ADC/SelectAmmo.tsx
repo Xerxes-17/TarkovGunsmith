@@ -1,13 +1,10 @@
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { ammoOptions } from './AmmoData';
-
-
 
 export default function SelectAmmo(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        props.handleAmmoSelection(selectedOption.label)
+        props.handleAmmoSelection(selectedOption.value)
         // console.log(`Option selected:`, selectedOption);
     };
 
@@ -18,7 +15,7 @@ export default function SelectAmmo(props: any) {
                     placeholder="Select your ammo..."
                     className="basic-single"
                     classNamePrefix="select"
-                    defaultValue={ammoOptions[29]}
+                    // defaultValue={ammoOptions[29]}
                     isClearable={true}
                     isSearchable={true}
                     name="selectAmmo"

@@ -1,12 +1,11 @@
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { armorOptions, MaterialType } from './ArmorData';
-
+import { MaterialType } from './ArmorData';
 
 export default function SelectArmor(props: any) {
 
     const handleChange = (selectedOption: any) => {
-        props.handleArmorSelection(selectedOption.label, selectedOption.maxDurability)
+        props.handleArmorSelection(selectedOption.value, selectedOption.maxDurability)
         //console.log(`Option selected:`, selectedOption);
     };
 
@@ -17,7 +16,7 @@ export default function SelectArmor(props: any) {
                     placeholder="Select your armor..."
                     className="basic-single"
                     classNamePrefix="select"
-                    defaultValue={armorOptions[8]}
+                    // defaultValue={armorOptions[8]}
                     isClearable={false}
                     isSearchable={true}
                     name="selectArmor"

@@ -22,6 +22,26 @@ namespace WishGranterProto.ExtensionMethods
             return weapon;
         }
 
+        // A method for removing a mod from a compund item, without needing to know where it is exactly.
+        public static void RemoveModFromCompoundItem(CompoundItem compItem, WeaponMod mod)
+        {
+            foreach(var slot in compItem.Slots)
+            {
+                if (slot.ContainedItem != null)
+                {
+                    var slotItem = (CompoundItem) slot.ContainedItem;
+                    if(slotItem.Id == mod.Id)
+                    {
+                        slot.ContainedItem = null;
+                    }
+                    else if (slotItem.Slots.Count > 0)
+                    {
+                        RemoveModFromCompoundItem(slotItem, mod);
+                    }
+                }
+            }
+        }
+
         public static List<WeaponMod> ProcessBlockersInListOfMods(List<WeaponMod> inputList, Weapon inputWeapon, string mode)
         {
             // Make a list which will be returned later.
@@ -33,7 +53,6 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach(WeaponMod weaponMod in inputList)
             {
-                //! Get rid of any limit mods, wtf?
                 foreach(Slot slot in weaponMod.Slots)
                 {
                     slot.ContainedItem = null;
@@ -62,6 +81,9 @@ namespace WishGranterProto.ExtensionMethods
                 // Put the items of that type into blocking or non-blocking
                 foreach (var item in hashSet)
                 {
+                    if (item.Id == "5649af884bdc2d1b2b8b4589")
+                        Console.WriteLine("B33 bastard");
+
                     if(item.ConflictingItems.Count > 0)
                         blocking.Add(item);
                     else
@@ -76,7 +98,7 @@ namespace WishGranterProto.ExtensionMethods
                     //! Get the most effective blocker mod of this type
                     if (mode == "recoil")
                     {
-                        blocking = blocking.OrderBy(x => GetCompoundItemTotals<WeaponMod>(x).TotalRecoil).ToList();
+                        blocking = blocking.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList(); //! helps if you make recoils be floats you dingus
                     }
                     else if (mode == "ergo")
                     {
@@ -101,8 +123,10 @@ namespace WishGranterProto.ExtensionMethods
                     modsListForBlocker.RemoveAll(x => candidateBlocker.ConflictingItems.Contains(x.Id));
                     modsListForBlocker.Add(candidateBlocker);
 
+                    
+
                     //! Model the blockerMod build and output the result.
-                    versionWithBlocker = (Weapon)FitCompoundItem(versionWithBlocker, modsListForBlocker, mode);
+                    versionWithBlocker = (Weapon)FitCompoundItem(versionWithBlocker, modsListForBlocker, mode, null, candidateBlocker);
                     var withBlockerResults = GetCompoundItemTotals<Weapon>(versionWithBlocker);
 
                     //WG_Output.WriteOutputFileWeapon(versionWithBlocker, "aa_withBlockerBuild");
@@ -123,6 +147,7 @@ namespace WishGranterProto.ExtensionMethods
                     //! Model the nonBlocking build and output the result.
                     verionWithNonBlocking = (Weapon)FitCompoundItem(verionWithNonBlocking, modsListForNonBlocking, mode);
                     var withNonBlockingResults = GetCompoundItemTotals<Weapon>(verionWithNonBlocking);
+
                     //WG_Output.WriteOutputFileWeapon(verionWithNonBlocking, "aa_withNonBlockingBuild");
 
                     //TODO: Deal with case where all choices are blocking eg, M4A1 barrels or when the blocking and non-blocking are equal
@@ -132,7 +157,7 @@ namespace WishGranterProto.ExtensionMethods
                         //Console.WriteLine($"The blocker stats:     {withBlockerResults}");
                         //Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
 
-                        if(withBlockerResults.TotalRecoil < withNonBlockingResults.TotalRecoil)
+                        if (withBlockerResults.TotalRecoil < withNonBlockingResults.TotalRecoil)
                         {
                             returnList.RemoveAll(x => candidateBlocker.ConflictingItems.Contains(x.Id));
                         }
@@ -141,6 +166,9 @@ namespace WishGranterProto.ExtensionMethods
                             // need to remove all of the blockers if the champion fails
                             returnList.RemoveAll(x=> blocking.Contains(x));
                             //returnList.Remove(candidateBlocker);
+
+                            //Also, if the blocker is already fitted as a part of a stock config (looking at you ADAR!) we need to remove the blocker from the weapon.
+                            RemoveModFromCompoundItem(inputWeapon, candidateBlocker);
                         }
                     }
                     else if (mode == "ergo")
@@ -158,15 +186,19 @@ namespace WishGranterProto.ExtensionMethods
                             // need to remove all of the blockers if the champion fails
                             returnList.RemoveAll(x => blocking.Contains(x));
                             //returnList.Remove(candidateBlocker);
+
+
+                            //Also, if the blocker is already fitted as a part of a stock config (looking at you ADAR!) we need to remove the blocker from the weapon.
+                            RemoveModFromCompoundItem(inputWeapon, candidateBlocker);
                         }
                     }
                     //Console.WriteLine("");
 
                 }
-                else
-                {
-                    //Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
-                }
+                //else
+                //{
+                //    //Console.WriteLine($"No blockers in slot type of {hashSet.First().GetType()}");
+                //}
             }
 
             return returnList;
@@ -236,7 +268,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // Fits a compound item according to the mods list given and the mode.
-        public static CompoundItem FitCompoundItem(CompoundItem CompItem, List<WeaponMod> mods, string mode, List<J_CashOffer> CashOffers = null)
+        public static CompoundItem FitCompoundItem(CompoundItem CompItem, List<WeaponMod> mods, string mode, List<J_CashOffer> CashOffers = null, WeaponMod mustFit = null)
         {
             //Clone Stuff
             var CompItem_CLONE = CompItem.DeepClone();
@@ -250,7 +282,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 List<WeaponMod>? candidatesList = new();
 
-                candidatesList.AddRange(shortList.Select(item => (WeaponMod)FitCompoundItem(item, mods, mode)));
+                candidatesList.AddRange(shortList.Select(item => (WeaponMod)FitCompoundItem(item, mods, mode, null, mustFit)));
 
                 if (shortList.Count > 0)
                 {
@@ -268,7 +300,7 @@ namespace WishGranterProto.ExtensionMethods
                             // Sort options by trait
                             candidatesList = candidatesList.OrderByDescending(x => GetCompoundItemTotals<WeaponMod>(x).TotalErgo).ToList();
 
-                            if(CashOffers != null)
+                            if (CashOffers != null)
                             {
                                 // Get all of the candidates with the best Ergonomics value
                                 candidatesList = candidatesList.Where(item => item.Ergonomics.Equals(candidatesList.First().Ergonomics)).ToList();
@@ -322,9 +354,27 @@ namespace WishGranterProto.ExtensionMethods
                             //candidatesList = candidatesList.OrderBy(x => getModTotals(x).t_price).ToList();
                         }
                     }
-                    if (candidatesList.Count > 0)
-                        slot.ContainedItem = candidatesList.First();                  
+                    // This is here so that when there is blocker comparisions being done, the blocker is forced into being used in the comparision.
+                    if(mustFit != null)
+                    {
+                        if(slot.Filters[0].Whitelist.Contains(mustFit.Id))
+                            slot.ContainedItem = mustFit;
+                        else if (candidatesList.Count > 0)
+                            slot.ContainedItem = candidatesList.First();
+                        {
+                            if (candidatesList.Count > 0)
+                                slot.ContainedItem = candidatesList.First();
+                        }
+                            
+                    }
+                    else
+                    {
+                        if (candidatesList.Count > 0)
+                            slot.ContainedItem = candidatesList.First();
+                    }
                 }
+
+
             }
             return CompItem_CLONE;
         }
@@ -359,6 +409,37 @@ namespace WishGranterProto.ExtensionMethods
 
             // Return the values as Ints because that makes comparision easier and we don't care about a .5 ergo difference.
             return ( (int)sumErgo, (int)sumRecoil);
+        }
+
+        public static (int TotalErgo, double TotalRecoil) GetCompoundItemTotals_RecoilFloat<T>(this CompoundItem item)
+        {
+            float sumErgo = -1;
+            float sumRecoil = -1;
+            List<WeaponMod> Children = AccumulateMods(item.Slots);
+            var (TotalErgo, TotalRecoil) = GetAttachmentsTotals(Children);
+
+
+            if (typeof(T) == typeof(Weapon))
+            {
+                var weapon = (Weapon)item;
+
+                sumErgo = weapon.Ergonomics + (int)TotalErgo;
+                sumRecoil = weapon.RecoilForceUp + (weapon.RecoilForceUp * (TotalRecoil / 100));
+            }
+            else if (typeof(T) == typeof(WeaponMod))
+            {
+                var mod = (WeaponMod)item;
+
+                sumErgo = mod.Ergonomics + TotalErgo;
+                sumRecoil = mod.Recoil + TotalRecoil;
+            }
+            else
+            {
+                Console.Error.WriteLine("Error: Incorrect type given to method GetCompoundItemTotals()");
+            }
+
+            // Return the values as Ints because that makes comparision easier and we don't care about a .5 ergo difference.
+            return ((int)sumErgo, sumRecoil);
         }
 
         // Returns a flat list of attached mods to a given parent's slots list.
