@@ -151,11 +151,6 @@ namespace WishGranterProto.ExtensionMethods
                 var temp = (Headwear)x;
                 return temp.ArmorClass > 2;
             });
-            
-            foreach (Item item in Helmets)
-            {
-                Console.WriteLine(item.Name);
-            }
 
             List<SelectionArmor> result = new();
             IEnumerable<Item> All_Armor = database.GetItems(m => m is Armor);
