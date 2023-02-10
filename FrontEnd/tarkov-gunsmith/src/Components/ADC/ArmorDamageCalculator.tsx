@@ -51,8 +51,8 @@ export default function ArmorDamageCalculator(props: any) {
     const [ArmorOptions, setArmorOptions] = useState<ArmorOption[]>([]);
 
     const [armorId, setArmorId] = useState("");
-    const [armorDurabilityMax, setArmorDurabilityMax] = useState(40);
-    const [armorDurabilityNum, setArmorDurabilityNum] = useState(40);
+    const [armorDurabilityMax, setArmorDurabilityMax] = useState(1);
+    const [armorDurabilityNum, setArmorDurabilityNum] = useState(1);
 
     const [filteredArmorOptions, setFilteredArmorOptions] = useState(ArmorOptions);
 
