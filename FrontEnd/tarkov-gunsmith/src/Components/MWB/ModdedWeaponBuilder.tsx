@@ -197,6 +197,7 @@ export default function ModdedWeaponBuilder(props: any) {
                         />
                         <Form.Text style={{ color: "white" }}>Level 20 for LL 2 traders. Level 30 for LL3 Level 40 for LL4.</Form.Text>
                         <br /><br />
+                        <strong>Available Choices:</strong> {filteredStockWeaponOptions.length} <br />
                         {SelectSingleWeapon}
                         <br />
                         <FilterRangeSelector
