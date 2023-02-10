@@ -117,7 +117,18 @@ namespace WishGranterProto.ExtensionMethods
                 sOption.PenetrationPower = temp.PenetrationPower;
                 sOption.ArmorDamagePerc = temp.ArmorDamage;
                 sOption.BaseArmorDamage = (temp.PenetrationPower * (temp.ArmorDamage / 100));
+
                 sOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == true)
+                {
+                    sOption.TraderLevel = 5; // Can buy on Flea.
+                }
+                else if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    sOption.TraderLevel = 6;
+                }
+
+
 
                 result.Add(sOption);
             }
@@ -138,7 +149,7 @@ namespace WishGranterProto.ExtensionMethods
             IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
             Helmets = Helmets.Where(x => {
                 var temp = (Headwear)x;
-                return temp.ArmorClass > 3;
+                return temp.ArmorClass > 2;
             });
             
             foreach (Item item in Helmets)
@@ -170,7 +181,16 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.MaxDurability = temp.MaxDurability;
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5; // Can buy on Flea.
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
 
                 armorOption.Type = "Helmet";
 
@@ -192,6 +212,15 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
 
+                if(armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5;
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
+
                 armorOption.Type = "ArmorVest";
 
                 result.Add(armorOption);
@@ -209,7 +238,16 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.MaxDurability = temp.MaxDurability;
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5;
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
 
                 armorOption.Type = "ChestRig";
 

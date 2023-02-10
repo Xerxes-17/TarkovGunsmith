@@ -7,7 +7,7 @@ import SelectArmor from './SelectArmor';
 import SelectAmmo from './SelectAmmo';
 import FilterRangeSelector from '../Forms/FilterRangeSelector';
 import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
-import { ammoOptions, filterAmmoOptions } from './AmmoData';
+import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 
 export default function ArmorDamageCalculator(props: any) {
@@ -35,7 +35,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
                     <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
                     <p><strong>💀 Damage:</strong> How much you will unalive someone on hits/penetrations (before armor flesh damage mitigation that is).</p>
-                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. -1 or 5 means there isn't one.</p>
+                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. 5 means it can be bought on flea market, 6 means found in raid only. <br/>Note: the app does not account for barters yet.</p> 
                     
                 </Modal.Body>
                 <Modal.Footer>
@@ -62,6 +62,7 @@ export default function ArmorDamageCalculator(props: any) {
     const [newArmorClasses, setNewArmorClasses] = useState(ARMOR_CLASSES);
     const [newMaterials, setNewMaterials] = useState(MATERIALS);
 
+    
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorOptionsList');
@@ -72,11 +73,12 @@ export default function ArmorDamageCalculator(props: any) {
         armors();
         console.log("useEffect")
     }, [])
-
     // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
     useEffect(() => {
         setFilteredArmorOptions(filterArmorOptions(newArmorTypes, newArmorClasses, newMaterials, ArmorOptions));
     },[newArmorTypes, ArmorOptions, newArmorClasses, newMaterials])
+
+
 
     const handleNewArmorClassesTBG = (val: SetStateAction<number[]>) => {
         if (val.length > 0) {
@@ -97,7 +99,7 @@ export default function ArmorDamageCalculator(props: any) {
     }
 
     // Ammo Stuff
-    const [AmmoOptions, setAmmoOptions] = useState<ArmorOption[]>([]);
+    const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
 
     const [ammoId, setAmmoId] = useState("");
 
@@ -118,7 +120,7 @@ export default function ArmorDamageCalculator(props: any) {
     const [biggestTraderLevel] = useState(6); // 5 is for FLea market, 6 is for FIR
 
 
-    const [filteredAmmoOptions, setFilteredAmmoOptions] = useState(ammoOptions);
+    const [filteredAmmoOptions, setFilteredAmmoOptions] = useState(AmmoOptions);
 
     const [calibers, setCalibers] = useState([
         "Caliber86x70",
@@ -216,11 +218,11 @@ export default function ArmorDamageCalculator(props: any) {
     // This useEffect will update the ArmorOptions with the result from the async API call
     useEffect(() => {
         ammos();
-        console.log("useEffect")
+        console.log("useEffect AMMO")
     }, [])
     // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
     useEffect(() => {
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers));
+        setFilteredAmmoOptions(filterAmmoOptions(AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers));
     },[AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers])
 
     // Submit / Result
@@ -436,7 +438,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                     max={biggestArmorDamPerc}
                                                 />
                                                 <FilterRangeSelector
-                                                    label={"TL 1-4, Tmax+Flea=5, Tmax+Flea+FIR=6"}
+                                                    label={"Trader 1-4, Flea=5, FIR=6"}
                                                     value={traderLevel}
                                                     changeValue={handleTraderLevelChange}
                                                     min={smallestTraderLevel}

@@ -111,7 +111,7 @@ namespace WishGranterProto.ExtensionMethods
         public int PenetrationPower { get; set; } = -1;
         public int ArmorDamagePerc { get; set; } = -1;
         public double BaseArmorDamage { get; set; } = -1;
-        public int TraderLevel { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
     }
     public class SelectionWeapon : SelectionOption
     {
