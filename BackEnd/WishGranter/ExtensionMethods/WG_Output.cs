@@ -73,11 +73,10 @@ namespace WishGranterProto.ExtensionMethods
 
                 result.Add(selectionWeapon);
             }
+            result = result.OrderBy(x => x.Label).ToList();
 
             //using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
             //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
-
-            result = result.OrderBy(x => x.Label).ToList();
 
             return result;
 
@@ -122,6 +121,8 @@ namespace WishGranterProto.ExtensionMethods
 
                 result.Add(sOption);
             }
+
+            result = result.OrderBy(x => x.Label).ToList();
 
             //using StreamWriter writetext = new("outputs\\MyAmmos.json"); // This is here as a debug/verify
             //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
@@ -179,6 +180,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 result.Add(armorOption);
             }
+            result = result.OrderBy(x => x.Label).ToList();
 
             //using StreamWriter writetext = new("outputs\\MyArmors.json"); // This is here as a debug/verify
             //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
