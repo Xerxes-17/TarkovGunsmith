@@ -140,6 +140,10 @@ void startAPI()
         (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
         CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
 
+    app.MapGet("/GetWeaponOptionsList", () => GetWeaponOptionsList());
+    app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
+    app.MapGet("/GetAmmoOptionsList", () => GetAmmoOptionsList());
+
     app.Run();
 }
 
@@ -151,6 +155,25 @@ void startAPI()
 /// </summary>
 /// <param name="level"> The player's level </param>
 /// <param name="mode"> Goal of the fittings, can be "recoil" or "ergo" </param>
+/// 
+List<SelectionWeapon> GetWeaponOptionsList()
+{
+    Console.WriteLine($"Request for WeaponOptionList");
+    return WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
+}
+
+List<SelectionArmor> GetArmorOptionsList()
+{
+    Console.WriteLine($"Request for ArmorOptionList");
+    return WG_Output.WriteArmorList(RatStashDB);
+}
+List<SelectionAmmo> GetAmmoOptionsList()
+{
+    Console.WriteLine($"Request for AmmoOptionList");
+    return WG_Output.WriteAmmoList(RatStashDB);
+}
+
+
 string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int muzzleMode, string searchString)
 {
     Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
