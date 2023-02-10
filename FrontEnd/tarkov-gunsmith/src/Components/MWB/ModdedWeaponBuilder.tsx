@@ -25,8 +25,6 @@ export default function ModdedWeaponBuilder(props: any) {
     }
 
     const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
-
-
     const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
 
     // This useEffect will update the WeaponOptions with the result from the async API call

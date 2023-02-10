@@ -87,6 +87,8 @@ namespace WishGranterProto.ExtensionMethods
         public string? Label { get; set; } // Name
         public string? ImageLink { get; set; }
 
+        // public boolean IsBarter { get; setl} = false;
+
         public void SetImageLinkWithId(string Id)
         {
             ImageLink = $"https://assets.tarkov.dev/{Id}-icon.jpg";

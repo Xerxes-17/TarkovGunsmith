@@ -9,8 +9,7 @@ export async function requestArmorTestSerires(requestDetails: any) {
     let response = null;
 
     try {
-        // getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}
-        response = await axios.get(API_URL + `/CalculateArmorVsBulletSeries_Name/${requestDetails.armorName}/${requestDetails.armorDurability}/${requestDetails.ammoName}`);
+        response = await axios.get(API_URL + `/CalculateArmorVsBulletSeries/${requestDetails.armorId}/${requestDetails.armorDurability}/${requestDetails.ammoId}`);
     } catch (error) {
         throw error;
     }

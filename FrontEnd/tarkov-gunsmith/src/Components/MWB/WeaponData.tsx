@@ -1,7 +1,3 @@
-import fileJsonData from './MyStockPresets.json';
-
-export type WeaponOption = typeof fileJsonData;
-
 export type TransmissionWeaponBuildResult = {
     attachedModsFLat: TransmissionAttachedMod[],
     baseErgo: number,
@@ -49,28 +45,28 @@ export type TransmissionAttachedMod = {
 //     readonly imageLink: string;
 // }
 
-export function filterStockWeaponOptions(playerLevel: number) {
-    const result = StockWeaponOptions.filter(item =>
-        item.requiredPlayerLevel <= playerLevel
-    )
-    // Expand on this later.
-    return result;
-}
+// export function filterStockWeaponOptions(playerLevel: number) {
+//     const result = StockWeaponOptions.filter(item =>
+//         item.requiredPlayerLevel <= playerLevel
+//     )
+//     // Expand on this later.
+//     return result;
+// }
 
-export function sortStockWeaponOptions() {
-    StockWeaponOptions.sort((a, b) => {
-        if (a.Label < b.Label){
-            return -1;
-        }
-        else if (a.Label > b.Label){
-            return 1
-        }
-        else{
-            return 0;
-        }
-    })
-}
+// export function sortStockWeaponOptions() {
+//     StockWeaponOptions.sort((a, b) => {
+//         if (a.Label < b.Label){
+//             return -1;
+//         }
+//         else if (a.Label > b.Label){
+//             return 1
+//         }
+//         else{
+//             return 0;
+//         }
+//     })
+// }
 
-export const StockWeaponOptions = fileJsonData;
+// export const StockWeaponOptions = fileJsonData;
 
-sortStockWeaponOptions();
+// sortStockWeaponOptions();

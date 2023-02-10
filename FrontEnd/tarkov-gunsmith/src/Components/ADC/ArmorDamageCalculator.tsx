@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion } from "react-bootstrap";
 import { TransmissionArmorTestResult } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
@@ -6,8 +6,9 @@ import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../C
 import SelectArmor from './SelectArmor';
 import SelectAmmo from './SelectAmmo';
 import FilterRangeSelector from '../Forms/FilterRangeSelector';
-import { armorOptions, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
+import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
 import { ammoOptions, filterAmmoOptions } from './AmmoData';
+import { API_URL } from '../../Util/util';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -47,43 +48,58 @@ export default function ArmorDamageCalculator(props: any) {
     )
 
     //Armor Stuff
-    const [armorName, setArmorName] = useState("6B3TM-01M armored rig");
+    const [ArmorOptions, setArmorOptions] = useState<ArmorOption[]>([]);
+
+    const [armorId, setArmorId] = useState("");
     const [armorDurabilityMax, setArmorDurabilityMax] = useState(40);
     const [armorDurabilityNum, setArmorDurabilityNum] = useState(40);
 
-    const [filteredArmorOptions, setFilteredArmorOptions] = useState(armorOptions);
+    const [filteredArmorOptions, setFilteredArmorOptions] = useState(ArmorOptions);
 
     const [newArmorTypes, setNewArmorTypes] = useState(ARMOR_TYPES);
     const handleNewArmorTypesTBG = (val: SetStateAction<string[]>) => setNewArmorTypes(val);
 
     const [newArmorClasses, setNewArmorClasses] = useState(ARMOR_CLASSES);
+    const [newMaterials, setNewMaterials] = useState(MATERIALS);
+
+
+    const armors = async () => {
+        const response = await fetch(API_URL + '/GetArmorOptionsList');
+        setArmorOptions(await response.json())
+    }
+    // This useEffect will update the ArmorOptions with the result from the async API call
+    useEffect(() => {
+        armors();
+        console.log("useEffect")
+    }, [])
+
+    // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
+    useEffect(() => {
+        setFilteredArmorOptions(filterArmorOptions(newArmorClasses, newMaterials, ArmorOptions));
+    },[ArmorOptions, newArmorClasses, newMaterials])
+
     const handleNewArmorClassesTBG = (val: SetStateAction<number[]>) => {
         if (val.length > 0) {
             setNewArmorClasses(val);
-
-            const arr_ACs: any = val
-            setFilteredArmorOptions(filterArmorOptions(arr_ACs, newMaterials));
         }
     }
 
-    const [newMaterials, setNewMaterials] = useState(MATERIALS);
     const handleNewMaterialsTBG = (val: SetStateAction<string[]>) => {
         if (val.length > 0) {
             setNewMaterials(val);
-
-            const arr_Materials: any = val
-            setFilteredArmorOptions(filterArmorOptions(newArmorClasses, arr_Materials));
         }
     }
 
-    function handleArmorSelection(name: string, maxDurability: number) {
-        setArmorName(name);
+    function handleArmorSelection(armorId: string, maxDurability: number) {
+        setArmorId(armorId);
         setArmorDurabilityMax(maxDurability);
         setArmorDurabilityNum(maxDurability);
     }
 
     // Ammo Stuff
-    const [ammoName, setAmmoName] = useState("5.45x39mm PS gs");
+    const [AmmoOptions, setAmmoOptions] = useState<ArmorOption[]>([]);
+
+    const [ammoId, setAmmoId] = useState("");
 
     const [minDamage, setMinDamage] = useState(25); // Need to make these values be drawn from something rather than magic numbers
     const [smallestDamage] = useState(25);
@@ -139,7 +155,6 @@ export default function ArmorDamageCalculator(props: any) {
 
         const arr: any = [val, intermediate, pistol, shotgun].flat();
         setCalibers(arr)
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, arr));
     }
 
     const INTERMEDIATE = ["Caliber762x39", "Caliber545x39", "Caliber556x45NATO", "Caliber762x35", "Caliber366TKM", "Caliber9x39"];
@@ -150,7 +165,6 @@ export default function ArmorDamageCalculator(props: any) {
 
         const arr: any = [fullPower, val, pistol, shotgun].flat();
         setCalibers(arr)
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, arr));
     }
 
     const PISTOL = ["Caliber46x30", "Caliber9x21", "Caliber57x28", "Caliber1143x23ACP", "Caliber9x19PARA", "Caliber9x18PM", "Caliber762x25TT", "Caliber9x33R"];
@@ -161,7 +175,6 @@ export default function ArmorDamageCalculator(props: any) {
 
         const arr: any = [fullPower, intermediate, val, shotgun].flat();
         setCalibers(arr)
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, arr));
     }
 
     const SHOTGUN = ["Caliber12g", "Caliber23x75"];
@@ -172,10 +185,10 @@ export default function ArmorDamageCalculator(props: any) {
 
         const arr: any = [fullPower, intermediate, pistol, val].flat();
         setCalibers(arr)
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, arr));
     }
 
     // Look at replacing item 2 with item 5 as you may not need item 2 in practice.
+    //! Now that you know how to use useEffect, p[robs need to redo this whole area with it in mind.]
     const AMMO_CALIBERS = [
         ["Full Rifle", fullPower, setFullPower, FULL_POWER, FULL_POWER_DISPLAY, handleNewFullpower],
         ["Intermediate Rifle", intermediate, setIntermediate, INTERMEDIATE, INTERMEDIATE_DISPLAY, handleNewIntermediate],
@@ -185,29 +198,39 @@ export default function ArmorDamageCalculator(props: any) {
 
     function handleMinDamageChange(input: number) {
         setMinDamage(input);
-        setFilteredAmmoOptions(filterAmmoOptions(input, minPenPower, minArmorDamPerc, traderLevel, calibers));
     }
     function handleMinPenPowerChange(input: number) {
         setMinPenPower(input);
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, input, minArmorDamPerc, traderLevel, calibers));
     }
     function handleMinArmorDamPercChange(input: number) {
         setArmorDamPerc(input);
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, input, traderLevel, calibers));
     }
     function handleTraderLevelChange(input: number) {
         setTraderLevel(input);
-        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, input, calibers));
     }
+
+    const ammos = async () => {
+        const response = await fetch(API_URL + '/GetAmmoOptionsList');
+        setAmmoOptions(await response.json())
+    }
+    // This useEffect will update the ArmorOptions with the result from the async API call
+    useEffect(() => {
+        ammos();
+        console.log("useEffect")
+    }, [])
+    // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
+    useEffect(() => {
+        setFilteredAmmoOptions(filterAmmoOptions(minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers));
+    },[AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers])
 
     // Submit / Result
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
         const requestDetails = {
-            armorName: armorName,
+            armorId: armorId,
             armorDurability: (armorDurabilityNum / armorDurabilityMax * 100),
-            ammoName: ammoName,
+            ammoId: ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
             setResult(response);
@@ -430,7 +453,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                                     <strong>Available Choices:</strong> {filteredAmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
-                                    <SelectAmmo handleAmmoSelection={setAmmoName} ammoOptions={filteredAmmoOptions} />
+                                    <SelectAmmo handleAmmoSelection={setAmmoId} ammoOptions={filteredAmmoOptions} />
                                 </>
                             </Card.Body>
                         </Col>
