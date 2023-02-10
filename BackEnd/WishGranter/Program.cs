@@ -246,26 +246,17 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
     }
-
-    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, imageLinks);
-}
-
-// Might need to make an IEnum list of armors and rigs with AC instead of allowing for search of any rig.
-TransmissionArmorTestResult CalculateArmorVsBulletSeries_Name(string armorName, string bulletName, double startingDuraPerc, JObject imageLinks)
-{
-    Console.WriteLine($"Request for ADC_Normal: [{armorName}, {startingDuraPerc}, {bulletName}]");
-
-    TransmissionArmorTestResult result = new();
-
-    var armorSearchResult = RatStashDB.GetItem(item=> item.Name.Contains(armorName));
-    var bulletSearchResult = RatStashDB.GetItem(item => item.Name.Contains(bulletName));
-
-    if(armorSearchResult != null && bulletSearchResult != null)
+    else if (Armor.GetType() == typeof(Headwear))
     {
-        result = CalculateArmorVsBulletSeries(armorSearchResult.Id, bulletSearchResult.Id, startingDuraPerc,  imageLinks);
+        var temp = (Headwear)Armor;
+        armorItem.Name = temp.Name;
+        armorItem.Id = temp.Id;
+        armorItem.MaxDurability = temp.MaxDurability;
+        armorItem.ArmorClass = temp.ArmorClass;
+        armorItem.ArmorMaterial = temp.ArmorMaterial;
     }
 
-    return result;
+    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, imageLinks);
 }
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)

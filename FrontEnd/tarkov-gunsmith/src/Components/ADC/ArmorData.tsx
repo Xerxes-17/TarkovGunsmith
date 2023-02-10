@@ -34,6 +34,7 @@ export interface ArmorOption {
     value: string;
     readonly label: string;
     readonly imageLink: string;
+    type: string;
 }
 
 function convertArmorStringToEnumVal(armorString: string): number {
@@ -58,7 +59,7 @@ function convertArmorStringToEnumVal(armorString: string): number {
 }
 
 // // Gonna need to add a type field to the ArmorOption
-export function filterArmorOptions(armorClasses: number[], armorMaterials: string[], unfilteredOptions: ArmorOption[]): ArmorOption[] {
+export function filterArmorOptions(armorType:string[], armorClasses: number[], armorMaterials: string[], unfilteredOptions: ArmorOption[]): ArmorOption[] {
     let materialsFilter: number[] = [];
 
     armorMaterials.forEach(function(item){
@@ -66,6 +67,7 @@ export function filterArmorOptions(armorClasses: number[], armorMaterials: strin
     )});
 
     const result = unfilteredOptions.filter(item =>
+        armorType.includes(item.type) &&
         armorClasses.includes(item.armorClass) &&
         materialsFilter.includes(item.armorMaterial)
     )

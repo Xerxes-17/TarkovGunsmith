@@ -75,8 +75,8 @@ export default function ArmorDamageCalculator(props: any) {
 
     // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
     useEffect(() => {
-        setFilteredArmorOptions(filterArmorOptions(newArmorClasses, newMaterials, ArmorOptions));
-    },[ArmorOptions, newArmorClasses, newMaterials])
+        setFilteredArmorOptions(filterArmorOptions(newArmorTypes, newArmorClasses, newMaterials, ArmorOptions));
+    },[newArmorTypes, ArmorOptions, newArmorClasses, newMaterials])
 
     const handleNewArmorClassesTBG = (val: SetStateAction<number[]>) => {
         if (val.length > 0) {
@@ -316,11 +316,11 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Accordion.Header><strong>Armor Filters</strong></Accordion.Header>
                                     <Accordion.Body>
                                         Armor Type <br />
-                                        <Button disabled size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
+                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
                                         <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
                                             {ARMOR_TYPES.map((item: any, i: number) => {
                                                 return (
-                                                    <ToggleButton disabled key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
+                                                    <ToggleButton key={JSON.stringify(item)} variant='outline-primary' id={`tbg-btn-${item}`} value={item}>
                                                         {item}
                                                     </ToggleButton>
                                                 )

@@ -172,6 +172,8 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
 
+                armorOption.Type = "Helmet";
+
                 result.Add(armorOption);
             }
 
@@ -190,6 +192,8 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
 
+                armorOption.Type = "ArmorVest";
+
                 result.Add(armorOption);
             }
             foreach (var item in All_Rigs)
@@ -206,6 +210,8 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+
+                armorOption.Type = "ChestRig";
 
                 result.Add(armorOption);
             }

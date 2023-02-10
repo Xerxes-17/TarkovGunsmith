@@ -101,6 +101,8 @@ namespace WishGranterProto.ExtensionMethods
         public ArmorMaterial? ArmorMaterial { get; set; }
         public int? EffectiveDurability { get; set; }
         public int? TraderLevel { get; set; }
+
+        public string Type { get; set; } = "";
     }
     public class SelectionAmmo : SelectionOption
     {

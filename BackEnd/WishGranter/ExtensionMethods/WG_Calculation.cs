@@ -114,8 +114,8 @@ namespace WishGranterProto.ExtensionMethods
 
             // ArmorGI
             string searchJSONpath = $"$.data.items.[?(@.id=='{armorItem.Id}')].gridImageLink";
-            var searchResult = imageLinks.SelectToken(searchJSONpath).ToString();
-            testResult.ArmorGridImage = searchResult;
+            //var searchResult = imageLinks.SelectToken(searchJSONpath).ToString();
+            //testResult.ArmorGridImage = searchResult;
 
             // AmmoGI
             searchJSONpath = $"$.data.items.[?(@.id=='{ammo.Id}')].gridImageLink";
