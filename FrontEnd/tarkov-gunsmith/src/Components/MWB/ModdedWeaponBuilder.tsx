@@ -1,25 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Stack, Modal, Card, Spinner } from "react-bootstrap";
 import Select from 'react-select'
 import { requestWeaponBuild } from "../../Context/Requests";
+import { API_URL } from "../../Util/util";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
-import { filterStockWeaponOptions, TransmissionWeaponBuildResult, TransmissionAttachedMod } from './WeaponData';
+import { TransmissionWeaponBuildResult, TransmissionAttachedMod } from './WeaponData';
 
 // Renders the home
 export default function ModdedWeaponBuilder(props: any) {
-    const [chosenGun, setChosenGun] = useState<any>(null);
+    interface WeaponOption {
+        ergonomics: number;
+        recoilForceUp: number;
+        recoilAngle: number;
+        recoilDispersion: number;
+        convergence: number;
+        ammoCaliber: string;
+        bFirerate: number;
+        traderLevel: number;
+        requiredPlayerLevel: number;
+        value: string;
+        readonly label: string;
+        readonly imageLink: string;
+    }
 
     const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
+
+
+    const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
+
+    // This useEffect will update the WeaponOptions with the result from the async API call
+    useEffect(() => {
+        weapons();
+        console.log("useEffect")
+    }, [])
+
+    // This useEffect will watch for a change to WeaponOptions or playeLevel, then update the filteredStockWeaponOptions
+    useEffect(() => {
+        const result = WeaponOptions.filter(item =>
+            item.requiredPlayerLevel <= playerLevel
+        )
+        setFilteredStockWeaponOptions(result)
+    },[WeaponOptions, playerLevel])
+
+    const weapons = async () => {
+        const response = await fetch(API_URL + '/GetWeaponOptionsList');
+        setWeaponOptions(await response.json())
+    }
+
+    function filterStockWeaponOptions(playerLevel: number) {
+        const result = WeaponOptions.filter(item =>
+            item.requiredPlayerLevel <= playerLevel
+        )
+        // Expand on this later.
+        return result;
+    }
+
+    const [filteredStockWeaponOptions, setFilteredStockWeaponOptions] = useState(filterStockWeaponOptions(playerLevel));
+
+    const [chosenGun, setChosenGun] = useState<any>(null);
 
     const [muzzleMode, setLoudOrSilenced] = useState(1); // Need to make these values be drawn from something rather than magic numbers
 
     const [ergoOrRecoil, setErgoOrRecoil] = useState(2); // Need to make these values be drawn from something rather than magic numbers
 
-    const [filteredStockWeaponOptions, setFilteredStockWeaponOptions] = useState(filterStockWeaponOptions(15));
-
     const [result, setResult] = useState<TransmissionWeaponBuildResult>();
-
 
 
     function handlePlayerLevelChange(input: number) {
@@ -45,7 +90,7 @@ export default function ModdedWeaponBuilder(props: any) {
             level: playerLevel,
             mode: temp,
             muzzleMode: muzzleMode,
-            searchString: chosenGun.Value
+            searchString: chosenGun.value
         }
         requestWeaponBuild(requestDetails).then(response => {
             // console.log(response);
@@ -84,7 +129,7 @@ export default function ModdedWeaponBuilder(props: any) {
                 <Modal.Body>
                     <p>This tool will automatically build your selected weapon according to the selected parameters.</p>
                     <p>If you change the player level to one where the current weapon isn't available, it will be deselected.</p>
-                    <p>You can search through the gun options by typing with the select input focused.</p> 
+                    <p>You can search through the gun options by typing with the select input focused.</p>
                     <p>At the moment, weapons and modules are only available by Cash Offer from traders, this means no flea-market or barters.</p>
                     <p>
                         At the moment, you can select either a recoil or an ergo priority, and the other variable will be ignored.
@@ -119,10 +164,10 @@ export default function ModdedWeaponBuilder(props: any) {
                         isSearchable={true}
                         name="SelectWeapon"
                         options={filteredStockWeaponOptions}
-                        getOptionLabel={(option) => option.Label}
-                        getOptionValue={(option) => option.Value}
+                        getOptionLabel={(option) => option.label}
+                        getOptionValue={(option) => option.value}
                         formatOptionLabel={option => (
-                            <>{option.Label}
+                            <>{option.label}
                             </>
                         )}
                         onChange={handleWeaponSelectionChange}
@@ -154,7 +199,6 @@ export default function ModdedWeaponBuilder(props: any) {
                         />
                         <Form.Text style={{ color: "white" }}>Level 20 for LL 2 traders. Level 30 for LL3 Level 40 for LL4.</Form.Text>
                         <br /><br />
-
                         {SelectSingleWeapon}
                         <br />
                         <FilterRangeSelector
