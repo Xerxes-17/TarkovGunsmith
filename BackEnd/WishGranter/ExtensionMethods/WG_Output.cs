@@ -135,6 +135,17 @@ namespace WishGranterProto.ExtensionMethods
         // Need to get Barter offers too
         public static List<SelectionArmor> WriteArmorList(Database database)
         {
+            IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
+            Helmets = Helmets.Where(x => {
+                var temp = (Headwear)x;
+                return temp.ArmorClass > 3;
+            });
+            
+            foreach (Item item in Helmets)
+            {
+                Console.WriteLine(item.Name);
+            }
+
             List<SelectionArmor> result = new();
             IEnumerable<Item> All_Armor = database.GetItems(m => m is Armor);
             All_Armor = All_Armor.Where(a => a.Id != "63737f448b28897f2802b874"); // This seems to be a BSG dev armor
@@ -145,6 +156,24 @@ namespace WishGranterProto.ExtensionMethods
                 var temp = (ChestRig)x;
                 return temp.ArmorClass > 0;
             });
+
+            foreach (var item in Helmets)
+            {
+                SelectionArmor armorOption = new SelectionArmor();
+                var temp = (Headwear)item;
+
+                armorOption.Value = temp.Id;
+                armorOption.Label = temp.Name;
+                armorOption.SetImageLinkWithId(temp.Id);
+
+                armorOption.ArmorClass = temp.ArmorClass;
+                armorOption.MaxDurability = temp.MaxDurability;
+                armorOption.ArmorMaterial = temp.ArmorMaterial;
+                armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+                armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+
+                result.Add(armorOption);
+            }
 
             foreach (var item in All_Armor)
             {
@@ -187,6 +216,7 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
+
         public static void WriteOutputFileWeapon(Weapon weapon, string filename)
         {
             filename = filename.Replace('"', ' ');
