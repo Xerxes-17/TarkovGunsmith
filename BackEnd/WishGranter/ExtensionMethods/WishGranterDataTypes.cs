@@ -87,6 +87,8 @@ namespace WishGranterProto.ExtensionMethods
         public string? Label { get; set; } // Name
         public string? ImageLink { get; set; }
 
+        // public boolean IsBarter { get; setl} = false;
+
         public void SetImageLinkWithId(string Id)
         {
             ImageLink = $"https://assets.tarkov.dev/{Id}-icon.jpg";
@@ -99,6 +101,8 @@ namespace WishGranterProto.ExtensionMethods
         public ArmorMaterial? ArmorMaterial { get; set; }
         public int? EffectiveDurability { get; set; }
         public int? TraderLevel { get; set; }
+
+        public string Type { get; set; } = "";
     }
     public class SelectionAmmo : SelectionOption
     {
@@ -107,7 +111,7 @@ namespace WishGranterProto.ExtensionMethods
         public int PenetrationPower { get; set; } = -1;
         public int ArmorDamagePerc { get; set; } = -1;
         public double BaseArmorDamage { get; set; } = -1;
-        public int TraderLevel { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
     }
     public class SelectionWeapon : SelectionOption
     {

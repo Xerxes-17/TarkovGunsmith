@@ -8,6 +8,8 @@ namespace WishGranterProto.ExtensionMethods
     {
         public static List<SelectionWeapon> WriteStockPresetList(List<Weapon> DefaultWeaponPresets, JObject ImageLinksJSON)
         {
+
+            //! NEED TO MOVE THIS OUTSIDE OF THE CALL (probably)
             List<TraderCashOffer> cashOffers = WG_Market.GetAllCashOffers();
 
             List<SelectionWeapon> result = new();
@@ -66,13 +68,15 @@ namespace WishGranterProto.ExtensionMethods
                 if (cashOffers.Where(x => x.ItemId.Equals(selectionWeapon.Value)).Count() > 0)
                 {
                     selectionWeapon.requiredPlayerLevel = cashOffers.Find(x => x.ItemId.Equals(selectionWeapon.Value)).RequiredPlayerLevel;
+                    // Improve this later
                 }
 
                 result.Add(selectionWeapon);
             }
+            result = result.OrderBy(x => x.Label).ToList();
 
-            using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            //using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
+            //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
 
             return result;
 
@@ -113,13 +117,26 @@ namespace WishGranterProto.ExtensionMethods
                 sOption.PenetrationPower = temp.PenetrationPower;
                 sOption.ArmorDamagePerc = temp.ArmorDamage;
                 sOption.BaseArmorDamage = (temp.PenetrationPower * (temp.ArmorDamage / 100));
+
                 sOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == true)
+                {
+                    sOption.TraderLevel = 5; // Can buy on Flea.
+                }
+                else if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    sOption.TraderLevel = 6;
+                }
+
+
 
                 result.Add(sOption);
             }
 
-            using StreamWriter writetext = new("outputs\\MyAmmos.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            result = result.OrderBy(x => x.Label).ToList();
+
+            //using StreamWriter writetext = new("outputs\\MyAmmos.json"); // This is here as a debug/verify
+            //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
 
             return result;
         }
@@ -129,6 +146,12 @@ namespace WishGranterProto.ExtensionMethods
         // Need to get Barter offers too
         public static List<SelectionArmor> WriteArmorList(Database database)
         {
+            IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
+            Helmets = Helmets.Where(x => {
+                var temp = (Headwear)x;
+                return temp.ArmorClass > 2;
+            });
+
             List<SelectionArmor> result = new();
             IEnumerable<Item> All_Armor = database.GetItems(m => m is Armor);
             All_Armor = All_Armor.Where(a => a.Id != "63737f448b28897f2802b874"); // This seems to be a BSG dev armor
@@ -139,6 +162,35 @@ namespace WishGranterProto.ExtensionMethods
                 var temp = (ChestRig)x;
                 return temp.ArmorClass > 0;
             });
+
+            foreach (var item in Helmets)
+            {
+                SelectionArmor armorOption = new SelectionArmor();
+                var temp = (Headwear)item;
+
+                armorOption.Value = temp.Id;
+                armorOption.Label = temp.Name;
+                armorOption.SetImageLinkWithId(temp.Id);
+
+                armorOption.ArmorClass = temp.ArmorClass;
+                armorOption.MaxDurability = temp.MaxDurability;
+                armorOption.ArmorMaterial = temp.ArmorMaterial;
+                armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
+                armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5; // Can buy on Flea.
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
+
+                armorOption.Type = "Helmet";
+
+                result.Add(armorOption);
+            }
 
             foreach (var item in All_Armor)
             {
@@ -155,6 +207,17 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
 
+                if(armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5;
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
+
+                armorOption.Type = "ArmorVest";
+
                 result.Add(armorOption);
             }
             foreach (var item in All_Rigs)
@@ -170,16 +233,29 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.MaxDurability = temp.MaxDurability;
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
                 armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5;
+                }
+                else if (armorOption.TraderLevel == -1 && temp.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
+
+                armorOption.Type = "ChestRig";
 
                 result.Add(armorOption);
             }
+            result = result.OrderBy(x => x.Label).ToList();
 
-            using StreamWriter writetext = new("outputs\\MyArmors.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            //using StreamWriter writetext = new("outputs\\MyArmors.json"); // This is here as a debug/verify
+            //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
 
             return result;
         }
+
         public static void WriteOutputFileWeapon(Weapon weapon, string filename)
         {
             filename = filename.Replace('"', ' ');
