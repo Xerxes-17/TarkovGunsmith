@@ -34,8 +34,9 @@ export default function About(props: any) {
 
                         <h4>Links</h4>
                         <ul>
-                            <li><a href="https://discord.gg/F7GZE4H7fq">Discord</a></li>
-                            <li><a href="https://github.com/Xerxes-17/TarkovGunsmith">GitHub repo</a></li>
+                            <li><a href="https://discord.gg/F7GZE4H7fq">📧 Discord</a></li>
+                            <li><a href="https://github.com/Xerxes-17/TarkovGunsmith">📓 GitHub repo</a></li>
+                            <li><a href="https://www.youtube.com/channel/UC2Kk3-weS6XZeJ4yDwiKKrA">📷 YouTube</a></li>
                             <li><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Tarkov Wiki</a></li>
                         </ul>
                     </Card.Body>
