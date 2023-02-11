@@ -4,7 +4,6 @@ import axios from "axios";
 
 export async function requestArmorTestSerires(requestDetails: any) {
 
-    console.log(requestDetails);
 
     let response = null;
 
@@ -19,7 +18,6 @@ export async function requestArmorTestSerires(requestDetails: any) {
 }
 
 export async function requestArmorTestSerires_Custom(requestDetails: any) {
-    console.log(requestDetails);
 
     let response = null;
 
