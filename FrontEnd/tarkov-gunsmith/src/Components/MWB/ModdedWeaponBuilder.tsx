@@ -319,13 +319,13 @@ export default function ModdedWeaponBuilder(props: any) {
                             <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
                                 Recoil
                             </ToggleButton>
-                            <ToggleButton disabled variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
                                 Meta Recoil
                             </ToggleButton>
                             <ToggleButton variant="outline-primary" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
                                 Ergonomics
                             </ToggleButton>
-                            <ToggleButton disabled variant="outline-primary" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
                                 Meta Ergonomics
                             </ToggleButton>
                         </ToggleButtonGroup>
@@ -442,8 +442,9 @@ export default function ModdedWeaponBuilder(props: any) {
                         </div>
                         <Row className='modBoxes'>
                             {result.attachedModsFLat.map((item: TransmissionAttachedMod, i: number) => {
+                                let itemKey = item.id.concat(i.toString())
                                 return (
-                                    <Mod key={JSON.stringify(item)} item={item} i={i} />
+                                    <Mod key={itemKey} item={item} i={i} />
                                 )
                             })}
                         </Row>
