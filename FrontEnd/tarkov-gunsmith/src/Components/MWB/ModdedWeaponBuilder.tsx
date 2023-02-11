@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Stack, Modal, Card, Spinner } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import Select from 'react-select'
 import { requestWeaponBuild } from "../../Context/Requests";
 import { API_URL } from "../../Util/util";
@@ -30,7 +30,6 @@ export default function ModdedWeaponBuilder(props: any) {
     // This useEffect will update the WeaponOptions with the result from the async API call
     useEffect(() => {
         weapons();
-        console.log("useEffect")
     }, [])
 
     // This useEffect will watch for a change to WeaponOptions or playeLevel, then update the filteredStockWeaponOptions
@@ -39,7 +38,12 @@ export default function ModdedWeaponBuilder(props: any) {
             item.requiredPlayerLevel <= playerLevel
         )
         setFilteredStockWeaponOptions(result)
-    },[WeaponOptions, playerLevel])
+
+    }, [WeaponOptions, playerLevel])
+
+    useEffect(() => {
+        updateTraderLevels(playerLevel)
+    }, [playerLevel])
 
     const weapons = async () => {
         const response = await fetch(API_URL + '/GetWeaponOptionsList');
@@ -58,12 +62,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const [chosenGun, setChosenGun] = useState<any>(null);
 
-    const [muzzleMode, setLoudOrSilenced] = useState(1); // Need to make these values be drawn from something rather than magic numbers
-
-    const [ergoOrRecoil, setErgoOrRecoil] = useState(2); // Need to make these values be drawn from something rather than magic numbers
-
     const [result, setResult] = useState<TransmissionWeaponBuildResult>();
-
 
     function handlePlayerLevelChange(input: number) {
         setPlayerLevel(input);
@@ -74,20 +73,85 @@ export default function ModdedWeaponBuilder(props: any) {
         }
     }
 
+    const [praporLevel, setPraporLevel] = useState(1);
+    const [skierLevel, setSkierLevel] = useState(1);
+    const [mechanicLevel, setMechanicLevel] = useState(1);
+    const [peacekeeperLevel, setPeacekeeperLevel] = useState(1);
+    const [jaegerLevel, setJaegerLevel] = useState(1);
+
+    function updateTraderLevels(playerLevel: number) {
+        let prapor = 1;
+        let skier = 1;
+        let mechanic = 1;
+        let peacekeeper = 1;
+        let jaeger = 1;
+
+        if (playerLevel >= 14) {
+            peacekeeper = 2;
+        }
+        if (playerLevel >= 15) {
+            prapor = 2;
+            skier = 2;
+            jaeger = 2;
+        }
+        if (playerLevel >= 20) {
+            mechanic = 2;
+        }
+
+        // level 3 traders
+        if (playerLevel >= 22) {
+            jaeger = 3;
+        }
+        if (playerLevel >= 23) {
+            peacekeeper = 3;
+        }
+        if (playerLevel >= 26) {
+            prapor = 3;
+        }
+        if (playerLevel >= 28) {
+            skier = 3;
+        }
+        if (playerLevel >= 30) {
+            mechanic = 3;
+        }
+
+        // level 4 traders
+        if (playerLevel >= 33) {
+            jaeger = 4;
+        }
+        if (playerLevel >= 36) {
+            prapor = 4;
+        }
+        if (playerLevel >= 37) {
+            peacekeeper = 4;
+        }
+        if (playerLevel >= 38) {
+            skier = 4;
+        }
+        if (playerLevel >= 40) {
+            mechanic = 4;
+        }
+
+        setPraporLevel(prapor);
+        setSkierLevel(skier);
+        setMechanicLevel(mechanic);
+        setPeacekeeperLevel(peacekeeper);
+        setJaegerLevel(jaeger);
+    }
+
+    const [MuzzleModeToggle, setMuzzleModeToggle] = useState(1);
+    const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
+
+    const [FittingPriority, setFittingPriority] = useState("recoil");
+    const handleFPChange = (val: any) => setFittingPriority(val);
+
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        var temp = "";
-        if (ergoOrRecoil === 1) {
-            temp = "ergo"
-        }
-        else {
-            temp = "recoil"
-        }
 
         const requestDetails = {
             level: playerLevel,
-            mode: temp,
-            muzzleMode: muzzleMode,
+            mode: FittingPriority,
+            muzzleMode: MuzzleModeToggle,
             searchString: chosenGun.value
         }
         requestWeaponBuild(requestDetails).then(response => {
@@ -189,34 +253,115 @@ export default function ModdedWeaponBuilder(props: any) {
                 <Card.Body style={{ height: "fit-content" }}>
                     <Form onSubmit={handleSubmit}>
                         <FilterRangeSelector
-                            label={"Player Level - Filters Possible Weapons and Mods"}
+                            label={"Player Level - Changes access by trader level cash offer"}
                             value={playerLevel}
                             changeValue={handlePlayerLevelChange}
                             min={1}
-                            max={50}
+                            max={40}
                         />
-                        <Form.Text style={{ color: "white" }}>Level 20 for LL 2 traders. Level 30 for LL3 Level 40 for LL4.</Form.Text>
-                        <br /><br />
-                        <strong>Available Choices:</strong> {filteredStockWeaponOptions.length} <br />
-                        {SelectSingleWeapon}
+
+                        <Form.Text>Trader Levels</Form.Text><br />
+                        <Stack direction="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2} >
+                                    {praporLevel}
+                                    <div className="vr" />
+                                    Prapor
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {skierLevel}
+                                    <div className="vr" />
+                                    Skier
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {mechanicLevel}
+                                    <div className="vr" />
+                                    Mechanic
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {peacekeeperLevel}
+                                    <div className="vr" />
+                                    Peacekeeper
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {jaegerLevel}
+                                    <div className="vr" />
+                                    Jaeger
+                                </Stack>
+                            </Button>
+                        </Stack>
+
                         <br />
-                        <FilterRangeSelector
-                            label={"1-Loud, 2-silenced, 3-any."}
-                            value={muzzleMode}
-                            changeValue={setLoudOrSilenced}
-                            min={1}
-                            max={3}
-                        />
-                        <FilterRangeSelector
-                            label={"1-Ergo or 2-recoil priority?"}
-                            value={ergoOrRecoil}
-                            changeValue={setErgoOrRecoil}
-                            min={1}
-                            max={2}
-                        />
-                        <Button variant="primary" type="submit" className='form-btn'>
-                            Build!
-                        </Button>
+                        <Form.Label>Muzzle Device Mode</Form.Label><br />
+                        <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={MuzzleModeToggle} onChange={handleMDMChange} >
+                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Loud" value={1}>
+                                Loud
+                            </ToggleButton>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Silenced" value={2}>
+                                Silenced
+                            </ToggleButton>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Any" value={3}>
+                                Any
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                        <br /><br />
+
+                        <Form.Label>Fitting Priority</Form.Label><br />
+                        <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={FittingPriority} onChange={handleFPChange}>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
+                                Recoil
+                            </ToggleButton>
+                            <ToggleButton disabled variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
+                                Meta Recoil
+                            </ToggleButton>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
+                                Ergonomics
+                            </ToggleButton>
+                            <ToggleButton disabled variant="outline-primary" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
+                                Meta Ergonomics
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                        <br />
+
+                        {WeaponOptions.length === 0 && (
+                            <>
+                                <br />
+                                <div className="d-grid gap-2">
+                                    <Button size="lg" variant="secondary" disabled>
+                                        <Stack direction="horizontal" gap={2}>
+                                            <Spinner animation="border" role="status">
+                                            </Spinner>
+                                            <div className="vr" />
+                                            Getting weapon options...
+                                        </Stack>
+                                    </Button>
+                                </div>
+                                <br />
+                            </>
+                        )}
+                        {WeaponOptions.length > 0 && (
+                            <>
+                                <br />
+                                <strong>Available Choices:</strong> {filteredStockWeaponOptions.length} <br />
+                                {SelectSingleWeapon}
+                                <br />
+                            </>
+                        )}
+
+
+                        <div className="d-grid gap-2">
+                            <Button variant="success" type="submit" className='form-btn'>
+                                Build!
+                            </Button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>
