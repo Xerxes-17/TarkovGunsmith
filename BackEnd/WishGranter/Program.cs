@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using WishGranterProto.ExtensionMethods;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Force.DeepCloner;
 
 static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filename)
 {
@@ -53,6 +54,9 @@ Console.WriteLine("RatStashDB started from file.");
 
 // Gets the basic weapon packages.
 JObject DefaultPresetsJSON = TarkovDevQueryAsync("{ items(categoryNames: Weapon) { id name containsItems { item { id name } } } }", "DefaultPresets").Result; //! This needs to be replaced with bundles from the trader offers
+
+
+JObject DefaultPresestsJSON_MK2 = TarkovDevQueryAsync("{ items(type: gun) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesWeapon { presets { id name containsItems { item { id name } count } bartersFor{ trader{ name } level requiredItems{ quantity item{ id name buyFor{ priceRUB vendor{ name } } } } } buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesPreset { default } } } } } } }", "NewPresets").Result;
 Console.WriteLine("DefaultPresetsJSON returned.");
 
 // Gets the quest unlock values.
@@ -68,6 +72,7 @@ Console.WriteLine("TraderOffersJSON returned.");
 //Console.WriteLine("FleaMarketJSON returned.");
 
 // Gets the imagelinks for all of the items.
+//! This soon won't be needed.
 JObject ImageLinksJSON = TarkovDevQueryAsync("{ items(categoryNames: [WeaponMod, Weapon, Armor, ChestRig, Ammo]) { id name iconLink gridImageLink baseImageLink inspectImageLink image512pxLink image8xLink wikiLink properties{... on ItemPropertiesWeapon{defaultPreset{gridImageLink} } } } }", "ImageLinks").Result;
 
 // Noting how long the initial data pull takes
@@ -87,9 +92,13 @@ watch.Start();
 
 Console.WriteLine("Compiling default weapon presets");
 var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresetsJSON, All_Weapons.OfType<Weapon>().ToList(), All_Mods.OfType<WeaponMod>().ToList());
-Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
 
-WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
+var DefaultWeaponPresets2 = WG_Compilation.CompileDefaultPresets_MK2(DefaultPresestsJSON_MK2, RatStashDB);
+
+Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
+Console.WriteLine($"Number of presets2: {DefaultWeaponPresets2.Count}");
+
+WG_Output.WriteStockPresetList_MK2(DefaultWeaponPresets2, ImageLinksJSON);
 
 watch.Stop();
 Console.WriteLine($"Compiling default weapon presets finished in {watch.ElapsedMilliseconds} ms.\n");
@@ -134,7 +143,7 @@ void startAPI()
 
     app.MapHealthChecks("/health");
     app.MapGet("/", () => "Hello World! I use Swagger btw.");
-    app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}", (int level, string mode, int muzzleMode, string searchString) => getWeaponOptionsByPlayerLevelAndNameFilter(level, mode, muzzleMode, searchString));
+    app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}/{purchaseType}", (int level, string mode, int muzzleMode, string searchString, string purchaseType) => getWeaponOptionsByPlayerLevelAndNameFilter_MK2(level, mode, muzzleMode, searchString, purchaseType));
     app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}", (string armorId, double startingDuraPerc, string bulletId) => CalculateArmorVsBulletSeries(armorId, bulletId, startingDuraPerc, ImageLinksJSON));
     app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",
         (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
@@ -159,7 +168,8 @@ void startAPI()
 List<SelectionWeapon> GetWeaponOptionsList()
 {
     Console.WriteLine($"Request for WeaponOptionList");
-    return WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
+    //return WG_Output.WriteStockPresetList(DefaultWeaponPresets, ImageLinksJSON);
+    return WG_Output.WriteStockPresetList_MK2(DefaultWeaponPresets2, ImageLinksJSON);
 }
 
 List<SelectionArmor> GetArmorOptionsList()
@@ -171,6 +181,55 @@ List<SelectionAmmo> GetAmmoOptionsList()
 {
     Console.WriteLine($"Request for AmmoOptionList");
     return WG_Output.WriteAmmoList(RatStashDB);
+}
+
+string getWeaponOptionsByPlayerLevelAndNameFilter_MK2(int level, string mode, int muzzleMode, string searchString, string purchaseType)
+{
+    Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
+
+    var WantedWeapons_MK2 = DefaultWeaponPresets2.Where(p => p.Id.Equals(searchString) && p.PurchaseOffer.OfferType.Equals(purchaseType)).ToList();
+
+    var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
+
+    //! Make the mask of trader item IDs
+    var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
+
+    //! Apply the mask of trader item IDs to the input lists
+    var LeveledLists = WG_Compilation.GetMaskedTuple(leveledTraderMask, WantedWeapons_MK2, FilteredModsList.OfType<WeaponMod>().ToList(), All_Ammo.OfType<Ammo>().ToList());
+
+    List<(WeaponPreset, Ammo)> finalAnswer = new();
+
+    foreach (var preset in LeveledLists.Masked_Weapons)
+    {
+        var ids = WG_Recursion.CreateMasterWhiteListIds(preset.Weapon, LeveledLists.Masked_Mods.ToList());
+
+        var readable = WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
+
+        var shortlistOfMods = WG_Recursion.CreateListOfModsFromIds(ids, LeveledLists.Masked_Mods.ToList());
+
+        var afterblockers = WG_Recursion.ProcessBlockersInListOfMods(shortlistOfMods, preset.Weapon, mode);
+
+        var pre_result = WG_Compilation.CompileAWeapon(preset.Weapon, afterblockers, LeveledLists.Masked_Ammo, mode, "penetration", CashOffers);
+
+        //! Fix this stanky hack later
+        var result = (WantedWeapons_MK2[0].DeepClone(), pre_result.Item2);
+        result.Item1.Weapon = pre_result.Item1;
+
+        if (pre_result.Item1 != null && pre_result.Item2 != null)
+        {
+            finalAnswer.Add(result);
+        }
+    }
+
+    var options = new JsonSerializerSettings
+    {
+        Formatting = Formatting.Indented,
+        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+    };
+
+    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTupleList(finalAnswer, CashOffers), options);
+
+    return jsonString;
 }
 
 
@@ -194,7 +253,7 @@ string getWeaponOptionsByPlayerLevelAndNameFilter(int level, string mode, int mu
     {
         var ids = WG_Recursion.CreateMasterWhiteListIds(weapon, LeveledLists.Masked_Mods.ToList());
 
-        WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
+        var readable = WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
 
         var shortlistOfMods = WG_Recursion.CreateListOfModsFromIds(ids, LeveledLists.Masked_Mods.ToList());
 

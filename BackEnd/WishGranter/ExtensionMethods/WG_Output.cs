@@ -6,6 +6,77 @@ namespace WishGranterProto.ExtensionMethods
 {
     public static class WG_Output
     {
+        public static List<SelectionWeapon> WriteStockPresetList_MK2(List<WeaponPreset> DefaultWeaponPresets, JObject ImageLinksJSON)
+        {
+            List<SelectionWeapon> result = new();
+
+            List<string> prohibited = new();
+            prohibited.Add("Master Hand");
+            prohibited.Add("Штурмовая винтовка Colt M4A1 5.56x45");
+
+            prohibited.Add("launcher_ak_toz_gp25_40_vog_settings");
+            prohibited.Add("launcher_ar15_colt_m203_40x46_settings");
+            prohibited.Add("FN40GL Mk2 grenade launcher");
+            prohibited.Add("M32A1 MSGL 40mm grenade launcher");
+
+            prohibited.Add("NSV \"Utyos\" 12.7x108 heavy machine gun");
+            prohibited.Add("AGS-30 30x29mm automatic grenade launcher");
+
+            prohibited.Add("ZiD SP-81 26x75 signal pistol");
+            prohibited.Add("RSP-30 reactive signal cartridge (Green)");
+            prohibited.Add("ROP-30 reactive flare cartridge (White)");
+            prohibited.Add("RSP-30 reactive signal cartridge (Red)");
+            prohibited.Add("RSP-30 reactive signal cartridge (Yellow)");
+
+            IEnumerable<WeaponPreset> shortList = DefaultWeaponPresets.Where(x => !prohibited.Contains(x.Name));
+
+            foreach (WeaponPreset preset in shortList)
+            {
+                //string searchJSONpath = $"$.data.items[?(@.id=='{preset.Id}')].properties.defaultPreset.gridImageLink";
+                //var gridImageLink = ImageLinksJSON.SelectToken(searchJSONpath).ToString();
+
+                SelectionWeapon selectionWeapon = new SelectionWeapon();
+
+                var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(preset.Weapon);
+
+                selectionWeapon.Value = preset.Id;
+                selectionWeapon.Label = preset.Name;
+
+                //if (gridImageLink != null)
+                //{
+                //    selectionWeapon.ImageLink = gridImageLink; // New function goes here.
+                //}
+                //else
+                //{
+                //    selectionWeapon.ImageLink = "NO IMAGE LINK FOUND";
+                //}
+
+                selectionWeapon.Ergonomics = temp.TotalErgo; // Need to get the calculated val for the total.
+                selectionWeapon.RecoilForceUp = temp.TotalRecoil; // Same here
+
+                selectionWeapon.RecoilAngle = preset.Weapon.RecoilAngle;
+                selectionWeapon.RecoilDispersion = preset.Weapon.RecoilDispersion;
+                selectionWeapon.Convergence = preset.Weapon.Convergence;
+
+                selectionWeapon.AmmoCaliber = preset.Weapon.AmmoCaliber;
+                selectionWeapon.BFirerate = preset.Weapon.BFirerate;
+
+                selectionWeapon.traderLevel = preset.PurchaseOffer.MinVendorLevel;
+                selectionWeapon.requiredPlayerLevel = preset.PurchaseOffer.ReqPlayerLevel;
+                selectionWeapon.OfferType = preset.PurchaseOffer.OfferType;
+                selectionWeapon.PriceRUB = preset.PurchaseOffer.PriceRUB;
+
+                result.Add(selectionWeapon);
+            }
+            result = result.OrderBy(x => x.Label).ToList();
+
+            using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
+            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+
+            return result;
+
+        }
+
         public static List<SelectionWeapon> WriteStockPresetList(List<Weapon> DefaultWeaponPresets, JObject ImageLinksJSON)
         {
 
@@ -518,6 +589,59 @@ namespace WishGranterProto.ExtensionMethods
                 transmissionWeapon.SelectedPatron = attachedPatron;
 
                 transmissionWeapon.PriceRUB = CashOffers.Find(x => x.item.id.Equals(transmissionWeapon.Id)).priceRUB;
+
+                Transmission.Add(transmissionWeapon);
+            });
+
+            return Transmission;
+        }
+        public static List<TransmissionWeapon> CreateTransmissionWeaponListFromResultsTupleList(List<(WeaponPreset, Ammo)> results, List<J_CashOffer> CashOffers)
+        {
+            /*
+             * Reasoning: Sending off the entire RatStash details is not needed, and sending a string would be very finnicky, so sending a JSON of simplified and serialized objects is ideal.
+             */
+
+            // Create a transmission list
+            List<TransmissionWeapon> Transmission = new();
+
+            results.ForEach(result =>
+            {
+                // Get the summary of stats and an IEnum of slots that are in use
+                var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1.Weapon);
+                IEnumerable<Slot> notNulls = result.Item1.Weapon.Slots.Where<Slot>(y => y.ContainedItem != null);
+
+                // Create a list of all of the attached mods as TransmissionWMs
+                List<TransmissionWeaponMod> attachedMods = new();
+                foreach (Slot slot in notNulls)
+                {
+                    attachedMods.AddRange(RecursiveAttachedMods(slot, CashOffers));
+                }
+
+                // Create the TransmissionPatron (Bullet)
+                var attachedPatron = new TransmissionPatron();
+                attachedPatron.ShortName = result.Item2.ShortName;
+                attachedPatron.Id = result.Item2.Id;
+                attachedPatron.Penetration = result.Item2.PenetrationPower;
+                attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
+                attachedPatron.Damage = result.Item2.Damage;
+
+                //Now put it all together
+                var transmissionWeapon = new TransmissionWeapon();
+                transmissionWeapon.ShortName = result.Item1.Weapon.ShortName;
+                transmissionWeapon.Id = result.Item1.Id;
+                transmissionWeapon.BaseErgo = result.Item1.Weapon.Ergonomics;
+                transmissionWeapon.BaseRecoil = result.Item1.Weapon.RecoilForceUp;
+                transmissionWeapon.Convergence = result.Item1.Weapon.Convergence;
+                transmissionWeapon.RecoilDispersion = result.Item1.Weapon.RecoilDispersion;
+                transmissionWeapon.RateOfFire = result.Item1.Weapon.BFirerate;
+
+                transmissionWeapon.AttachedModsFLat = attachedMods;
+                transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
+                transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
+
+                transmissionWeapon.SelectedPatron = attachedPatron;
+
+                transmissionWeapon.PriceRUB = result.Item1.PurchaseOffer.PriceRUB;
 
                 Transmission.Add(transmissionWeapon);
             });

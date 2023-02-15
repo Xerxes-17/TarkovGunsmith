@@ -22,10 +22,15 @@ export default function ModdedWeaponBuilder(props: any) {
         value: string;
         readonly label: string;
         readonly imageLink: string;
+        offerType: string;
+        priceRUB: number;
     }
 
     const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
     const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
+
+    const [PurchaseOfferTypes, setPurchaseOfferTypes] = useState(["Cash"])
+    const handlePOTChange = (val: any) => setPurchaseOfferTypes(val);
 
     // This useEffect will update the WeaponOptions with the result from the async API call
     useEffect(() => {
@@ -35,11 +40,12 @@ export default function ModdedWeaponBuilder(props: any) {
     // This useEffect will watch for a change to WeaponOptions or playeLevel, then update the filteredStockWeaponOptions
     useEffect(() => {
         const result = WeaponOptions.filter(item =>
-            item.requiredPlayerLevel <= playerLevel
+            item.requiredPlayerLevel <= playerLevel &&
+            PurchaseOfferTypes.includes(item.offerType)
         )
         setFilteredStockWeaponOptions(result)
 
-    }, [WeaponOptions, playerLevel])
+    }, [WeaponOptions, playerLevel, PurchaseOfferTypes])
 
     useEffect(() => {
         updateTraderLevels(playerLevel)
@@ -47,6 +53,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const weapons = async () => {
         const response = await fetch(API_URL + '/GetWeaponOptionsList');
+        console.log(response)
         setWeaponOptions(await response.json())
     }
 
@@ -88,6 +95,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
         if (playerLevel >= 14) {
             peacekeeper = 2;
+
         }
         if (playerLevel >= 15) {
             prapor = 2;
@@ -139,6 +147,8 @@ export default function ModdedWeaponBuilder(props: any) {
         setJaegerLevel(jaeger);
     }
 
+
+
     const [MuzzleModeToggle, setMuzzleModeToggle] = useState(1);
     const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
 
@@ -152,7 +162,8 @@ export default function ModdedWeaponBuilder(props: any) {
             level: playerLevel,
             mode: FittingPriority,
             muzzleMode: MuzzleModeToggle,
-            searchString: chosenGun.value
+            searchString: chosenGun.value,
+            purchaseType: chosenGun.offerType
         }
         requestWeaponBuild(requestDetails).then(response => {
             // console.log(response);
@@ -216,7 +227,6 @@ export default function ModdedWeaponBuilder(props: any) {
             <div className='black-text'>
                 <Row>
                     <Select
-
                         value={chosenGun}
                         placeholder="Select your weapon..."
                         className="basic-single"
@@ -227,9 +237,16 @@ export default function ModdedWeaponBuilder(props: any) {
                         name="SelectWeapon"
                         options={filteredStockWeaponOptions}
                         getOptionLabel={(option) => option.label}
-                        getOptionValue={(option) => option.value}
+                        getOptionValue={(option) => option.value + option.offerType}
                         formatOptionLabel={option => (
-                            <>{option.label}
+                            <>
+                                <Row>
+                                    <Col auto={true}>{option.label}</Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={4}>{option.offerType}  ₽{option.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</Col>
+                                </Row>
+
                             </>
                         )}
                         onChange={handleWeaponSelectionChange}
@@ -240,7 +257,7 @@ export default function ModdedWeaponBuilder(props: any) {
     )
 
     let TopSection = (
-        <Col xl={5}>
+        <Col xl={6}>
             <Card bg="dark" border="secondary" text="light" className="xl" >
                 <Card.Header as="h2" >
                     <Stack direction="horizontal" gap={3}>
@@ -253,7 +270,7 @@ export default function ModdedWeaponBuilder(props: any) {
                 <Card.Body style={{ height: "fit-content" }}>
                     <Form onSubmit={handleSubmit}>
                         <FilterRangeSelector
-                            label={"Player Level - Changes access by trader level cash offer"}
+                            label={"Player Level - Changes access to purchase offers"}
                             value={playerLevel}
                             changeValue={handlePlayerLevelChange}
                             min={1}
@@ -300,6 +317,20 @@ export default function ModdedWeaponBuilder(props: any) {
                         </Stack>
 
                         <br />
+                        <Form.Label>Purchase Offer Types</Form.Label><br />
+                        <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={"Cash"}>
+                                Cash
+                            </ToggleButton>
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={"Barter"}>
+                                Barter
+                            </ToggleButton>
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={"Flea"}>
+                                Flea
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                        <br /><br />
+
                         <Form.Label>Muzzle Device Mode</Form.Label><br />
                         <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={MuzzleModeToggle} onChange={handleMDMChange} >
                             <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Loud" value={1}>
@@ -322,10 +353,10 @@ export default function ModdedWeaponBuilder(props: any) {
                             <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
                                 Meta Recoil
                             </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
+                            <ToggleButton disabled variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
                                 Ergonomics
                             </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
+                            <ToggleButton disabled variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
                                 Meta Ergonomics
                             </ToggleButton>
                         </ToggleButtonGroup>

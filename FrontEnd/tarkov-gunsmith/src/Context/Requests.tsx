@@ -36,7 +36,7 @@ export async function requestWeaponBuild(requestDetails: any) {
     let response = null;
 
     try {
-        response = await axios.get(API_URL + `/getWeaponOptionsByPlayerLevelAndNameFilter/${requestDetails.level}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.searchString}`);
+        response = await axios.get(API_URL + `/getWeaponOptionsByPlayerLevelAndNameFilter/${requestDetails.level}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.searchString}/${requestDetails.purchaseType}`);
     } catch (error) {
         throw error;
     }

@@ -27,7 +27,7 @@ namespace WishGranterProto.ExtensionMethods
 
     public class WG_Market
     {
-        static Dictionary<string, int[]> LoyaltyLevelByPlayerLevel = new()
+        public static Dictionary<string, int[]> LoyaltyLevelByPlayerLevel = new()
         {
             { "Prapor",         new[] { 1, 15, 26, 36 } },
             { "Skier",          new[] { 1, 15, 28, 38 } },

@@ -9,6 +9,24 @@ using System.Runtime.InteropServices;
 
 namespace WishGranterProto.ExtensionMethods
 {
+    public class PurchaseOffer
+    {
+        public int PriceRUB { get; set; } = -1;
+        public int Price { get; set; } = -1;
+        public string Currency { get; set; } = string.Empty;
+        public string Vendor { get; set; } = string.Empty;
+        public int MinVendorLevel { get; set; } = -1;
+        public int ReqPlayerLevel { get; set; } = -1;
+        public string OfferType { get; set; } = string.Empty;
+    }
+    public class WeaponPreset
+    {
+        public string Name { get; set; } = "Hey this didn't get set after construction.";
+        public string Id { get; set; } = "Hey this didn't get set after construction.";
+        public Weapon Weapon { get; set; } = new Weapon();
+        public PurchaseOffer PurchaseOffer { get; set; } = new();
+    }
+
     public class TransmissionWeapon
     {
         public string? ShortName { get; set; }
@@ -128,6 +146,9 @@ namespace WishGranterProto.ExtensionMethods
 
         public int traderLevel { get; set; } = -1;
         public int requiredPlayerLevel { get; set; } = int.MaxValue; // Will need to make this more graceful later.
+
+        public string OfferType { get; set; } = string.Empty;
+        public int PriceRUB { get; set; } = -1;
     }
 
     public record struct J_OfferUnlock
