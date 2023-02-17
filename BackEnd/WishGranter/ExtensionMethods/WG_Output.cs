@@ -6,7 +6,7 @@ namespace WishGranterProto.ExtensionMethods
 {
     public static class WG_Output
     {
-        public static List<SelectionWeapon> WriteStockPresetList_MK2(List<WeaponPreset> DefaultWeaponPresets, JObject ImageLinksJSON)
+        public static List<SelectionWeapon> WriteStockPresetList(List<WeaponPreset> DefaultWeaponPresets)
         {
             List<SelectionWeapon> result = new();
 
@@ -32,24 +32,12 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach (WeaponPreset preset in shortList)
             {
-                //string searchJSONpath = $"$.data.items[?(@.id=='{preset.Id}')].properties.defaultPreset.gridImageLink";
-                //var gridImageLink = ImageLinksJSON.SelectToken(searchJSONpath).ToString();
-
                 SelectionWeapon selectionWeapon = new SelectionWeapon();
 
                 var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(preset.Weapon);
 
                 selectionWeapon.Value = preset.Id;
                 selectionWeapon.Label = preset.Name;
-
-                //if (gridImageLink != null)
-                //{
-                //    selectionWeapon.ImageLink = gridImageLink; // New function goes here.
-                //}
-                //else
-                //{
-                //    selectionWeapon.ImageLink = "NO IMAGE LINK FOUND";
-                //}
 
                 selectionWeapon.Ergonomics = temp.TotalErgo; // Need to get the calculated val for the total.
                 selectionWeapon.RecoilForceUp = temp.TotalRecoil; // Same here
@@ -72,6 +60,7 @@ namespace WishGranterProto.ExtensionMethods
 
             using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
             writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            writetext.Close();
 
             return result;
 

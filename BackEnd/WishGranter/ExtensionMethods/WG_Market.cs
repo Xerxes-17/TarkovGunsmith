@@ -25,8 +25,29 @@ namespace WishGranterProto.ExtensionMethods
 
     }
 
+    public class SellOffer
+    {
+        public int PriceRUB { get; set; } = -1;
+        public string TraderName { get; set; } = "Not set after construction";
+    }
+    public class MarketEntry
+    {
+        public string Name { get; set; } = "Not set after construction";
+        public string Id { get; set; } = "Not set after construction";
+        public PurchaseOffer PurchaseOffer { get; set; } = new();
+    }
+
     public class WG_Market
     {
+        public static List<string> TraderNames = new()
+        {
+            "Prapor",
+            "Skier",
+            "Peacekeeper",
+            "Mechanic",
+            "Jaeger"
+        };
+
         public static Dictionary<string, int[]> LoyaltyLevelByPlayerLevel = new()
         {
             { "Prapor",         new[] { 1, 15, 26, 36 } },
@@ -36,14 +57,145 @@ namespace WishGranterProto.ExtensionMethods
             { "Jaeger",         new[] { 1, 15, 22, 33 } }
         };
 
-        static List<string> TraderNames = new()
+        // Takes in the MarketData from tarkov-dev and processes it into a nice flat list of Market Entires,
+        // These market entries can be looked up later by other parts of the program for easy matching of 
+        // needed data.
+        public static List<MarketEntry> CompileMarketDataList(JObject MarketData)
         {
-            "Prapor",
-            "Skier",
-            "Peacekeeper",
-            "Mechanic",
-            "Jaeger"
-        };
+            List<MarketEntry> CompiledMarketDataList = new List<MarketEntry>();
+
+            // We're handed a JSON by param, so let's break it down to a set of tokens.
+            string searchJSONpath = "$.data.items[*]";
+            var tokens = MarketData.SelectTokens(searchJSONpath).ToList();
+
+            // Now for each token, lets get the details of them, so the Id and name
+            foreach (var token in tokens)
+            {
+                var id = token.SelectToken(".id").ToString();
+                var name = token.SelectToken("$.name").ToString();
+
+                // Now we need to process the cashOffers, if any
+                var cashOffers = token.SelectTokens("$.buyFor.[*]");
+                foreach (var cashOffer in cashOffers)
+                {
+                    var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
+                    var currency = cashOffer.SelectToken("$.currency").ToString();
+                    var price = cashOffer.SelectToken("$.price").ToObject<int>();
+                    var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
+                    var minTraderLevel = -1;
+                    var offerType = "Cash";
+
+                    int reqPlayerLevel;
+                    if (vendor != "Flea Market")
+                    {
+                        minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
+                        reqPlayerLevel = LoyaltyLevelByPlayerLevel[vendor][minTraderLevel - 1];
+
+                    }
+                    else
+                    {
+                        minTraderLevel = 5;
+                        reqPlayerLevel = 15;
+                        offerType = "Flea";
+                    }
+
+                    PurchaseOffer purchaseOffer = new PurchaseOffer();
+                    purchaseOffer.PriceRUB = priceRUB;
+                    purchaseOffer.Currency = currency;
+                    purchaseOffer.Price = price;
+                    purchaseOffer.Vendor = vendor;
+                    purchaseOffer.MinVendorLevel = minTraderLevel;
+                    purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
+                    purchaseOffer.OfferType = offerType;
+
+                    MarketEntry marketEntry = new MarketEntry();
+                    marketEntry.Id = id;
+                    marketEntry.Name = name;
+                    marketEntry.PurchaseOffer = purchaseOffer;
+
+                    CompiledMarketDataList.Add(marketEntry);
+                }
+
+                // Let's also process the barter offers, if any.
+                var barterOffers = token.SelectTokens("$.bartersFor.[*]");
+                foreach (var barterOffer in barterOffers)
+                {
+                    var trader = barterOffer.SelectToken("$.trader.name").ToString();
+                    var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
+                    var reqPlayerLevel = LoyaltyLevelByPlayerLevel[trader][minTraderLevel - 1];
+
+
+                    var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
+                    var barterTotalCost = -1;
+                    foreach (var requiredItem in requiredItems)
+                    {
+                        var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
+                        var barterName = requiredItem.SelectToken("$.item.name").ToString();
+
+                        var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
+
+                        int priceRUB_value = -1;
+                        if (priceRUB != null)
+                        {
+                            priceRUB_value = priceRUB.Value<int>();
+                        }
+
+                        if (priceRUB_value != -1)
+                        {
+                            barterTotalCost += (quantity * priceRUB_value);
+                        }
+                    }
+                    var offerType = "Barter";
+                    // If the barter wants something that isn't buyable on the flea, we disregard it
+                    if (barterTotalCost != -1)
+                    {
+                        PurchaseOffer purchaseOffer = new();
+                        purchaseOffer.PriceRUB = barterTotalCost;
+                        purchaseOffer.Vendor = trader;
+                        purchaseOffer.MinVendorLevel = minTraderLevel;
+                        purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
+                        purchaseOffer.OfferType = offerType;
+
+                        MarketEntry marketEntry = new MarketEntry();
+                        marketEntry.Id = id;
+                        marketEntry.Name = name;
+                        marketEntry.PurchaseOffer = purchaseOffer;
+
+                        CompiledMarketDataList.Add(marketEntry);
+                    }
+                }
+
+                // Last, we create market entries for the sale of the Item back to a trader
+                // It should usually be mechanic, but there might be some execptions.
+                var sellOffers = token.SelectTokens("$.sellFor.[*]");
+                List<(string, int)> sellOffersSimple = new();
+                foreach (var sellOffer in sellOffers)
+                {
+                    var priceRUB = sellOffer.SelectToken("$.priceRUB").ToObject<int>();
+                    var vendor = sellOffer.SelectToken("$.vendor.name").ToString();
+                    sellOffersSimple.Add((vendor, priceRUB));
+                }
+                sellOffersSimple.RemoveAll(x => x.Item1.Equals("Flea Market"));
+                var bestSeller = sellOffersSimple.MaxBy(x => x.Item2);
+
+                PurchaseOffer purchaseOffer_Sell = new PurchaseOffer();
+                purchaseOffer_Sell.PriceRUB = bestSeller.Item2;
+                purchaseOffer_Sell.Vendor = bestSeller.Item1;
+                purchaseOffer_Sell.ReqPlayerLevel = 1;
+                purchaseOffer_Sell.OfferType = "Sell";
+
+                MarketEntry marketEntry_Sell = new MarketEntry();
+                marketEntry_Sell.Id = id;
+                marketEntry_Sell.Name = name;
+                marketEntry_Sell.PurchaseOffer = purchaseOffer_Sell;
+
+                CompiledMarketDataList.Add(marketEntry_Sell);
+
+            }
+
+            // Return the Compiled Market Data!
+            return CompiledMarketDataList;
+        }
 
         // Gets the item offers from traders
         static JObject TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TestingTraderOffers").Result;
