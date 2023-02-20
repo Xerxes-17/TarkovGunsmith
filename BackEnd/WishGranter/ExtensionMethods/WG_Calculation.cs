@@ -35,23 +35,35 @@ namespace WishGranterProto.ExtensionMethods
              * The goal of this is to work out the value with a given set of inputs.
              * Equations taken and modified from https://www.desmos.com/calculator/m8cmsfokkl.
              */
-            double result = -1;
-
-            double factor_a = (121 - 5000 / (45 + (armorDurability * 2))) * armorClass * 0.1;
+            double factor_a = CalculateFactor_A(armorDurability, armorClass);
 
             // This is a jank way of getting the equation selection working, but w/e.
+            double result = -1;
+            //double result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
 
-            result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
+            //if (result > 1 && (bulletPen < factor_a))
+            //{
+            //    result = 0;
+            //}
+            //else if ((factor_a - 15 < bulletPen) && (bulletPen < factor_a))
+            //{
+            //    result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
+            //}
+            //else if (result > .9)
+            //{
+            //    result = (100 + (bulletPen / (.9 * factor_a - bulletPen))) / 100;
+            //}
+            //else
+            //{
+            //    result = 0;
+            //}
 
-            if (result > 1 && (bulletPen < factor_a))
-            {
-                result = 0;
-            }
-            else if (result > .9)
+            //? Maybe improved??
+            if (factor_a <= bulletPen)
             {
                 result = (100 + (bulletPen / (.9 * factor_a - bulletPen))) / 100;
             }
-            else if ((factor_a - 15 < bulletPen) && (bulletPen < factor_a))
+            else if (factor_a - 15 < bulletPen && bulletPen < factor_a)
             {
                 result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
             }
@@ -61,6 +73,11 @@ namespace WishGranterProto.ExtensionMethods
             }
 
             return result;
+        }
+
+        private static double CalculateFactor_A(double armorDurability, int armorClass)
+        {
+            return (121 - 5000 / (45 + (armorDurability * 2))) * armorClass * 0.1;
         }
 
         // Takes the details of a given armor and bullet pair and returns a double of the expected armor damage caused.
@@ -97,6 +114,41 @@ namespace WishGranterProto.ExtensionMethods
             return bullet_penetration * armorDamagePercentage_dbl * armor_destructability * RoundUpAdjustment * ArmorDamageMultiplier;
         }
 
+        public static double BluntDamage(double armorDurability, int armorClass, double bluntThroughput, int bulletDamage, int bulletPenetration)
+        {
+            double median(double a, double b, double c)
+            {
+                double[] arr = new double[] { a, b, c };
+                Array.Sort(arr);
+                return arr[1];
+            }
+
+            var factor_a = CalculateFactor_A(armorDurability, armorClass);
+
+            double medianResult = median(0.2, 1 - (0.03 * (factor_a - bulletPenetration)), 1);
+
+            double finalResult = medianResult * bluntThroughput * bulletDamage;
+
+            return finalResult;
+        }
+
+        public static double DamageToCharacter(double armorDurability, int armorClass, int bulletDamage, int bulletPenetration)
+        {
+            double median(double a, double b, double c)
+            {
+                double[] arr = new double[] { a, b, c };
+                Array.Sort(arr);
+                return arr[1];
+            }
+
+            var factor_a = CalculateFactor_A(armorDurability, armorClass);
+
+            double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
+            double finalResult = medianResult * bulletDamage;
+
+            return finalResult;
+        }
+
         //Takes ArmorItem object to feed into DamageToArmor, this is a wrapper function.
         public static double ArmorItemDamageFromAmmo(ArmorItem armorItem, Ammo ammo)
         {
@@ -110,10 +162,16 @@ namespace WishGranterProto.ExtensionMethods
             TransmissionArmorTestResult testResult = new();
             testResult.TestName = $"{armorItem.Name} vs {ammo.Name}";
             double doneDamage = 0;
-            double startingDura = (double) armorItem.MaxDurability * ( startingDuraPerc /100 );
+            double startingDura = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
+
+            double HitPoints = 85;
+            if (armorItem.ArmorType.Equals("Helmet"))
+            {
+                HitPoints = 35;
+            }
 
             // ArmorGI
-            string searchJSONpath = $"$.data.items.[?(@.id=='{armorItem.Id}')].gridImageLink";
+            //string searchJSONpath = $"$.data.items.[?(@.id=='{armorItem.Id}')].gridImageLink";
             //var searchResult = imageLinks.SelectToken(searchJSONpath).ToString();
             //testResult.ArmorGridImage = searchResult;
 
@@ -130,9 +188,20 @@ namespace WishGranterProto.ExtensionMethods
             while (doneDamage < startingDura)
             {
                 // Get the current durability and pen chance
-                double durability = ((double) startingDura - doneDamage) / (double) armorItem.MaxDurability * 100;
+                double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
+                double penChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability);
+                double penetrationChance = penChance * 100;
 
-                double penetrationChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability) * 100;
+                // Calc Potential damages:
+                var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
+                var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
+
+                // Calc Average Damage
+                var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
+
+                //? Let's go for now a "remaining HP" model
+
+                HitPoints = HitPoints - AverageDamage;
 
                 // Dev Console log
                 //Console.WriteLine("durability%: " + durability);
@@ -148,6 +217,12 @@ namespace WishGranterProto.ExtensionMethods
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
 
+                testShot.BluntDamage = ShotBlunt;
+                testShot.PenetratingDamage = ShotPenetrating;
+                testShot.AverageDamage = AverageDamage;
+                testShot.RemainingHitPoints = HitPoints;
+
+
                 testResult.Shots.Add(testShot);
 
                 // Add the damage of the current shot so it can be used in the next loop
@@ -156,13 +231,15 @@ namespace WishGranterProto.ExtensionMethods
             return testResult;
         }
 
-        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage)
         {
             TransmissionArmorTestResult testResult = new();
             testResult.TestName = $"Custom test of AC:{ac} MaxDura:{maxDurability}, StartDura%:{string.Format("{0:0.00}", startingDurabilityPerc)} Material:{material}, vs Pen:{penetration}, AD%:{armorDamagePerc}";
 
             double doneDamage = 0;
             double startingDura = (double)maxDurability * ( (double) startingDurabilityPerc / 100);
+
+            double HitPoints = 85;
 
             ArmorMaterial armorMaterial = new();
 
@@ -187,7 +264,18 @@ namespace WishGranterProto.ExtensionMethods
             {
                 double durability = (startingDura - doneDamage) / maxDurability * 100;
 
-                double penetrationChance = PenetrationChance(ac, penetration, durability) * 100;
+                double penChance = PenetrationChance(ac, penetration, durability);
+                double penetrationChance = penChance * 100;
+
+                // Calc Potential damages:
+                var ShotBlunt = BluntDamage(durability, ac, .27, damage, penetration);
+                var ShotPenetrating = DamageToCharacter(durability, ac, damage, penetration);
+
+                // Calc Average Damage
+                var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
+
+                //? Let's go for now a "remaining HP" model
+                HitPoints = HitPoints - AverageDamage;
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
@@ -195,6 +283,11 @@ namespace WishGranterProto.ExtensionMethods
                 testShot.DoneDamage = doneDamage;
                 testShot.Durability = startingDura - doneDamage;
                 testShot.PenetrationChance = penetrationChance;
+
+                testShot.BluntDamage = ShotBlunt;
+                testShot.PenetratingDamage = ShotPenetrating;
+                testShot.AverageDamage = AverageDamage;
+                testShot.RemainingHitPoints = HitPoints;
 
                 testResult.Shots.Add(testShot);
 

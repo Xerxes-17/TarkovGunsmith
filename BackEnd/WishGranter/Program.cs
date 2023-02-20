@@ -135,7 +135,7 @@ void startAPI()
 
     app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}",(string armorId, double startingDuraPerc, string bulletId) => CalculateArmorVsBulletSeries(armorId, bulletId, startingDuraPerc));
 
-    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) => CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
+    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}/{damage}",(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage) => CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage));
 
     app.MapGet("/GetWeaponOptionsList", () => GetWeaponOptionsList());
     app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
@@ -290,6 +290,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Armor";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
     else if (Armor.GetType() == typeof(ChestRig))
     {
@@ -299,6 +301,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Armor";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
     else if (Armor.GetType() == typeof(Headwear))
     {
@@ -308,14 +312,16 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Helmet";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
 
     return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
 }
 
-TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage)
 {
-    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}]");
+    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
 
-    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc);
+    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
 }
