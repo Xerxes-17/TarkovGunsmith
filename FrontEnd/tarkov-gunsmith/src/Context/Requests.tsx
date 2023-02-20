@@ -13,7 +13,7 @@ export async function requestArmorTestSerires(requestDetails: any) {
         throw error;
     }
 
-    window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
+    //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
 

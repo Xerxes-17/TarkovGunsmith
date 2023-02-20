@@ -104,7 +104,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // Finds the test serires result of a given armor at a percentage of durability vs a given ammo type, also needs the image links JSON so that the FE can consume the links.
-        public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc, JObject imageLinks)
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc)
         {
             // Setup variables
             TransmissionArmorTestResult testResult = new();
@@ -118,8 +118,8 @@ namespace WishGranterProto.ExtensionMethods
             //testResult.ArmorGridImage = searchResult;
 
             // AmmoGI
-            searchJSONpath = $"$.data.items.[?(@.id=='{ammo.Id}')].gridImageLink";
-            testResult.AmmoGridImage = imageLinks.SelectToken(searchJSONpath).ToString();
+            //searchJSONpath = $"$.data.items.[?(@.id=='{ammo.Id}')].gridImageLink";
+            //testResult.AmmoGridImage = imageLinks.SelectToken(searchJSONpath).ToString();
 
             // ADPS
             testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);

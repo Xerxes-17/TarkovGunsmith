@@ -1,5 +1,4 @@
 import { createContext, useContext} from "react";
-import { StringLiteral } from "typescript";
 
 export type TransmissionArmorTestResult = {
     testName: string;

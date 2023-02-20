@@ -216,6 +216,20 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
+        public static int GetTraderLevelFromReadyMarketDataById(string Id)
+        {
+            int result = -1;
+            var temp = ReadyMarketData.FindAll(x => x.Id == Id);
+
+            if (temp.Any())
+            {
+                temp.OrderBy(x => x.PurchaseOffer.PriceRUB);
+                result = temp.First().PurchaseOffer.MinVendorLevel;
+            }
+
+            return result;
+        }
+
         // Gets the item offers from traders
         static JObject TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TestingTraderOffers").Result;
 
