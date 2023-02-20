@@ -12,6 +12,7 @@ export default function SelectAmmo(props: any) {
         <>
             <div className='black-text'>
                 <Select
+                    required
                     placeholder="Select your ammo..."
                     className="basic-single"
                     classNamePrefix="select"

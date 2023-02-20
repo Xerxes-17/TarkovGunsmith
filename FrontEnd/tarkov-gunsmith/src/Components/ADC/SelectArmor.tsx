@@ -13,6 +13,7 @@ export default function SelectArmor(props: any) {
         <>
             <div className='black-text'>
                 <Select
+                    required
                     placeholder="Select your armor..."
                     className="basic-single"
                     classNamePrefix="select"

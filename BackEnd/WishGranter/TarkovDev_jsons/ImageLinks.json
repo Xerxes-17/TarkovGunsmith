@@ -26480,6 +26480,42 @@
         "properties": {}
       },
       {
+        "id": "m1areapir000000000000001",
+        "name": "Springfield Armory M1A 7.62x51 rifle REAP-IR",
+        "iconLink": "https://assets.tarkov.dev/m1areapir000000000000001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/m1areapir000000000000001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/m1areapir000000000000001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/m1areapir000000000000001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/m1areapir000000000000001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/m1areapir000000000000001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Springfield_Armory_M1A_7.62x51_rifle",
+        "properties": {}
+      },
+      {
+        "id": "m4a1kacrisii000000000001",
+        "name": "Colt M4A1 5.56x45 assault rifle KAC RIS",
+        "iconLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/m4a1kacrisii000000000001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Colt_M4A1_5.56x45_assault_rifle",
+        "properties": {}
+      },
+      {
+        "id": "m4a1sopmodiiflash0000001",
+        "name": "Colt M4A1 5.56x45 assault rifle SOPMOD II Flash",
+        "iconLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Colt_M4A1_5.56x45_assault_rifle",
+        "properties": {}
+      },
+      {
         "id": "mosinscopedbarter0000001",
         "name": "Mosin 7.62x54R bolt-action rifle (Sniper) PU 3.5x",
         "iconLink": "https://assets.tarkov.dev/mosinscopedbarter0000001-icon.webp",
@@ -26488,6 +26524,18 @@
         "inspectImageLink": "https://assets.tarkov.dev/mosinscopedbarter0000001-image.webp",
         "image512pxLink": "https://assets.tarkov.dev/mosinscopedbarter0000001-512.webp",
         "image8xLink": "https://assets.tarkov.dev/mosinscopedbarter0000001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Mosin_7.62x54R_bolt-action_rifle_(Sniper)",
+        "properties": {}
+      },
+      {
+        "id": "mosinsniperatacr00000001",
+        "name": "Mosin 7.62x54R bolt-action rifle (Sniper) ATACR 7-35x56",
+        "iconLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/mosinsniperatacr00000001-8x.webp",
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Mosin_7.62x54R_bolt-action_rifle_(Sniper)",
         "properties": {}
       },
@@ -26528,6 +26576,18 @@
         "properties": {}
       },
       {
+        "id": "sa58xfal0000000000000001",
+        "name": "DS Arms SA-58 7.62x51 assault rifle X-FAL",
+        "iconLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/DS_Arms_SA-58_7.62x51_assault_rifle",
+        "properties": {}
+      },
+      {
         "id": "sksintrafuse000000000001",
         "name": "Simonov SKS 7.62x39 carbine TAPCO Intrafuse",
         "iconLink": "https://assets.tarkov.dev/sksintrafuse000000000001-icon.webp",
@@ -26537,6 +26597,18 @@
         "image512pxLink": "https://assets.tarkov.dev/sksintrafuse000000000001-512.webp",
         "image8xLink": "https://assets.tarkov.dev/sksintrafuse000000000001-8x.webp",
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Simonov_SKS_7.62x39_carbine",
+        "properties": {}
+      },
+      {
+        "id": "vssvintorezstripped00001",
+        "name": "VSS Vintorez 9x39 special sniper rifle Stripped",
+        "iconLink": "https://assets.tarkov.dev/vssvintorezstripped00001-icon.webp",
+        "gridImageLink": "https://assets.tarkov.dev/vssvintorezstripped00001-grid-image.webp",
+        "baseImageLink": "https://assets.tarkov.dev/vssvintorezstripped00001-base-image.webp",
+        "inspectImageLink": "https://assets.tarkov.dev/vssvintorezstripped00001-image.webp",
+        "image512pxLink": "https://assets.tarkov.dev/vssvintorezstripped00001-512.webp",
+        "image8xLink": "https://assets.tarkov.dev/vssvintorezstripped00001-8x.webp",
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/VSS_Vintorez_9x39_special_sniper_rifle",
         "properties": {}
       }
     ]
