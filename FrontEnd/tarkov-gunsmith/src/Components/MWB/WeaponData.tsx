@@ -1,33 +1,34 @@
 export type TransmissionWeaponBuildResult = {
-    attachedModsFLat: TransmissionAttachedMod[],
-    baseErgo: number,
-    baseRecoil: number,
-    convergence: number,
-    details: string,
-    finalErgo: number,
-    finalRecoil: number,
-    id: string,
-    rateOfFire: number,
-    recoilDispersion: number,
-    selectedPatron: SelectedPatron,
-    shortName: string,
-    priceRUB: number
+    AttachedModsFLat: TransmissionAttachedMod[],
+    BaseErgo: number,
+    BaseRecoil: number,
+    Convergence: number,
+    Details: string,
+    FinalErgo: number,
+    FinalRecoil: number,
+    Id: string,
+    RateOfFire: number,
+    RecoilDispersion: number,
+    SelectedPatron: SelectedPatron,
+    ShortName: string,
+    PriceRUB: number,
+    Valid: boolean
 }
 
 export type SelectedPatron = {
-    armorDamagePerc: number,
-    damage: number,
-    id: string,
-    penetration: number,
-    shortName: string
+    ArmorDamagePerc: number,
+    Damage: number,
+    Id: string,
+    Penetration: number,
+    ShortName: string
 }
 
 export type TransmissionAttachedMod = {
-    ergo: number,
-    id: string,
-    recoilMod: number,
-    shortName: string,
-    priceRUB: number
+    Ergo: number,
+    Id: string,
+    RecoilMod: number,
+    ShortName: string,
+    PriceRUB: number
 }
 
 // export interface WeaponOption {

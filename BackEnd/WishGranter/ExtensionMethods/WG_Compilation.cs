@@ -8,22 +8,6 @@ namespace WishGranterProto.ExtensionMethods
 {
     public static class WG_Compilation
     {
-        public static List<J_CashOffer> MakeListOfCashOffers(JObject TraderOffersJSON)
-        {
-            var list = new List<J_CashOffer>();
-
-            string searchJSONpath = "$.data.traders.[*].levels.[*].cashOffers.[*]";
-            List<JToken> shortList = TraderOffersJSON.SelectTokens(searchJSONpath).ToList();
-
-            foreach (JToken item in shortList)
-            {
-                J_CashOffer j_CashOffer = JsonConvert.DeserializeObject<J_CashOffer>(item.ToString());
-                list.Add(j_CashOffer);
-            }
-
-            return list;
-        }
-
         public static List<Weapon> RemoveByChoiceWeapons(List<Weapon> WeaponsList, List<string> IdsList)
         {
             return (WeaponsList.FindAll(x => !IdsList.Contains(x.Id)));
@@ -44,58 +28,209 @@ namespace WishGranterProto.ExtensionMethods
                 );
         }
 
-
-        // Returns a list of Ratstash Weapons which have been given thier default preset attachments.
-        public static List<Weapon> CompileDefaultPresets(JObject DefaultPresetsJSON, List<Weapon> All_Weapons, List<WeaponMod> All_Mods)
+        public static List<WeaponPreset> CompileDefaultPresets(JObject DefaultPresetsJSON, Database RatStashDB)
         {
-            // First make a dictionary of the DWPs, this will be used to store thier ID strings key is Weapon ID, value is list of attached mods
-            Dictionary<string, List<string>> DefaultWeaponPresets = new();
+            List<WeaponPreset> ReturnedPresets = new();
 
-            // Getting all the items from the JObject
-            var weaponIDs =
-                from c in DefaultPresetsJSON["data"]["items"].Distinct()
-                select (string)c["id"];
+            // We're handed the Default Prests JSON by param, so let's break that down into a set of tokens
+            string searchJSONpath = "$.data.items..properties.presets.[*]";
+            var filtering = DefaultPresetsJSON.SelectTokens(searchJSONpath).ToList();
 
-            // Selecting from all of the weapons thier attached mod ids
-            foreach (var id in weaponIDs)
+            // Now for each token, lets get the details of them, so the Id, the name, and the contents of the preset
+            foreach (var preset in filtering)
             {
-                string JsonPathSearch = $"$.data.items.[?(@.id=='{id}')]..item.id";
-                var result = DefaultPresetsJSON.SelectTokens(JsonPathSearch).ToList();
+                var id = preset.SelectToken("$.id").ToString();
+                var name = preset.SelectToken("$.name").ToString();
 
+                var contents = preset.SelectTokens("$..containsItems..item.id");
                 List<string> containedIDs = new();
-                foreach (var item in result) { containedIDs.Add(item.ToString()); }
 
-                DefaultWeaponPresets.Add(id, containedIDs);
-            }
-
-            // Getting a list of weapons from the master
-            List<Weapon> Stock_Weapons = All_Weapons.OfType<Weapon>().ToList();
-
-            // Compiling the stock preset weapons into RatStash form
-            //TODO Need to replace the MysteriousCloner with the DeepClone functionality.
-            foreach (var pair in DefaultWeaponPresets)
-            {
-                Weapon temp = Stock_Weapons.FirstOrDefault(x => x.Id == pair.Key);
-
-                if(temp != null)
+                foreach(var result in contents)
                 {
-                    temp = Stock_Weapons.FirstOrDefault(x => x.Id == pair.Key).DeepClone();
+                    containedIDs.Add(result.ToString());
                 }
 
-                if (temp != null)
+                // Now let's get a list of all these items in the contents from the RatStashDB
+                List<Item> items = new List<Item>();
+                foreach (var item in containedIDs)
                 {
-                    temp = WG_Recursion.AddDefaultAttachments(temp, pair.Value, All_Mods);
+                    items.Add(RatStashDB.GetItem(item));
+                }
 
-                    //Console.WriteLine($"{temp.ShortName} Stock Preset has been processed");
+                // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
+                Weapon weapon = (Weapon)items[0];
+                // Remove it so we can do a smooth cast in the next method
+                items.RemoveAt(0);
 
-                    int index = Stock_Weapons.FindIndex(x => x.Id == temp.Id);
-                    Stock_Weapons.RemoveAt(index);
-                    Stock_Weapons.Add(temp);
+                // This will go and create a ratstash weapon from the preset mods list
+                weapon = WG_Recursion.AddDefaultAttachments(weapon, items);
+
+                //Now we need to process the cashOffers, if any
+                var cashOffers = preset.SelectTokens("$.buyFor.[*]");
+                foreach (var cashOffer in cashOffers)
+                {
+                    var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
+                    var currency = cashOffer.SelectToken("$.currency").ToString();
+                    var price = cashOffer.SelectToken("$.price").ToObject<int>();
+                    var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
+                    var minTraderLevel = -1;
+                    var offerType = "Cash";
+
+                    int reqPlayerLevel;
+                    if (vendor != "Flea Market")
+                    {
+                        minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
+                        reqPlayerLevel = WG_Market.LoyaltyLevelByPlayerLevel[vendor][minTraderLevel - 1];
+                        
+                    }
+                    else
+                    {
+                        minTraderLevel = 5;
+                        reqPlayerLevel = 15;
+                        offerType = "Flea";
+                    }
+
+                    WeaponPreset PresetForReturned = new();
+                    PresetForReturned.Name = name;
+                    PresetForReturned.Id = id;
+                    PresetForReturned.Weapon = weapon;
+
+                    PurchaseOffer purchaseOffer = new();
+                    purchaseOffer.PriceRUB = priceRUB;
+                    purchaseOffer.Currency = currency;
+                    purchaseOffer.Price = price;
+                    purchaseOffer.Vendor = vendor;
+                    purchaseOffer.MinVendorLevel = minTraderLevel;
+                    purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
+                    purchaseOffer.OfferType = offerType;
+
+                    PresetForReturned.PurchaseOffer = purchaseOffer;
+                    ReturnedPresets.Add(PresetForReturned);
+                }
+
+                // Let's also process the barter offers, if any.
+                var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
+
+                foreach (var barterOffer in barterOffers)
+                {
+                    var trader = barterOffer.SelectToken("$.trader.name").ToString();
+                    var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
+                    var reqPlayerLevel = WG_Market.LoyaltyLevelByPlayerLevel[trader][minTraderLevel - 1];
+
+
+                    var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
+                    var barterTotalCost = -1;
+                    foreach (var requiredItem in requiredItems)
+                    {
+                        var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
+                        var barterName = requiredItem.SelectToken("$.item.name").ToString();
+
+                        var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
+
+                        int priceRUB_value = -1;
+                        if( priceRUB != null)
+                        {
+                            priceRUB_value = priceRUB.Value<int>();
+                        }
+
+                        if ( priceRUB_value != -1)
+                        {
+                            barterTotalCost += (quantity * priceRUB_value);
+                        }
+                    }
+                    var offerType = "Barter";
+
+                    // If the barter wants something that isn't buyable on the flea, we disregard it
+                    if(barterTotalCost != -1)
+                    {
+                        WeaponPreset PresetForReturned = new();
+                        PresetForReturned.Name = name;
+                        PresetForReturned.Id = id;
+                        PresetForReturned.Weapon = weapon;
+
+                        PurchaseOffer purchaseOffer = new();
+                        purchaseOffer.PriceRUB = barterTotalCost;
+                        purchaseOffer.Vendor = trader;
+                        purchaseOffer.MinVendorLevel = minTraderLevel;
+                        purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
+                        purchaseOffer.OfferType = offerType;
+
+                        PresetForReturned.PurchaseOffer = purchaseOffer;
+
+
+                        ReturnedPresets.Add(PresetForReturned);
+                    }
                 }
             }
-            return Stock_Weapons;
+            // Finally, give that list of weapon presests 
+            return ReturnedPresets;
         }
 
+        public static List<WeaponMod> CompileFilteredModList(List<WeaponMod> All_Mods, int muzzleMode)
+        {
+            // Setup the filters for things that I don't think are relevant, but we also remove the Mounts so they can be added in clean later
+            List<Type> ModsFilter = new List<Type>() {
+                typeof(IronSight), typeof(CompactCollimator), typeof(Collimator),
+                typeof(OpticScope), typeof(NightVision), typeof(ThermalVision),
+                typeof(AssaultScope), typeof(SpecialScope), typeof(Magazine),
+                typeof(CombTactDevice), typeof(Flashlight), typeof(LaserDesignator),
+                typeof(Mount), typeof(Launcher)};
+
+            // Muzzle mode 1 = loud, 2 = silencers, 3 = any
+            if (muzzleMode == 1)
+                ModsFilter.Add(typeof(Silencer));
+            else if (muzzleMode == 2)
+            {
+                //Some silencers are combined devices you dummy
+                //ModsFilter.Add(typeof(CombMuzzleDevice)); 
+                ModsFilter.Add(typeof(Compensator));
+                ModsFilter.Add(typeof(Flashhider));
+            }
+
+            // Apply that filter
+            var temp = All_Mods.Where(mod => !ModsFilter.Contains(mod.GetType())).ToList();
+
+            // Get the mounts from AllMods into a list, filter it to be only the mounts we want (for foregrips) and add them back to FilteredMods
+            IEnumerable<Mount> Mounts = All_Mods.OfType<Mount>();
+            var MountsFiltered = Mounts.Where(mod => mod.Slots.Any(slot => slot.Name == "mod_foregrip")).ToArray();
+            temp.AddRange(MountsFiltered);
+
+            return temp;
+        }
+
+        public static Ammo SelectAmmo(Weapon InputWeapon, List<Ammo> AmmoList, string mode)
+        {
+            Ammo bullet = null;
+            AmmoList = AmmoList.FindAll(ammo => ammo.Caliber.Equals(InputWeapon.AmmoCaliber));
+
+            if (AmmoList.Count > 0)
+            {
+                if (mode.Equals("damage"))
+                    AmmoList = AmmoList.OrderByDescending(ammo => ammo.Damage).ToList();
+                else if (mode.Equals("penetration"))
+                    AmmoList = AmmoList.OrderByDescending(ammo => ammo.PenetrationPower).ToList();
+                bullet = AmmoList.First();
+            }
+            return bullet;
+        }
+
+        //? Probably don't need this soon
+        public static List<J_CashOffer> MakeListOfCashOffers(JObject TraderOffersJSON)
+        {
+            var list = new List<J_CashOffer>();
+
+            string searchJSONpath = "$.data.traders.[*].levels.[*].cashOffers.[*]";
+            List<JToken> shortList = TraderOffersJSON.SelectTokens(searchJSONpath).ToList();
+
+            foreach (JToken item in shortList)
+            {
+                J_CashOffer j_CashOffer = JsonConvert.DeserializeObject<J_CashOffer>(item.ToString());
+                list.Add(j_CashOffer);
+            }
+
+            return list;
+        }
+        //? Probably don't need this soon
         public static List<Item> CompileFilteredModList(List<Item> All_Mods, int muzzleMode)
         {
             // Setup the filters for things that I don't think are relevant, but we also remove the Mounts so they can be added in clean later
@@ -130,6 +265,7 @@ namespace WishGranterProto.ExtensionMethods
             return temp;
         }
 
+        //? Probably don't need this soon
         public static List<string> MakeTraderMask(int level, List<string> traderNames, JObject TraderOffersJSON, JObject QuestUnlocksJSON)
         {
             // The trader mask is a simple flat list of id strings
@@ -170,6 +306,7 @@ namespace WishGranterProto.ExtensionMethods
         /// <summary>
         /// This will take a given player level, trader names and a JSON of trader offers and return a list of all ids that are relevant. 
         /// </summary>
+        //? Probably don't need this soon
         public static List<string> MakeTraderMaskByPlayerLevel(int playerLevel, List<string> traderNames, JObject TraderOffersJSON)
         {
             // The trader mask is a simple flat list of id strings
@@ -259,7 +396,7 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-
+        //? Probably don't need this soon
         public static (List<Weapon> Masked_Weapons, List<WeaponMod> Masked_Mods, List<Ammo> Masked_Ammo) GetMaskedTuple(List<string> mask, List<Weapon> inputWeapons, List<WeaponMod> inputMods, List<Ammo> inputAmmo)
         {
             var f_weapons = inputWeapons.FindAll(x => mask.Contains(x.Id));
@@ -275,23 +412,24 @@ namespace WishGranterProto.ExtensionMethods
 
             return (f_weapons, f_mods.ToList(), f_ammo);
         }
-
-        public static Ammo SelectAmmo(Weapon InputWeapon, List<Ammo> AmmoList, string mode)
+        //? Probably don't need this soon
+        public static (List<WeaponPreset> Masked_Weapons, List<WeaponMod> Masked_Mods, List<Ammo> Masked_Ammo) GetMaskedTuple(List<string> mask, List<WeaponPreset> inputWeapons, List<WeaponMod> inputMods, List<Ammo> inputAmmo)
         {
-            Ammo bullet = null;
-            AmmoList = AmmoList.FindAll(ammo => ammo.Caliber.Equals(InputWeapon.AmmoCaliber));
+            var f_presets = inputWeapons.FindAll(x => mask.Contains(x.Id));
 
-            if (AmmoList.Count > 0)
+            var f_mods = inputMods.FindAll(x => mask.Contains(x.Id)).ToHashSet();
+            //! Need to add in the mods which are only sold as part of weapons
+            foreach (var preset in f_presets)
             {
-                if (mode.Equals("damage"))
-                    AmmoList = AmmoList.OrderByDescending(ammo => ammo.Damage).ToList();
-                else if (mode.Equals("penetration"))
-                    AmmoList = AmmoList.OrderByDescending(ammo => ammo.PenetrationPower).ToList();
-                bullet = AmmoList.First();
+                f_mods.UnionWith(WG_Recursion.AccumulateMods(preset.Weapon.Slots));
             }
-            return bullet;
+
+            var f_ammo = inputAmmo.OfType<Ammo>().ToList().FindAll(x => mask.Contains(x.Id));
+
+            return (f_presets, f_mods.ToList(), f_ammo);
         }
 
+        //? Probably don't need this soon
         public static List<(Weapon, Ammo)> CompileSelectedWeaponType<T>(List<Weapon> Input_Weapons, List<WeaponMod> Input_Mods, List<Ammo> Input_Ammo, string modType, string ammoType, List<J_CashOffer> CashOffers)
         {
             List<(Weapon, Ammo)> Results = new();
@@ -319,7 +457,7 @@ namespace WishGranterProto.ExtensionMethods
 
             return Results;
         }
-
+        //? Probably don't need this soon
         public static (Weapon, Ammo) CompileAWeapon(Weapon Input_Weapon, List<WeaponMod> Input_Mods, List<Ammo> Input_Ammo, string modType, string ammoType, List<J_CashOffer> CashOffers)
         {
             (Weapon, Ammo) result = new();

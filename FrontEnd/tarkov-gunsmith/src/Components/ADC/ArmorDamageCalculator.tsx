@@ -35,8 +35,8 @@ export default function ArmorDamageCalculator(props: any) {
                     <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
                     <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
                     <p><strong>💀 Damage:</strong> How much you will unalive someone on hits/penetrations (before armor flesh damage mitigation that is).</p>
-                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. 5 means it can be bought on flea market, 6 means found in raid only. <br/>Note: the app does not account for barters yet.</p> 
-                    
+                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. 5 means it can be bought on flea market, 6 means found in raid only. <br />Note: the app does not account for barters yet.</p>
+
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -62,7 +62,7 @@ export default function ArmorDamageCalculator(props: any) {
     const [newArmorClasses, setNewArmorClasses] = useState(ARMOR_CLASSES);
     const [newMaterials, setNewMaterials] = useState(MATERIALS);
 
-    
+
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorOptionsList');
@@ -71,12 +71,11 @@ export default function ArmorDamageCalculator(props: any) {
     // This useEffect will update the ArmorOptions with the result from the async API call
     useEffect(() => {
         armors();
-        console.log("useEffect")
     }, [])
     // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
     useEffect(() => {
         setFilteredArmorOptions(filterArmorOptions(newArmorTypes, newArmorClasses, newMaterials, ArmorOptions));
-    },[newArmorTypes, ArmorOptions, newArmorClasses, newMaterials])
+    }, [newArmorTypes, ArmorOptions, newArmorClasses, newMaterials])
 
 
 
@@ -218,12 +217,11 @@ export default function ArmorDamageCalculator(props: any) {
     // This useEffect will update the ArmorOptions with the result from the async API call
     useEffect(() => {
         ammos();
-        console.log("useEffect AMMO")
     }, [])
     // This useEffect will watch for a change to WeaponOptions or filter options, then update the filteredStockWeaponOptions
     useEffect(() => {
         setFilteredAmmoOptions(filterAmmoOptions(AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers));
-    },[AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers])
+    }, [AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers])
 
     // Submit / Result
     const handleSubmit = (e: any) => {
@@ -461,9 +459,11 @@ export default function ArmorDamageCalculator(props: any) {
                         </Col>
                     </Row>
                     <Card.Footer>
-                        <Button variant="primary" type="submit" className='form-btn'>
-                            Calculate
-                        </Button>
+                        <div className="d-grid gap-2">
+                            <Button variant="success" type="submit" className='form-btn'>
+                                Calculate
+                            </Button>
+                        </div>
                     </Card.Footer>
 
                 </Form>
@@ -611,9 +611,11 @@ export default function ArmorDamageCalculator(props: any) {
                             </Col>
                         </Row>
                         <Card.Footer>
-                            <Button variant="primary" type="submit" className='form-btn'>
-                                Calculate
-                            </Button>
+                            <div className="d-grid gap-2">
+                                <Button variant="success" type="submit" className='form-btn'>
+                                    Calculate
+                                </Button>
+                            </div>
                         </Card.Footer>
                     </Form>
                 </Card>

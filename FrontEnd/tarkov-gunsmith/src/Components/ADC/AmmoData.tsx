@@ -39,8 +39,6 @@ export interface AmmoOption {
 }
 
 export function filterAmmoOptions(ammoOptions: AmmoOption[], minDam: number, minPen: number, minADP: number, maxTrader: number, calibers: string[]): AmmoOption[] {
-  console.log(ammoOptions)
-  console.log(maxTrader)
   const result = ammoOptions.filter(item =>
     item.damage >= minDam &&
     item.penetrationPower >= minPen &&
@@ -48,7 +46,6 @@ export function filterAmmoOptions(ammoOptions: AmmoOption[], minDam: number, min
     item.traderLevel <= maxTrader &&
     calibers.includes(item.caliber)
   )
-  console.log(result)
   return result;
 }
 

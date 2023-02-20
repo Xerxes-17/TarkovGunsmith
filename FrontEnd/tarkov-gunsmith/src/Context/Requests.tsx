@@ -4,7 +4,6 @@ import axios from "axios";
 
 export async function requestArmorTestSerires(requestDetails: any) {
 
-    console.log(requestDetails);
 
     let response = null;
 
@@ -19,7 +18,6 @@ export async function requestArmorTestSerires(requestDetails: any) {
 }
 
 export async function requestArmorTestSerires_Custom(requestDetails: any) {
-    console.log(requestDetails);
 
     let response = null;
 
@@ -30,7 +28,7 @@ export async function requestArmorTestSerires_Custom(requestDetails: any) {
         throw error;
     }
 
-    window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
+    // window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
     return response.data;
 }
 
@@ -38,10 +36,10 @@ export async function requestWeaponBuild(requestDetails: any) {
     let response = null;
 
     try {
-        response = await axios.get(API_URL + `/getWeaponOptionsByPlayerLevelAndNameFilter/${requestDetails.level}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.searchString}`);
+        response = await axios.get(API_URL + `/getSingleWeaponBuild/${requestDetails.level}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.searchString}/${requestDetails.purchaseType}`);
     } catch (error) {
         throw error;
     }
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
 }
