@@ -45,6 +45,8 @@ namespace WishGranterProto.ExtensionMethods
         public TransmissionPatron? SelectedPatron { get; set; }
 
         public int PriceRUB { get; set; } = -1;
+
+        public bool Valid { get; set; } = true;
     }
     public class TransmissionWeaponMod
     {

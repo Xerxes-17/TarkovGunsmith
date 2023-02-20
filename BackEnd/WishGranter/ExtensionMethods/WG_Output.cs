@@ -531,6 +531,74 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
+
+        private static List<TransmissionWeaponMod> RecursiveAttachedMods(this Slot obj)
+        {
+            List<TransmissionWeaponMod> result = new();
+            WeaponMod ContainedItem = (WeaponMod)obj.ContainedItem;
+
+            TransmissionWeaponMod attachedMod = new();
+            attachedMod.ShortName = ContainedItem.ShortName;
+            attachedMod.Id = ContainedItem.Id;
+            attachedMod.Ergo = ContainedItem.Ergonomics;
+            attachedMod.RecoilMod = ContainedItem.Recoil;
+
+            attachedMod.PriceRUB = WG_Market.GetBestCashOfferFromReadyMarketDataById(attachedMod.Id);
+
+            result.Add(attachedMod);
+
+            IEnumerable<Slot> notNulls = ContainedItem.Slots.Where(x => x.ContainedItem != null);
+            foreach (var slot in notNulls)
+            {
+                result.AddRange(RecursiveAttachedMods(slot));
+            }
+
+            return result;
+        }
+        public static TransmissionWeapon CreateTransmissionWeaponListFromResultsTuple_Single((Weapon, Ammo) result,  WeaponPreset preset)
+        {
+
+            // Get the summary of stats and an IEnum of slots that are in use
+            var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
+            IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
+
+            // Create a list of all of the attached mods as TransmissionWMs
+            List<TransmissionWeaponMod> attachedMods = new();
+            foreach (Slot slot in notNulls)
+            {
+                attachedMods.AddRange(RecursiveAttachedMods(slot));
+            }
+
+            // Create the TransmissionPatron (Bullet)
+            var attachedPatron = new TransmissionPatron();
+            attachedPatron.ShortName = result.Item2.ShortName;
+            attachedPatron.Id = result.Item2.Id;
+            attachedPatron.Penetration = result.Item2.PenetrationPower;
+            attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
+            attachedPatron.Damage = result.Item2.Damage;
+
+            //Now put it all together
+            var transmissionWeapon = new TransmissionWeapon();
+            transmissionWeapon.ShortName = result.Item1.ShortName;
+            transmissionWeapon.Id = preset.Id;
+            transmissionWeapon.BaseErgo = result.Item1.Ergonomics;
+            transmissionWeapon.BaseRecoil = result.Item1.RecoilForceUp;
+            transmissionWeapon.Convergence = result.Item1.Convergence;
+            transmissionWeapon.RecoilDispersion = result.Item1.RecoilDispersion;
+            transmissionWeapon.RateOfFire = result.Item1.BFirerate;
+
+            transmissionWeapon.AttachedModsFLat = attachedMods;
+            transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
+            transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
+
+            transmissionWeapon.SelectedPatron = attachedPatron;
+
+            transmissionWeapon.PriceRUB = preset.PurchaseOffer.PriceRUB;
+
+            transmissionWeapon.Valid = WG_Recursion.CheckIfCompoundItemIsValid(result.Item1);
+
+            return transmissionWeapon;
+        }
         public static List<TransmissionWeapon> CreateTransmissionWeaponListFromResultsTupleList(List<(Weapon, Ammo)> results, List<J_CashOffer> CashOffers)
         {
             /*

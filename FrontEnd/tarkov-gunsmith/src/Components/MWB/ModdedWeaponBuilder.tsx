@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert } from "react-bootstrap";
 import Select from 'react-select'
 import { requestWeaponBuild } from "../../Context/Requests";
 import { API_URL } from "../../Util/util";
@@ -53,7 +53,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const weapons = async () => {
         const response = await fetch(API_URL + '/GetWeaponOptionsList');
-        console.log(response)
+        // console.log(response)
         setWeaponOptions(await response.json())
     }
 
@@ -95,7 +95,6 @@ export default function ModdedWeaponBuilder(props: any) {
 
         if (playerLevel >= 14) {
             peacekeeper = 2;
-
         }
         if (playerLevel >= 15) {
             prapor = 2;
@@ -166,8 +165,7 @@ export default function ModdedWeaponBuilder(props: any) {
             purchaseType: chosenGun.offerType
         }
         requestWeaponBuild(requestDetails).then(response => {
-            // console.log(response);
-            setResult(response[0]);
+            setResult(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
@@ -241,7 +239,7 @@ export default function ModdedWeaponBuilder(props: any) {
                         formatOptionLabel={option => (
                             <>
                                 <Row>
-                                    <Col auto={true}>{option.label}</Col>
+                                    <Col auto={"true"}>{option.label}</Col>
                                 </Row>
                                 <Row>
                                     <Col xs={4}>{option.offerType}  ₽{option.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</Col>
@@ -350,13 +348,13 @@ export default function ModdedWeaponBuilder(props: any) {
                             <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
                                 Recoil
                             </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
+                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"Meta Recoil"}>
                                 Meta Recoil
                             </ToggleButton>
-                            <ToggleButton disabled variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
+                            <ToggleButton variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
                                 Ergonomics
                             </ToggleButton>
-                            <ToggleButton disabled variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
+                            <ToggleButton variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"Meta Ergonomics"}>
                                 Meta Ergonomics
                             </ToggleButton>
                         </ToggleButtonGroup>
@@ -402,12 +400,13 @@ export default function ModdedWeaponBuilder(props: any) {
     let ResultsSection;
 
     if (result !== undefined) {
+
         ResultsSection = (
             <Col xl>
                 <Card bg="secondary" border="dark" text="light" className="xl">
                     <Card.Header as="h2">
                         <Stack direction="horizontal" gap={3}>
-                            {result.shortName}
+                            {result.ShortName}
                             <div className="ms-auto">
                                 <Button variant="outline-secondary" disabled id="YouCan'tSeeMe">
                                     .
@@ -417,63 +416,70 @@ export default function ModdedWeaponBuilder(props: any) {
                     </Card.Header>
                     <Card.Body>
                         <div style={{ textAlign: "center" }}>
+                            {result.Valid === false &&
+                                <>
+                                    <Alert variant={"danger"}>
+                                        Sorry, this build isn't valid! Please report it on the <a href="https://discord.gg/F7GZE4H7fq">discord</a>. 
+                                    </Alert>
+                                </>}
+
                             <Row className="weapon-stats-box">
                                 <Col>
-                                    <img src={`https://assets.tarkov.dev/${result.id}-grid-image.jpg`} alt={result.shortName} className={"mod_img"} />
+                                    <img src={`https://assets.tarkov.dev/${result.Id}-grid-image.jpg`} alt={result.ShortName} className={"mod_img"} />
                                 </Col>
                                 <Col>
                                     <strong> Weapon Price<br /> </strong>
-                                    ₽{result.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}<br />
+                                    ₽{result.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}<br />
                                 </Col>
                                 <Col>
                                     <strong> Rate of Fire <br /></strong>
-                                    {result.rateOfFire}
+                                    {result.RateOfFire}
                                 </Col>
                             </Row>
                             <Row>
 
                                 <Col className="hidden-stats-box">
                                     <h5>Convergence</h5>
-                                    🔽 {result.convergence.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} <br />
+                                    🔽 {result.Convergence.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} <br />
                                     <h5>Recoil Dispersion</h5>
-                                    ◀▶ {result.recoilDispersion}
+                                    ◀▶ {result.RecoilDispersion}
                                 </Col>
 
                                 <Col className="initial-stats-box">
                                     <h5>Base Ergonomics</h5>
-                                    ✍ {result.baseErgo}
+                                    ✍ {result.BaseErgo}
                                     <h5>Base Recoil</h5>
-                                    ⏫ {result.baseRecoil}
+                                    ⏫ {result.BaseRecoil}
                                 </Col>
 
                                 <Col className="final-stats-box">
                                     <h5>Final Ergonomics</h5>
-                                    ✍ {result.finalErgo}
+                                    ✍ {result.FinalErgo}
                                     <h5>Final Recoil</h5>
-                                    ⏫ {result.finalRecoil}
+                                    ⏫ {result.FinalRecoil}
                                 </Col>
                             </Row>
                             <Row className="ammo-stats-box">
                                 <Col>
                                     <h5>Selected Round</h5>
-                                    <strong> {result.selectedPatron.shortName} </strong> <br />
+                                    <strong> {result.SelectedPatron.ShortName} </strong> <br />
                                 </Col>
                                 <Col>
                                     <strong>Damage</strong> <br />
-                                    {result.selectedPatron.damage}<br />
+                                    {result.SelectedPatron.Damage}<br />
                                     <strong>Frag Chance</strong><br />
                                 </Col>
                                 <Col>
                                     <strong>Penetration</strong>  <br />
-                                    {result.selectedPatron.penetration}<br />
+                                    {result.SelectedPatron.Penetration}<br />
                                     <strong> ArmorDam%</strong> <br />
-                                    {result.selectedPatron.armorDamagePerc}<br />
+                                    {result.SelectedPatron.ArmorDamagePerc}<br />
                                 </Col>
                             </Row>
                         </div>
                         <Row className='modBoxes'>
-                            {result.attachedModsFLat.map((item: TransmissionAttachedMod, i: number) => {
-                                let itemKey = item.id.concat(i.toString())
+                            {result.AttachedModsFLat.map((item: TransmissionAttachedMod, i: number) => {
+                                let itemKey = item.Id.concat(i.toString())
                                 return (
                                     <Mod key={itemKey} item={item} i={i} />
                                 )

@@ -9,7 +9,6 @@ export default function Home(props: any) {
             <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                 <Card.Header as="h1">
                     Welcome to Tarkov Gunsmith!
-
                 </Card.Header>
             </Card>
             <div className="row gy-2 mb-2">
@@ -90,7 +89,7 @@ export default function Home(props: any) {
                 </Col>
             </div>
 
-            <hr style={{color:"azure"}}/>
+            <hr style={{ color: "azure" }} />
 
             <Row className="row gy-2 mb-2">
                 <Col >
@@ -111,6 +110,46 @@ export default function Home(props: any) {
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <Card.Header as="h5">
+                            20/02/2023
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                Damn, almost a week since the last update, and that's been for a good reason; I've been
+                                going over the backend code for how weapons are built, first to fix the recent change to
+                                the dev-tarkov API and then to improve the accuracy and validity of the builder.<br /><br />
+
+                                I've fixed presets issue and as to the fitting algorithm,  I've broken down an decided upon a mixed approach, where for weapons
+                                where a simple logic can work will use that, and for troublesome edge cases they will get specific
+                                and enhanced logic to deal with them. And example of this is the upper receiver, barrel, gas block,
+                                muzzle device and hand guard selection problem for AR-15 type weapons.<br /><br />
+
+                                The problem here was that the conflicting items data is spread out, and that simply
+                                selecting for the immediate best option doesn't always give the best total result in the end
+                                due to the loss of later attachments which would've put the 2nd choice in that slot ahead,
+                                as it can use the lost attachment(s). The way I've gotten around this was to sit down and
+                                think through the combination process and simply brute-force through all of the permutations
+                                for this area. I had wanted to try and stick to using common rules for all, but this is
+                                easier to develop and perhaps, ultimately more maintainable. Funnily enough, this had been 
+                                my idea when I started working on this about a year ago, but the lack of deep cloning in the 
+                                RatStash library at the time scuppered this.<br /><br />
+
+                                I'll also be able to apply this approach to other problem areas soon, such as the hand
+                                guard/dust cover problem for AKs, the combo pistol grip and stock options for AKs and ARs
+                                and so on. For most other weapons, they have simple modding possibilities, so the less
+                                complex selection method should be fine. As an aside, I've added a simple validity of 
+                                build check, so the user should be notified if something has bugged out and they are given 
+                                a build that isn't possible.<br /><br />
+
+                                But first, I'm going to improve the front end first, and add some extra features to the ADC. 
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <Card.Header as="h5">
                             14/02/2023
                         </Card.Header>
                         <Card.Body>
@@ -121,29 +160,25 @@ export default function Home(props: any) {
                                 of the stats. This does hold true for most weapons, but for the M4-pattern guns, they
                                 have a very high base ergo that is then taken away from by the gun barrel. So at the
                                 moment, when you are in ergonomics mode, the program correctly chooses to not attach a
-                                barrel, as it reduces the total ergonomics. <br/><br/>
+                                barrel, as it reduces the total ergonomics. <br /><br />
 
                                 What's more, the flag for something being
                                 required is set on the slot, not the mod, and the way I process the filtering of blocking
                                 mods is mod-centric and doesn't account for the slots. For now I've disabled the ergonomics
                                 priority while I work on solving the issue. Recoil modes still work fine however, and I'm
-                                also happy to release the "Meta Recoil" mode where the best recoil modifier is selected 
-                                for in a slot. Then from the remaining options at this max value, the best ergonomics value 
-                                is found and filtered and lastly they are sorted to have the lowest price, 
-                                which is then chosen. Check it out!<br/><br/>
+                                also happy to release the "Meta Recoil" mode where the best recoil modifier is selected
+                                for in a slot. Then from the remaining options at this max value, the best ergonomics value
+                                is found and filtered and lastly they are sorted to have the lowest price,
+                                which is then chosen. Check it out!<br /><br />
 
                                 Another issue you might have noticed recently was the loss of a bunch of options from the
-                                selection menus, this was due to a change in the tarkov-dev API in the way that default 
-                                weapon presets were named and ID'd. This has now been fixed. <br/><br/>
+                                selection menus, this was due to a change in the tarkov-dev API in the way that default
+                                weapon presets were named and ID'd. This has now been fixed. <br /><br />
 
-                                I've also made a bunch of small UI/UX improvements. An example of this was to change the 
-                                build/calculate buttons to a more eye-catching green, and adding indicator buttons to the 
+                                I've also made a bunch of small UI/UX improvements. An example of this was to change the
+                                build/calculate buttons to a more eye-catching green, and adding indicator buttons to the
                                 level select in the MWB which shows what loyalty level a trader will be at the current player
                                 level.
-                            </Card.Text>
-
-                            <Card.Text>
-
                             </Card.Text>
                         </Card.Body>
                     </Card>

@@ -28,7 +28,7 @@ export async function requestArmorTestSerires_Custom(requestDetails: any) {
         throw error;
     }
 
-    window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
+    // window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
     return response.data;
 }
 
@@ -40,6 +40,6 @@ export async function requestWeaponBuild(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
 }

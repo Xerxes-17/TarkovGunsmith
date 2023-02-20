@@ -36,7 +36,7 @@ namespace WishGranterProto.ExtensionMethods
             }
         }
 
-        //? This is for fitting the mods to a weapon in a preset, the assumption is that the mods has only one mode of a given type and that is what will be fitted.
+        //? This is for fitting the mods to a weapon in a preset, the assumption is that the mods has only one mod of a given type and that is what will be fitted.
         public static CompoundItem FitCompoundItem_Simple(CompoundItem CompItem, List<WeaponMod> mods)
         {
             // Need to do this so that mutation doesn't spread.
@@ -66,26 +66,39 @@ namespace WishGranterProto.ExtensionMethods
         {
             if (mode == "recoil")
             {
-                inputList = inputList.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList();
+                // Get the max value, filter out any that don't have it, then sort by the price.
+                var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
+
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
             }
             //! We force Meta Recoil mode on muzzle devices because for most the difference in ergo is tiny, and the recoil is the more important thing.
             else if (mode == "Meta Recoil")
             {
-                // Get the max value, filter out any that don't have it, then sort by the opposite.
+                // Get the max value, filter out any that don't have it, then do the same with the opposite, finally sort by cost
                 var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
-                inputList = inputList.OrderByDescending(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo).ToList();
+
+                var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
+
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+
             }
 
             //? Ergo Builds need to have 0 or positive ergo options removed for muzzle devices, otherwise they choose to have just end-caps or empty silencer adapters
+            //? This is because only a few muzzle thread covers have positive ergo, and otherwise the rest have none or negative
             else if (mode == "ergo")
             {
                 if (slot.Name.Equals("mod_muzzle"))
                 {
                     inputList.RemoveAll(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo > 0 || (GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == 0 && GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == 0));
                 }
+                // Get the max value, filter out any that don't have it, then sort by the price.
+                var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                inputList = inputList.OrderByDescending(x => GetCompoundItemTotals<WeaponMod>(x).TotalErgo).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
             }
             else if (mode == "Meta Ergonomics")
             {
@@ -93,87 +106,262 @@ namespace WishGranterProto.ExtensionMethods
                 {
                     inputList.RemoveAll(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo > 0 || (GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == 0 && GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == 0));
                 }
-
                 // Get the max value, filter out any that don't have it, then sort by the opposite.
                 var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
-                inputList = inputList.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList();
+
+                var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
+
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
             }
             return inputList;
         }
-        //? This allows for fitting mods to a CI as per the fitting mode
-        public static CompoundItem FitCompoundItem_Complex(CompoundItem CompItem, List<WeaponMod> mods, string mode)
+
+        public static List<WeaponMod> SortWeaponModListByMode(List<WeaponMod> inputList, string mode)
         {
-            // Need to do this so that mutation doesn't spread.
-            var CompItemClone = CompItem.DeepClone();
-
-            foreach (Slot slot in CompItemClone.Slots)
+            if (mode == "recoil")
             {
-                // Get the mods from the list that are appropriate for the given slot
-                List<WeaponMod> shortList = mods.Where(mod => slot.Filters[0].Whitelist.Contains(mod.Id)).ToList();
+                // Get the max value, filter out any that don't have it, then sort by the price.
+                var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                // This is the list we will sort and then choose from later
-                List<WeaponMod>? candidatesList = new();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+            }
+            //! We force Meta Recoil mode on muzzle devices because for most the difference in ergo is tiny, and the recoil is the more important thing.
+            else if (mode == "Meta Recoil")
+            {
+                // Get the max value, filter out any that don't have it, then do the same with the opposite, finally sort by cost
+                var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                // If there are candidates, fit them out as per this function (recursively)
-                //? I wonder what will happen if we make it call SMFS_Wrapper() instead...
-                candidatesList.AddRange(shortList.Select(item => (WeaponMod)FitCompoundItem_Complex(item, shortList, mode)));
-                //candidatesList.AddRange(shortList.Select(item => (WeaponMod)SMFS_Wrapper(item, shortList, mode)));
+                var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                // Add it to the slot once it is fitted and if it exists
-                if (shortList.Count > 0)
-                {
-                    // We sort the candidates as per the mode
-                    candidatesList = SortWeaponModListForSlotByMode(slot, candidatesList, mode);
-
-                    // We fit the best candidate into the slot
-                    //!We can only do this if something can go into the slot!
-                    slot.ContainedItem = candidatesList.First();
-                }
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
             }
 
-            // By the end, you'll have a fully fitted out CompundItem, be it a Weapon or a WeaponMod
-            return CompItemClone;
+            //? Ergo Builds need to have 0 or positive ergo options removed for muzzle devices, otherwise they choose to have just end-caps or empty silencer adapters
+            else if (mode == "ergo")
+            {
+                // Get the max value, filter out any that don't have it, then sort by the price.
+                var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
+
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+            }
+            else if (mode == "Meta Ergonomics")
+            {
+                // Get the max value, filter out any that don't have it, then sort by the opposite.
+                var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
+
+                var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
+                inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
+
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+            }
+            return inputList;
         }
 
-        //? Shit, it would appear that I've duplicated usage of SMFS, but each one is slightly different
-        //? With this one, it woudl appear that the SMFS func isn't given a filtered list, but a raw list It also doesn't call recursively internally
-
-        public static CompoundItem SMFS_Wrapper(CompoundItem CI, List<WeaponMod> inputList, string mode)
+        //? This allows for fitting mods to a CI as per the fitting mode
+        //todo Look into how this relates to the SMFS function, as it feels kind of redundant?
+        public static CompoundItem SMFS_Wrapper(CompoundItem CI, List<WeaponMod> inputList, string mode, HashSet<string> CommonBlackListIDs)
         {
+            // First clone the Item, so we don't pollute the input
             var localClone = CI.DeepClone();
 
-            foreach(var slot in localClone.Slots)
-            {
-                var temp = SelectModForSlot(slot, inputList, mode);
+            // Let's do something special if the CI is an AR-15 type weapon
+            //? Because fuck you Baltim- I mean, we had to make this special rule because making standard rules for all cases wasn't working.
+            // To find the best barrel and handguard combo, all we need is 4 things: barrel, gasblock, handguard, receiver
+            // 1. Fit out the barrels with gasblocks
+            // 2. Fit out the handguards
+            // 3. Fit the HGs to the receivers
+            // 4. combine these 3.4. pairs with appropriate 1.BarrelGasBlocks
+            // 5. Then give the best muzzle device possible to the 4.combo
+            // Then, select the combination which is the best!
+            // We also need to remove all other options, so that when the main fitting method gets to these parts and slots, it only ever has one choice possible.
+            
+            List<string> AR15_type = new List<string>
+            { 
+                "5c07c60e0db834002330051f", // ADAR
+                "5447a9cd4bdc2dbd208b4567", // M4A1
+                "5d43021ca4b9362eab4b5e25"  // TX-15
+            };
 
+            if (AR15_type.Contains(CI.Id ))
+            {
+                var gasblocks = inputList.Where(x => x.GetType() == typeof(GasBlock)).ToList();
+                inputList.RemoveAll(x => gasblocks.Contains(x));
+
+                var barrels = inputList.Where(x => x.GetType() == typeof(Barrel)).ToList();
+                inputList.RemoveAll(x => barrels.Contains(x));
+
+                var handguards = inputList.Where(x => x.GetType() == typeof(Handguard)).ToList();
+                inputList.RemoveAll(x => handguards.Contains(x));
+
+                var receivers = inputList.Where((x) => x.GetType() == typeof(Receiver)).ToList();
+                inputList.RemoveAll(x => receivers.Contains(x));
+
+
+                // First we gotta get the permutations of barrels + gas blocks
+                List<WeaponMod> fittedBarrels = new List<WeaponMod>();
+                foreach (var barrel in barrels)
+                {
+                    foreach(var gasblock in gasblocks)
+                    {
+                        var clone_barrel = barrel.DeepClone();
+                        var clone_gasBlock = gasblock.DeepClone();
+
+                        clone_barrel.Slots[1].ContainedItem = clone_gasBlock;
+                        fittedBarrels.Add(clone_barrel);
+                    }
+                }
+
+                // Fit out all of the HGs
+                List<WeaponMod> fittedHandGuards = new();
+                HashSet<string> temp_BL = new HashSet<string>();
+                foreach (var hg in handguards)
+                {
+                    fittedHandGuards.Add((WeaponMod)SMFS_Wrapper(hg, inputList, mode, temp_BL));
+                }
+                
+
+                // Pair up the Receivers with handguards
+                List<WeaponMod> PairedReceivers = new List<WeaponMod>();
+                foreach (var receiver in receivers)
+                {
+                    foreach (var fittedHG in fittedHandGuards)
+                    {
+                        var clone_rec = receiver.DeepClone();
+                        var clone_fHG = fittedHG.DeepClone();
+
+                        if (clone_rec.Slots[2].Filters[0].Whitelist.Contains(clone_fHG.Id))
+                        {
+                            clone_rec.Slots[2].ContainedItem = clone_fHG;
+                            PairedReceivers.Add(clone_rec);
+                        }
+                    }
+                }
+
+                //? As we need to have the receiver get fitted with the barrel, it will be the "seed"
+                List<WeaponMod> FinalCombos = new();
+                foreach (var pairedReceiver in PairedReceivers)
+                {
+                    List<string> RHS_Prohibited = new List<string>();
+                    RHS_Prohibited = AggregateBlacklistRecursively(pairedReceiver);
+
+                    List<string> RHS_Ids = new List<string>();
+                    RHS_Ids.Add(pairedReceiver.Id);
+                    RHS_Ids.Add(pairedReceiver.Slots[2].ContainedItem.Id);
+
+                    // Make the shotlist of fitted barrels, and remove any which won't be accepted by the pairedReceiver
+                    var shortlist_FittedBarrels = fittedBarrels.DeepClone();
+                    shortlist_FittedBarrels.RemoveAll(x => RHS_Prohibited.Contains(x.Id));
+                    shortlist_FittedBarrels.RemoveAll(x => RHS_Prohibited.Contains(x.Slots[1].ContainedItem.Id));
+
+                    // Then for each remaining fittedBarrel, get its prohibited list and if the RHS_Ids don't contain a problem, fit it to the Rec and add the rec to the Final Combo list
+                    foreach (var fittedBarrel in shortlist_FittedBarrels)
+                    {
+                        List<string> LHS_Prohibited = new List<string>();
+                        LHS_Prohibited = AggregateBlacklistRecursively(fittedBarrel);
+
+                        var intersection = LHS_Prohibited.Intersect(RHS_Ids);
+                        if (intersection.Count() == 0)
+                        {
+                            var fc_Rec = pairedReceiver.DeepClone();
+                            var fc_Bar = fittedBarrel.DeepClone();
+
+                            fc_Rec.Slots[1].ContainedItem = fc_Bar;
+
+                            FinalCombos.Add(fc_Rec);
+                        }
+                       
+                    }
+                }
+
+                foreach (var combo in FinalCombos)
+                {
+                    var comboBlackList = AggregateBlacklistRecursively(combo);
+                    var temp_barrel = (WeaponMod)combo.Slots[1].ContainedItem;
+                    var barrelWhiteList = temp_barrel.Slots[0].Filters[0].Whitelist;
+
+                    var shortlistOfMuzzleDevices = inputList.Where(x => barrelWhiteList.Contains(x.Id) && !comboBlackList.Contains(x.Id) ).ToList();
+
+                    HashSet<string> blacklistHashSet = new();
+                    blacklistHashSet.UnionWith(comboBlackList);
+
+                    var fittedMuzzledDevices = shortlistOfMuzzleDevices.Select(x => SMFS_Wrapper(x, inputList, mode, blacklistHashSet)).ToList();
+
+
+                    fittedMuzzledDevices = fittedMuzzledDevices.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList();
+
+                    var bestMuzzle = fittedMuzzledDevices.First().DeepClone();
+
+                    temp_barrel.Slots[0].ContainedItem = bestMuzzle;
+
+                }
+
+                // Gotta remove all of the muzzle devices too - need to do this after the previous step
+                List<Type> MuzzleTypes = new List<Type>() 
+                {
+                    typeof(MuzzleDevice), typeof(Compensator), typeof(Flashhider), typeof(Silencer), typeof(CombMuzzleDevice)
+                };
+                var muzzles = inputList.Where(x => MuzzleTypes.Contains(x.GetType())).ToList();
+                inputList.RemoveAll(x => muzzles.Contains(x));
+
+                // Sort FinalCombos by the mode, select the best one, then aggregate the list of mods in that combo and add them back to the input list.
+                FinalCombos = SortWeaponModListByMode(FinalCombos, mode);
+                var thatResult = FinalCombos.First();
+                var theList = AggregateListOfModsRecursively(thatResult);
+
+                inputList.AddRange(theList);
+            }
+            // Something similar could be done with the handguards and dust covers on AKs...
+            // Shit, this might even be a better way of checking for the pistolgrip and stock combo things
+
+            //? Now back to our regular programming...
+
+            // Then for each slot of the local clone, we're going to select a mod for that slot using the pimrary function
+            foreach (var slot in localClone.Slots)
+            {
+                //Remove any default mods, they've already been added into the input list
+                slot.ContainedItem = null;
+
+                var temp = SelectModForSlot(slot, inputList, mode, CommonBlackListIDs);
+
+                // If the function finds a choice that isn't an empty WepMod, insert it into the slot
                 if (!temp.Name.Contains("ERROR:"))
                 {
                     slot.ContainedItem = temp;
                 }
-
             }
+            // You should get back a fully-fitted CompItem be it a Weapon or a WeaponMod
             return localClone;
         }
 
         // I guess we need to do the blocker comparision at the time of fitting, otherwise we can't know the slot details
-        //todo Make the mode selection block be its own function, as it takes a list and returns a mod, this will make it more maintainable.
-        //? The spot you were last working on was line 282, eg, the way it chooses the sub-mods of a candidate, maybe you need to make it call this function?
-        public static WeaponMod SelectModForSlot(Slot slot, List<WeaponMod> inputList, string mode)
+        public static WeaponMod SelectModForSlot(Slot slot, List<WeaponMod> inputList, string mode, HashSet<string> CommonBlackListIds)
         {
-            var localList = inputList.DeepClone(); // Deep clone to ensure mutation doesn't spread.
+
+            //? Remember, don't deepclone the input list!! You don't need to, since you DC each item yo utake from it, no pollution is risked and it makes recursion possible in terms of speed
+            //var inputList = inputList.DeepClone();
+
             WeaponMod result = new();   // The Mod that was promised.
             result.Name = $"ERROR: I'm a mod which should have been changed for {slot.Name}";
 
-            // Get a list of the candidate mods.
-            var candidates = localList.Where(x => slot.Filters[0].Whitelist.Contains(x.Id)).ToList();
+            // Get a list of the candidate mods, we also don't allow for mods which have been blacklisted
+            var candidates = inputList.Where(x  => slot.Filters[0].Whitelist.Contains(x.Id) && !CommonBlackListIds.Contains(x.Id)).ToList();
+
+            //? This is here incase there are any duplciates in the candidates list, which might cause a problem in the branch selection if unaddressed
+            candidates = candidates.Distinct().ToList();
 
             //! Solo candidate check
             if (candidates.Count == 1)
             {
                 //Console.WriteLine("One of a kind!");
                 //? Right, probs need to fit this out actually first lmao
-                candidates[0] = (WeaponMod)SMFS_Wrapper(candidates[0], localList, mode);
+                candidates[0] = (WeaponMod)SMFS_Wrapper(candidates[0], inputList, mode, CommonBlackListIds);
                 result = candidates[0];
                 
             }
@@ -191,18 +379,28 @@ namespace WishGranterProto.ExtensionMethods
                     {
                         candidateBlocker = blockers[0];
                     }
-                    //! BLOCKER vs nonBlocker
                     else
                     {
                         //! BLOCKER vs BLOCKER
                         //todo What if the blockers can have things attached to them? Eg, Barrels. Let's assume that any attachments for a blocker could be mounted to other blockers too and thus can be ignored for now.
                         //? Actually this is a problem because say, handguards are taken at face value instead of with their real value.
                         //! So for now we are fitting blocker mods, however I do wonder if this might cause an issue as FitCompoundItem_Complex() function doesn't account of blockers itself?
+                        // Perhaps we should just fix up the blocker processer function, and get rid of this part of the new fittign method entirely?
+                        // We could easily take what is here for setting up the competition of mods, and then use them in the pre-processing step
+                        //?Radical idea: remove forbidden mods from the whitelist of thier slot??? this could be a problem as we don't always have access to the slot in question
+                        //?This would work with AK and other simple weapons, but could be an issue with the AR15 type guns...
+                        //? For AKs, just loop through the slots of the weapon and modify the whitelists
+                        //? for AR15, loop through the slots of the mods in the MWL, and remove the ids from those white lists....
+                        //? Would need to check, but we could even make use ofg the blacklist for a slot, and change the shotlist logic to take into account the mask of white subtracted by black.
+                        //? Of course, we could just populate our own master black list as well, which might be the easiest option
+                        //? I'm trying to avoid having a seperate blocker processing step, as notionally it really should be done at the time of fitting for that slot.
+                        //? A Master black list could be a HashSet
+                        //? Logically, it shouldn't matter which direction we encounter a blocker pair from
 
                         List<WeaponMod> fittedBlockers = new();
                         foreach (var blocker in blockers)
                         {
-                            fittedBlockers.Add((WeaponMod)FitCompoundItem_Complex(blocker, localList, mode));
+                            fittedBlockers.Add((WeaponMod)SMFS_Wrapper(blocker, inputList, mode, CommonBlackListIds));
                         }
                         blockers.Clear();
                         blockers.AddRange(fittedBlockers);
@@ -211,129 +409,158 @@ namespace WishGranterProto.ExtensionMethods
                         blockers = SortWeaponModListForSlotByMode(slot, blockers, mode);
                         candidateBlocker = blockers.First();
 
-                        //!THEN BLOCKER-CHAMP vs nonBLOCKERS
+                    }
 
-                        // We need to get the Mods which will go in the same slot, are of the same type of item, the mods which are blocked, and not the blocker itself again, natch.
-                        var competitorMods = localList.Where(x =>
-                            candidates.Contains(x) ||
-                            candidateBlocker.ConflictingItems.Contains(x.Id) &&
-                            x.Id != candidateBlocker.Id
-                        ).ToList();
+                    //!THEN BLOCKER-CHAMP vs nonBLOCKERS
 
-                        // Let's now sort the competitors into their types and fit them out.
-                        Dictionary<Type, HashSet<WeaponMod>> typeDictionary = new();
+                    // We need to get the Mods which will go in the same slot, are of the same type of item, the mods which are blocked, and not the blocker itself again, natch.
+                    var competitorMods = inputList.Where(x =>
+                        (candidates.Contains(x) &&
+                        x.Id != candidateBlocker.Id) || (
+                        candidateBlocker.ConflictingItems.Contains(x.Id) &&
+                        x.Id != candidateBlocker.Id)
+                    ).ToList();
 
-                        foreach (WeaponMod weaponMod in competitorMods)
+                    var nonblockingList = inputList.Where(x => x.ConflictingItems.Count == 0).ToList();
+
+                    // Let's now sort the competitors into their types and fit them out.
+                    Dictionary<Type, HashSet<WeaponMod>> typeDictionary = new();
+
+                    foreach (WeaponMod weaponMod in competitorMods)
+                    {
+                        var temp = typeDictionary.GetValueOrDefault(weaponMod.GetType());
+                        var loop_WeaponMod = weaponMod.DeepClone();
+
+                        // Fit out the mod, eg, butt-pad onto stock.
+                        //? Maybe this is why you had the 2nd method for fitting? So that you could limit the fitting
+                        //todo need to remove the blocker from the list that is fed into this, otherwise you get blocker vs blocker
+                        //! Right so here is the issue; you need to be able to compare the blocker with the thigns it will block, and those things need to be fully fitted
+                        //! We also need to actually stop the loosing blockers fro being fitted, as it seems later they can be chosen anyway!
+
+                        // Also need to look at why the B-33 check has both a Vltor and a Troy handgaurd at the same time
+                        loop_WeaponMod = (WeaponMod)SMFS_Wrapper(loop_WeaponMod, nonblockingList, mode, CommonBlackListIds);
+
+                        // If the key already exists, add the weapon mod to it
+                        if (temp != null)
                         {
-                            var temp = typeDictionary.GetValueOrDefault(weaponMod.GetType());
-                            var loop_WeaponMode = weaponMod.DeepClone();
-
-                            // Fit out the mod, eg, butt-pad onto stock.
-                            loop_WeaponMode = (WeaponMod)FitCompoundItem_Complex(loop_WeaponMode, localList, mode);
-
-                            // If the key already exists, add the weapon mod to it
-                            if (temp != null)
-                            {
-                                temp.Add(loop_WeaponMode);
-                            }
-                            // Otherwise add it
-                            else
-                            {
-                                HashSet<WeaponMod> newHashSet = new();
-                                newHashSet.Add(loop_WeaponMode);
-                                typeDictionary.Add(weaponMod.GetType(), newHashSet);
-                            }
+                            temp.Add(loop_WeaponMod);
                         }
-                        // Now that we have the Dict, we can now go through each key, pick the best one and add it to a list for summing up.
-                        List<WeaponMod> summationList = new();
-                        foreach (var key in typeDictionary.Keys)
+                        // Otherwise add it
+                        else
                         {
-                            var values = typeDictionary[key].ToList();
+                            HashSet<WeaponMod> newHashSet = new();
+                            newHashSet.Add(loop_WeaponMod);
+                            typeDictionary.Add(weaponMod.GetType(), newHashSet);
+                        }
+                    }
+                    // Now that we have the Dict, we can now go through each key, pick the best one and add it to a list for summing up.
+                    List<WeaponMod> summationList = new();
+                    foreach (var key in typeDictionary.Keys)
+                    {
+                        var values = typeDictionary[key].ToList();
 
-                            // Sort values to mode and pick the best one.
-                            values = SortWeaponModListForSlotByMode(slot, values, mode);
-                            summationList.Add(values.First());
+                        // Sort values to mode and pick the best one.
+                        values = SortWeaponModListForSlotByMode(slot, values, mode);
+                        summationList.Add(values.First());
+                    }
+
+                    // Let's now get the results for a comparision
+                    var nonBlockingCompetitionResult = GetAttachmentsTotals_Recursive(summationList);
+                    var blockerCandidateResult = GetCompoundItemTotals_RecoilFloat<WeaponMod>(candidateBlocker);
+
+                    // Put the blocker and the non-blocking candidate together, we ensure the non-blocker is the right one from the list by comparing against the slot whitelist
+                    var selectionList = new List<WeaponMod>();
+                    selectionList.Add(candidateBlocker);
+                    selectionList.AddRange(summationList.Where(x => slot.Filters[0].Whitelist.Contains(x.Id)));
+
+                    // Compare the candidates by the fitting mode
+                    //todo Add in a check for the price of options, will need to add that function to WG_Market first
+                    if (mode == "recoil")
+                    {
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with recoil: {blockerCandidateResult.TotalRecoil < nonBlockingCompetitionResult.TotalRecoil}");
+                        //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
+                        //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
+
+                        if (blockerCandidateResult.TotalRecoil < nonBlockingCompetitionResult.TotalRecoil)
+                        {
+
+                            result = candidateBlocker;
+                            CommonBlackListIds.UnionWith(summationList.Select(x => x.Id));
+                        }
+                        else
+                        {
+                            selectionList.Remove(candidateBlocker);
+                            result = selectionList[0];
+
+                            CommonBlackListIds.UnionWith(blockers.Select(x => x.Id));
+                        }
+                    }
+                    else if (mode == "Meta Recoil")
+                    {
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with Meta Recoil: {(blockerCandidateResult.TotalRecoil < nonBlockingCompetitionResult.TotalRecoil)}");
+                        //Console.WriteLine("===== BLOCKER =====");
+                        //PrintAttachedModNames_Recursively(candidateBlocker, 0);
+                        //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
+                        //Console.WriteLine("");
+
+                        //Console.WriteLine("===== nonBlocking =====");
+                        //foreach (var item in summationList)
+                        //{
+                        //    PrintAttachedModNames_Recursively(item, 0);
+                        //}
+                        //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
+                        //Console.WriteLine("");
+                        //Console.WriteLine("");
+                        if ((blockerCandidateResult.TotalRecoil < nonBlockingCompetitionResult.TotalRecoil))
+                        {
+
+                            result = candidateBlocker;
+                            CommonBlackListIds.UnionWith(summationList.Select(x => x.Id));
+                        }
+                        else
+                        {
+                            selectionList.Remove(candidateBlocker);
+                            result = selectionList[0];
+                            CommonBlackListIds.UnionWith(blockers.Select(x => x.Id));
                         }
 
-                        // Let's now get the results for a comparision
-                        var nonBlockingCompetitionResult = GetAttachmentsTotals_Recursive(summationList);
-                        var blockerCandidateResult = (candidateBlocker.Ergonomics, candidateBlocker.Recoil);
+                    }
+                    else if (mode == "ergo")
+                    {
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {blockerCandidateResult.TotalErgo > nonBlockingCompetitionResult.TotalErgo}");
+                        //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
+                        //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
 
-                        // Put the blocker and the non-blocking candidate together, we ensure the non-blocker is the right one from the list by comparing against the slot whitelist
-                        var selectionList = new List<WeaponMod>();
-                        selectionList.Add(candidateBlocker);
-                        selectionList.AddRange(summationList.Where(x => slot.Filters[0].Whitelist.Contains(x.Id)));
-
-                        // Compare the candidates by the fitting mode
-                        //todo Add in a check for the price of options, will need to add that function to WG_Market first
-                        if (mode == "recoil")
+                        if (blockerCandidateResult.TotalErgo > nonBlockingCompetitionResult.TotalErgo)
                         {
-                            //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with recoil: {blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil}");
-                            //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
-                            //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
 
-                            if (blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil)
-                            {
-
-                                result = candidateBlocker;
-                            }
-                            else
-                            {
-                                selectionList.Remove(candidateBlocker);
-                                result = selectionList[0];
-                            }
+                            result = candidateBlocker;
+                            CommonBlackListIds.UnionWith(summationList.Select(x => x.Id));
                         }
-                        else if (mode == "Meta Recoil")
+                        else
                         {
-                            //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with Meta Recoil: {(blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil) && (blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo)}");
-                            //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
-                            //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
-
-                            if ((blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil) && (blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo))
-                            {
-
-                                result = candidateBlocker;
-                            }
-                            else
-                            {
-                                selectionList.Remove(candidateBlocker);
-                                result = selectionList[0];
-                            }
-
+                            selectionList.Remove(candidateBlocker);
+                            result = selectionList[0];
+                            CommonBlackListIds.UnionWith(blockers.Select(x => x.Id));
                         }
-                        else if (mode == "ergo")
+
+                    }
+                    else if (mode == "Meta Ergonomics")
+                    {
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with Meta Ergo: {(blockerCandidateResult.TotalErgo > nonBlockingCompetitionResult.TotalErgo)}");
+                        //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
+                        //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
+
+                        if ((blockerCandidateResult.TotalErgo > nonBlockingCompetitionResult.TotalErgo))
                         {
-                            //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo}");
-                            //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
-                            //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
-
-                            if (blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo)
-                            {
-
-                                result = candidateBlocker;
-                            }
-                            else
-                            {
-                                selectionList.Remove(candidateBlocker);
-                                result = selectionList[0];
-                            }
-
+                            result = candidateBlocker;
+                            CommonBlackListIds.UnionWith(summationList.Select(x => x.Id));
                         }
-                        else if (mode == "Meta Ergonomics")
+                        else
                         {
-                            //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with Meta Ergo: {(blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo) && (blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil)}");
-                            //Console.WriteLine($"The blocker stats:     e{blockerCandidateResult}r");
-                            //Console.WriteLine($"The nonblocking stats: e{nonBlockingCompetitionResult}r");
-
-                            if ((blockerCandidateResult.Ergonomics > nonBlockingCompetitionResult.TotalErgo) && (blockerCandidateResult.Recoil < nonBlockingCompetitionResult.TotalRecoil))
-                            {
-                                result = candidateBlocker;
-                            }
-                            else
-                            {
-                                selectionList.Remove(candidateBlocker);
-                                result = selectionList[0];
-                            }
+                            selectionList.Remove(candidateBlocker);
+                            result = selectionList[0];
+                            CommonBlackListIds.UnionWith(blockers.Select(x => x.Id));
                         }
                     }
                 }
@@ -346,36 +573,8 @@ namespace WishGranterProto.ExtensionMethods
 
                     foreach (WeaponMod weaponMod in candidates)
                     {
-                        var loop_WeaponMod = weaponMod.DeepClone();
-
-                        // Fit out the mod, eg, butt-pad onto stock.
-
-                        //loop_WeaponMode = (WeaponMod)FitCompoundItem(loop_WeaponMode, inputList, mode);
-                        ////? Always seems to choose the 260mm barrel? Probs got something wrong with the FCI function
-                        ////? Let's modify to use the SMFS() func
-                        //? The problem here is that SMSF will return a default WM when nothing is possible, perhaps in the wrapper we need to handle when the result was "nothing" ?
-                        //? Or we need to add a gaurd clause to not call it if there isn't anyuthing viable
-
-                        foreach(var sub_slot in loop_WeaponMod.Slots)
-                        {
-                            var temp = SelectModForSlot(sub_slot, localList, mode);
-
-                            if (!temp.Name.Contains("ERROR:"))
-                            {
-                                sub_slot.ContainedItem = temp;
-                            }
-                        }
-
-                        //loop_WeaponMod = (WeaponMod)FitCompoundItem_Complex(loop_WeaponMod, localList, mode);
-
-                        //? Why isn't this adding the slected mod to the slot?
-                        options.Add(loop_WeaponMod);
-
-                        //? Add a debug print here to see what is being done?
-                        //PrintAttachedModNames_Recursively(loop_WeaponMode, 0);
-                        //var Loop_Result = GetCompoundItemTotals_RecoilFloat<WeaponMod>(loop_WeaponMode);
-                        //Console.WriteLine($"The stats:     e{Loop_Result}r");
-                        //Console.WriteLine($"");
+                        // This should fit out the mod so that it can be all it can be, and then we can add the result to the options list.
+                        options.Add((WeaponMod)SMFS_Wrapper(weaponMod, inputList, mode, CommonBlackListIds));
                     }
 
                     if(options.Count > 0)
@@ -582,12 +781,12 @@ namespace WishGranterProto.ExtensionMethods
                     }
                     else if (mode == "ergo")
                     {
-                        WG_Output.WriteOutputFileWeapon(versionWithBlocker, "Blocker");
-                        WG_Output.WriteOutputFileWeapon(verionWithNonBlocking, "Not-Blocker");
+                        //WG_Output.WriteOutputFileWeapon(versionWithBlocker, "Blocker");
+                        //WG_Output.WriteOutputFileWeapon(verionWithNonBlocking, "Not-Blocker");
 
-                        Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo}");
-                        Console.WriteLine($"The blocker stats:     {withBlockerResults}");
-                        Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
+                        //Console.WriteLine($"The blocker {candidateBlocker.Name} is better with ergo: {withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo}");
+                        //Console.WriteLine($"The blocker stats:     {withBlockerResults}");
+                        //Console.WriteLine($"The nonblocking stats: {withNonBlockingResults}");
 
                         if (withBlockerResults.TotalErgo > withNonBlockingResults.TotalErgo)
                         {
@@ -767,8 +966,6 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-
-
 
         // Fits a compound item according to the mods list given and the mode.
         public static CompoundItem FitCompoundItem(CompoundItem CompItem, List<WeaponMod> mods, string mode, List<J_CashOffer> CashOffers = null, WeaponMod mustFit = null)
@@ -1123,6 +1320,90 @@ namespace WishGranterProto.ExtensionMethods
                     PrintAttachedModNames_Recursively(temp, depth + 1);
                 }
             }
+        }
+
+        public static List<string> AggregateBlacklistRecursively(CompoundItem CI)
+        {
+            List<string> result = new();
+            result.AddRange(CI.ConflictingItems);
+            foreach(var slot in CI.Slots)
+            {
+                if(slot.ContainedItem != null)
+                {
+                    result.AddRange(AggregateBlacklistRecursively((CompoundItem) slot.ContainedItem));
+                }
+            }
+            return result;
+        }
+        public static List<string> AggregateIdsRecursively(CompoundItem CI)
+        {
+            List<string> result = new();
+            result.Add(CI.Id);
+            foreach (var slot in CI.Slots)
+            {
+                if (slot.ContainedItem != null)
+                {
+                    result.AddRange(AggregateIdsRecursively((CompoundItem)slot.ContainedItem));
+                }
+            }
+            return result;
+        }
+        public static bool CheckThatAllRequiredSlotsFilled(CompoundItem CI)
+        {
+            bool result = true;
+
+            foreach(var slot in CI.Slots)
+            {
+                if(slot.Required == true && slot.ContainedItem == null && result == true)
+                {
+                    result = false; 
+                }
+                else if (slot.Required == true && slot.ContainedItem != null)
+                {
+                    var temp = CheckThatAllRequiredSlotsFilled((CompoundItem) slot.ContainedItem);
+
+                    if(result == true && temp == false)
+                    {
+                        result = false;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static bool CheckIfCompoundItemIsValid(CompoundItem CI)
+        {
+            bool result = true;
+
+            var blacklist = AggregateBlacklistRecursively(CI);
+            var Ids = AggregateIdsRecursively(CI);
+
+            var intersection = blacklist.Intersect(Ids);
+
+            if (intersection.Any())
+            {
+                result = false;
+            }
+            else
+            {
+                result = CheckThatAllRequiredSlotsFilled(CI);
+            }
+
+            return result;
+        }
+
+        public static List<WeaponMod> AggregateListOfModsRecursively(WeaponMod theMod)
+        {
+            List<WeaponMod> result = new();
+            result.Add(theMod);
+            foreach(var slot in theMod.Slots)
+            {
+                if(slot.ContainedItem != null)
+                {
+                    result.AddRange(AggregateListOfModsRecursively((WeaponMod)slot.ContainedItem));
+                }
+            }
+            return result;
         }
     }
 }

@@ -14,22 +14,22 @@ export default function Mod(props: any) {
     return (
         <Row className={rowClassString}>
             <Col sm={4}>
-                <img src={`https://assets.tarkov.dev/${props.item.id}-grid-image.jpg`} alt={props.item.shortName} className={"mod_img"} />
+                <img src={`https://assets.tarkov.dev/${props.item.Id}-grid-image.webp`} alt={props.item.ShortName} className={"mod_img"} />
             </Col>
             <Col className="mod-text-centered">
-                {props.item.shortName}
+                {props.item.ShortName}
             </Col>
             <Col className="mod-text-centered">
                 ✍<br/>
-                {props.item.ergo}
+                {props.item.Ergo}
             </Col>
             <Col className="mod-text-centered">
                 ⏬ <br/>
-                {props.item.recoilMod}
+                {props.item.RecoilMod}
             </Col>
             <Col className="mod-text-centered">
                 💸 <br/>
-                ₽ {props.item.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
+                ₽ {props.item.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
             </Col>
         </Row>
     )

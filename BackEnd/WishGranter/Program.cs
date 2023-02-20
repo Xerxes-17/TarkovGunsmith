@@ -73,7 +73,6 @@ Console.WriteLine($"Compiling MarketData finished by {watch.ElapsedMilliseconds}
 //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(MarketData)));
 //writetext.Close();
 
-
 //! Processing the Default Presets
 watch.Start();
 Console.WriteLine("Compiling default weapon presets");
@@ -158,11 +157,11 @@ List<SelectionAmmo> GetAmmoOptionsList()
 
 string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, string purchaseType)
 {
-    // Note in the console log the request.
-    Console.WriteLine($"Request from MWB for single weapon: [{playerLevel}, {mode}, {muzzleMode}, {presetID}, {purchaseType}]");
-
     // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
     WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals(purchaseType)).DeepClone();
+
+    // Note in the console log the request.
+    Console.WriteLine($"Request from MWB for single weapon: [{playerLevel}, {mode}, {muzzleMode}, {presetID} ({WantedPreset.Weapon.Name}), {purchaseType}]");
 
     // Get all of the trader offers - It's in the main program space
     // No need now to make a mask as we only need to filter by player level and the transaction type now, neat!
@@ -171,7 +170,21 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
     // While I could combine these statements, it would be messy an unreadable. So first we get the list of IDs of weapon mods and ammo then we get lists of the mods and ammo from the RatStashDB.
     List<string> SelectedIDs_Mods_Ammo = filteredMarketData.Select(x => x.Id).ToList();
-    List<WeaponMod> AvailibleWeaponMods = RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && x.GetType() != typeof(Ammo) && x.GetType() != typeof(ThrowableWeapon)).Cast<WeaponMod>().ToList();
+
+    List<Type> TypeFilterList = new List<Type>()
+    {
+        typeof(Ammo), typeof(ThrowableWeapon)
+        //todo add presets and weapons to the market data
+        //, typeof(AssaultCarbine), typeof(AssaultRifle),
+        //typeof(GrenadeLauncher),  typeof(Handgun),  typeof(Machinegun),  typeof(MarksmanRifle),
+        // typeof(Revolver),  typeof(Shotgun),  typeof(Smg),  typeof(SniperRifle),  typeof(SpecialWeapon)
+    };
+
+    List<WeaponMod> AvailibleWeaponMods = RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && !TypeFilterList.Contains(x.GetType())).Cast<WeaponMod>().ToList();
+
+    // Get the ammo too and then filter it down to the caliber of the weapon
+    List<Ammo> AvailableAmmoChoices= RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+    AvailableAmmoChoices = AvailableAmmoChoices.Where(x => x.Caliber.Equals(WantedPreset.Weapon.AmmoCaliber)).ToList();
 
     // We also need to add the mods that are in the preset to the availible mods, this is for cases where the preset is the only place where a mod can be purchased.
     List<WeaponMod> IncludedWithPresetMods = WG_Recursion.AccumulateMods(WantedPreset.Weapon.Slots);
@@ -180,23 +193,28 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     //! Filter out all of the WeaponMods which aren't of the allowed types, Incl' muzzle devices
     AvailibleWeaponMods = WG_Compilation.CompileFilteredModList(AvailibleWeaponMods, muzzleMode);
 
-    var names_AWM = AvailibleWeaponMods.Select(x => x.Name).ToList();
-
-    //TODO This would be a good place for filtering the ammo selection too if need be. Eg, only ammo compatible with the weapon, or similar
-    List<Ammo> AvailibleAmmo = RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
-
     // Next the MWL is made in relation to the current weapon, as we don't need to care about M4 parts when building an AK, Да? We then make a shortlist from the MWL.
     List<string> MasterWhiteList = WG_Recursion.CreateMasterWhiteListIds(WantedPreset.Weapon, AvailibleWeaponMods);
     List<WeaponMod> ShortList_WeaponMods = RatStashDB.GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
 
-    var names = ShortList_WeaponMods.Select(x => x.Name).ToList();
-    var market_names = filteredMarketData.Select(x => x.Name).ToList();
+    // Let's now fit the weapon and get the best penetrating ammo
+    HashSet<string> CommonBlackListIDs = new();
+    var weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
+    var ammo_result = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
 
-    // We also need to process the mods in the shortlist which are "blockers".
+    //? A little check to see if a build is valid, to ghelp with debugging and maintenance
+    Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
 
-    WG_Recursion.ProcessBlockersInListOfMods_MK2(ShortList_WeaponMods, WantedPreset.Weapon, mode);
+    // Setup the serialzier
+    var options = new JsonSerializerSettings
+    {
+        Formatting = Formatting.Indented,
+        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+    };
 
-    return "nuts";
+    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTuple_Single(((Weapon) weapon_result, ammo_result), WantedPreset));
+
+    return jsonString;
 }
 
 //string getWeaponOptionsByPlayerLevelAndNameFilter_MK2(int level, string mode, int muzzleMode, string searchString, string purchaseType)

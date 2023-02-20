@@ -39,6 +39,8 @@ namespace WishGranterProto.ExtensionMethods
 
     public class WG_Market
     {
+        public static List<MarketEntry>  ReadyMarketData = new();
+
         public static List<string> TraderNames = new()
         {
             "Prapor",
@@ -193,8 +195,25 @@ namespace WishGranterProto.ExtensionMethods
 
             }
 
+            //Let's also set the static value here to this data, so that we can no just call functions in this class to do things and get stuff without needing to do parameter games
+            ReadyMarketData = CompiledMarketDataList;
+
             // Return the Compiled Market Data!
             return CompiledMarketDataList;
+        }
+
+        public static int GetBestCashOfferFromReadyMarketDataById(string Id)
+        {
+            int result = -1;
+            var temp = ReadyMarketData.FindAll(x => x.Id == Id && x.PurchaseOffer.OfferType.Equals("Cash"));
+
+            if (temp.Any())
+            {
+                temp.OrderBy(x => x.PurchaseOffer.PriceRUB);
+                result = temp.First().PurchaseOffer.PriceRUB;
+            }
+
+            return result;
         }
 
         // Gets the item offers from traders
