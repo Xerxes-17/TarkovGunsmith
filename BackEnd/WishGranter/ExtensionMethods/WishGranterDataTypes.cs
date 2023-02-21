@@ -79,6 +79,8 @@ namespace WishGranterProto.ExtensionMethods
 
         public List<TransmissionArmorTestShot> Shots { get; set; } = new List<TransmissionArmorTestShot>();
 
+        public int KillShot { get; set; } = -1;
+
     }
     public class TransmissionArmorTestShot
     {
@@ -86,18 +88,25 @@ namespace WishGranterProto.ExtensionMethods
         public double? Durability { get; set; }
         public double? DoneDamage { get; set; }
         public double? PenetrationChance { get; set; }
+
+        public double BluntDamage { get; set; } = -1;
+        public double PenetratingDamage { get; set; } = -1;
+        public double AverageDamage { get; set; } = -1;
+        public double RemainingHitPoints { get; set; } = -1;    
     }
 
     public class ArmorItem
     {
         public string? Name { get; set; }
         public string? Id { get; set; }
-
         public int? MaxDurability { get; set; }
 
         //Giveing these two Properties defaults so that they can play nice with RatStash types which aren't nullable
         public int ArmorClass { get; set; } = -1;
         public ArmorMaterial ArmorMaterial { get; set; } = ArmorMaterial.Glass;
+
+        public double BluntThroughput { get; set; } = -1;
+        public string ArmorType { get; set; } = "You shouldn't see this.";
 
     }
 

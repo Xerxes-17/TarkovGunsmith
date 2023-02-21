@@ -118,6 +118,8 @@ export default function ArmorDamageCalculator(props: any) {
     const [smallestTraderLevel] = useState(1);
     const [biggestTraderLevel] = useState(6); // 5 is for FLea market, 6 is for FIR
 
+    const [rateOfFire, setRateOfFire] = useState(650);
+
 
     const [filteredAmmoOptions, setFilteredAmmoOptions] = useState(AmmoOptions);
 
@@ -257,6 +259,9 @@ export default function ArmorDamageCalculator(props: any) {
 
     const [errorPenetration, setErrorPenetration] = useState("");
 
+    const [damage, setDamage] = useState(50);
+    const [errorDamage, setErrorDamage] = useState("");
+
     const handleCustomSubmit = (e: any) => {
         e.preventDefault();
 
@@ -266,8 +271,12 @@ export default function ArmorDamageCalculator(props: any) {
         else if (penetration > 79) {
             setErrorPenetration("Sorry, value must be below 80 for now.")
         }
+        else if (damage > 450) {
+            setErrorDamage("Sorry, value must be below 450 for now")
+        }
         else {
             setErrorPenetration("")
+            setErrorDamage("")
             const requestDetails = {
                 armorClass: armorClass,
                 armorMaterial: armorMaterial,
@@ -275,7 +284,8 @@ export default function ArmorDamageCalculator(props: any) {
                 armorDurabilityMax: armorDurabilityMax_Custom,
 
                 penetration: penetration,
-                armorDamagePerc: armorDamagePerc
+                armorDamagePerc: armorDamagePerc,
+                damage: damage
             }
 
             requestArmorTestSerires_Custom(requestDetails).then(response => {
@@ -455,6 +465,21 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
                                     <SelectAmmo handleAmmoSelection={setAmmoId} ammoOptions={filteredAmmoOptions} />
                                 </>
+
+                                <br />
+
+                                <Form.Group className="mb-3">
+                                    <Row>
+                                        <Col>
+                                            <Form.Label>Rate Of Fire</Form.Label>
+                                            <Form.Range value={rateOfFire} max={1200} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                        </Col>
+                                        <Col style={{ maxWidth: "140px" }}>
+                                            <Form.Label>Number</Form.Label>
+                                            <Form.Control value={rateOfFire} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
                             </Card.Body>
                         </Col>
                     </Row>
@@ -592,6 +617,35 @@ export default function ArmorDamageCalculator(props: any) {
 
                                             </Form.Group>
                                         </Col>
+
+                                        <Col md={3}>
+                                            <Form.Group className="md" controlId="Penetration">
+                                                <Form.Label>Damage 💀</Form.Label>
+                                                {errorDamage === "" &&
+                                                    <>
+                                                        <Form.Control type="number" placeholder="Enter damage as a number" defaultValue={damage}
+                                                            onChange={(e) => {
+                                                                if (parseInt(e.target.value) < 1) {
+                                                                    e.target.value = "1"
+                                                                } // It's jank, but it werks
+                                                                setPenetration(parseInt(e.target.value))
+                                                            }}
+                                                        />
+                                                    </>}
+                                                {errorDamage.includes("Sorry,") &&
+                                                    <>
+                                                        <Form.Control isInvalid type="number" placeholder="Enter penetration as a number" defaultValue={damage} onChange={(e) => { setDamage(parseInt(e.target.value)) }} />
+                                                    </>}
+                                                <Form.Text className="text-muted">
+                                                    Eg: "50" without quotes.
+                                                </Form.Text>
+                                                <br />
+                                                <Form.Text className="text-danger"> {errorDamage}</Form.Text>
+
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row>
                                         <Col md={7}>
                                             <Form.Group>
                                                 <Row>
@@ -606,7 +660,25 @@ export default function ArmorDamageCalculator(props: any) {
                                                 </Row>
                                             </Form.Group>
                                         </Col>
+                                        <br />
+                                        <Col md={7}>
+                                            <Form.Group className="mb-3">
+                                                <Row>
+
+                                                    <Col>
+                                                        <Form.Label>Rate Of Fire</Form.Label>
+                                                        <Form.Range value={rateOfFire} max={1200} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                                    </Col>
+                                                    <Col md="3">
+                                                        <Form.Label>Number</Form.Label>
+                                                        <Form.Control value={rateOfFire} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                                    </Col>
+
+                                                </Row>
+                                            </Form.Group>
+                                        </Col>
                                     </Row>
+
                                 </Card.Body>
                             </Col>
                         </Row>
@@ -629,9 +701,25 @@ export default function ArmorDamageCalculator(props: any) {
             <>
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="xl" >
-                        <Card.Header as="h4">📉 {result.testName}</Card.Header>
+                        <Card.Header as="h4">📉 {result.testName} @ {rateOfFire}rpm</Card.Header>
                         <Card.Body>
-                            <p>Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</p>
+                            <Row>
+                                <Col>
+                                    <p>
+                                        <strong>Expected shots to kill: {result.killShot}</strong><br />
+                                        <strong>Expected time to kill: {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s</strong><br />
+                                        Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                    </p>
+                                </Col>
+                                <Col xs={8}>
+                                    <ul>
+                                        <li>Assumption: vest or rig, it is assumed to be hitting thorax (85hp) with all shots, for helmets the head. (35hp)</li>
+                                        <li>Custom calculations are for thorax only at the moment, and have an average blunt throughput value of '.27'.</li>
+                                        <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
+                                        <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
+                                    </ul>
+                                </Col>
+                            </Row>
                             <Table striped bordered hover variant="dark" responsive="sm">
                                 <thead>
                                     <tr>
@@ -640,6 +728,11 @@ export default function ArmorDamageCalculator(props: any) {
                                         <th>Durability Percentage</th>
                                         <th>Done Armor Damage</th>
                                         <th>Penetration Chance</th>
+
+                                        <th>Blunt Damage</th>
+                                        <th>Penetration Damage</th>
+                                        <th>Average Damage</th>
+                                        <th>Remaining Hit Points</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -651,6 +744,11 @@ export default function ArmorDamageCalculator(props: any) {
                                                 <td>{item.durabilityPerc.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
                                                 <td>{item.doneDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
                                                 <td>{item.penetrationChance.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+
+                                                <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                <td>{item.penetratingDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                <td>{item.averageDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                <td>{item.remainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
                                             </tr>
                                         )
                                     })}

@@ -208,8 +208,8 @@ export default function ModdedWeaponBuilder(props: any) {
                         The cheapest option for the max effectiveness will also be chosen.
                     </p>
                     <p>You can select for a loud, silenced or either build. However do check if there is a silencer, as with certain level and weapon combos one might not be available.</p>
-                    <p>If a mod has a cost of 0, it can only be bought as part of the default stock build/gun, for example, the AKS-74U hand guard or ADAR charging handle.</p>
-                    <p>Optics and tactical devices aren't included as they are down to personal preference.</p>
+                    <p>If a mod has a cost of -1, it can only be bought as part of the default stock build/gun, for example, the AKS-74U hand guard or ADAR charging handle.</p>
+                    <p>Optics, magazines and tactical devices aren't included as they are down to personal preference.</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

@@ -41,7 +41,6 @@ CultureInfo ci = new CultureInfo("ru-RU");
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
 
-
 var watch = new System.Diagnostics.Stopwatch();
 watch.Start();
 
@@ -81,6 +80,9 @@ Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
 var SelectionWeaponPresets = WG_Output.WriteStockPresetList(DefaultWeaponPresets);
 watch.Stop();
 Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedMilliseconds} ms.\n");
+
+var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
+var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
 
 
 
@@ -123,12 +125,17 @@ void startAPI()
     app.MapHealthChecks("/health");
     app.MapGet("/", () => "Hello World! I use Swagger btw.");
 
-    app.MapGet("/getSingleWeaponBuild/{playerLevel}/{mode}/{muzzleMode}/{presetID}/{purchaseType}", (int playerLevel, string mode, int muzzleMode, string presetID, string purchaseType) => getSingleWeaponBuild(playerLevel, mode, muzzleMode, presetID, purchaseType));
-    //app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}/{purchaseType}", (int level, string mode, int muzzleMode, string searchString, string purchaseType) => getWeaponOptionsByPlayerLevelAndNameFilter_MK2(level, mode, muzzleMode, searchString, purchaseType));
-    // app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}", (string armorId, double startingDuraPerc, string bulletId) => CalculateArmorVsBulletSeries(armorId, bulletId, startingDuraPerc, ImageLinksJSON));
-    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}",
-        (int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc) =>
-        CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc));
+    app.MapGet("/getSingleWeaponBuild/{playerLevel}/{mode}/{muzzleMode}/{presetID}/{purchaseType}",
+        (int playerLevel, string mode, int muzzleMode, string presetID, string purchaseType)
+        => getSingleWeaponBuild(playerLevel, mode, muzzleMode, presetID, purchaseType));
+
+    //app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}/{purchaseType}",
+    //    (int level, string mode, int muzzleMode, string searchString, string purchaseType) 
+    //    => getWeaponOptionsByPlayerLevelAndNameFilter_MK2(level, mode, muzzleMode, searchString, purchaseType));
+
+    app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}",(string armorId, double startingDuraPerc, string bulletId) => CalculateArmorVsBulletSeries(armorId, bulletId, startingDuraPerc));
+
+    app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}/{damage}",(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage) => CalculateArmorVsBulletSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage));
 
     app.MapGet("/GetWeaponOptionsList", () => GetWeaponOptionsList());
     app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
@@ -146,12 +153,12 @@ List<SelectionWeapon> GetWeaponOptionsList()
 List<SelectionArmor> GetArmorOptionsList()
 {
     Console.WriteLine($"Request for ArmorOptionList");
-    return WG_Output.WriteArmorList(RatStashDB);
+    return ArmorOptionsList;
 }
 List<SelectionAmmo> GetAmmoOptionsList()
 {
     Console.WriteLine($"Request for AmmoOptionList");
-    return WG_Output.WriteAmmoList(RatStashDB);
+    return AmmoOptionsList;
 }
 
 
@@ -266,7 +273,7 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 //    return jsonString;
 //}
 
-TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc, JObject imageLinks)
+TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
 {
     var Armor = RatStashDB.GetItem(armorID);
     var Bullet = RatStashDB.GetItem(bulletID);
@@ -283,6 +290,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Armor";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
     else if (Armor.GetType() == typeof(ChestRig))
     {
@@ -292,6 +301,8 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Armor";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
     else if (Armor.GetType() == typeof(Headwear))
     {
@@ -301,14 +312,16 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.MaxDurability = temp.MaxDurability;
         armorItem.ArmorClass = temp.ArmorClass;
         armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Helmet";
+        armorItem.BluntThroughput = temp.BluntThroughput;
     }
 
-    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, imageLinks);
+    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
 }
 
-TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc)
+TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage)
 {
-    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}]");
+    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
 
-    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc);
+    return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
 }

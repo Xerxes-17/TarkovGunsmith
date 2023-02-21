@@ -178,7 +178,7 @@ namespace WishGranterProto.ExtensionMethods
                 sOption.ArmorDamagePerc = temp.ArmorDamage;
                 sOption.BaseArmorDamage = (temp.PenetrationPower * (temp.ArmorDamage / 100));
 
-                sOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                sOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
                 if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == true)
                 {
                     sOption.TraderLevel = 5; // Can buy on Flea.
@@ -237,7 +237,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
 
-                armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
                 if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
                     armorOption.TraderLevel = 5; // Can buy on Flea.
@@ -265,7 +265,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.MaxDurability = temp.MaxDurability;
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
-                armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
 
                 if(armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
@@ -294,7 +294,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
 
-                armorOption.TraderLevel = WG_Report.FindTraderLevelFromFile(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
                 if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
                     armorOption.TraderLevel = 5;
