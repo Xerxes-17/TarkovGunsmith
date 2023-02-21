@@ -79,6 +79,8 @@ namespace WishGranterProto.ExtensionMethods
 
         public List<TransmissionArmorTestShot> Shots { get; set; } = new List<TransmissionArmorTestShot>();
 
+        public int KillShot { get; set; } = -1;
+
     }
     public class TransmissionArmorTestShot
     {

@@ -39,24 +39,6 @@ namespace WishGranterProto.ExtensionMethods
 
             // This is a jank way of getting the equation selection working, but w/e.
             double result = -1;
-            //double result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
-
-            //if (result > 1 && (bulletPen < factor_a))
-            //{
-            //    result = 0;
-            //}
-            //else if ((factor_a - 15 < bulletPen) && (bulletPen < factor_a))
-            //{
-            //    result = .4 * Math.Pow(factor_a - bulletPen - 15, 2) / 100;
-            //}
-            //else if (result > .9)
-            //{
-            //    result = (100 + (bulletPen / (.9 * factor_a - bulletPen))) / 100;
-            //}
-            //else
-            //{
-            //    result = 0;
-            //}
 
             //? Maybe improved??
             if (factor_a <= bulletPen)
@@ -228,6 +210,10 @@ namespace WishGranterProto.ExtensionMethods
                 // Add the damage of the current shot so it can be used in the next loop
                 doneDamage = doneDamage + ArmorItemDamageFromAmmo(armorItem, ammo);
             }
+
+            var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
+            testResult.KillShot = index + 1;
+
             return testResult;
         }
 
@@ -294,6 +280,10 @@ namespace WishGranterProto.ExtensionMethods
                 // Add the damage of the current shot so it can be used in the next loop
                 doneDamage = doneDamage + (double) testResult.ArmorDamagePerShot;
             }
+
+            var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
+            testResult.KillShot = index + 1;
+
             return testResult;
         }
     }

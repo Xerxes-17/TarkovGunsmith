@@ -2474,9 +2474,9 @@
                   "id": "5751487e245977207e26a315",
                   "name": "Emelya rye croutons"
                 },
-                "priceRUB": 1654,
+                "priceRUB": 16539,
                 "currency": "RUB",
-                "price": 1654
+                "price": 16539
               },
               {
                 "item": {
@@ -2509,9 +2509,9 @@
                   "id": "59fb042886f7746c5005a7b2",
                   "name": "Item case"
                 },
-                "priceRUB": 2386439,
+                "priceRUB": 2326397,
                 "currency": "EUR",
-                "price": 17420
+                "price": 16981
               },
               {
                 "item": {
@@ -2675,9 +2675,9 @@
                   "id": "57d17c5e2459775a5c57d17d",
                   "name": "Ultrafire WF-501B flashlight"
                 },
-                "priceRUB": 5096,
+                "priceRUB": 5069,
                 "currency": "EUR",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
@@ -3026,9 +3026,9 @@
                   "id": "569668774bdc2da2298b4568",
                   "name": "Euros"
                 },
-                "priceRUB": 134,
+                "priceRUB": 137,
                 "currency": "RUB",
-                "price": 134
+                "price": 137
               },
               {
                 "item": {
@@ -3744,9 +3744,9 @@
                   "id": "56eabf3bd2720b75698b4569",
                   "name": "Magpul MOE Carbine stock (Black)"
                 },
-                "priceRUB": 10168,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 81
+                "price": 79
               },
               {
                 "item": {
@@ -3816,9 +3816,9 @@
                   "id": "57cffddc24597763133760c6",
                   "name": "AK Magpul MOE AKM handguard (Olive Drab)"
                 },
-                "priceRUB": 18002,
+                "priceRUB": 17514,
                 "currency": "USD",
-                "price": 143
+                "price": 139
               },
               {
                 "item": {
@@ -3852,9 +3852,9 @@
                   "id": "58491f3324597764bc48fa02",
                   "name": "EOTech XPS3-0 holographic sight"
                 },
-                "priceRUB": 30274,
+                "priceRUB": 29358,
                 "currency": "USD",
-                "price": 241
+                "price": 233
               },
               {
                 "item": {
@@ -3906,9 +3906,9 @@
                   "id": "57cffcd624597763133760c5",
                   "name": "Magpul M-LOK AFG tactical foregrip (FDE)"
                 },
-                "priceRUB": 9240,
+                "priceRUB": 9072,
                 "currency": "USD",
-                "price": 74
+                "price": 72
               },
               {
                 "item": {
@@ -3933,9 +3933,9 @@
                   "id": "588b56d02459771481110ae2",
                   "name": "AR-15 Daniel Defense RIS II 9.5 handguard (Black)"
                 },
-                "priceRUB": 13501,
+                "priceRUB": 13230,
                 "currency": "USD",
-                "price": 108
+                "price": 105
               },
               {
                 "item": {
@@ -3987,9 +3987,9 @@
                   "id": "588226d124597767ad33f787",
                   "name": "Magpul AFG tactical foregrip (Black)"
                 },
-                "priceRUB": 8634,
+                "priceRUB": 8442,
                 "currency": "USD",
-                "price": 69
+                "price": 67
               },
               {
                 "item": {
@@ -5053,25 +5053,25 @@
                   "id": "5696686a4bdc2da3298b456a",
                   "name": "Dollars"
                 },
-                "priceRUB": 121,
+                "priceRUB": 126,
                 "currency": "RUB",
-                "price": 121
+                "price": 126
               },
               {
                 "item": {
                   "id": "616554fe50224f204c1da2aa",
                   "name": "Aimpoint Micro H-2 Standard Mount"
                 },
-                "priceRUB": 3213,
+                "priceRUB": 3150,
                 "currency": "USD",
-                "price": 26
+                "price": 25
               },
               {
                 "item": {
                   "id": "56d59948d2720bb7418b4582",
                   "name": "P226 9x19 15-round magazine"
                 },
-                "priceRUB": 2641,
+                "priceRUB": 2646,
                 "currency": "USD",
                 "price": 21
               },
@@ -5080,52 +5080,52 @@
                   "id": "55d4ae6c4bdc2d8b2f8b456e",
                   "name": "High Standard M4SS Stock"
                 },
-                "priceRUB": 3930,
+                "priceRUB": 3906,
                 "currency": "USD",
-                "price": 32
+                "price": 31
               },
               {
                 "item": {
                   "id": "61657230d92c473c770213d7",
                   "name": "Aimpoint Micro H-2 reflex sight"
                 },
-                "priceRUB": 27846,
+                "priceRUB": 27090,
                 "currency": "USD",
-                "price": 221
+                "price": 215
               },
               {
                 "item": {
                   "id": "587df583245977373c4f1129",
                   "name": "SKS 7.62x39 ProMag SKS-A5 20-round magazine"
                 },
-                "priceRUB": 10049,
+                "priceRUB": 9828,
                 "currency": "USD",
-                "price": 80
+                "price": 78
               },
               {
                 "item": {
                   "id": "5448c1d04bdc2dff2f8b4569",
                   "name": "5.56x45 Magpul PMAG 20 GEN M3 STANAG 20-round magazine"
                 },
-                "priceRUB": 3788,
+                "priceRUB": 3780,
                 "currency": "USD",
-                "price": 31
+                "price": 30
               },
               {
                 "item": {
                   "id": "55d4b9964bdc2d1d4e8b456e",
                   "name": "AR-15 Colt A2 pistol grip"
                 },
-                "priceRUB": 1528,
+                "priceRUB": 1512,
                 "currency": "USD",
-                "price": 13
+                "price": 12
               },
               {
                 "item": {
                   "id": "58864a4f2459770fcc257101",
                   "name": "9x19mm PSO gzh"
                 },
-                "priceRUB": 62,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -5134,7 +5134,7 @@
                   "id": "5926c32286f774616e42de99",
                   "name": "HK MP5 cocking handle"
                 },
-                "priceRUB": 2079,
+                "priceRUB": 2142,
                 "currency": "USD",
                 "price": 17
               },
@@ -5143,7 +5143,7 @@
                   "id": "577d128124597739d65d0e56",
                   "name": "Burris FastFire Weaver Base"
                 },
-                "priceRUB": 1993,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -5152,36 +5152,36 @@
                   "id": "577d141e24597739c5255e01",
                   "name": "Burris FastFire 3 reflex sight"
                 },
-                "priceRUB": 20801,
+                "priceRUB": 20160,
                 "currency": "USD",
-                "price": 166
+                "price": 160
               },
               {
                 "item": {
                   "id": "58d39d3d86f77445bb794ae7",
                   "name": "Aimpoint Micro Standard Mount"
                 },
-                "priceRUB": 3088,
+                "priceRUB": 3024,
                 "currency": "USD",
-                "price": 25
+                "price": 24
               },
               {
                 "item": {
                   "id": "5926c3b286f774640d189b6b",
                   "name": "HK MP5 9x19 30-round magazine"
                 },
-                "priceRUB": 5053,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
                   "id": "58d2664f86f7747fec5834f6",
                   "name": "DeltaPoint Cross Slot Mount base"
                 },
-                "priceRUB": 2048,
+                "priceRUB": 2016,
                 "currency": "USD",
-                "price": 17
+                "price": 16
               },
               {
                 "item": {
@@ -5197,34 +5197,34 @@
                   "id": "5926d40686f7740f152b6b7e",
                   "name": "HK MP5 A3 old model stock"
                 },
-                "priceRUB": 17291,
+                "priceRUB": 16758,
                 "currency": "USD",
-                "price": 138
+                "price": 133
               },
               {
                 "item": {
                   "id": "57d17c5e2459775a5c57d17d",
                   "name": "Ultrafire WF-501B flashlight"
                 },
-                "priceRUB": 4728,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
                   "id": "5926c0df86f77462f647f764",
                   "name": "HK MP5 9x19 upper receiver"
                 },
-                "priceRUB": 4120,
+                "priceRUB": 4032,
                 "currency": "USD",
-                "price": 33
+                "price": 32
               },
               {
                 "item": {
                   "id": "57d17e212459775a1179a0f5",
                   "name": "Kiba Arms 25mm accessory ring mount"
                 },
-                "priceRUB": 3527,
+                "priceRUB": 3528,
                 "currency": "USD",
                 "price": 28
               },
@@ -5233,16 +5233,16 @@
                   "id": "5926dad986f7741f82604363",
                   "name": "HK MP5 MFI HK universal low profile scope mount"
                 },
-                "priceRUB": 10542,
+                "priceRUB": 10332,
                 "currency": "USD",
-                "price": 84
+                "price": 82
               },
               {
                 "item": {
                   "id": "59e6920f86f77411d82aa167",
                   "name": "5.56x45mm FMJ"
                 },
-                "priceRUB": 107,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -5251,7 +5251,7 @@
                   "id": "58820d1224597753c90aeb13",
                   "name": "12/70 lead slug"
                 },
-                "priceRUB": 71,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -5260,34 +5260,34 @@
                   "id": "55d459824bdc2d892f8b4573",
                   "name": "AR-15 KAC RIS handguard"
                 },
-                "priceRUB": 6576,
+                "priceRUB": 6426,
                 "currency": "USD",
-                "price": 53
+                "price": 51
               },
               {
                 "item": {
                   "id": "55d5f46a4bdc2d1b198b4567",
                   "name": "AR-15 Colt A2 rear sight"
                 },
-                "priceRUB": 1144,
+                "priceRUB": 1134,
                 "currency": "USD",
-                "price": 10
+                "price": 9
               },
               {
                 "item": {
                   "id": "58d39b0386f77443380bf13c",
                   "name": "Aimpoint Micro Spacer High"
                 },
-                "priceRUB": 2776,
+                "priceRUB": 2772,
                 "currency": "USD",
-                "price": 23
+                "price": 22
               },
               {
                 "item": {
                   "id": "5894a05586f774094708ef75",
                   "name": "MPX 9x19 30-round magazine"
                 },
-                "priceRUB": 2612,
+                "priceRUB": 2646,
                 "currency": "USD",
                 "price": 21
               },
@@ -5296,7 +5296,7 @@
                   "id": "544a38634bdc2d58388b4568",
                   "name": "AR-15 Colt USGI A2 5.56x45 flash hider"
                 },
-                "priceRUB": 1688,
+                "priceRUB": 1764,
                 "currency": "USD",
                 "price": 14
               },
@@ -5305,16 +5305,16 @@
                   "id": "55d4887d4bdc2d962f8b4570",
                   "name": "5.56x45 Colt AR-15 STANAG 30-round magazine"
                 },
-                "priceRUB": 2535,
+                "priceRUB": 2520,
                 "currency": "USD",
-                "price": 21
+                "price": 20
               },
               {
                 "item": {
                   "id": "5ae30bad5acfc400185c2dc4",
                   "name": "AR-15 rear sight carry handle"
                 },
-                "priceRUB": 1037,
+                "priceRUB": 1134,
                 "currency": "USD",
                 "price": 9
               },
@@ -5323,25 +5323,25 @@
                   "id": "5ae30db85acfc408fb139a05",
                   "name": "AR-15 Colt M4 Carbine Length handguard"
                 },
-                "priceRUB": 1794,
+                "priceRUB": 1764,
                 "currency": "USD",
-                "price": 15
+                "price": 14
               },
               {
                 "item": {
                   "id": "5b7bef1e5acfc43d82528402",
                   "name": "SA-58/FAL 7.62x51 10-round magazine"
                 },
-                "priceRUB": 2271,
+                "priceRUB": 2268,
                 "currency": "USD",
-                "price": 19
+                "price": 18
               },
               {
                 "item": {
                   "id": "5c5db6552e2216001026119d",
                   "name": "MPX 9x19 20-round magazine"
                 },
-                "priceRUB": 1827,
+                "priceRUB": 1890,
                 "currency": "USD",
                 "price": 15
               },
@@ -5359,7 +5359,7 @@
                   "id": "5c87ca002e221600114cb150",
                   "name": "KAC vertical foregrip"
                 },
-                "priceRUB": 4027,
+                "priceRUB": 4032,
                 "currency": "USD",
                 "price": 32
               },
@@ -5395,16 +5395,16 @@
                   "id": "5c920e902e221644f31c3c99",
                   "name": "P226 9x19 20-round extended magazine"
                 },
-                "priceRUB": 3704,
+                "priceRUB": 3654,
                 "currency": "USD",
-                "price": 30
+                "price": 29
               },
               {
                 "item": {
                   "id": "5e81f423763d9f754677bf2e",
                   "name": ".45 ACP Match FMJ"
                 },
-                "priceRUB": 110,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -5449,7 +5449,7 @@
                   "id": "637f57a68d137b27f70c4968",
                   "name": "AR-15 Colt M4 Carbine Length lower handguard"
                 },
-                "priceRUB": 1196,
+                "priceRUB": 1260,
                 "currency": "USD",
                 "price": 10
               },
@@ -5458,27 +5458,27 @@
                   "id": "637f57b78d137b27f70c496a",
                   "name": "AR-15 KAC RIS lower handguard"
                 },
-                "priceRUB": 2562,
+                "priceRUB": 2520,
                 "currency": "USD",
-                "price": 21
+                "price": 20
               },
               {
                 "item": {
                   "id": "638f1ff84822287cad04be9d",
                   "name": "AR-15 Daniel Defense RIS II 9.5 lower handguard (Coyote Brown)"
                 },
-                "priceRUB": 5642,
+                "priceRUB": 5544,
                 "currency": "USD",
-                "price": 45
+                "price": 44
               },
               {
                 "item": {
                   "id": "6396aaa9a52ace83df0840ab",
                   "name": "AR-15 Daniel Defense RIS II 9.5 lower handguard (Black)"
                 },
-                "priceRUB": 5534,
+                "priceRUB": 5418,
                 "currency": "USD",
-                "price": 44
+                "price": 43
               },
               {
                 "item": {
@@ -5512,9 +5512,9 @@
                   "id": "5de8ea8ffd6b4e6e2276dc35",
                   "name": "MP9 9x19 20-round magazine"
                 },
-                "priceRUB": 2457,
+                "priceRUB": 2394,
                 "currency": "USD",
-                "price": 20
+                "price": 19
               },
               {
                 "item": {
@@ -5530,9 +5530,9 @@
                   "id": "56ea7293d2720b8d4b8b45ba",
                   "name": "P226 Sight Mount 220-239 rear sight bearing"
                 },
-                "priceRUB": 4812,
+                "priceRUB": 4788,
                 "currency": "USD",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
@@ -5548,7 +5548,7 @@
                   "id": "57c9a89124597704ee6faec1",
                   "name": "P226 Combat pistol grip (FDE)"
                 },
-                "priceRUB": 1571,
+                "priceRUB": 1638,
                 "currency": "USD",
                 "price": 13
               },
@@ -5557,7 +5557,7 @@
                   "id": "59e6918f86f7746c9f75e849",
                   "name": "5.56x45mm MK 255 Mod 0 (RRLP)"
                 },
-                "priceRUB": 170,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -5566,16 +5566,16 @@
                   "id": "5a32aa0cc4a28232996e405f",
                   "name": "P226 Trijicon RMR mount"
                 },
-                "priceRUB": 5644,
+                "priceRUB": 5544,
                 "currency": "USD",
-                "price": 45
+                "price": 44
               },
               {
                 "item": {
                   "id": "587de4282459771bca0ec90b",
                   "name": "P226 9x19 threaded barrel"
                 },
-                "priceRUB": 1968,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -5610,18 +5610,18 @@
                   "id": "544a11ac4bdc2d470e8b456a",
                   "name": "Secure container Alpha"
                 },
-                "priceRUB": 1065960,
+                "priceRUB": 1029546,
                 "currency": "USD",
-                "price": 8460
+                "price": 8171
               },
               {
                 "item": {
                   "id": "61816dfa6ef05c2ce828f1ad",
                   "name": "FN SCAR side rail"
                 },
-                "priceRUB": 1550,
+                "priceRUB": 1512,
                 "currency": "USD",
-                "price": 13
+                "price": 12
               },
               {
                 "item": {
@@ -5637,25 +5637,25 @@
                   "id": "61817865d3a39d50044c13a4",
                   "name": "FN SCAR flip-up rear sight"
                 },
-                "priceRUB": 4914,
+                "priceRUB": 4788,
                 "currency": "USD",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
                   "id": "6130c3dffaa1272e43151c7d",
                   "name": "HK UMP .45 ACP 8 inch threaded barrel"
                 },
-                "priceRUB": 9576,
+                "priceRUB": 9324,
                 "currency": "USD",
-                "price": 76
+                "price": 74
               },
               {
                 "item": {
                   "id": "56d59d3ad2720bdb418b4577",
                   "name": "9x19mm Pst gzh"
                 },
-                "priceRUB": 78,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -5664,9 +5664,9 @@
                   "id": "616442e4faa1272e43152193",
                   "name": "Aimpoint ACRO P-1 reflex sight"
                 },
-                "priceRUB": 24066,
+                "priceRUB": 23310,
                 "currency": "USD",
-                "price": 191
+                "price": 185
               },
               {
                 "item": {
@@ -5700,9 +5700,9 @@
                   "id": "6130c4d51cb55961fa0fd49f",
                   "name": "HK UMP B&T OEM .45 ACP sound suppressor"
                 },
-                "priceRUB": 52595,
+                "priceRUB": 50904,
                 "currency": "USD",
-                "price": 418
+                "price": 404
               },
               {
                 "item": {
@@ -5727,9 +5727,9 @@
                   "id": "61659f79d92c473c770213ee",
                   "name": "Aimpoint PRO reflex sight"
                 },
-                "priceRUB": 31500,
+                "priceRUB": 30618,
                 "currency": "USD",
-                "price": 250
+                "price": 243
               },
               {
                 "item": {
@@ -5745,9 +5745,9 @@
                   "id": "61816df1d3a39d50044c139e",
                   "name": "FN SCAR bottom rail"
                 },
-                "priceRUB": 1789,
+                "priceRUB": 1764,
                 "currency": "USD",
-                "price": 15
+                "price": 14
               },
               {
                 "item": {
@@ -5781,9 +5781,9 @@
                   "id": "615d8df08004cc50514c3236",
                   "name": "HK MP5 B&T QD 9x19 muzzle brake"
                 },
-                "priceRUB": 6930,
+                "priceRUB": 6804,
                 "currency": "USD",
-                "price": 55
+                "price": 54
               },
               {
                 "item": {
@@ -5799,9 +5799,9 @@
                   "id": "55802d5f4bdc2dac148b458e",
                   "name": "5.56x45 Magpul PMAG 30 GEN M3 W STANAG 30-round magazine"
                 },
-                "priceRUB": 4784,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
@@ -5817,7 +5817,7 @@
                   "id": "59e6906286f7746c9f75e847",
                   "name": "5.56x45mm M856A1"
                 },
-                "priceRUB": 481,
+                "priceRUB": 504,
                 "currency": "USD",
                 "price": 4
               },
@@ -5844,27 +5844,27 @@
                   "id": "5649a2464bdc2d91118b45a8",
                   "name": "NcSTAR MPR45 Backup mount"
                 },
-                "priceRUB": 9143,
+                "priceRUB": 8946,
                 "currency": "USD",
-                "price": 73
+                "price": 71
               },
               {
                 "item": {
                   "id": "56ea8180d2720bf2698b456a",
                   "name": "AR-15 KAC QDC 5.56x45 Flash Suppressor Kit"
                 },
-                "priceRUB": 6930,
+                "priceRUB": 6804,
                 "currency": "USD",
-                "price": 55
+                "price": 54
               },
               {
                 "item": {
                   "id": "5648ae314bdc2d3d1c8b457f",
                   "name": "AK CAA RS47 handguard"
                 },
-                "priceRUB": 13404,
+                "priceRUB": 13104,
                 "currency": "USD",
-                "price": 107
+                "price": 104
               },
               {
                 "item": {
@@ -5898,9 +5898,9 @@
                   "id": "56eabcd4d2720b66698b4574",
                   "name": "AR-15 Daniel Defense MK12 Low Profile Gas Block"
                 },
-                "priceRUB": 7191,
+                "priceRUB": 7056,
                 "currency": "USD",
-                "price": 58
+                "price": 56
               },
               {
                 "item": {
@@ -5916,7 +5916,7 @@
                   "id": "5649be884bdc2d79388b4577",
                   "name": "Colt Carbine buffer tube"
                 },
-                "priceRUB": 1481,
+                "priceRUB": 1512,
                 "currency": "USD",
                 "price": 12
               },
@@ -5925,79 +5925,79 @@
                   "id": "56def37dd2720bec348b456a",
                   "name": "SureFire X400 Ultra tactical flashlight with laser"
                 },
-                "priceRUB": 14112,
+                "priceRUB": 13860,
                 "currency": "USD",
-                "price": 112
+                "price": 110
               },
               {
                 "item": {
                   "id": "58d268fc86f774111273f8c2",
                   "name": "Leupold DeltaPoint Reflex Sight"
                 },
-                "priceRUB": 22878,
+                "priceRUB": 22176,
                 "currency": "USD",
-                "price": 182
+                "price": 176
               },
               {
                 "item": {
                   "id": "58491f3324597764bc48fa02",
                   "name": "EOTech XPS3-0 holographic sight"
                 },
-                "priceRUB": 30217,
+                "priceRUB": 29358,
                 "currency": "USD",
-                "price": 240
+                "price": 233
               },
               {
                 "item": {
                   "id": "570fd6c2d2720bc6458b457f",
                   "name": "EOTech 553 holographic sight"
                 },
-                "priceRUB": 26856,
+                "priceRUB": 26082,
                 "currency": "USD",
-                "price": 214
+                "price": 207
               },
               {
                 "item": {
                   "id": "5926d3c686f77410de68ebc8",
                   "name": "HK MP5 A2 stock"
                 },
-                "priceRUB": 15850,
+                "priceRUB": 15498,
                 "currency": "USD",
-                "price": 126
+                "price": 123
               },
               {
                 "item": {
                   "id": "5926d33d86f77410de68ebc0",
                   "name": "HK MP5SD 9x19 sound suppressor"
                 },
-                "priceRUB": 33653,
+                "priceRUB": 32508,
                 "currency": "USD",
-                "price": 268
+                "price": 258
               },
               {
                 "item": {
                   "id": "5926e16e86f7742f5a0f7ecb",
                   "name": "HK MP5 3-lug thread protector"
                 },
-                "priceRUB": 3485,
+                "priceRUB": 3402,
                 "currency": "USD",
-                "price": 28
+                "price": 27
               },
               {
                 "item": {
                   "id": "5aaa4194e5b5b055d06310a5",
                   "name": "AK-74 5.45x39 Magpul PMAG 30 GEN M3 30-round magazine"
                 },
-                "priceRUB": 3349,
+                "priceRUB": 3276,
                 "currency": "USD",
-                "price": 27
+                "price": 26
               },
               {
                 "item": {
                   "id": "5a33b652c4a28232996e407c",
                   "name": "Trijicon RMR high profile mount"
                 },
-                "priceRUB": 2007,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -6006,7 +6006,7 @@
                   "id": "59e0be5d86f7742d48765bd2",
                   "name": "Vltor CASV KeyMod 4 inch rail"
                 },
-                "priceRUB": 2239,
+                "priceRUB": 2268,
                 "currency": "USD",
                 "price": 18
               },
@@ -6015,54 +6015,54 @@
                   "id": "5a16b8a9fcdbcb00165aa6ca",
                   "name": "Norotos Titanium Advanced Tactical Mount"
                 },
-                "priceRUB": 5145,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
                   "id": "59bffbb386f77435b379b9c2",
                   "name": "SilencerCo Hybrid 46 multi-caliber sound suppressor"
                 },
-                "priceRUB": 109620,
+                "priceRUB": 105966,
                 "currency": "USD",
-                "price": 870
+                "price": 841
               },
               {
                 "item": {
                   "id": "5926f34786f77469195bfe92",
                   "name": "HK MP5SD polymer handguard"
                 },
-                "priceRUB": 6871,
+                "priceRUB": 6804,
                 "currency": "USD",
-                "price": 55
+                "price": 54
               },
               {
                 "item": {
                   "id": "59c63b4486f7747afb151c1c",
                   "name": "HK MP5SD B&T tri-rail ring mount"
                 },
-                "priceRUB": 5379,
+                "priceRUB": 5292,
                 "currency": "USD",
-                "price": 43
+                "price": 42
               },
               {
                 "item": {
                   "id": "59d6272486f77466146386ff",
                   "name": "AK 7.62x39 Magpul PMAG 30 GEN M3 30-round magazine"
                 },
-                "priceRUB": 4571,
+                "priceRUB": 4536,
                 "currency": "USD",
-                "price": 37
+                "price": 36
               },
               {
                 "item": {
                   "id": "57cffd8224597763b03fc609",
                   "name": "AK Magpul MOE AKM handguard (FDE)"
                 },
-                "priceRUB": 17495,
+                "priceRUB": 17010,
                 "currency": "USD",
-                "price": 139
+                "price": 135
               },
               {
                 "item": {
@@ -6078,25 +6078,25 @@
                   "id": "5926f2e086f7745aae644231",
                   "name": "HK MP5SD 9x19 upper receiver"
                 },
-                "priceRUB": 9873,
+                "priceRUB": 9702,
                 "currency": "USD",
-                "price": 79
+                "price": 77
               },
               {
                 "item": {
                   "id": "5894a81786f77427140b8347",
                   "name": "MPX flip-up rear sight"
                 },
-                "priceRUB": 1011,
+                "priceRUB": 1008,
                 "currency": "USD",
-                "price": 9
+                "price": 8
               },
               {
                 "item": {
                   "id": "59e0bed186f774156f04ce84",
                   "name": "Vltor CASV KeyMod 6 inch rail"
                 },
-                "priceRUB": 3132,
+                "priceRUB": 3150,
                 "currency": "USD",
                 "price": 25
               },
@@ -6105,7 +6105,7 @@
                   "id": "5ba26812d4351e003201fef1",
                   "name": "4.6x30mm Action SX"
                 },
-                "priceRUB": 144,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6114,25 +6114,25 @@
                   "id": "5a33ca0fc4a282000d72292f",
                   "name": "AR-15 Colt A2 buffer tube"
                 },
-                "priceRUB": 4573,
+                "priceRUB": 4536,
                 "currency": "USD",
-                "price": 37
+                "price": 36
               },
               {
                 "item": {
                   "id": "59bffc1f86f77435b128b872",
                   "name": "SilencerCo Hybrid 46 Direct Thread Mount adapter"
                 },
-                "priceRUB": 5970,
+                "priceRUB": 5922,
                 "currency": "USD",
-                "price": 48
+                "price": 47
               },
               {
                 "item": {
                   "id": "5a33b2c9c4a282000c5a9511",
                   "name": "Trijicon RMR low profile mount"
                 },
-                "priceRUB": 2076,
+                "priceRUB": 2142,
                 "currency": "USD",
                 "price": 17
               },
@@ -6141,25 +6141,25 @@
                   "id": "5aa7d03ae5b5b00016327db5",
                   "name": "UNTAR helmet"
                 },
-                "priceRUB": 26958,
+                "priceRUB": 26208,
                 "currency": "USD",
-                "price": 214
+                "price": 208
               },
               {
                 "item": {
                   "id": "5a32aa8bc4a2826c6e06d737",
                   "name": "Trijicon RMR reflex sight"
                 },
-                "priceRUB": 30789,
+                "priceRUB": 29862,
                 "currency": "USD",
-                "price": 245
+                "price": 237
               },
               {
                 "item": {
                   "id": "59e0bdb186f774156f04ce82",
                   "name": "Vltor CASV KeyMod 2 inch rail"
                 },
-                "priceRUB": 2490,
+                "priceRUB": 2520,
                 "currency": "USD",
                 "price": 20
               },
@@ -6168,16 +6168,16 @@
                   "id": "5a16b93dfcdbcbcae6687261",
                   "name": "AN/PVS-14 Dual Dovetail Mount"
                 },
-                "priceRUB": 3092,
+                "priceRUB": 3024,
                 "currency": "USD",
-                "price": 25
+                "price": 24
               },
               {
                 "item": {
                   "id": "5b31163c5acfc400153b71cb",
                   "name": "SIG Sauer ROMEO sight mount"
                 },
-                "priceRUB": 2345,
+                "priceRUB": 2394,
                 "currency": "USD",
                 "price": 19
               },
@@ -6186,7 +6186,7 @@
                   "id": "5b099ac65acfc400186331e1",
                   "name": "SA-58/FAL 7.62x51 20-round magazine"
                 },
-                "priceRUB": 3503,
+                "priceRUB": 3528,
                 "currency": "USD",
                 "price": 28
               },
@@ -6195,27 +6195,27 @@
                   "id": "5ab8e4ed86f7742d8e50c7fa",
                   "name": "MF-UNTAR body armor"
                 },
-                "priceRUB": 50433,
+                "priceRUB": 48762,
                 "currency": "USD",
-                "price": 401
+                "price": 387
               },
               {
                 "item": {
                   "id": "5b3116595acfc40019476364",
                   "name": "SIG Sauer ROMEO4 reflex sight"
                 },
-                "priceRUB": 26844,
+                "priceRUB": 26082,
                 "currency": "USD",
-                "price": 214
+                "price": 207
               },
               {
                 "item": {
                   "id": "5c6d450c2e221600114c997d",
                   "name": "5.56x45 HK PM Gen.2 STANAG 30-round magazine"
                 },
-                "priceRUB": 4316,
+                "priceRUB": 4284,
                 "currency": "USD",
-                "price": 35
+                "price": 34
               },
               {
                 "item": {
@@ -6231,16 +6231,16 @@
                   "id": "5c1780312e221602b66cc189",
                   "name": "KAC Folding rear sight"
                 },
-                "priceRUB": 4190,
+                "priceRUB": 4158,
                 "currency": "USD",
-                "price": 34
+                "price": 33
               },
               {
                 "item": {
                   "id": "5bb20dbcd4351e44f824c04e",
                   "name": "AR-15 HK Extended Latch charging handle"
                 },
-                "priceRUB": 2596,
+                "priceRUB": 2646,
                 "currency": "USD",
                 "price": 21
               },
@@ -6249,61 +6249,61 @@
                   "id": "5d1340cad7ad1a0b0b249869",
                   "name": "5.56x45 Magpul PMAG 30 GEN M3 W STANAG 30-round magazine (FDE)"
                 },
-                "priceRUB": 4784,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
                   "id": "5bb20de5d4351e0035629e59",
                   "name": "HK 416A5 Quad Rail handguard"
                 },
-                "priceRUB": 10206,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 81
+                "price": 79
               },
               {
                 "item": {
                   "id": "5c5db5f22e2216000e5e47e8",
                   "name": "MPX Midwest Industries 4.5 inch M-LOK handguard"
                 },
-                "priceRUB": 8064,
+                "priceRUB": 7938,
                 "currency": "USD",
-                "price": 64
+                "price": 63
               },
               {
                 "item": {
                   "id": "5c17804b2e2216152006c02f",
                   "name": "KAC Folding front sight"
                 },
-                "priceRUB": 2814,
+                "priceRUB": 2772,
                 "currency": "USD",
-                "price": 23
+                "price": 22
               },
               {
                 "item": {
                   "id": "5c6165902e22160010261b28",
                   "name": "SIG Sauer SRD9 9x19 sound suppressor"
                 },
-                "priceRUB": 36036,
+                "priceRUB": 34902,
                 "currency": "USD",
-                "price": 286
+                "price": 277
               },
               {
                 "item": {
                   "id": "5c5db5962e2216000e5e46eb",
                   "name": "MPX 9x19 6.5 inch barrel"
                 },
-                "priceRUB": 6519,
+                "priceRUB": 6426,
                 "currency": "USD",
-                "price": 52
+                "price": 51
               },
               {
                 "item": {
                   "id": "5cc80f8fe4a949033b0224a2",
                   "name": "5.7x28mm SS197SR"
                 },
-                "priceRUB": 139,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6312,27 +6312,27 @@
                   "id": "5dfa3cd1b33c0951220c079b",
                   "name": "AR-10 KAC QDC 7.62x51 Flash Suppressor Kit"
                 },
-                "priceRUB": 7748,
+                "priceRUB": 7560,
                 "currency": "USD",
-                "price": 62
+                "price": 60
               },
               {
                 "item": {
                   "id": "5d5d8ca986f7742798716522",
                   "name": "SOE Micro Rig"
                 },
-                "priceRUB": 12096,
+                "priceRUB": 11844,
                 "currency": "USD",
-                "price": 96
+                "price": 94
               },
               {
                 "item": {
                   "id": "5c5db5fc2e2216000f1b2842",
                   "name": "MPX Midwest Industries 6.5 inch M-LOK handguard"
                 },
-                "priceRUB": 9576,
+                "priceRUB": 9324,
                 "currency": "USD",
-                "price": 76
+                "price": 74
               },
               {
                 "item": {
@@ -6348,9 +6348,9 @@
                   "id": "5c5db5852e2216003a0fe71a",
                   "name": "MPX 9x19 4.5 inch barrel"
                 },
-                "priceRUB": 4788,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
@@ -6366,25 +6366,25 @@
                   "id": "5d3eb5eca4b9363b1f22f8e4",
                   "name": "FN Five-seveN 5.7x28 20-round magazine"
                 },
-                "priceRUB": 4612,
+                "priceRUB": 4536,
                 "currency": "USD",
-                "price": 37
+                "price": 36
               },
               {
                 "item": {
                   "id": "5d5e7d28a4b936645d161203",
                   "name": "MSA ACH TC-2001 MICH Series helmet"
                 },
-                "priceRUB": 58212,
+                "priceRUB": 56322,
                 "currency": "USD",
-                "price": 462
+                "price": 447
               },
               {
                 "item": {
                   "id": "5efb0d4f4bc50b58e81710f3",
                   "name": ".45 ACP Lasermatch FMJ"
                 },
-                "priceRUB": 110,
+                "priceRUB": 126,
                 "currency": "USD",
                 "price": 1
               },
@@ -6393,7 +6393,7 @@
                   "id": "5fc5396e900b1d5091531e72",
                   "name": "HK UMP side handguard rail"
                 },
-                "priceRUB": 1302,
+                "priceRUB": 1386,
                 "currency": "USD",
                 "price": 11
               },
@@ -6402,16 +6402,16 @@
                   "id": "5d10b49bd7ad1a1a560708b0",
                   "name": "AN/PEQ-2 tactical device"
                 },
-                "priceRUB": 12925,
+                "priceRUB": 12600,
                 "currency": "USD",
-                "price": 103
+                "price": 100
               },
               {
                 "item": {
                   "id": "5fc53954f8b6a877a729eaeb",
                   "name": "HK UMP bottom handguard rail"
                 },
-                "priceRUB": 1982,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -6420,9 +6420,9 @@
                   "id": "5fbbaa86f9986c4cff3fe5f6",
                   "name": "KRISS Defiance DS150 stock (Black)"
                 },
-                "priceRUB": 9954,
+                "priceRUB": 9702,
                 "currency": "USD",
-                "price": 79
+                "price": 77
               },
               {
                 "item": {
@@ -6447,25 +6447,25 @@
                   "id": "62307b7b10d2321fa8741921",
                   "name": "HK G36 5.56x45 30-round magazine"
                 },
-                "priceRUB": 2961,
+                "priceRUB": 2898,
                 "currency": "USD",
-                "price": 24
+                "price": 23
               },
               {
                 "item": {
                   "id": "622f140da5958f63c67f1735",
                   "name": "HK G36 polymer stock"
                 },
-                "priceRUB": 7560,
+                "priceRUB": 7434,
                 "currency": "USD",
-                "price": 60
+                "price": 59
               },
               {
                 "item": {
                   "id": "62444cb99f47004c781903eb",
                   "name": "HK G36 bottom handguard rail"
                 },
-                "priceRUB": 1982,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -6474,7 +6474,7 @@
                   "id": "62444cd3674028188b052799",
                   "name": "HK G36 side handguard rail"
                 },
-                "priceRUB": 1302,
+                "priceRUB": 1386,
                 "currency": "USD",
                 "price": 11
               },
@@ -6492,36 +6492,36 @@
                   "id": "622b3c081b89c677a33bcda6",
                   "name": "HK G36 sight mount"
                 },
-                "priceRUB": 5040,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "622b4d7df9cfc87d675d2ded",
                   "name": "HK G36 Hensoldt HKV 3x carry handle"
                 },
-                "priceRUB": 11970,
+                "priceRUB": 11718,
                 "currency": "USD",
-                "price": 95
+                "price": 93
               },
               {
                 "item": {
                   "id": "622b4f54dc8dcc0ba8742f85",
                   "name": "HK G36 Hensoldt HKV ZF 1.5x carry handle"
                 },
-                "priceRUB": 10710,
+                "priceRUB": 10458,
                 "currency": "USD",
-                "price": 85
+                "price": 83
               },
               {
                 "item": {
                   "id": "622efbcb99f4ea1a4d6c9a15",
                   "name": "Hensoldt RV red dot sight"
                 },
-                "priceRUB": 10080,
+                "priceRUB": 9828,
                 "currency": "USD",
-                "price": 80
+                "price": 78
               },
               {
                 "item": {
@@ -6546,36 +6546,36 @@
                   "id": "622f0ee47762f55aaa68ac87",
                   "name": "HK G36C 5.56x45 4-prong flash hider"
                 },
-                "priceRUB": 6930,
+                "priceRUB": 6804,
                 "currency": "USD",
-                "price": 55
+                "price": 54
               },
               {
                 "item": {
                   "id": "622f128cec80d870d349b4e8",
                   "name": "HK G36 5.56x45 4-prong flash hider"
                 },
-                "priceRUB": 8694,
+                "priceRUB": 8568,
                 "currency": "USD",
-                "price": 69
+                "price": 68
               },
               {
                 "item": {
                   "id": "628a85ee6b1d481ff772e9d5",
                   "name": "SB Tactical SBA3 buttstock"
                 },
-                "priceRUB": 10836,
+                "priceRUB": 10584,
                 "currency": "USD",
-                "price": 86
+                "price": 84
               },
               {
                 "item": {
                   "id": "59db7e1086f77448be30ddf3",
                   "name": "Trijicon ACOG TA11D 3.5x35 scope"
                 },
-                "priceRUB": 29580,
+                "priceRUB": 28728,
                 "currency": "USD",
-                "price": 235
+                "price": 228
               },
               {
                 "item": {
@@ -6591,9 +6591,9 @@
                   "id": "6333f05d1bc0e6217a0e9d34",
                   "name": "Steyr AUG A1 5.56x45 16 inch barrel"
                 },
-                "priceRUB": 35910,
+                "priceRUB": 34776,
                 "currency": "USD",
-                "price": 285
+                "price": 276
               },
               {
                 "item": {
@@ -6627,9 +6627,9 @@
                   "id": "62e7c7f3c34ea971710c32fc",
                   "name": "Steyr AUG A1 5.56x45 20 inch barrel"
                 },
-                "priceRUB": 32214,
+                "priceRUB": 31248,
                 "currency": "USD",
-                "price": 256
+                "price": 248
               },
               {
                 "item": {
@@ -6654,70 +6654,70 @@
                   "id": "62ea7c793043d74a0306e19f",
                   "name": "Steyr AUG A1 STG77 1.5x optic sight"
                 },
-                "priceRUB": 8190,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 65
+                "price": 64
               },
               {
                 "item": {
                   "id": "5a339805c4a2826c6e06d73d",
                   "name": "AR-15 Magpul MIAD pistol grip (FDE)"
                 },
-                "priceRUB": 3969,
+                "priceRUB": 3906,
                 "currency": "USD",
-                "price": 32
+                "price": 31
               },
               {
                 "item": {
                   "id": "5cc70093e4a949033c734312",
                   "name": "FN P90 5.7x28 50-round magazine"
                 },
-                "priceRUB": 13230,
+                "priceRUB": 12978,
                 "currency": "USD",
-                "price": 105
+                "price": 103
               },
               {
                 "item": {
                   "id": "5de8eaadbbaf010b10528a6d",
                   "name": "MP9 9x19 25-round magazine"
                 },
-                "priceRUB": 3213,
+                "priceRUB": 3150,
                 "currency": "USD",
-                "price": 26
+                "price": 25
               },
               {
                 "item": {
                   "id": "5d19cd96d7ad1a4a992c9f52",
                   "name": "HK MP5 PTR Tri-Rail handguard"
                 },
-                "priceRUB": 12852,
+                "priceRUB": 12600,
                 "currency": "USD",
-                "price": 102
+                "price": 100
               },
               {
                 "item": {
                   "id": "5cf508bfd7f00c056e24104e",
                   "name": "AK Strike Industries Enhanced Pistol Grip (FDE)"
                 },
-                "priceRUB": 4914,
+                "priceRUB": 4788,
                 "currency": "USD",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
                   "id": "5de8eac42a78646d96665d91",
                   "name": "MP9 9x19 30-round magazine"
                 },
-                "priceRUB": 5166,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
                   "id": "5efb0fc6aeb21837e749c801",
                   "name": ".45 ACP Hydra-Shok"
                 },
-                "priceRUB": 139,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6726,9 +6726,9 @@
                   "id": "5cf50850d7f00c056e24104c",
                   "name": "AK Strike Industries Enhanced Pistol Grip (Black)"
                 },
-                "priceRUB": 4914,
+                "priceRUB": 4788,
                 "currency": "USD",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
@@ -6744,16 +6744,16 @@
                   "id": "623166e08c43374ca1567195",
                   "name": "HK G36 front sight"
                 },
-                "priceRUB": 2961,
+                "priceRUB": 2898,
                 "currency": "USD",
-                "price": 24
+                "price": 23
               },
               {
                 "item": {
                   "id": "6231670f0b8aa5472d060095",
                   "name": "HK G36 rear sight"
                 },
-                "priceRUB": 1575,
+                "priceRUB": 1638,
                 "currency": "USD",
                 "price": 13
               },
@@ -6762,25 +6762,25 @@
                   "id": "622b379bf9cfc87d675d2de5",
                   "name": "HK G36 5.56x45 228mm barrel"
                 },
-                "priceRUB": 17640,
+                "priceRUB": 17136,
                 "currency": "USD",
-                "price": 140
+                "price": 136
               },
               {
                 "item": {
                   "id": "61825d136ef05c2ce828f1cc",
                   "name": "FN SCAR retractable polymer stock (FDE)"
                 },
-                "priceRUB": 11340,
+                "priceRUB": 11088,
                 "currency": "USD",
-                "price": 90
+                "price": 88
               },
               {
                 "item": {
                   "id": "54527a984bdc2d4e668b4567",
                   "name": "5.56x45mm M855"
                 },
-                "priceRUB": 200,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6798,9 +6798,9 @@
                   "id": "56ea7165d2720b6e518b4583",
                   "name": "AR-15 Badger Ordnance Tactical Charging Handle Latch"
                 },
-                "priceRUB": 5539,
+                "priceRUB": 5418,
                 "currency": "USD",
-                "price": 44
+                "price": 43
               },
               {
                 "item": {
@@ -6825,43 +6825,43 @@
                   "id": "6183fc15d3a39d50044c13e9",
                   "name": "FN SCAR-L 5.56x45 10 inch barrel"
                 },
-                "priceRUB": 38430,
+                "priceRUB": 37170,
                 "currency": "USD",
-                "price": 305
+                "price": 295
               },
               {
                 "item": {
                   "id": "618426d96c780c1e710c9b9f",
                   "name": "FN SCAR-L 5.56x45 upper receiver (FDE)"
                 },
-                "priceRUB": 8190,
+                "priceRUB": 22050,
                 "currency": "USD",
-                "price": 65
+                "price": 175
               },
               {
                 "item": {
                   "id": "59db7eed86f77461f8380365",
                   "name": "Trijicon TA51 sight mount"
                 },
-                "priceRUB": 5378,
+                "priceRUB": 5292,
                 "currency": "USD",
-                "price": 43
+                "price": 42
               },
               {
                 "item": {
                   "id": "5926c36d86f77467a92a8629",
                   "name": "HK MP5 Wide Tropical polymer handguard"
                 },
-                "priceRUB": 3832,
+                "priceRUB": 3780,
                 "currency": "USD",
-                "price": 31
+                "price": 30
               },
               {
                 "item": {
                   "id": "59e68f6f86f7746c9f75e846",
                   "name": "5.56x45mm M856"
                 },
-                "priceRUB": 176,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6870,34 +6870,34 @@
                   "id": "5a33a8ebc4a282000c5a950d",
                   "name": "Alpha Dog Alpha 9 9x19 sound suppressor"
                 },
-                "priceRUB": 32333,
+                "priceRUB": 31374,
                 "currency": "USD",
-                "price": 257
+                "price": 249
               },
               {
                 "item": {
                   "id": "5fce16961f152d4312622bc9",
                   "name": "KRISS Defiance DS150 stock (FDE)"
                 },
-                "priceRUB": 9954,
+                "priceRUB": 9702,
                 "currency": "USD",
-                "price": 79
+                "price": 77
               },
               {
                 "item": {
                   "id": "61825d06d92c473c770215de",
                   "name": "FN SCAR folding polymer stock (FDE)"
                 },
-                "priceRUB": 8190,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 65
+                "price": 64
               },
               {
                 "item": {
                   "id": "5cc80f79e4a949033c7343b2",
                   "name": "5.7x28mm SS198LF"
                 },
-                "priceRUB": 169,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -6968,63 +6968,63 @@
                   "id": "61713308d92c473c770214a0",
                   "name": "HK Prolonged 7.62x51 flash hider"
                 },
-                "priceRUB": 4725,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
                   "id": "618178aa1cb55961fa0fdc80",
                   "name": "AAC SCAR-SD 51T 7.62x51 flash hider"
                 },
-                "priceRUB": 5292,
+                "priceRUB": 5166,
                 "currency": "USD",
-                "price": 42
+                "price": 41
               },
               {
                 "item": {
                   "id": "619256e5f8af2c1a4e1f5d92",
                   "name": "Model 7290 Flash Bang grenade"
                 },
-                "priceRUB": 11214,
+                "priceRUB": 10962,
                 "currency": "USD",
-                "price": 89
+                "price": 87
               },
               {
                 "item": {
                   "id": "618405198004cc50514c3594",
                   "name": "FN SCAR-L 5.56x45 upper receiver"
                 },
-                "priceRUB": 7812,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 62
+                "price": 61
               },
               {
                 "item": {
                   "id": "6183fd911cb55961fa0fdce9",
                   "name": "FN SCAR-L 5.56x45 14 inch barrel"
                 },
-                "priceRUB": 30240,
+                "priceRUB": 29358,
                 "currency": "USD",
-                "price": 240
+                "price": 233
               },
               {
                 "item": {
                   "id": "618168dc8004cc50514c34fc",
                   "name": "FN SCAR-H 7.62x51 20-round magazine"
                 },
-                "priceRUB": 5040,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "58d2946386f774496974c37e",
                   "name": "Magpul MOE Carbine stock (FDE)"
                 },
-                "priceRUB": 8358,
+                "priceRUB": 8190,
                 "currency": "USD",
-                "price": 67
+                "price": 65
               },
               {
                 "item": {
@@ -7040,34 +7040,34 @@
                   "id": "55d3632e4bdc2d972f8b4569",
                   "name": "AR-15 5.56x45 370mm barrel"
                 },
-                "priceRUB": 30954,
+                "priceRUB": 30114,
                 "currency": "USD",
-                "price": 246
+                "price": 239
               },
               {
                 "item": {
                   "id": "57cffcdd24597763f5110006",
                   "name": "Magpul M-LOK AFG tactical foregrip (Olive Drab)"
                 },
-                "priceRUB": 10060,
+                "priceRUB": 9828,
                 "currency": "USD",
-                "price": 80
+                "price": 78
               },
               {
                 "item": {
                   "id": "544909bb4bdc2d6f028b4577",
                   "name": "AN/PEQ-15 tactical device"
                 },
-                "priceRUB": 24113,
+                "priceRUB": 23436,
                 "currency": "USD",
-                "price": 192
+                "price": 186
               },
               {
                 "item": {
                   "id": "619636be6db0f2477964e710",
                   "name": ".300 Blackout M62 Tracer"
                 },
-                "priceRUB": 352,
+                "priceRUB": 378,
                 "currency": "USD",
                 "price": 3
               },
@@ -7076,45 +7076,45 @@
                   "id": "544a3a774bdc2d3a388b4567",
                   "name": "Leupold Mark 4 HAMR 4x24 DeltaPoint hybrid assault scope"
                 },
-                "priceRUB": 54057,
+                "priceRUB": 52290,
                 "currency": "USD",
-                "price": 430
+                "price": 415
               },
               {
                 "item": {
                   "id": "544a378f4bdc2d30388b4567",
                   "name": "5.56x45 Magpul PMAG 40 GEN M3 STANAG 40-round magazine"
                 },
-                "priceRUB": 7783,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 62
+                "price": 61
               },
               {
                 "item": {
                   "id": "58ac1bf086f77420ed183f9f",
                   "name": "MPX/MCX retractable stock pipe adapter"
                 },
-                "priceRUB": 4105,
+                "priceRUB": 4032,
                 "currency": "USD",
-                "price": 33
+                "price": 32
               },
               {
                 "item": {
                   "id": "55802f5d4bdc2dac148b458f",
                   "name": "AR-15 Magpul MOE pistol grip (Black)"
                 },
-                "priceRUB": 5166,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
                   "id": "5a154d5cfcdbcb001a3b00da",
                   "name": "Ops-Core FAST MT Super High Cut helmet (Black)"
                 },
-                "priceRUB": 165030,
+                "priceRUB": 159390,
                 "currency": "USD",
-                "price": 1310
+                "price": 1265
               },
               {
                 "item": {
@@ -7130,45 +7130,45 @@
                   "id": "588226dd24597767ad33f789",
                   "name": "Magpul AFG tactical foregrip (FDE)"
                 },
-                "priceRUB": 6859,
+                "priceRUB": 6678,
                 "currency": "USD",
-                "price": 55
+                "price": 53
               },
               {
                 "item": {
                   "id": "57ac965c24597706be5f975c",
                   "name": "ELCAN SpecterDR 1x/4x scope"
                 },
-                "priceRUB": 41533,
+                "priceRUB": 40194,
                 "currency": "USD",
-                "price": 330
+                "price": 319
               },
               {
                 "item": {
                   "id": "55d35ee94bdc2d61338b4568",
                   "name": "AR-15 5.56x45 260mm barrel"
                 },
-                "priceRUB": 24089,
+                "priceRUB": 23436,
                 "currency": "USD",
-                "price": 192
+                "price": 186
               },
               {
                 "item": {
                   "id": "58d3db5386f77426186285a0",
                   "name": "M67 hand grenade"
                 },
-                "priceRUB": 10105,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 81
+                "price": 79
               },
               {
                 "item": {
                   "id": "5947e98b86f774778f1448bc",
                   "name": "Magpul UBR GEN2 stock (Black)"
                 },
-                "priceRUB": 14011,
+                "priceRUB": 13734,
                 "currency": "USD",
-                "price": 112
+                "price": 109
               },
               {
                 "item": {
@@ -7184,18 +7184,18 @@
                   "id": "5947c73886f7747701588af5",
                   "name": "MFT BUS stock"
                 },
-                "priceRUB": 10202,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 81
+                "price": 79
               },
               {
                 "item": {
                   "id": "57cffce524597763b31685d8",
                   "name": "Magpul M-LOK AFG tactical foregrip (Stealth Gray)"
                 },
-                "priceRUB": 9986,
+                "priceRUB": 9828,
                 "currency": "USD",
-                "price": 80
+                "price": 78
               },
               {
                 "item": {
@@ -7211,81 +7211,81 @@
                   "id": "57cffe20245977632f391a9d",
                   "name": "AK Magpul MOE AKM handguard (Stealth Gray)"
                 },
-                "priceRUB": 17326,
+                "priceRUB": 16758,
                 "currency": "USD",
-                "price": 138
+                "price": 133
               },
               {
                 "item": {
                   "id": "57da93632459771cb65bf83f",
                   "name": "KAC QDSS NT-4 5.56x45 sound suppressor (Black)"
                 },
-                "priceRUB": 60117,
+                "priceRUB": 58212,
                 "currency": "USD",
-                "price": 478
+                "price": 462
               },
               {
                 "item": {
                   "id": "58d399e486f77442e0016fe7",
                   "name": "Aimpoint Micro T-1 reflex sight"
                 },
-                "priceRUB": 35713,
+                "priceRUB": 34524,
                 "currency": "USD",
-                "price": 284
+                "price": 274
               },
               {
                 "item": {
                   "id": "5947eab886f77475961d96c5",
                   "name": "Magpul UBR GEN2 stock (FDE)"
                 },
-                "priceRUB": 14417,
+                "priceRUB": 14112,
                 "currency": "USD",
-                "price": 115
+                "price": 112
               },
               {
                 "item": {
                   "id": "588226e62459776e3e094af7",
                   "name": "Magpul AFG tactical foregrip (Forest Green)"
                 },
-                "priceRUB": 6625,
+                "priceRUB": 6552,
                 "currency": "USD",
-                "price": 53
+                "price": 52
               },
               {
                 "item": {
                   "id": "57cffcd624597763133760c5",
                   "name": "Magpul M-LOK AFG tactical foregrip (FDE)"
                 },
-                "priceRUB": 8838,
+                "priceRUB": 8694,
                 "currency": "USD",
-                "price": 71
+                "price": 69
               },
               {
                 "item": {
                   "id": "58d2946c86f7744e271174b5",
                   "name": "Magpul MOE Carbine stock (Foliage Green)"
                 },
-                "priceRUB": 8186,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 65
+                "price": 64
               },
               {
                 "item": {
                   "id": "59fafc5086f7740dbe19f6c3",
                   "name": "AK 7.62x39 US Palm \"AK30\" 30-round magazine (Black)"
                 },
-                "priceRUB": 5528,
+                "priceRUB": 5418,
                 "currency": "USD",
-                "price": 44
+                "price": 43
               },
               {
                 "item": {
                   "id": "57cffb66245977632f391a99",
                   "name": "Magpul M-LOK AFG tactical foregrip (Black)"
                 },
-                "priceRUB": 10205,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 81
+                "price": 79
               },
               {
                 "item": {
@@ -7301,88 +7301,88 @@
                   "id": "588b56d02459771481110ae2",
                   "name": "AR-15 Daniel Defense RIS II 9.5 handguard (Black)"
                 },
-                "priceRUB": 12914,
+                "priceRUB": 12600,
                 "currency": "USD",
-                "price": 103
+                "price": 100
               },
               {
                 "item": {
                   "id": "58d2947e86f77447aa070d53",
                   "name": "Magpul MOE Carbine stock (Stealth Gray)"
                 },
-                "priceRUB": 9314,
+                "priceRUB": 9072,
                 "currency": "USD",
-                "price": 74
+                "price": 72
               },
               {
                 "item": {
                   "id": "5aaa5dfee5b5b000140293d3",
                   "name": "5.56x45 Magpul PMAG 30 GEN M3 STANAG 30-round magazine"
                 },
-                "priceRUB": 3922,
+                "priceRUB": 3906,
                 "currency": "USD",
-                "price": 32
+                "price": 31
               },
               {
                 "item": {
                   "id": "5a32a064c4a28200741e22de",
                   "name": "SilencerCo Osprey 9 9x19 sound suppressor"
                 },
-                "priceRUB": 50075,
+                "priceRUB": 48384,
                 "currency": "USD",
-                "price": 398
+                "price": 384
               },
               {
                 "item": {
                   "id": "5a16b9fffcdbcb0176308b34",
                   "name": "Ops-Core FAST RAC Headset"
                 },
-                "priceRUB": 58761,
+                "priceRUB": 56826,
                 "currency": "USD",
-                "price": 467
+                "price": 451
               },
               {
                 "item": {
                   "id": "5b39f8db5acfc40016387a1b",
                   "name": "Vltor EMOD stock"
                 },
-                "priceRUB": 11200,
+                "priceRUB": 10962,
                 "currency": "USD",
-                "price": 89
+                "price": 87
               },
               {
                 "item": {
                   "id": "5a16badafcdbcb001865f72d",
                   "name": "Ops-Core FAST Side Armor"
                 },
-                "priceRUB": 43431,
+                "priceRUB": 42084,
                 "currency": "USD",
-                "price": 345
+                "price": 334
               },
               {
                 "item": {
                   "id": "591af28e86f77414a27a9e1d",
                   "name": "Viking Tactics UVG tactical foregrip"
                 },
-                "priceRUB": 8225,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 66
+                "price": 64
               },
               {
                 "item": {
                   "id": "588226d124597767ad33f787",
                   "name": "Magpul AFG tactical foregrip (Black)"
                 },
-                "priceRUB": 8258,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 66
+                "price": 64
               },
               {
                 "item": {
                   "id": "5aaf8a0be5b5b00015693243",
                   "name": "M1A 7.62x51 20-round magazine"
                 },
-                "priceRUB": 3110,
+                "priceRUB": 3150,
                 "currency": "USD",
                 "price": 25
               },
@@ -7391,36 +7391,36 @@
                   "id": "5a16b672fcdbcb001912fa83",
                   "name": "Ops-Core FAST Visor"
                 },
-                "priceRUB": 14739,
+                "priceRUB": 14364,
                 "currency": "USD",
-                "price": 117
+                "price": 114
               },
               {
                 "item": {
                   "id": "58d2947686f774485c6a1ee5",
                   "name": "Magpul MOE Carbine stock (Olive Drab)"
                 },
-                "priceRUB": 8050,
+                "priceRUB": 7938,
                 "currency": "USD",
-                "price": 64
+                "price": 63
               },
               {
                 "item": {
                   "id": "5a16ba61fcdbcb098008728a",
                   "name": "Ops-Core FAST Gunsight Mandible"
                 },
-                "priceRUB": 26888,
+                "priceRUB": 26082,
                 "currency": "USD",
-                "price": 214
+                "price": 207
               },
               {
                 "item": {
                   "id": "595cf16b86f77427440c32e2",
                   "name": "AR-15 War Sport LVOA-S handguard (Black)"
                 },
-                "priceRUB": 21225,
+                "priceRUB": 20538,
                 "currency": "USD",
-                "price": 169
+                "price": 163
               },
               {
                 "item": {
@@ -7436,36 +7436,36 @@
                   "id": "59fafc9386f774067d462453",
                   "name": "AK 7.62x39 US Palm \"AK30\" 30-round magazine (FDE)"
                 },
-                "priceRUB": 5922,
+                "priceRUB": 5796,
                 "currency": "USD",
-                "price": 47
+                "price": 46
               },
               {
                 "item": {
                   "id": "5a329052c4a28200741e22d3",
                   "name": "R11 RSASS handguard"
                 },
-                "priceRUB": 25331,
+                "priceRUB": 24570,
                 "currency": "USD",
-                "price": 202
+                "price": 195
               },
               {
                 "item": {
                   "id": "5ba264f6d4351e0034777d52",
                   "name": "HK MP7 4.6x30 20-round magazine"
                 },
-                "priceRUB": 5073,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
                   "id": "59fc48e086f77463b1118392",
                   "name": "Magpul RVG foregrip (Black)"
                 },
-                "priceRUB": 10301,
+                "priceRUB": 10080,
                 "currency": "USD",
-                "price": 82
+                "price": 80
               },
               {
                 "item": {
@@ -7481,7 +7481,7 @@
                   "id": "5ba2678ad4351e44f824b344",
                   "name": "4.6x30mm FMJ SX"
                 },
-                "priceRUB": 295,
+                "priceRUB": 378,
                 "currency": "USD",
                 "price": 3
               },
@@ -7499,27 +7499,27 @@
                   "id": "5c5db6f82e2216003a0fe914",
                   "name": "MPX/MCX PMM ULSS foldable stock"
                 },
-                "priceRUB": 7850,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 63
+                "price": 61
               },
               {
                 "item": {
                   "id": "5c7954d52e221600106f4cc7",
                   "name": "Gemtech ONE Direct Thread Mount adapter"
                 },
-                "priceRUB": 5002,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "5b7d63b75acfc400170e2f8a",
                   "name": "SA-58/FAL Magpul PRS 2 polymer stock"
                 },
-                "priceRUB": 20408,
+                "priceRUB": 19782,
                 "currency": "USD",
-                "price": 162
+                "price": 157
               },
               {
                 "item": {
@@ -7535,9 +7535,9 @@
                   "id": "5c6d10fa2e221600106f3f23",
                   "name": "HK 416A5 Midwest Industries 9 inch M-LOK handguard"
                 },
-                "priceRUB": 15246,
+                "priceRUB": 14868,
                 "currency": "USD",
-                "price": 121
+                "price": 118
               },
               {
                 "item": {
@@ -7553,16 +7553,16 @@
                   "id": "5c066ef40db834001966a595",
                   "name": "Armasight NVG head strap"
                 },
-                "priceRUB": 24066,
+                "priceRUB": 23310,
                 "currency": "USD",
-                "price": 191
+                "price": 185
               },
               {
                 "item": {
                   "id": "5cc80f53e4a949000e1ea4f8",
                   "name": "5.7x28mm L191"
                 },
-                "priceRUB": 204,
+                "priceRUB": 252,
                 "currency": "USD",
                 "price": 2
               },
@@ -7571,9 +7571,9 @@
                   "id": "5c5db6ee2e221600113fba54",
                   "name": "MPX/MCX Maxim Defense CQB telescoping stock"
                 },
-                "priceRUB": 4725,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
@@ -7589,34 +7589,34 @@
                   "id": "5c7d560b2e22160bc12c6139",
                   "name": "Aimpoint Standard Spacer"
                 },
-                "priceRUB": 2776,
+                "priceRUB": 2772,
                 "currency": "USD",
-                "price": 23
+                "price": 22
               },
               {
                 "item": {
                   "id": "5cdd7693d7f00c0010373aa5",
                   "name": "AR-10 Precision Armanent M11 Severe-Duty 7.62x51 muzzle brake"
                 },
-                "priceRUB": 11781,
+                "priceRUB": 11592,
                 "currency": "USD",
-                "price": 94
+                "price": 92
               },
               {
                 "item": {
                   "id": "5d2369418abbc306c62e0c80",
                   "name": "Steiner DBAL-PL tactical device"
                 },
-                "priceRUB": 17010,
+                "priceRUB": 16506,
                 "currency": "USD",
-                "price": 135
+                "price": 131
               },
               {
                 "item": {
                   "id": "5d133067d7ad1a33013f95b4",
                   "name": "KAC URX 3 3 inch rail"
                 },
-                "priceRUB": 1982,
+                "priceRUB": 2016,
                 "currency": "USD",
                 "price": 16
               },
@@ -7634,81 +7634,81 @@
                   "id": "5c05413a0db834001c390617",
                   "name": "5.56x45 HK Steel Maritime STANAG 30-round magazine"
                 },
-                "priceRUB": 4561,
+                "priceRUB": 4536,
                 "currency": "USD",
-                "price": 37
+                "price": 36
               },
               {
                 "item": {
                   "id": "5d5e9c74a4b9364855191c40",
                   "name": "MSA ACH TC-2002 MICH Series helmet"
                 },
-                "priceRUB": 61866,
+                "priceRUB": 59850,
                 "currency": "USD",
-                "price": 491
+                "price": 475
               },
               {
                 "item": {
                   "id": "5bb20d53d4351e4502010a69",
                   "name": "HK 416A5 5.56x45 upper receiver"
                 },
-                "priceRUB": 8190,
+                "priceRUB": 8064,
                 "currency": "USD",
-                "price": 65
+                "price": 64
               },
               {
                 "item": {
                   "id": "5c6d42cb2e2216000e69d7d1",
                   "name": "5.56x45 HK 30 STANAG polymer 30-round magazine"
                 },
-                "priceRUB": 5046,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 41
+                "price": 39
               },
               {
                 "item": {
                   "id": "5c5db5b82e2216003a0fe71d",
                   "name": "MPX 9x19 10.5 inch barrel"
                 },
-                "priceRUB": 10299,
+                "priceRUB": 10080,
                 "currency": "USD",
-                "price": 82
+                "price": 80
               },
               {
                 "item": {
                   "id": "5d440625a4b9361eec4ae6c5",
                   "name": "AR-15 Thunder Beast Arms 223CB 5.56x45 muzzle brake"
                 },
-                "priceRUB": 9047,
+                "priceRUB": 8820,
                 "currency": "USD",
-                "price": 72
+                "price": 70
               },
               {
                 "item": {
                   "id": "5c9a26332e2216001219ea70",
                   "name": "AR-15 Daniel Defense RIS II FSP 9.5 handguard (Coyote Brown)"
                 },
-                "priceRUB": 19908,
+                "priceRUB": 19278,
                 "currency": "USD",
-                "price": 158
+                "price": 153
               },
               {
                 "item": {
                   "id": "5d1340b3d7ad1a0b52682ed7",
                   "name": "5.56x45 Magpul PMAG 30 GEN M3 STANAG 30-round magazine (FDE)"
                 },
-                "priceRUB": 3922,
+                "priceRUB": 3906,
                 "currency": "USD",
-                "price": 32
+                "price": 31
               },
               {
                 "item": {
                   "id": "60a3c70cde5f453f634816a3",
                   "name": "CQC Osprey MK4A plate carrier (Assault, MTP)"
                 },
-                "priceRUB": 187488,
+                "priceRUB": 181188,
                 "currency": "USD",
-                "price": 1488
+                "price": 1438
               },
               {
                 "item": {
@@ -7724,7 +7724,7 @@
                   "id": "5d123b70d7ad1a0ee35e0754",
                   "name": "KAC URX 3/3.1 long panel"
                 },
-                "priceRUB": 2205,
+                "priceRUB": 2268,
                 "currency": "USD",
                 "price": 18
               },
@@ -7733,16 +7733,16 @@
                   "id": "5c5970672e221602b21d7855",
                   "name": "SKS 7.62x39 ProMag AALVX 35-round magazine"
                 },
-                "priceRUB": 21029,
+                "priceRUB": 20412,
                 "currency": "USD",
-                "price": 167
+                "price": 162
               },
               {
                 "item": {
                   "id": "5d124c0ed7ad1a10d168dd9b",
                   "name": "KAC URX 3/3.1 long panel (FDE)"
                 },
-                "priceRUB": 2205,
+                "priceRUB": 2268,
                 "currency": "USD",
                 "price": 18
               },
@@ -7751,9 +7751,9 @@
                   "id": "5d1340bdd7ad1a0e8d245aab",
                   "name": "5.56x45 Magpul PMAG 40 GEN M3 STANAG 40-round magazine (FDE)"
                 },
-                "priceRUB": 7783,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 62
+                "price": 61
               },
               {
                 "item": {
@@ -7769,34 +7769,34 @@
                   "id": "5c7e5f112e221600106f4ede",
                   "name": "AR-15 AAC Blackout 51T 5.56x45 flash hider"
                 },
-                "priceRUB": 9064,
+                "priceRUB": 8946,
                 "currency": "USD",
-                "price": 72
+                "price": 71
               },
               {
                 "item": {
                   "id": "5d3ef698a4b9361182109872",
                   "name": "Gemtech SFN-57 5.7x28 sound suppressor"
                 },
-                "priceRUB": 47804,
+                "priceRUB": 46368,
                 "currency": "USD",
-                "price": 380
+                "price": 368
               },
               {
                 "item": {
                   "id": "5d124c1ad7ad1a12227c53a7",
                   "name": "KAC URX 3/3.1 stopper panel (FDE)"
                 },
-                "priceRUB": 3591,
+                "priceRUB": 3528,
                 "currency": "USD",
-                "price": 29
+                "price": 28
               },
               {
                 "item": {
                   "id": "5c5db6b32e221600102611a0",
                   "name": "MPX Geissele SCH charging handle"
                 },
-                "priceRUB": 2243,
+                "priceRUB": 2268,
                 "currency": "USD",
                 "price": 18
               },
@@ -7805,36 +7805,36 @@
                   "id": "5df8f541c41b2312ea3335e3",
                   "name": "AR-10 7.62x51 KAC 20-round steel magazine"
                 },
-                "priceRUB": 3087,
+                "priceRUB": 3024,
                 "currency": "USD",
-                "price": 25
+                "price": 24
               },
               {
                 "item": {
                   "id": "5d123b7dd7ad1a004f01b262",
                   "name": "KAC URX 3/3.1 stopper panel"
                 },
-                "priceRUB": 3591,
+                "priceRUB": 3528,
                 "currency": "USD",
-                "price": 29
+                "price": 28
               },
               {
                 "item": {
                   "id": "5c066e3a0db834001b7353f0",
                   "name": "Armasight N-15 Night Vision Goggles"
                 },
-                "priceRUB": 94248,
+                "priceRUB": 91224,
                 "currency": "USD",
-                "price": 748
+                "price": 724
               },
               {
                 "item": {
                   "id": "5c7d55de2e221644f31bff68",
                   "name": "Aimpoint CompM4 reflex sight"
                 },
-                "priceRUB": 37296,
+                "priceRUB": 36162,
                 "currency": "USD",
-                "price": 296
+                "price": 287
               },
               {
                 "item": {
@@ -7850,7 +7850,7 @@
                   "id": "5df8e085bb49d91fb446d6a8",
                   "name": "AR-10 KAC ambidextrous charging handle"
                 },
-                "priceRUB": 1323,
+                "priceRUB": 1386,
                 "currency": "USD",
                 "price": 11
               },
@@ -7859,25 +7859,25 @@
                   "id": "5cc700cae4a949035e43ba72",
                   "name": "FN P90 buttpad"
                 },
-                "priceRUB": 2835,
+                "priceRUB": 2772,
                 "currency": "USD",
-                "price": 23
+                "price": 22
               },
               {
                 "item": {
                   "id": "5c5db6302e2216000e5e47f0",
                   "name": "MPX Midwest Industries 10.5 inch M-LOK handguard"
                 },
-                "priceRUB": 11718,
+                "priceRUB": 11466,
                 "currency": "USD",
-                "price": 93
+                "price": 91
               },
               {
                 "item": {
                   "id": "5dfa3d950dee1b22f862eae0",
                   "name": "KAC Folding Micro front sight"
                 },
-                "priceRUB": 3524,
+                "priceRUB": 3528,
                 "currency": "USD",
                 "price": 28
               },
@@ -7895,45 +7895,45 @@
                   "id": "5d443f8fa4b93678dd4a01aa",
                   "name": "AR-10 Thunder Beast Arms 30CB 7.62x51 muzzle brake"
                 },
-                "priceRUB": 12842,
+                "priceRUB": 12600,
                 "currency": "USD",
-                "price": 102
+                "price": 100
               },
               {
                 "item": {
                   "id": "5dfa3d7ac41b2312ea33362a",
                   "name": "KAC Folding Micro rear sight"
                 },
-                "priceRUB": 4442,
+                "priceRUB": 4410,
                 "currency": "USD",
-                "price": 36
+                "price": 35
               },
               {
                 "item": {
                   "id": "5d3eb59ea4b9361c284bb4b2",
                   "name": "FN Five-seveN 5.7x28 threaded barrel"
                 },
-                "priceRUB": 5292,
+                "priceRUB": 5166,
                 "currency": "USD",
-                "price": 42
+                "price": 41
               },
               {
                 "item": {
                   "id": "5d123102d7ad1a004e475fe5",
                   "name": "AR-15 KAC URX 3 8 inch handguard"
                 },
-                "priceRUB": 14729,
+                "priceRUB": 14364,
                 "currency": "USD",
-                "price": 117
+                "price": 114
               },
               {
                 "item": {
                   "id": "5d2da1e948f035477b1ce2ba",
                   "name": "Trijicon SRS-02 reflex sight"
                 },
-                "priceRUB": 28854,
+                "priceRUB": 27972,
                 "currency": "USD",
-                "price": 229
+                "price": 222
               },
               {
                 "item": {
@@ -7949,43 +7949,43 @@
                   "id": "5f60c076f2bcbb675b00dac2",
                   "name": "Galvion Caiman Hybrid Ballistic Mandible Guard"
                 },
-                "priceRUB": 30870,
+                "priceRUB": 29988,
                 "currency": "USD",
-                "price": 245
+                "price": 238
               },
               {
                 "item": {
                   "id": "5dfa397fb11454561e39246c",
                   "name": "SR-25 7.62x51 20 inch barrel"
                 },
-                "priceRUB": 44856,
+                "priceRUB": 43470,
                 "currency": "USD",
-                "price": 356
+                "price": 345
               },
               {
                 "item": {
                   "id": "5f6372e2865db925d54f3869",
                   "name": "AR-15 Ferfrans CQB 5.56x45 muzzle brake"
                 },
-                "priceRUB": 10584,
+                "priceRUB": 10332,
                 "currency": "USD",
-                "price": 84
+                "price": 82
               },
               {
                 "item": {
                   "id": "5fbe7618d6fa9c00c571bb6c",
                   "name": "SIG Sauer SRD762Ti 7.62x51 sound suppressor"
                 },
-                "priceRUB": 65545,
+                "priceRUB": 63378,
                 "currency": "USD",
-                "price": 521
+                "price": 503
               },
               {
                 "item": {
                   "id": "60194943740c5d77f6705eea",
                   "name": "5.56x45mm MK 318 Mod 0 (SOST)"
                 },
-                "priceRUB": 397,
+                "priceRUB": 504,
                 "currency": "USD",
                 "price": 4
               },
@@ -7994,27 +7994,27 @@
                   "id": "609269c3b0e443224b421cc1",
                   "name": "AR-15 SilencerCo ASR 5.56x45 flash hider"
                 },
-                "priceRUB": 13104,
+                "priceRUB": 12852,
                 "currency": "USD",
-                "price": 104
+                "price": 102
               },
               {
                 "item": {
                   "id": "5f6340d3ca442212f4047eb2",
                   "name": "Tactical Dynamics Skeletonized Foregrip"
                 },
-                "priceRUB": 9450,
+                "priceRUB": 9324,
                 "currency": "USD",
-                "price": 75
+                "price": 74
               },
               {
                 "item": {
                   "id": "5fbcbcf593164a5b6278efb2",
                   "name": "SIG Sauer 7.62x51 3-prong flash hider"
                 },
-                "priceRUB": 2318,
+                "priceRUB": 2268,
                 "currency": "USD",
-                "price": 19
+                "price": 18
               },
               {
                 "item": {
@@ -8030,36 +8030,36 @@
                   "id": "5f60bf4558eff926626a60f2",
                   "name": "Galvion Caiman Fixed Arm Visor"
                 },
-                "priceRUB": 23559,
+                "priceRUB": 22932,
                 "currency": "USD",
-                "price": 187
+                "price": 182
               },
               {
                 "item": {
                   "id": "5fc0f9cbd6fa9c00c571bb90",
                   "name": "SIG Sauer Vertical Foregrip KeyMod (Black)"
                 },
-                "priceRUB": 6804,
+                "priceRUB": 6678,
                 "currency": "USD",
-                "price": 54
+                "price": 53
               },
               {
                 "item": {
                   "id": "5fce0cf655375d18a253eff0",
                   "name": "Magpul RVG foregrip (FDE)"
                 },
-                "priceRUB": 8957,
+                "priceRUB": 8820,
                 "currency": "USD",
-                "price": 72
+                "price": 70
               },
               {
                 "item": {
                   "id": "5fbcbd10ab884124df0cd563",
                   "name": "SIG Sauer Two Port Brake 7.62x51 muzzle brake"
                 },
-                "priceRUB": 7308,
+                "priceRUB": 7182,
                 "currency": "USD",
-                "price": 58
+                "price": 57
               },
               {
                 "item": {
@@ -8084,34 +8084,34 @@
                   "id": "622b397c9a3d4327e41843b6",
                   "name": "HK G36 bipod"
                 },
-                "priceRUB": 5379,
+                "priceRUB": 5292,
                 "currency": "USD",
-                "price": 43
+                "price": 42
               },
               {
                 "item": {
                   "id": "626667e87379c44d557b7550",
                   "name": "KAC QDC 5.56x45 3-Prong Flash Eliminator"
                 },
-                "priceRUB": 8946,
+                "priceRUB": 8820,
                 "currency": "USD",
-                "price": 71
+                "price": 70
               },
               {
                 "item": {
                   "id": "628a66b41d5e41750e314f34",
                   "name": "AR-10 Dead Air Keymount 7.62x51 muzzle brake"
                 },
-                "priceRUB": 11340,
+                "priceRUB": 11088,
                 "currency": "USD",
-                "price": 90
+                "price": 88
               },
               {
                 "item": {
                   "id": "5efb0e16aeb21837e749c7ff",
                   "name": "9x19mm QuakeMaker"
                 },
-                "priceRUB": 300,
+                "priceRUB": 378,
                 "currency": "USD",
                 "price": 3
               },
@@ -8120,7 +8120,7 @@
                   "id": "5c925fa22e221601da359b7b",
                   "name": "9x19mm AP 6.3"
                 },
-                "priceRUB": 455,
+                "priceRUB": 504,
                 "currency": "USD",
                 "price": 4
               },
@@ -8129,27 +8129,27 @@
                   "id": "5a33bab6c4a28200741e22f8",
                   "name": "Trijicon RMR mount for ACOG scopes"
                 },
-                "priceRUB": 7789,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 62
+                "price": 61
               },
               {
                 "item": {
                   "id": "5c05293e0db83400232fff80",
                   "name": "Trijicon ACOG TA01NSN 4x32 scope (Black)"
                 },
-                "priceRUB": 34855,
+                "priceRUB": 33768,
                 "currency": "USD",
-                "price": 277
+                "price": 268
               },
               {
                 "item": {
                   "id": "5c052a900db834001a66acbd",
                   "name": "Trijicon ACOG TA01NSN 4x32 scope (Tan)"
                 },
-                "priceRUB": 33875,
+                "priceRUB": 32760,
                 "currency": "USD",
-                "price": 269
+                "price": 260
               },
               {
                 "item": {
@@ -8165,36 +8165,36 @@
                   "id": "5dfa3d45dfc58d14537c20b0",
                   "name": "AR-10 KAC Low Profile Gas Block"
                 },
-                "priceRUB": 6363,
+                "priceRUB": 6300,
                 "currency": "USD",
-                "price": 51
+                "price": 50
               },
               {
                 "item": {
                   "id": "630f28f0cadb1fe05e06f004",
                   "name": "Steyr AUG A3 5.56x45 closed flash hider"
                 },
-                "priceRUB": 5292,
+                "priceRUB": 5166,
                 "currency": "USD",
-                "price": 42
+                "price": 41
               },
               {
                 "item": {
                   "id": "630f291b9f66a28b37094bb8",
                   "name": "Steyr AUG A3 5.56x45 muzzle brake"
                 },
-                "priceRUB": 9450,
+                "priceRUB": 9324,
                 "currency": "USD",
-                "price": 75
+                "price": 74
               },
               {
                 "item": {
                   "id": "630f2982cdb9e392db0cbcc7",
                   "name": "Steyr AUG Relfex T4AUG Ranger 5.56x45 sound suppressor"
                 },
-                "priceRUB": 54136,
+                "priceRUB": 52416,
                 "currency": "USD",
-                "price": 430
+                "price": 416
               },
               {
                 "item": {
@@ -8210,36 +8210,36 @@
                   "id": "637f57d2f5ef8c33840d36c4",
                   "name": "AR-15 KAC URX 3 8 inch lower handguard"
                 },
-                "priceRUB": 6313,
+                "priceRUB": 6174,
                 "currency": "USD",
-                "price": 51
+                "price": 49
               },
               {
                 "item": {
                   "id": "62e7c8f91cd3fde4d503d690",
                   "name": "Steyr AUG A3 M1 high sight mount"
                 },
-                "priceRUB": 5040,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "62e7c72df68e7a0676050c77",
                   "name": "Steyr AUG A3 5.56x45 receiver"
                 },
-                "priceRUB": 4788,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
                   "id": "62ebba1fb658e07ef9082b5a",
                   "name": "Steyr AUG A3 M1 low sight mount"
                 },
-                "priceRUB": 4788,
+                "priceRUB": 4662,
                 "currency": "USD",
-                "price": 38
+                "price": 37
               },
               {
                 "item": {
@@ -8255,27 +8255,27 @@
                   "id": "62ebd290c427473eff0baafb",
                   "name": "Steyr AUG A3 M1 1.5x optic sight"
                 },
-                "priceRUB": 11340,
+                "priceRUB": 11088,
                 "currency": "USD",
-                "price": 90
+                "price": 88
               },
               {
                 "item": {
                   "id": "630e295c984633f1fb0e7c30",
                   "name": "Steyr AUG 5.56x45 42-round magazine"
                 },
-                "priceRUB": 10222,
+                "priceRUB": 9954,
                 "currency": "USD",
-                "price": 82
+                "price": 79
               },
               {
                 "item": {
                   "id": "630e39c3bd357927e4007c15",
                   "name": "Steyr AUG A3 5.56x45 16 inch barrel"
                 },
-                "priceRUB": 41580,
+                "priceRUB": 40320,
                 "currency": "USD",
-                "price": 330
+                "price": 320
               },
               {
                 "item": {
@@ -8300,18 +8300,18 @@
                   "id": "5bb20e0ed4351e3bac1212dc",
                   "name": "AR-15 HK Battle Grip Beavertail pistol grip"
                 },
-                "priceRUB": 4898,
+                "priceRUB": 4788,
                 "currency": "USD",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
                   "id": "618167528004cc50514c34f9",
                   "name": "FN SCAR retractable polymer stock"
                 },
-                "priceRUB": 10710,
+                "priceRUB": 10458,
                 "currency": "USD",
-                "price": 85
+                "price": 83
               },
               {
                 "item": {
@@ -8327,81 +8327,81 @@
                   "id": "6231654c71b5bc3baa1078e5",
                   "name": "HK G36 6-vent handguard"
                 },
-                "priceRUB": 7434,
+                "priceRUB": 7308,
                 "currency": "USD",
-                "price": 59
+                "price": 58
               },
               {
                 "item": {
                   "id": "6183fd9e8004cc50514c358f",
                   "name": "FN SCAR-L 5.56x45 18 inch barrel"
                 },
-                "priceRUB": 40320,
+                "priceRUB": 39060,
                 "currency": "USD",
-                "price": 320
+                "price": 310
               },
               {
                 "item": {
                   "id": "622b38c56762c718e457e246",
                   "name": "HK G36 5.56x45 480mm barrel"
                 },
-                "priceRUB": 23436,
+                "priceRUB": 22806,
                 "currency": "USD",
-                "price": 186
+                "price": 181
               },
               {
                 "item": {
                   "id": "619624b26db0f2477964e6b0",
                   "name": "HK USP .45 ACP Match compensator"
                 },
-                "priceRUB": 7812,
+                "priceRUB": 7686,
                 "currency": "USD",
-                "price": 62
+                "price": 61
               },
               {
                 "item": {
                   "id": "5ede475b549eed7c6d5c18fb",
                   "name": "40x46mm M386 (HE) grenade"
                 },
-                "priceRUB": 52920,
+                "priceRUB": 51156,
                 "currency": "USD",
-                "price": 420
+                "price": 406
               },
               {
                 "item": {
                   "id": "5dfa3d2b0dee1b22f862eade",
                   "name": "KAC PRS/QDC 7.62x51 sound suppressor"
                 },
-                "priceRUB": 64676,
+                "priceRUB": 62622,
                 "currency": "USD",
-                "price": 514
+                "price": 497
               },
               {
                 "item": {
                   "id": "5d44069ca4b9361ebd26fc37",
                   "name": "Magpul PRS GEN3 stock (Black)"
                 },
-                "priceRUB": 27241,
+                "priceRUB": 26460,
                 "currency": "USD",
-                "price": 217
+                "price": 210
               },
               {
                 "item": {
                   "id": "61816734d8e3106d9806c1f3",
                   "name": "FN SCAR folding polymer stock"
                 },
-                "priceRUB": 7560,
+                "priceRUB": 7434,
                 "currency": "USD",
-                "price": 60
+                "price": 59
               },
               {
                 "item": {
                   "id": "5d15cf3bd7ad1a67e71518b2",
                   "name": "AR-15 Magpul MOE pistol grip (FDE)"
                 },
-                "priceRUB": 5166,
+                "priceRUB": 5040,
                 "currency": "USD",
-                "price": 41
+                "price": 40
               },
               {
                 "item": {
@@ -8479,25 +8479,25 @@
                   "id": "6171367e1cb55961fa0fdb36",
                   "name": "HK G28 B&T QD 7.62x51 sound suppressor"
                 },
-                "priceRUB": 74340,
+                "priceRUB": 71946,
                 "currency": "USD",
-                "price": 590
+                "price": 571
               },
               {
                 "item": {
                   "id": "618168b350224f204c1da4d8",
                   "name": "FN SCAR-H 7.62x51 13 inch barrel"
                 },
-                "priceRUB": 53172,
+                "priceRUB": 51408,
                 "currency": "USD",
-                "price": 422
+                "price": 408
               },
               {
                 "item": {
                   "id": "54527ac44bdc2d36668b4567",
                   "name": "5.56x45mm M855A1"
                 },
-                "priceRUB": 988,
+                "priceRUB": 1008,
                 "currency": "USD",
                 "price": 8
               },
@@ -8506,117 +8506,117 @@
                   "id": "6183b0711cb55961fa0fdcad",
                   "name": "FN SCAR-H 7.62x51 16 inch barrel"
                 },
-                "priceRUB": 47880,
+                "priceRUB": 46368,
                 "currency": "USD",
-                "price": 380
+                "price": 368
               },
               {
                 "item": {
                   "id": "617131a4568c120fdd29482d",
                   "name": "HK417/G28 7.62x51 20-round magazine"
                 },
-                "priceRUB": 4347,
+                "priceRUB": 4284,
                 "currency": "USD",
-                "price": 35
+                "price": 34
               },
               {
                 "item": {
                   "id": "6183b084a112697a4b3a6e6c",
                   "name": "FN SCAR-H 7.62x51 20 inch barrel"
                 },
-                "priceRUB": 56070,
+                "priceRUB": 54306,
                 "currency": "USD",
-                "price": 445
+                "price": 431
               },
               {
                 "item": {
                   "id": "6183d53f1cb55961fa0fdcda",
                   "name": "FN SCAR-H 7.62x51 20-round magazine (FDE)"
                 },
-                "priceRUB": 5670,
+                "priceRUB": 5544,
                 "currency": "USD",
-                "price": 45
+                "price": 44
               },
               {
                 "item": {
                   "id": "57aca93d2459771f2c7e26db",
                   "name": "ELCAN SpecterDR 1x/4x scope (FDE)"
                 },
-                "priceRUB": 47880,
+                "priceRUB": 46368,
                 "currency": "USD",
-                "price": 380
+                "price": 368
               },
               {
                 "item": {
                   "id": "55f84c3c4bdc2d5f408b4576",
                   "name": "AR-15 Daniel Defense RIS II 9.5 handguard (Coyote Brown)"
                 },
-                "priceRUB": 13166,
+                "priceRUB": 12852,
                 "currency": "USD",
-                "price": 105
+                "price": 102
               },
               {
                 "item": {
                   "id": "595cfa8b86f77427437e845b",
                   "name": "AR-15 War Sport LVOA-C handguard (Black)"
                 },
-                "priceRUB": 25185,
+                "priceRUB": 24444,
                 "currency": "USD",
-                "price": 200
+                "price": 194
               },
               {
                 "item": {
                   "id": "59db3a1d86f77429e05b4e92",
                   "name": "AR-15 Naroh Arms GRAL-S pistol grip"
                 },
-                "priceRUB": 17404,
+                "priceRUB": 16884,
                 "currency": "USD",
-                "price": 139
+                "price": 134
               },
               {
                 "item": {
                   "id": "57adff4f24597737f373b6e6",
                   "name": "SIG Sauer BRAVO4 4x30 scope"
                 },
-                "priceRUB": 53837,
+                "priceRUB": 52038,
                 "currency": "USD",
-                "price": 428
+                "price": 413
               },
               {
                 "item": {
                   "id": "59fb375986f7741b681b81a6",
                   "name": "AK Krebs Custom UFM KeyMod handguard"
                 },
-                "priceRUB": 28211,
+                "priceRUB": 27342,
                 "currency": "USD",
-                "price": 224
+                "price": 217
               },
               {
                 "item": {
                   "id": "5a16b7e1fcdbcb00165aa6c9",
                   "name": "Ops-Core FAST multi-hit ballistic face shield"
                 },
-                "priceRUB": 45316,
+                "priceRUB": 43974,
                 "currency": "USD",
-                "price": 360
+                "price": 349
               },
               {
                 "item": {
                   "id": "5943ee5a86f77413872d25ec",
                   "name": "AR-15 PWS CQB 5.56x45 muzzle brake"
                 },
-                "priceRUB": 15107,
+                "priceRUB": 14742,
                 "currency": "USD",
-                "price": 120
+                "price": 117
               },
               {
                 "item": {
                   "id": "59f8a37386f7747af3328f06",
                   "name": "Fortis Shift tactical foregrip"
                 },
-                "priceRUB": 20431,
+                "priceRUB": 19782,
                 "currency": "USD",
-                "price": 163
+                "price": 157
               },
               {
                 "item": {
@@ -8632,81 +8632,81 @@
                   "id": "59db3acc86f7742a2c4ab912",
                   "name": "AR-15 Stark AR Rifle Grip (Black)"
                 },
-                "priceRUB": 5796,
+                "priceRUB": 5670,
                 "currency": "USD",
-                "price": 46
+                "price": 45
               },
               {
                 "item": {
                   "id": "5a34fae7c4a2826c6e06d760",
                   "name": "AR-10 7.62x51 22 inch barrel"
                 },
-                "priceRUB": 51229,
+                "priceRUB": 49518,
                 "currency": "USD",
-                "price": 407
+                "price": 393
               },
               {
                 "item": {
                   "id": "59db3b0886f77429d72fb895",
                   "name": "AR-15 Stark AR Rifle Grip (FDE)"
                 },
-                "priceRUB": 5796,
+                "priceRUB": 5670,
                 "currency": "USD",
-                "price": 46
+                "price": 45
               },
               {
                 "item": {
                   "id": "5a34f7f1c4a2826c6e06d75d",
                   "name": "AR-10 7.62x51 18 inch barrel"
                 },
-                "priceRUB": 49313,
+                "priceRUB": 47628,
                 "currency": "USD",
-                "price": 392
+                "price": 378
               },
               {
                 "item": {
                   "id": "5a3501acc4a282000d72293a",
                   "name": "AR-10 7.62x51 Magpul PMAG 20 SR-LR GEN M3 20-round magazine"
                 },
-                "priceRUB": 4479,
+                "priceRUB": 4410,
                 "currency": "USD",
-                "price": 36
+                "price": 35
               },
               {
                 "item": {
                   "id": "5a34fe59c4a282000b1521a2",
                   "name": "AAC 762-SDN-6 multi-caliber sound suppressor"
                 },
-                "priceRUB": 84830,
+                "priceRUB": 82026,
                 "currency": "USD",
-                "price": 674
+                "price": 651
               },
               {
                 "item": {
                   "id": "5c0558060db834001b735271",
                   "name": "GPNVG-18 Night Vision goggles"
                 },
-                "priceRUB": 210110,
+                "priceRUB": 203112,
                 "currency": "USD",
-                "price": 1668
+                "price": 1612
               },
               {
                 "item": {
                   "id": "5c6175362e221600133e3b94",
                   "name": "AK 7.62x39 ProMag AK-A-16 73-round drum magazine"
                 },
-                "priceRUB": 52416,
+                "priceRUB": 50652,
                 "currency": "USD",
-                "price": 416
+                "price": 402
               },
               {
                 "item": {
                   "id": "5c0e805e86f774683f3dd637",
                   "name": "3V Gear Paratus 3-Day Operator's Tactical backpack"
                 },
-                "priceRUB": 77490,
+                "priceRUB": 74970,
                 "currency": "USD",
-                "price": 615
+                "price": 595
               },
               {
                 "item": {
@@ -8722,90 +8722,90 @@
                   "id": "5a34fd2bc4a282329a73b4c5",
                   "name": "AR-10 AAC Blackout 51T 7.62x51 flash hider"
                 },
-                "priceRUB": 5796,
+                "priceRUB": 5670,
                 "currency": "USD",
-                "price": 46
+                "price": 45
               },
               {
                 "item": {
                   "id": "5c0a2cec0db834001b7ce47d",
                   "name": "EOTech HHS-1 hybrid sight (Tan)"
                 },
-                "priceRUB": 64003,
+                "priceRUB": 61992,
                 "currency": "USD",
-                "price": 508
+                "price": 492
               },
               {
                 "item": {
                   "id": "5a33cae9c4a28232980eb086",
                   "name": "Magpul PRS GEN2 stock (FDE)"
                 },
-                "priceRUB": 21538,
+                "priceRUB": 20916,
                 "currency": "USD",
-                "price": 171
+                "price": 166
               },
               {
                 "item": {
                   "id": "5b7d37845acfc400170e2f87",
                   "name": "SA-58/FAL 7.62x51 30-round magazine"
                 },
-                "priceRUB": 5807,
+                "priceRUB": 5670,
                 "currency": "USD",
-                "price": 47
+                "price": 45
               },
               {
                 "item": {
                   "id": "5c1793902e221602b21d3de2",
                   "name": "Crye Precision AirFrame Ears"
                 },
-                "priceRUB": 45612,
+                "priceRUB": 44226,
                 "currency": "USD",
-                "price": 362
+                "price": 351
               },
               {
                 "item": {
                   "id": "5c7955c22e221644f31bfd5e",
                   "name": "Gemtech ONE multi-caliber sound suppressor"
                 },
-                "priceRUB": 61135,
+                "priceRUB": 59220,
                 "currency": "USD",
-                "price": 486
+                "price": 470
               },
               {
                 "item": {
                   "id": "5addcce35acfc4001a5fc635",
                   "name": "M14 7.62x51 30-round magazine"
                 },
-                "priceRUB": 7311,
+                "priceRUB": 7182,
                 "currency": "USD",
-                "price": 59
+                "price": 57
               },
               {
                 "item": {
                   "id": "5c07dd120db834001c39092d",
                   "name": "EOTech HHS-1 hybrid sight"
                 },
-                "priceRUB": 64512,
+                "priceRUB": 62496,
                 "currency": "USD",
-                "price": 512
+                "price": 496
               },
               {
                 "item": {
                   "id": "5c17a7ed2e2216152142459c",
                   "name": "Crye Precision AirFrame helmet (Tan)"
                 },
-                "priceRUB": 167914,
+                "priceRUB": 162288,
                 "currency": "USD",
-                "price": 1333
+                "price": 1288
               },
               {
                 "item": {
                   "id": "5b0e794b5acfc47a877359b2",
                   "name": "AKM/AK-74 Magpul Zhukov-S stock"
                 },
-                "priceRUB": 23365,
+                "priceRUB": 22680,
                 "currency": "USD",
-                "price": 186
+                "price": 180
               },
               {
                 "item": {
@@ -8821,63 +8821,63 @@
                   "id": "5c878e9d2e2216000f201903",
                   "name": "AR-10 Lantac Drakon 7.62x51 muzzle brake-compensator"
                 },
-                "priceRUB": 28728,
+                "priceRUB": 27846,
                 "currency": "USD",
-                "price": 228
+                "price": 221
               },
               {
                 "item": {
                   "id": "5c6d11072e2216000e69d2e4",
                   "name": "HK 416A5 Midwest Industries 13.5 inch M-LOK handguard"
                 },
-                "priceRUB": 18144,
+                "priceRUB": 17640,
                 "currency": "USD",
-                "price": 144
+                "price": 140
               },
               {
                 "item": {
                   "id": "5cde77a9d7f00c000f261009",
                   "name": "M700 AB Arms MOD*X buffer tube side folder adapter"
                 },
-                "priceRUB": 3279,
+                "priceRUB": 3276,
                 "currency": "USD",
-                "price": 27
+                "price": 26
               },
               {
                 "item": {
                   "id": "5fc275cf85fd526b824a571a",
                   "name": ".338 Lapua Magnum FMJ"
                 },
-                "priceRUB": 3039,
+                "priceRUB": 3024,
                 "currency": "USD",
-                "price": 25
+                "price": 24
               },
               {
                 "item": {
                   "id": "5e00cdd986f7747473332240",
                   "name": "Team Wendy EXFIL Ballistic face shield (Black)"
                 },
-                "priceRUB": 39690,
+                "priceRUB": 38430,
                 "currency": "USD",
-                "price": 315
+                "price": 305
               },
               {
                 "item": {
                   "id": "5c87a07c2e2216001219d4a2",
                   "name": "AR-15 HK E1 buttstock"
                 },
-                "priceRUB": 13910,
+                "priceRUB": 13608,
                 "currency": "USD",
-                "price": 111
+                "price": 108
               },
               {
                 "item": {
                   "id": "5cde7b43d7f00c000d36b93e",
                   "name": "M700 AB Arms MOD*X rail mount"
                 },
-                "priceRUB": 3326,
+                "priceRUB": 3276,
                 "currency": "USD",
-                "price": 27
+                "price": 26
               },
               {
                 "item": {
@@ -8893,180 +8893,180 @@
                   "id": "5cdd7685d7f00c000f260ed2",
                   "name": "AR-10 Keeno Arms SHREWD 7.62x51 muzzle brake"
                 },
-                "priceRUB": 13860,
+                "priceRUB": 13608,
                 "currency": "USD",
-                "price": 110
+                "price": 108
               },
               {
                 "item": {
                   "id": "5cde7afdd7f00c000d36b89d",
                   "name": "M700 AB Arms MOD*X GEN 3 KeyMod handguard"
                 },
-                "priceRUB": 12474,
+                "priceRUB": 12222,
                 "currency": "USD",
-                "price": 99
+                "price": 97
               },
               {
                 "item": {
                   "id": "5e00c1ad86f774747333222c",
                   "name": "Team Wendy EXFIL Ballistic Helmet (Black)"
                 },
-                "priceRUB": 173578,
+                "priceRUB": 167832,
                 "currency": "USD",
-                "price": 1378
+                "price": 1332
               },
               {
                 "item": {
                   "id": "5e01f31d86f77465cf261343",
                   "name": "Team Wendy EXFIL Ear Covers (Coyote Brown)"
                 },
-                "priceRUB": 49392,
+                "priceRUB": 47754,
                 "currency": "USD",
-                "price": 392
+                "price": 379
               },
               {
                 "item": {
                   "id": "60a3c68c37ea821725773ef5",
                   "name": "CQC Osprey MK4A plate carrier (Protection, MTP)"
                 },
-                "priceRUB": 195300,
+                "priceRUB": 188748,
                 "currency": "USD",
-                "price": 1550
+                "price": 1498
               },
               {
                 "item": {
                   "id": "5e01ef6886f77445f643baa4",
                   "name": "Team Wendy EXFIL Ballistic Helmet (Coyote Brown)"
                 },
-                "priceRUB": 165312,
+                "priceRUB": 159768,
                 "currency": "USD",
-                "price": 1312
+                "price": 1268
               },
               {
                 "item": {
                   "id": "5df917564a9f347bc92edca3",
                   "name": "SR-25 7.62x51 16 inch barrel"
                 },
-                "priceRUB": 36162,
+                "priceRUB": 35028,
                 "currency": "USD",
-                "price": 287
+                "price": 278
               },
               {
                 "item": {
                   "id": "5c5db5c62e22160012542255",
                   "name": "MPX 9x19 14 inch barrel"
                 },
-                "priceRUB": 15599,
+                "priceRUB": 15246,
                 "currency": "USD",
-                "price": 124
+                "price": 121
               },
               {
                 "item": {
                   "id": "5d122e7bd7ad1a07102d6d7f",
                   "name": "AR-15 KAC URX 3.1 10.75 inch handguard"
                 },
-                "priceRUB": 16582,
+                "priceRUB": 16128,
                 "currency": "USD",
-                "price": 132
+                "price": 128
               },
               {
                 "item": {
                   "id": "5c9a25172e2216000f20314e",
                   "name": "AR-15 Daniel Defense RIS II 12.25 handguard (Coyote Brown)"
                 },
-                "priceRUB": 15347,
+                "priceRUB": 14994,
                 "currency": "USD",
-                "price": 122
+                "price": 119
               },
               {
                 "item": {
                   "id": "5d440b9fa4b93601354d480c",
                   "name": "AR-15 5.56x45 20 inch barrel"
                 },
-                "priceRUB": 46074,
+                "priceRUB": 44604,
                 "currency": "USD",
-                "price": 366
+                "price": 354
               },
               {
                 "item": {
                   "id": "5cde739cd7f00c0010373bd3",
                   "name": "M700 AB Arms MOD*X GEN 3 chassis"
                 },
-                "priceRUB": 18865,
+                "priceRUB": 18270,
                 "currency": "USD",
-                "price": 150
+                "price": 145
               },
               {
                 "item": {
                   "id": "5fc2369685fd526b824a5713",
                   "name": "AR-15 B5 Systems Precision stock"
                 },
-                "priceRUB": 23310,
+                "priceRUB": 22680,
                 "currency": "USD",
-                "price": 185
+                "price": 180
               },
               {
                 "item": {
                   "id": "5f633ff5c444ce7e3c30a006",
                   "name": "AR-15 Rainier Arms Avalanche MOD2 charging handle"
                 },
-                "priceRUB": 8820,
+                "priceRUB": 8694,
                 "currency": "USD",
-                "price": 70
+                "price": 69
               },
               {
                 "item": {
                   "id": "5f6339d53ada5942720e2dc3",
                   "name": "Ferfrans CRD 5.56x45 Concussion Reduction Device"
                 },
-                "priceRUB": 12159,
+                "priceRUB": 11844,
                 "currency": "USD",
-                "price": 97
+                "price": 94
               },
               {
                 "item": {
                   "id": "5f6336bbda967c74a42e9932",
                   "name": "AR-10 Lancer LCH7 12.5 inch M-LOK handguard"
                 },
-                "priceRUB": 26712,
+                "priceRUB": 25956,
                 "currency": "USD",
-                "price": 212
+                "price": 206
               },
               {
                 "item": {
                   "id": "60098ad7c2240c0fe85c570a",
                   "name": "AFAK tactical individual first aid kit"
                 },
-                "priceRUB": 63948,
+                "priceRUB": 61992,
                 "currency": "USD",
-                "price": 508
+                "price": 492
               },
               {
                 "item": {
                   "id": "5f60b85bbdb8e27dee3dc985",
                   "name": "Galvion Caiman Hybrid Ballistic Applique"
                 },
-                "priceRUB": 75978,
+                "priceRUB": 73458,
                 "currency": "USD",
-                "price": 603
+                "price": 583
               },
               {
                 "item": {
                   "id": "5fbe760793164a5b6278efc8",
                   "name": "SIG Sauer SRD762-QD 7.62x51 sound suppressor"
                 },
-                "priceRUB": 68695,
+                "priceRUB": 66402,
                 "currency": "USD",
-                "price": 546
+                "price": 527
               },
               {
                 "item": {
                   "id": "5ef1ba28c64c5d0dfc0571a5",
                   "name": "Mesa Tactical Crosshair Hydraulic buffer tube"
                 },
-                "priceRUB": 26838,
+                "priceRUB": 26082,
                 "currency": "USD",
-                "price": 213
+                "price": 207
               },
               {
                 "item": {
@@ -9082,18 +9082,18 @@
                   "id": "62386b7153757417e93a4e9f",
                   "name": "HK G36 4-vent handguard"
                 },
-                "priceRUB": 5040,
+                "priceRUB": 4914,
                 "currency": "USD",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "622b3858034a3e17ad0b81f5",
                   "name": "HK G36 5.56x45 318mm barrel"
                 },
-                "priceRUB": 20790,
+                "priceRUB": 20160,
                 "currency": "USD",
-                "price": 165
+                "price": 160
               },
               {
                 "item": {
@@ -9109,54 +9109,54 @@
                   "id": "626673016f1edc06f30cf6d5",
                   "name": "KAC QDC 5.56x45 sound suppressor"
                 },
-                "priceRUB": 89460,
+                "priceRUB": 86562,
                 "currency": "USD",
-                "price": 710
+                "price": 687
               },
               {
                 "item": {
                   "id": "6284bd5f95250a29bc628a30",
                   "name": "Milkor M2A1 grenade launcher reflex sight"
                 },
-                "priceRUB": 26460,
+                "priceRUB": 25704,
                 "currency": "USD",
-                "price": 210
+                "price": 204
               },
               {
                 "item": {
                   "id": "62a61c988ec41a51b34758d5",
                   "name": "Oakley SI Batwolf glasses"
                 },
-                "priceRUB": 22680,
+                "priceRUB": 22050,
                 "currency": "USD",
-                "price": 180
+                "price": 175
               },
               {
                 "item": {
                   "id": "634eba08f69c710e0108d386",
                   "name": "Steyr AUG Ase Utra S Series SL7i 5.56x45 sound suppressor"
                 },
-                "priceRUB": 74340,
+                "priceRUB": 71946,
                 "currency": "USD",
-                "price": 590
+                "price": 571
               },
               {
                 "item": {
                   "id": "637f57c532b66e7e320a6676",
                   "name": "AR-15 KAC URX 3.1 10.75 inch lower handguard"
                 },
-                "priceRUB": 7106,
+                "priceRUB": 6930,
                 "currency": "USD",
-                "price": 57
+                "price": 55
               },
               {
                 "item": {
                   "id": "638f2003bbd47aeb9e0ff637",
                   "name": "AR-15 Daniel Defense RIS II 12.25 lower handguard (Coyote Brown)"
                 },
-                "priceRUB": 6577,
+                "priceRUB": 6426,
                 "currency": "USD",
-                "price": 53
+                "price": 51
               },
               {
                 "item": {
@@ -9172,61 +9172,61 @@
                   "id": "5c6bf4aa2e2216001219b0ae",
                   "name": "AK US Palm pistol grip"
                 },
-                "priceRUB": 9261,
+                "priceRUB": 9072,
                 "currency": "USD",
-                "price": 74
+                "price": 72
               },
               {
                 "item": {
                   "id": "5cf78496d7f00c065703d6ca",
                   "name": "Lantac BMD Blast Mitigation Device A3 direct thread adapter"
                 },
-                "priceRUB": 4271,
+                "priceRUB": 4158,
                 "currency": "USD",
-                "price": 34
+                "price": 33
               },
               {
                 "item": {
                   "id": "5cf78720d7f00c06595bc93e",
                   "name": "Lantac BMD 7.62x51 Blast Mitigation Device"
                 },
-                "priceRUB": 12411,
+                "priceRUB": 12096,
                 "currency": "USD",
-                "price": 99
+                "price": 96
               },
               {
                 "item": {
                   "id": "58d2912286f7744e27117493",
                   "name": "Magpul MOE Carbine rubber buttpad"
                 },
-                "priceRUB": 8128,
+                "priceRUB": 7938,
                 "currency": "USD",
-                "price": 65
+                "price": 63
               },
               {
                 "item": {
                   "id": "59bfe68886f7746004266202",
                   "name": "AR-15 Vltor MUR-1S 5.56x45 upper receiver"
                 },
-                "priceRUB": 41176,
+                "priceRUB": 39942,
                 "currency": "USD",
-                "price": 327
+                "price": 317
               },
               {
                 "item": {
                   "id": "60926df0132d4d12c81fd9df",
                   "name": "SilencerCo Saker ASR 556 5.56x45 sound suppressor"
                 },
-                "priceRUB": 78530,
+                "priceRUB": 75978,
                 "currency": "USD",
-                "price": 624
+                "price": 603
               },
               {
                 "item": {
                   "id": "5a608bf24f39f98ffc77720e",
                   "name": "7.62x51mm M62 Tracer"
                 },
-                "priceRUB": 1733,
+                "priceRUB": 1764,
                 "currency": "USD",
                 "price": 14
               },
@@ -9235,7 +9235,7 @@
                   "id": "58dd3ad986f77403051cba8f",
                   "name": "7.62x51mm M80"
                 },
-                "priceRUB": 449,
+                "priceRUB": 504,
                 "currency": "USD",
                 "price": 4
               },
@@ -9244,7 +9244,7 @@
                   "id": "5cc80f67e4a949035e43bbba",
                   "name": "5.7x28mm SB193"
                 },
-                "priceRUB": 261,
+                "priceRUB": 378,
                 "currency": "USD",
                 "price": 3
               },
@@ -9330,7 +9330,7 @@
                   "id": "5894a5b586f77426d2590767",
                   "name": "MPX GEN1 9x19 upper receiver"
                 },
-                "priceRUB": 4642,
+                "priceRUB": 4658,
                 "currency": "EUR",
                 "price": 34
               },
@@ -9357,18 +9357,18 @@
                   "id": "5a6b60158dc32e000a31138b",
                   "name": "Glock 17 9x19 barrel with a compensator"
                 },
-                "priceRUB": 2498,
+                "priceRUB": 2466,
                 "currency": "EUR",
-                "price": 19
+                "price": 18
               },
               {
                 "item": {
                   "id": "5a7ad4af51dfba0013379717",
                   "name": "Glock Aimtech mount base"
                 },
-                "priceRUB": 5350,
+                "priceRUB": 5343,
                 "currency": "EUR",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
@@ -9393,18 +9393,18 @@
                   "id": "5a6f5e048dc32e00094b97da",
                   "name": "Glock 17 9x19 pistol slide"
                 },
-                "priceRUB": 4113,
+                "priceRUB": 4110,
                 "currency": "EUR",
-                "price": 31
+                "price": 30
               },
               {
                 "item": {
                   "id": "5a6b5f868dc32e000a311389",
                   "name": "Glock 17 9x19 barrel"
                 },
-                "priceRUB": 2067,
+                "priceRUB": 2055,
                 "currency": "EUR",
-                "price": 16
+                "price": 15
               },
               {
                 "item": {
@@ -9528,9 +9528,9 @@
                   "id": "5b4391a586f7745321235ab2",
                   "name": "WI-FI Camera"
                 },
-                "priceRUB": 46418,
+                "priceRUB": 45347,
                 "currency": "EUR",
-                "price": 339
+                "price": 331
               },
               {
                 "item": {
@@ -9564,7 +9564,7 @@
                   "id": "5a7d9104159bd400134c8c21",
                   "name": "Glock TruGlo TFX front sight"
                 },
-                "priceRUB": 1336,
+                "priceRUB": 1370,
                 "currency": "EUR",
                 "price": 10
               },
@@ -9573,7 +9573,7 @@
                   "id": "5a7d912f159bd400165484f3",
                   "name": "Glock TruGlo TFX rear sight"
                 },
-                "priceRUB": 2404,
+                "priceRUB": 2466,
                 "currency": "EUR",
                 "price": 18
               },
@@ -9600,18 +9600,18 @@
                   "id": "5a705e128dc32e000d46d258",
                   "name": "Glock 9x19 Lone Wolf AlphaWolf Bullnose compensator"
                 },
-                "priceRUB": 3703,
+                "priceRUB": 3699,
                 "currency": "EUR",
-                "price": 28
+                "price": 27
               },
               {
                 "item": {
                   "id": "5a702d198dc32e000b452fc3",
                   "name": "Glock Lone Wolf AlphaWolf pistol slide"
                 },
-                "priceRUB": 10604,
+                "priceRUB": 10412,
                 "currency": "EUR",
-                "price": 78
+                "price": 76
               },
               {
                 "item": {
@@ -9699,9 +9699,9 @@
                   "id": "5a7ad55551dfba0015068f42",
                   "name": "Glock Aimtech Tiger Shark sight mount"
                 },
-                "priceRUB": 5353,
+                "priceRUB": 5343,
                 "currency": "EUR",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
@@ -9924,7 +9924,7 @@
                   "id": "5a7b4960e899ef197b331a2d",
                   "name": "Glock Pachmayr Tactical Grip Glove"
                 },
-                "priceRUB": 1334,
+                "priceRUB": 1370,
                 "currency": "EUR",
                 "price": 10
               },
@@ -9942,7 +9942,7 @@
                   "id": "5a718da68dc32e000d46d264",
                   "name": "Glock 9x19 Magpul PMAG GL9 21-round magazine"
                 },
-                "priceRUB": 2289,
+                "priceRUB": 2329,
                 "currency": "EUR",
                 "price": 17
               },
@@ -9951,9 +9951,9 @@
                   "id": "5a6b5b8a8dc32e001207faf3",
                   "name": "Glock 9x19 Lone Wolf AlphaWolf threaded barrel"
                 },
-                "priceRUB": 10513,
+                "priceRUB": 10275,
                 "currency": "EUR",
-                "price": 77
+                "price": 75
               },
               {
                 "item": {
@@ -10139,9 +10139,9 @@
                   "id": "58aeaaa886f7744fc1560f81",
                   "name": "MPX-SD 9x19 165mm barrel"
                 },
-                "priceRUB": 7432,
+                "priceRUB": 7261,
                 "currency": "EUR",
-                "price": 55
+                "price": 53
               },
               {
                 "item": {
@@ -10157,9 +10157,9 @@
                   "id": "5a7033908dc32e000a311392",
                   "name": "Glock Lone Wolf AlphaWolf Custom pistol slide"
                 },
-                "priceRUB": 16656,
+                "priceRUB": 16303,
                 "currency": "EUR",
-                "price": 122
+                "price": 119
               },
               {
                 "item": {
@@ -10175,9 +10175,9 @@
                   "id": "5a7ad1fb51dfba0013379715",
                   "name": "Glock 9x19 Lone Wolf LWD-COMP9 compensator"
                 },
-                "priceRUB": 4451,
+                "priceRUB": 4384,
                 "currency": "EUR",
-                "price": 33
+                "price": 32
               },
               {
                 "item": {
@@ -10598,18 +10598,18 @@
                   "id": "5a7d9122159bd4001438dbf4",
                   "name": "Glock Dead Ringer Snake Eye rear sight"
                 },
-                "priceRUB": 5431,
+                "priceRUB": 5343,
                 "currency": "EUR",
-                "price": 40
+                "price": 39
               },
               {
                 "item": {
                   "id": "5a7d90eb159bd400165484f1",
                   "name": "Glock Dead Ringer Snake Eye front sight"
                 },
-                "priceRUB": 2517,
+                "priceRUB": 2466,
                 "currency": "EUR",
-                "price": 19
+                "price": 18
               },
               {
                 "item": {
@@ -10643,9 +10643,9 @@
                   "id": "5a7037338dc32e000d46d257",
                   "name": "Glock 9x19 CARVER Custom Decelerator 3 Port compensator"
                 },
-                "priceRUB": 6686,
+                "priceRUB": 6576,
                 "currency": "EUR",
-                "price": 49
+                "price": 48
               },
               {
                 "item": {
@@ -10661,16 +10661,16 @@
                   "id": "5a7afa25e899ef00135e31b0",
                   "name": "Glock Polymer80 PS9 pistol slide"
                 },
-                "priceRUB": 18680,
+                "priceRUB": 18221,
                 "currency": "EUR",
-                "price": 137
+                "price": 133
               },
               {
                 "item": {
                   "id": "5a71e1868dc32e00094b97f3",
                   "name": "Glock ZEV Tech sight mount cap"
                 },
-                "priceRUB": 133,
+                "priceRUB": 137,
                 "currency": "EUR",
                 "price": 1
               },
@@ -10832,18 +10832,18 @@
                   "id": "5a6f5f078dc32e00094b97dd",
                   "name": "Glock Viper Cut pistol slide"
                 },
-                "priceRUB": 14814,
+                "priceRUB": 14522,
                 "currency": "EUR",
-                "price": 109
+                "price": 106
               },
               {
                 "item": {
                   "id": "5a6b5e468dc32e001207faf5",
                   "name": "Glock 9x19 Double Diamond threaded barrel"
                 },
-                "priceRUB": 7890,
+                "priceRUB": 7809,
                 "currency": "EUR",
-                "price": 58
+                "price": 57
               },
               {
                 "item": {
@@ -10859,25 +10859,25 @@
                   "id": "5a71e22f8dc32e00094b97f4",
                   "name": "Glock ZEV Tech HEX Gen3 RMR pistol slide"
                 },
-                "priceRUB": 26612,
+                "priceRUB": 26030,
                 "currency": "EUR",
-                "price": 195
+                "price": 190
               },
               {
                 "item": {
                   "id": "5a70366c8dc32e001207fb06",
                   "name": "Glock 9x19 Double Diamond flash hider"
                 },
-                "priceRUB": 5957,
+                "priceRUB": 5891,
                 "currency": "EUR",
-                "price": 44
+                "price": 43
               },
               {
                 "item": {
                   "id": "5a6b59a08dc32e000b452fb7",
                   "name": "Glock SAI 9x19 thread protector"
                 },
-                "priceRUB": 1332,
+                "priceRUB": 1370,
                 "currency": "EUR",
                 "price": 10
               },
@@ -10895,18 +10895,18 @@
                   "id": "5a7b4900e899ef197b331a2a",
                   "name": "UM Tactical UM3 pistol sight mount"
                 },
-                "priceRUB": 7434,
+                "priceRUB": 7261,
                 "currency": "EUR",
-                "price": 55
+                "price": 53
               },
               {
                 "item": {
                   "id": "5a71e0fb8dc32e00094b97f2",
                   "name": "Glock ZEV Tech rear sight"
                 },
-                "priceRUB": 2645,
+                "priceRUB": 2603,
                 "currency": "EUR",
-                "price": 20
+                "price": 19
               },
               {
                 "item": {
@@ -10931,7 +10931,7 @@
                   "id": "5a71e0048dc32e000c52ecc8",
                   "name": "Glock ZEV Tech front sight"
                 },
-                "priceRUB": 1719,
+                "priceRUB": 1781,
                 "currency": "EUR",
                 "price": 13
               },
@@ -10949,9 +10949,9 @@
                   "id": "5a6b5ed88dc32e000c52ec86",
                   "name": "Glock 9x19 SAI threaded barrel"
                 },
-                "priceRUB": 15021,
+                "priceRUB": 14659,
                 "currency": "EUR",
-                "price": 110
+                "price": 107
               },
               {
                 "item": {
@@ -11182,9 +11182,9 @@
                   "id": "5a718f958dc32e00094b97e7",
                   "name": "Glock 9x19 SGM Tactical 50-round drum magazine"
                 },
-                "priceRUB": 13289,
+                "priceRUB": 13015,
                 "currency": "EUR",
-                "price": 97
+                "price": 95
               },
               {
                 "item": {
@@ -11227,9 +11227,9 @@
                   "id": "5a7ad2e851dfba0016153692",
                   "name": "Glock 9x19 \"Big Stick\" 33-round magazine"
                 },
-                "priceRUB": 5233,
+                "priceRUB": 5206,
                 "currency": "EUR",
-                "price": 39
+                "price": 38
               },
               {
                 "item": {
@@ -12109,9 +12109,9 @@
                   "id": "5a7ad74e51dfba0015068f45",
                   "name": "Glock 9x19 Fischer Development FD917 sound suppressor"
                 },
-                "priceRUB": 58276,
+                "priceRUB": 56855,
                 "currency": "EUR",
-                "price": 426
+                "price": 415
               },
               {
                 "item": {
@@ -12127,27 +12127,27 @@
                   "id": "5a7ad0c451dfba0013379712",
                   "name": "Glock 9x19 CARVER Custom 4 Port compensator"
                 },
-                "priceRUB": 8138,
+                "priceRUB": 7946,
                 "currency": "EUR",
-                "price": 60
+                "price": 58
               },
               {
                 "item": {
                   "id": "5a71e4f48dc32e001207fb26",
                   "name": "Glock ZEV Tech HEX Spartan RMR pistol slide"
                 },
-                "priceRUB": 30396,
+                "priceRUB": 29729,
                 "currency": "EUR",
-                "price": 222
+                "price": 217
               },
               {
                 "item": {
                   "id": "5a7b32a2e899ef00135e345a",
                   "name": "Glock 9x19 Strike Industries G4 SlideComp compensator"
                 },
-                "priceRUB": 8567,
+                "priceRUB": 8357,
                 "currency": "EUR",
-                "price": 63
+                "price": 61
               },
               {
                 "item": {
@@ -12288,9 +12288,9 @@
                   "id": "5a7c147ce899ef00150bd8b8",
                   "name": "AR-15 Vendetta Precision VP-09 Interceptor 5.56x45 muzzle brake"
                 },
-                "priceRUB": 14967,
+                "priceRUB": 14659,
                 "currency": "EUR",
-                "price": 110
+                "price": 107
               },
               {
                 "item": {
@@ -12324,9 +12324,9 @@
                   "id": "5a7dbfc1159bd40016548fde",
                   "name": "Hera Arms CQR tactical foregrip"
                 },
-                "priceRUB": 27726,
+                "priceRUB": 27126,
                 "currency": "EUR",
-                "price": 203
+                "price": 198
               },
               {
                 "item": {
@@ -12342,9 +12342,9 @@
                   "id": "5a33e75ac4a2826c6e06d759",
                   "name": "AR-15 Hera Arms CQR pistol grip/buttstock"
                 },
-                "priceRUB": 50613,
+                "priceRUB": 49457,
                 "currency": "EUR",
-                "price": 370
+                "price": 361
               },
               {
                 "item": {
@@ -13058,9 +13058,9 @@
                   "id": "5991b51486f77447b112d44f",
                   "name": "MS2000 Marker"
                 },
-                "priceRUB": 18253,
+                "priceRUB": 17810,
                 "currency": "EUR",
-                "price": 134
+                "price": 130
               },
               {
                 "item": {

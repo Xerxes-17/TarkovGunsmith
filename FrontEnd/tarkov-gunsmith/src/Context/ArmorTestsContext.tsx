@@ -6,7 +6,8 @@ export type TransmissionArmorTestResult = {
     ammoGridImage: string;
     armorDamagePerShot: number;
     shots: [],
-    setShots: (s: TransmissionArmorTestShot) => void
+    setShots: (s: TransmissionArmorTestShot) => void,
+    killShot: number
 }
 
 export type TransmissionArmorTestShot = {
@@ -27,6 +28,7 @@ export const ArmorTestContext = createContext<TransmissionArmorTestResult>({
     ammoGridImage: "",
     armorDamagePerShot: -1,
     setShots: () => {},
+    killShot: -1
 })
 
 export const useArmorTestContext = () => useContext(ArmorTestContext);

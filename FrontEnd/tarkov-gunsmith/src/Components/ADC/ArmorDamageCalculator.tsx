@@ -118,6 +118,8 @@ export default function ArmorDamageCalculator(props: any) {
     const [smallestTraderLevel] = useState(1);
     const [biggestTraderLevel] = useState(6); // 5 is for FLea market, 6 is for FIR
 
+    const [rateOfFire, setRateOfFire] = useState(650);
+
 
     const [filteredAmmoOptions, setFilteredAmmoOptions] = useState(AmmoOptions);
 
@@ -463,6 +465,21 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
                                     <SelectAmmo handleAmmoSelection={setAmmoId} ammoOptions={filteredAmmoOptions} />
                                 </>
+
+                                <br />
+
+                                <Form.Group className="mb-3">
+                                    <Row>
+                                        <Col>
+                                            <Form.Label>Rate Of Fire</Form.Label>
+                                            <Form.Range value={rateOfFire} max={1200} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                        </Col>
+                                        <Col style={{ maxWidth: "140px" }}>
+                                            <Form.Label>Number</Form.Label>
+                                            <Form.Control value={rateOfFire} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                        </Col>
+                                    </Row>
+                                </Form.Group>
                             </Card.Body>
                         </Col>
                     </Row>
@@ -574,7 +591,6 @@ export default function ArmorDamageCalculator(props: any) {
                                 <Card.Body>
 
                                     <Row>
-
                                         <Col md={3}>
                                             <Form.Group className="md" controlId="Penetration">
                                                 <Form.Label>Penetration ✒</Form.Label>
@@ -628,7 +644,8 @@ export default function ArmorDamageCalculator(props: any) {
 
                                             </Form.Group>
                                         </Col>
-
+                                    </Row>
+                                    <Row>
                                         <Col md={7}>
                                             <Form.Group>
                                                 <Row>
@@ -643,7 +660,25 @@ export default function ArmorDamageCalculator(props: any) {
                                                 </Row>
                                             </Form.Group>
                                         </Col>
+                                        <br />
+                                        <Col md={7}>
+                                            <Form.Group className="mb-3">
+                                                <Row>
+
+                                                    <Col>
+                                                        <Form.Label>Rate Of Fire</Form.Label>
+                                                        <Form.Range value={rateOfFire} max={1200} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                                    </Col>
+                                                    <Col md="3">
+                                                        <Form.Label>Number</Form.Label>
+                                                        <Form.Control value={rateOfFire} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
+                                                    </Col>
+
+                                                </Row>
+                                            </Form.Group>
+                                        </Col>
                                     </Row>
+
                                 </Card.Body>
                             </Col>
                         </Row>
@@ -666,20 +701,25 @@ export default function ArmorDamageCalculator(props: any) {
             <>
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="xl" >
-                        <Card.Header as="h4">📉 {result.testName}</Card.Header>
+                        <Card.Header as="h4">📉 {result.testName} @ {rateOfFire}rpm</Card.Header>
                         <Card.Body>
-                            <p>
-                                Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
-                                <br />
-                                Assumption: vest or rig, it is assumed to be hitting thorax (85hp) with all shots, for helmets the head. (35hp)
-                                <br />
-                                Custom calculations are for thorax only at the moment, and have an average blunt throughput value of '.27'.
-                                <br />
-                                Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.
-                                <br />
-                                Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)
-                                <br />
-                            </p>
+                            <Row>
+                                <Col>
+                                    <p>
+                                        <strong>Expected shots to kill: {result.killShot}</strong><br />
+                                        <strong>Expected time to kill: {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s</strong><br />
+                                        Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                    </p>
+                                </Col>
+                                <Col xs={8}>
+                                    <ul>
+                                        <li>Assumption: vest or rig, it is assumed to be hitting thorax (85hp) with all shots, for helmets the head. (35hp)</li>
+                                        <li>Custom calculations are for thorax only at the moment, and have an average blunt throughput value of '.27'.</li>
+                                        <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
+                                        <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
+                                    </ul>
+                                </Col>
+                            </Row>
                             <Table striped bordered hover variant="dark" responsive="sm">
                                 <thead>
                                     <tr>

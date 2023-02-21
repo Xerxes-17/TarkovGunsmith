@@ -51,8 +51,8 @@ export default function Home(props: any) {
                         <Card.Body>
                             <Card.Text>
                                 Another area of somewhat arcane knowledge for the player base is
-                                how armor takes damage on hits from various bullets. After much testing it was
-                                worked out and now it can be easily looked up on this page.
+                                how armor and characters take damage on hits from various bullets. After much testing 
+                                it has now been worked out and it can be easily looked up on this page.
                             </Card.Text>
                             <Card.Text>
                                 You can currently search by Armor name, Bullet name and set the starting
@@ -60,7 +60,8 @@ export default function Home(props: any) {
                                 the result.
                             </Card.Text>
                             <Card.Text>
-                                There is also a custom mode too if you'd like to model some theoretical ideas.
+                                There is also a custom mode too if you'd like to model some theoretical ideas, or 
+                                if I haven't kept up with some patch.
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -106,7 +107,42 @@ export default function Home(props: any) {
                     </Card>
                 </Col>
             </Row>
-            <Row>
+            <Row className="row gy-2 mb-2">
+                <Col>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <Card.Header as="h5">
+                            21/02/2023
+                        </Card.Header>
+                        <Card.Body>
+                            
+                            <Card.Text>
+                                A little quicker this time, but the ADC is much simpler to work on.<br /><br />
+
+                                I've now added Rate of Fire as a purely front-end aspect to the ADC, so now you can 
+                                compare the, a SCAR-L (650rpm) vs the HK-416 (850rpm) without needing to submit 
+                                for a new calc.<br /><br />
+
+                                Additionally, I've now added in the expected blunt, penetration, average damage and remaining
+                                hit points columns to the calculation series. From this you can now of course work out rough
+                                shots to kill (STK) and time to kill (TTK) results for thorax or head shots! I would like to also add in a binomial probability column,
+                                but I am in fact bad @ math so I haven't been able to implement it yet. If anyone would like to 
+                                help me out with that, I'd greatly appreciate it! 😀 <br/> <br/>
+
+                                This new feature is also hugely important because now we have the ability to start charting out 
+                                how effective a given round should be vs all of the armors in a set of options, in a similar way to
+                                nofoodaftermidnight's chart. However it will be better as he gives a rough average for a given class,
+                                which has the problem of not accounting for the variation in effective durability. For example 
+                                a 7.62x39 PS round has a STK of 5 vs a Korund, which isn't too bad, but against a Redut-T5, this becomes
+                                an STK of 10, which isn't so great. But anyway, charts coming soon!™<br/> <br/>
+
+                                With that done, it's time for a big code-cleanup pass before I add any more features.
+                            </Card.Text>
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_adc_1.png'} />
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <Row className="row gy-2 mb-2">
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <Card.Header as="h5">
@@ -146,7 +182,7 @@ export default function Home(props: any) {
                     </Card>
                 </Col>
             </Row>
-            <Row>
+            <Row className="row gy-2 mb-2">
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <Card.Header as="h5">
