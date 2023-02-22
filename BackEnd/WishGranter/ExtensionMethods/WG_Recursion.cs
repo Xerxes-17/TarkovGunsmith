@@ -70,7 +70,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             //! We force Meta Recoil mode on muzzle devices because for most the difference in ergo is tiny, and the recoil is the more important thing.
             else if (mode == "Meta Recoil")
@@ -82,7 +82,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
 
             }
 
@@ -98,7 +98,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             else if (mode == "Meta Ergonomics")
             {
@@ -113,7 +113,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             return inputList;
         }
@@ -126,7 +126,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             //! We force Meta Recoil mode on muzzle devices because for most the difference in ergo is tiny, and the recoil is the more important thing.
             else if (mode == "Meta Recoil")
@@ -138,7 +138,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
 
             //? Ergo Builds need to have 0 or positive ergo options removed for muzzle devices, otherwise they choose to have just end-caps or empty silencer adapters
@@ -148,7 +148,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_EMax = inputList.Max(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalErgo == options_EMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             else if (mode == "Meta Ergonomics")
             {
@@ -159,7 +159,7 @@ namespace WishGranterProto.ExtensionMethods
                 var options_RMax = inputList.Min(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil);
                 inputList = inputList.Where(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil == options_RMax).ToList();
 
-                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferFromReadyMarketDataById(x.Id)).ToList();
+                inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
             }
             return inputList;
         }
@@ -1348,6 +1348,20 @@ namespace WishGranterProto.ExtensionMethods
             }
             return result;
         }
+        // Does not include the ID of the weapon itself!
+        public static List<string> AggregateAttachedModsRecursively(Weapon weapon)
+        {
+            List<string> result = new();
+            foreach (var slot in weapon.Slots)
+            {
+                if (slot.ContainedItem != null)
+                {
+                    result.AddRange(AggregateIdsRecursively((CompoundItem)slot.ContainedItem));
+                }
+            }
+            return result;
+        }
+
         public static bool CheckThatAllRequiredSlotsFilled(CompoundItem CI)
         {
             bool result = true;

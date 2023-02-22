@@ -6,6 +6,84 @@ namespace WishGranterProto.ExtensionMethods
 {
     public static class WG_Output
     {
+        // Takes the result of a fitting request and packages it into a Transmission format for the FE to receive.
+        public static TransmissionWeapon CreateTransmissionWeaponListFromResultsTuple_Single((Weapon, Ammo) result, WeaponPreset preset)
+        {
+            // Get the economic totals
+            var econ = WG_Market.CalculateWeaponBuildTotals(preset, result.Item1);
+
+
+            // Get the summary of stats and an IEnum of slots that are in use
+            var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
+            IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
+
+            // Create a list of all of the attached mods as TransmissionWMs
+            List<TransmissionWeaponMod> attachedMods = new();
+            foreach (Slot slot in notNulls)
+            {
+                attachedMods.AddRange(RecursiveAttachedMods(slot));
+            }
+
+            // Create the TransmissionPatron (Bullet)
+            var attachedPatron = new TransmissionPatron();
+            attachedPatron.ShortName = result.Item2.ShortName;
+            attachedPatron.Id = result.Item2.Id;
+            attachedPatron.Penetration = result.Item2.PenetrationPower;
+            attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
+            attachedPatron.Damage = result.Item2.Damage;
+            attachedPatron.FragChance = result.Item2.FragmentationChance;
+
+            //Now put it all together
+            var transmissionWeapon = new TransmissionWeapon();
+            transmissionWeapon.ShortName = result.Item1.ShortName;
+            transmissionWeapon.Id = preset.Id;
+            transmissionWeapon.BaseErgo = result.Item1.Ergonomics;
+            transmissionWeapon.BaseRecoil = result.Item1.RecoilForceUp;
+            transmissionWeapon.Convergence = result.Item1.Convergence;
+            transmissionWeapon.RecoilDispersion = result.Item1.RecoilDispersion;
+            transmissionWeapon.RateOfFire = result.Item1.BFirerate;
+
+            transmissionWeapon.AttachedModsFLat = attachedMods;
+            transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
+            transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
+
+            transmissionWeapon.SelectedPatron = attachedPatron;
+
+            transmissionWeapon.PresetPrice = econ.initialCost;
+            transmissionWeapon.SellBackValue = econ.sellBackTotal;
+            transmissionWeapon.PurchasedModsCost = econ.boughtModsTotal;
+            transmissionWeapon.FinalCost = econ.finalCost;
+
+            transmissionWeapon.Valid = WG_Recursion.CheckIfCompoundItemIsValid(result.Item1);
+
+            return transmissionWeapon;
+        }
+        // Herlper method for getting a list of all of the mods attached to a weapon, returned in the Transmission format
+        private static List<TransmissionWeaponMod> RecursiveAttachedMods(this Slot obj)
+        {
+            List<TransmissionWeaponMod> result = new();
+            WeaponMod ContainedItem = (WeaponMod)obj.ContainedItem;
+
+            TransmissionWeaponMod attachedMod = new();
+            attachedMod.ShortName = ContainedItem.ShortName;
+            attachedMod.Id = ContainedItem.Id;
+            attachedMod.Ergo = ContainedItem.Ergonomics;
+            attachedMod.RecoilMod = ContainedItem.Recoil;
+
+            attachedMod.PriceRUB = WG_Market.GetBestCashOfferPriceByItemId(attachedMod.Id);
+
+            result.Add(attachedMod);
+
+            IEnumerable<Slot> notNulls = ContainedItem.Slots.Where(x => x.ContainedItem != null);
+            foreach (var slot in notNulls)
+            {
+                result.AddRange(RecursiveAttachedMods(slot));
+            }
+
+            return result;
+        }
+
+        //! These three functions writes out these item types to their selection option formats.
         public static List<SelectionWeapon> WriteStockPresetList(List<WeaponPreset> DefaultWeaponPresets)
         {
             List<SelectionWeapon> result = new();
@@ -65,83 +143,6 @@ namespace WishGranterProto.ExtensionMethods
             return result;
 
         }
-
-        public static List<SelectionWeapon> WriteStockPresetList(List<Weapon> DefaultWeaponPresets, JObject ImageLinksJSON)
-        {
-
-            //! NEED TO MOVE THIS OUTSIDE OF THE CALL (probably)
-            List<TraderCashOffer> cashOffers = WG_Market.GetAllCashOffers();
-
-            List<SelectionWeapon> result = new();
-
-            List<string> prohibited = new();
-            prohibited.Add("Master Hand");
-            prohibited.Add("Штурмовая винтовка Colt M4A1 5.56x45");
-
-            prohibited.Add("launcher_ak_toz_gp25_40_vog_settings");
-            prohibited.Add("launcher_ar15_colt_m203_40x46_settings");
-            prohibited.Add("FN40GL Mk2 grenade launcher");
-            prohibited.Add("M32A1 MSGL 40mm grenade launcher");
-
-            prohibited.Add("NSV \"Utyos\" 12.7x108 heavy machine gun");
-            prohibited.Add("AGS-30 30x29mm automatic grenade launcher");
-
-            prohibited.Add("ZiD SP-81 26x75 signal pistol");
-            prohibited.Add("RSP-30 reactive signal cartridge (Green)");
-            prohibited.Add("ROP-30 reactive flare cartridge (White)");
-            prohibited.Add("RSP-30 reactive signal cartridge (Red)");
-            prohibited.Add("RSP-30 reactive signal cartridge (Yellow)");
-
-            IEnumerable < Weapon > shortList = DefaultWeaponPresets.Where(x => !prohibited.Contains(x.Name));
-
-            foreach (Weapon weapon in shortList)
-            {
-                string searchJSONpath = $"$.data.items[?(@.id=='{weapon.Id}')].properties.defaultPreset.gridImageLink";
-                var gridImageLink = ImageLinksJSON.SelectToken(searchJSONpath).ToString();
-
-                SelectionWeapon selectionWeapon = new SelectionWeapon();
-
-                var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(weapon);
-
-                selectionWeapon.Value = weapon.Id;
-                selectionWeapon.Label = weapon.Name;
-
-                if (gridImageLink != null)
-                {
-                    selectionWeapon.ImageLink = gridImageLink; // New function goes here.
-                }
-                else
-                {
-                    selectionWeapon.ImageLink = "NO IMAGE LINK FOUND";
-                }
-                
-                selectionWeapon.Ergonomics = temp.TotalErgo; // Need to get the calculated val for the total.
-                selectionWeapon.RecoilForceUp = temp.TotalRecoil; // Same here
-
-                selectionWeapon.RecoilAngle = weapon.RecoilAngle;
-                selectionWeapon.RecoilDispersion = weapon.RecoilDispersion;
-                selectionWeapon.Convergence = weapon.Convergence;
-
-                selectionWeapon.AmmoCaliber = weapon.AmmoCaliber;
-                selectionWeapon.BFirerate = weapon.BFirerate;
-      
-                if (cashOffers.Where(x => x.ItemId.Equals(selectionWeapon.Value)).Count() > 0)
-                {
-                    selectionWeapon.requiredPlayerLevel = cashOffers.Find(x => x.ItemId.Equals(selectionWeapon.Value)).RequiredPlayerLevel;
-                    // Improve this later
-                }
-
-                result.Add(selectionWeapon);
-            }
-            result = result.OrderBy(x => x.Label).ToList();
-
-            //using StreamWriter writetext = new("outputs\\MyStockPresets.json"); // This is here as a debug/verify
-            //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
-
-            return result;
-
-        }
-
         public static List<SelectionAmmo> WriteAmmoList(Database database)
         {
             List<SelectionAmmo> result = new();
@@ -160,7 +161,7 @@ namespace WishGranterProto.ExtensionMethods
             All_Ammo = All_Ammo.Where(m =>
             {
                 var temp = (Ammo) m;
-                return temp.PenetrationPower > 20 && !prohibited.Contains(temp.Id);
+                return temp.PenetrationPower > 19 && !prohibited.Contains(temp.Id);
             });
 
             foreach (var item in All_Ammo)
@@ -178,7 +179,7 @@ namespace WishGranterProto.ExtensionMethods
                 sOption.ArmorDamagePerc = temp.ArmorDamage;
                 sOption.BaseArmorDamage = (temp.PenetrationPower * (temp.ArmorDamage / 100));
 
-                sOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
+                sOption.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
                 if (sOption.TraderLevel == -1 && temp.CanSellOnRagfair == true)
                 {
                     sOption.TraderLevel = 5; // Can buy on Flea.
@@ -200,10 +201,6 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-
-        // Need to add helmets to this!
-        // Also might need to make the material type be a string and not an enum
-        // Need to get Barter offers too
         public static List<SelectionArmor> WriteArmorList(Database database)
         {
             IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
@@ -237,7 +234,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
 
-                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
                 if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
                     armorOption.TraderLevel = 5; // Can buy on Flea.
@@ -265,7 +262,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.MaxDurability = temp.MaxDurability;
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
-                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
 
                 if(armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
@@ -294,7 +291,7 @@ namespace WishGranterProto.ExtensionMethods
                 armorOption.ArmorMaterial = temp.ArmorMaterial;
                 armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
 
-                armorOption.TraderLevel = WG_Market.GetTraderLevelFromReadyMarketDataById(temp.Id);
+                armorOption.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
                 if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
                     armorOption.TraderLevel = 5;
@@ -316,6 +313,8 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
+
+        //! Going to hold onto this one because they could be useful at times for debugging.
         public static void WriteOutputFileWeapon(Weapon weapon, string filename)
         {
             filename = filename.Replace('"', ' ');
@@ -354,7 +353,7 @@ namespace WishGranterProto.ExtensionMethods
                 sw.Close();
                 }
         }
-
+        //! Going to hold onto this one because they could be useful at times for debugging.
         public static void WriteOutputFileWeapons(List<Weapon> weapons, string filename)
         {
             filename = filename.Replace('"', ' ');
@@ -388,7 +387,7 @@ namespace WishGranterProto.ExtensionMethods
                 }
             }
         }
-
+        //! Going to hold onto this one because they could be useful at times for debugging.
         private static string RecursiveStringBySlots(this Slot obj)
         {
             string result = "  " + obj.ContainedItem.Name;
@@ -406,304 +405,157 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
-        public static void WriteOutputFileMods(List<WeaponMod> mods, string filename)
+        public static void ChestRigReport(List<ChestRig> ChestRigs, string filename)
         {
-            string path = "results\\" + filename + ".txt";
             DateTime dateTime = DateTime.Now;
+            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
+
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine($"New output from {dateTime}");
-                sw.WriteLine($"num of mods: {mods.Count} \n");
+                sw.WriteLine("Name,ArmorClass,ArmorMaterial,MaxDurability,BluntThroughput,TraderLevel");
                 sw.Close();
             }
 
-            foreach (WeaponMod mod in mods)
+            foreach (ChestRig rig in ChestRigs)
             {
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    // Write the Weapon name and base stats
-                    sw.WriteLine(mod.Name);
-                    sw.WriteLine($"Ergo: {mod.Ergonomics}");
-                    sw.WriteLine($"Recoil: {mod.Recoil}%");
+                    sw.Write($"{rig.Name},");
+                    sw.Write($"{rig.ArmorClass},");
+                    sw.Write($"{rig.ArmorMaterial},");
+                    sw.Write($"{rig.MaxDurability},");
+                    sw.Write($"{rig.BluntThroughput},");
 
-                    // Write the attached mods
-                    IEnumerable<Slot> notNulls = mod.Slots.Where(x => x.ContainedItem != null);
-                    string temp = string.Empty;
-                    foreach (Slot slot in notNulls)
-                    {
-                        temp += RecursiveStringBySlots(slot);
-                    }
-                    sw.WriteLine(temp);
+                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(rig.Id)}\n");
+
                     sw.Close();
                 }
             }
         }
 
-        public static void WriteOutputFileForType<T>(List<Item> aList, string filename)
+        public static void ArmorReport(List<Armor> Armors, string filename)
         {
-            string path = "results\\" + filename + ".txt";
             DateTime dateTime = DateTime.Now;
+            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
+
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine($"New output from {dateTime}");
-                sw.WriteLine($"num of items: {aList.Count} \n");
+                sw.WriteLine("Name,ArmorClass,ArmorMaterial,MaxDurability,BluntThroughput,Indestructibility,TraderLevel");
                 sw.Close();
             }
 
-            var result = aList.Where(x => x.GetType() == typeof(T)).ToList();
-            result.ForEach((x) =>
+            foreach (Armor armor in Armors)
             {
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    sw.WriteLine(x.Name);
-                    sw.WriteLine(x.Id);
-                    sw.WriteLine("");
-                }
-            });
-        }
+                    sw.Write($"{armor.Name},");
+                    sw.Write($"{armor.ArmorClass},");
+                    sw.Write($"{armor.ArmorMaterial},");
+                    sw.Write($"{armor.MaxDurability},");
+                    sw.Write($"{armor.BluntThroughput},");
+                    sw.Write($"{armor.Indestructibility},");
 
-        public static void WriteOutputFileForResultsTuple(List<(Weapon, Ammo)> results, string filename)
-        {
-            string path = "results\\" + filename + ".txt";
-            DateTime dateTime = DateTime.Now;
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine($"New output from {dateTime}");
-                sw.WriteLine($"num of items: {results.Count} \n");
-                sw.Close();
-            }
-            //  Write the results to teh file
-            results.ForEach(((result) =>
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    // Identify the weapon
-                    sw.WriteLine(result.Item1.ShortName);
-                    sw.WriteLine(result.Item1.Id);
-                    sw.WriteLine("");
-
-                    // Create the string of attachments recursively and write it
-                    IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
-                    string attachedMods = string.Empty;
-                    foreach (Slot slot in notNulls)
-                    {
-                        attachedMods += RecursiveStringBySlots(slot);
-                    }
-                    sw.WriteLine(attachedMods);
-
-                    // Write the final weapon stats
-                    var temp = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-                    sw.WriteLine($"Final Ergo: {temp.TotalErgo}");
-                    sw.WriteLine($"Final Recoil: {temp.TotalRecoil}");
-                    sw.WriteLine($"Recoil Dispersion: {result.Item1.RecoilDispersion}");
-                    sw.WriteLine($"Convergence: {result.Item1.Convergence}");
-                    sw.WriteLine($"Bullet: {result.Item2.Name}");
-                    sw.WriteLine($"Penetration: {result.Item2.PenetrationPower}");
-                    sw.WriteLine($"Damage: {result.Item2.Damage}");
-                    sw.WriteLine($"Rate of Fire: {result.Item1.BFirerate}");
-                    sw.WriteLine("");
+                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(armor.Id)}\n");
 
                     sw.Close();
                 }
-            }));
+            }
         }
-        
-        private static List<TransmissionWeaponMod> RecursiveAttachedMods(this Slot obj, List<J_CashOffer> CashOffers)
+
+        public static void AmmoReport(List<Ammo> Ammo, string filename)
         {
-            List<TransmissionWeaponMod> result = new();
-            WeaponMod ContainedItem = (WeaponMod) obj.ContainedItem;
+            DateTime dateTime = DateTime.Now;
+            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
 
-            TransmissionWeaponMod attachedMod = new(); 
-            attachedMod.ShortName = ContainedItem.ShortName;
-            attachedMod.Id = ContainedItem.Id;
-            attachedMod.Ergo = ContainedItem.Ergonomics;
-            attachedMod.RecoilMod = ContainedItem.Recoil;
-
-            attachedMod.PriceRUB = CashOffers.Find(x => x.item.id.Equals(attachedMod.Id)).priceRUB;
-
-            result.Add(attachedMod);
-
-            IEnumerable<Slot> notNulls = ContainedItem.Slots.Where(x => x.ContainedItem != null);
-            foreach (var slot in notNulls)
+            using (StreamWriter sw = File.CreateText(path))
             {
-                result.AddRange(RecursiveAttachedMods(slot, CashOffers));
+                sw.WriteLine("Name,Caliber,Damage,PenetrationPower,PenetrationPowerDiviation,ArmorDamage%,Accuracy,Recoil,FragChance,LBC,HBC,Speed,Tracer,TraderLevel");
+                sw.Close();
             }
 
-            return result;
-        }
-
-        private static List<TransmissionWeaponMod> RecursiveAttachedMods(this Slot obj)
-        {
-            List<TransmissionWeaponMod> result = new();
-            WeaponMod ContainedItem = (WeaponMod)obj.ContainedItem;
-
-            TransmissionWeaponMod attachedMod = new();
-            attachedMod.ShortName = ContainedItem.ShortName;
-            attachedMod.Id = ContainedItem.Id;
-            attachedMod.Ergo = ContainedItem.Ergonomics;
-            attachedMod.RecoilMod = ContainedItem.Recoil;
-
-            attachedMod.PriceRUB = WG_Market.GetBestCashOfferFromReadyMarketDataById(attachedMod.Id);
-
-            result.Add(attachedMod);
-
-            IEnumerable<Slot> notNulls = ContainedItem.Slots.Where(x => x.ContainedItem != null);
-            foreach (var slot in notNulls)
+            foreach (Ammo bullet in Ammo)
             {
-                result.AddRange(RecursiveAttachedMods(slot));
-            }
-
-            return result;
-        }
-        public static TransmissionWeapon CreateTransmissionWeaponListFromResultsTuple_Single((Weapon, Ammo) result,  WeaponPreset preset)
-        {
-
-            // Get the summary of stats and an IEnum of slots that are in use
-            var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-            IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
-
-            // Create a list of all of the attached mods as TransmissionWMs
-            List<TransmissionWeaponMod> attachedMods = new();
-            foreach (Slot slot in notNulls)
-            {
-                attachedMods.AddRange(RecursiveAttachedMods(slot));
-            }
-
-            // Create the TransmissionPatron (Bullet)
-            var attachedPatron = new TransmissionPatron();
-            attachedPatron.ShortName = result.Item2.ShortName;
-            attachedPatron.Id = result.Item2.Id;
-            attachedPatron.Penetration = result.Item2.PenetrationPower;
-            attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
-            attachedPatron.Damage = result.Item2.Damage;
-
-            //Now put it all together
-            var transmissionWeapon = new TransmissionWeapon();
-            transmissionWeapon.ShortName = result.Item1.ShortName;
-            transmissionWeapon.Id = preset.Id;
-            transmissionWeapon.BaseErgo = result.Item1.Ergonomics;
-            transmissionWeapon.BaseRecoil = result.Item1.RecoilForceUp;
-            transmissionWeapon.Convergence = result.Item1.Convergence;
-            transmissionWeapon.RecoilDispersion = result.Item1.RecoilDispersion;
-            transmissionWeapon.RateOfFire = result.Item1.BFirerate;
-
-            transmissionWeapon.AttachedModsFLat = attachedMods;
-            transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
-            transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
-
-            transmissionWeapon.SelectedPatron = attachedPatron;
-
-            transmissionWeapon.PriceRUB = preset.PurchaseOffer.PriceRUB;
-
-            transmissionWeapon.Valid = WG_Recursion.CheckIfCompoundItemIsValid(result.Item1);
-
-            return transmissionWeapon;
-        }
-        public static List<TransmissionWeapon> CreateTransmissionWeaponListFromResultsTupleList(List<(Weapon, Ammo)> results, List<J_CashOffer> CashOffers)
-        {
-            /*
-             * Reasoning: Sending off the entire RatStash details is not needed, and sending a string would be very finnicky, so sending a JSON of simplified and serialized objects is ideal.
-             */
-
-            // Create a transmission list
-            List<TransmissionWeapon> Transmission = new();
-
-            results.ForEach(result =>
-            {
-                // Get the summary of stats and an IEnum of slots that are in use
-                var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-                IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
-
-                // Create a list of all of the attached mods as TransmissionWMs
-                List<TransmissionWeaponMod> attachedMods = new();
-                foreach (Slot slot in notNulls)
+                using (StreamWriter sw = File.AppendText(path))
                 {
-                    attachedMods.AddRange(RecursiveAttachedMods(slot, CashOffers));
+                    sw.Write($"{bullet.Name},");
+                    sw.Write($"{bullet.Caliber},");
+                    sw.Write($"{bullet.Damage},");
+                    sw.Write($"{bullet.PenetrationPower},");
+                    sw.Write($"{bullet.PenetrationPowerDiviation},");
+                    sw.Write($"{bullet.ArmorDamage},");
+                    sw.Write($"{bullet.AmmoAccuracy},");
+                    sw.Write($"{bullet.AmmoRec},");
+                    if (bullet.PenetrationPower > 19)
+                        sw.Write($"{bullet.FragmentationChance},");
+                    else
+                        sw.Write("0,");
+                    sw.Write($"{bullet.LightBleedingDelta},");
+                    sw.Write($"{bullet.HeavyBleedingDelta},");
+                    sw.Write($"{bullet.InitialSpeed},");
+                    sw.Write($"{bullet.Tracer},");
+
+                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(bullet.Id)}\n");
+
+                    sw.Close();
                 }
-
-                // Create the TransmissionPatron (Bullet)
-                var attachedPatron = new TransmissionPatron();
-                attachedPatron.ShortName = result.Item2.ShortName;
-                attachedPatron.Id = result.Item2.Id;
-                attachedPatron.Penetration = result.Item2.PenetrationPower;
-                attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
-                attachedPatron.Damage = result.Item2.Damage;
-
-                //Now put it all together
-                var transmissionWeapon = new TransmissionWeapon();
-                transmissionWeapon.ShortName = result.Item1.ShortName;
-                transmissionWeapon.Id = result.Item1.Id;
-                transmissionWeapon.BaseErgo = result.Item1.Ergonomics;
-                transmissionWeapon.BaseRecoil = result.Item1.RecoilForceUp;
-                transmissionWeapon.Convergence = result.Item1.Convergence;
-                transmissionWeapon.RecoilDispersion = result.Item1.RecoilDispersion;
-                transmissionWeapon.RateOfFire = result.Item1.BFirerate;
-
-                transmissionWeapon.AttachedModsFLat = attachedMods;
-                transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
-                transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
-
-                transmissionWeapon.SelectedPatron = attachedPatron;
-
-                transmissionWeapon.PriceRUB = CashOffers.Find(x => x.item.id.Equals(transmissionWeapon.Id)).priceRUB;
-
-                Transmission.Add(transmissionWeapon);
-            });
-
-            return Transmission;
+            }
         }
-        public static List<TransmissionWeapon> CreateTransmissionWeaponListFromResultsTupleList(List<(WeaponPreset, Ammo)> results, List<J_CashOffer> CashOffers)
+
+        public static void WeaponReport(List<Weapon> Weapons, string filename)
         {
-            /*
-             * Reasoning: Sending off the entire RatStash details is not needed, and sending a string would be very finnicky, so sending a JSON of simplified and serialized objects is ideal.
-             */
+            DateTime dateTime = DateTime.Now;
+            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
 
-            // Create a transmission list
-            List<TransmissionWeapon> Transmission = new();
-
-            results.ForEach(result =>
+            using (StreamWriter sw = File.CreateText(path))
             {
-                // Get the summary of stats and an IEnum of slots that are in use
-                var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1.Weapon);
-                IEnumerable<Slot> notNulls = result.Item1.Weapon.Slots.Where<Slot>(y => y.ContainedItem != null);
+                sw.WriteLine("Name,Caliber,RoF,SS_RoF," +
+                    "Ergonomics,RecoilForceUp,RecoilDispersion,Convergence,RecoilAngle,CameraRecoil,DeviationCurve," +
+                    "HipAccuracyRestorationDelay,HipAccuracyRestorationSpeed,HipInnaccuracyGain," +
+                    "DurabilityBurnRatio,HeatFactorGun,CoolFactorGun,AllowOverheat,HeatFactorByShot,CoolFactorGunMods," +
+                    "BaseMalfunctionChance,AllowJam,AllowFeed,AllowMisfire,AllowSlide," +
+                    "TraderLevel");
+                sw.Close();
+            }
 
-                // Create a list of all of the attached mods as TransmissionWMs
-                List<TransmissionWeaponMod> attachedMods = new();
-                foreach (Slot slot in notNulls)
+            foreach (Weapon item in Weapons)
+            {
+                using (StreamWriter sw = File.AppendText(path))
                 {
-                    attachedMods.AddRange(RecursiveAttachedMods(slot, CashOffers));
+                    sw.Write($"{item.Name},");
+                    sw.Write($"{item.AmmoCaliber},");
+                    sw.Write($"{item.BFirerate},");
+                    sw.Write($"{item.SingleFireRate},");
+
+                    sw.Write($"{item.Ergonomics},");
+                    sw.Write($"{item.RecoilForceUp},");
+                    sw.Write($"{item.RecoilDispersion},");
+                    sw.Write($"{item.Convergence},");
+                    sw.Write($"{item.RecoilAngle},");
+                    sw.Write($"{item.CameraRecoil},");
+                    sw.Write($"{item.DeviationCurve },");
+
+                    sw.Write($"{item.HipAccuracyRestorationDelay},");
+                    sw.Write($"{item.HipAccuracyRestorationSpeed},");
+                    sw.Write($"{item.HipInaccuracyGain},");
+
+                    sw.Write($"{item.DurabilityBurnRatio},");
+                    sw.Write($"{item.HeatFactorGun},");
+                    sw.Write($"{item.CoolFactorGun},");
+                    sw.Write($"{item.AllowOverheat},");
+                    sw.Write($"{item.HeatFactorByShot},");
+                    sw.Write($"{item.CoolFactorGunMods},");
+
+                    sw.Write($"{item.BaseMalfunctionChance},");
+                    sw.Write($"{item.AllowJam},");
+                    sw.Write($"{item.AllowFeed},");
+                    sw.Write($"{item.AllowMisfire},");
+                    sw.Write($"{item.AllowSlide},");
+
+                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(item.Id)}\n");
+
+                    sw.Close();
                 }
-
-                // Create the TransmissionPatron (Bullet)
-                var attachedPatron = new TransmissionPatron();
-                attachedPatron.ShortName = result.Item2.ShortName;
-                attachedPatron.Id = result.Item2.Id;
-                attachedPatron.Penetration = result.Item2.PenetrationPower;
-                attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
-                attachedPatron.Damage = result.Item2.Damage;
-
-                //Now put it all together
-                var transmissionWeapon = new TransmissionWeapon();
-                transmissionWeapon.ShortName = result.Item1.Weapon.ShortName;
-                transmissionWeapon.Id = result.Item1.Id;
-                transmissionWeapon.BaseErgo = result.Item1.Weapon.Ergonomics;
-                transmissionWeapon.BaseRecoil = result.Item1.Weapon.RecoilForceUp;
-                transmissionWeapon.Convergence = result.Item1.Weapon.Convergence;
-                transmissionWeapon.RecoilDispersion = result.Item1.Weapon.RecoilDispersion;
-                transmissionWeapon.RateOfFire = result.Item1.Weapon.BFirerate;
-
-                transmissionWeapon.AttachedModsFLat = attachedMods;
-                transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
-                transmissionWeapon.FinalRecoil = tempSummary.TotalRecoil;
-
-                transmissionWeapon.SelectedPatron = attachedPatron;
-
-                transmissionWeapon.PriceRUB = result.Item1.PurchaseOffer.PriceRUB;
-
-                Transmission.Add(transmissionWeapon);
-            });
-
-            return Transmission;
+            }
         }
     }
 }

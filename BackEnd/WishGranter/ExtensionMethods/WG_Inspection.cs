@@ -5,6 +5,7 @@ namespace WishGranterProto.ExtensionMethods
     public static class WG_Inspection
     {
         // Inspect a given CompoundItem list to find the name, id and conflicting items of items of a given type.
+        //? Hey this could be useful for the build validity checker!
         public static void InspectListForType<T>(List<CompoundItem> aList, List<WeaponMod> allmods)
         {
             var result = aList.Where(x => x.GetType() == typeof(T)).ToList();

@@ -11,13 +11,18 @@ export type TransmissionWeaponBuildResult = {
     RecoilDispersion: number,
     SelectedPatron: SelectedPatron,
     ShortName: string,
-    PriceRUB: number,
-    Valid: boolean
+    Valid: boolean,
+
+    PresetPrice: number,
+    SellBackValue: number,
+    PurchasedModsCost: number,
+    FinalCost: number
 }
 
 export type SelectedPatron = {
     ArmorDamagePerc: number,
     Damage: number,
+    FragChance: number,
     Id: string,
     Penetration: number,
     ShortName: string

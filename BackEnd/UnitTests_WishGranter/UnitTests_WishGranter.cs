@@ -347,56 +347,36 @@ namespace WishGranterTests
             WG_Recursion.PrintAttachedModNames_Recursively(Ergo, 0);
             Console.WriteLine("");
         }
-
-
     }
 
     
     [TestClass]
     public class MarketTests
     {
-        [TestMethod]
-        public void test_GetAllCashOffers()
+        static JObject MarketDataJSON;
+        static List<MarketEntry> MarketData; 
+
+        [TestInitialize]
+        public void testInit()
         {
-            var result = WG_Market.GetAllCashOffers();
-            Console.WriteLine(result.Count);
-            Assert.IsTrue(result.Count > 1597);
+            MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
+            MarketData = WG_Market.CompileMarketDataList(MarketDataJSON);
+        }
+        
+        [TestMethod]
+        public void test_GetBestSaleOfferByItemId_Zabralo()
+        {
+            var result = WG_Market.GetBestSaleOfferByItemId("545cdb794bdc2d3a198b456a");
+            Console.WriteLine($"Zabralo sell value is: {result}");
+            Assert.IsTrue(result == 238680);
         }
 
         [TestMethod]
-        public void test_FilterTraderCashOffersByPlayerLevel()
+        public void test_GetItemTraderLevelByItemId_M855A1()
         {
-            var result = WG_Market.FilterTraderCashOffersByPlayerLevel(15);
-            Console.WriteLine(result.Count);
-            Assert.IsTrue(result.Count > 705);
-        }
-
-        [TestMethod]
-        public void test_GetTraderCashOffersByItemId()
-        {
-            var result = WG_Market.GetTraderCashOffersByItemId("5447a9cd4bdc2dbd208b4567"); //M4A1
-            foreach (var c in result)
-            {
-                Console.WriteLine(c.TraderName + " " + c.PriceInRUB);
-            }
-
-            Assert.IsTrue(result.Count == 2);
-        }
-
-        [TestMethod]
-        public void test_GetCheapestCashOfferForItemWithPlayerLevel()
-        {
-            var result = WG_Market.GetCheapestCashOfferForItemWithPlayerLevel("5447a9cd4bdc2dbd208b4567", 30); //M4A1
-            Console.WriteLine(result);
-            Assert.IsTrue(result == 67809);
-        }
-
-        [TestMethod]
-        public void test_GetCheapestCashOfferForItem()
-        {
-            var result = WG_Market.GetCheapestCashOfferForItem("5447a9cd4bdc2dbd208b4567"); //M4A1
-            Console.WriteLine(result);
-            Assert.IsTrue(result == 67809);
+            var result = WG_Market.GetItemTraderLevelByItemId("54527ac44bdc2d36668b4567");
+            Console.WriteLine($"M855A1 trader level is: {result}");
+            Assert.IsTrue(result == 4);
         }
     }
 
@@ -419,74 +399,6 @@ namespace WishGranterTests
 
             Console.WriteLine(result.Name);
             Console.WriteLine(testObject.Name);
-        }
-    }
-
-    [TestClass]
-    public class UnitTests_WishGranter
-    {
-        static Database RatStashDB = Database.FromFile("ratstash_jsons\\items.json", false, "ratstash_jsons\\en.json");
-        static JObject ImageLinksJSON = JObject.Parse(File.ReadAllText("TarkovDev_jsons\\ImageLinks.json"));
-
-        IEnumerable<Item> All_Ammo = RatStashDB.GetItems(m => m is Ammo);
-        IEnumerable<Item> All_Armor = RatStashDB.GetItems(m => m is Armor);
-        IEnumerable<Item> All_Rigs = RatStashDB.GetItems(m => m is ChestRig);
-
-        //[TestMethod]
-        //public void _WriteArmorList()
-        //{
-        //    WG_Output.WriteArmorList(RatStashDB);
-        //}
-
-        //[TestMethod]
-        //public void _WriteAmmoList()
-        //{
-        //    WG_Output.WriteAmmoList(RatStashDB);
-        //}
-
-
-        //[TestMethod]
-        //public void _ViewAllArmor()
-        //{
-        //    foreach (var armor in All_Armor)
-        //    {
-        //        Console.WriteLine(armor.Name);
-        //        Console.WriteLine(armor.Id + "\n");
-        //    }
-        //}
-
-        //[TestMethod]
-        //public void _ViewAllRigs()
-        //{
-        //    foreach (var rig in All_Rigs)
-        //    {
-        //        Console.WriteLine(rig.Name);
-        //        Console.WriteLine(rig.Id+"\n");
-        //    }
-        //}
-
-        //[TestMethod]
-        //public void _ViewAllAmmo()
-        //{
-        //    foreach (var ammo in All_Ammo)
-        //    {
-        //        Console.WriteLine(ammo.Name);
-        //        Console.WriteLine(ammo.Id + "\n");
-        //    }
-        //}
-
-        [TestMethod]
-        public void PenetrationChance_Custom()
-        {
-            var result = WG_Calculation.PenetrationChance(5, 41, 87D);
-            Console.WriteLine(result);
-        }
-
-        [TestMethod]
-        public void Output_Runner()
-        {
-            WG_Output.WriteArmorList(RatStashDB);
-            WG_Output.WriteAmmoList(RatStashDB);
         }
     }
 }
