@@ -9,6 +9,33 @@ using System.Runtime.InteropServices;
 
 namespace WishGranterProto.ExtensionMethods
 {
+    public enum OfferType
+    {
+        None,
+        Sell,
+        Cash,
+        Barter,
+        Flea
+    }
+    public class TraderCashOffer
+    {
+        public string TraderName { get; set; } = string.Empty;
+        public int TraderLevel { get; set; } = -1;
+        public int RequiredPlayerLevel { get; set; } = -1;
+
+        public string ItemId { get; set; } = string.Empty;
+        public string ItemName { get; set; } = string.Empty;
+
+        public int PriceInRUB { get; set; } = -1;
+
+    }
+
+    public class MarketEntry
+    {
+        public string Name { get; set; } = "Not set after construction";
+        public string Id { get; set; } = "Not set after construction";
+        public PurchaseOffer PurchaseOffer { get; set; } = new();
+    }
     public class PurchaseOffer
     {
         public int PriceRUB { get; set; } = -1;
@@ -17,7 +44,7 @@ namespace WishGranterProto.ExtensionMethods
         public string Vendor { get; set; } = string.Empty;
         public int MinVendorLevel { get; set; } = -1;
         public int ReqPlayerLevel { get; set; } = -1;
-        public string OfferType { get; set; } = string.Empty;
+        public OfferType OfferType { get; set; } = OfferType.None;
     }
     public class WeaponPreset
     {
@@ -44,7 +71,10 @@ namespace WishGranterProto.ExtensionMethods
 
         public TransmissionPatron? SelectedPatron { get; set; }
 
-        public int PriceRUB { get; set; } = -1;
+        public int PresetPrice { get; set; } = -1;
+        public int SellBackValue { get; set; } = -1;
+        public int PurchasedModsCost { get; set; } = -1;
+        public int FinalCost { get; set; } = -1;
 
         public bool Valid { get; set; } = true;
     }
@@ -64,6 +94,7 @@ namespace WishGranterProto.ExtensionMethods
         public int? Penetration { get; set; }
         public int? ArmorDamagePerc { get; set; }
         public int? Damage { get; set; }
+        public double FragChance { get; set; } = -1;
     }
     public class TransmissionArmorTestResult
     {
@@ -79,6 +110,8 @@ namespace WishGranterProto.ExtensionMethods
 
         public List<TransmissionArmorTestShot> Shots { get; set; } = new List<TransmissionArmorTestShot>();
 
+        public int KillShot { get; set; } = -1;
+
     }
     public class TransmissionArmorTestShot
     {
@@ -86,18 +119,25 @@ namespace WishGranterProto.ExtensionMethods
         public double? Durability { get; set; }
         public double? DoneDamage { get; set; }
         public double? PenetrationChance { get; set; }
+
+        public double BluntDamage { get; set; } = -1;
+        public double PenetratingDamage { get; set; } = -1;
+        public double AverageDamage { get; set; } = -1;
+        public double RemainingHitPoints { get; set; } = -1;    
     }
 
     public class ArmorItem
     {
         public string? Name { get; set; }
         public string? Id { get; set; }
-
         public int? MaxDurability { get; set; }
 
         //Giveing these two Properties defaults so that they can play nice with RatStash types which aren't nullable
         public int ArmorClass { get; set; } = -1;
         public ArmorMaterial ArmorMaterial { get; set; } = ArmorMaterial.Glass;
+
+        public double BluntThroughput { get; set; } = -1;
+        public string ArmorType { get; set; } = "You shouldn't see this.";
 
     }
 
@@ -149,7 +189,7 @@ namespace WishGranterProto.ExtensionMethods
         public int traderLevel { get; set; } = -1;
         public int requiredPlayerLevel { get; set; } = int.MaxValue; // Will need to make this more graceful later.
 
-        public string OfferType { get; set; } = string.Empty;
+        public OfferType OfferType { get; set; } = OfferType.None;
         public int PriceRUB { get; set; } = -1;
     }
 

@@ -1,5 +1,4 @@
 import { createContext, useContext} from "react";
-import { StringLiteral } from "typescript";
 
 export type TransmissionArmorTestResult = {
     testName: string;
@@ -7,7 +6,8 @@ export type TransmissionArmorTestResult = {
     ammoGridImage: string;
     armorDamagePerShot: number;
     shots: [],
-    setShots: (s: TransmissionArmorTestShot) => void
+    setShots: (s: TransmissionArmorTestShot) => void,
+    killShot: number
 }
 
 export type TransmissionArmorTestShot = {
@@ -15,6 +15,10 @@ export type TransmissionArmorTestShot = {
     durability: number;
     doneDamage: number;
     penetrationChance: number;
+    bluntDamage: number
+    penetratingDamage: number
+    averageDamage: number
+    remainingHitPoints: number
 }
 
 export const ArmorTestContext = createContext<TransmissionArmorTestResult>({
@@ -24,6 +28,7 @@ export const ArmorTestContext = createContext<TransmissionArmorTestResult>({
     ammoGridImage: "",
     armorDamagePerShot: -1,
     setShots: () => {},
+    killShot: -1
 })
 
 export const useArmorTestContext = () => useContext(ArmorTestContext);
