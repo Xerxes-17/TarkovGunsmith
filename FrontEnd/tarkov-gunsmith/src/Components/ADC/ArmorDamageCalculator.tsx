@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion } from "react-bootstrap";
-import { TransmissionArmorTestResult } from '../../Context/ArmorTestsContext';
+import { TransmissionArmorTestResult, TransmissionArmorTestShot } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
 import SelectArmor from './SelectArmor';
@@ -9,6 +9,8 @@ import FilterRangeSelector from '../Forms/FilterRangeSelector';
 import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
 import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
+import html2canvas from 'html2canvas';
+import { copyImageToClipboard} from 'copy-image-clipboard';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -295,6 +297,38 @@ export default function ArmorDamageCalculator(props: any) {
                 alert(`The error was: ${error}`);
                 // console.log(error);
             });
+        }
+    }
+
+    const handleImageDownload = async () => {
+        const element: any = document.getElementById('print'),
+            canvas = await html2canvas(element),
+            data = canvas.toDataURL('image/png'),
+            link = document.createElement('a');
+
+        link.href = data;
+        if(result !== undefined){
+            link.download = `${result.testName}.png`;
+        }
+        else{
+            link.download = "TarkovGunsmith_ADC_Chart.png"
+        }
+        
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handleCopyImage = async () => {
+        try {
+            const element: any = document.getElementById('print'),
+            canvas = await html2canvas(element),
+            data = canvas.toDataURL('image/png');
+
+            if (data) await copyImageToClipboard(data)
+        } catch (e: any) {
+            if (e?.message) alert(e.message)
         }
     }
 
@@ -700,14 +734,28 @@ export default function ArmorDamageCalculator(props: any) {
         resultCard = (
             <>
                 <Col xl>
-                    <Card bg="dark" border="secondary" text="light" className="xl" >
-                        <Card.Header as="h4">📉 {result.testName} @ {rateOfFire}rpm</Card.Header>
-                        <Card.Body>
+                    <Card bg="dark" border="secondary" text="light" className="xl" id="print">
+                        <Card.Header as="h4">
+                            <Stack direction="horizontal" gap={3}>
+                                📉 {result.testName} @ {rateOfFire}rpm
+                                <div className="ms-auto">
+
+                                    <Stack direction='horizontal' gap={2}>
+                                        <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
+                                        <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
+                                    </Stack>
+                                </div>
+                            </Stack>
+                        </Card.Header>
+                        
+                        <Card.Body >
                             <Row>
                                 <Col>
                                     <p>
-                                        <strong>Expected shots to kill: {result.killShot}</strong><br />
-                                        <strong>Expected time to kill: {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s</strong><br />
+                                        <strong>Expected shots to kill:</strong> {result.killShot}<br />
+                                        <strong>Kill confidence at {result.killShot} shots:</strong> {(result.shots[result.killShot-1] as TransmissionArmorTestShot).probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Expected time to kill:</strong> {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
+                                        
                                         Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
                                     </p>
                                 </Col>
@@ -720,41 +768,53 @@ export default function ArmorDamageCalculator(props: any) {
                                     </ul>
                                 </Col>
                             </Row>
-                            <Table striped bordered hover variant="dark" responsive="sm">
-                                <thead>
-                                    <tr>
-                                        <th>Shot</th>
-                                        <th>Armor Durability</th>
-                                        <th>Durability Percentage</th>
-                                        <th>Done Armor Damage</th>
-                                        <th>Penetration Chance</th>
+                            <div style={{ overflow: "auto" }}>
+                                <Table striped bordered hover variant="dark" responsive="sm" >
+                                    <thead>
+                                        <tr>
+                                            <th>Shot</th>
+                                            <th>Armor Durability</th>
+                                            <th>Durability Percentage</th>
+                                            <th>Done Armor Damage</th>
+                                            <th>Penetration Chance</th>
 
-                                        <th>Blunt Damage</th>
-                                        <th>Penetration Damage</th>
-                                        <th>Average Damage</th>
-                                        <th>Remaining Hit Points</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {result.shots.map((item: any, i: number) => {
-                                        return (
-                                            <tr>
-                                                <td>{i + 1}</td>
-                                                <td>{item.durability.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.durabilityPerc.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.doneDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.penetrationChance.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+                                            <th>Blunt Damage</th>
+                                            <th>Penetration Damage</th>
+                                            <th>Average Damage</th>
+                                            <th>Avg. HP Remaining</th>
 
-                                                <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.penetratingDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.averageDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                <td>{item.remainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </Table>
+                                            <th>Cumulative Chance of Kill</th>
+                                            <th>Specific Chance of Kill</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {result.shots.map((item: TransmissionArmorTestShot, i: number) => {
+                                            return (
+                                                <tr>
+                                                    <td>{i + 1}</td>
+                                                    <td>{item.durability.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.durabilityPerc.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.doneDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.penetrationChance.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+
+                                                    <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.penetratingDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.averageDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.remainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+
+                                                    <td>{item.probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>{item.probabilityOfKillSpecific.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </Table>
+                            </div>
+                            <Form.Text>
+                                This chart was generated on: {new Date().toUTCString()} and is from http://tarkovgunsmith.com/
+                            </Form.Text>
                         </Card.Body>
+
                     </Card>
                 </Col>
             </>

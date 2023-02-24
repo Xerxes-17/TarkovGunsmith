@@ -173,3 +173,6 @@ footer {
     margin-bottom: 54px;
   }
 }
+
+// https://stackoverflow.com/a/46117607
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }

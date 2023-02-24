@@ -7,8 +7,15 @@ import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
 import { TransmissionWeaponBuildResult, TransmissionAttachedMod } from './WeaponData';
 
-// Renders the home
 export default function ModdedWeaponBuilder(props: any) {
+    enum OfferType {
+        None,
+        Sell,
+        Cash,
+        Barter,
+        Flea
+    }
+
     interface WeaponOption {
         ergonomics: number;
         recoilForceUp: number;
@@ -22,14 +29,14 @@ export default function ModdedWeaponBuilder(props: any) {
         value: string;
         readonly label: string;
         readonly imageLink: string;
-        offerType: string;
+        offerType: OfferType;
         priceRUB: number;
     }
 
     const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
     const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
 
-    const [PurchaseOfferTypes, setPurchaseOfferTypes] = useState(["Cash"])
+    const [PurchaseOfferTypes, setPurchaseOfferTypes] = useState([OfferType.Cash])
     const handlePOTChange = (val: any) => setPurchaseOfferTypes(val);
 
     // This useEffect will update the WeaponOptions with the result from the async API call
@@ -40,8 +47,9 @@ export default function ModdedWeaponBuilder(props: any) {
     // This useEffect will watch for a change to WeaponOptions or playeLevel, then update the filteredStockWeaponOptions
     useEffect(() => {
         const result = WeaponOptions.filter(item =>
-            item.requiredPlayerLevel <= playerLevel &&
-            PurchaseOfferTypes.includes(item.offerType)
+            item.requiredPlayerLevel <= playerLevel
+            && PurchaseOfferTypes.includes(item.offerType)
+
         )
         setFilteredStockWeaponOptions(result)
 
@@ -173,7 +181,7 @@ export default function ModdedWeaponBuilder(props: any) {
     }
 
     const handleWeaponSelectionChange = (selectedOption: any) => {
-        // console.log(selectedOption);
+        //console.log(selectedOption);
 
         if (selectedOption !== undefined || selectedOption !== null) {
             setChosenGun(selectedOption)
@@ -242,7 +250,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                     <Col auto={"true"}>{option.label}</Col>
                                 </Row>
                                 <Row>
-                                    <Col xs={4}>{option.offerType}  ₽{option.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</Col>
+                                    <Col xs={4}>{OfferType[option.offerType]} ₽{option.priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</Col>
                                 </Row>
 
                             </>
@@ -317,13 +325,13 @@ export default function ModdedWeaponBuilder(props: any) {
                         <br />
                         <Form.Label>Purchase Offer Types</Form.Label><br />
                         <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={"Cash"}>
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
                                 Cash
                             </ToggleButton>
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={"Barter"}>
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={OfferType.Barter}>
                                 Barter
                             </ToggleButton>
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={"Flea"}>
+                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={OfferType.Flea}>
                                 Flea
                             </ToggleButton>
                         </ToggleButtonGroup>
@@ -419,7 +427,7 @@ export default function ModdedWeaponBuilder(props: any) {
                             {result.Valid === false &&
                                 <>
                                     <Alert variant={"danger"}>
-                                        Sorry, this build isn't valid! Please report it on the <a href="https://discord.gg/F7GZE4H7fq">discord</a>. 
+                                        Sorry, this build isn't valid! Please report it on the <a href="https://discord.gg/F7GZE4H7fq">discord</a>.
                                     </Alert>
                                 </>}
 
@@ -428,12 +436,21 @@ export default function ModdedWeaponBuilder(props: any) {
                                     <img src={`https://assets.tarkov.dev/${result.Id}-grid-image.jpg`} alt={result.ShortName} className={"mod_img"} />
                                 </Col>
                                 <Col>
-                                    <strong> Weapon Price<br /> </strong>
-                                    ₽{result.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}<br />
+                                    <strong> Preset Price<br /> </strong>
+                                    ₽ {result.PresetPrice.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
+                                </Col>
+
+                                <Col>
+                                    <strong> Purchased Mods Cost<br /> </strong>
+                                    ₽ {result.PurchasedModsCost.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
                                 </Col>
                                 <Col>
-                                    <strong> Rate of Fire <br /></strong>
-                                    {result.RateOfFire}
+                                    <strong> Preset Mods Refund<br /> </strong>
+                                    ₽ -{result.SellBackValue.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
+                                </Col>
+                                <Col>
+                                    <strong> Final Cost <br /> </strong>
+                                    ₽ {result.FinalCost.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
                                 </Col>
                             </Row>
                             <Row>
@@ -461,13 +478,16 @@ export default function ModdedWeaponBuilder(props: any) {
                             </Row>
                             <Row className="ammo-stats-box">
                                 <Col>
-                                    <h5>Selected Round</h5>
-                                    <strong> {result.SelectedPatron.ShortName} </strong> <br />
+                                    <strong> Rate of Fire <br /></strong>
+                                    {result.RateOfFire} <br />
+                                    <strong>Selected Round</strong><br />
+                                    {result.SelectedPatron.ShortName} <br />
                                 </Col>
                                 <Col>
                                     <strong>Damage</strong> <br />
                                     {result.SelectedPatron.Damage}<br />
                                     <strong>Frag Chance</strong><br />
+                                    {(result.SelectedPatron.FragChance * 100).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 }) } %<br />
                                 </Col>
                                 <Col>
                                     <strong>Penetration</strong>  <br />
