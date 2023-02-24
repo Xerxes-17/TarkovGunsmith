@@ -107,6 +107,28 @@ export default function Home(props: any) {
                     </Card>
                 </Col>
             </Row>
+
+            <Row className="row gy-2 mb-2">
+                <Col>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <Card.Header as="h5">
+                            24/02/2023
+                        </Card.Header>
+                        <Card.Body>
+                            
+                            <Card.Text>
+                                We now have cumulative and shot probabilities of kill in the ADC!
+                                Huge thanks to fellow goon Night Shade for contributing the function to make it possible.
+                                With this addition, it is probably high time to get to work on the comparison charts and graphs page. <br/><br/>
+
+                                I've also added download and copy to clipboard buttons to the ADC to make sharing easier.
+                            </Card.Text>
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_adc_2.png'} />
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+
             <Row className="row gy-2 mb-2">
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
