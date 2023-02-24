@@ -391,7 +391,7 @@ namespace WishGranterTests
 
             testObject.Name = "Test Ligma";
 
-            var result = testObject.DeepClone<Weapon>();
+            var result = testObject.DeepClone();
 
             Console.WriteLine(result.Name);
 
@@ -399,6 +399,9 @@ namespace WishGranterTests
 
             Console.WriteLine(result.Name);
             Console.WriteLine(testObject.Name);
+
+            Assert.IsTrue(testObject.Name.Equals("Test Ligma"));
+            Assert.IsTrue(result.Name.Equals("Just Ligma"));
         }
     }
 }
