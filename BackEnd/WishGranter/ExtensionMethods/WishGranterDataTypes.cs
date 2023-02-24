@@ -123,7 +123,10 @@ namespace WishGranterProto.ExtensionMethods
         public double BluntDamage { get; set; } = -1;
         public double PenetratingDamage { get; set; } = -1;
         public double AverageDamage { get; set; } = -1;
-        public double RemainingHitPoints { get; set; } = -1;    
+        public double RemainingHitPoints { get; set; } = -1;
+
+        public double ProbabilityOfKillCumulative { get; set; } = -1;
+        public double ProbabilityOfKillSpecific { get; set; } = -1;
     }
 
     public class ArmorItem
