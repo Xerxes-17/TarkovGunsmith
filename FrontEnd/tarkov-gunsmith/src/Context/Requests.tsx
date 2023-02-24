@@ -12,7 +12,7 @@ export async function requestArmorTestSerires(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    console.log(response.data);
+    //console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }

@@ -6,40 +6,14 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Force.DeepCloner;
 
-static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filename)
-{
-    JObject result;
 
-    using (var httpClient = new HttpClient())
-    {
-        // This is the GraphQL query string
-        var Query = new Dictionary<string, string>()
-        {
-            {"query", queryDetails }
-        };
-
-        // Http response message, the result of the query
-        var httpResponse = await httpClient.PostAsJsonAsync("https://api.tarkov.dev/graphql", Query);
-
-        // Response content
-        var responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-        // Parse response content into a JObject.
-        result = JObject.Parse(responseContent);
-
-        // Save the result as a local JSON
-        using StreamWriter writetext = new("TarkovDev_jsons\\" + filename + ".json"); // This is here as a debug/verify
-        writetext.Write(result);
-        writetext.Close();
-    }
-    return result;
-}
 Console.WriteLine("Wishgranter-API is starting.");
 
 // Need this to get Russian chars and symbols. This is here incase we don't load a localization correctly and need to read Russian names.
-CultureInfo ci = new CultureInfo("ru-RU");
-Console.OutputEncoding = System.Text.Encoding.Unicode;
-Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
+//CultureInfo ci = new CultureInfo("ru-RU");
+//Console.OutputEncoding = System.Text.Encoding.Unicode;
+//Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
+//? Goign to see if this is the cause of the logs on AWS being all single line
 
 var watch = new System.Diagnostics.Stopwatch();
 watch.Start();
@@ -48,12 +22,8 @@ watch.Start();
 Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
 Console.WriteLine("RatStashDB started from file.");
 
-// We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presests.
-JObject DefaultPresestsJSON = TarkovDevQueryAsync("{ items(type: gun) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesWeapon { presets { id name containsItems { item { id name } count } bartersFor{ trader{ name } level requiredItems{ quantity item{ id name buyFor{ priceRUB vendor{ name } } } } } buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesPreset { default } } } } } } }", "NewPresets").Result;
-Console.WriteLine("DefaultPresetsJSON returned.");
-
-JObject MarketDataJSON = TarkovDevQueryAsync("{ items(types: [ ammo, mods ]) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } bartersFor { level requiredItems { quantity item { id name buyFor { priceRUB vendor { name } } } } trader{ name } } sellFor { priceRUB vendor { name } } } }", "MarketData").Result;
-Console.WriteLine("MarketDataJSON returned.");
+var DefaultPresestsJSON = WG_TarkovDevAPICalls.GetAllGunPresets();
+var MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
 
 // Noting how long the initial data pull takes
 watch.Stop();
@@ -75,16 +45,18 @@ Console.WriteLine($"Compiling MarketData finished by {watch.ElapsedMilliseconds}
 //! Processing the Default Presets
 watch.Start();
 Console.WriteLine("Compiling default weapon presets");
+
 var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresestsJSON, RatStashDB);
+
 Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
 var SelectionWeaponPresets = WG_Output.WriteStockPresetList(DefaultWeaponPresets);
+Console.WriteLine($"Number of SelectionWeaponPresets: {SelectionWeaponPresets.Count}");
+
 watch.Stop();
 Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedMilliseconds} ms.\n");
 
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
-
-
 
 startAPI();
 
@@ -126,7 +98,7 @@ void startAPI()
     app.MapGet("/", () => "Hello World! I use Swagger btw.");
 
     app.MapGet("/getSingleWeaponBuild/{playerLevel}/{mode}/{muzzleMode}/{presetID}/{purchaseType}",
-        (int playerLevel, string mode, int muzzleMode, string presetID, string purchaseType)
+        (int playerLevel, string mode, int muzzleMode, string presetID, int purchaseType)
         => getSingleWeaponBuild(playerLevel, mode, muzzleMode, presetID, purchaseType));
 
     //app.MapGet("/getWeaponOptionsByPlayerLevelAndNameFilter/{level}/{mode}/{muzzleMode}/{searchString}/{purchaseType}",
@@ -162,10 +134,10 @@ List<SelectionAmmo> GetAmmoOptionsList()
 }
 
 
-string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, string purchaseType)
+string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, int purchaseType)
 {
     // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
-    WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals(purchaseType)).DeepClone();
+    WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals((OfferType)purchaseType)).DeepClone();
 
     // Note in the console log the request.
     Console.WriteLine($"Request from MWB for single weapon: [{playerLevel}, {mode}, {muzzleMode}, {presetID} ({WantedPreset.Weapon.Name}), {purchaseType}]");
@@ -173,14 +145,14 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     // Get all of the trader offers - It's in the main program space
     // No need now to make a mask as we only need to filter by player level and the transaction type now, neat!
     // We can then use these IDs with the RatStashDB to get appropriate Mods, Ammo, etc.
-    List<MarketEntry> filteredMarketData = MarketData.Where(x => x.PurchaseOffer.ReqPlayerLevel <= playerLevel && x.PurchaseOffer.OfferType.Equals("Cash")).ToList();
+    List<MarketEntry> filteredMarketData = WG_Market.GetMarketDataFilteredByPlayerLeverl(playerLevel);
 
     // While I could combine these statements, it would be messy an unreadable. So first we get the list of IDs of weapon mods and ammo then we get lists of the mods and ammo from the RatStashDB.
     List<string> SelectedIDs_Mods_Ammo = filteredMarketData.Select(x => x.Id).ToList();
 
     List<Type> TypeFilterList = new List<Type>()
     {
-        typeof(Ammo), typeof(ThrowableWeapon)
+        typeof(Ammo), typeof(ThrowableWeapon), typeof(Armor), typeof(ChestRig)
         //todo add presets and weapons to the market data
         //, typeof(AssaultCarbine), typeof(AssaultRifle),
         //typeof(GrenadeLauncher),  typeof(Handgun),  typeof(Machinegun),  typeof(MarksmanRifle),
@@ -206,10 +178,17 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
     // Let's now fit the weapon and get the best penetrating ammo
     HashSet<string> CommonBlackListIDs = new();
-    var weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
-    var ammo_result = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
+    CompoundItem weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
 
-    //? A little check to see if a build is valid, to ghelp with debugging and maintenance
+    var temp = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
+    Ammo ammo_result = new();
+    if (temp != null)
+    {
+        ammo_result = temp;
+    }
+
+
+    //? A little check to see if a build is valid, to help with debugging and maintenance
     Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
 
     // Setup the serialzier
@@ -219,59 +198,10 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
         ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
     };
 
-    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTuple_Single(((Weapon) weapon_result, ammo_result), WantedPreset));
+    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTuple_Single((Weapon) weapon_result, ammo_result, preset: WantedPreset));
 
     return jsonString;
 }
-
-//string getWeaponOptionsByPlayerLevelAndNameFilter_MK2(int level, string mode, int muzzleMode, string searchString, string purchaseType)
-//{
-//    Console.WriteLine($"Request for MWB: [{level}, {mode}, {muzzleMode}, {searchString}]");
-
-//    var WantedWeapons_MK2 = DefaultWeaponPresets.Where(p => p.Id.Equals(searchString) && p.PurchaseOffer.OfferType.Equals(purchaseType)).ToList();
-
-//    var FilteredModsList = WG_Compilation.CompileFilteredModList(All_Mods.OfType<Item>().ToList(), muzzleMode);
-
-//    //! Make the mask of trader item IDs
-//    var leveledTraderMask = WG_Compilation.MakeTraderMaskByPlayerLevel(level, traderNames.ToList(), TraderOffersJSON);
-
-//    //! Apply the mask of trader item IDs to the input lists
-//    var LeveledLists = WG_Compilation.GetMaskedTuple(leveledTraderMask, WantedWeapons_MK2, FilteredModsList.OfType<WeaponMod>().ToList(), All_Ammo.OfType<Ammo>().ToList());
-
-//    List<(WeaponPreset, Ammo)> finalAnswer = new();
-
-//    foreach (var preset in LeveledLists.Masked_Weapons)
-//    {
-//        var ids = WG_Recursion.CreateMasterWhiteListIds(preset.Weapon, LeveledLists.Masked_Mods.ToList());
-
-//        var readable = WG_Recursion.CreateHumanReadableMWL(ids, LeveledLists.Masked_Mods.OfType<WeaponMod>().ToList());
-
-//        var shortlistOfMods = WG_Recursion.CreateListOfModsFromIds(ids, LeveledLists.Masked_Mods.ToList());
-
-//        var afterblockers = WG_Recursion.ProcessBlockersInListOfMods(shortlistOfMods, preset.Weapon, mode);
-
-//        var pre_result = WG_Compilation.CompileAWeapon(preset.Weapon, afterblockers, LeveledLists.Masked_Ammo, mode, "penetration", CashOffers);
-
-//        //! Fix this stanky hack later
-//        var result = (WantedWeapons_MK2[0].DeepClone(), pre_result.Item2);
-//        result.Item1.Weapon = pre_result.Item1;
-
-//        if (pre_result.Item1 != null && pre_result.Item2 != null)
-//        {
-//            finalAnswer.Add(result);
-//        }
-//    }
-
-//    var options = new JsonSerializerSettings
-//    {
-//        Formatting = Formatting.Indented,
-//        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
-//    };
-
-//    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTupleList(finalAnswer, CashOffers), options);
-
-//    return jsonString;
-//}
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
 {

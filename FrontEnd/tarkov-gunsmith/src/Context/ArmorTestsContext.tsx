@@ -15,10 +15,13 @@ export type TransmissionArmorTestShot = {
     durability: number;
     doneDamage: number;
     penetrationChance: number;
-    bluntDamage: number
-    penetratingDamage: number
-    averageDamage: number
-    remainingHitPoints: number
+    bluntDamage: number;
+    penetratingDamage: number;
+    averageDamage: number;
+    remainingHitPoints: number;
+
+    probabilityOfKillCumulative: number;
+    probabilityOfKillSpecific: number;
 }
 
 export const ArmorTestContext = createContext<TransmissionArmorTestResult>({

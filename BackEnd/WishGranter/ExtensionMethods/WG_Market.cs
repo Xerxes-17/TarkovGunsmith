@@ -1,44 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
+using RatStash;
 
 namespace WishGranterProto.ExtensionMethods
 {
-    // I plan to expand this later so that there is one reccord for all possible information of a given item, for now will work with just cash offers.
-    public class MarketRecord
-    {
-        string Name { get; set; }  = string.Empty;
-        string Id { get; set; } = string.Empty;
-        int BasePrice { get; set; } = -1;
-        bool CanBuyOnRagFair { get; set; } = false;
-        List<TraderCashOffer> CashOffers { get; set; } = new();
-    }
-
-    public class TraderCashOffer
-    {
-        public string TraderName { get; set; } = string.Empty ;
-        public int TraderLevel { get; set; } = -1;
-        public int RequiredPlayerLevel { get; set; } = -1;
-
-        public string ItemId { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
-
-        public int PriceInRUB { get; set; } = -1;
-
-    }
-
-    public class SellOffer
-    {
-        public int PriceRUB { get; set; } = -1;
-        public string TraderName { get; set; } = "Not set after construction";
-    }
-    public class MarketEntry
-    {
-        public string Name { get; set; } = "Not set after construction";
-        public string Id { get; set; } = "Not set after construction";
-        public PurchaseOffer PurchaseOffer { get; set; } = new();
-    }
-
     public class WG_Market
     {
+
         public static List<MarketEntry>  ReadyMarketData = new();
 
         public static List<string> TraderNames = new()
@@ -47,7 +14,8 @@ namespace WishGranterProto.ExtensionMethods
             "Skier",
             "Peacekeeper",
             "Mechanic",
-            "Jaeger"
+            "Jaeger",
+            "Ragman"
         };
 
         public static Dictionary<string, int[]> LoyaltyLevelByPlayerLevel = new()
@@ -56,7 +24,8 @@ namespace WishGranterProto.ExtensionMethods
             { "Skier",          new[] { 1, 15, 28, 38 } },
             { "Peacekeeper",    new[] { 1, 14, 23, 37 } },
             { "Mechanic",       new[] { 1, 20, 30, 40 } },
-            { "Jaeger",         new[] { 1, 15, 22, 33 } }
+            { "Jaeger",         new[] { 1, 15, 22, 33 } },
+            { "Ragman",         new[] { 1, 17, 32, 42 } }
         };
 
         // Takes in the MarketData from tarkov-dev and processes it into a nice flat list of Market Entires,
@@ -85,7 +54,7 @@ namespace WishGranterProto.ExtensionMethods
                     var price = cashOffer.SelectToken("$.price").ToObject<int>();
                     var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
                     var minTraderLevel = -1;
-                    var offerType = "Cash";
+                    var offerType = OfferType.Cash;
 
                     int reqPlayerLevel;
                     if (vendor != "Flea Market")
@@ -98,7 +67,7 @@ namespace WishGranterProto.ExtensionMethods
                     {
                         minTraderLevel = 5;
                         reqPlayerLevel = 15;
-                        offerType = "Flea";
+                        offerType = OfferType.Flea;
                     }
 
                     PurchaseOffer purchaseOffer = new PurchaseOffer();
@@ -147,7 +116,7 @@ namespace WishGranterProto.ExtensionMethods
                             barterTotalCost += (quantity * priceRUB_value);
                         }
                     }
-                    var offerType = "Barter";
+                    var offerType = OfferType.Barter;
                     // If the barter wants something that isn't buyable on the flea, we disregard it
                     if (barterTotalCost != -1)
                     {
@@ -184,7 +153,7 @@ namespace WishGranterProto.ExtensionMethods
                 purchaseOffer_Sell.PriceRUB = bestSeller.Item2;
                 purchaseOffer_Sell.Vendor = bestSeller.Item1;
                 purchaseOffer_Sell.ReqPlayerLevel = 1;
-                purchaseOffer_Sell.OfferType = "Sell";
+                purchaseOffer_Sell.OfferType = OfferType.Sell;
 
                 MarketEntry marketEntry_Sell = new MarketEntry();
                 marketEntry_Sell.Id = id;
@@ -195,17 +164,22 @@ namespace WishGranterProto.ExtensionMethods
 
             }
 
-            //Let's also set the static value here to this data, so that we can no just call functions in this class to do things and get stuff without needing to do parameter games
+            //Let's also set the static value here to this data, so that we can now just call functions in this class to do things and get stuff without needing to do parameter games
             ReadyMarketData = CompiledMarketDataList;
 
             // Return the Compiled Market Data!
             return CompiledMarketDataList;
         }
 
-        public static int GetBestCashOfferFromReadyMarketDataById(string Id)
+        public static List<MarketEntry> GetMarketDataFilteredByPlayerLeverl(int playerLevel)
+        {
+            return ReadyMarketData.Where( x => x.PurchaseOffer.ReqPlayerLevel <= playerLevel && (x.PurchaseOffer.OfferType == OfferType.Cash || x.PurchaseOffer.OfferType == OfferType.Barter)).ToList();
+        }
+
+        public static int GetBestCashOfferPriceByItemId(string Id)
         {
             int result = -1;
-            var temp = ReadyMarketData.FindAll(x => x.Id == Id && x.PurchaseOffer.OfferType.Equals("Cash"));
+            var temp = ReadyMarketData.FindAll(x => x.Id == Id && x.PurchaseOffer.OfferType == OfferType.Cash);
 
             if (temp.Any())
             {
@@ -216,10 +190,10 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
-        public static int GetTraderLevelFromReadyMarketDataById(string Id)
+        public static int GetItemTraderLevelByItemId(string Id)
         {
             int result = -1;
-            var temp = ReadyMarketData.FindAll(x => x.Id == Id);
+            var temp = ReadyMarketData.FindAll(x => x.Id == Id && (x.PurchaseOffer.OfferType == OfferType.Cash || x.PurchaseOffer.OfferType == OfferType.Barter));
 
             if (temp.Any())
             {
@@ -229,136 +203,75 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-
-        // Gets the item offers from traders
-        static JObject TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TestingTraderOffers").Result;
-
-        public static int GetCheapestCashOfferForItem(string id)
+        
+        public static int GetBestSaleOfferByItemId(string Id)
         {
-            List<TraderCashOffer> NewList = GetAllCashOffers().Where(x => x.ItemId.Equals(id)).ToList();
-            NewList.Sort((a, b) =>
+            int result = -1;
+            var temp = ReadyMarketData.FindAll(x => x.Id == Id && x.PurchaseOffer.OfferType.Equals(OfferType.Sell));
+
+            // Currently this isn't really needed since in the Compilation stage we only save the best sell offer, but that could change in future...
+            if (temp.Any())
             {
-                if (a.PriceInRUB > b.PriceInRUB)
-                {
-                    return 1;
-                }
-                else if (a.PriceInRUB < b.PriceInRUB)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 0;
-                }
-            });
-            return NewList[0].PriceInRUB;
-        }
-
-        public static int GetCheapestCashOfferForItemWithPlayerLevel(string id, int playerLevel)
-        {
-            List<TraderCashOffer> NewList = FilterTraderCashOffersByPlayerLevel(playerLevel);
-            NewList = NewList.Where(x => x.ItemId.Equals(id)).ToList();
-            NewList.Sort( (a,b) =>
-            {
-                if(a.PriceInRUB > b.PriceInRUB)
-                {
-                    return 1;
-                }
-                else if( a.PriceInRUB < b.PriceInRUB)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 0;
-                }
-            });
-            return NewList[0].PriceInRUB;
-        }
-
-        public static List<TraderCashOffer> GetTraderCashOffersByItemId(string id)
-        {
-            List<TraderCashOffer> NewList = new();
-            NewList.AddRange(GetAllCashOffers().Where(x => x.ItemId.Equals(id)));
-            return NewList;
-        }
-
-        public static List<TraderCashOffer> FilterTraderCashOffersByPlayerLevel(int playerLevel)
-        {
-            List<TraderCashOffer> NewList = new();
-            NewList.AddRange(GetAllCashOffers().Where(x => x.RequiredPlayerLevel <= playerLevel));
-            return NewList;
-        }
-
-        public static List<TraderCashOffer> GetAllCashOffers()
-        {
-            TraderOffersJSON = TarkovDevQueryAsync("{traders(lang:en){ id name levels{ id level requiredReputation requiredPlayerLevel cashOffers{ item{ id name } priceRUB currency price }}}}", "TestingTraderOffers").Result;
-
-            List<TraderCashOffer> outputList = new();
-
-            foreach (var trader in LoyaltyLevelByPlayerLevel)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    string searchJSONpath = $"$.data.traders.[?(@.name=='{trader.Key}')].levels.[?(@.level=={i+1})].cashOffers.[*]";
-                    var filtering = TraderOffersJSON.SelectTokens(searchJSONpath).ToList();
-                    foreach (var result in filtering)
-                    {
-                        TraderCashOffer temp = new TraderCashOffer();
-
-                        string searchJSONpath_id = "$.item.id";
-                        var id = result.SelectToken(searchJSONpath_id).ToString();
-                        temp.ItemId = id;
-
-                        string searchJSONpath_name = "$.item.name";
-                        var name = result.SelectToken(searchJSONpath_name).ToString();
-                        temp.ItemName = name;
-
-                        string searchJSONpath_priceRUB = "$.priceRUB";
-                        var priceRUB = result.SelectToken(searchJSONpath_priceRUB).ToString();
-                        temp.PriceInRUB = int.Parse(priceRUB);
-
-                        temp.TraderName = trader.Key;
-                        temp.TraderLevel = i + 1;
-                        temp.RequiredPlayerLevel = trader.Value[i];
-
-                        outputList.Add(temp);
-                    }
-                }
+                temp.OrderByDescending(x => x.PurchaseOffer.PriceRUB);
+                result = temp.First().PurchaseOffer.PriceRUB;
             }
-            return outputList;
-        }
 
-        static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filename)
-        {
-            JObject result;
-
-            using (var httpClient = new HttpClient())
-            {
-                // This is the GraphQL query string
-                var Query = new Dictionary<string, string>()
-        {
-            {"query", queryDetails }
-        };
-
-                // Http response message, the result of the query
-                var httpResponse = await httpClient.PostAsJsonAsync("https://api.tarkov.dev/graphql", Query);
-
-                // Response content
-                var responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-                // Parse response content into a JObject.
-                result = JObject.Parse(responseContent);
-
-                // Save the result as a local JSON
-                using StreamWriter writetext = new("TarkovDev_jsons\\" + filename + ".json"); // This is here as a debug/verify
-                writetext.Write(result);
-                writetext.Close();
-            }
             return result;
         }
+        
+        public static int GetTotalSaleValue(List<string> Ids)
+        {
+            int total = 0;
+            foreach(string s in Ids)
+            {
+                var result = GetBestSaleOfferByItemId(s);
+                if (result != -1)
+                {
+                    total += result;
+                }
+            }
+            return total;
+        }
 
+        public static int GetTotalCashOffers(List<string> Ids)
+        {
+            int total = 0;
+            foreach (string s in Ids)
+            {
+                var result = GetBestCashOfferPriceByItemId(s);
+                if (result != -1)
+                {
+                    total += result;
+                }
+            }
+            return total;
+        }
+
+        public static (int initialCost, int sellBackTotal, int boughtModsTotal, int finalCost) CalculateWeaponBuildTotals(WeaponPreset preset, Weapon resultWeapon)
+        {
+            WG_Recursion.PrintAttachedModNames_Recursively(preset.Weapon, 0);
+
+            Console.WriteLine("result");
+            WG_Recursion.PrintAttachedModNames_Recursively(resultWeapon, 0);
+
+            // Get the cost of the preset
+            int initialCost = preset.PurchaseOffer.PriceRUB;
+
+            // Get the list of mods in the preset, and the list of mods in the result
+            var presetModIds = WG_Recursion.AggregateAttachedModsRecursively(preset.Weapon);
+            var resultModIds = WG_Recursion.AggregateAttachedModsRecursively(resultWeapon);
+
+            // Get the mods in the preset that were discarded, and get the sum of their sell back value
+            var discardedPresetModIds = presetModIds.Except(resultModIds).ToList();
+            var sellBackTotal = GetTotalSaleValue(discardedPresetModIds);
+
+            // Get the mods in the result that were not a part of the preset, and then get the sum of thier buy cost
+            var purchasedModIds = resultModIds.Except(presetModIds).ToList();
+            var boughtModsTotal = GetTotalCashOffers(purchasedModIds);
+
+            var finalCost = initialCost + boughtModsTotal - sellBackTotal;
+
+            return (initialCost, sellBackTotal, boughtModsTotal, finalCost);
+        }
     };
-
-       
 }
