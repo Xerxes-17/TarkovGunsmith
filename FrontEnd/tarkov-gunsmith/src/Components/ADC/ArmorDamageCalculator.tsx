@@ -10,7 +10,7 @@ import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS 
 import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
-import { copyImageToClipboard} from 'copy-image-clipboard';
+// import { copyImageToClipboard} from 'copy-image-clipboard';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -320,17 +320,17 @@ export default function ArmorDamageCalculator(props: any) {
         document.body.removeChild(link);
     };
 
-    const handleCopyImage = async () => {
-        try {
-            const element: any = document.getElementById('print'),
-            canvas = await html2canvas(element),
-            data = canvas.toDataURL('image/png');
+    // const handleCopyImage = async () => {
+    //     try {
+    //         const element: any = document.getElementById('print'),
+    //         canvas = await html2canvas(element),
+    //         data = canvas.toDataURL('image/png');
 
-            if (data) await copyImageToClipboard(data)
-        } catch (e: any) {
-            if (e?.message) alert(e.message)
-        }
-    }
+    //         if (data) await copyImageToClipboard(data)
+    //     } catch (e: any) {
+    //         if (e?.message) alert(e.message)
+    //     }
+    // }
 
 
     // assume that a <div className="row gy-2"> is around the cards
@@ -742,7 +742,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                                     <Stack direction='horizontal' gap={2}>
                                         <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
-                                        <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
+                                        {/* <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button> */}
                                     </Stack>
                                 </div>
                             </Stack>
