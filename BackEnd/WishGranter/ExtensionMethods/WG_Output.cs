@@ -7,15 +7,15 @@ namespace WishGranterProto.ExtensionMethods
     public static class WG_Output
     {
         // Takes the result of a fitting request and packages it into a Transmission format for the FE to receive.
-        public static TransmissionWeapon CreateTransmissionWeaponListFromResultsTuple_Single((Weapon, Ammo) result, WeaponPreset preset)
+        public static TransmissionWeapon CreateTransmissionWeaponListFromResultsTuple_Single(Weapon weapon, Ammo ammo, WeaponPreset preset)
         {
             // Get the economic totals
-            var econ = WG_Market.CalculateWeaponBuildTotals(preset, result.Item1);
+            var econ = WG_Market.CalculateWeaponBuildTotals(preset, weapon);
 
 
             // Get the summary of stats and an IEnum of slots that are in use
-            var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(result.Item1);
-            IEnumerable<Slot> notNulls = result.Item1.Slots.Where<Slot>(y => y.ContainedItem != null);
+            var tempSummary = WG_Recursion.GetCompoundItemTotals<Weapon>(weapon);
+            IEnumerable<Slot> notNulls = weapon.Slots.Where(y => y.ContainedItem != null);
 
             // Create a list of all of the attached mods as TransmissionWMs
             List<TransmissionWeaponMod> attachedMods = new();
@@ -26,22 +26,22 @@ namespace WishGranterProto.ExtensionMethods
 
             // Create the TransmissionPatron (Bullet)
             var attachedPatron = new TransmissionPatron();
-            attachedPatron.ShortName = result.Item2.ShortName;
-            attachedPatron.Id = result.Item2.Id;
-            attachedPatron.Penetration = result.Item2.PenetrationPower;
-            attachedPatron.ArmorDamagePerc = result.Item2.ArmorDamage;
-            attachedPatron.Damage = result.Item2.Damage;
-            attachedPatron.FragChance = result.Item2.FragmentationChance;
+            attachedPatron.ShortName = ammo.ShortName;
+            attachedPatron.Id = ammo.Id;
+            attachedPatron.Penetration = ammo.PenetrationPower;
+            attachedPatron.ArmorDamagePerc = ammo.ArmorDamage;
+            attachedPatron.Damage = ammo.Damage;
+            attachedPatron.FragChance = ammo.FragmentationChance;
 
             //Now put it all together
             var transmissionWeapon = new TransmissionWeapon();
-            transmissionWeapon.ShortName = result.Item1.ShortName;
+            transmissionWeapon.ShortName = weapon.ShortName;
             transmissionWeapon.Id = preset.Id;
-            transmissionWeapon.BaseErgo = result.Item1.Ergonomics;
-            transmissionWeapon.BaseRecoil = result.Item1.RecoilForceUp;
-            transmissionWeapon.Convergence = result.Item1.Convergence;
-            transmissionWeapon.RecoilDispersion = result.Item1.RecoilDispersion;
-            transmissionWeapon.RateOfFire = result.Item1.BFirerate;
+            transmissionWeapon.BaseErgo = weapon.Ergonomics;
+            transmissionWeapon.BaseRecoil = weapon.RecoilForceUp;
+            transmissionWeapon.Convergence = weapon.Convergence;
+            transmissionWeapon.RecoilDispersion = weapon.RecoilDispersion;
+            transmissionWeapon.RateOfFire = weapon.BFirerate;
 
             transmissionWeapon.AttachedModsFLat = attachedMods;
             transmissionWeapon.FinalErgo = tempSummary.TotalErgo;
@@ -54,7 +54,7 @@ namespace WishGranterProto.ExtensionMethods
             transmissionWeapon.PurchasedModsCost = econ.boughtModsTotal;
             transmissionWeapon.FinalCost = econ.finalCost;
 
-            transmissionWeapon.Valid = WG_Recursion.CheckIfCompoundItemIsValid(result.Item1);
+            transmissionWeapon.Valid = WG_Recursion.CheckIfCompoundItemIsValid(weapon);
 
             return transmissionWeapon;
         }

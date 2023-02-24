@@ -178,8 +178,15 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
     // Let's now fit the weapon and get the best penetrating ammo
     HashSet<string> CommonBlackListIDs = new();
-    var weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
-    var ammo_result = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
+    CompoundItem weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
+
+    var temp = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
+    Ammo ammo_result = new();
+    if (temp != null)
+    {
+        ammo_result = temp;
+    }
+
 
     //? A little check to see if a build is valid, to help with debugging and maintenance
     Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
@@ -191,7 +198,7 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
         ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
     };
 
-    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTuple_Single(((Weapon) weapon_result, ammo_result), WantedPreset));
+    var jsonString = JsonConvert.SerializeObject(WG_Output.CreateTransmissionWeaponListFromResultsTuple_Single((Weapon) weapon_result, ammo_result, preset: WantedPreset));
 
     return jsonString;
 }
