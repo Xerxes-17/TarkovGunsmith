@@ -1,11 +1,43 @@
 ﻿using RatStash;
 using Newtonsoft.Json.Linq;
+using Force.DeepCloner;
 
 namespace WishGranterProto.ExtensionMethods
 {
     // These methods are for working out statistics and such for various things.
     public static class WG_Calculation
     {
+        // A Special thanks to goon "Night Shade" for providing this function, you will need:
+        // Dictionary<int, float> initialHpProbabilities = new() { [850] = 1 }; for a thorax calculation
+        // to use this.
+        public static Dictionary<int, float> NightShade_CalculateNextHpProbabilities(Dictionary<int, float> currentHpProbabilities, double blockDamage, double penDamage, float penChance)
+        {
+            const int FACTOR = 100; // double to fixed multiplication factor
+
+            int blockDamageFixed = (int)(blockDamage * FACTOR);
+            int penDamageFixed = (int)(penDamage * FACTOR);
+
+            var nextProbabilities = new Dictionary<int, float>();
+
+            var blockChance = 1 - penChance;
+
+            foreach (var item in currentHpProbabilities)
+            {
+                var hp = item.Key;
+                var probability = item.Value;
+                
+                var nextBlockHp = Math.Max(hp - blockDamageFixed, 0);
+                nextProbabilities[nextBlockHp] = nextProbabilities.GetValueOrDefault(nextBlockHp, 0) + (probability * blockChance);
+
+                if (penChance != 0)
+                {
+                    var nextPenHp = Math.Max(hp - penDamageFixed, 0);
+                    nextProbabilities[nextPenHp] = nextProbabilities.GetValueOrDefault(nextPenHp, 0) + (probability * penChance);
+                }
+            }
+
+            return nextProbabilities;
+        }
 
         private static double BinomialProbabilityFunction(int trials, int successes, double probabilityOfSuccess)
         {
@@ -176,20 +208,23 @@ namespace WishGranterProto.ExtensionMethods
             TransmissionArmorTestResult testResult = new();
             testResult.TestName = $"If you are reading this, something went wrong in FindPenetrationChanceSeries() with {armorItem.Name} vs {ammo.Name}";
 
-            
             double doneDamage = 0;
             double startingDura = -1;
 
             if (armorItem.MaxDurability != null)
             {
                 startingDura = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
-                testResult.TestName = $"{armorItem.Name} vs {ammo.Name}";
+                testResult.TestName = $"{armorItem.Name} @{string.Format("{0:0.00}", startingDuraPerc)}% vs {ammo.Name}";
 
+                // probability setup
+                Dictionary<int, float> currentHpProbabilities = new() { [8500] = 1 };
+                Dictionary<int, float> previousHpProbabilities = new() { [8500] = 1 };
 
                 double HitPoints = 85;
                 if (armorItem.ArmorType.Equals("Helmet"))
                 {
                     HitPoints = 35;
+                    currentHpProbabilities = new() { [3500] = 1 };
                 }
 
                 // ADPS
@@ -206,12 +241,12 @@ namespace WishGranterProto.ExtensionMethods
                     var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
                     var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
 
-                    // Calc Average Damage
+                    // Calc Average Damage and apply it to HP pool
                     var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
-
-                    //? Let's go for now a "remaining HP" model
-
                     HitPoints = HitPoints - AverageDamage;
+
+                    // Calc the probabilities
+                    currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, ShotBlunt, ShotPenetrating, (float) penChance);
 
                     // Package details in Transmission object
                     TransmissionArmorTestShot testShot = new();
@@ -225,10 +260,29 @@ namespace WishGranterProto.ExtensionMethods
                     testShot.AverageDamage = AverageDamage;
                     testShot.RemainingHitPoints = HitPoints;
 
+                    testShot.ProbabilityOfKillCumulative = 0;
+                    testShot.ProbabilityOfKillSpecific = 0;
+
+                    if (currentHpProbabilities.ContainsKey(0))
+                    {
+                        testShot.ProbabilityOfKillCumulative = currentHpProbabilities[0] * 100;
+                        if (previousHpProbabilities.ContainsKey(0))
+                        {
+                            testShot.ProbabilityOfKillSpecific = (currentHpProbabilities[0] - previousHpProbabilities[0]) * 100;
+                        }
+                        else
+                        {
+                            testShot.ProbabilityOfKillSpecific = currentHpProbabilities[0] * 100;
+                        }
+                    }
+
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
                     doneDamage = doneDamage + ArmorItemDamageFromAmmo(armorItem, ammo);
+
+                    // Update the previousHpProbabilities so that the next loop can use it
+                    previousHpProbabilities = currentHpProbabilities.DeepClone();
                 }
                 // Let's get the shot that should kill
                 var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
@@ -247,6 +301,10 @@ namespace WishGranterProto.ExtensionMethods
 
             double doneDamage = 0;
             double startingDura = (double)maxDurability * ( (double) startingDurabilityPerc / 100);
+
+            // probability setup
+            Dictionary<int, float> currentHpProbabilities = new() { [8500] = 1 };
+            Dictionary<int, float> previousHpProbabilities = new() { [8500] = 1 };
 
             double HitPoints = 85;
 
@@ -280,11 +338,12 @@ namespace WishGranterProto.ExtensionMethods
                 var ShotBlunt = BluntDamage(durability, ac, .27, damage, penetration);
                 var ShotPenetrating = DamageToCharacter(durability, ac, damage, penetration);
 
-                // Calc Average Damage
+                // Calc Average Damage and apply it to HP
                 var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
-
-                //? Let's go for now a "remaining HP" model
                 HitPoints = HitPoints - AverageDamage;
+
+                // Calc the probabilities
+                currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, ShotBlunt, ShotPenetrating, (float)penChance);
 
                 // Package details in Transmission object
                 TransmissionArmorTestShot testShot = new();
@@ -297,6 +356,22 @@ namespace WishGranterProto.ExtensionMethods
                 testShot.PenetratingDamage = ShotPenetrating;
                 testShot.AverageDamage = AverageDamage;
                 testShot.RemainingHitPoints = HitPoints;
+
+                testShot.ProbabilityOfKillCumulative = 0;
+                testShot.ProbabilityOfKillSpecific = 0;
+
+                if (currentHpProbabilities.ContainsKey(0))
+                {
+                    testShot.ProbabilityOfKillCumulative = currentHpProbabilities[0] * 100;
+                    if (previousHpProbabilities.ContainsKey(0))
+                    {
+                        testShot.ProbabilityOfKillSpecific = (currentHpProbabilities[0] - previousHpProbabilities[0]) * 100;
+                    }
+                    else
+                    {
+                        testShot.ProbabilityOfKillSpecific = currentHpProbabilities[0] * 100;
+                    }
+                }
 
                 testResult.Shots.Add(testShot);
 
