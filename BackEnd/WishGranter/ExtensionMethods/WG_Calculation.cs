@@ -6,6 +6,39 @@ namespace WishGranterProto.ExtensionMethods
     // These methods are for working out statistics and such for various things.
     public static class WG_Calculation
     {
+
+        private static double BinomialProbabilityFunction(int trials, int successes, double probabilityOfSuccess)
+        {
+            long Factorial(long x)
+            {
+                if (x <= 1)
+                    return 1;
+                else
+                    return x * Factorial(x - 1);
+            }
+
+            long Combination(long a, long b)
+            {
+                if (a <= 1)
+                    return 1;
+
+                return Factorial(a) / (Factorial(b) * Factorial(a - b));
+            }
+
+            double BinomialProbability(int trials, int successes,
+                               double probabilityOfSuccess)
+            {
+                double probOfFailures = 1 - probabilityOfSuccess;
+
+                double c = Combination(trials, successes);
+                double px = Math.Pow(probabilityOfSuccess, successes);
+                double qnx = Math.Pow(probOfFailures, trials - successes);
+
+                return c * px * qnx;
+            }
+            return BinomialProbability(trials, successes, probabilityOfSuccess);
+        }
+
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
         private static double CalculateFactor_A(double armorDurability, int armorClass)
         {
@@ -141,57 +174,67 @@ namespace WishGranterProto.ExtensionMethods
         {
             // Setup variables
             TransmissionArmorTestResult testResult = new();
-            testResult.TestName = $"{armorItem.Name} vs {ammo.Name}";
+            testResult.TestName = $"If you are reading this, something went wrong in FindPenetrationChanceSeries() with {armorItem.Name} vs {ammo.Name}";
+
+            
             double doneDamage = 0;
-            double startingDura = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
+            double startingDura = -1;
 
-            double HitPoints = 85;
-            if (armorItem.ArmorType.Equals("Helmet"))
+            if (armorItem.MaxDurability != null)
             {
-                HitPoints = 35;
+                startingDura = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
+                testResult.TestName = $"{armorItem.Name} vs {ammo.Name}";
+
+
+                double HitPoints = 85;
+                if (armorItem.ArmorType.Equals("Helmet"))
+                {
+                    HitPoints = 35;
+                }
+
+                // ADPS
+                testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
+
+                while (doneDamage < startingDura)
+                {
+                    // Get the current durability and pen chance
+                    double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
+                    double penChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability);
+                    double penetrationChance = penChance * 100;
+
+                    // Calc Potential damages:
+                    var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
+                    var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
+
+                    // Calc Average Damage
+                    var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
+
+                    //? Let's go for now a "remaining HP" model
+
+                    HitPoints = HitPoints - AverageDamage;
+
+                    // Package details in Transmission object
+                    TransmissionArmorTestShot testShot = new();
+                    testShot.DurabilityPerc = (startingDura - doneDamage) / armorItem.MaxDurability * 100;
+                    testShot.DoneDamage = doneDamage;
+                    testShot.Durability = startingDura - doneDamage;
+                    testShot.PenetrationChance = penetrationChance;
+
+                    testShot.BluntDamage = ShotBlunt;
+                    testShot.PenetratingDamage = ShotPenetrating;
+                    testShot.AverageDamage = AverageDamage;
+                    testShot.RemainingHitPoints = HitPoints;
+
+                    testResult.Shots.Add(testShot);
+
+                    // Add the damage of the current shot so it can be used in the next loop
+                    doneDamage = doneDamage + ArmorItemDamageFromAmmo(armorItem, ammo);
+                }
+                // Let's get the shot that should kill
+                var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
+                testResult.KillShot = index + 1;
             }
-
-            // ADPS
-            testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
-
-            while (doneDamage < startingDura)
-            {
-                // Get the current durability and pen chance
-                double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
-                double penChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability);
-                double penetrationChance = penChance * 100;
-
-                // Calc Potential damages:
-                var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
-                var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
-
-                // Calc Average Damage
-                var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
-
-                //? Let's go for now a "remaining HP" model
-
-                HitPoints = HitPoints - AverageDamage;
-
-                // Package details in Transmission object
-                TransmissionArmorTestShot testShot = new();
-                testShot.DurabilityPerc = (startingDura - doneDamage) / armorItem.MaxDurability * 100;
-                testShot.DoneDamage = doneDamage;
-                testShot.Durability = startingDura - doneDamage;
-                testShot.PenetrationChance = penetrationChance;
-
-                testShot.BluntDamage = ShotBlunt;
-                testShot.PenetratingDamage = ShotPenetrating;
-                testShot.AverageDamage = AverageDamage;
-                testShot.RemainingHitPoints = HitPoints;
-
-                testResult.Shots.Add(testShot);
-
-                // Add the damage of the current shot so it can be used in the next loop
-                doneDamage = doneDamage + ArmorItemDamageFromAmmo(armorItem, ammo);
-            }
-            // Let's get the shot that should kill
-            var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
-            testResult.KillShot = index + 1;
+            
 
             return testResult;
         }

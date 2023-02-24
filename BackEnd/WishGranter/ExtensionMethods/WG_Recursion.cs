@@ -1385,6 +1385,7 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
+        //todo add to this so that it will return if the problem is due to conflicting items or missing required slots
         public static bool CheckIfCompoundItemIsValid(CompoundItem CI)
         {
             bool result = true;

@@ -203,7 +203,7 @@ namespace WishGranterProto.ExtensionMethods
         //? Chooses an ammo for a provided weapon from a list, but it currently isn't used anywhere, might need to delete.
         public static Ammo SelectAmmo(Weapon InputWeapon, List<Ammo> AmmoList, string mode)
         {
-            Ammo bullet = null;
+            Ammo bullet = new();
             AmmoList = AmmoList.FindAll(ammo => ammo.Caliber.Equals(InputWeapon.AmmoCaliber));
 
             if (AmmoList.Count > 0)
