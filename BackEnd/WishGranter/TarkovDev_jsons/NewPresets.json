@@ -15,9 +15,9 @@
             }
           },
           {
-            "price": 76256,
+            "price": 68586,
             "currency": "RUB",
-            "priceRUB": 76256,
+            "priceRUB": 68586,
             "vendor": {
               "name": "Flea Market"
             }
@@ -135,7 +135,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -503,7 +503,7 @@
                         "name": "PC CPU",
                         "buyFor": [
                           {
-                            "priceRUB": 8886,
+                            "priceRUB": 8881,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -518,7 +518,7 @@
                         "name": "CPU fan",
                         "buyFor": [
                           {
-                            "priceRUB": 11169,
+                            "priceRUB": 13336,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -540,9 +540,9 @@
                   }
                 },
                 {
-                  "price": 76256,
+                  "price": 68586,
                   "currency": "RUB",
-                  "priceRUB": 76256,
+                  "priceRUB": 68586,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -957,7 +957,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1290,7 +1290,7 @@
                         "name": "Chain with Prokill medallion",
                         "buyFor": [
                           {
-                            "priceRUB": 67615,
+                            "priceRUB": 67653,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1630,7 +1630,7 @@
                         "name": "Bottle of Dan Jackiel whiskey",
                         "buyFor": [
                           {
-                            "priceRUB": 44178,
+                            "priceRUB": 45963,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1645,7 +1645,7 @@
                         "name": "Bottle of Tarkovskaya vodka",
                         "buyFor": [
                           {
-                            "priceRUB": 25887,
+                            "priceRUB": 27203,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1778,9 +1778,9 @@
         "name": "Makarov PM 9x18PM pistol",
         "buyFor": [
           {
-            "price": 7570,
+            "price": 7528,
             "currency": "RUB",
-            "priceRUB": 7570,
+            "priceRUB": 7528,
             "vendor": {
               "name": "Flea Market"
             }
@@ -1821,7 +1821,7 @@
                         "name": "Bolts",
                         "buyFor": [
                           {
-                            "priceRUB": 19565,
+                            "priceRUB": 18842,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1836,7 +1836,7 @@
                         "name": "Screw nuts",
                         "buyFor": [
                           {
-                            "priceRUB": 19624,
+                            "priceRUB": 20283,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1858,9 +1858,9 @@
                   }
                 },
                 {
-                  "price": 7570,
+                  "price": 7528,
                   "currency": "RUB",
-                  "priceRUB": 7570,
+                  "priceRUB": 7528,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -1878,9 +1878,9 @@
         "name": "MP-133 12ga pump-action shotgun",
         "buyFor": [
           {
-            "price": 27701,
+            "price": 28254,
             "currency": "RUB",
-            "priceRUB": 27701,
+            "priceRUB": 28254,
             "vendor": {
               "name": "Flea Market"
             }
@@ -1942,7 +1942,7 @@
                         "name": "Pack of Arseniy buckwheat",
                         "buyFor": [
                           {
-                            "priceRUB": 25715,
+                            "priceRUB": 24449,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -1964,9 +1964,9 @@
                   }
                 },
                 {
-                  "price": 27701,
+                  "price": 28254,
                   "currency": "RUB",
-                  "priceRUB": 27701,
+                  "priceRUB": 28254,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -2079,7 +2079,7 @@
                         "name": "Pliers Elite",
                         "buyFor": [
                           {
-                            "priceRUB": 33993,
+                            "priceRUB": 29255,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2094,7 +2094,7 @@
                         "name": "Screwdriver",
                         "buyFor": [
                           {
-                            "priceRUB": 9445,
+                            "priceRUB": 9826,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2118,9 +2118,9 @@
         "name": "SV-98 7.62x54R bolt-action sniper rifle",
         "buyFor": [
           {
-            "price": 53894,
+            "price": 55223,
             "currency": "RUB",
-            "priceRUB": 53894,
+            "priceRUB": 55223,
             "vendor": {
               "name": "Flea Market"
             }
@@ -2196,7 +2196,7 @@
                         "name": "Apollo Soyuz cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 6948,
+                            "priceRUB": 6996,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2211,7 +2211,7 @@
                         "name": "Malboro Cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 23277,
+                            "priceRUB": 21060,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2233,9 +2233,9 @@
                   }
                 },
                 {
-                  "price": 53894,
+                  "price": 55223,
                   "currency": "RUB",
-                  "priceRUB": 53894,
+                  "priceRUB": 55223,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -2344,9 +2344,9 @@
         "name": "MP-43-1C 12ga double-barrel shotgun",
         "buyFor": [
           {
-            "price": 20000,
+            "price": 22220,
             "currency": "RUB",
-            "priceRUB": 20000,
+            "priceRUB": 22220,
             "vendor": {
               "name": "Flea Market"
             }
@@ -2392,9 +2392,9 @@
                   }
                 },
                 {
-                  "price": 20000,
+                  "price": 22220,
                   "currency": "RUB",
-                  "priceRUB": 20000,
+                  "priceRUB": 22220,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -2421,9 +2421,9 @@
             }
           },
           {
-            "price": 37751,
+            "price": 38259,
             "currency": "RUB",
-            "priceRUB": 37751,
+            "priceRUB": 38259,
             "vendor": {
               "name": "Flea Market"
             }
@@ -2511,9 +2511,9 @@
                   }
                 },
                 {
-                  "price": 37751,
+                  "price": 38259,
                   "currency": "RUB",
-                  "priceRUB": 37751,
+                  "priceRUB": 38259,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -2640,7 +2640,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2673,9 +2673,9 @@
             }
           },
           {
-            "price": 18834,
+            "price": 18162,
             "currency": "RUB",
-            "priceRUB": 18834,
+            "priceRUB": 18162,
             "vendor": {
               "name": "Flea Market"
             }
@@ -2839,7 +2839,7 @@
                         "name": "Bars A-2607 Damascus knife",
                         "buyFor": [
                           {
-                            "priceRUB": 7838,
+                            "priceRUB": 8035,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2861,9 +2861,9 @@
                   }
                 },
                 {
-                  "price": 18834,
+                  "price": 18162,
                   "currency": "RUB",
-                  "priceRUB": 18834,
+                  "priceRUB": 18162,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -2881,9 +2881,9 @@
         "name": "MP-153 12ga semi-automatic shotgun",
         "buyFor": [
           {
-            "price": 46211,
+            "price": 43415,
             "currency": "RUB",
-            "priceRUB": 46211,
+            "priceRUB": 43415,
             "vendor": {
               "name": "Flea Market"
             }
@@ -2945,7 +2945,7 @@
                         "name": "Yotota car key",
                         "buyFor": [
                           {
-                            "priceRUB": 12503,
+                            "priceRUB": 14991,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2960,7 +2960,7 @@
                         "name": "Folding car key",
                         "buyFor": [
                           {
-                            "priceRUB": 12157,
+                            "priceRUB": 11771,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2975,7 +2975,7 @@
                         "name": "VAZ car key",
                         "buyFor": [
                           {
-                            "priceRUB": 12831,
+                            "priceRUB": 12467,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -2998,7 +2998,7 @@
                         "name": "Wrench",
                         "buyFor": [
                           {
-                            "priceRUB": 9064,
+                            "priceRUB": 9971,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3013,7 +3013,7 @@
                         "name": "Screwdriver",
                         "buyFor": [
                           {
-                            "priceRUB": 9445,
+                            "priceRUB": 9826,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3035,9 +3035,9 @@
                   }
                 },
                 {
-                  "price": 46211,
+                  "price": 43415,
                   "currency": "RUB",
-                  "priceRUB": 46211,
+                  "priceRUB": 43415,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3055,9 +3055,9 @@
         "name": "PB 9x18PM silenced pistol",
         "buyFor": [
           {
-            "price": 14705,
+            "price": 14490,
             "currency": "RUB",
-            "priceRUB": 14705,
+            "priceRUB": 14490,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3110,9 +3110,9 @@
                   }
                 },
                 {
-                  "price": 14705,
+                  "price": 14490,
                   "currency": "RUB",
-                  "priceRUB": 14705,
+                  "priceRUB": 14490,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3130,9 +3130,9 @@
         "name": "TT-33 7.62x25 TT pistol",
         "buyFor": [
           {
-            "price": 9630,
+            "price": 9686,
             "currency": "RUB",
-            "priceRUB": 9630,
+            "priceRUB": 9686,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3185,9 +3185,9 @@
                   }
                 },
                 {
-                  "price": 9630,
+                  "price": 9686,
                   "currency": "RUB",
-                  "priceRUB": 9630,
+                  "priceRUB": 9686,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3258,7 +3258,7 @@
                         "name": "Bundle of wires",
                         "buyFor": [
                           {
-                            "priceRUB": 11297,
+                            "priceRUB": 10573,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3273,7 +3273,7 @@
                         "name": "Capacitors",
                         "buyFor": [
                           {
-                            "priceRUB": 14158,
+                            "priceRUB": 14503,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3297,9 +3297,9 @@
         "name": "Simonov SKS 7.62x39 carbine",
         "buyFor": [
           {
-            "price": 20588,
+            "price": 20418,
             "currency": "RUB",
-            "priceRUB": 20588,
+            "priceRUB": 20418,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3352,9 +3352,9 @@
                   }
                 },
                 {
-                  "price": 20588,
+                  "price": 20418,
                   "currency": "RUB",
-                  "priceRUB": 20588,
+                  "priceRUB": 20418,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3432,7 +3432,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3447,7 +3447,7 @@
                         "name": "Screwdriver",
                         "buyFor": [
                           {
-                            "priceRUB": 9445,
+                            "priceRUB": 9826,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3471,9 +3471,9 @@
         "name": "Saiga 12ga ver.10 12/76 semi-automatic shotgun",
         "buyFor": [
           {
-            "price": 37854,
+            "price": 45849,
             "currency": "RUB",
-            "priceRUB": 37854,
+            "priceRUB": 45849,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3554,9 +3554,9 @@
                   }
                 },
                 {
-                  "price": 37854,
+                  "price": 45849,
                   "currency": "RUB",
-                  "priceRUB": 37854,
+                  "priceRUB": 45849,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3704,7 +3704,7 @@
                         "name": "Can of sprats",
                         "buyFor": [
                           {
-                            "priceRUB": 12708,
+                            "priceRUB": 11627,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3719,7 +3719,7 @@
                         "name": "Aquamari water bottle with filter",
                         "buyFor": [
                           {
-                            "priceRUB": 25721,
+                            "priceRUB": 26829,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3734,7 +3734,7 @@
                         "name": "Can of squash spread",
                         "buyFor": [
                           {
-                            "priceRUB": 16386,
+                            "priceRUB": 17584,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3758,9 +3758,9 @@
         "name": "Yarygin MP-443 \"Grach\" 9x19 pistol",
         "buyFor": [
           {
-            "price": 11734,
+            "price": 11495,
             "currency": "RUB",
-            "priceRUB": 11734,
+            "priceRUB": 11495,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3808,7 +3808,7 @@
                         "name": "PC CPU",
                         "buyFor": [
                           {
-                            "priceRUB": 8886,
+                            "priceRUB": 8881,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3830,9 +3830,9 @@
                   }
                 },
                 {
-                  "price": 11734,
+                  "price": 11495,
                   "currency": "RUB",
-                  "priceRUB": 11734,
+                  "priceRUB": 11495,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -3850,9 +3850,9 @@
         "name": "VSS Vintorez 9x39 special sniper rifle",
         "buyFor": [
           {
-            "price": 160117,
+            "price": 128932,
             "currency": "RUB",
-            "priceRUB": 160117,
+            "priceRUB": 128932,
             "vendor": {
               "name": "Flea Market"
             }
@@ -3921,7 +3921,7 @@
                         "name": "Flat screwdriver (Long)",
                         "buyFor": [
                           {
-                            "priceRUB": 21000,
+                            "priceRUB": 21045,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3936,7 +3936,7 @@
                         "name": "Military COFDM Wireless Signal Transmitter",
                         "buyFor": [
                           {
-                            "priceRUB": 98187,
+                            "priceRUB": 96998,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3951,7 +3951,7 @@
                         "name": "Car battery",
                         "buyFor": [
                           {
-                            "priceRUB": 43889,
+                            "priceRUB": 43821,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -3964,9 +3964,9 @@
               ],
               "buyFor": [
                 {
-                  "price": 160117,
+                  "price": 128932,
                   "currency": "RUB",
-                  "priceRUB": 160117,
+                  "priceRUB": 128932,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4016,7 +4016,7 @@
                         "name": "Ratchet wrench",
                         "buyFor": [
                           {
-                            "priceRUB": 78601,
+                            "priceRUB": 78504,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -4031,7 +4031,7 @@
                         "name": "Cyclon rechargeable battery",
                         "buyFor": [
                           {
-                            "priceRUB": 56114,
+                            "priceRUB": 57506,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -4055,9 +4055,9 @@
         "name": "Makarov PM (t) 9x18PM pistol",
         "buyFor": [
           {
-            "price": 55567,
+            "price": 61761,
             "currency": "RUB",
-            "priceRUB": 55567,
+            "priceRUB": 61761,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4087,9 +4087,9 @@
               "bartersFor": [],
               "buyFor": [
                 {
-                  "price": 55567,
+                  "price": 61761,
                   "currency": "RUB",
-                  "priceRUB": 55567,
+                  "priceRUB": 61761,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4107,9 +4107,9 @@
         "name": "AS VAL 9x39 special assault rifle",
         "buyFor": [
           {
-            "price": 189622,
+            "price": 157419,
             "currency": "RUB",
-            "priceRUB": 189622,
+            "priceRUB": 157419,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4183,9 +4183,9 @@
                   }
                 },
                 {
-                  "price": 189622,
+                  "price": 157419,
                   "currency": "RUB",
-                  "priceRUB": 189622,
+                  "priceRUB": 157419,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4277,9 +4277,9 @@
         "name": "PP-91 \"Kedr\" 9x18PM submachine gun",
         "buyFor": [
           {
-            "price": 17339,
+            "price": 17464,
             "currency": "RUB",
-            "priceRUB": 17339,
+            "priceRUB": 17464,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4325,9 +4325,9 @@
                   }
                 },
                 {
-                  "price": 17339,
+                  "price": 17464,
                   "currency": "RUB",
-                  "priceRUB": 17339,
+                  "priceRUB": 17464,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4354,9 +4354,9 @@
             }
           },
           {
-            "price": 29389,
+            "price": 26487,
             "currency": "RUB",
-            "priceRUB": 29389,
+            "priceRUB": 26487,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4437,9 +4437,9 @@
                   }
                 },
                 {
-                  "price": 29389,
+                  "price": 26487,
                   "currency": "RUB",
-                  "priceRUB": 29389,
+                  "priceRUB": 26487,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4457,9 +4457,9 @@
         "name": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun",
         "buyFor": [
           {
-            "price": 34706,
+            "price": 38428,
             "currency": "RUB",
-            "priceRUB": 34706,
+            "priceRUB": 38428,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4521,7 +4521,7 @@
                         "name": "Clin window cleaner",
                         "buyFor": [
                           {
-                            "priceRUB": 15679,
+                            "priceRUB": 14420,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -4543,9 +4543,9 @@
                   }
                 },
                 {
-                  "price": 34706,
+                  "price": 38428,
                   "currency": "RUB",
-                  "priceRUB": 34706,
+                  "priceRUB": 38428,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4563,9 +4563,9 @@
         "name": "PP-9 \"Klin\" 9x18PMM submachine gun",
         "buyFor": [
           {
-            "price": 17103,
+            "price": 16941,
             "currency": "RUB",
-            "priceRUB": 17103,
+            "priceRUB": 16941,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4613,7 +4613,7 @@
                         "name": "MP-133 12ga pump-action shotgun",
                         "buyFor": [
                           {
-                            "priceRUB": 27701,
+                            "priceRUB": 28254,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -4635,9 +4635,9 @@
                   }
                 },
                 {
-                  "price": 17103,
+                  "price": 16941,
                   "currency": "RUB",
-                  "priceRUB": 17103,
+                  "priceRUB": 16941,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4655,9 +4655,9 @@
         "name": "Kalashnikov AKS-74UN 5.45x39 assault rifle",
         "buyFor": [
           {
-            "price": 32345,
+            "price": 28639,
             "currency": "RUB",
-            "priceRUB": 32345,
+            "priceRUB": 28639,
             "vendor": {
               "name": "Flea Market"
             }
@@ -4738,9 +4738,9 @@
                   }
                 },
                 {
-                  "price": 32345,
+                  "price": 28639,
                   "currency": "RUB",
-                  "priceRUB": 32345,
+                  "priceRUB": 28639,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -4964,9 +4964,9 @@
             }
           },
           {
-            "price": 58638,
+            "price": 62428,
             "currency": "RUB",
-            "priceRUB": 58638,
+            "priceRUB": 62428,
             "vendor": {
               "name": "Flea Market"
             }
@@ -5064,7 +5064,7 @@
                         "name": "USB Adapter",
                         "buyFor": [
                           {
-                            "priceRUB": 8847,
+                            "priceRUB": 9221,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5079,7 +5079,7 @@
                         "name": "Malboro Cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 23277,
+                            "priceRUB": 21060,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5101,9 +5101,9 @@
                   }
                 },
                 {
-                  "price": 58638,
+                  "price": 62428,
                   "currency": "RUB",
-                  "priceRUB": 58638,
+                  "priceRUB": 62428,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -5121,9 +5121,9 @@
         "name": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version)",
         "buyFor": [
           {
-            "price": 37114,
+            "price": 37311,
             "currency": "RUB",
-            "priceRUB": 37114,
+            "priceRUB": 37311,
             "vendor": {
               "name": "Flea Market"
             }
@@ -5183,9 +5183,9 @@
                   }
                 },
                 {
-                  "price": 37114,
+                  "price": 37311,
                   "currency": "RUB",
-                  "priceRUB": 37114,
+                  "priceRUB": 37311,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -5256,7 +5256,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5280,9 +5280,9 @@
         "name": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle",
         "buyFor": [
           {
-            "price": 77522,
+            "price": 77256,
             "currency": "RUB",
-            "priceRUB": 77522,
+            "priceRUB": 77256,
             "vendor": {
               "name": "Flea Market"
             }
@@ -5358,7 +5358,7 @@
                         "name": "Horse figurine",
                         "buyFor": [
                           {
-                            "priceRUB": 14063,
+                            "priceRUB": 15307,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5373,7 +5373,7 @@
                         "name": "Antique teapot",
                         "buyFor": [
                           {
-                            "priceRUB": 33389,
+                            "priceRUB": 34137,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5395,9 +5395,9 @@
                   }
                 },
                 {
-                  "price": 77522,
+                  "price": 77256,
                   "currency": "RUB",
-                  "priceRUB": 77522,
+                  "priceRUB": 77256,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -5475,7 +5475,7 @@
                         "name": "Metal spare parts",
                         "buyFor": [
                           {
-                            "priceRUB": 19638,
+                            "priceRUB": 20324,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5490,7 +5490,7 @@
                         "name": "Can of thermite",
                         "buyFor": [
                           {
-                            "priceRUB": 68270,
+                            "priceRUB": 61728,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5514,9 +5514,9 @@
         "name": "SIG MPX 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 43992,
+            "price": 45778,
             "currency": "RUB",
-            "priceRUB": 43992,
+            "priceRUB": 45778,
             "vendor": {
               "name": "Flea Market"
             }
@@ -5649,9 +5649,9 @@
                   }
                 },
                 {
-                  "price": 43992,
+                  "price": 45778,
                   "currency": "RUB",
-                  "priceRUB": 43992,
+                  "priceRUB": 45778,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -5918,7 +5918,7 @@
                         "name": "DVD drive",
                         "buyFor": [
                           {
-                            "priceRUB": 12470,
+                            "priceRUB": 12996,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5933,7 +5933,7 @@
                         "name": "Ultraviolet lamp",
                         "buyFor": [
                           {
-                            "priceRUB": 9983,
+                            "priceRUB": 9954,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5948,7 +5948,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -5972,9 +5972,9 @@
         "name": "HK MP5 9x19 submachine gun (Navy 3 Round Burst)",
         "buyFor": [
           {
-            "price": 25314,
+            "price": 26220,
             "currency": "RUB",
-            "priceRUB": 25314,
+            "priceRUB": 26220,
             "vendor": {
               "name": "Flea Market"
             }
@@ -6057,7 +6057,7 @@
                         "name": "Bars A-2607 95H18 knife",
                         "buyFor": [
                           {
-                            "priceRUB": 3865,
+                            "priceRUB": 3765,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6072,7 +6072,7 @@
                         "name": "ER FULCRUM BAYONET",
                         "buyFor": [
                           {
-                            "priceRUB": 14256,
+                            "priceRUB": 13356,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6094,9 +6094,9 @@
                   }
                 },
                 {
-                  "price": 25314,
+                  "price": 26220,
                   "currency": "RUB",
-                  "priceRUB": 25314,
+                  "priceRUB": 26220,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -6181,7 +6181,7 @@
                         "name": "Cyclon rechargeable battery",
                         "buyFor": [
                           {
-                            "priceRUB": 56114,
+                            "priceRUB": 57506,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6196,7 +6196,7 @@
                         "name": "Magnet",
                         "buyFor": [
                           {
-                            "priceRUB": 20711,
+                            "priceRUB": 17076,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6211,7 +6211,7 @@
                         "name": "NIXXOR lens",
                         "buyFor": [
                           {
-                            "priceRUB": 35634,
+                            "priceRUB": 33489,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6340,9 +6340,9 @@
         "name": "PP-19-01 \"Vityaz\" 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 20025,
+            "price": 20544,
             "currency": "RUB",
-            "priceRUB": 20025,
+            "priceRUB": 20544,
             "vendor": {
               "name": "Flea Market"
             }
@@ -6432,7 +6432,7 @@
                         "name": "T-Shaped plug",
                         "buyFor": [
                           {
-                            "priceRUB": 9126,
+                            "priceRUB": 11057,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6454,9 +6454,9 @@
                   }
                 },
                 {
-                  "price": 20025,
+                  "price": 20544,
                   "currency": "RUB",
-                  "priceRUB": 20025,
+                  "priceRUB": 20544,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -6692,7 +6692,7 @@
                         "name": "Roler Submariner gold wrist watch",
                         "buyFor": [
                           {
-                            "priceRUB": 57425,
+                            "priceRUB": 54230,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6707,7 +6707,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6731,9 +6731,9 @@
         "name": "Kalashnikov AKM 7.62x39 assault rifle",
         "buyFor": [
           {
-            "price": 46823,
+            "price": 45910,
             "currency": "RUB",
-            "priceRUB": 46823,
+            "priceRUB": 45910,
             "vendor": {
               "name": "Flea Market"
             }
@@ -6967,7 +6967,7 @@
                         "name": "Can of beef stew (Small)",
                         "buyFor": [
                           {
-                            "priceRUB": 10486,
+                            "priceRUB": 11226,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -6989,9 +6989,9 @@
                   }
                 },
                 {
-                  "price": 46823,
+                  "price": 45910,
                   "currency": "RUB",
-                  "priceRUB": 46823,
+                  "priceRUB": 45910,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -7315,9 +7315,9 @@
         "name": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine",
         "buyFor": [
           {
-            "price": 27277,
+            "price": 29186,
             "currency": "RUB",
-            "priceRUB": 27277,
+            "priceRUB": 29186,
             "vendor": {
               "name": "Flea Market"
             }
@@ -7407,7 +7407,7 @@
                         "name": "Salty Dog beef sausage",
                         "buyFor": [
                           {
-                            "priceRUB": 20137,
+                            "priceRUB": 19681,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -7429,9 +7429,9 @@
                   }
                 },
                 {
-                  "price": 27277,
+                  "price": 29186,
                   "currency": "RUB",
-                  "priceRUB": 27277,
+                  "priceRUB": 29186,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -7458,9 +7458,9 @@
             }
           },
           {
-            "price": 29672,
+            "price": 29899,
             "currency": "RUB",
-            "priceRUB": 29672,
+            "priceRUB": 29899,
             "vendor": {
               "name": "Flea Market"
             }
@@ -7557,9 +7557,9 @@
                   }
                 },
                 {
-                  "price": 29672,
+                  "price": 29899,
                   "currency": "RUB",
-                  "priceRUB": 29672,
+                  "priceRUB": 29899,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -7577,9 +7577,9 @@
         "name": "Serdyukov SR-1MP Gyurza 9x21 pistol",
         "buyFor": [
           {
-            "price": 15781,
+            "price": 16180,
             "currency": "RUB",
-            "priceRUB": 15781,
+            "priceRUB": 16180,
             "vendor": {
               "name": "Flea Market"
             }
@@ -7620,7 +7620,7 @@
                         "name": "Gunpowder \"Kite\"",
                         "buyFor": [
                           {
-                            "priceRUB": 33596,
+                            "priceRUB": 27319,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -7642,9 +7642,9 @@
                   }
                 },
                 {
-                  "price": 15781,
+                  "price": 16180,
                   "currency": "RUB",
-                  "priceRUB": 15781,
+                  "priceRUB": 16180,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -7754,9 +7754,9 @@
         "name": "Saiga-9 9x19 carbine",
         "buyFor": [
           {
-            "price": 20625,
+            "price": 20226,
             "currency": "RUB",
-            "priceRUB": 20625,
+            "priceRUB": 20226,
             "vendor": {
               "name": "Flea Market"
             }
@@ -7844,9 +7844,9 @@
                   }
                 },
                 {
-                  "price": 20625,
+                  "price": 20226,
                   "currency": "RUB",
-                  "priceRUB": 20625,
+                  "priceRUB": 20226,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -7864,9 +7864,9 @@
         "name": "Kalashnikov AKMS 7.62x39 assault rifle",
         "buyFor": [
           {
-            "price": 24496,
+            "price": 25881,
             "currency": "RUB",
-            "priceRUB": 24496,
+            "priceRUB": 25881,
             "vendor": {
               "name": "Flea Market"
             }
@@ -7954,9 +7954,9 @@
                   }
                 },
                 {
-                  "price": 24496,
+                  "price": 25881,
                   "currency": "RUB",
-                  "priceRUB": 24496,
+                  "priceRUB": 25881,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -8145,9 +8145,9 @@
             }
           },
           {
-            "price": 45666,
+            "price": 44105,
             "currency": "RUB",
-            "priceRUB": 45666,
+            "priceRUB": 44105,
             "vendor": {
               "name": "Flea Market"
             }
@@ -8235,9 +8235,9 @@
                   }
                 },
                 {
-                  "price": 45666,
+                  "price": 44105,
                   "currency": "RUB",
-                  "priceRUB": 45666,
+                  "priceRUB": 44105,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -8343,9 +8343,9 @@
         "name": "Stechkin APS 9x18PM machine pistol",
         "buyFor": [
           {
-            "price": 10342,
+            "price": 11057,
             "currency": "RUB",
-            "priceRUB": 10342,
+            "priceRUB": 11057,
             "vendor": {
               "name": "Flea Market"
             }
@@ -8407,7 +8407,7 @@
                         "name": "Pack of screws",
                         "buyFor": [
                           {
-                            "priceRUB": 8483,
+                            "priceRUB": 8259,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -8422,7 +8422,7 @@
                         "name": "Bolts",
                         "buyFor": [
                           {
-                            "priceRUB": 19565,
+                            "priceRUB": 18842,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -8444,9 +8444,9 @@
                   }
                 },
                 {
-                  "price": 10342,
+                  "price": 11057,
                   "currency": "RUB",
-                  "priceRUB": 10342,
+                  "priceRUB": 11057,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -8684,9 +8684,9 @@
         "name": "TOZ-106 20ga bolt-action shotgun",
         "buyFor": [
           {
-            "price": 17332,
+            "price": 15875,
             "currency": "RUB",
-            "priceRUB": 17332,
+            "priceRUB": 15875,
             "vendor": {
               "name": "Flea Market"
             }
@@ -8748,9 +8748,9 @@
                   }
                 },
                 {
-                  "price": 17332,
+                  "price": 15875,
                   "currency": "RUB",
-                  "priceRUB": 17332,
+                  "priceRUB": 15875,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -8768,9 +8768,9 @@
         "name": "Remington Model 870 12ga pump-action shotgun",
         "buyFor": [
           {
-            "price": 36106,
+            "price": 40606,
             "currency": "RUB",
-            "priceRUB": 36106,
+            "priceRUB": 40606,
             "vendor": {
               "name": "Flea Market"
             }
@@ -8830,9 +8830,9 @@
                   }
                 },
                 {
-                  "price": 36106,
+                  "price": 40606,
                   "currency": "RUB",
-                  "priceRUB": 36106,
+                  "priceRUB": 40606,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -8938,7 +8938,7 @@
                         "name": "Portable Powerbank",
                         "buyFor": [
                           {
-                            "priceRUB": 22877,
+                            "priceRUB": 23891,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -8953,7 +8953,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9060,9 +9060,9 @@
             }
           },
           {
-            "price": 14580,
+            "price": 18087,
             "currency": "RUB",
-            "priceRUB": 14580,
+            "priceRUB": 18087,
             "vendor": {
               "name": "Flea Market"
             }
@@ -9129,9 +9129,9 @@
                   }
                 },
                 {
-                  "price": 14580,
+                  "price": 18087,
                   "currency": "RUB",
-                  "priceRUB": 14580,
+                  "priceRUB": 18087,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -9216,7 +9216,7 @@
                         "name": "Broken GPhone smartphone",
                         "buyFor": [
                           {
-                            "priceRUB": 14330,
+                            "priceRUB": 13621,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9231,7 +9231,7 @@
                         "name": "Printed circuit board",
                         "buyFor": [
                           {
-                            "priceRUB": 13301,
+                            "priceRUB": 13528,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9329,7 +9329,7 @@
                         "name": "Kinda cowboy hat",
                         "buyFor": [
                           {
-                            "priceRUB": 14080,
+                            "priceRUB": 14866,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9427,7 +9427,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9518,7 +9518,7 @@
                         "name": "Light bulb",
                         "buyFor": [
                           {
-                            "priceRUB": 9500,
+                            "priceRUB": 11188,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9722,7 +9722,7 @@
                         "name": "Damaged hard drive",
                         "buyFor": [
                           {
-                            "priceRUB": 16973,
+                            "priceRUB": 19167,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9813,7 +9813,7 @@
                         "name": "Magnet",
                         "buyFor": [
                           {
-                            "priceRUB": 20711,
+                            "priceRUB": 17076,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -9978,7 +9978,7 @@
                         "name": "WD-40 (400ml)",
                         "buyFor": [
                           {
-                            "priceRUB": 15547,
+                            "priceRUB": 16064,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -10211,7 +10211,7 @@
                         "name": "USB Adapter",
                         "buyFor": [
                           {
-                            "priceRUB": 8847,
+                            "priceRUB": 9221,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -10319,7 +10319,7 @@
                         "name": "Insulating tape",
                         "buyFor": [
                           {
-                            "priceRUB": 12466,
+                            "priceRUB": 13287,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -10420,7 +10420,7 @@
                         "name": "Wilston cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 6873,
+                            "priceRUB": 6824,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -10542,9 +10542,9 @@
         "name": "Kalashnikov AKS-74N 5.45x39 assault rifle",
         "buyFor": [
           {
-            "price": 29416,
+            "price": 30844,
             "currency": "RUB",
-            "priceRUB": 29416,
+            "priceRUB": 30844,
             "vendor": {
               "name": "Flea Market"
             }
@@ -10632,9 +10632,9 @@
                   }
                 },
                 {
-                  "price": 29416,
+                  "price": 30844,
                   "currency": "RUB",
-                  "priceRUB": 29416,
+                  "priceRUB": 30844,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -10652,9 +10652,9 @@
         "name": "Kalashnikov AKMSN 7.62x39 assault rifle",
         "buyFor": [
           {
-            "price": 23159,
+            "price": 24721,
             "currency": "RUB",
-            "priceRUB": 23159,
+            "priceRUB": 24721,
             "vendor": {
               "name": "Flea Market"
             }
@@ -10742,9 +10742,9 @@
                   }
                 },
                 {
-                  "price": 23159,
+                  "price": 24721,
                   "currency": "RUB",
-                  "priceRUB": 23159,
+                  "priceRUB": 24721,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -10850,9 +10850,9 @@
         "name": "APB 9x18PM silenced machine pistol",
         "buyFor": [
           {
-            "price": 19319,
+            "price": 18963,
             "currency": "RUB",
-            "priceRUB": 19319,
+            "priceRUB": 18963,
             "vendor": {
               "name": "Flea Market"
             }
@@ -10926,9 +10926,9 @@
                   }
                 },
                 {
-                  "price": 19319,
+                  "price": 18963,
                   "currency": "RUB",
-                  "priceRUB": 19319,
+                  "priceRUB": 18963,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -10955,9 +10955,9 @@
             }
           },
           {
-            "price": 38824,
+            "price": 39175,
             "currency": "RUB",
-            "priceRUB": 38824,
+            "priceRUB": 39175,
             "vendor": {
               "name": "Flea Market"
             }
@@ -11047,7 +11047,7 @@
                         "name": "Apollo Soyuz cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 6948,
+                            "priceRUB": 6996,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11069,9 +11069,9 @@
                   }
                 },
                 {
-                  "price": 38824,
+                  "price": 39175,
                   "currency": "RUB",
-                  "priceRUB": 38824,
+                  "priceRUB": 39175,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -11170,7 +11170,7 @@
                         "name": "Malboro Cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 23277,
+                            "priceRUB": 21060,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11185,7 +11185,7 @@
                         "name": "Military cable",
                         "buyFor": [
                           {
-                            "priceRUB": 32694,
+                            "priceRUB": 30859,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11209,9 +11209,9 @@
         "name": "Kalashnikov AK-101 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 70048,
+            "price": 68563,
             "currency": "RUB",
-            "priceRUB": 70048,
+            "priceRUB": 68563,
             "vendor": {
               "name": "Flea Market"
             }
@@ -11299,9 +11299,9 @@
                   }
                 },
                 {
-                  "price": 70048,
+                  "price": 68563,
                   "currency": "RUB",
-                  "priceRUB": 70048,
+                  "priceRUB": 68563,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -11319,9 +11319,9 @@
         "name": "Kalashnikov AK-102 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 53204,
+            "price": 55432,
             "currency": "RUB",
-            "priceRUB": 53204,
+            "priceRUB": 55432,
             "vendor": {
               "name": "Flea Market"
             }
@@ -11409,9 +11409,9 @@
                   }
                 },
                 {
-                  "price": 53204,
+                  "price": 55432,
                   "currency": "RUB",
-                  "priceRUB": 53204,
+                  "priceRUB": 55432,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -11429,9 +11429,9 @@
         "name": "Kalashnikov AK-103 7.62x39 assault rifle",
         "buyFor": [
           {
-            "price": 33088,
+            "price": 34378,
             "currency": "RUB",
-            "priceRUB": 33088,
+            "priceRUB": 34378,
             "vendor": {
               "name": "Flea Market"
             }
@@ -11519,9 +11519,9 @@
                   }
                 },
                 {
-                  "price": 33088,
+                  "price": 34378,
                   "currency": "RUB",
-                  "priceRUB": 33088,
+                  "priceRUB": 34378,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -11539,9 +11539,9 @@
         "name": "Kalashnikov AK-104 7.62x39 assault rifle",
         "buyFor": [
           {
-            "price": 28318,
+            "price": 29397,
             "currency": "RUB",
-            "priceRUB": 28318,
+            "priceRUB": 29397,
             "vendor": {
               "name": "Flea Market"
             }
@@ -11629,9 +11629,9 @@
                   }
                 },
                 {
-                  "price": 28318,
+                  "price": 29397,
                   "currency": "RUB",
-                  "priceRUB": 28318,
+                  "priceRUB": 29397,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -11772,7 +11772,7 @@
                         "name": "UHF RFID Reader",
                         "buyFor": [
                           {
-                            "priceRUB": 39004,
+                            "priceRUB": 38817,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11787,7 +11787,7 @@
                         "name": "Virtex programmable processor",
                         "buyFor": [
                           {
-                            "priceRUB": 96541,
+                            "priceRUB": 96979,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11899,7 +11899,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -11923,9 +11923,9 @@
         "name": "Kalashnikov AK-105 5.45x39 assault rifle",
         "buyFor": [
           {
-            "price": 33032,
+            "price": 33779,
             "currency": "RUB",
-            "priceRUB": 33032,
+            "priceRUB": 33779,
             "vendor": {
               "name": "Flea Market"
             }
@@ -12013,9 +12013,9 @@
                   }
                 },
                 {
-                  "price": 33032,
+                  "price": 33779,
                   "currency": "RUB",
-                  "priceRUB": 33032,
+                  "priceRUB": 33779,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -12033,9 +12033,9 @@
         "name": "Mosin 7.62x54R bolt-action rifle (Sniper)",
         "buyFor": [
           {
-            "price": 94144,
+            "price": 115516,
             "currency": "RUB",
-            "priceRUB": 94144,
+            "priceRUB": 115516,
             "vendor": {
               "name": "Flea Market"
             }
@@ -12177,7 +12177,7 @@
                             }
                           },
                           {
-                            "priceRUB": 42420,
+                            "priceRUB": 15000,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12192,7 +12192,7 @@
                         "name": "Mosin Rifle 7.62x54R 730mm regular barrel",
                         "buyFor": [
                           {
-                            "priceRUB": 77721,
+                            "priceRUB": 77666,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12207,7 +12207,7 @@
                         "name": "Wilston cigarettes",
                         "buyFor": [
                           {
-                            "priceRUB": 6873,
+                            "priceRUB": 6824,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12328,9 +12328,9 @@
                   }
                 },
                 {
-                  "price": 94144,
+                  "price": 115516,
                   "currency": "RUB",
-                  "priceRUB": 94144,
+                  "priceRUB": 115516,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -12422,7 +12422,7 @@
                         "name": "D Size battery",
                         "buyFor": [
                           {
-                            "priceRUB": 9361,
+                            "priceRUB": 8939,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12437,7 +12437,7 @@
                         "name": "AA Battery",
                         "buyFor": [
                           {
-                            "priceRUB": 8288,
+                            "priceRUB": 7977,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12544,9 +12544,9 @@
             }
           },
           {
-            "price": 63753,
+            "price": 67532,
             "currency": "RUB",
-            "priceRUB": 63753,
+            "priceRUB": 67532,
             "vendor": {
               "name": "Flea Market"
             }
@@ -12636,7 +12636,7 @@
                         "name": "Damaged hard drive",
                         "buyFor": [
                           {
-                            "priceRUB": 16973,
+                            "priceRUB": 19167,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12651,7 +12651,7 @@
                         "name": "RAM",
                         "buyFor": [
                           {
-                            "priceRUB": 10368,
+                            "priceRUB": 10273,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -12852,9 +12852,9 @@
                   }
                 },
                 {
-                  "price": 63753,
+                  "price": 67532,
                   "currency": "RUB",
-                  "priceRUB": 63753,
+                  "priceRUB": 67532,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -13069,7 +13069,7 @@
                         "name": "NIXXOR lens",
                         "buyFor": [
                           {
-                            "priceRUB": 35634,
+                            "priceRUB": 33489,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13084,7 +13084,7 @@
                         "name": "LVNDMARK's rat poison",
                         "buyFor": [
                           {
-                            "priceRUB": 32131,
+                            "priceRUB": 32125,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13189,7 +13189,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13308,7 +13308,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13332,9 +13332,9 @@
         "name": "Glock 18C 9x19 machine pistol",
         "buyFor": [
           {
-            "price": 22091,
+            "price": 23172,
             "currency": "RUB",
-            "priceRUB": 22091,
+            "priceRUB": 23172,
             "vendor": {
               "name": "Flea Market"
             }
@@ -13401,9 +13401,9 @@
                   }
                 },
                 {
-                  "price": 22091,
+                  "price": 23172,
                   "currency": "RUB",
-                  "priceRUB": 22091,
+                  "priceRUB": 23172,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -13488,9 +13488,9 @@
         "name": "TT-33 7.62x25 TT pistol (Golden)",
         "buyFor": [
           {
-            "price": 72000,
+            "price": 84999,
             "currency": "RUB",
-            "priceRUB": 72000,
+            "priceRUB": 84999,
             "vendor": {
               "name": "Flea Market"
             }
@@ -13534,9 +13534,9 @@
               "bartersFor": [],
               "buyFor": [
                 {
-                  "price": 72000,
+                  "price": 84999,
                   "currency": "RUB",
-                  "priceRUB": 72000,
+                  "priceRUB": 84999,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -13554,9 +13554,9 @@
         "name": "HK MP7A1 4.6x30 submachine gun",
         "buyFor": [
           {
-            "price": 57403,
+            "price": 59990,
             "currency": "RUB",
-            "priceRUB": 57403,
+            "priceRUB": 59990,
             "vendor": {
               "name": "Flea Market"
             }
@@ -13660,7 +13660,7 @@
                         "name": "Working LCD",
                         "buyFor": [
                           {
-                            "priceRUB": 29387,
+                            "priceRUB": 32841,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13675,7 +13675,7 @@
                         "name": "NIXXOR lens",
                         "buyFor": [
                           {
-                            "priceRUB": 35634,
+                            "priceRUB": 33489,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13750,9 +13750,9 @@
                   }
                 },
                 {
-                  "price": 57403,
+                  "price": 59990,
                   "currency": "RUB",
-                  "priceRUB": 57403,
+                  "priceRUB": 59990,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -13779,9 +13779,9 @@
             }
           },
           {
-            "price": 62244,
+            "price": 62457,
             "currency": "RUB",
-            "priceRUB": 62244,
+            "priceRUB": 62457,
             "vendor": {
               "name": "Flea Market"
             }
@@ -13890,9 +13890,9 @@
                   }
                 },
                 {
-                  "price": 62244,
+                  "price": 62457,
                   "currency": "RUB",
-                  "priceRUB": 62244,
+                  "priceRUB": 62457,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -13910,9 +13910,9 @@
         "name": "HK MP7A2 4.6x30 submachine gun",
         "buyFor": [
           {
-            "price": 77382,
+            "price": 75886,
             "currency": "RUB",
-            "priceRUB": 77382,
+            "priceRUB": 75886,
             "vendor": {
               "name": "Flea Market"
             }
@@ -13981,7 +13981,7 @@
                         "name": "Broken GPhone X smartphone",
                         "buyFor": [
                           {
-                            "priceRUB": 39913,
+                            "priceRUB": 39035,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -13996,7 +13996,7 @@
                         "name": "Portable Powerbank",
                         "buyFor": [
                           {
-                            "priceRUB": 22877,
+                            "priceRUB": 23891,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14009,9 +14009,9 @@
               ],
               "buyFor": [
                 {
-                  "price": 77382,
+                  "price": 75886,
                   "currency": "RUB",
-                  "priceRUB": 77382,
+                  "priceRUB": 75886,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14029,9 +14029,9 @@
         "name": "RPK-16 5.45x39 light machine gun",
         "buyFor": [
           {
-            "price": 44451,
+            "price": 46512,
             "currency": "RUB",
-            "priceRUB": 44451,
+            "priceRUB": 46512,
             "vendor": {
               "name": "Flea Market"
             }
@@ -14135,7 +14135,7 @@
                         "name": "Capacitors",
                         "buyFor": [
                           {
-                            "priceRUB": 14158,
+                            "priceRUB": 14503,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14150,7 +14150,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14172,9 +14172,9 @@
                   }
                 },
                 {
-                  "price": 44451,
+                  "price": 46512,
                   "currency": "RUB",
-                  "priceRUB": 44451,
+                  "priceRUB": 46512,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14287,7 +14287,7 @@
                         "name": "Gunpowder \"Kite\"",
                         "buyFor": [
                           {
-                            "priceRUB": 33596,
+                            "priceRUB": 27319,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14302,7 +14302,7 @@
                         "name": "Weapon parts",
                         "buyFor": [
                           {
-                            "priceRUB": 10952,
+                            "priceRUB": 11733,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14326,9 +14326,9 @@
         "name": "Kalashnikov AK-74 5.45x39 assault rifle",
         "buyFor": [
           {
-            "price": 33924,
+            "price": 36759,
             "currency": "RUB",
-            "priceRUB": 33924,
+            "priceRUB": 36759,
             "vendor": {
               "name": "Flea Market"
             }
@@ -14416,9 +14416,9 @@
                   }
                 },
                 {
-                  "price": 33924,
+                  "price": 36759,
                   "currency": "RUB",
-                  "priceRUB": 33924,
+                  "priceRUB": 36759,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14510,7 +14510,7 @@
                         "name": "Toilet paper",
                         "buyFor": [
                           {
-                            "priceRUB": 6593,
+                            "priceRUB": 8133,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14525,7 +14525,7 @@
                         "name": "Toothpaste",
                         "buyFor": [
                           {
-                            "priceRUB": 9323,
+                            "priceRUB": 11081,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -14549,9 +14549,9 @@
         "name": "Kalashnikov AKS-74 5.45x39 assault rifle",
         "buyFor": [
           {
-            "price": 21560,
+            "price": 22075,
             "currency": "RUB",
-            "priceRUB": 21560,
+            "priceRUB": 22075,
             "vendor": {
               "name": "Flea Market"
             }
@@ -14630,9 +14630,9 @@
               "bartersFor": [],
               "buyFor": [
                 {
-                  "price": 21560,
+                  "price": 22075,
                   "currency": "RUB",
-                  "priceRUB": 21560,
+                  "priceRUB": 22075,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14650,9 +14650,9 @@
         "name": "Mosin 7.62x54R bolt-action rifle (Infantry)",
         "buyFor": [
           {
-            "price": 39627,
+            "price": 41982,
             "currency": "RUB",
-            "priceRUB": 39627,
+            "priceRUB": 41982,
             "vendor": {
               "name": "Flea Market"
             }
@@ -14821,9 +14821,9 @@
                   }
                 },
                 {
-                  "price": 39627,
+                  "price": 41982,
                   "currency": "RUB",
-                  "priceRUB": 39627,
+                  "priceRUB": 41982,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14841,9 +14841,9 @@
         "name": "Remington Model 700 7.62x51 bolt-action sniper rifle",
         "buyFor": [
           {
-            "price": 47824,
+            "price": 46373,
             "currency": "RUB",
-            "priceRUB": 47824,
+            "priceRUB": 46373,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15028,7 +15028,7 @@
                         "name": "Military cable",
                         "buyFor": [
                           {
-                            "priceRUB": 32694,
+                            "priceRUB": 30859,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -15043,7 +15043,7 @@
                         "name": "Energy-saving lamp",
                         "buyFor": [
                           {
-                            "priceRUB": 17107,
+                            "priceRUB": 13701,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -15414,7 +15414,7 @@
                         "name": "Deadlyslob's beard oil",
                         "buyFor": [
                           {
-                            "priceRUB": 35905,
+                            "priceRUB": 35632,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -15436,9 +15436,9 @@
                   }
                 },
                 {
-                  "price": 47824,
+                  "price": 46373,
                   "currency": "RUB",
-                  "priceRUB": 47824,
+                  "priceRUB": 46373,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15465,9 +15465,9 @@
             }
           },
           {
-            "price": 46612,
+            "price": 46604,
             "currency": "RUB",
-            "priceRUB": 46612,
+            "priceRUB": 46604,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15562,9 +15562,9 @@
                   }
                 },
                 {
-                  "price": 46612,
+                  "price": 46604,
                   "currency": "RUB",
-                  "priceRUB": 46612,
+                  "priceRUB": 46604,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15582,9 +15582,9 @@
         "name": "SVDS 7.62x54R sniper rifle",
         "buyFor": [
           {
-            "price": 108539,
+            "price": 106190,
             "currency": "RUB",
-            "priceRUB": 108539,
+            "priceRUB": 106190,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15693,9 +15693,9 @@
                   }
                 },
                 {
-                  "price": 108539,
+                  "price": 106190,
                   "currency": "RUB",
-                  "priceRUB": 108539,
+                  "priceRUB": 106190,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15713,9 +15713,9 @@
         "name": "Desert Tech MDR 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 62354,
+            "price": 61036,
             "currency": "RUB",
-            "priceRUB": 62354,
+            "priceRUB": 61036,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15782,9 +15782,9 @@
                   }
                 },
                 {
-                  "price": 62354,
+                  "price": 61036,
                   "currency": "RUB",
-                  "priceRUB": 62354,
+                  "priceRUB": 61036,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15802,9 +15802,9 @@
         "name": "Molot VPO-101 \"Vepr-Hunter\" 7.62x51 carbine",
         "buyFor": [
           {
-            "price": 33032,
+            "price": 33045,
             "currency": "RUB",
-            "priceRUB": 33032,
+            "priceRUB": 33045,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15871,9 +15871,9 @@
                   }
                 },
                 {
-                  "price": 33032,
+                  "price": 33045,
                   "currency": "RUB",
-                  "priceRUB": 33032,
+                  "priceRUB": 33045,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15891,9 +15891,9 @@
         "name": "Beretta M9A3 9x19 pistol",
         "buyFor": [
           {
-            "price": 13156,
+            "price": 12117,
             "currency": "RUB",
-            "priceRUB": 13156,
+            "priceRUB": 12117,
             "vendor": {
               "name": "Flea Market"
             }
@@ -15974,9 +15974,9 @@
                   }
                 },
                 {
-                  "price": 13156,
+                  "price": 12117,
                   "currency": "RUB",
-                  "priceRUB": 13156,
+                  "priceRUB": 12117,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -15994,9 +15994,9 @@
         "name": "ASh-12 12.7x55 assault rifle",
         "buyFor": [
           {
-            "price": 64683,
+            "price": 64310,
             "currency": "RUB",
-            "priceRUB": 64683,
+            "priceRUB": 64310,
             "vendor": {
               "name": "Flea Market"
             }
@@ -16072,7 +16072,7 @@
                         "name": "Bottle of Tarkovskaya vodka",
                         "buyFor": [
                           {
-                            "priceRUB": 25887,
+                            "priceRUB": 27203,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16085,9 +16085,9 @@
               ],
               "buyFor": [
                 {
-                  "price": 64683,
+                  "price": 64310,
                   "currency": "RUB",
-                  "priceRUB": 64683,
+                  "priceRUB": 64310,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -16158,7 +16158,7 @@
                         "name": "Military circuit board",
                         "buyFor": [
                           {
-                            "priceRUB": 46560,
+                            "priceRUB": 42968,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16173,7 +16173,7 @@
                         "name": "Bundle of wires",
                         "buyFor": [
                           {
-                            "priceRUB": 11297,
+                            "priceRUB": 10573,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16197,9 +16197,9 @@
         "name": "FN P90 5.7x28 submachine gun",
         "buyFor": [
           {
-            "price": 73145,
+            "price": 71270,
             "currency": "RUB",
-            "priceRUB": 73145,
+            "priceRUB": 71270,
             "vendor": {
               "name": "Flea Market"
             }
@@ -16405,7 +16405,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16503,7 +16503,7 @@
                         "name": "Military cable",
                         "buyFor": [
                           {
-                            "priceRUB": 32694,
+                            "priceRUB": 30859,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16666,9 +16666,9 @@
                   }
                 },
                 {
-                  "price": 73145,
+                  "price": 71270,
                   "currency": "RUB",
-                  "priceRUB": 73145,
+                  "priceRUB": 71270,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -16686,9 +16686,9 @@
         "name": "HK MP5K 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 16103,
+            "price": 16168,
             "currency": "RUB",
-            "priceRUB": 16103,
+            "priceRUB": 16168,
             "vendor": {
               "name": "Flea Market"
             }
@@ -16762,9 +16762,9 @@
                   }
                 },
                 {
-                  "price": 16103,
+                  "price": 16168,
                   "currency": "RUB",
-                  "priceRUB": 16103,
+                  "priceRUB": 16168,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -16782,9 +16782,9 @@
         "name": "FN Five-seveN MK2 5.7x28 pistol",
         "buyFor": [
           {
-            "price": 21627,
+            "price": 21316,
             "currency": "RUB",
-            "priceRUB": 21627,
+            "priceRUB": 21316,
             "vendor": {
               "name": "Flea Market"
             }
@@ -16853,7 +16853,7 @@
                         "name": "Pestily plague mask",
                         "buyFor": [
                           {
-                            "priceRUB": 58893,
+                            "priceRUB": 58866,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -16875,9 +16875,9 @@
                   }
                 },
                 {
-                  "price": 21627,
+                  "price": 21316,
                   "currency": "RUB",
-                  "priceRUB": 21627,
+                  "priceRUB": 21316,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -16895,9 +16895,9 @@
         "name": "Lone Star TX-15 DML 5.56x45 carbine",
         "buyFor": [
           {
-            "price": 134155,
+            "price": 119427,
             "currency": "RUB",
-            "priceRUB": 134155,
+            "priceRUB": 119427,
             "vendor": {
               "name": "Flea Market"
             }
@@ -17020,9 +17020,9 @@
                   }
                 },
                 {
-                  "price": 134155,
+                  "price": 119427,
                   "currency": "RUB",
-                  "priceRUB": 134155,
+                  "priceRUB": 119427,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -17163,7 +17163,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -17178,7 +17178,7 @@
                         "name": "Pressure gauge",
                         "buyFor": [
                           {
-                            "priceRUB": 46992,
+                            "priceRUB": 46901,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -17202,9 +17202,9 @@
         "name": "FN Five-seveN MK2 5.7x28 pistol (FDE)",
         "buyFor": [
           {
-            "price": 22377,
+            "price": 22568,
             "currency": "RUB",
-            "priceRUB": 22377,
+            "priceRUB": 22568,
             "vendor": {
               "name": "Flea Market"
             }
@@ -17271,9 +17271,9 @@
                   }
                 },
                 {
-                  "price": 22377,
+                  "price": 22568,
                   "currency": "RUB",
-                  "priceRUB": 22377,
+                  "priceRUB": 22568,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -17472,9 +17472,9 @@
         "name": "Molot VPO-215 \"Gornostay\" .366 TKM bolt-action rifle",
         "buyFor": [
           {
-            "price": 33324,
+            "price": 25471,
             "currency": "RUB",
-            "priceRUB": 33324,
+            "priceRUB": 25471,
             "vendor": {
               "name": "Flea Market"
             }
@@ -17541,9 +17541,9 @@
                   }
                 },
                 {
-                  "price": 33324,
+                  "price": 25471,
                   "currency": "RUB",
-                  "priceRUB": 33324,
+                  "priceRUB": 25471,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -17561,9 +17561,9 @@
         "name": "B&T MP9-N 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 21958,
+            "price": 22966,
             "currency": "RUB",
-            "priceRUB": 21958,
+            "priceRUB": 22966,
             "vendor": {
               "name": "Flea Market"
             }
@@ -17635,9 +17635,9 @@
               "bartersFor": [],
               "buyFor": [
                 {
-                  "price": 21958,
+                  "price": 22966,
                   "currency": "RUB",
-                  "priceRUB": 21958,
+                  "priceRUB": 22966,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -17655,9 +17655,9 @@
         "name": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle",
         "buyFor": [
           {
-            "price": 57333,
+            "price": 55993,
             "currency": "RUB",
-            "priceRUB": 57333,
+            "priceRUB": 55993,
             "vendor": {
               "name": "Flea Market"
             }
@@ -17766,9 +17766,9 @@
                   }
                 },
                 {
-                  "price": 57333,
+                  "price": 55993,
                   "currency": "RUB",
-                  "priceRUB": 57333,
+                  "priceRUB": 55993,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18058,9 +18058,9 @@
         "name": "B&T MP9 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 28182,
+            "price": 28526,
             "currency": "RUB",
-            "priceRUB": 28182,
+            "priceRUB": 28526,
             "vendor": {
               "name": "Flea Market"
             }
@@ -18134,9 +18134,9 @@
                   }
                 },
                 {
-                  "price": 28182,
+                  "price": 28526,
                   "currency": "RUB",
-                  "priceRUB": 28182,
+                  "priceRUB": 28526,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18154,9 +18154,9 @@
         "name": "Colt M1911A1 .45 ACP pistol",
         "buyFor": [
           {
-            "price": 14854,
+            "price": 15310,
             "currency": "RUB",
-            "priceRUB": 14854,
+            "priceRUB": 15310,
             "vendor": {
               "name": "Flea Market"
             }
@@ -18251,9 +18251,9 @@
                   }
                 },
                 {
-                  "price": 14854,
+                  "price": 15310,
                   "currency": "RUB",
-                  "priceRUB": 14854,
+                  "priceRUB": 15310,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18305,7 +18305,7 @@
                         "name": "VPX Flash Storage Module",
                         "buyFor": [
                           {
-                            "priceRUB": 108657,
+                            "priceRUB": 111877,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18320,7 +18320,7 @@
                         "name": "Military circuit board",
                         "buyFor": [
                           {
-                            "priceRUB": 46560,
+                            "priceRUB": 42968,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18335,7 +18335,7 @@
                         "name": "Military cable",
                         "buyFor": [
                           {
-                            "priceRUB": 32694,
+                            "priceRUB": 30859,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18414,7 +18414,7 @@
                         "name": "Corrugated hose",
                         "buyFor": [
                           {
-                            "priceRUB": 17447,
+                            "priceRUB": 19967,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18429,7 +18429,7 @@
                         "name": "Military corrugated tube",
                         "buyFor": [
                           {
-                            "priceRUB": 24209,
+                            "priceRUB": 22873,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18506,7 +18506,7 @@
                         "name": "Construction measuring tape",
                         "buyFor": [
                           {
-                            "priceRUB": 8896,
+                            "priceRUB": 8832,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18521,7 +18521,7 @@
                         "name": "T-Shaped plug",
                         "buyFor": [
                           {
-                            "priceRUB": 9126,
+                            "priceRUB": 11057,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18536,7 +18536,7 @@
                         "name": "USB Adapter",
                         "buyFor": [
                           {
-                            "priceRUB": 8847,
+                            "priceRUB": 9221,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18560,9 +18560,9 @@
         "name": "Mossberg 590A1 12ga pump-action shotgun",
         "buyFor": [
           {
-            "price": 28384,
+            "price": 30548,
             "currency": "RUB",
-            "priceRUB": 28384,
+            "priceRUB": 30548,
             "vendor": {
               "name": "Flea Market"
             }
@@ -18636,9 +18636,9 @@
                   }
                 },
                 {
-                  "price": 28384,
+                  "price": 30548,
                   "currency": "RUB",
-                  "priceRUB": 28384,
+                  "priceRUB": 30548,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18656,9 +18656,9 @@
         "name": "PPSh-41 7.62x25 submachine gun",
         "buyFor": [
           {
-            "price": 30333,
+            "price": 28561,
             "currency": "RUB",
-            "priceRUB": 30333,
+            "priceRUB": 28561,
             "vendor": {
               "name": "Flea Market"
             }
@@ -18718,9 +18718,9 @@
                   }
                 },
                 {
-                  "price": 30333,
+                  "price": 28561,
                   "currency": "RUB",
-                  "priceRUB": 30333,
+                  "priceRUB": 28561,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18738,9 +18738,9 @@
         "name": "Kel-Tec RFB 7.62x51 rifle",
         "buyFor": [
           {
-            "price": 49313,
+            "price": 48300,
             "currency": "RUB",
-            "priceRUB": 49313,
+            "priceRUB": 48300,
             "vendor": {
               "name": "Flea Market"
             }
@@ -18816,7 +18816,7 @@
                         "name": "Gas analyzer",
                         "buyFor": [
                           {
-                            "priceRUB": 17647,
+                            "priceRUB": 17738,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -18838,9 +18838,9 @@
                   }
                 },
                 {
-                  "price": 49313,
+                  "price": 48300,
                   "currency": "RUB",
-                  "priceRUB": 49313,
+                  "priceRUB": 48300,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -18858,9 +18858,9 @@
         "name": "Colt M45A1 .45 ACP pistol",
         "buyFor": [
           {
-            "price": 13567,
+            "price": 13010,
             "currency": "RUB",
-            "priceRUB": 13567,
+            "priceRUB": 13010,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19027,9 +19027,9 @@
               "bartersFor": [],
               "buyFor": [
                 {
-                  "price": 13567,
+                  "price": 13010,
                   "currency": "RUB",
-                  "priceRUB": 13567,
+                  "priceRUB": 13010,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19047,9 +19047,9 @@
         "name": "TDI KRISS Vector Gen.2 .45 ACP submachine gun",
         "buyFor": [
           {
-            "price": 50488,
+            "price": 54018,
             "currency": "RUB",
-            "priceRUB": 50488,
+            "priceRUB": 54018,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19137,9 +19137,9 @@
                   }
                 },
                 {
-                  "price": 50488,
+                  "price": 54018,
                   "currency": "RUB",
-                  "priceRUB": 50488,
+                  "priceRUB": 54018,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19157,9 +19157,9 @@
         "name": "SIG MCX .300 Blackout assault rifle",
         "buyFor": [
           {
-            "price": 61249,
+            "price": 61387,
             "currency": "RUB",
-            "priceRUB": 61249,
+            "priceRUB": 61387,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19442,7 +19442,7 @@
                         "name": "Broken GPhone X smartphone",
                         "buyFor": [
                           {
-                            "priceRUB": 39913,
+                            "priceRUB": 39035,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19457,7 +19457,7 @@
                         "name": "Golden 1GPhone smartphone",
                         "buyFor": [
                           {
-                            "priceRUB": 30687,
+                            "priceRUB": 31161,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19479,9 +19479,9 @@
                   }
                 },
                 {
-                  "price": 61249,
+                  "price": 61387,
                   "currency": "RUB",
-                  "priceRUB": 61249,
+                  "priceRUB": 61387,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19589,9 +19589,9 @@
         "name": "HK UMP .45 ACP submachine gun",
         "buyFor": [
           {
-            "price": 37026,
+            "price": 35276,
             "currency": "RUB",
-            "priceRUB": 37026,
+            "priceRUB": 35276,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19660,7 +19660,7 @@
                         "name": "Bars A-2607 Damascus knife",
                         "buyFor": [
                           {
-                            "priceRUB": 7838,
+                            "priceRUB": 8035,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19675,7 +19675,7 @@
                         "name": "ER FULCRUM BAYONET",
                         "buyFor": [
                           {
-                            "priceRUB": 14256,
+                            "priceRUB": 13356,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19698,7 +19698,7 @@
                         "name": "DVD drive",
                         "buyFor": [
                           {
-                            "priceRUB": 12470,
+                            "priceRUB": 12996,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19713,7 +19713,7 @@
                         "name": "Damaged hard drive",
                         "buyFor": [
                           {
-                            "priceRUB": 16973,
+                            "priceRUB": 19167,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19728,7 +19728,7 @@
                         "name": "Capacitors",
                         "buyFor": [
                           {
-                            "priceRUB": 14158,
+                            "priceRUB": 14503,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19750,9 +19750,9 @@
                   }
                 },
                 {
-                  "price": 37026,
+                  "price": 35276,
                   "currency": "RUB",
-                  "priceRUB": 37026,
+                  "priceRUB": 35276,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19770,9 +19770,9 @@
         "name": "TDI KRISS Vector Gen.2 9x19 submachine gun",
         "buyFor": [
           {
-            "price": 93113,
+            "price": 100981,
             "currency": "RUB",
-            "priceRUB": 93113,
+            "priceRUB": 100981,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19860,9 +19860,9 @@
                   }
                 },
                 {
-                  "price": 93113,
+                  "price": 100981,
                   "currency": "RUB",
-                  "priceRUB": 93113,
+                  "priceRUB": 100981,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19880,9 +19880,9 @@
         "name": "Lebedev PL-15 9x19 pistol",
         "buyFor": [
           {
-            "price": 15505,
+            "price": 15693,
             "currency": "RUB",
-            "priceRUB": 15505,
+            "priceRUB": 15693,
             "vendor": {
               "name": "Flea Market"
             }
@@ -19951,7 +19951,7 @@
                         "name": "Bottle of Tarkovskaya vodka",
                         "buyFor": [
                           {
-                            "priceRUB": 25887,
+                            "priceRUB": 27203,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -19973,9 +19973,9 @@
                   }
                 },
                 {
-                  "price": 15505,
+                  "price": 15693,
                   "currency": "RUB",
-                  "priceRUB": 15505,
+                  "priceRUB": 15693,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -19993,9 +19993,9 @@
         "name": "Soyuz-TM STM-9 Gen.2 9x19 carbine",
         "buyFor": [
           {
-            "price": 29918,
+            "price": 30532,
             "currency": "RUB",
-            "priceRUB": 29918,
+            "priceRUB": 30532,
             "vendor": {
               "name": "Flea Market"
             }
@@ -20097,9 +20097,9 @@
                   }
                 },
                 {
-                  "price": 29918,
+                  "price": 30532,
                   "currency": "RUB",
-                  "priceRUB": 29918,
+                  "priceRUB": 30532,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -20389,9 +20389,9 @@
         "name": "MP-155 12ga semi-automatic shotgun",
         "buyFor": [
           {
-            "price": 45248,
+            "price": 42560,
             "currency": "RUB",
-            "priceRUB": 45248,
+            "priceRUB": 42560,
             "vendor": {
               "name": "Flea Market"
             }
@@ -20525,9 +20525,9 @@
                   }
                 },
                 {
-                  "price": 45248,
+                  "price": 42560,
                   "currency": "RUB",
-                  "priceRUB": 45248,
+                  "priceRUB": 42560,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -20545,9 +20545,9 @@
         "name": "MTs-255-12 12ga shotgun",
         "buyFor": [
           {
-            "price": 17139,
+            "price": 21251,
             "currency": "RUB",
-            "priceRUB": 17139,
+            "priceRUB": 21251,
             "vendor": {
               "name": "Flea Market"
             }
@@ -20614,9 +20614,9 @@
                   }
                 },
                 {
-                  "price": 17139,
+                  "price": 21251,
                   "currency": "RUB",
-                  "priceRUB": 17139,
+                  "priceRUB": 21251,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -20885,7 +20885,7 @@
                         "name": "Secured magnetic tape cassette",
                         "buyFor": [
                           {
-                            "priceRUB": 69295,
+                            "priceRUB": 69457,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -20900,7 +20900,7 @@
                         "name": "Flat screwdriver (Long)",
                         "buyFor": [
                           {
-                            "priceRUB": 21000,
+                            "priceRUB": 21045,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -21336,7 +21336,7 @@
                         "name": "Keycard with a blue marking",
                         "buyFor": [
                           {
-                            "priceRUB": 344664,
+                            "priceRUB": 349643,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -21495,9 +21495,9 @@
         "name": "FN SCAR-L 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 58959,
+            "price": 60431,
             "currency": "RUB",
-            "priceRUB": 58959,
+            "priceRUB": 60431,
             "vendor": {
               "name": "Flea Market"
             }
@@ -21627,9 +21627,9 @@
                   }
                 },
                 {
-                  "price": 58959,
+                  "price": 60431,
                   "currency": "RUB",
-                  "priceRUB": 58959,
+                  "priceRUB": 60431,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -21656,9 +21656,9 @@
             }
           },
           {
-            "price": 56226,
+            "price": 58495,
             "currency": "RUB",
-            "priceRUB": 56226,
+            "priceRUB": 58495,
             "vendor": {
               "name": "Flea Market"
             }
@@ -21953,7 +21953,7 @@
                         "name": "GP coin",
                         "buyFor": [
                           {
-                            "priceRUB": 37784,
+                            "priceRUB": 36138,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -22091,9 +22091,9 @@
                   }
                 },
                 {
-                  "price": 56226,
+                  "price": 58495,
                   "currency": "RUB",
-                  "priceRUB": 56226,
+                  "priceRUB": 58495,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -22111,9 +22111,9 @@
         "name": "HK USP .45 ACP pistol",
         "buyFor": [
           {
-            "price": 16442,
+            "price": 16861,
             "currency": "RUB",
-            "priceRUB": 16442,
+            "priceRUB": 16861,
             "vendor": {
               "name": "Flea Market"
             }
@@ -22201,9 +22201,9 @@
                   }
                 },
                 {
-                  "price": 16442,
+                  "price": 16861,
                   "currency": "RUB",
-                  "priceRUB": 16442,
+                  "priceRUB": 16861,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -22594,9 +22594,9 @@
         "name": "Chiappa Rhino 50DS .357 revolver",
         "buyFor": [
           {
-            "price": 14685,
+            "price": 14449,
             "currency": "RUB",
-            "priceRUB": 14685,
+            "priceRUB": 14449,
             "vendor": {
               "name": "Flea Market"
             }
@@ -22719,9 +22719,9 @@
                   }
                 },
                 {
-                  "price": 14685,
+                  "price": 14449,
                   "currency": "RUB",
-                  "priceRUB": 14685,
+                  "priceRUB": 14449,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -22739,9 +22739,9 @@
         "name": "MP-18 7.62x54R single-shot rifle",
         "buyFor": [
           {
-            "price": 19874,
+            "price": 20741,
             "currency": "RUB",
-            "priceRUB": 19874,
+            "priceRUB": 20741,
             "vendor": {
               "name": "Flea Market"
             }
@@ -22794,9 +22794,9 @@
                   }
                 },
                 {
-                  "price": 19874,
+                  "price": 20741,
                   "currency": "RUB",
-                  "priceRUB": 19874,
+                  "priceRUB": 20741,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -22831,9 +22831,9 @@
             }
           },
           {
-            "price": 12197,
+            "price": 13794,
             "currency": "RUB",
-            "priceRUB": 12197,
+            "priceRUB": 13794,
             "vendor": {
               "name": "Flea Market"
             }
@@ -22848,9 +22848,9 @@
         "name": "ROP-30 reactive flare cartridge (White)",
         "buyFor": [
           {
-            "price": 14353,
+            "price": 16165,
             "currency": "RUB",
-            "priceRUB": 14353,
+            "priceRUB": 16165,
             "vendor": {
               "name": "Flea Market"
             }
@@ -22873,9 +22873,9 @@
         "name": "HK G36 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 48888,
+            "price": 43240,
             "currency": "RUB",
-            "priceRUB": 48888,
+            "priceRUB": 43240,
             "vendor": {
               "name": "Flea Market"
             }
@@ -23524,9 +23524,9 @@
                   }
                 },
                 {
-                  "price": 48888,
+                  "price": 43240,
                   "currency": "RUB",
-                  "priceRUB": 48888,
+                  "priceRUB": 43240,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -23553,9 +23553,9 @@
             }
           },
           {
-            "price": 10211,
+            "price": 8211,
             "currency": "RUB",
-            "priceRUB": 10211,
+            "priceRUB": 8211,
             "vendor": {
               "name": "Flea Market"
             }
@@ -23570,9 +23570,9 @@
         "name": "Chiappa Rhino 200DS 9x19 revolver",
         "buyFor": [
           {
-            "price": 13638,
+            "price": 11164,
             "currency": "RUB",
-            "priceRUB": 13638,
+            "priceRUB": 11164,
             "vendor": {
               "name": "Flea Market"
             }
@@ -23625,9 +23625,9 @@
                   }
                 },
                 {
-                  "price": 13638,
+                  "price": 11164,
                   "currency": "RUB",
-                  "priceRUB": 13638,
+                  "priceRUB": 11164,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -23645,9 +23645,9 @@
         "name": "Benelli M3 Super 90 dual-mode 12ga shotgun",
         "buyFor": [
           {
-            "price": 41869,
+            "price": 41768,
             "currency": "RUB",
-            "priceRUB": 41869,
+            "priceRUB": 41768,
             "vendor": {
               "name": "Flea Market"
             }
@@ -23735,9 +23735,9 @@
                   }
                 },
                 {
-                  "price": 41869,
+                  "price": 41768,
                   "currency": "RUB",
-                  "priceRUB": 41869,
+                  "priceRUB": 41768,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24045,9 +24045,9 @@
         "name": "SAG AK-545 5.45x39 carbine",
         "buyFor": [
           {
-            "price": 52360,
+            "price": 51400,
             "currency": "RUB",
-            "priceRUB": 52360,
+            "priceRUB": 51400,
             "vendor": {
               "name": "Flea Market"
             }
@@ -24142,9 +24142,9 @@
                   }
                 },
                 {
-                  "price": 52360,
+                  "price": 51400,
                   "currency": "RUB",
-                  "priceRUB": 52360,
+                  "priceRUB": 51400,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24162,9 +24162,9 @@
         "name": "SAG AK-545 Short 5.45x39 carbine",
         "buyFor": [
           {
-            "price": 57377,
+            "price": 56807,
             "currency": "RUB",
-            "priceRUB": 57377,
+            "priceRUB": 56807,
             "vendor": {
               "name": "Flea Market"
             }
@@ -24259,9 +24259,9 @@
                   }
                 },
                 {
-                  "price": 57377,
+                  "price": 56807,
                   "currency": "RUB",
-                  "priceRUB": 57377,
+                  "priceRUB": 56807,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24279,9 +24279,9 @@
         "name": "SR-2M \"Veresk\" 9x21 submachine gun",
         "buyFor": [
           {
-            "price": 52345,
+            "price": 53511,
             "currency": "RUB",
-            "priceRUB": 52345,
+            "priceRUB": 53511,
             "vendor": {
               "name": "Flea Market"
             }
@@ -24531,9 +24531,9 @@
                   }
                 },
                 {
-                  "price": 52345,
+                  "price": 53511,
                   "currency": "RUB",
-                  "priceRUB": 52345,
+                  "priceRUB": 53511,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24551,9 +24551,9 @@
         "name": "Steyr AUG A1 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 39729,
+            "price": 39234,
             "currency": "RUB",
-            "priceRUB": 39729,
+            "priceRUB": 39234,
             "vendor": {
               "name": "Flea Market"
             }
@@ -24629,7 +24629,7 @@
                         "name": "Electronic components",
                         "buyFor": [
                           {
-                            "priceRUB": 11442,
+                            "priceRUB": 11628,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -24644,7 +24644,7 @@
                         "name": "Spark plug",
                         "buyFor": [
                           {
-                            "priceRUB": 9544,
+                            "priceRUB": 12330,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -24666,9 +24666,9 @@
                   }
                 },
                 {
-                  "price": 39729,
+                  "price": 39234,
                   "currency": "RUB",
-                  "priceRUB": 39729,
+                  "priceRUB": 39234,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24686,9 +24686,9 @@
         "name": "Glock 19X 9x19 pistol",
         "buyFor": [
           {
-            "price": 16635,
+            "price": 18356,
             "currency": "RUB",
-            "priceRUB": 16635,
+            "priceRUB": 18356,
             "vendor": {
               "name": "Flea Market"
             }
@@ -24755,9 +24755,9 @@
                   }
                 },
                 {
-                  "price": 16635,
+                  "price": 18356,
                   "currency": "RUB",
-                  "priceRUB": 16635,
+                  "priceRUB": 18356,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -24775,9 +24775,9 @@
         "name": "Steyr AUG A3 5.56x45 assault rifle",
         "buyFor": [
           {
-            "price": 53332,
+            "price": 53746,
             "currency": "RUB",
-            "priceRUB": 53332,
+            "priceRUB": 53746,
             "vendor": {
               "name": "Flea Market"
             }
@@ -25006,9 +25006,9 @@
                   }
                 },
                 {
-                  "price": 53332,
+                  "price": 53746,
                   "currency": "RUB",
-                  "priceRUB": 53332,
+                  "priceRUB": 53746,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -25026,9 +25026,9 @@
         "name": "RSh-12 12.7x55 revolver",
         "buyFor": [
           {
-            "price": 65746,
+            "price": 66838,
             "currency": "RUB",
-            "priceRUB": 65746,
+            "priceRUB": 66838,
             "vendor": {
               "name": "Flea Market"
             }
@@ -25076,7 +25076,7 @@
                         "name": "Military cable",
                         "buyFor": [
                           {
-                            "priceRUB": 32694,
+                            "priceRUB": 30859,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -25091,7 +25091,7 @@
                         "name": "AA Battery",
                         "buyFor": [
                           {
-                            "priceRUB": 8288,
+                            "priceRUB": 7977,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -25104,9 +25104,9 @@
               ],
               "buyFor": [
                 {
-                  "price": 65746,
+                  "price": 66838,
                   "currency": "RUB",
-                  "priceRUB": 65746,
+                  "priceRUB": 66838,
                   "vendor": {
                     "name": "Flea Market"
                   }

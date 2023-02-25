@@ -43,3 +43,16 @@ export async function requestWeaponBuild(requestDetails: any) {
     // console.log(response.data);
     return response.data;
 }
+
+export async function requestWeaponDataCurve(requestDetails: any) {
+    let response = null;
+    ///GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{purchaseType}
+    try {
+        response = await axios.get(API_URL + `/GetWeaponStatsCurve/${requestDetails.presetID}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.purchaseType}`);
+    } catch (error) {
+        throw error;
+    }
+    // console.log(response.data);
+    return response.data;
+
+}

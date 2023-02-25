@@ -196,6 +196,15 @@ namespace WishGranterProto.ExtensionMethods
         public int PriceRUB { get; set; } = -1;
     }
 
+    public record struct CurveDataPoint
+    (
+        int level,
+        int recoil, 
+        int ergo, 
+        int price, 
+        bool invalid
+    );
+
     public record struct J_OfferUnlock
     (
         J_Trader trader,

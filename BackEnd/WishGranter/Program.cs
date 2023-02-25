@@ -5,7 +5,7 @@ using WishGranterProto.ExtensionMethods;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Force.DeepCloner;
-
+using WishGranter;
 
 Console.WriteLine("Wishgranter-API is starting.");
 
@@ -57,6 +57,10 @@ Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedM
 
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
+
+// Init the DataScience instance
+
+WG_DataScience dataScience = new WG_DataScience();
 
 startAPI();
 
@@ -113,6 +117,8 @@ void startAPI()
     app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
     app.MapGet("/GetAmmoOptionsList", () => GetAmmoOptionsList());
 
+    app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{purchaseType}", (string presetID, string mode, int muzzleMode, int purchaseType) => GetWeaponStatsCurve(presetID, mode, muzzleMode, purchaseType));
+
     app.Run();
 }
 
@@ -132,7 +138,6 @@ List<SelectionAmmo> GetAmmoOptionsList()
     Console.WriteLine($"Request for AmmoOptionList");
     return AmmoOptionsList;
 }
-
 
 string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, int purchaseType)
 {
@@ -254,4 +259,16 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double m
     Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
 
     return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
+}
+
+
+
+List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzleMode, int purchaseType)
+{
+    // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
+    WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals((OfferType)purchaseType)).DeepClone();
+
+    Console.WriteLine($"Request for Stats curve of {WantedPreset.Weapon.Name}");
+    var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashDB);
+    return result;
 }
