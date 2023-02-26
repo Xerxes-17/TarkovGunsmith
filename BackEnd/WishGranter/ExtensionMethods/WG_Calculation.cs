@@ -39,38 +39,6 @@ namespace WishGranterProto.ExtensionMethods
             return nextProbabilities;
         }
 
-        private static double BinomialProbabilityFunction(int trials, int successes, double probabilityOfSuccess)
-        {
-            long Factorial(long x)
-            {
-                if (x <= 1)
-                    return 1;
-                else
-                    return x * Factorial(x - 1);
-            }
-
-            long Combination(long a, long b)
-            {
-                if (a <= 1)
-                    return 1;
-
-                return Factorial(a) / (Factorial(b) * Factorial(a - b));
-            }
-
-            double BinomialProbability(int trials, int successes,
-                               double probabilityOfSuccess)
-            {
-                double probOfFailures = 1 - probabilityOfSuccess;
-
-                double c = Combination(trials, successes);
-                double px = Math.Pow(probabilityOfSuccess, successes);
-                double qnx = Math.Pow(probOfFailures, trials - successes);
-
-                return c * px * qnx;
-            }
-            return BinomialProbability(trials, successes, probabilityOfSuccess);
-        }
-
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
         private static double CalculateFactor_A(double armorDurability, int armorClass)
         {

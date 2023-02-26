@@ -1,5 +1,5 @@
 export const ARMOR_TYPES: string[] = [
-    "ArmorVest", "ChestRig", "Helmet"
+    "ArmorVest", "ChestRig", "Helmet", "ArmoredEquipment"
 ]
 
 export const ARMOR_CLASSES: number[] = [2, 3, 4, 5, 6]

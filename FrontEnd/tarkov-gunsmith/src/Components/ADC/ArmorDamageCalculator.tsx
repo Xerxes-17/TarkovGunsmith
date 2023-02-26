@@ -360,7 +360,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Accordion.Header><strong>Armor Filters</strong></Accordion.Header>
                                     <Accordion.Body>
                                         Armor Type <br />
-                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
+                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet", "ArmoredEquipment"])}> All</Button>{' '}
                                         <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
                                             {ARMOR_TYPES.map((item: any, i: number) => {
                                                 return (

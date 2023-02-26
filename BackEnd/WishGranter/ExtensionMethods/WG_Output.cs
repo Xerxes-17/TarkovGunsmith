@@ -220,6 +220,9 @@ namespace WishGranterProto.ExtensionMethods
                 return temp.ArmorClass > 0;
             });
 
+            var armoredEquipment = database.GetItems(x => x.GetType() == typeof(ArmoredEquipment)).Cast<ArmoredEquipment>().ToList();
+            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 1).ToList();
+
             foreach (var item in Helmets)
             {
                 SelectionArmor armorOption = new SelectionArmor();
@@ -305,6 +308,35 @@ namespace WishGranterProto.ExtensionMethods
 
                 result.Add(armorOption);
             }
+
+            foreach (var item in armoredEquipment)
+            {
+                SelectionArmor armorOption = new SelectionArmor();
+
+                armorOption.Value = item.Id;
+                armorOption.Label = item.Name;
+                armorOption.SetImageLinkWithId(item.Id);
+
+                armorOption.ArmorClass = item.ArmorClass;
+                armorOption.MaxDurability = item.MaxDurability;
+                armorOption.ArmorMaterial = item.ArmorMaterial;
+                armorOption.EffectiveDurability = WG_Calculation.GetEffectiveDurability(item.MaxDurability, (ArmorMaterial)item.ArmorMaterial);
+
+                armorOption.TraderLevel = WG_Market.GetItemTraderLevelByItemId(item.Id);
+                if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == true)
+                {
+                    armorOption.TraderLevel = 5; // Can buy on Flea.
+                }
+                else if (armorOption.TraderLevel == -1 && item.CanSellOnRagfair == false)
+                {
+                    armorOption.TraderLevel = 6;
+                }
+
+                armorOption.Type = "ArmoredEquipment";
+
+                result.Add(armorOption);
+            }
+
             result = result.OrderBy(x => x.Label).ToList();
 
             //using StreamWriter writetext = new("outputs\\MyArmors.json"); // This is here as a debug/verify
@@ -312,7 +344,6 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-
 
         //! Going to hold onto this one because they could be useful at times for debugging.
         public static void WriteOutputFileWeapon(Weapon weapon, string filename)
@@ -403,159 +434,6 @@ namespace WishGranterProto.ExtensionMethods
             }
 
             return result;
-        }
-
-        public static void ChestRigReport(List<ChestRig> ChestRigs, string filename)
-        {
-            DateTime dateTime = DateTime.Now;
-            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("Name,ArmorClass,ArmorMaterial,MaxDurability,BluntThroughput,TraderLevel");
-                sw.Close();
-            }
-
-            foreach (ChestRig rig in ChestRigs)
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.Write($"{rig.Name},");
-                    sw.Write($"{rig.ArmorClass},");
-                    sw.Write($"{rig.ArmorMaterial},");
-                    sw.Write($"{rig.MaxDurability},");
-                    sw.Write($"{rig.BluntThroughput},");
-
-                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(rig.Id)}\n");
-
-                    sw.Close();
-                }
-            }
-        }
-
-        public static void ArmorReport(List<Armor> Armors, string filename)
-        {
-            DateTime dateTime = DateTime.Now;
-            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("Name,ArmorClass,ArmorMaterial,MaxDurability,BluntThroughput,Indestructibility,TraderLevel");
-                sw.Close();
-            }
-
-            foreach (Armor armor in Armors)
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.Write($"{armor.Name},");
-                    sw.Write($"{armor.ArmorClass},");
-                    sw.Write($"{armor.ArmorMaterial},");
-                    sw.Write($"{armor.MaxDurability},");
-                    sw.Write($"{armor.BluntThroughput},");
-                    sw.Write($"{armor.Indestructibility},");
-
-                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(armor.Id)}\n");
-
-                    sw.Close();
-                }
-            }
-        }
-
-        public static void AmmoReport(List<Ammo> Ammo, string filename)
-        {
-            DateTime dateTime = DateTime.Now;
-            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("Name,Caliber,Damage,PenetrationPower,PenetrationPowerDiviation,ArmorDamage%,Accuracy,Recoil,FragChance,LBC,HBC,Speed,Tracer,TraderLevel");
-                sw.Close();
-            }
-
-            foreach (Ammo bullet in Ammo)
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.Write($"{bullet.Name},");
-                    sw.Write($"{bullet.Caliber},");
-                    sw.Write($"{bullet.Damage},");
-                    sw.Write($"{bullet.PenetrationPower},");
-                    sw.Write($"{bullet.PenetrationPowerDiviation},");
-                    sw.Write($"{bullet.ArmorDamage},");
-                    sw.Write($"{bullet.AmmoAccuracy},");
-                    sw.Write($"{bullet.AmmoRec},");
-                    if (bullet.PenetrationPower > 19)
-                        sw.Write($"{bullet.FragmentationChance},");
-                    else
-                        sw.Write("0,");
-                    sw.Write($"{bullet.LightBleedingDelta},");
-                    sw.Write($"{bullet.HeavyBleedingDelta},");
-                    sw.Write($"{bullet.InitialSpeed},");
-                    sw.Write($"{bullet.Tracer},");
-
-                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(bullet.Id)}\n");
-
-                    sw.Close();
-                }
-            }
-        }
-
-        public static void WeaponReport(List<Weapon> Weapons, string filename)
-        {
-            DateTime dateTime = DateTime.Now;
-            string path = $"results\\{filename}_{dateTime.ToFileTime()}.csv";
-
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine("Name,Caliber,RoF,SS_RoF," +
-                    "Ergonomics,RecoilForceUp,RecoilDispersion,Convergence,RecoilAngle,CameraRecoil,DeviationCurve," +
-                    "HipAccuracyRestorationDelay,HipAccuracyRestorationSpeed,HipInnaccuracyGain," +
-                    "DurabilityBurnRatio,HeatFactorGun,CoolFactorGun,AllowOverheat,HeatFactorByShot,CoolFactorGunMods," +
-                    "BaseMalfunctionChance,AllowJam,AllowFeed,AllowMisfire,AllowSlide," +
-                    "TraderLevel");
-                sw.Close();
-            }
-
-            foreach (Weapon item in Weapons)
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.Write($"{item.Name},");
-                    sw.Write($"{item.AmmoCaliber},");
-                    sw.Write($"{item.BFirerate},");
-                    sw.Write($"{item.SingleFireRate},");
-
-                    sw.Write($"{item.Ergonomics},");
-                    sw.Write($"{item.RecoilForceUp},");
-                    sw.Write($"{item.RecoilDispersion},");
-                    sw.Write($"{item.Convergence},");
-                    sw.Write($"{item.RecoilAngle},");
-                    sw.Write($"{item.CameraRecoil},");
-                    sw.Write($"{item.DeviationCurve },");
-
-                    sw.Write($"{item.HipAccuracyRestorationDelay},");
-                    sw.Write($"{item.HipAccuracyRestorationSpeed},");
-                    sw.Write($"{item.HipInaccuracyGain},");
-
-                    sw.Write($"{item.DurabilityBurnRatio},");
-                    sw.Write($"{item.HeatFactorGun},");
-                    sw.Write($"{item.CoolFactorGun},");
-                    sw.Write($"{item.AllowOverheat},");
-                    sw.Write($"{item.HeatFactorByShot},");
-                    sw.Write($"{item.CoolFactorGunMods},");
-
-                    sw.Write($"{item.BaseMalfunctionChance},");
-                    sw.Write($"{item.AllowJam},");
-                    sw.Write($"{item.AllowFeed},");
-                    sw.Write($"{item.AllowMisfire},");
-                    sw.Write($"{item.AllowSlide},");
-
-                    sw.Write($"{WG_Market.GetItemTraderLevelByItemId(item.Id)}\n");
-
-                    sw.Close();
-                }
-            }
         }
     }
 }

@@ -251,6 +251,18 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
         armorItem.BluntThroughput = temp.BluntThroughput;
     }
 
+    else if (Armor.GetType() == typeof(ArmoredEquipment))
+    {
+        var temp = (ArmoredEquipment)Armor;
+        armorItem.Name = temp.Name;
+        armorItem.Id = temp.Id;
+        armorItem.MaxDurability = temp.MaxDurability;
+        armorItem.ArmorClass = temp.ArmorClass;
+        armorItem.ArmorMaterial = temp.ArmorMaterial;
+        armorItem.ArmorType = "Helmet";
+        armorItem.BluntThroughput = temp.BluntThroughput;
+    }
+
     return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
 }
 

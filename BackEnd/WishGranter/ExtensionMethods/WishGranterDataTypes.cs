@@ -205,28 +205,37 @@ namespace WishGranterProto.ExtensionMethods
         bool invalid
     );
 
-    public record struct J_OfferUnlock
-    (
-        J_Trader trader,
-        int level,
-        J_Item item
-    );
-    public record struct J_Trader
-    (
-        string id,
-        string name
+    public class ArmorTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public int ArmorClass { get; set; } = -1;
+        public int MaxDurability { get; set; } = -1;
+        public ArmorMaterial Material { get; set; } = new();
+        public int EffectiveDurability { get; set; } = -1;
+        public int BluntThroughput { get; set; } = -1;
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public string Type { get; set; } = "default"; // "Helmet", "ArmorVest", "ChestRig", "ArmoredEquipment"
+    }
 
-    );
-    public record struct J_Item
-    (
-        string id,
-        string name
-    );
-    public record struct J_CashOffer
-    (
-        int priceRUB,
-        string currency,
-        int price,
-        J_Item item
-    );
+    public class AmmoTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public string Caliber { get; set; } = "";
+        public int Damage { get; set; } = -1;
+        public int PenetrationPower { get; set; } = -1;
+        public int ArmorDamagePerc { get; set; } = -1;
+        public double BaseArmorDamage { get; set; } = -1;
+
+        public double LightBleedDelta { get; set; } = -1;
+        public double HeavyBleedDelta { get; set; } = -1;
+        public double FragChance { get; set; } = -1;
+        public double InitialSpeed { get; set; } = -1;
+        public double AmmoRec { get; set; } = -1;
+        public bool Tracer { get; set; } = false;
+    }
 }
