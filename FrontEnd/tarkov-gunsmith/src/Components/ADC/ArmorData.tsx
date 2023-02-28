@@ -11,7 +11,8 @@ export const MATERIALS: string[] = [
     "Titan",
     "Aluminium",
     "Steel", //Renamed from ArmoredSteel
-    "Ceramic"
+    "Ceramic",
+    "Glass"
 ]
 
 export enum MaterialType {

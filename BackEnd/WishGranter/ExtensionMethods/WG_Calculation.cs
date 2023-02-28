@@ -48,25 +48,33 @@ namespace WishGranterProto.ExtensionMethods
         // This function provides the effective durability of an armor item for a given max durability and armor material.
         public static int GetEffectiveDurability(int maxDurability, ArmorMaterial armorMaterial)
         {
-            double armor_destructability = -1;
-
-            if (armorMaterial == ArmorMaterial.Aramid)
-                armor_destructability = .25;
-            else if (armorMaterial == ArmorMaterial.UHMWPE)
-                armor_destructability = .45;
-            else if (armorMaterial == ArmorMaterial.Combined)
-                armor_destructability = .5;
-            else if (armorMaterial == ArmorMaterial.Titan)
-                armor_destructability = .55;
-            else if (armorMaterial == ArmorMaterial.Aluminium)
-                armor_destructability = .6;
-            else if (armorMaterial == ArmorMaterial.ArmoredSteel)
-                armor_destructability = .7;
-            else if (armorMaterial == ArmorMaterial.Ceramic)
-                armor_destructability = .8;
-
+            double armor_destructability = GetDestructabilityFromMaterial(armorMaterial);
 
             return (int) (maxDurability / armor_destructability);
+        }
+
+        public static double GetDestructabilityFromMaterial(ArmorMaterial armor_material)
+        {
+            double armor_destructability = -1;
+
+            if (armor_material == ArmorMaterial.Aramid)
+                armor_destructability = .25;
+            else if (armor_material == ArmorMaterial.UHMWPE)
+                armor_destructability = .45;
+            else if (armor_material == ArmorMaterial.Combined)
+                armor_destructability = .5;
+            else if (armor_material == ArmorMaterial.Titan)
+                armor_destructability = .55;
+            else if (armor_material == ArmorMaterial.Aluminium)
+                armor_destructability = .6;
+            else if (armor_material == ArmorMaterial.ArmoredSteel)
+                armor_destructability = .7;
+            else if (armor_material == ArmorMaterial.Ceramic)
+                armor_destructability = .8;
+            else if (armor_material == ArmorMaterial.Glass)
+                armor_destructability = .8;
+
+            return armor_destructability;
         }
 
         // Self explainatory
@@ -102,22 +110,7 @@ namespace WishGranterProto.ExtensionMethods
             int penetrationIndex = (bullet_penetration / 10) - 2;
             double ArmorDamageMultiplier = ArmorDamageMultipliers[penetrationIndex, armor_class - 2];
 
-            double armor_destructability = -1;
-
-            if (armor_material == ArmorMaterial.Aramid)
-                armor_destructability = .25;
-            else if (armor_material == ArmorMaterial.UHMWPE)
-                armor_destructability = .45;
-            else if (armor_material == ArmorMaterial.Combined)
-                armor_destructability = .5;
-            else if (armor_material == ArmorMaterial.Titan)
-                armor_destructability = .55;
-            else if (armor_material == ArmorMaterial.Aluminium)
-                armor_destructability = .6;
-            else if (armor_material == ArmorMaterial.ArmoredSteel)
-                armor_destructability = .7;
-            else if (armor_material == ArmorMaterial.Ceramic)
-                armor_destructability = .8;
+            double armor_destructability = GetDestructabilityFromMaterial(armor_material);
 
             double RoundUpAdjustment = Math.Min(1, (bullet_penetration / 10D) / armor_class);
 
@@ -254,7 +247,17 @@ namespace WishGranterProto.ExtensionMethods
                 }
                 // Let's get the shot that should kill
                 var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
-                testResult.KillShot = index + 1;
+
+                // In the event that the average damage doesn't go below zero before the end of an armor test serires, set tha final index as the kill shot
+                //? This is a small hack until I can go back to this and remake the ADC into a proper terminal ballistics sim.
+                if(index == -1)
+                {
+                    testResult.KillShot = testResult.Shots.Count;
+                }
+                else
+                {
+                    testResult.KillShot = index + 1;
+                }
             }
             
 

@@ -210,6 +210,9 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
 {
+    Console.WriteLine($"Request for CalculateArmorVsBulletSeries");
+
+
     var Armor = RatStashDB.GetItem(armorID);
     var Bullet = RatStashDB.GetItem(bulletID);
 

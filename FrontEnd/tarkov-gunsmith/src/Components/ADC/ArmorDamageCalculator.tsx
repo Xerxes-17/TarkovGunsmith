@@ -68,6 +68,7 @@ export default function ArmorDamageCalculator(props: any) {
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorOptionsList');
+        console.log(response)
         setArmorOptions(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
@@ -237,7 +238,9 @@ export default function ArmorDamageCalculator(props: any) {
             ammoId: ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
+            console.log(response)
             setResult(response);
+            
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
