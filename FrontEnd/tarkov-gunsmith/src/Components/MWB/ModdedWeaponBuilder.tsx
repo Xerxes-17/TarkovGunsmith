@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert } from "react-bootstrap";
 import Select from 'react-select'
-import { requestWeaponBuild } from "../../Context/Requests";
+import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, Label, YAxis, Legend, Line, Bar, Tooltip, ReferenceLine } from "recharts";
+import { requestWeaponBuild, requestWeaponDataCurve } from "../../Context/Requests";
 import { API_URL } from "../../Util/util";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
@@ -32,6 +33,14 @@ export default function ModdedWeaponBuilder(props: any) {
         offerType: OfferType;
         priceRUB: number;
     }
+
+    interface CurveDataPoint {
+        level: number,
+        recoil: number,
+        ergo: number,
+        price: number,
+        invalid: Boolean
+    };
 
     const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
     const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
@@ -153,14 +162,14 @@ export default function ModdedWeaponBuilder(props: any) {
         setPeacekeeperLevel(peacekeeper);
         setJaegerLevel(jaeger);
     }
-
-
-
     const [MuzzleModeToggle, setMuzzleModeToggle] = useState(1);
     const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
 
     const [FittingPriority, setFittingPriority] = useState("recoil");
     const handleFPChange = (val: any) => setFittingPriority(val);
+
+    const [fittingCurve, setFittingCurve] = useState<CurveDataPoint[]>();
+    const [waitingForCurve, setWaitingForCurve] = useState(false);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -178,6 +187,24 @@ export default function ModdedWeaponBuilder(props: any) {
             alert(`The error was: ${error}`);
             // console.log(error);
         });
+
+        const curveRequestDetails = {
+            presetID: chosenGun.value,
+            mode: FittingPriority,
+            muzzleMode: MuzzleModeToggle,
+            purchaseType: chosenGun.offerType
+        }
+        setWaitingForCurve(true);
+        requestWeaponDataCurve(curveRequestDetails).then(response => {
+            setWaitingForCurve(false);
+            setFittingCurve(response);
+            // console.log(response);
+        }).catch(error => {
+            alert(`The error was: ${error}`);
+            setWaitingForCurve(false);
+        });
+
+
     }
 
     const handleWeaponSelectionChange = (selectedOption: any) => {
@@ -263,7 +290,7 @@ export default function ModdedWeaponBuilder(props: any) {
     )
 
     let TopSection = (
-        <Col xl={6}>
+        <Col xl>
             <Card bg="dark" border="secondary" text="light" className="xl" >
                 <Card.Header as="h2" >
                     <Stack direction="horizontal" gap={3}>
@@ -283,91 +310,96 @@ export default function ModdedWeaponBuilder(props: any) {
                             max={40}
                         />
 
-                        <Form.Text>Trader Levels</Form.Text><br />
-                        <Stack direction="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
-                            <Button disabled size="sm" variant="outline-info">
-                                <Stack direction="horizontal" gap={2} >
-                                    {praporLevel}
-                                    <div className="vr" />
-                                    Prapor
-                                </Stack>
-                            </Button>
-                            <Button disabled size="sm" variant="outline-info">
-                                <Stack direction="horizontal" gap={2}>
-                                    {skierLevel}
-                                    <div className="vr" />
-                                    Skier
-                                </Stack>
-                            </Button>
-                            <Button disabled size="sm" variant="outline-info">
-                                <Stack direction="horizontal" gap={2}>
-                                    {mechanicLevel}
-                                    <div className="vr" />
-                                    Mechanic
-                                </Stack>
-                            </Button>
-                            <Button disabled size="sm" variant="outline-info">
-                                <Stack direction="horizontal" gap={2}>
-                                    {peacekeeperLevel}
-                                    <div className="vr" />
-                                    Peacekeeper
-                                </Stack>
-                            </Button>
-                            <Button disabled size="sm" variant="outline-info">
-                                <Stack direction="horizontal" gap={2}>
-                                    {jaegerLevel}
-                                    <div className="vr" />
-                                    Jaeger
-                                </Stack>
-                            </Button>
-                        </Stack>
 
-                        <br />
-                        <Form.Label>Purchase Offer Types</Form.Label><br />
-                        <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
-                                Cash
-                            </ToggleButton>
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={OfferType.Barter}>
-                                Barter
-                            </ToggleButton>
-                            <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={OfferType.Flea}>
-                                Flea
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                        <br /><br />
+                        <Row>
+                            <Col>
+                                <Form.Text>Trader Levels</Form.Text><br />
+                                <Stack direction="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
+                                    <Button disabled size="sm" variant="outline-info">
+                                        <Stack direction="horizontal" gap={2} >
+                                            {praporLevel}
+                                            <div className="vr" />
+                                            Prapor
+                                        </Stack>
+                                    </Button>
+                                    <Button disabled size="sm" variant="outline-info">
+                                        <Stack direction="horizontal" gap={2}>
+                                            {skierLevel}
+                                            <div className="vr" />
+                                            Skier
+                                        </Stack>
+                                    </Button>
+                                    <Button disabled size="sm" variant="outline-info">
+                                        <Stack direction="horizontal" gap={2}>
+                                            {mechanicLevel}
+                                            <div className="vr" />
+                                            Mechanic
+                                        </Stack>
+                                    </Button>
+                                    <Button disabled size="sm" variant="outline-info">
+                                        <Stack direction="horizontal" gap={2}>
+                                            {peacekeeperLevel}
+                                            <div className="vr" />
+                                            Peacekeeper
+                                        </Stack>
+                                    </Button>
+                                    <Button disabled size="sm" variant="outline-info">
+                                        <Stack direction="horizontal" gap={2}>
+                                            {jaegerLevel}
+                                            <div className="vr" />
+                                            Jaeger
+                                        </Stack>
+                                    </Button>
+                                </Stack>
 
-                        <Form.Label>Muzzle Device Mode</Form.Label><br />
-                        <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={MuzzleModeToggle} onChange={handleMDMChange} >
-                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Loud" value={1}>
-                                Loud
-                            </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Silenced" value={2}>
-                                Silenced
-                            </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Any" value={3}>
-                                Any
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                        <br /><br />
+                                <br />
+                                <Form.Label>Purchase Offer Types</Form.Label><br />
+                                <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
+                                    <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
+                                        Cash
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={OfferType.Barter}>
+                                        Barter
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={OfferType.Flea}>
+                                        Flea
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                                <br /><br />
+                            </Col>
+                            <Col>
+                                <Form.Label>Muzzle Device Mode</Form.Label><br />
+                                <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={MuzzleModeToggle} onChange={handleMDMChange} >
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Loud" value={1}>
+                                        Loud
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Silenced" value={2}>
+                                        Silenced
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Any" value={3}>
+                                        Any
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                                <br /><br />
 
-                        <Form.Label>Fitting Priority</Form.Label><br />
-                        <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={FittingPriority} onChange={handleFPChange}>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
-                                Recoil
-                            </ToggleButton>
-                            <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"Meta Recoil"}>
-                                Meta Recoil
-                            </ToggleButton>
-                            <ToggleButton variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
-                                Ergonomics
-                            </ToggleButton>
-                            <ToggleButton variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"Meta Ergonomics"}>
-                                Meta Ergonomics
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                        <br />
-
+                                <Form.Label>Fitting Priority</Form.Label><br />
+                                <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={FittingPriority} onChange={handleFPChange}>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
+                                        Recoil
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"Meta Recoil"}>
+                                        Meta Recoil
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
+                                        Ergonomics
+                                    </ToggleButton>
+                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"Meta Ergonomics"}>
+                                        Meta Ergonomics
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                                <br />
+                            </Col>
+                        </Row>
                         {WeaponOptions.length === 0 && (
                             <>
                                 <br />
@@ -487,7 +519,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                     <strong>Damage</strong> <br />
                                     {result.SelectedPatron.Damage}<br />
                                     <strong>Frag Chance</strong><br />
-                                    {(result.SelectedPatron.FragChance * 100).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 }) } %<br />
+                                    {(result.SelectedPatron.FragChance * 100).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} %<br />
                                 </Col>
                                 <Col>
                                     <strong>Penetration</strong>  <br />
@@ -543,11 +575,161 @@ export default function ModdedWeaponBuilder(props: any) {
         )
     }
 
+    let dataCurveSection = (
+        <>
+        </>
+    );
+    if (result !== undefined) {
+        if (waitingForCurve === false) {
+            console.log(fittingCurve)
+            dataCurveSection = (
+                <Col xl>
+                    <Card bg="dark" border="secondary" text="light" className="xl">
+
+                        <Card.Header as="h3">
+                            Stats curve of {result.ShortName} in mode "{FittingPriority}"
+                        </Card.Header>
+                        <Card.Body>
+                            <div className='black-text'>
+                                <ResponsiveContainer
+                                    width="100%"
+                                    height="100%"
+                                    minWidth={200}
+                                    minHeight={400}
+                                >
+                                    <ComposedChart
+                                        width={800}
+                                        height={400}
+                                        data={fittingCurve}
+                                        margin={{
+                                            top: 5,
+                                            right: 30,
+                                            left: 20,
+                                            bottom: 20,
+                                        }}
+                                    >
+                                        <CartesianGrid strokeDasharray="7 7" />
+                                        <XAxis
+                                            dataKey={"level"}
+                                            type="number"
+                                            domain={[0, 40]}
+                                        >
+                                            <Label
+                                                style={{
+                                                    textAnchor: "middle",
+                                                    fontSize: "100%",
+                                                    fill: "white",
+                                                }}
+                                                position="bottom"
+                                                value={"Player Level"} />
+                                        </XAxis>
+                                        <YAxis
+                                            yAxisId="left"
+                                            type="number"
+                                        >
+                                            <Label
+                                                style={{
+                                                    textAnchor: "middle",
+                                                    fontSize: "100%",
+                                                    fill: "white",
+                                                }}
+                                                angle={270}
+                                                position="left"
+                                                value={"Ergo / Recoil"}
+                                            />
+                                        </YAxis>
+
+                                        <YAxis
+                                            yAxisId="right"
+                                            orientation="right"
+                                            dataKey="price"
+                                            type="number"
+                                            tickFormatter={(value: number) => value.toLocaleString("en-US")}
+                                        >
+                                            <Label
+                                                style={{
+                                                    textAnchor: "middle",
+                                                    fontSize: "100%",
+                                                    fill: "white",
+                                                }}
+                                                angle={270}
+                                                position="right"
+                                                value={"Price - ₽"}
+                                                offset={15}
+                                            />
+                                        </YAxis>
+                                        <YAxis
+                                            domain={[1, 0]}
+                                            yAxisId="BOOL"
+                                            hide={true}
+                                        />
+                                        <Tooltip
+                                            contentStyle={{ backgroundColor: "#dde9f0" }}
+                                            formatter={function (value, name) {
+                                                if (name === "price") {
+                                                    return `${value.toLocaleString("en-US")} ₽`;
+                                                }
+                                                else {
+                                                    return `${value}`;
+                                                }
+
+                                            }}
+                                            labelFormatter={function (value) {
+                                                return `level: ${value}`;
+                                            }}
+
+                                        />
+                                        <Legend verticalAlign="top" />
+                                        <Line yAxisId="right" type="monotone" dataKey="price" stroke="#faa107" activeDot={{ r: 8 }} />
+                                        <Line yAxisId="left" type="monotone" dataKey="recoil" stroke="#239600" />
+                                        <Line yAxisId="left" type="monotone" dataKey="ergo" stroke="#2667ff" />
+                                        <Bar yAxisId="BOOL" dataKey="invalid" barSize={25} fill="red" />
+                                    </ComposedChart >
+                                </ResponsiveContainer>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            )
+        }
+
+        else if (waitingForCurve === true) {
+            dataCurveSection = (
+                <Col xl>
+                    <Card bg="dark" border="secondary" text="light" className="xl">
+
+                        <Card.Header as="h3">
+                            Stats curve of {result.ShortName} in mode "{FittingPriority}"
+                        </Card.Header>
+                        <Card.Body>
+                            <Button variant="dark" disabled>
+                                <Stack direction="horizontal" gap={2}>
+                                    <Spinner animation="grow" role="status" size="sm">
+
+                                        <span className="visually-hidden">Waiting for Stats Curve</span>
+                                    </Spinner>
+                                    <div className="vr" />
+                                    Waiting for Stats Curve
+                                </Stack>
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            )
+        }
+
+    }
+
     let content = (
         <>
             <div className="row gy-2">
                 {TopSection}
+            </div>
+            <div className="row gy-2">
                 {ResultsSection}
+            </div>
+            <div className="row gy-2">
+                {dataCurveSection}
             </div>
         </>
     );

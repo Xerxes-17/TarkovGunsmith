@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Col } from "react-bootstrap";
-import { CartesianGrid, Legend, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, Label, Bar, ComposedChart, TooltipProps } from "recharts";
-import { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import { CartesianGrid, Legend, Line, ResponsiveContainer, XAxis, YAxis, Tooltip, Label, Bar, ComposedChart} from "recharts";
 import { requestWeaponDataCurve } from "../../Context/Requests";
 
 export default function WeaponCurveProto(props: any) {
@@ -21,36 +20,17 @@ export default function WeaponCurveProto(props: any) {
             purchaseType: 2
         }
         requestWeaponDataCurve(requestDetails).then(response => {
-            setResult(response);
+            setFittingCurve(response);
             console.log(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
         });
     }
-    const [result, setResult] = useState<CurveDataPoint[]>();
-    let resultCard;
+    const [fittingCurve, setFittingCurve] = useState<CurveDataPoint[]>();
+    let dataCurveSection;
 
-    const CustomTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>): JSX.Element => {
-        if (active && payload && payload.length) {
-            return (
-                <div className="custom-tooltip">
-                    <p className="label">{`${label} : ${payload[0].value}`}</p>
-                    <p className="label">{`${label} : ${payload[1].value}`}</p>
-                    <p className="label">{`${label} : ${payload[2].value}`}</p>
-                    <p className="label">{`${label} : ${payload[3].value}`}</p>
-                    <p className="desc">Anything you want can be displayed here.</p>
-                </div>
-            );
-        }
-        return (
-            <>
-            </>
-        )
-    };
-
-    if (result !== undefined) {
-        resultCard = (
+    if (fittingCurve !== undefined) {
+        dataCurveSection = (
             <>
                 <div className='black-text'>
                     <ResponsiveContainer width={850}
@@ -58,7 +38,7 @@ export default function WeaponCurveProto(props: any) {
                         <ComposedChart
                             width={800}
                             height={400}
-                            data={result}
+                            data={fittingCurve}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -142,18 +122,15 @@ export default function WeaponCurveProto(props: any) {
                             <Line yAxisId="left" type="monotone" dataKey="recoil" stroke="#239600" />
                             <Line yAxisId="left" type="monotone" dataKey="ergo" stroke="#2667ff" />
                             <Bar yAxisId="BOOL" dataKey="invalid" barSize={25} fill="red" />
+                            
                         </ComposedChart >
                     </ResponsiveContainer>
                 </div>
             </>
-
-
-
-
         )
     }
     else {
-        resultCard = (
+        dataCurveSection = (
             <>
             </>)
     }
@@ -169,7 +146,7 @@ export default function WeaponCurveProto(props: any) {
                     </Card.Header>
                     <Card.Body>
                         <Button variant="secondary" onClick={handleGetCurveData}>Get that bread</Button> <br />
-                        {resultCard}
+                        {dataCurveSection}
                     </Card.Body>
                 </Card>
             </Col>
