@@ -215,7 +215,7 @@ namespace WishGranterProto.ExtensionMethods
         public int MaxDurability { get; set; } = -1;
         public ArmorMaterial Material { get; set; } = new();
         public int EffectiveDurability { get; set; } = -1;
-        public int BluntThroughput { get; set; } = -1;
+        public double BluntThroughput { get; set; } = -1;
         public int Price { get; set; } = 0;
         public int TraderLevel { get; set; } = -1;
         public string Type { get; set; } = "default"; // "Helmet", "ArmorVest", "ChestRig", "ArmoredEquipment"

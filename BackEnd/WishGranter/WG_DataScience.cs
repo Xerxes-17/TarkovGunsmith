@@ -108,12 +108,14 @@ namespace WishGranter
                 var temp = (Headwear)item;
 
                 row.Id = temp.Id;
-                row.Name = temp.Name;
+                row.Name = temp.ShortName;
 
                 row.ArmorClass = temp.ArmorClass;
                 row.MaxDurability = temp.MaxDurability;
                 row.Material = temp.ArmorMaterial;
                 row.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
+                row.BluntThroughput = temp.BluntThroughput;
 
                 row.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
                 if (row.TraderLevel == -1 && item.CanSellOnRagfair == true)
@@ -135,13 +137,15 @@ namespace WishGranter
                 var temp = (Armor)item;
 
                 row.Id = temp.Id;
-                row.Name = temp.Name;
+                row.Name = temp.ShortName;
 
                 row.ArmorClass = temp.ArmorClass;
                 row.MaxDurability = temp.MaxDurability;
                 row.Material = temp.ArmorMaterial;
                 row.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
                 row.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
+
+                row.BluntThroughput = temp.BluntThroughput;
 
                 if (row.TraderLevel == -1 && item.CanSellOnRagfair == true)
                 {
@@ -162,12 +166,14 @@ namespace WishGranter
                 var temp = (ChestRig)item;
 
                 row.Id = temp.Id;
-                row.Name = temp.Name;
+                row.Name = temp.ShortName;
 
                 row.ArmorClass = temp.ArmorClass;
                 row.MaxDurability = temp.MaxDurability;
                 row.Material = temp.ArmorMaterial;
                 row.EffectiveDurability = WG_Calculation.GetEffectiveDurability(temp.MaxDurability, temp.ArmorMaterial);
+
+                row.BluntThroughput = temp.BluntThroughput;
 
                 row.TraderLevel = WG_Market.GetItemTraderLevelByItemId(temp.Id);
                 if (row.TraderLevel == -1 && item.CanSellOnRagfair == true)
@@ -188,12 +194,14 @@ namespace WishGranter
                 ArmorTableRow row = new();
 
                 row.Id = item.Id;
-                row.Name = item.Name;
+                row.Name = item.ShortName;
 
                 row.ArmorClass = item.ArmorClass;
                 row.MaxDurability = item.MaxDurability;
                 row.Material = item.ArmorMaterial;
                 row.EffectiveDurability = WG_Calculation.GetEffectiveDurability(item.MaxDurability, item.ArmorMaterial);
+
+                row.BluntThroughput = item.BluntThroughput;
 
                 row.TraderLevel = WG_Market.GetItemTraderLevelByItemId(item.Id);
                 if (row.TraderLevel == -1 && item.CanSellOnRagfair == true)
@@ -225,7 +233,33 @@ namespace WishGranter
             prohibited.Add("5996f6fc86f7745e585b4de3");
             prohibited.Add("5996f6d686f77467977ba6cc");
             prohibited.Add("63b35f281745dd52341e5da7");
+            prohibited.Add("6241c316234b593b5676b637");
+            prohibited.Add("5e85a9f4add9fe03027d9bf1");
+            prohibited.Add("5f647fd3f6e4ab66c82faed6");
 
+            // Fleres
+            prohibited.Add("62389ba9a63f32501b1b4451");
+            prohibited.Add("62389bc9423ed1685422dc57");
+            prohibited.Add("62389be94d5d474bf712e709");
+            prohibited.Add("635267f063651329f75a4ee8");
+            prohibited.Add("624c0570c9b794431568f5d5");
+            prohibited.Add("624c09cfbc2e27219346d955");
+            prohibited.Add("624c09da2cec124eb67c1046");
+            prohibited.Add("624c09e49b98e019a3315b66");
+            prohibited.Add("62389aaba63f32501b1b444f");
+
+            //Grenade Stuff
+            prohibited.Add("5ede47641cf3836a88318df1");
+            prohibited.Add("5996f6cb86f774678763a6ca");
+            prohibited.Add("5ede47641cf3836a88318df1");
+            prohibited.Add("5ede475339ee016e8c534742");
+            prohibited.Add("5ede47405b097655935d7d16");
+            prohibited.Add("5f0c892565703e5c461894e9");
+            prohibited.Add("5ede475b549eed7c6d5c18fb");
+            prohibited.Add("5ede474b0c226a66f5402622");
+            prohibited.Add("5d70e500a4b9364de70d38ce");
+            prohibited.Add("5656eb674bdc2d35148b457c");
+            prohibited.Add("5ede4739e0350d05467f73e8");
 
             List<Ammo> Ammo = database.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
 
@@ -248,14 +282,23 @@ namespace WishGranter
                     row.TraderLevel = 6;
                 }
 
-                row.Caliber = item.Caliber;
+                row.Caliber = item.Caliber.Remove(0,7);
                 row.Damage = item.Damage;
                 row.PenetrationPower = item.PenetrationPower;
                 row.ArmorDamagePerc = item.ArmorDamage;
-                row.BaseArmorDamage = (item.PenetrationPower * (item.ArmorDamage / 100));
+                row.BaseArmorDamage = (item.PenetrationPower * ((double) item.ArmorDamage / 100));
                 row.LightBleedDelta = item.LightBleedingDelta;
                 row.HeavyBleedDelta = item.HeavyBleedingDelta;
-                row.FragChance = item.FragmentationChance;
+
+                if(item.PenetrationPower < 20)
+                {
+                    row.FragChance = 0;
+                }
+                else
+                {
+                    row.FragChance = item.FragmentationChance;
+                }
+                
                 row.InitialSpeed = item.InitialSpeed;
                 row.AmmoRec = item.AmmoRec;
                 row.Tracer = item.Tracer;

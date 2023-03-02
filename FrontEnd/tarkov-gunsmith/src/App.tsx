@@ -11,8 +11,8 @@ import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
-import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SCI, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
-import WeaponCurveProto from './Components/DataScience/WeaponCurveProto';
+import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SHEETS, HOME, MODDED_WEAPON_BUILDER } from './Util/links';
+import DataSheetsBase from './Components/DataSheets/DataSheetsBase';
 function App() {
   return (
     <>
@@ -25,7 +25,7 @@ function App() {
             <Route path={ABOUT} element={<About />} />
             <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
             <Route path={ARMOR_DAMAGE_CALC} element={<ArmorDamageCalculator />} />
-            <Route path={DATA_SCI} element={<WeaponCurveProto />} />
+            <Route path={DATA_SHEETS} element={<DataSheetsBase />} />
 
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />

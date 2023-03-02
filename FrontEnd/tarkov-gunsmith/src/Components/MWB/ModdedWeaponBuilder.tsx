@@ -55,7 +55,7 @@ export default function ModdedWeaponBuilder(props: any) {
         weapons();
     }, [])
 
-    // This useEffect will watch for a change to WeaponOptions or playeLevel, then update the filteredStockWeaponOptions
+    // This useEffect will watch for a change to WeaponOptions or playerLevel, then update the filteredStockWeaponOptions
     useEffect(() => {
         const result = WeaponOptions.filter(item =>
             item.requiredPlayerLevel <= playerLevel

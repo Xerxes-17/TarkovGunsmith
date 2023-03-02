@@ -119,6 +119,9 @@ void startAPI()
 
     app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{purchaseType}", (string presetID, string mode, int muzzleMode, int purchaseType) => GetWeaponStatsCurve(presetID, mode, muzzleMode, purchaseType));
 
+    app.MapGet("/GetAmmoDataSheetData", () => GetAmmoDataSheetData());
+    app.MapGet("/GetArmorDataSheetData", () => GetArmorDataSheetData());
+
     app.Run();
 }
 
@@ -285,4 +288,15 @@ List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzl
     Console.WriteLine($"Request for Stats curve of {WantedPreset.Weapon.Name}");
     var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashDB);
     return result;
+}
+
+List<AmmoTableRow> GetAmmoDataSheetData()
+{
+    Console.WriteLine($"Request for AmmoDataSheet");
+    return WG_DataScience.CompileAmmoTable(RatStashDB);
+}
+List<ArmorTableRow> GetArmorDataSheetData()
+{
+    Console.WriteLine($"Request for ArmorDataSheet");
+    return WG_DataScience.CompileArmorTable(RatStashDB);
 }

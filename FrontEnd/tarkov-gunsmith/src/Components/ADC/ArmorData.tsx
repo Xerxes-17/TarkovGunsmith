@@ -59,6 +59,27 @@ function convertArmorStringToEnumVal(armorString: string): number {
         return -1;
 }
 
+export function convertEnumValToArmorString(enumVal: number): string {
+    if (enumVal === 0)
+        return "Aluminium";
+    else if (enumVal === 1)
+        return "Aramid";
+    else if (enumVal === 2) //Renamed from ArmoredSteel
+        return "Steel";
+    else if (enumVal === 3)
+        return "Ceramic";
+    else if (enumVal === 4)
+        return "Combined";
+    else if (enumVal === 5)
+        return "Glass";
+    else if (enumVal === 6)
+        return "Titan";
+    else if (enumVal === 7)
+        return "UHMWPE";
+    else
+        return "ERROR";
+}
+
 // // Gonna need to add a type field to the ArmorOption
 export function filterArmorOptions(armorType:string[], armorClasses: number[], armorMaterials: string[], unfilteredOptions: ArmorOption[]): ArmorOption[] {
     let materialsFilter: number[] = [];
