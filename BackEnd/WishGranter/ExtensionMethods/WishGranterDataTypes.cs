@@ -201,7 +201,9 @@ namespace WishGranterProto.ExtensionMethods
         int level,
         int recoil, 
         int ergo, 
-        int price, 
+        int price,
+        int penetration,
+        int damage,
         bool invalid
     );
 

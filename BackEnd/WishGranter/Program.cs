@@ -181,6 +181,8 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     List<string> MasterWhiteList = WG_Recursion.CreateMasterWhiteListIds(WantedPreset.Weapon, AvailibleWeaponMods);
     List<WeaponMod> ShortList_WeaponMods = RatStashDB.GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
 
+    var AWM_Names = ShortList_WeaponMods.Select(x => x.Name).ToList();
+
     // Let's now fit the weapon and get the best penetrating ammo
     HashSet<string> CommonBlackListIDs = new();
     CompoundItem weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
@@ -191,7 +193,6 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     {
         ammo_result = temp;
     }
-
 
     //? A little check to see if a build is valid, to help with debugging and maintenance
     Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
@@ -275,8 +276,6 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double m
 
     return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
 }
-
-
 
 List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzleMode, int purchaseType)
 {

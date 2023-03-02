@@ -39,6 +39,8 @@ export default function ModdedWeaponBuilder(props: any) {
         recoil: number,
         ergo: number,
         price: number,
+        penetration: number,
+        damage: number,
         invalid: Boolean
     };
 
@@ -587,7 +589,7 @@ export default function ModdedWeaponBuilder(props: any) {
                     <Card bg="dark" border="secondary" text="light" className="xl">
 
                         <Card.Header as="h3">
-                            Stats curve of {result.ShortName} in mode "{FittingPriority}"
+                            Stats curves of {result.ShortName} in mode "{FittingPriority}"
                         </Card.Header>
                         <Card.Body>
                             <div className='black-text'>
@@ -635,7 +637,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                                 }}
                                                 angle={270}
                                                 position="left"
-                                                value={"Ergo / Recoil"}
+                                                value={"Ergo / Recoil / Penetration"}
                                             />
                                         </YAxis>
 
@@ -683,6 +685,8 @@ export default function ModdedWeaponBuilder(props: any) {
                                         <Line yAxisId="right" type="monotone" dataKey="price" stroke="#faa107" activeDot={{ r: 8 }} />
                                         <Line yAxisId="left" type="monotone" dataKey="recoil" stroke="#239600" />
                                         <Line yAxisId="left" type="monotone" dataKey="ergo" stroke="#2667ff" />
+                                        <Line yAxisId="left" type="monotone" dataKey="penetration" stroke="#7b26a3" />
+                                        <Line yAxisId="left" type="monotone" dataKey="damage" stroke="#7bc9c9" />
                                         <Bar yAxisId="BOOL" dataKey="invalid" barSize={25} fill="red" />
                                     </ComposedChart >
                                 </ResponsiveContainer>

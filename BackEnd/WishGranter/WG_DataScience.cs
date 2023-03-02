@@ -44,7 +44,6 @@ namespace WishGranter
                     List<string> MasterWhiteList = WG_Recursion.CreateMasterWhiteListIds(preset.Weapon, AvailibleWeaponMods);
                     List<WeaponMod> ShortList_WeaponMods = ratStashDB.GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
 
-
                     HashSet<string> CommonBlackListIDs = new();
                     CompoundItem weapon_result = WG_Recursion.SMFS_Wrapper(preset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
 
@@ -52,12 +51,21 @@ namespace WishGranter
                     var (initialCost, sellBackTotal, boughtModsTotal, finalCost) = WG_Market.CalculateWeaponBuildTotals(preset, (Weapon)weapon_result);
                     var isValid = WG_Recursion.CheckIfCompoundItemIsValid(weapon_result);
 
+                    var ammo = AvailableAmmoChoices.Find(x => x.PenetrationPower == AvailableAmmoChoices.Max(y => y.PenetrationPower));
+                    Ammo ammo_result = new();
+                    if (ammo != null)
+                    {
+                        ammo_result = ammo;
+                    }
+
                     CurveDataPoint temp = new();
 
                     temp.level = i;
                     temp.recoil = TotalRecoil;
                     temp.ergo = TotalErgo;
                     temp.price = finalCost;
+                    temp.penetration = ammo.PenetrationPower;
+                    temp.damage = ammo.Damage;
                     temp.invalid = !isValid; // So we can get a red bar to display if it is invalid on ReCharts
 
                     result.Add(temp);
