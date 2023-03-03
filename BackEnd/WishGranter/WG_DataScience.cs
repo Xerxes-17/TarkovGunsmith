@@ -356,6 +356,100 @@ namespace WishGranter
             return Table;
         }
 
+
+        public static List<EffectivenessDataRow> CalculateArmorEffectivenessData(ArmorItem armorItem, Database database)
+        {
+            //Get the range of Ammo with Penetration that is the (armor class * 10) +/- 15
+            // Run the ADC series function against each bullet, save the expected shots to kill
+            //save them as a table to show the user
+
+            //? Need to filter out the rounds which aren't compatible with the lower bound atm
+
+            List<EffectivenessDataRow> data = new List<EffectivenessDataRow>();
+
+            List<string> prohibited = new();
+            prohibited.Add("5cde8864d7f00c0010373be1");
+            prohibited.Add("5d2f2ab648f03550091993ca");
+            prohibited.Add("5e85aac65505fa48730d8af2");
+            prohibited.Add("5943d9c186f7745a13413ac9");
+            prohibited.Add("5996f6fc86f7745e585b4de3");
+            prohibited.Add("5996f6d686f77467977ba6cc");
+            prohibited.Add("63b35f281745dd52341e5da7");
+            prohibited.Add("6241c316234b593b5676b637");
+            prohibited.Add("5e85a9f4add9fe03027d9bf1");
+            prohibited.Add("5f647fd3f6e4ab66c82faed6");
+
+            // Fleres
+            prohibited.Add("62389ba9a63f32501b1b4451");
+            prohibited.Add("62389bc9423ed1685422dc57");
+            prohibited.Add("62389be94d5d474bf712e709");
+            prohibited.Add("635267f063651329f75a4ee8");
+            prohibited.Add("624c0570c9b794431568f5d5");
+            prohibited.Add("624c09cfbc2e27219346d955");
+            prohibited.Add("624c09da2cec124eb67c1046");
+            prohibited.Add("624c09e49b98e019a3315b66");
+            prohibited.Add("62389aaba63f32501b1b444f");
+
+            //Grenade Stuff
+            prohibited.Add("5ede47641cf3836a88318df1");
+            prohibited.Add("5996f6cb86f774678763a6ca");
+            prohibited.Add("5ede47641cf3836a88318df1");
+            prohibited.Add("5ede475339ee016e8c534742");
+            prohibited.Add("5ede47405b097655935d7d16");
+            prohibited.Add("5f0c892565703e5c461894e9");
+            prohibited.Add("5ede475b549eed7c6d5c18fb");
+            prohibited.Add("5ede474b0c226a66f5402622");
+            prohibited.Add("5d70e500a4b9364de70d38ce");
+            prohibited.Add("5656eb674bdc2d35148b457c");
+            prohibited.Add("5ede4739e0350d05467f73e8");
+
+            List<Ammo> Ammo = database.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+
+            Ammo = Ammo.Where(x => !prohibited.Contains(x.Id)).ToList();
+
+            var ArmorClassTimes10 = armorItem.ArmorClass * 10;
+
+            //Ammo = Ammo.Where(x=> x.PenetrationPower > ArmorClassTimes10 - 15 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
+
+            Ammo = Ammo.Where(x => x.PenetrationPower > 19 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
+
+            foreach (var item in Ammo)
+            {
+                EffectivenessDataRow effectivenssDataRow = new EffectivenessDataRow();
+                effectivenssDataRow.ArmorId = armorItem.Id;
+                effectivenssDataRow.ArmorName = armorItem.Name;
+                effectivenssDataRow.AmmoId = item.Id;
+                effectivenssDataRow.AmmoName = item.Name;
+
+                var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, item, 100);
+
+                effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
+                effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
+                effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
+                effectivenssDataRow.FirstShot_ArmorDamage = (double)test.Shots[1].DoneDamage;
+                
+                effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
+                effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot - 1].ProbabilityOfKillCumulative;
+                //? That negative -1 is possibly wrong
+
+                data.Add(effectivenssDataRow);
+            }
+
+            return data;
+        }
+
+        public static List<Object> CalculateBulletEffectivenessData(Ammo ammo, Database database)
+        {
+            List<Object> data = new List<Object>();
+            // Need to get every vest within the requested range
+            // run the ADC calc between the ammo and the vests
+            //save them as a table to show the user
+
+            //? Need to filter out the rounds which aren't compatible with the lower bound atm
+
+            return data;
+        }
+
         public static void ChestRigReport(List<ChestRig> ChestRigs, string filename)
         {
             DateTime dateTime = DateTime.Now;

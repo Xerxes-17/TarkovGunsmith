@@ -123,6 +123,8 @@ void startAPI()
     app.MapGet("/GetArmorDataSheetData", () => GetArmorDataSheetData());
     app.MapGet("/GetWeaponDataSheetData", () => GetWeaponsDataSheetData());
 
+    app.MapGet("/GetArmorEffectivenessData", () => GetEffectivenessDataForArmor());
+
     app.Run();
 }
 
@@ -306,4 +308,31 @@ List<WeaponTableRow> GetWeaponsDataSheetData()
 {
     Console.WriteLine($"Request for WeaponsDataSheet");
     return WG_DataScience.CompileWeaponTable(DefaultWeaponPresets);
+}
+
+List<EffectivenessDataRow> GetEffectivenessDataForArmor()
+{
+    Console.WriteLine($"Request for Armor Effectivenss Data");
+    //ArmorItem ratrig = new ArmorItem();
+    //ratrig.ArmorMaterial = ArmorMaterial.Titan;
+    //ratrig.BluntThroughput = .36;
+    //ratrig.MaxDurability = 40;
+    //ratrig.ArmorClass = 4;
+    //ratrig.Name = "RatRig dummy";
+
+    //ArmorItem ratrig = new ArmorItem();
+    //ratrig.ArmorMaterial = ArmorMaterial.UHMWPE;
+    //ratrig.BluntThroughput = .216;
+    //ratrig.MaxDurability = 80;
+    //ratrig.ArmorClass = 4;
+    //ratrig.Name = "Trooper dummy";
+
+    ArmorItem ratrig = new ArmorItem();
+    ratrig.ArmorMaterial = ArmorMaterial.ArmoredSteel;
+    ratrig.BluntThroughput = .288;
+    ratrig.MaxDurability = 45;
+    ratrig.ArmorClass = 5;
+    ratrig.Name = "Korund dummy";
+
+    return WG_DataScience.CalculateArmorEffectivenessData(ratrig, RatStashDB);
 }

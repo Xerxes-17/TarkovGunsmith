@@ -34,6 +34,22 @@ namespace WishGranterTests
             Console.WriteLine(result.Count);
             Assert.AreEqual(166, result.Count);
         }
+
+        [TestMethod]
+        public void Test_CalculateArmorEffectivenessData_RatRig()
+        {
+            ArmorItem ratrig = new ArmorItem();
+            ratrig.ArmorMaterial = ArmorMaterial.Titan;
+            ratrig.BluntThroughput = .36;
+            ratrig.MaxDurability = 40;
+            ratrig.ArmorClass = 4;
+            ratrig.Name = "RatRig dummy";
+
+            var result = WG_DataScience.CalculateArmorEffectivenessData(ratrig, RatStashDB);
+
+            Console.WriteLine(result.Count);
+        }
+
     }
 
     [TestClass]

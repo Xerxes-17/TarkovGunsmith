@@ -268,4 +268,27 @@ namespace WishGranterProto.ExtensionMethods
         public int TraderLevel { get; set; } = -1;
         public int FleaPrice { get; set; } = -1;
     }
+
+    public class EffectivenessDataRow
+    {
+        public string AmmoId { get; set; } = "";
+        public string ArmorId { get; set; } = "";
+        public string AmmoName { get; set; } = "";
+        public string ArmorName { get; set; } = "";
+
+        public double FirstShot_PenChance { get; set; } = -1;
+        public double FirstShot_PenDamage { get; set; } = -1;
+        public double FirstShot_BluntDamage { get; set; } = -1;
+        public double FirstShot_ArmorDamage { get; set; } = -1;
+
+        public int ExpectedShotsToKill { get; set; } = -1;
+        // This should be the culuminitive chance of the shots to kill.
+        public double ExpectedKillShotConfidence { get; set; } = -1;
+
+        //? Perhaps a "shots to get > 90% chance to kill?
+        //? Or even have it by tiers? so like >30 , >60, >90
+
+        //? Need to include the bullet damage and penetration
+
+    }
 }
