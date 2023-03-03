@@ -47,6 +47,11 @@ footer {
   color: black;
 }
 
+.dropdown-menu {
+  background-color: #212529;
+  --bs-dropdown-link-hover-bg: #292e33;
+}
+
 // MWB
 .weapon_image {
   max-width: 160px;

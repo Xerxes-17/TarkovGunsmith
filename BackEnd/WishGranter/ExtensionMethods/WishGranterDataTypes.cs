@@ -240,4 +240,32 @@ namespace WishGranterProto.ExtensionMethods
         public double AmmoRec { get; set; } = -1;
         public bool Tracer { get; set; } = false;
     }
+
+    // We will take the base stats, and the stats of the DEFAULT preset of the weapon.
+    public class WeaponTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public string Caliber { get; set; } = "default";
+
+        // Base Stats
+        public int RateOfFire { get; set; } = -1;
+        public int BaseErgonomics { get; set; } = -1;
+        public int BaseRecoil { get; set; } = -1;
+
+        // Hidden Stats
+        public int RecoilDispersion { get; set; } = -1;
+        public double Convergence { get; set; } = -1;
+        public int RecoilAngle { get; set; } = -1;
+        public double CameraRecoil { get; set; } = -1;
+
+        // Default Preset Stats
+        public int DefaultErgonomics { get; set; } = -1;
+        public int DefaultRecoil { get; set; } = -1;
+
+        // Trader information will be for the base preset
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public int FleaPrice { get; set; } = -1;
+    }
 }

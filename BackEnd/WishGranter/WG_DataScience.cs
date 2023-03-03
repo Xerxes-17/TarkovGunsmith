@@ -309,6 +309,53 @@ namespace WishGranter
             return Table;
         }
 
+        public static List<WeaponTableRow> CompileWeaponTable(List<WeaponPreset> ThePresets)
+        {
+
+            // If we have the presets, we don't need the DB as it has all of the info already...
+            List<WeaponTableRow> Table = new();
+
+            var DefaultCashPresets = ThePresets.Where(x => x.Name.Contains("Default") || x.Name.Contains("Standard")).ToList();
+            //&& x.PurchaseOffer.OfferType.Equals(OfferType.Cash)
+
+            // Seems to be a problem with cash offers, sigh
+
+            foreach (var preset in DefaultCashPresets)
+            {
+                WeaponTableRow row = new();
+
+                row.Id = preset.Id;
+                row.Name = preset.Name;
+                row.Caliber = preset.Weapon.AmmoCaliber;
+
+                row.RateOfFire = preset.Weapon.BFirerate;
+                row.BaseErgonomics = preset.Weapon.Ergonomics;
+                row.BaseRecoil = preset.Weapon.RecoilForceUp;
+
+                row.RecoilDispersion = preset.Weapon.RecoilDispersion;
+                row.Convergence = preset.Weapon.Convergence;
+                row.RecoilAngle = preset.Weapon.RecoilAngle;
+                row.CameraRecoil = preset.Weapon.CameraRecoil;
+
+                var presetStats = WG_Recursion.GetCompoundItemTotals_RecoilFloat<Weapon>(preset.Weapon);
+                row.DefaultErgonomics = presetStats.TotalErgo;
+                row.DefaultRecoil = (int)presetStats.TotalRecoil;
+
+                row.Price = preset.PurchaseOffer.PriceRUB;
+                row.TraderLevel = preset.PurchaseOffer.MinVendorLevel;
+
+                var fleaPreset = DefaultCashPresets.Find(x => x.Weapon.Id == preset.Weapon.Id && x.PurchaseOffer.OfferType == OfferType.Flea);
+                if (fleaPreset != null)
+                {
+                    row.FleaPrice = fleaPreset.PurchaseOffer.PriceRUB;
+                }
+
+                Table.Add(row);
+            }
+
+            return Table;
+        }
+
         public static void ChestRigReport(List<ChestRig> ChestRigs, string filename)
         {
             DateTime dateTime = DateTime.Now;

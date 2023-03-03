@@ -121,6 +121,7 @@ void startAPI()
 
     app.MapGet("/GetAmmoDataSheetData", () => GetAmmoDataSheetData());
     app.MapGet("/GetArmorDataSheetData", () => GetArmorDataSheetData());
+    app.MapGet("/GetWeaponDataSheetData", () => GetWeaponsDataSheetData());
 
     app.Run();
 }
@@ -299,4 +300,10 @@ List<ArmorTableRow> GetArmorDataSheetData()
 {
     Console.WriteLine($"Request for ArmorDataSheet");
     return WG_DataScience.CompileArmorTable(RatStashDB);
+}
+
+List<WeaponTableRow> GetWeaponsDataSheetData()
+{
+    Console.WriteLine($"Request for WeaponsDataSheet");
+    return WG_DataScience.CompileWeaponTable(DefaultWeaponPresets);
 }

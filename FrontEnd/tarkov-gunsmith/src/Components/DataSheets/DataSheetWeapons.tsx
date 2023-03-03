@@ -3,33 +3,39 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box } from '@mui/material';
-import { convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";
 
-export default function DataSheetArmor(props: any) {
+export default function DataSheetWeapons(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
-    interface AmmoTableRow {
+    interface WeaponsTableRow {
         id: string
         name: string
+        caliber: string
 
-        armorClass: number
-        maxDurability: number
-        material: MaterialType
-        effectiveDurability: number
-        bluntThroughput: number
+        rateOfFire: number
+        baseErgonomics: number
+        baseRecoil: number
+
+        recoilDispersion: number
+        convergence: number
+        recoilAngle: number
+        cameraRecoil: number
+
+        defaultErgonomics: number
+        defaultRecoil: number
+
         price: number
         traderLevel: number
-        type: string
-
+        fleaPrice: number
     }
 
-    const [ArmorTableData, setArmorTableData] = useState<AmmoTableRow[]>([]);
+    const [ArmorTableData, setArmorTableData] = useState<WeaponsTableRow[]>([]);
 
     const armors = async () => {
-        const response = await fetch(API_URL + '/GetArmorDataSheetData');
+        const response = await fetch(API_URL + '/GetWeaponDataSheetData');
         setArmorTableData(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
@@ -37,15 +43,13 @@ export default function DataSheetArmor(props: any) {
         armors();
     }, [])
 
-
-
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-    const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
+    const columns = useMemo<MRT_ColumnDef<WeaponsTableRow>[]>(
         () => [
             {
                 accessorKey: 'name', //simple recommended way to define a column
                 header: 'Name',
-                muiTableHeadCellProps: { sx: { color: 'green' } }, //custom props
+                muiTableHeadCellProps: { sx: { color: 'white' } }, //custom props
                 size: 50, //small column
                 enableSorting: true,
                 Cell: ({ renderedCellValue, row }) => (
@@ -68,28 +72,28 @@ export default function DataSheetArmor(props: any) {
                 ),
             },
             {
-                accessorKey: 'armorClass',
-                header: 'Armor Class',
+                accessorKey: 'caliber',
+                header: 'caliber',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 50, //small column
             },
             {
-                accessorKey: 'maxDurability',
-                header: 'Durability',
+                accessorKey: 'rateOfFire',
+                header: 'RoF',
                 muiTableHeadCellProps: { sx: { color: 'red' } },
                 size: 50, //small column
             },
             {
-                accessorKey: 'material',
-                header: 'material',
+                accessorKey: 'baseErgonomics',
+                header: 'Ergonomics (base)',
                 muiTableHeadCellProps: { sx: { color: 'orange' } },
                 Cell: ({ cell }) => (
-                    <span>{(convertEnumValToArmorString(cell.getValue<number>()))} </span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 )
             },
             {
-                accessorKey: 'effectiveDurability',
-                header: 'eff. Durability',
+                accessorKey: 'baseRecoil',
+                header: 'Vertical Recoil (base)',
                 muiTableHeadCellProps: { sx: { color: 'orange' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
@@ -97,14 +101,58 @@ export default function DataSheetArmor(props: any) {
                 ),
 
             },
+
+
             {
-                accessorKey: 'bluntThroughput',
-                header: 'Blunt Throughput',
+                accessorKey: 'convergence',
+                header: 'Convergence',
                 muiTableHeadCellProps: { sx: { color: 'yellow' } },
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
             },
+            {
+                accessorKey: 'recoilAngle',
+                header: 'Recoil Angle',
+                muiTableHeadCellProps: { sx: { color: 'yellow' } },
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+            },
+            {
+                accessorKey: 'cameraRecoil',
+                header: 'Camera Recoil',
+                muiTableHeadCellProps: { sx: { color: 'yellow' } },
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+            },
+            {
+                accessorKey: 'recoilDispersion',
+                header: 'Horizontal Recoil (RecoilDispersion)',
+                muiTableHeadCellProps: { sx: { color: 'yellow' } },
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+            },
+            {
+                accessorKey: 'defaultRecoil',
+                header: 'Vertical Recoil (default)',
+                muiTableHeadCellProps: { sx: { color: 'green' } },
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+            },
+
+            {
+                accessorKey: 'defaultErgonomics',
+                header: 'Ergonomics (default)',
+                muiTableHeadCellProps: { sx: { color: 'green' } },
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+            },
+
             {
                 accessorKey: 'price',
                 header: 'Price',
@@ -116,9 +164,13 @@ export default function DataSheetArmor(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'blue' } },
             },
             {
-                accessorKey: 'type',
-                header: 'type',
-                muiTableHeadCellProps: { sx: { color: 'blue' } },
+                accessorKey: 'fleaPrice',
+                header: 'Flea Price',
+                muiTableHeadCellProps: { sx: { color: 'lightblue' } },
+                Cell: ({ cell }) => (
+                    <span>₽ {(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</span>
+                ),
+
             },
         ],
         [],
@@ -161,18 +213,20 @@ export default function DataSheetArmor(props: any) {
                                     initialState={{
                                         density: 'compact',
                                         columnVisibility: {
-                                            AmmoRec: false,
-                                            heavyBleedDelta: false,
-                                            lightBleedDelta: false,
-                                            tracer: false,
                                             price: false,
+                                            baseErgonomics: false,
+                                            baseRecoil: false,
+
+                                            cameraRecoil: false,
+                                            recoilAngle: false,
+
                                             traderLevel: false
                                         },
                                         pagination: pagination,
 
-                                        grouping: ['armorClass'], //an array of columns to group by by default (can be multiple)
+                                        grouping: ['caliber'], //an array of columns to group by by default (can be multiple)
                                         expanded: true, //expand all groups by default
-                                        sorting: [{ id: 'armorClass', desc: true }, { id: 'name', desc: false }], //sort by state by default
+                                        sorting: [{ id: 'convergence', desc: true }, { id: 'defaultRecoil', desc: false }], //sort by state by default
                                     }} //hide AmmoRec column by default
 
                                     defaultColumn={{
