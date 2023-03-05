@@ -34,6 +34,17 @@ function BrandExample() {
                             </LinkContainer>
 
                             <NavDropdown title="Data Tables" id="nav-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
+                                        <Nav.Link>Ammo Effectiveness</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+
+                                <NavDropdown.Item>
+                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_ARMOR}>
+                                        <Nav.Link>Armor Effectiveness</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={DATA_SHEETS_AMMO}>
@@ -52,18 +63,6 @@ function BrandExample() {
                                         <Nav.Link>Weapons</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-
-                                <NavDropdown.Item>
-                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
-                                        <Nav.Link>Ammo Effectiveness</Nav.Link>
-                                    </LinkContainer>
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item>
-                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_ARMOR}>
-                                        <Nav.Link>Armor Effectiveness</Nav.Link>
-                                    </LinkContainer>
-                                </NavDropdown.Item>              
                             </NavDropdown>
 
                             <LinkContainer to={ABOUT}>

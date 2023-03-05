@@ -51,6 +51,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
     const [ArmorTableData, setAmmoTableData] = useState<effectivenessDataRow[]>([]);
 
+    // https://www.material-react-table.com/docs/examples/aggregation-and-grouping
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<effectivenessDataRow>[]>(
@@ -134,6 +135,20 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                 header: 'Shots To Kill',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
+                aggregationFn: 'mean',
+                //required to render an aggregated cell, show the average salary in the group
+                AggregatedCell: ({ cell, table }) => (
+                    <>
+                        Average by{' '}
+                        {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
+                        <Box sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                            {cell.getValue<number>()?.toLocaleString?.('en-US', {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            })}
+                        </Box>
+                    </>
+                ),
             },
             {
                 accessorKey: 'expectedKillShotConfidence',
@@ -189,7 +204,9 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                         </Card.Body>
                         <Card.Footer>
                             This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. <br />
-                            This table starts with Amor grouped by Armor Class and these groups are closed, click the group to expand these rows.
+                            This table starts with Amor grouped by Armor Class and these groups are closed, click the group to expand these rows. <br />
+                            If you would like a view that is similar to the NFAM chart, then try: Grouped by `AC`, then by `Type`, then by `Shots To Kill`.<br />
+                            To do this, drag and drop the columns double line icon to the top.
                         </Card.Footer>
                     </Card>
 
