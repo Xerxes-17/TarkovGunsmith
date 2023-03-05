@@ -162,6 +162,61 @@ namespace WishGranterProto.ExtensionMethods
             return DamageToArmor(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage);
         }
 
+        public static ArmorItem GetArmorItemFromRatstashByIdString(string armorID, Database RatStashDB)
+        {
+            var Armor = RatStashDB.GetItem(armorID);
+            ArmorItem armorItem = new();
+
+            // Need to cast the Item to respective types to get properties
+            if (Armor.GetType() == typeof(Armor))
+            {
+                var temp = (Armor)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Armor";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+            else if (Armor.GetType() == typeof(ChestRig))
+            {
+                var temp = (ChestRig)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Armor";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+            else if (Armor.GetType() == typeof(Headwear))
+            {
+                var temp = (Headwear)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+
+            else if (Armor.GetType() == typeof(ArmoredEquipment))
+            {
+                var temp = (ArmoredEquipment)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+
+            return armorItem;
+        }
+
         // Finds the test serires result of a given armor at a percentage of durability vs a given ammo type
         public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc)
         {

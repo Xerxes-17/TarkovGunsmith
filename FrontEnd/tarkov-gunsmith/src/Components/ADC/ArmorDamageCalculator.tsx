@@ -238,7 +238,7 @@ export default function ArmorDamageCalculator(props: any) {
             ammoId: ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
-            console.log(response)
+            // console.log(response)
             setResult(response);
             
         }).catch(error => {

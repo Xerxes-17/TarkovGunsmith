@@ -12,10 +12,11 @@ export default function SelectArmor(props: any) {
     return (
         <>
             <div className='black-text'>
-                <Select
+                <Select 
+
                     required
                     placeholder="Select your armor..."
-                    className="basic-single"
+                    className="selectorZIndexBodge"
                     classNamePrefix="select"
                     // defaultValue={armorOptions[8]}
                     isClearable={false}
@@ -30,12 +31,13 @@ export default function SelectArmor(props: any) {
                             <Col>
                                 <span>{option.label}</span>
                                 <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
-                                    <span>🛡: {option.armorClass}</span>
-                                    <span style={{ minWidth: "55px" }}>⛓: {option.maxDurability}</span>
-                                    <span style={{ minWidth: "130px" }}>🧱: {MaterialType[option.armorMaterial]}</span>
-                                    <span style={{ minWidth: "55px" }}>⚖: {option.effectiveDurability}</span>
-                                    <span>👨‍🔧:{option.traderLevel}</span>
+                                    <span style={{ minWidth: "55px" }}>🛡 AC: {option.armorClass}</span>
+                                    <span style={{ minWidth: "90px" }}>🔧 DUR: {option.maxDurability}</span>
+                                    <span style={{ minWidth: "165px" }}>🧱 MAT: {MaterialType[option.armorMaterial]}</span>
+                                    <span style={{ minWidth: "65px" }}>⚖ E.DURA: {option.effectiveDurability}</span>
+                                    
                                 </Stack>
+                                <span>👨‍🔧 TRDR:{option.traderLevel}</span>
                             </Col>
                         </Row>
                     )}

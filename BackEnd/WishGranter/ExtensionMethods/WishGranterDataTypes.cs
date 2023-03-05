@@ -275,6 +275,8 @@ namespace WishGranterProto.ExtensionMethods
         public string ArmorId { get; set; } = "";
         public string AmmoName { get; set; } = "";
         public string ArmorName { get; set; } = "";
+        public string ArmorType { get; set; } = "";
+        public int ArmorClass { get; set; } = -1;
 
         public double FirstShot_PenChance { get; set; } = -1;
         public double FirstShot_PenDamage { get; set; } = -1;

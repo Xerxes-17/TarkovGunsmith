@@ -171,55 +171,58 @@ export default function DataSheetAmmo(props: any) {
                 <CssBaseline />
                 <Col xxl>
                     <Card bg="dark" border="secondary" text="light" className="xxl">
+                        <Card.Header as="h2" >
+                            Ammo Table
+                        </Card.Header>
                         <Card.Body>
                             <>
                                 This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible.
-                                <MaterialReactTable
-                                    columns={columns}
-                                    data={AmmoTableData}
-
-                                    enableRowSelection={false}//enable some features
-                                    enableSelectAll={false}
-
-                                    enableColumnOrdering
-                                    enableGrouping
-                                    enablePinning
-                                    enableMultiSort={true}
-                                    enableGlobalFilter={true} //turn off a feature
-                                    enableDensityToggle={false}
-                                    initialState={{
-                                        density: 'compact',
-                                        columnVisibility: {
-                                            AmmoRec: false,
-                                            heavyBleedDelta: false,
-                                            lightBleedDelta: false,
-                                            tracer: false,
-                                            price: false,
-                                            traderLevel: false
-                                        },
-                                        pagination: pagination,
-
-                                        grouping: ['caliber'], //an array of columns to group by by default (can be multiple)
-                                        expanded: true, //expand all groups by default
-                                        sorting: [{ id: 'penetrationPower', desc: true }], //sort by state by default
-                                    }} //hide AmmoRec column by default
-
-                                    defaultColumn={{
-                                        minSize: 20, //allow columns to get smaller than default
-                                        maxSize: 75, //allow columns to get larger than default
-                                        size: 20, //make columns wider by default
-                                    }}
-                                    enableStickyHeader
-
-                                    sortDescFirst
-                                    muiTablePaginationProps={{
-                                        rowsPerPageOptions: [10, 25, 50, 75, 100, 150, 200],
-                                    }}
-                                />
                             </>
                         </Card.Body>
                     </Card>
                 </Col>
+                <MaterialReactTable
+                    columns={columns}
+                    data={AmmoTableData}
+
+                    enableRowSelection={false}//enable some features
+                    enableSelectAll={false}
+
+                    enableColumnOrdering
+                    enableGrouping
+                    enablePinning
+                    enableMultiSort={true}
+                    enableGlobalFilter={true} //turn off a feature
+                    enableDensityToggle={false}
+                    initialState={{
+                        density: 'compact',
+                        columnVisibility: {
+                            AmmoRec: false,
+                            heavyBleedDelta: false,
+                            lightBleedDelta: false,
+                            tracer: false,
+                            price: false,
+                            traderLevel: false
+                        },
+                        pagination: pagination,
+
+                        grouping: ['caliber'], //an array of columns to group by by default (can be multiple)
+                        expanded: true, //expand all groups by default
+                        sorting: [{ id: 'penetrationPower', desc: true }], //sort by state by default
+                    }} //hide AmmoRec column by default
+
+                    defaultColumn={{
+                        minSize: 20, //allow columns to get smaller than default
+                        maxSize: 75, //allow columns to get larger than default
+                        size: 20, //make columns wider by default
+                    }}
+                    enableStickyHeader
+
+                    sortDescFirst
+                    muiTablePaginationProps={{
+                        rowsPerPageOptions: [10, 25, 50, 75, 100, 150, 200],
+                    }}
+                />
             </ThemeProvider>
         </>
 

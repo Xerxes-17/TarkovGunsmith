@@ -11,7 +11,7 @@ import { Card, Col } from "react-bootstrap";
 export default function DataSheetArmor(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
-    interface AmmoTableRow {
+    interface ArmorTableRow {
         id: string
         name: string
 
@@ -26,7 +26,7 @@ export default function DataSheetArmor(props: any) {
 
     }
 
-    const [ArmorTableData, setArmorTableData] = useState<AmmoTableRow[]>([]);
+    const [ArmorTableData, setArmorTableData] = useState<ArmorTableRow[]>([]);
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorDataSheetData');
@@ -37,10 +37,8 @@ export default function DataSheetArmor(props: any) {
         armors();
     }, [])
 
-
-
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-    const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
+    const columns = useMemo<MRT_ColumnDef<ArmorTableRow>[]>(
         () => [
             {
                 accessorKey: 'name', //simple recommended way to define a column
@@ -142,10 +140,18 @@ export default function DataSheetArmor(props: any) {
                 <CssBaseline />
                 <Col xxl>
                     <Card bg="dark" border="secondary" text="light" className="xxl">
+                        <Card.Header as="h2" >
+                            Armor Table
+                        </Card.Header>
                         <Card.Body>
                             <>
-                                This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible.
-                                <MaterialReactTable
+                            This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible.
+                                
+                            </>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <MaterialReactTable
                                     columns={columns}
                                     data={ArmorTableData}
 
@@ -187,10 +193,6 @@ export default function DataSheetArmor(props: any) {
                                         rowsPerPageOptions: [10, 25, 50, 75, 100, 150, 200],
                                     }}
                                 />
-                            </>
-                        </Card.Body>
-                    </Card>
-                </Col>
             </ThemeProvider>
         </>
 

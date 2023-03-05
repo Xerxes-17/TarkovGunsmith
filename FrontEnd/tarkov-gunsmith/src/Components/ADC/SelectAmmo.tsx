@@ -14,7 +14,7 @@ export default function SelectAmmo(props: any) {
                 <Select
                     required
                     placeholder="Select your ammo..."
-                    className="basic-single"
+                    className="selectorZIndexBodge"
                     classNamePrefix="select"
                     // defaultValue={ammoOptions[29]}
                     isClearable={true}
@@ -29,10 +29,10 @@ export default function SelectAmmo(props: any) {
                             <Col>
                                 <span>{option.label}</span>
                                 <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
-                                    <span style={{ minWidth: "55px" }}>✒: {option.penetrationPower}</span>
-                                    <span style={{ minWidth: "55px" }}>📐: {option.armorDamagePerc}</span>
-                                    <span style={{ minWidth: "55px" }}>💀: {option.damage}</span>
-                                    <span>👨‍🔧:{option.traderLevel}</span>
+                                    <span style={{ minWidth: "55px" }}>⛏ PEN: {option.penetrationPower}</span>
+                                    <span style={{ minWidth: "55px" }}>📏 AD%: {option.armorDamagePerc}</span>
+                                    <span style={{ minWidth: "55px" }}>💀 DAM: {option.damage}</span>
+                                    <span>👨‍🔧 TRDR:{option.traderLevel} </span>
                                 </Stack>
                             </Col>
                         </Row>

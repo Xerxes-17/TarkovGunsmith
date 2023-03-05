@@ -1,8 +1,6 @@
 import { Col, Card, Nav, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER } from "../Util/links";
-import Select from 'react-select';
-import { maxWidth } from "@mui/system";
+import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO } from "../Util/links";
 
 // Renders the home
 export default function Home(props: any) {
@@ -67,7 +65,34 @@ export default function Home(props: any) {
                         </Card.Body>
                     </Card>
                 </Col>
-
+            </div>
+            <div className="row gy-2 mb-2">
+                <Col xl>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
+                            <Nav.Link>
+                                <Card.Header as="h5">Data Tables</Card.Header>
+                            </Nav.Link>
+                        </LinkContainer>
+                        <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas.png'} />
+                        <Card.Body>
+                            <Card.Text>
+                                Data tables are now available in two types: plain and calculated.
+                            </Card.Text>
+                            <Card.Text>
+                                Plain data tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, includes hidden stats which are important.
+                                Currently covers Ammo, Armor and Weapons.
+                            </Card.Text>
+                            <Card.Text>
+                                Currently there are two "calculated" data tables, which presents the efficiency result between armor and ammo pairs, but will take the perspective of Ammo first or Armor first. 
+                                Eg: With Ammo first, you will see how that bullet fares against all armor items. With Armor first, you will see how a given armor will perform against a selected range of rounds.
+                            </Card.Text>
+                            <Card.Text>
+                                As the latter two are base upon data provided by simulating Tarkov game mechanics, it is more accurate than NoFoodAfterMidnight's commonly cited ammo effectiveness chart.
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <Nav.Link href="https://discord.gg/F7GZE4H7fq">
@@ -108,7 +133,28 @@ export default function Home(props: any) {
                     </Card>
                 </Col>
             </Row>
-            <p ></p>
+            <Row className="row gy-2 mb-2">
+                <Col>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <Card.Header as="h5">
+                            5/03/2023
+                        </Card.Header>
+                        <Card.Body>
+
+                            <Card.Text>
+                                I've now added two data tables which will provide an easy way of looking at how efficient a given armor item or ammo projectile is.<br /><br />
+
+                                The idea behind these tables is that the key criteria of effectiveness is shots to kill. So if you put on an armor vest, you want to know how many 
+                                bullets it will protect you from of each type. While if you are going to use a bullet for your weapon, how many shots it will take to kill someone using a given vest.<br /><br />
+
+                                These tables can be made full-screen and some columns start out hidden, which you can change, in addition to being filterable and sortable. I will probably add more features as 
+                                I learn more about the somewhat unfortunately name (for the Tarkov context) RMT - React Material Table.<br /><br />
+                            </Card.Text>
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_1.png'} style={{ maxWidth: 957, maxHeight: 1044  }} />
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
             <Row className="row gy-2 mb-2">
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
@@ -119,18 +165,18 @@ export default function Home(props: any) {
 
                             <Card.Text>
                                 First up, the MWB now has a "power curves" window displayed under a build. This will allow a user too see
-                                where they are relatively speaking with a given build, and can give a sense for how developed a build is 
+                                where they are relatively speaking with a given build, and can give a sense for how developed a build is
                                 at a given level. <br /><br />
 
-                                Second, I've now added "Data Sheets" which can now display the properties of Ammo, Armor and Weapons. 
+                                Second, I've now added "Data Sheets" which can now display the properties of Ammo, Armor and Weapons.
                                 It uses Material React Table, which allows for advanced features like grouping, filtering, moving columns, etc. <br /><br />
 
                                 Third, "Enhanced Logic" for the MWB has been expanded to cover the edge cases of Kalashnikovs, G36, SA-58, HK416A5, AUG A1/3.  <br /><br />
 
                                 Fourth, Probably a bunch of smaller backend changes I can't remember.
-                                
+
                             </Card.Text>
-                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_mwb_curves.png'} style={{maxHeight: 485, maxWidth: 939}} />
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_mwb_curves.png'} style={{ maxHeight: 485, maxWidth: 939 }} />
                         </Card.Body>
                     </Card>
                 </Col>

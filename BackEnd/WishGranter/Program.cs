@@ -123,7 +123,8 @@ void startAPI()
     app.MapGet("/GetArmorDataSheetData", () => GetArmorDataSheetData());
     app.MapGet("/GetWeaponDataSheetData", () => GetWeaponsDataSheetData());
 
-    app.MapGet("/GetArmorEffectivenessData", () => GetEffectivenessDataForArmor());
+    app.MapGet("/GetArmorEffectivenessData/{armorId}", (string armorId) => GetEffectivenessDataForArmor(armorId));
+    app.MapGet("/GetAmmoEffectivenessData/{ammoId}", (string ammoId) => GetEffectivenessDataForAmmo(ammoId));
 
     app.Run();
 }
@@ -219,59 +220,11 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 {
     Console.WriteLine($"Request for CalculateArmorVsBulletSeries");
 
-
-    var Armor = RatStashDB.GetItem(armorID);
     var Bullet = RatStashDB.GetItem(bulletID);
 
     TransmissionArmorTestResult result = new();
-    ArmorItem armorItem = new();
 
-    // Need to cast the Item to respective types to get properties
-    if (Armor.GetType() == typeof(Armor))
-    {
-        var temp = (Armor)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Armor";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
-    else if (Armor.GetType() == typeof(ChestRig))
-    {
-        var temp = (ChestRig)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Armor";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
-    else if (Armor.GetType() == typeof(Headwear))
-    {
-        var temp = (Headwear)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Helmet";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
-
-    else if (Armor.GetType() == typeof(ArmoredEquipment))
-    {
-        var temp = (ArmoredEquipment)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Helmet";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
+    ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
     return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
 }
@@ -310,29 +263,19 @@ List<WeaponTableRow> GetWeaponsDataSheetData()
     return WG_DataScience.CompileWeaponTable(DefaultWeaponPresets);
 }
 
-List<EffectivenessDataRow> GetEffectivenessDataForArmor()
+List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
 {
     Console.WriteLine($"Request for Armor Effectivenss Data");
-    //ArmorItem ratrig = new ArmorItem();
-    //ratrig.ArmorMaterial = ArmorMaterial.Titan;
-    //ratrig.BluntThroughput = .36;
-    //ratrig.MaxDurability = 40;
-    //ratrig.ArmorClass = 4;
-    //ratrig.Name = "RatRig dummy";
 
-    //ArmorItem ratrig = new ArmorItem();
-    //ratrig.ArmorMaterial = ArmorMaterial.UHMWPE;
-    //ratrig.BluntThroughput = .216;
-    //ratrig.MaxDurability = 80;
-    //ratrig.ArmorClass = 4;
-    //ratrig.Name = "Trooper dummy";
+    var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
-    ArmorItem ratrig = new ArmorItem();
-    ratrig.ArmorMaterial = ArmorMaterial.ArmoredSteel;
-    ratrig.BluntThroughput = .288;
-    ratrig.MaxDurability = 45;
-    ratrig.ArmorClass = 5;
-    ratrig.Name = "Korund dummy";
+    return WG_DataScience.CalculateArmorEffectivenessData(armor, RatStashDB);
+}
 
-    return WG_DataScience.CalculateArmorEffectivenessData(ratrig, RatStashDB);
+List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
+{
+    Console.WriteLine($"Request for Ammo Effectivenss Data");
+    var ammo = (Ammo) RatStashDB.GetItem(ammoID);
+
+    return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashDB);
 }

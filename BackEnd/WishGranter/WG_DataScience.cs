@@ -325,7 +325,7 @@ namespace WishGranter
                 WeaponTableRow row = new();
 
                 row.Id = preset.Id;
-                row.Name = preset.Name;
+                row.Name = preset.Weapon.ShortName;
                 row.Caliber = preset.Weapon.AmmoCaliber;
 
                 row.RateOfFire = preset.Weapon.BFirerate;
@@ -356,6 +356,29 @@ namespace WishGranter
             return Table;
         }
 
+        public static EffectivenessDataRow CalculateEffectivenessDataRow(Ammo ammo, ArmorItem armorItem)
+        {
+            EffectivenessDataRow effectivenssDataRow = new EffectivenessDataRow();
+            effectivenssDataRow.ArmorId = armorItem.Id;
+            effectivenssDataRow.ArmorName = armorItem.Name;
+            effectivenssDataRow.ArmorType = armorItem.ArmorType;
+            effectivenssDataRow.ArmorClass = armorItem.ArmorClass;
+
+            effectivenssDataRow.AmmoId = ammo.Id;
+            effectivenssDataRow.AmmoName = ammo.Name;
+
+            var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, ammo, 100);
+
+            effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
+            effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
+            effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.ArmorItemDamageFromAmmo(armorItem, ammo);
+
+            effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
+            effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot-1].ProbabilityOfKillCumulative;
+
+            return effectivenssDataRow;
+        }
 
         public static List<EffectivenessDataRow> CalculateArmorEffectivenessData(ArmorItem armorItem, Database database)
         {
@@ -411,41 +434,32 @@ namespace WishGranter
 
             //Ammo = Ammo.Where(x=> x.PenetrationPower > ArmorClassTimes10 - 15 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
 
-            Ammo = Ammo.Where(x => x.PenetrationPower > 19 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
+            Ammo = Ammo.Where(x => x.PenetrationPower > 19 && x.PenetrationPower <= ArmorClassTimes10 + 15).ToList();
 
-            foreach (var item in Ammo)
+            foreach (var ammo in Ammo)
             {
-                EffectivenessDataRow effectivenssDataRow = new EffectivenessDataRow();
-                effectivenssDataRow.ArmorId = armorItem.Id;
-                effectivenssDataRow.ArmorName = armorItem.Name;
-                effectivenssDataRow.AmmoId = item.Id;
-                effectivenssDataRow.AmmoName = item.Name;
-
-                var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, item, 100);
-
-                effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
-                effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
-                effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
-                effectivenssDataRow.FirstShot_ArmorDamage = (double)test.Shots[1].DoneDamage;
-                
-                effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
-                effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot - 1].ProbabilityOfKillCumulative;
-                //? That negative -1 is possibly wrong
-
-                data.Add(effectivenssDataRow);
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem));
             }
 
             return data;
         }
 
-        public static List<Object> CalculateBulletEffectivenessData(Ammo ammo, Database database)
+        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database)
         {
-            List<Object> data = new List<Object>();
             // Need to get every vest within the requested range
             // run the ADC calc between the ammo and the vests
             //save them as a table to show the user
-
             //? Need to filter out the rounds which aren't compatible with the lower bound atm
+
+            List<EffectivenessDataRow> data = new();
+
+            var armorOptions = WG_Output.WriteArmorList(database).Select(x=>x.Value);
+
+            foreach(var armorID in armorOptions)
+            {
+                ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, database);
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem));
+            }
 
             return data;
         }
@@ -514,7 +528,7 @@ namespace WishGranter
 
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine("Name,Caliber,Damage,PenetrationPower,PenetrationPowerDiviation,ArmorDamage%,Accuracy,Recoil,FragChance,LBC,HBC,Speed,Tracer,TraderLevel");
+                sw.WriteLine("Name,Caliber,Damage,PenetrationPower,PenetrationPowerDiviation,ArmorDamage%,Accuracy,Recoil,FragChance, MinFragmentsCount, MaxFragmentsCount, LBC,HBC,Speed,Tracer,TraderLevel");
                 sw.Close();
             }
 
@@ -534,6 +548,8 @@ namespace WishGranter
                         sw.Write($"{bullet.FragmentationChance},");
                     else
                         sw.Write("0,");
+                    sw.Write($"{bullet.MinFragmentsCount},");
+                    sw.Write($"{bullet.MaxFragmentsCount},");
                     sw.Write($"{bullet.LightBleedingDelta},");
                     sw.Write($"{bullet.HeavyBleedingDelta},");
                     sw.Write($"{bullet.InitialSpeed},");

@@ -54,5 +54,28 @@ export async function requestWeaponDataCurve(requestDetails: any) {
     }
     // console.log(response.data);
     return response.data;
+}
 
+export async function requestArmorEffectivenessData(requestDetails: any) {
+    let response = null;
+    try {
+        response = await axios.get(API_URL + `/GetArmorEffectivenessData/${requestDetails.armorId}`);
+    } catch (error) {
+        throw error;
+    }
+    //console.log(response.data);
+    //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
+    return response.data;
+}
+
+export async function requestAmmoEffectivenessData(requestDetails: any) {
+    let response = null;
+    try {
+        response = await axios.get(API_URL + `/GetAmmoEffectivenessData/${requestDetails.ammoId}`);
+    } catch (error) {
+        throw error;
+    }
+    //console.log(response.data);
+    //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
+    return response.data;
 }
