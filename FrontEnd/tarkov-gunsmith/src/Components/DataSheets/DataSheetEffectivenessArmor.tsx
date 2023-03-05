@@ -154,7 +154,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 <Col xxl>
                     <Card bg="dark" border="secondary" text="light" className="xxl">
                         <Card.Header as="h2" >
-                            Armor Effectiveness Table
+                            Armor vs Ammo
                         </Card.Header>
 
                         <Card.Body>

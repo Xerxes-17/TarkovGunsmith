@@ -36,13 +36,13 @@ function BrandExample() {
                             <NavDropdown title="Data Tables" id="nav-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
                                     <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
-                                        <Nav.Link>Ammo Effectiveness</Nav.Link>
+                                        <Nav.Link>Ammo vs Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_ARMOR}>
-                                        <Nav.Link>Armor Effectiveness</Nav.Link>
+                                        <Nav.Link>Armor vs Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 

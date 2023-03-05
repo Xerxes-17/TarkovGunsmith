@@ -84,7 +84,7 @@ export default function Home(props: any) {
                                 Currently covers Ammo, Armor and Weapons.
                             </Card.Text>
                             <Card.Text>
-                                Currently there are two "calculated" data tables, which presents the efficiency result between armor and ammo pairs, but will take the perspective of Ammo first or Armor first. 
+                                Currently there are two "calculated" data tables, which presents the effectiveness for armor and ammo pairs, but will take the perspective of Ammo first or Armor first. 
                                 Eg: With Ammo first, you will see how that bullet fares against all armor items. With Armor first, you will see how a given armor will perform against a selected range of rounds.
                             </Card.Text>
                             <Card.Text>
@@ -142,7 +142,7 @@ export default function Home(props: any) {
                         <Card.Body>
 
                             <Card.Text>
-                                I've now added two data tables which will provide an easy way of looking at how efficient a given armor item or ammo projectile is.<br /><br />
+                                I've now added two data tables which will provide an easy way of looking at how effective a given armor item or ammo projectile is.<br /><br />
 
                                 The idea behind these tables is that the key criteria of effectiveness is shots to kill. So if you put on an armor vest, you want to know how many 
                                 bullets it will protect you from of each type. While if you are going to use a bullet for your weapon, how many shots it will take to kill someone using a given vest.<br /><br />
