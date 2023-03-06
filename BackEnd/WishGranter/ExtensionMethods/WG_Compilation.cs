@@ -197,6 +197,40 @@ namespace WishGranterProto.ExtensionMethods
             var MountsFiltered = Mounts.Where(mod => mod.Slots.Any(slot => slot.Name == "mod_foregrip")).ToArray();
             temp.AddRange(MountsFiltered);
 
+            // Magwells for G36 which are "mounts"
+            var magwell_1 = All_Mods.Find(x => x.Id.Equals("622f02437762f55aaa68ac85"));
+            if (magwell_1 != null)
+            {
+                temp.Add(magwell_1);
+            }
+            var magwell_2 = All_Mods.Find(x => x.Id.Equals("622f039199f4ea1a4d6c9a17"));
+            if (magwell_2 != null)
+            {
+                temp.Add(magwell_2);
+            }
+
+            // Fuck the Goliaf, it's not as good as the B-11 and I can't be arsed writing EnahncedLogic to deal with it.
+            var goliaf = temp.Find(x=>x.Id.Equals("5d15ce51d7ad1a1eff619092"));
+            if (goliaf.Id.Equals("5d15ce51d7ad1a1eff619092"))
+            {
+                temp.Remove(goliaf);
+            }
+
+            // Need to add in the AUG A1 scope as it is a receiver too
+            var AUG_A1_Scope = All_Mods.Find(x => x.Id.Equals("62ea7c793043d74a0306e19f"));
+            if (AUG_A1_Scope != null)
+            {
+                temp.Add(AUG_A1_Scope);
+            }
+
+            // Need to add in the SVDS UB as it is a "mount"
+            var SVDS_UB = All_Mods.Find(x => x.Id.Equals("5c471c2d2e22164bef5d077f"));
+            if (SVDS_UB != null)
+            {
+                temp.Add(SVDS_UB);
+            }
+
+
             return temp;
         }
 

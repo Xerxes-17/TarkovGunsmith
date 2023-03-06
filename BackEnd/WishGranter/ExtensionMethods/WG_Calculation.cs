@@ -39,38 +39,6 @@ namespace WishGranterProto.ExtensionMethods
             return nextProbabilities;
         }
 
-        private static double BinomialProbabilityFunction(int trials, int successes, double probabilityOfSuccess)
-        {
-            long Factorial(long x)
-            {
-                if (x <= 1)
-                    return 1;
-                else
-                    return x * Factorial(x - 1);
-            }
-
-            long Combination(long a, long b)
-            {
-                if (a <= 1)
-                    return 1;
-
-                return Factorial(a) / (Factorial(b) * Factorial(a - b));
-            }
-
-            double BinomialProbability(int trials, int successes,
-                               double probabilityOfSuccess)
-            {
-                double probOfFailures = 1 - probabilityOfSuccess;
-
-                double c = Combination(trials, successes);
-                double px = Math.Pow(probabilityOfSuccess, successes);
-                double qnx = Math.Pow(probOfFailures, trials - successes);
-
-                return c * px * qnx;
-            }
-            return BinomialProbability(trials, successes, probabilityOfSuccess);
-        }
-
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
         private static double CalculateFactor_A(double armorDurability, int armorClass)
         {
@@ -80,25 +48,33 @@ namespace WishGranterProto.ExtensionMethods
         // This function provides the effective durability of an armor item for a given max durability and armor material.
         public static int GetEffectiveDurability(int maxDurability, ArmorMaterial armorMaterial)
         {
-            double armor_destructability = -1;
-
-            if (armorMaterial == ArmorMaterial.Aramid)
-                armor_destructability = .25;
-            else if (armorMaterial == ArmorMaterial.UHMWPE)
-                armor_destructability = .45;
-            else if (armorMaterial == ArmorMaterial.Combined)
-                armor_destructability = .5;
-            else if (armorMaterial == ArmorMaterial.Titan)
-                armor_destructability = .55;
-            else if (armorMaterial == ArmorMaterial.Aluminium)
-                armor_destructability = .6;
-            else if (armorMaterial == ArmorMaterial.ArmoredSteel)
-                armor_destructability = .7;
-            else if (armorMaterial == ArmorMaterial.Ceramic)
-                armor_destructability = .8;
-
+            double armor_destructability = GetDestructabilityFromMaterial(armorMaterial);
 
             return (int) (maxDurability / armor_destructability);
+        }
+
+        public static double GetDestructabilityFromMaterial(ArmorMaterial armor_material)
+        {
+            double armor_destructability = -1;
+
+            if (armor_material == ArmorMaterial.Aramid)
+                armor_destructability = .25;
+            else if (armor_material == ArmorMaterial.UHMWPE)
+                armor_destructability = .45;
+            else if (armor_material == ArmorMaterial.Combined)
+                armor_destructability = .5;
+            else if (armor_material == ArmorMaterial.Titan)
+                armor_destructability = .55;
+            else if (armor_material == ArmorMaterial.Aluminium)
+                armor_destructability = .6;
+            else if (armor_material == ArmorMaterial.ArmoredSteel)
+                armor_destructability = .7;
+            else if (armor_material == ArmorMaterial.Ceramic)
+                armor_destructability = .8;
+            else if (armor_material == ArmorMaterial.Glass)
+                armor_destructability = .8;
+
+            return armor_destructability;
         }
 
         // Self explainatory
@@ -134,22 +110,7 @@ namespace WishGranterProto.ExtensionMethods
             int penetrationIndex = (bullet_penetration / 10) - 2;
             double ArmorDamageMultiplier = ArmorDamageMultipliers[penetrationIndex, armor_class - 2];
 
-            double armor_destructability = -1;
-
-            if (armor_material == ArmorMaterial.Aramid)
-                armor_destructability = .25;
-            else if (armor_material == ArmorMaterial.UHMWPE)
-                armor_destructability = .45;
-            else if (armor_material == ArmorMaterial.Combined)
-                armor_destructability = .5;
-            else if (armor_material == ArmorMaterial.Titan)
-                armor_destructability = .55;
-            else if (armor_material == ArmorMaterial.Aluminium)
-                armor_destructability = .6;
-            else if (armor_material == ArmorMaterial.ArmoredSteel)
-                armor_destructability = .7;
-            else if (armor_material == ArmorMaterial.Ceramic)
-                armor_destructability = .8;
+            double armor_destructability = GetDestructabilityFromMaterial(armor_material);
 
             double RoundUpAdjustment = Math.Min(1, (bullet_penetration / 10D) / armor_class);
 
@@ -201,6 +162,61 @@ namespace WishGranterProto.ExtensionMethods
             return DamageToArmor(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage);
         }
 
+        public static ArmorItem GetArmorItemFromRatstashByIdString(string armorID, Database RatStashDB)
+        {
+            var Armor = RatStashDB.GetItem(armorID);
+            ArmorItem armorItem = new();
+
+            // Need to cast the Item to respective types to get properties
+            if (Armor.GetType() == typeof(Armor))
+            {
+                var temp = (Armor)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Armor";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+            else if (Armor.GetType() == typeof(ChestRig))
+            {
+                var temp = (ChestRig)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Armor";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+            else if (Armor.GetType() == typeof(Headwear))
+            {
+                var temp = (Headwear)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+
+            else if (Armor.GetType() == typeof(ArmoredEquipment))
+            {
+                var temp = (ArmoredEquipment)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
+
+            return armorItem;
+        }
+
         // Finds the test serires result of a given armor at a percentage of durability vs a given ammo type
         public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc)
         {
@@ -230,7 +246,7 @@ namespace WishGranterProto.ExtensionMethods
                 // ADPS
                 testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
 
-                while (doneDamage < startingDura)
+                while (doneDamage < startingDura || HitPoints > 0)
                 {
                     // Get the current durability and pen chance
                     double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
@@ -240,10 +256,20 @@ namespace WishGranterProto.ExtensionMethods
                     // Calc Potential damages:
                     var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
                     var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
+                    
 
                     // Calc Average Damage and apply it to HP pool
                     var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
-                    HitPoints = HitPoints - AverageDamage;
+                    //! Exception for when the armor is at zero durability
+                    if(durability <= 0)
+                    {
+                        HitPoints = HitPoints - ammo.Damage;
+                    }
+                    else
+                    {
+                        HitPoints = HitPoints - AverageDamage;
+                    }
+                    
 
                     // Calc the probabilities
                     currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, ShotBlunt, ShotPenetrating, (float) penChance);
@@ -262,6 +288,17 @@ namespace WishGranterProto.ExtensionMethods
 
                     testShot.ProbabilityOfKillCumulative = 0;
                     testShot.ProbabilityOfKillSpecific = 0;
+
+                    //! Exception for when the armor is at zero durability
+                    if (testShot.Durability < 0)
+                    {
+                        testShot.Durability = 0;
+                        testShot.DurabilityPerc = 0;
+                        testShot.PenetrationChance = 100;
+                        testShot.PenetratingDamage = ammo.Damage;
+                        testShot.AverageDamage = ammo.Damage;
+                        testShot.DoneDamage = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
+                    }
 
                     if (currentHpProbabilities.ContainsKey(0))
                     {
@@ -283,10 +320,20 @@ namespace WishGranterProto.ExtensionMethods
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();
-                }
+                } 
                 // Let's get the shot that should kill
-                var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
-                testResult.KillShot = index + 1;
+                var index = testResult.Shots.FindIndex(x => x.ProbabilityOfKillCumulative > 50);
+
+                // In the event that the average damage doesn't go below zero before the end of an armor test serires, set tha final index as the kill shot
+                //? This is a small hack until I can go back to this and remake the ADC into a proper terminal ballistics sim.
+                if(index == -1)
+                {
+                    testResult.KillShot = testResult.Shots.Count;
+                }
+                else
+                {
+                    testResult.KillShot = index + 1;
+                }
             }
             
 

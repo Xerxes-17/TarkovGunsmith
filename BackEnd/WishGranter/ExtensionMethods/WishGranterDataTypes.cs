@@ -196,28 +196,107 @@ namespace WishGranterProto.ExtensionMethods
         public int PriceRUB { get; set; } = -1;
     }
 
-    public record struct J_OfferUnlock
+    public record struct CurveDataPoint
     (
-        J_Trader trader,
         int level,
-        J_Item item
-    );
-    public record struct J_Trader
-    (
-        string id,
-        string name
-
-    );
-    public record struct J_Item
-    (
-        string id,
-        string name
-    );
-    public record struct J_CashOffer
-    (
-        int priceRUB,
-        string currency,
+        int recoil, 
+        int ergo, 
         int price,
-        J_Item item
+        int penetration,
+        int damage,
+        bool invalid
     );
+
+    public class ArmorTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public int ArmorClass { get; set; } = -1;
+        public int MaxDurability { get; set; } = -1;
+        public ArmorMaterial Material { get; set; } = new();
+        public int EffectiveDurability { get; set; } = -1;
+        public double BluntThroughput { get; set; } = -1;
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public string Type { get; set; } = "default"; // "Helmet", "ArmorVest", "ChestRig", "ArmoredEquipment"
+    }
+
+    public class AmmoTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public string Caliber { get; set; } = "";
+        public int Damage { get; set; } = -1;
+        public int PenetrationPower { get; set; } = -1;
+        public int ArmorDamagePerc { get; set; } = -1;
+        public double BaseArmorDamage { get; set; } = -1;
+
+        public double LightBleedDelta { get; set; } = -1;
+        public double HeavyBleedDelta { get; set; } = -1;
+        public double FragChance { get; set; } = -1;
+        public double InitialSpeed { get; set; } = -1;
+        public double AmmoRec { get; set; } = -1;
+        public bool Tracer { get; set; } = false;
+    }
+
+    // We will take the base stats, and the stats of the DEFAULT preset of the weapon.
+    public class WeaponTableRow
+    {
+        public string Id { get; set; } = "default";
+        public string Name { get; set; } = "default";
+        public string Caliber { get; set; } = "default";
+
+        // Base Stats
+        public int RateOfFire { get; set; } = -1;
+        public int BaseErgonomics { get; set; } = -1;
+        public int BaseRecoil { get; set; } = -1;
+
+        // Hidden Stats
+        public int RecoilDispersion { get; set; } = -1;
+        public double Convergence { get; set; } = -1;
+        public int RecoilAngle { get; set; } = -1;
+        public double CameraRecoil { get; set; } = -1;
+
+        // Default Preset Stats
+        public int DefaultErgonomics { get; set; } = -1;
+        public int DefaultRecoil { get; set; } = -1;
+
+        // Trader information will be for the base preset
+        public int Price { get; set; } = 0;
+        public int TraderLevel { get; set; } = -1;
+        public int FleaPrice { get; set; } = -1;
+    }
+
+    public class EffectivenessDataRow
+    {
+        public string AmmoId { get; set; } = "";
+        public string ArmorId { get; set; } = "";
+        public string AmmoName { get; set; } = "";
+        public string ArmorName { get; set; } = "";
+        public string ArmorType { get; set; } = "";
+        public int ArmorClass { get; set; } = -1;
+
+        public double FirstShot_PenChance { get; set; } = -1;
+        public double FirstShot_PenDamage { get; set; } = -1;
+        public double FirstShot_BluntDamage { get; set; } = -1;
+        public double FirstShot_ArmorDamage { get; set; } = -1;
+
+        public int ExpectedShotsToKill { get; set; } = -1;
+        // This should be the culuminitive chance of the shots to kill.
+        public double ExpectedKillShotConfidence { get; set; } = -1;
+
+        //? Perhaps a "shots to get > 90% chance to kill?
+        //? Or even have it by tiers? so like >30 , >60, >90
+
+        //? Need to include the bullet damage and penetration
+
+    }
+
+    public class CondensedDataRow
+    {
+        public Ammo ammo { get; set; } = new();
+        public List<string> ratings { get; set; } = new();
+    }
 }

@@ -8,9 +8,50 @@ using System.Collections.Generic;
 using Force.DeepCloner;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using WishGranter;
 
 namespace WishGranterTests
 {
+    [TestClass]
+    public class DataScienceTests
+    {
+        static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
+
+        [TestMethod]
+        public void Test_CompileArmorTable()
+        {
+            var result = WG_DataScience.CompileArmorTable(RatStashDB);
+
+            Console.WriteLine(result.Count);
+            Assert.AreEqual(107, result.Count);
+        }
+
+        [TestMethod]
+        public void Test_CompileAmmoTable()
+        {
+            var result = WG_DataScience.CompileAmmoTable(RatStashDB);
+
+            Console.WriteLine(result.Count);
+            Assert.AreEqual(166, result.Count);
+        }
+
+        [TestMethod]
+        public void Test_CalculateArmorEffectivenessData_RatRig()
+        {
+            ArmorItem ratrig = new ArmorItem();
+            ratrig.ArmorMaterial = ArmorMaterial.Titan;
+            ratrig.BluntThroughput = .36;
+            ratrig.MaxDurability = 40;
+            ratrig.ArmorClass = 4;
+            ratrig.Name = "RatRig dummy";
+
+            var result = WG_DataScience.CalculateArmorEffectivenessData(ratrig, RatStashDB);
+
+            Console.WriteLine(result.Count);
+        }
+
+    }
+
     [TestClass]
     public class FittingTests
     {
@@ -18,6 +59,21 @@ namespace WishGranterTests
         static List<WeaponMod> AllAvailibleWeaponMods = RatStashDB.GetItems(x => x is WeaponMod).Cast<WeaponMod>().ToList();
 
         static int filterMode = 1;
+
+        [TestMethod]
+        public void getAltynFS()
+        {
+            var altynFS = RatStashDB.GetItem("5aa7e373e5b5b000137b76f0");
+
+            Console.WriteLine(altynFS.GetType().Name);
+
+            var armoredEquipment = RatStashDB.GetItems(x => x.GetType() == typeof(ArmoredEquipment)).Cast<ArmoredEquipment>().ToList();
+            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 1).ToList();
+
+            Console.WriteLine(armoredEquipment.Count);
+
+            //todo Add this to the armorSelection List method and so on.
+        }
 
         [TestMethod]
         public void SMFS_Wrapper_AKS_74UB()

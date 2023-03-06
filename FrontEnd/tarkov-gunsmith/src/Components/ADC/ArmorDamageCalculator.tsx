@@ -10,7 +10,7 @@ import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS 
 import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
-import { copyImageToClipboard} from 'copy-image-clipboard';
+// import { copyImageToClipboard} from 'copy-image-clipboard';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -68,6 +68,7 @@ export default function ArmorDamageCalculator(props: any) {
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorOptionsList');
+        console.log(response)
         setArmorOptions(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
@@ -237,7 +238,9 @@ export default function ArmorDamageCalculator(props: any) {
             ammoId: ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
+            // console.log(response)
             setResult(response);
+            
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
@@ -320,17 +323,17 @@ export default function ArmorDamageCalculator(props: any) {
         document.body.removeChild(link);
     };
 
-    const handleCopyImage = async () => {
-        try {
-            const element: any = document.getElementById('print'),
-            canvas = await html2canvas(element),
-            data = canvas.toDataURL('image/png');
+    // const handleCopyImage = async () => {
+    //     try {
+    //         const element: any = document.getElementById('print'),
+    //         canvas = await html2canvas(element),
+    //         data = canvas.toDataURL('image/png');
 
-            if (data) await copyImageToClipboard(data)
-        } catch (e: any) {
-            if (e?.message) alert(e.message)
-        }
-    }
+    //         if (data) await copyImageToClipboard(data)
+    //     } catch (e: any) {
+    //         if (e?.message) alert(e.message)
+    //     }
+    // }
 
 
     // assume that a <div className="row gy-2"> is around the cards
@@ -341,7 +344,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                 <Card.Header as="h2" >
                     <Stack direction="horizontal" gap={3}>
-                        Armor Damage Calculator - Presets
+                        Terminal Ballistics Simulator - Presets
                         <div className="ms-auto">
                             <Stack direction='horizontal' gap={2}>
                                 <Button variant="secondary" onClick={handleEnableCustomCal}>Change mode to Custom</Button>
@@ -360,7 +363,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Accordion.Header><strong>Armor Filters</strong></Accordion.Header>
                                     <Accordion.Body>
                                         Armor Type <br />
-                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet"])}> All</Button>{' '}
+                                        <Button size="sm" variant="outline-warning" onClick={(e) => handleNewArmorTypesTBG(["ArmorVest", "ChestRig", "Helmet", "ArmoredEquipment"])}> All</Button>{' '}
                                         <ToggleButtonGroup size="sm" type="checkbox" value={newArmorTypes} onChange={handleNewArmorTypesTBG}>
                                             {ARMOR_TYPES.map((item: any, i: number) => {
                                                 return (
@@ -520,7 +523,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <Card.Footer>
                         <div className="d-grid gap-2">
                             <Button variant="success" type="submit" className='form-btn'>
-                                Calculate
+                                Simulate
                             </Button>
                         </div>
                     </Card.Footer>
@@ -742,7 +745,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                                     <Stack direction='horizontal' gap={2}>
                                         <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
-                                        <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
+                                        {/* <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button> */}
                                     </Stack>
                                 </div>
                             </Stack>

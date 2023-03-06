@@ -5,7 +5,7 @@ using WishGranterProto.ExtensionMethods;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Force.DeepCloner;
-
+using WishGranter;
 
 Console.WriteLine("Wishgranter-API is starting.");
 
@@ -57,6 +57,10 @@ Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedM
 
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
+
+// Init the DataScience instance, get the big data table ready
+WG_DataScience dataScience = new WG_DataScience();
+dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 
 startAPI();
 
@@ -113,6 +117,17 @@ void startAPI()
     app.MapGet("/GetArmorOptionsList", () => GetArmorOptionsList());
     app.MapGet("/GetAmmoOptionsList", () => GetAmmoOptionsList());
 
+    app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{purchaseType}", (string presetID, string mode, int muzzleMode, int purchaseType) => GetWeaponStatsCurve(presetID, mode, muzzleMode, purchaseType));
+
+    app.MapGet("/GetAmmoDataSheetData", () => GetAmmoDataSheetData());
+    app.MapGet("/GetArmorDataSheetData", () => GetArmorDataSheetData());
+    app.MapGet("/GetWeaponDataSheetData", () => GetWeaponsDataSheetData());
+
+    app.MapGet("/GetArmorEffectivenessData/{armorId}", (string armorId) => GetEffectivenessDataForArmor(armorId));
+    app.MapGet("/GetAmmoEffectivenessData/{ammoId}", (string ammoId) => GetEffectivenessDataForAmmo(ammoId));
+
+    app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
+
     app.Run();
 }
 
@@ -132,7 +147,6 @@ List<SelectionAmmo> GetAmmoOptionsList()
     Console.WriteLine($"Request for AmmoOptionList");
     return AmmoOptionsList;
 }
-
 
 string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, int purchaseType)
 {
@@ -176,6 +190,8 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     List<string> MasterWhiteList = WG_Recursion.CreateMasterWhiteListIds(WantedPreset.Weapon, AvailibleWeaponMods);
     List<WeaponMod> ShortList_WeaponMods = RatStashDB.GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
 
+    var AWM_Names = ShortList_WeaponMods.Select(x => x.Name).ToList();
+
     // Let's now fit the weapon and get the best penetrating ammo
     HashSet<string> CommonBlackListIDs = new();
     CompoundItem weapon_result = WG_Recursion.SMFS_Wrapper(WantedPreset.Weapon, ShortList_WeaponMods, mode, CommonBlackListIDs);
@@ -186,7 +202,6 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     {
         ammo_result = temp;
     }
-
 
     //? A little check to see if a build is valid, to help with debugging and maintenance
     Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
@@ -205,46 +220,13 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
 {
-    var Armor = RatStashDB.GetItem(armorID);
+    Console.WriteLine($"Request for CalculateArmorVsBulletSeries");
+
     var Bullet = RatStashDB.GetItem(bulletID);
 
     TransmissionArmorTestResult result = new();
-    ArmorItem armorItem = new();
 
-    // Need to cast the Item to respective types to get properties
-    if (Armor.GetType() == typeof(Armor))
-    {
-        var temp = (Armor)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Armor";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
-    else if (Armor.GetType() == typeof(ChestRig))
-    {
-        var temp = (ChestRig)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Armor";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
-    else if (Armor.GetType() == typeof(Headwear))
-    {
-        var temp = (Headwear)Armor;
-        armorItem.Name = temp.Name;
-        armorItem.Id = temp.Id;
-        armorItem.MaxDurability = temp.MaxDurability;
-        armorItem.ArmorClass = temp.ArmorClass;
-        armorItem.ArmorMaterial = temp.ArmorMaterial;
-        armorItem.ArmorType = "Helmet";
-        armorItem.BluntThroughput = temp.BluntThroughput;
-    }
+    ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
     return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
 }
@@ -254,4 +236,54 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double m
     Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
 
     return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
+}
+
+List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzleMode, int purchaseType)
+{
+    // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
+    WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals((OfferType)purchaseType)).DeepClone();
+
+    Console.WriteLine($"Request for Stats curve of {WantedPreset.Weapon.Name}");
+    var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashDB);
+    return result;
+}
+
+List<AmmoTableRow> GetAmmoDataSheetData()
+{
+    Console.WriteLine($"Request for AmmoDataSheet");
+    return WG_DataScience.CompileAmmoTable(RatStashDB);
+}
+List<ArmorTableRow> GetArmorDataSheetData()
+{
+    Console.WriteLine($"Request for ArmorDataSheet");
+    return WG_DataScience.CompileArmorTable(RatStashDB);
+}
+
+List<WeaponTableRow> GetWeaponsDataSheetData()
+{
+    Console.WriteLine($"Request for WeaponsDataSheet");
+    return WG_DataScience.CompileWeaponTable(DefaultWeaponPresets);
+}
+
+List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
+{
+    Console.WriteLine($"Request for Armor vs Ammo Data");
+
+    var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
+
+    return WG_DataScience.CalculateArmorEffectivenessData(armor, RatStashDB);
+}
+
+List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
+{
+    Console.WriteLine($"Request for Ammo vs Armor Data");
+    var ammo = (Ammo) RatStashDB.GetItem(ammoID);
+
+    return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashDB);
+}
+
+List<CondensedDataRow> GetCondensedAmmoEffectivenessTable()
+{
+    Console.WriteLine($"Request for Ammo Effectiveness Table");
+    return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 }
