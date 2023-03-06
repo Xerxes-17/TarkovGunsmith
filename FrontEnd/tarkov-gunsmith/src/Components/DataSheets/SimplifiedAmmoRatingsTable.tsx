@@ -253,7 +253,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                 This table shows the effectiveness rating of all ammo with 20 penetration and above* on the basis of <strong>shots to kill</strong> with the following combined scale:
                                 <ul>
                                     <li><strong>0. </strong> Kills with 1 thorax hit on average. (Incredible)</li>
-                                    <li><strong>1. </strong> Kills with 1 or 2 thorax hits on average. (Excellent)</li>
+                                    <li><strong>1. </strong> Kills with 2 thorax hits on average. (Excellent)</li>
                                     <li><strong>2. </strong> Kills with 3 or 4 thorax hits on average. (Good)</li>
                                     <li><strong>3. </strong> Kills with 5 or 6 thorax hits on average. (Okay)</li>
                                     <li><strong>4. </strong> Kills with 7 or 8 thorax hits on average. (Poor)</li>
