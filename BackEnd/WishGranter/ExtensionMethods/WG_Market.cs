@@ -249,10 +249,10 @@ namespace WishGranterProto.ExtensionMethods
 
         public static (int initialCost, int sellBackTotal, int boughtModsTotal, int finalCost) CalculateWeaponBuildTotals(WeaponPreset preset, Weapon resultWeapon)
         {
-            WG_Recursion.PrintAttachedModNames_Recursively(preset.Weapon, 0);
+            //WG_Recursion.PrintAttachedModNames_Recursively(preset.Weapon, 0);
 
-            Console.WriteLine("result");
-            WG_Recursion.PrintAttachedModNames_Recursively(resultWeapon, 0);
+            //Console.WriteLine("result");
+            //WG_Recursion.PrintAttachedModNames_Recursively(resultWeapon, 0);
 
             // Get the cost of the preset
             int initialCost = preset.PurchaseOffer.PriceRUB;

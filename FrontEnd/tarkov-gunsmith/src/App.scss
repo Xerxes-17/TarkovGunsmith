@@ -47,6 +47,11 @@ footer {
   color: black;
 }
 
+.dropdown-menu {
+  background-color: #212529;
+  --bs-dropdown-link-hover-bg: #292e33;
+}
+
 // MWB
 .weapon_image {
   max-width: 160px;
@@ -176,3 +181,7 @@ footer {
 
 // https://stackoverflow.com/a/46117607
 .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+
+.selectorZIndexBodge{
+  z-index: 30
+}
