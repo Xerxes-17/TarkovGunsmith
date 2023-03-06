@@ -1,6 +1,6 @@
 import { Col, Card, Nav, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO } from "../Util/links";
+import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE } from "../Util/links";
 
 // Renders the home
 export default function Home(props: any) {
@@ -43,7 +43,7 @@ export default function Home(props: any) {
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <LinkContainer to={ARMOR_DAMAGE_CALC}>
                             <Nav.Link>
-                                <Card.Header as="h5">Armor Damage Calculator</Card.Header>
+                                <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                             </Nav.Link>
                         </LinkContainer>
                         <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} />
@@ -69,26 +69,26 @@ export default function Home(props: any) {
             <div className="row gy-2 mb-2">
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                        <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
+                        <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE}>
                             <Nav.Link>
-                                <Card.Header as="h5">Data Tables</Card.Header>
+                                <Card.Header as="h5">Info Tables</Card.Header>
                             </Nav.Link>
                         </LinkContainer>
                         <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas.png'} />
                         <Card.Body>
                             <Card.Text>
-                                Data tables are now available in two types: plain and calculated.
+                                Info tables are now available in two types: data and stats.
                             </Card.Text>
                             <Card.Text>
-                                Plain data tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, includes hidden stats which are important.
-                                Currently covers Ammo, Armor and Weapons.
+                                Stats tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, includes hidden stats which are important.
+                                Currently cover Ammo, Armor and Weapons.
                             </Card.Text>
                             <Card.Text>
-                                Currently there are two "calculated" data tables, which presents the effectiveness for armor and ammo pairs, but will take the perspective of Ammo first or Armor first. 
-                                Eg: With Ammo first, you will see how that bullet fares against all armor items. With Armor first, you will see how a given armor will perform against a selected range of rounds.
+                                There are three data tables, the first is my take on an ammo effectiveness chart, and the other are Ammo vs Armor and Armor vs Ammo. <br/>
+                                Eg: With Ammo vs Armor, you will see how that bullet fares against all armor items. With Armor vs Ammo, you will see how a given armor will perform against a selected range of rounds.
                             </Card.Text>
                             <Card.Text>
-                                As the latter two are base upon data provided by simulating Tarkov game mechanics, it is more accurate than NoFoodAfterMidnight's commonly cited ammo effectiveness chart.
+                                As the data tables are base upon data provided by simulating Tarkov game mechanics, they are more accurate than NoFoodAfterMidnight's commonly cited ammo effectiveness chart.
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -137,6 +137,27 @@ export default function Home(props: any) {
                 <Col>
                     <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                         <Card.Header as="h5">
+                            6/03/2023
+                        </Card.Header>
+                        <Card.Body>
+
+                            <Card.Text>
+                                The ammo effectiveness chart is now finished, and looking great! When designing it I decided to go with "hits to kill" as my scale because I think the current and common view of 
+                                by pure penetration doesn't present the whole picture on how effective a given round is. For instance, some high penetration rounds won't even kill on head shots due to armor damage mitigation.
+                                But with my chart, this is accounted for. The scale also shows how rounds perform against the thorax or head, as these numbers can differ significantly.<br /><br />
+
+                                As a part of this table and the other ones I've added, I've had to expand and update the functionality of the Armor Damage Calculator to be beyond its initial scope, so now I've changed the name to 
+                                "Terminal Ballistics Simulator". Since this function now encompasses both armor and character damage as a focus, I think this name better reflects its new capabilities. I still gotta update the custom mode though.<br /><br />
+                            </Card.Text>
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_aec_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} />
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+            <Row className="row gy-2 mb-2">
+                <Col>
+                    <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                        <Card.Header as="h5">
                             5/03/2023
                         </Card.Header>
                         <Card.Body>
@@ -144,13 +165,13 @@ export default function Home(props: any) {
                             <Card.Text>
                                 I've now added two data tables which will provide an easy way of looking at how effective a given armor item or ammo projectile is.<br /><br />
 
-                                The idea behind these tables is that the key criteria of effectiveness is shots to kill. So if you put on an armor vest, you want to know how many 
+                                The idea behind these tables is that the key criteria of effectiveness is shots to kill. So if you put on an armor vest, you want to know how many
                                 bullets it will protect you from of each type. While if you are going to use a bullet for your weapon, how many shots it will take to kill someone using a given vest.<br /><br />
 
-                                These tables can be made full-screen and some columns start out hidden, which you can change, in addition to being filterable and sortable. I will probably add more features as 
-                                I learn more about the somewhat unfortunately name (for the Tarkov context) RMT - React Material Table.<br /><br />
+                                These tables can be made full-screen and some columns start out hidden, which you can change, in addition to being filterable and sortable. I will probably add more features as
+                                I learn more about Material React Table.<br /><br />
                             </Card.Text>
-                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_1.png'} style={{ maxWidth: 957, maxHeight: 1044  }} />
+                            <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} />
                         </Card.Body>
                     </Card>
                 </Col>

@@ -102,7 +102,6 @@ export default function DataSheetWeapons(props: any) {
 
             },
 
-
             {
                 accessorKey: 'convergence',
                 header: 'Convergence',
@@ -155,8 +154,11 @@ export default function DataSheetWeapons(props: any) {
 
             {
                 accessorKey: 'price',
-                header: 'Price',
+                header: 'PriceRUB',
                 muiTableHeadCellProps: { sx: { color: 'blue' } },
+                Cell: ({ cell }) => (
+                    <span>₽ {(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}</span>
+                ),
             },
             {
                 accessorKey: 'traderLevel',
@@ -177,7 +179,7 @@ export default function DataSheetWeapons(props: any) {
     );
 
     //store pagination state in your own state
-    const [pagination, setPagination] = useState({
+    const [pagination] = useState({
         pageIndex: 0,
         pageSize: 200, //customize the default page size
     });
@@ -221,15 +223,16 @@ export default function DataSheetWeapons(props: any) {
                     initialState={{
                         density: 'compact',
                         columnVisibility: {
+                            caliber: false,
                             rateOfFire: false,
-                            price: false,
                             baseErgonomics: false,
                             baseRecoil: false,
-
                             cameraRecoil: false,
                             recoilAngle: false,
 
-                            traderLevel: false
+                            price: true,
+                            traderLevel: false,
+                            fleaPrice: true
                         },
                         pagination: pagination,
 
@@ -239,9 +242,9 @@ export default function DataSheetWeapons(props: any) {
                     }} //hide AmmoRec column by default
 
                     defaultColumn={{
-                        minSize: 20, //allow columns to get smaller than default
-                        maxSize: 75, //allow columns to get larger than default
-                        size: 20, //make columns wider by default
+                        minSize: 10, //allow columns to get smaller than default
+                        maxSize: 20, //allow columns to get larger than default
+                        size: 10, //make columns wider by default
                     }}
                     enableStickyHeader
 

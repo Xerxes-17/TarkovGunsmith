@@ -42,7 +42,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 45057,
+    "PriceRUB": 45936,
     "Value": "5c10fcb186f774533e5529ab",
     "Label": "ADAR 2-15 5.56x45 carbine Default",
     "ImageLink": null
@@ -74,7 +74,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18580,
+    "PriceRUB": 17572,
     "Value": "5ac4ac9486f774181345c3d2",
     "Label": "APB 9x18PM silenced machine pistol Default",
     "ImageLink": null
@@ -106,7 +106,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 165088,
+    "PriceRUB": 143443,
     "Value": "5841482e2459775a050cdda9",
     "Label": "AS VAL 9x39 special assault rifle Default",
     "ImageLink": null
@@ -122,7 +122,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 64712,
+    "PriceRUB": 64184,
     "Value": "5d23467086f77443f37fc602",
     "Label": "ASh-12 12.7x55 assault rifle Default",
     "ImageLink": null
@@ -138,7 +138,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 51985,
+    "PriceRUB": 49603,
     "Value": "5d23467086f77443f37fc602",
     "Label": "ASh-12 12.7x55 assault rifle Default",
     "ImageLink": null
@@ -154,7 +154,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 53496,
+    "PriceRUB": 55143,
     "Value": "ash12silenced00000000001",
     "Label": "ASh-12 12.7x55 assault rifle Silenced",
     "ImageLink": null
@@ -186,7 +186,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 28456,
+    "PriceRUB": 25919,
     "Value": "5e0340ab86f7745bb7339235",
     "Label": "B&T MP9 9x19 submachine gun Default",
     "ImageLink": null
@@ -202,7 +202,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23493,
+    "PriceRUB": 20827,
     "Value": "5e03410186f77469041348ea",
     "Label": "B&T MP9-N 9x19 submachine gun Default",
     "ImageLink": null
@@ -234,7 +234,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42698,
+    "PriceRUB": 43012,
     "Value": "62975de85c32d414f8797433",
     "Label": "Benelli M3 Super 90 dual-mode 12ga shotgun Default",
     "ImageLink": null
@@ -266,7 +266,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 12984,
+    "PriceRUB": 12265,
     "Value": "5d3f0bc986f7743cb332abdc",
     "Label": "Beretta M9A3 9x19 pistol Default",
     "ImageLink": null
@@ -298,7 +298,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 9314,
+    "PriceRUB": 8273,
     "Value": "624d7b2881a57812413b7954",
     "Label": "Chiappa Rhino 200DS 9x19 revolver Default",
     "ImageLink": null
@@ -330,7 +330,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15437,
+    "PriceRUB": 13955,
     "Value": "624d7a3691f0160c7324c3f4",
     "Label": "Chiappa Rhino 50DS .357 revolver Default",
     "ImageLink": null
@@ -394,7 +394,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15987,
+    "PriceRUB": 13738,
     "Value": "5eb2968186f7746d1f1a4fd5",
     "Label": "Colt M1911A1 .45 ACP pistol Default",
     "ImageLink": null
@@ -410,7 +410,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 12725,
+    "PriceRUB": 12132,
     "Value": "5f6762e964af6a2aa319deeb",
     "Label": "Colt M45A1 .45 ACP pistol Default",
     "ImageLink": null
@@ -426,7 +426,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 150015,
+    "PriceRUB": 133323,
     "Value": "5bbf1c5a88a45017bb03d7aa",
     "Label": "Colt M4A1 5.56x45 assault rifle LVOA",
     "ImageLink": null
@@ -442,7 +442,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 262527,
+    "PriceRUB": 233316,
     "Value": "5dd800eae49222636663133b",
     "Label": "Colt M4A1 5.56x45 assault rifle SAI",
     "ImageLink": null
@@ -474,7 +474,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 132227,
+    "PriceRUB": 136667,
     "Value": "5a8ae73886f7747b2e6e1416",
     "Label": "Colt M4A1 5.56x45 assault rifle SOPMOD II",
     "ImageLink": null
@@ -490,7 +490,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 3,
-    "PriceRUB": 154515,
+    "PriceRUB": 154350,
     "Value": "m4a1sopmodiiflash0000001",
     "Label": "Colt M4A1 5.56x45 assault rifle SOPMOD II Flash",
     "ImageLink": null
@@ -522,7 +522,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 71096,
+    "PriceRUB": 82640,
     "Value": "5af08cf886f774223c269184",
     "Label": "Colt M4A1 5.56x45 assault rifle Standard",
     "ImageLink": null
@@ -538,7 +538,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 74183,
+    "PriceRUB": 78617,
     "Value": "5af08cf886f774223c269184",
     "Label": "Colt M4A1 5.56x45 assault rifle Standard",
     "ImageLink": null
@@ -570,7 +570,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 63093,
+    "PriceRUB": 60383,
     "Value": "5c98bd7386f7740cfb15654e",
     "Label": "Desert Tech MDR 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -602,7 +602,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 80270,
+    "PriceRUB": 72296,
     "Value": "5b83f22086f77464e15a1d5f",
     "Label": "DS Arms SA-58 7.62x51 assault rifle AUT",
     "ImageLink": null
@@ -650,7 +650,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 70998,
+    "PriceRUB": 58599,
     "Value": "5b439b5686f77428bd137424",
     "Label": "DS Arms SA-58 7.62x51 assault rifle Default",
     "ImageLink": null
@@ -666,7 +666,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 40,
     "OfferType": 3,
-    "PriceRUB": 94569,
+    "PriceRUB": 99208,
     "Value": "5b83f29886f7746d956305a1",
     "Label": "DS Arms SA-58 7.62x51 assault rifle PBR",
     "ImageLink": null
@@ -682,7 +682,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 155111,
+    "PriceRUB": 146783,
     "Value": "sa58spr00000000000000001",
     "Label": "DS Arms SA-58 7.62x51 assault rifle SPR",
     "ImageLink": null
@@ -698,7 +698,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 103407,
+    "PriceRUB": 97855,
     "Value": "sa58xfal0000000000000001",
     "Label": "DS Arms SA-58 7.62x51 assault rifle X-FAL",
     "ImageLink": null
@@ -730,7 +730,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 21108,
+    "PriceRUB": 22761,
     "Value": "5d7b845786f7743c1e531da7",
     "Label": "FN Five-seveN MK2 5.7x28 pistol (FDE) Default",
     "ImageLink": null
@@ -762,7 +762,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23648,
+    "PriceRUB": 23178,
     "Value": "5d51290186f77419093e7c24",
     "Label": "FN Five-seveN MK2 5.7x28 pistol Default",
     "ImageLink": null
@@ -778,7 +778,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 58926,
+    "PriceRUB": 58886,
     "Value": "5d51290186f77419093e7c24",
     "Label": "FN Five-seveN MK2 5.7x28 pistol Default",
     "ImageLink": null
@@ -794,7 +794,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 225023,
+    "PriceRUB": 199985,
     "Value": "5d2340e986f77461496241bc",
     "Label": "FN P90 5.7x28 submachine gun CWDG",
     "ImageLink": null
@@ -826,7 +826,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 71318,
+    "PriceRUB": 71593,
     "Value": "5d23376786f77459bb77d838",
     "Label": "FN P90 5.7x28 submachine gun Default",
     "ImageLink": null
@@ -842,7 +842,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 61357,
+    "PriceRUB": 64879,
     "Value": "5d23404b86f7740d62079098",
     "Label": "FN P90 5.7x28 submachine gun SBR",
     "ImageLink": null
@@ -890,7 +890,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 159697,
+    "PriceRUB": 159128,
     "Value": "6193e4fae693542ea37d11c6",
     "Label": "FN SCAR-H 7.62x51 assault rifle (FDE) Default",
     "ImageLink": null
@@ -922,7 +922,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 187519,
+    "PriceRUB": 166654,
     "Value": "619e61e70459e93c12392ba7",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) Contract Wars",
     "ImageLink": null
@@ -986,7 +986,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 53669,
+    "PriceRUB": 55133,
     "Value": "6193e226449ec003d9127fa6",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) Default",
     "ImageLink": null
@@ -1018,7 +1018,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 57594,
+    "PriceRUB": 57317,
     "Value": "6193e18de693542ea37d11b3",
     "Label": "FN SCAR-L 5.56x45 assault rifle LB",
     "ImageLink": null
@@ -1034,7 +1034,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 3,
-    "PriceRUB": 469643,
+    "PriceRUB": 489049,
     "Value": "5f06d6e1475d472556679d16",
     "Label": "FN40GL Mk2 40mm grenade launcher Default",
     "ImageLink": null
@@ -1066,7 +1066,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 19728,
+    "PriceRUB": 15840,
     "Value": "5a88acfb86f77457fd2c0d8f",
     "Label": "Glock 17 9x19 pistol Default",
     "ImageLink": null
@@ -1082,7 +1082,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 75007,
+    "PriceRUB": 66661,
     "Value": "5a88aed086f77476cd391963",
     "Label": "Glock 17 9x19 pistol Fischer",
     "ImageLink": null
@@ -1098,7 +1098,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 99454,
+    "PriceRUB": 86184,
     "Value": "5a88b0f686f77416370eca3e",
     "Label": "Glock 17 9x19 pistol Hex",
     "ImageLink": null
@@ -1114,7 +1114,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 30157,
+    "PriceRUB": 30379,
     "Value": "glock17ps900000000000001",
     "Label": "Glock 17 9x19 pistol PS9",
     "ImageLink": null
@@ -1130,7 +1130,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 36981,
+    "PriceRUB": 33169,
     "Value": "5a88b1f686f774159949926e",
     "Label": "Glock 17 9x19 pistol Spartan",
     "ImageLink": null
@@ -1146,7 +1146,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 42258,
+    "PriceRUB": 45315,
     "Value": "5a88af5086f77411a871682c",
     "Label": "Glock 17 9x19 pistol Tac 2",
     "ImageLink": null
@@ -1162,7 +1162,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 45581,
+    "PriceRUB": 44519,
     "Value": "5a88ad7b86f77479aa7226af",
     "Label": "Glock 17 9x19 pistol Tac 3",
     "ImageLink": null
@@ -1178,7 +1178,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 51769,
+    "PriceRUB": 50734,
     "Value": "5a88ae4a86f77457fd2c0dae",
     "Label": "Glock 17 9x19 pistol Viper",
     "ImageLink": null
@@ -1210,7 +1210,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 22575,
+    "PriceRUB": 19386,
     "Value": "5b439b1f86f7744fd8059cbe",
     "Label": "Glock 18C 9x19 machine pistol Default",
     "ImageLink": null
@@ -1242,7 +1242,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 16721,
+    "PriceRUB": 16106,
     "Value": "6398685ee678457197138035",
     "Label": "Glock 19X 9x19 pistol Default",
     "ImageLink": null
@@ -1274,7 +1274,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 59590,
+    "PriceRUB": 58547,
     "Value": "5c0d1e9386f77440120288b7",
     "Label": "HK 416A5 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -1306,7 +1306,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 3,
-    "PriceRUB": 303149,
+    "PriceRUB": 341836,
     "Value": "6193e5f3aa34a3034236bdb3",
     "Label": "HK G28 7.62x51 marksman rifle Patrol",
     "ImageLink": null
@@ -1354,7 +1354,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 43667,
+    "PriceRUB": 42705,
     "Value": "6297738b9f1b474e440c45b5",
     "Label": "HK G36 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -1434,7 +1434,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 27093,
+    "PriceRUB": 26384,
     "Value": "59411aa786f7747aeb37f9a5",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
     "ImageLink": null
@@ -1450,7 +1450,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 34451,
+    "PriceRUB": 30961,
     "Value": "59411aa786f7747aeb37f9a5",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
     "ImageLink": null
@@ -1482,7 +1482,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 105812,
+    "PriceRUB": 106881,
     "Value": "59411abb86f77478f702b5d2",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) SD",
     "ImageLink": null
@@ -1514,7 +1514,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 16743,
+    "PriceRUB": 15685,
     "Value": "5d3f06c886f7743bb5318c6a",
     "Label": "HK MP5K 9x19 submachine gun Default",
     "ImageLink": null
@@ -1546,7 +1546,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 56784,
+    "PriceRUB": 53058,
     "Value": "5bd056fa86f7743aba7658cd",
     "Label": "HK MP7A1 4.6x30 submachine gun Default",
     "ImageLink": null
@@ -1562,7 +1562,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 178947,
+    "PriceRUB": 187391,
     "Value": "5bd05f1186f774572f181678",
     "Label": "HK MP7A1 4.6x30 submachine gun SEALS",
     "ImageLink": null
@@ -1578,7 +1578,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 80297,
+    "PriceRUB": 77755,
     "Value": "5bdb3ac186f77405f232ad22",
     "Label": "HK MP7A2 4.6x30 submachine gun Default",
     "ImageLink": null
@@ -1594,7 +1594,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 3,
-    "PriceRUB": 63238,
+    "PriceRUB": 61025,
     "Value": "5bdb3ac186f77405f232ad22",
     "Label": "HK MP7A2 4.6x30 submachine gun Default",
     "ImageLink": null
@@ -1626,7 +1626,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 35105,
+    "PriceRUB": 34793,
     "Value": "5fd2517dbdd50d684f73a474",
     "Label": "HK UMP .45 ACP submachine gun Default",
     "ImageLink": null
@@ -1642,7 +1642,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 43563,
+    "PriceRUB": 39405,
     "Value": "5fd2517dbdd50d684f73a474",
     "Label": "HK UMP .45 ACP submachine gun Default",
     "ImageLink": null
@@ -1658,7 +1658,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 61508,
+    "PriceRUB": 59798,
     "Value": "5fd2517dbdd50d684f73a474",
     "Label": "HK UMP .45 ACP submachine gun Default",
     "ImageLink": null
@@ -1690,7 +1690,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 17508,
+    "PriceRUB": 17667,
     "Value": "619d267f36b5be1f3236f9ba",
     "Label": "HK USP .45 ACP pistol Default",
     "ImageLink": null
@@ -1786,7 +1786,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 71459,
+    "PriceRUB": 75495,
     "Value": "5acf7dd986f774486e1281bf",
     "Label": "Kalashnikov AK-101 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -1818,7 +1818,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 56754,
+    "PriceRUB": 55230,
     "Value": "5acf7dfc86f774401e19c390",
     "Label": "Kalashnikov AK-102 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -1850,7 +1850,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33546,
+    "PriceRUB": 33770,
     "Value": "5acf7e2b86f7740874790e20",
     "Label": "Kalashnikov AK-103 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -1882,7 +1882,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 29562,
+    "PriceRUB": 28315,
     "Value": "5acf7e4c86f774499a3f3bdd",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -1898,7 +1898,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 187519,
+    "PriceRUB": 166654,
     "Value": "618ab04934aa2e47480fba2b",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle RPKT mod.1",
     "ImageLink": null
@@ -1914,7 +1914,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 353039,
+    "PriceRUB": 354423,
     "Value": "5dd800bde492226366631317",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle T-SAW",
     "ImageLink": null
@@ -1946,7 +1946,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 36363,
+    "PriceRUB": 32358,
     "Value": "5acf7e7986f774401e19c3a0",
     "Label": "Kalashnikov AK-105 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -1978,7 +1978,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 37372,
+    "PriceRUB": 32125,
     "Value": "5c0c1ce886f77401c119d014",
     "Label": "Kalashnikov AK-74 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -1994,7 +1994,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 39001,
+    "PriceRUB": 42339,
     "Value": "5dd7f8c524e5d7504a4e3077",
     "Label": "Kalashnikov AK-74 5.45x39 assault rifle Plum",
     "ImageLink": null
@@ -2026,7 +2026,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42748,
+    "PriceRUB": 41611,
     "Value": "5acf7db286f7743a9c7092e3",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2042,7 +2042,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 40049,
+    "PriceRUB": 37769,
     "Value": "5acf7db286f7743a9c7092e3",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2058,7 +2058,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 140580,
+    "PriceRUB": 127857,
     "Value": "5bbf1c1c88a45017144d28c5",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Zenitco",
     "ImageLink": null
@@ -2090,7 +2090,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 37688,
+    "PriceRUB": 37638,
     "Value": "5841474424597759ba49be91",
     "Label": "Kalashnikov AK-74N 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2106,7 +2106,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 3,
-    "PriceRUB": 225023,
+    "PriceRUB": 199985,
     "Value": "59430b9b86f77403c27945fd",
     "Label": "Kalashnikov AK-74N 5.45x39 assault rifle Magpul",
     "ImageLink": null
@@ -2138,7 +2138,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 45907,
+    "PriceRUB": 44685,
     "Value": "59e8d2ab86f77407f03fc9c2",
     "Label": "Kalashnikov AKM 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -2154,7 +2154,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 31292,
+    "PriceRUB": 32171,
     "Value": "59e8d2ab86f77407f03fc9c2",
     "Label": "Kalashnikov AKM 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -2186,7 +2186,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42597,
+    "PriceRUB": 40852,
     "Value": "5a325c3686f7744273716c5b",
     "Label": "Kalashnikov AKMN 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -2218,7 +2218,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 26292,
+    "PriceRUB": 23112,
     "Value": "5a327f4a86f774766866140b",
     "Label": "Kalashnikov AKMS 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -2250,7 +2250,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 24391,
+    "PriceRUB": 23507,
     "Value": "5ac4ab8886f7747d0f66429a",
     "Label": "Kalashnikov AKMSN 7.62x39 assault rifle Default",
     "ImageLink": null
@@ -2266,7 +2266,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 22152,
+    "PriceRUB": 21686,
     "Value": "5c0c1d2b86f77401c119d01f",
     "Label": "Kalashnikov AKS-74 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2298,7 +2298,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 30501,
+    "PriceRUB": 27582,
     "Value": "5ac4abf986f7747d117c67aa",
     "Label": "Kalashnikov AKS-74N 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2330,7 +2330,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 26647,
+    "PriceRUB": 25726,
     "Value": "584147732459775a2b6d9f12",
     "Label": "Kalashnikov AKS-74U 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2362,7 +2362,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 60430,
+    "PriceRUB": 57905,
     "Value": "584147982459775a6c55e931",
     "Label": "Kalashnikov AKS-74UB 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2378,7 +2378,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 76651,
+    "PriceRUB": 73787,
     "Value": "584147982459775a6c55e931",
     "Label": "Kalashnikov AKS-74UB 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2410,7 +2410,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 29317,
+    "PriceRUB": 27850,
     "Value": "584147ed2459775a77263501",
     "Label": "Kalashnikov AKS-74UN 5.45x39 assault rifle Default",
     "ImageLink": null
@@ -2442,7 +2442,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 49356,
+    "PriceRUB": 49810,
     "Value": "5f676b779ab5ec19f028eaf3",
     "Label": "Kel-Tec RFB 7.62x51 rifle Default",
     "ImageLink": null
@@ -2458,7 +2458,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 37033,
+    "PriceRUB": 37195,
     "Value": "5f676b779ab5ec19f028eaf3",
     "Label": "Kel-Tec RFB 7.62x51 rifle Default",
     "ImageLink": null
@@ -2506,7 +2506,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15380,
+    "PriceRUB": 15246,
     "Value": "60479fb29c15b12b9a480fb0",
     "Label": "Lebedev PL-15 9x19 pistol Default",
     "ImageLink": null
@@ -2522,7 +2522,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 25992,
+    "PriceRUB": 24801,
     "Value": "60479fb29c15b12b9a480fb0",
     "Label": "Lebedev PL-15 9x19 pistol Default",
     "ImageLink": null
@@ -2538,7 +2538,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 38,
     "OfferType": 3,
-    "PriceRUB": 169877,
+    "PriceRUB": 159831,
     "Value": "59e8d2b386f77445830dd299",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Saboteur",
     "ImageLink": null
@@ -2570,7 +2570,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 83737,
+    "PriceRUB": 77871,
     "Value": "58dffc5d86f77407c744a847",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Urbana",
     "ImageLink": null
@@ -2586,7 +2586,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 28,
     "OfferType": 3,
-    "PriceRUB": 107373,
+    "PriceRUB": 99936,
     "Value": "58dffc5d86f77407c744a847",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Urbana",
     "ImageLink": null
@@ -2602,7 +2602,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 164809,
+    "PriceRUB": 162361,
     "Value": "5dd8013ff4c3af18c507b10a",
     "Label": "Lone Star TX-15 DML 5.56x45 carbine D-WARRIOR",
     "ImageLink": null
@@ -2634,7 +2634,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 118825,
+    "PriceRUB": 123458,
     "Value": "5d4d617f86f77449c463d107",
     "Label": "Lone Star TX-15 DML 5.56x45 carbine Default",
     "ImageLink": null
@@ -2650,7 +2650,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 67707,
+    "PriceRUB": 63842,
     "Value": "5841499024597759f825ff3e",
     "Label": "Makarov PM (t) 9x18PM pistol Default",
     "ImageLink": null
@@ -2682,7 +2682,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 7234,
+    "PriceRUB": 6967,
     "Value": "58414967245977598f1ad391",
     "Label": "Makarov PM 9x18PM pistol Default",
     "ImageLink": null
@@ -2698,7 +2698,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 41702,
+    "PriceRUB": 38182,
     "Value": "58414967245977598f1ad391",
     "Label": "Makarov PM 9x18PM pistol Default",
     "ImageLink": null
@@ -2730,7 +2730,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 36200,
+    "PriceRUB": 36376,
     "Value": "5c98bf9186f7740cf708c509",
     "Label": "Molot VPO-101 \"Vepr-Hunter\" 7.62x51 carbine Default",
     "ImageLink": null
@@ -2762,7 +2762,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 25998,
+    "PriceRUB": 25697,
     "Value": "59ef24b986f77439987b8762",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine Default",
     "ImageLink": null
@@ -2778,7 +2778,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 21125,
+    "PriceRUB": 19741,
     "Value": "59ef24b986f77439987b8762",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine Default",
     "ImageLink": null
@@ -2826,7 +2826,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 30092,
+    "PriceRUB": 30374,
     "Value": "59ef247086f77439967a900a",
     "Label": "Molot VPO-209 .366 TKM carbine Default",
     "ImageLink": null
@@ -2858,7 +2858,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23540,
+    "PriceRUB": 23373,
     "Value": "5e0359bd86f7746b243db876",
     "Label": "Molot VPO-215 \"Gornostay\" .366 TKM bolt-action rifle Default",
     "ImageLink": null
@@ -2906,7 +2906,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 38909,
+    "PriceRUB": 39111,
     "Value": "5c0c1e7486f7744dba7a289b",
     "Label": "Mosin 7.62x54R bolt-action rifle (Infantry) Default",
     "ImageLink": null
@@ -2938,7 +2938,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 62671,
+    "PriceRUB": 73480,
     "Value": "5b8683a486f77467f2423114",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) Default",
     "ImageLink": null
@@ -2954,7 +2954,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 108155,
+    "PriceRUB": 110548,
     "Value": "5c0c208886f7743e5335d279",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) Obrez M",
     "ImageLink": null
@@ -2970,7 +2970,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 120049,
+    "PriceRUB": 110231,
     "Value": "mosinscopedbarter0000001",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) PU 3.5x",
     "ImageLink": null
@@ -3002,7 +3002,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 27927,
+    "PriceRUB": 29879,
     "Value": "5f06d6bb4010601e3232cd22",
     "Label": "Mossberg 590A1 12ga pump-action shotgun Default",
     "ImageLink": null
@@ -3034,7 +3034,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 30100,
+    "PriceRUB": 24457,
     "Value": "584148f2245977598f1ad387",
     "Label": "MP-133 12ga pump-action shotgun Default",
     "ImageLink": null
@@ -3050,7 +3050,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 25039,
+    "PriceRUB": 21092,
     "Value": "584148f2245977598f1ad387",
     "Label": "MP-133 12ga pump-action shotgun Default",
     "ImageLink": null
@@ -3066,7 +3066,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 73441,
+    "PriceRUB": 65766,
     "Value": "5a8ae54786f7743b5e013ba0",
     "Label": "MP-133 12ga pump-action shotgun Tactical",
     "ImageLink": null
@@ -3098,7 +3098,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 47189,
+    "PriceRUB": 37810,
     "Value": "58414907245977598f1ad38d",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
     "ImageLink": null
@@ -3114,7 +3114,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 44212,
+    "PriceRUB": 31510,
     "Value": "58414907245977598f1ad38d",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
     "ImageLink": null
@@ -3130,7 +3130,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 43873,
+    "PriceRUB": 41629,
     "Value": "58414907245977598f1ad38d",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
     "ImageLink": null
@@ -3162,7 +3162,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 39671,
+    "PriceRUB": 39703,
     "Value": "60b7c28ee53e4c5c8945dd73",
     "Label": "MP-155 12ga semi-automatic shotgun Default",
     "ImageLink": null
@@ -3194,7 +3194,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 16115,
+    "PriceRUB": 21199,
     "Value": "629792f0fd6eda47d6466fe8",
     "Label": "MP-18 7.62x54R single-shot rifle Default",
     "ImageLink": null
@@ -3226,7 +3226,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23991,
+    "PriceRUB": 20477,
     "Value": "6197d1f3585c515a052ad88f",
     "Label": "MP-43-1C 12ga double-barrel shotgun Default",
     "ImageLink": null
@@ -3258,7 +3258,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20395,
+    "PriceRUB": 20322,
     "Value": "6198e2ddef80673cae5d1c87",
     "Label": "MTs-255-12 12ga shotgun Default",
     "ImageLink": null
@@ -3290,7 +3290,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 58649,
+    "PriceRUB": 56073,
     "Value": "5e0354f786f77425b53eb6c5",
     "Label": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle Default",
     "ImageLink": null
@@ -3322,7 +3322,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15682,
+    "PriceRUB": 14066,
     "Value": "584149452459775992479702",
     "Label": "PB 9x18PM silenced pistol Default",
     "ImageLink": null
@@ -3354,7 +3354,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20716,
+    "PriceRUB": 20729,
     "Value": "59b81f7386f77421ac688a0a",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Default",
     "ImageLink": null
@@ -3370,7 +3370,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 43035,
+    "PriceRUB": 51251,
     "Value": "59b81f7386f77421ac688a0a",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Default",
     "ImageLink": null
@@ -3386,7 +3386,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 89205,
+    "PriceRUB": 86450,
     "Value": "5a8ae65f86f774377a23ed55",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Zenit",
     "ImageLink": null
@@ -3418,7 +3418,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 17066,
+    "PriceRUB": 17648,
     "Value": "584149ad2459775a7726350e",
     "Label": "PP-9 \"Klin\" 9x18PMM submachine gun Default",
     "ImageLink": null
@@ -3434,7 +3434,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 60199,
+    "PriceRUB": 48913,
     "Value": "584149ad2459775a7726350e",
     "Label": "PP-9 \"Klin\" 9x18PMM submachine gun Default",
     "ImageLink": null
@@ -3466,7 +3466,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18596,
+    "PriceRUB": 18931,
     "Value": "584149c42459775a77263510",
     "Label": "PP-91 \"Kedr\" 9x18PM submachine gun Default",
     "ImageLink": null
@@ -3498,7 +3498,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 35353,
+    "PriceRUB": 44421,
     "Value": "584149ea2459775a6c55e940",
     "Label": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun Default",
     "ImageLink": null
@@ -3514,7 +3514,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 46784,
+    "PriceRUB": 38366,
     "Value": "584149ea2459775a6c55e940",
     "Label": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun Default",
     "ImageLink": null
@@ -3546,7 +3546,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34272,
+    "PriceRUB": 24964,
     "Value": "5eb2963686f7742d3f5ab0f8",
     "Label": "PPSh-41 7.62x25 submachine gun Default",
     "ImageLink": null
@@ -3562,7 +3562,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 146227,
+    "PriceRUB": 143794,
     "Value": "5c0c1dba86f7743e667da897",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle AAC SD",
     "ImageLink": null
@@ -3626,7 +3626,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 47691,
+    "PriceRUB": 45447,
     "Value": "5c0c1d6586f7743e5335d264",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
     "ImageLink": null
@@ -3642,7 +3642,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 36568,
+    "PriceRUB": 35758,
     "Value": "5c0c1d6586f7743e5335d264",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
     "ImageLink": null
@@ -3690,7 +3690,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 100803,
+    "PriceRUB": 89399,
     "Value": "5af08d1c86f774223a7aa1b4",
     "Label": "Remington Model 870 12ga pump-action shotgun Breacher",
     "ImageLink": null
@@ -3722,7 +3722,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34273,
+    "PriceRUB": 40514,
     "Value": "5ac4ad7586f7747d14551da3",
     "Label": "Remington Model 870 12ga pump-action shotgun Default",
     "ImageLink": null
@@ -3786,7 +3786,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 44148,
+    "PriceRUB": 43654,
     "Value": "5c0d1ec986f77439512a1a72",
     "Label": "RPK-16 5.45x39 light machine gun Default",
     "ImageLink": null
@@ -3802,7 +3802,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 138691,
+    "PriceRUB": 142711,
     "Value": "5c0d1ec986f77439512a1a72",
     "Label": "RPK-16 5.45x39 light machine gun Default",
     "ImageLink": null
@@ -3818,7 +3818,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 100809,
+    "PriceRUB": 79745,
     "Value": "rpk16drum000000000000001",
     "Label": "RPK-16 5.45x39 light machine gun Drum",
     "ImageLink": null
@@ -3834,7 +3834,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 67533,
+    "PriceRUB": 56319,
     "Value": "639868a207a3eb0207197bb5",
     "Label": "RSh-12 12.7x55 revolver Default",
     "ImageLink": null
@@ -3850,7 +3850,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 75053,
+    "PriceRUB": 73384,
     "Value": "639868a207a3eb0207197bb5",
     "Label": "RSh-12 12.7x55 revolver Default",
     "ImageLink": null
@@ -3882,7 +3882,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 50822,
+    "PriceRUB": 47805,
     "Value": "62971cf67af74c3ff577954b",
     "Label": "SAG AK-545 5.45x39 carbine Default",
     "ImageLink": null
@@ -3914,7 +3914,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 55483,
+    "PriceRUB": 52898,
     "Value": "629711787af74c3ff577951d",
     "Label": "SAG AK-545 Short 5.45x39 carbine Default",
     "ImageLink": null
@@ -3946,7 +3946,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 40162,
+    "PriceRUB": 35584,
     "Value": "58414a052459775a2b6d9f1e",
     "Label": "Saiga 12ga ver.10 12/76 semi-automatic shotgun Default",
     "ImageLink": null
@@ -3962,7 +3962,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 22,
     "OfferType": 3,
-    "PriceRUB": 512159,
+    "PriceRUB": 512279,
     "Value": "5ddbbeac582ed30a6134e577",
     "Label": "Saiga 12ga ver.10 12/76 semi-automatic shotgun NERFGUN",
     "ImageLink": null
@@ -3994,7 +3994,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18004,
+    "PriceRUB": 16864,
     "Value": "5a13df5286f774032f5454a0",
     "Label": "Saiga-9 9x19 carbine Default",
     "ImageLink": null
@@ -4026,7 +4026,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 17444,
+    "PriceRUB": 15057,
     "Value": "5a327f6386f77479010da870",
     "Label": "Serdyukov SR-1MP Gyurza 9x21 pistol Default",
     "ImageLink": null
@@ -4042,7 +4042,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 31015,
+    "PriceRUB": 21524,
     "Value": "5a327f6386f77479010da870",
     "Label": "Serdyukov SR-1MP Gyurza 9x21 pistol Default",
     "ImageLink": null
@@ -4074,7 +4074,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 59539,
+    "PriceRUB": 55207,
     "Value": "5fd251a31189a17bcc172662",
     "Label": "SIG MCX .300 Blackout assault rifle Default",
     "ImageLink": null
@@ -4090,7 +4090,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 70281,
+    "PriceRUB": 71511,
     "Value": "5fd251a31189a17bcc172662",
     "Label": "SIG MCX .300 Blackout assault rifle Default",
     "ImageLink": null
@@ -4122,7 +4122,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 45301,
+    "PriceRUB": 44215,
     "Value": "58dffca786f774083a256ab1",
     "Label": "SIG MPX 9x19 submachine gun Default",
     "ImageLink": null
@@ -4138,7 +4138,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 142856,
+    "PriceRUB": 139318,
     "Value": "5a8ae43686f774377b73cfb3",
     "Label": "SIG MPX 9x19 submachine gun MQB",
     "ImageLink": null
@@ -4186,7 +4186,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18195,
+    "PriceRUB": 16489,
     "Value": "584149242459775a7726350a",
     "Label": "SIG P226R 9x19 pistol Default",
     "ImageLink": null
@@ -4202,7 +4202,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 29307,
+    "PriceRUB": 25403,
     "Value": "584149242459775a7726350a",
     "Label": "SIG P226R 9x19 pistol Default",
     "ImageLink": null
@@ -4234,7 +4234,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33177,
+    "PriceRUB": 34074,
     "Value": "59dcdbb386f77417b03f350d",
     "Label": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version) Default",
     "ImageLink": null
@@ -4250,7 +4250,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 38777,
+    "PriceRUB": 36695,
     "Value": "opsksuas0000000000000001",
     "Label": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version) UAS",
     "ImageLink": null
@@ -4282,7 +4282,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20011,
+    "PriceRUB": 19356,
     "Value": "58dffce486f77409f40f8162",
     "Label": "Simonov SKS 7.62x39 carbine Default",
     "ImageLink": null
@@ -4298,7 +4298,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 47811,
+    "PriceRUB": 43403,
     "Value": "sksintrafuse000000000001",
     "Label": "Simonov SKS 7.62x39 carbine TAPCO Intrafuse",
     "ImageLink": null
@@ -4330,7 +4330,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33063,
+    "PriceRUB": 29051,
     "Value": "60479c3f420fac5ebc199f86",
     "Label": "Soyuz-TM STM-9 Gen.2 9x19 carbine Default",
     "ImageLink": null
@@ -4362,7 +4362,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 91679,
+    "PriceRUB": 89429,
     "Value": "5ac4ad3686f774181345c3da",
     "Label": "Springfield Armory M1A 7.62x51 rifle Default",
     "ImageLink": null
@@ -4394,7 +4394,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 317619,
+    "PriceRUB": 246639,
     "Value": "5af08bfd86f774223d4528e2",
     "Label": "Springfield Armory M1A 7.62x51 rifle EBR",
     "ImageLink": null
@@ -4426,7 +4426,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 124145,
+    "PriceRUB": 120977,
     "Value": "5af08c4486f774223b094223",
     "Label": "Springfield Armory M1A 7.62x51 rifle SASS",
     "ImageLink": null
@@ -4458,7 +4458,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 50250,
+    "PriceRUB": 53293,
     "Value": "63986a38608a960125446db5",
     "Label": "SR-2M \"Veresk\" 9x21 submachine gun Default",
     "ImageLink": null
@@ -4490,7 +4490,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 10699,
+    "PriceRUB": 10159,
     "Value": "5ac4accf86f774181345c3d7",
     "Label": "Stechkin APS 9x18PM machine pistol Default",
     "ImageLink": null
@@ -4506,7 +4506,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 29475,
+    "PriceRUB": 27843,
     "Value": "5ac4accf86f774181345c3d7",
     "Label": "Stechkin APS 9x18PM machine pistol Default",
     "ImageLink": null
@@ -4538,7 +4538,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 39111,
+    "PriceRUB": 38966,
     "Value": "6398636bb483a550805be5e5",
     "Label": "Steyr AUG A1 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -4554,7 +4554,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 54817,
+    "PriceRUB": 53329,
     "Value": "6398636bb483a550805be5e5",
     "Label": "Steyr AUG A1 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -4586,7 +4586,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 53816,
+    "PriceRUB": 51581,
     "Value": "63986752a28b76105a33c095",
     "Label": "Steyr AUG A3 5.56x45 assault rifle Default",
     "ImageLink": null
@@ -4618,7 +4618,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 57009,
+    "PriceRUB": 54860,
     "Value": "58414a16245977599247970a",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle Default",
     "ImageLink": null
@@ -4634,7 +4634,7 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 95000,
+    "PriceRUB": 85478,
     "Value": "58414a16245977599247970a",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle Default",
     "ImageLink": null
@@ -4682,7 +4682,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 101492,
+    "PriceRUB": 98538,
     "Value": "5c98be1e86f7741cc96ffd79",
     "Label": "SVDS 7.62x54R sniper rifle Default",
     "ImageLink": null
@@ -4714,7 +4714,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 51435,
+    "PriceRUB": 52248,
     "Value": "5fd251ee16cac650092f5d02",
     "Label": "TDI KRISS Vector Gen.2 .45 ACP submachine gun Default",
     "ImageLink": null
@@ -4746,7 +4746,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 99353,
+    "PriceRUB": 89314,
     "Value": "5fd251c90d9c95034825edb5",
     "Label": "TDI KRISS Vector Gen.2 9x19 submachine gun Default",
     "ImageLink": null
@@ -4762,7 +4762,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 45727,
+    "PriceRUB": 39221,
     "Value": "5f6771214ef1ca4f4e1b8a06",
     "Label": "TOZ KS-23M 23x75mm pump-action shotgun Default",
     "ImageLink": null
@@ -4778,7 +4778,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 150059,
+    "PriceRUB": 161069,
     "Value": "5f6770f839a13e712a1dff54",
     "Label": "TOZ KS-23M 23x75mm pump-action shotgun Drozd",
     "ImageLink": null
@@ -4826,7 +4826,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18895,
+    "PriceRUB": 15511,
     "Value": "5a3a859786f7747e2305e8bf",
     "Label": "TOZ-106 20ga bolt-action shotgun Default",
     "ImageLink": null
@@ -4842,7 +4842,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 79595,
+    "PriceRUB": 70634,
     "Value": "5b44abe986f774283e2e3512",
     "Label": "TT-33 7.62x25 TT pistol (Golden) Default",
     "ImageLink": null
@@ -4858,7 +4858,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 39253,
+    "PriceRUB": 40606,
     "Value": "5c0e93cb86f77432297fdfc8",
     "Label": "TT-33 7.62x25 TT pistol Brunner",
     "ImageLink": null
@@ -4890,7 +4890,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 9719,
+    "PriceRUB": 8038,
     "Value": "58414a2724597759b344da4d",
     "Label": "TT-33 7.62x25 TT pistol Default",
     "ImageLink": null
@@ -4906,7 +4906,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 113018,
+    "PriceRUB": 108207,
     "Value": "58414a3f2459775a77263531",
     "Label": "VSS Vintorez 9x39 special sniper rifle Default",
     "ImageLink": null
@@ -4922,7 +4922,7 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 163535,
+    "PriceRUB": 160009,
     "Value": "58414a3f2459775a77263531",
     "Label": "VSS Vintorez 9x39 special sniper rifle Default",
     "ImageLink": null
@@ -4938,7 +4938,7 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 134752,
+    "PriceRUB": 135217,
     "Value": "vssvintorezstripped00001",
     "Label": "VSS Vintorez 9x39 special sniper rifle Stripped",
     "ImageLink": null
@@ -4970,7 +4970,7 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 12178,
+    "PriceRUB": 10590,
     "Value": "584148a524597759eb357a44",
     "Label": "Yarygin MP-443 \"Grach\" 9x19 pistol Default",
     "ImageLink": null
@@ -4986,7 +4986,7 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 8880,
+    "PriceRUB": 8851,
     "Value": "584148a524597759eb357a44",
     "Label": "Yarygin MP-443 \"Grach\" 9x19 pistol Default",
     "ImageLink": null

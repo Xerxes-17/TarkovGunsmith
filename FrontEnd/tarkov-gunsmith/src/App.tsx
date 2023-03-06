@@ -11,12 +11,13 @@ import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
-import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SHEETS_AMMO, DATA_SHEETS_ARMOR, DATA_SHEETS_EFFECTIVENESS_ARMOR, DATA_SHEETS_WEAPONS, HOME, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO } from './Util/links';
+import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SHEETS_AMMO, DATA_SHEETS_ARMOR, DATA_SHEETS_EFFECTIVENESS_ARMOR, DATA_SHEETS_WEAPONS, HOME, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE } from './Util/links';
 import DataSheetAmmo from './Components/DataSheets/DataSheetAmmo';
 import DataSheetArmor from './Components/DataSheets/DataSheetArmor';
 import DataSheetWeapons from './Components/DataSheets/DataSheetWeapons';
 import DataSheetEffectivenessArmor from './Components/DataSheets/DataSheetEffectivenessArmor';
 import DataSheetEffectivenessAmmo from './Components/DataSheets/DataSheetEffectivenessAmmo';
+import SimplifiedAmmoRatingsTable from './Components/DataSheets/SimplifiedAmmoRatingsTable';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
             <Route path={DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
             <Route path={DATA_SHEETS_EFFECTIVENESS_ARMOR} element={<DataSheetEffectivenessArmor />} />
             <Route path={DATA_SHEETS_EFFECTIVENESS_AMMO} element={<DataSheetEffectivenessAmmo />} />
+            <Route path={DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE} element={<SimplifiedAmmoRatingsTable />} />
 
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />

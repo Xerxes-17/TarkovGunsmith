@@ -58,9 +58,9 @@ Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedM
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
 
-// Init the DataScience instance
-
+// Init the DataScience instance, get the big data table ready
 WG_DataScience dataScience = new WG_DataScience();
+dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 
 startAPI();
 
@@ -125,6 +125,8 @@ void startAPI()
 
     app.MapGet("/GetArmorEffectivenessData/{armorId}", (string armorId) => GetEffectivenessDataForArmor(armorId));
     app.MapGet("/GetAmmoEffectivenessData/{ammoId}", (string ammoId) => GetEffectivenessDataForAmmo(ammoId));
+
+    app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
 
     app.Run();
 }
@@ -265,7 +267,7 @@ List<WeaponTableRow> GetWeaponsDataSheetData()
 
 List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
 {
-    Console.WriteLine($"Request for Armor Effectivenss Data");
+    Console.WriteLine($"Request for Armor vs Ammo Data");
 
     var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
@@ -274,8 +276,14 @@ List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
 
 List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
 {
-    Console.WriteLine($"Request for Ammo Effectivenss Data");
+    Console.WriteLine($"Request for Ammo vs Armor Data");
     var ammo = (Ammo) RatStashDB.GetItem(ammoID);
 
     return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashDB);
+}
+
+List<CondensedDataRow> GetCondensedAmmoEffectivenessTable()
+{
+    Console.WriteLine($"Request for Ammo Effectiveness Table");
+    return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 }

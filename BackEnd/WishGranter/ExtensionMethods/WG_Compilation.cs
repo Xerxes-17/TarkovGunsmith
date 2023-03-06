@@ -223,6 +223,14 @@ namespace WishGranterProto.ExtensionMethods
                 temp.Add(AUG_A1_Scope);
             }
 
+            // Need to add in the SVDS UB as it is a "mount"
+            var SVDS_UB = All_Mods.Find(x => x.Id.Equals("5c471c2d2e22164bef5d077f"));
+            if (SVDS_UB != null)
+            {
+                temp.Add(SVDS_UB);
+            }
+
+
             return temp;
         }
 

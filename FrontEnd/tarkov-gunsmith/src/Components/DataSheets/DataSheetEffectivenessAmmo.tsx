@@ -165,7 +165,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
     );
 
     //store pagination state in your own state
-    const [pagination, setPagination] = useState({
+    const [pagination] = useState({
         pageIndex: 0,
         pageSize: 200, //customize the default page size
     });
@@ -188,7 +188,6 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
                         <Card.Body>
                             <>
-
                                 <Form onSubmit={handleSubmit}>
                                     <strong>Available Choices:</strong> {AmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
@@ -204,9 +203,8 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                         </Card.Body>
                         <Card.Footer>
                             This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. <br />
-                            This table starts with Amor grouped by Armor Class and these groups are closed, click the group to expand these rows. <br />
-                            If you would like a view that is similar to the NFAM chart, then try: Grouped by `AC`, then by `Type`, then by `Shots To Kill`.<br />
-                            To do this, drag and drop the columns double line icon to the top.
+                            This table starts with Amor grouped by Armor Class.  <br />
+                            Drag and drop a column to move it or to the top bar with the '=' to add it to the grouping. <br />
                         </Card.Footer>
                     </Card>
 
@@ -235,7 +233,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             pagination: pagination,
 
                             grouping: ['armorClass'], //an array of columns to group by by default (can be multiple)
-                            // expanded: true, //expand all groups by default
+                            expanded: true, //expand all groups by default
                             sorting: [{ id: 'armorClass', desc: false }, { id: 'expectedShotsToKill', desc: false }, { id: 'expectedKillShotConfidence', desc: true }], //sort by state by default
                         }} //hide AmmoRec column by default
 

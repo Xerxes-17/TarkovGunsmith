@@ -293,4 +293,10 @@ namespace WishGranterProto.ExtensionMethods
         //? Need to include the bullet damage and penetration
 
     }
+
+    public class CondensedDataRow
+    {
+        public Ammo ammo { get; set; } = new();
+        public List<string> ratings { get; set; } = new();
+    }
 }

@@ -246,7 +246,7 @@ namespace WishGranterProto.ExtensionMethods
                 // ADPS
                 testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
 
-                while (doneDamage < startingDura)
+                while (doneDamage < startingDura || HitPoints > 0)
                 {
                     // Get the current durability and pen chance
                     double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
@@ -256,10 +256,20 @@ namespace WishGranterProto.ExtensionMethods
                     // Calc Potential damages:
                     var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
                     var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
+                    
 
                     // Calc Average Damage and apply it to HP pool
                     var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);
-                    HitPoints = HitPoints - AverageDamage;
+                    //! Exception for when the armor is at zero durability
+                    if(durability <= 0)
+                    {
+                        HitPoints = HitPoints - ammo.Damage;
+                    }
+                    else
+                    {
+                        HitPoints = HitPoints - AverageDamage;
+                    }
+                    
 
                     // Calc the probabilities
                     currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, ShotBlunt, ShotPenetrating, (float) penChance);
@@ -278,6 +288,17 @@ namespace WishGranterProto.ExtensionMethods
 
                     testShot.ProbabilityOfKillCumulative = 0;
                     testShot.ProbabilityOfKillSpecific = 0;
+
+                    //! Exception for when the armor is at zero durability
+                    if (testShot.Durability < 0)
+                    {
+                        testShot.Durability = 0;
+                        testShot.DurabilityPerc = 0;
+                        testShot.PenetrationChance = 100;
+                        testShot.PenetratingDamage = ammo.Damage;
+                        testShot.AverageDamage = ammo.Damage;
+                        testShot.DoneDamage = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
+                    }
 
                     if (currentHpProbabilities.ContainsKey(0))
                     {
@@ -299,9 +320,9 @@ namespace WishGranterProto.ExtensionMethods
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();
-                }
+                } 
                 // Let's get the shot that should kill
-                var index = testResult.Shots.FindIndex(x => x.RemainingHitPoints < 0);
+                var index = testResult.Shots.FindIndex(x => x.ProbabilityOfKillCumulative > 50);
 
                 // In the event that the average damage doesn't go below zero before the end of an armor test serires, set tha final index as the kill shot
                 //? This is a small hack until I can go back to this and remake the ADC into a proper terminal ballistics sim.

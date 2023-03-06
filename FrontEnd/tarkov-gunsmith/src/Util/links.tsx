@@ -8,5 +8,7 @@ export const DATA_SHEETS_AMMO = `${DATA_SHEETS}/ammo`
 export const DATA_SHEETS_ARMOR = `${DATA_SHEETS}/armor`
 export const DATA_SHEETS_WEAPONS = `${DATA_SHEETS}/weapons`
 
-export const DATA_SHEETS_EFFECTIVENESS_ARMOR = `${DATA_SHEETS}/armoreffectiveness`
-export const DATA_SHEETS_EFFECTIVENESS_AMMO = `${DATA_SHEETS}/ammoeffectiveness`
+export const DATA_SHEETS_EFFECTIVENESS_ARMOR = `${DATA_SHEETS}/armor_vs_ammo`
+export const DATA_SHEETS_EFFECTIVENESS_AMMO = `${DATA_SHEETS}/ammo_vs_armor`
+
+export const DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE = `${DATA_SHEETS}/ammo_effectiveness`

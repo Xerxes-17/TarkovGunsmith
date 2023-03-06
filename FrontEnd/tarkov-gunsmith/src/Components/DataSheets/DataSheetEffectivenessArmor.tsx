@@ -136,7 +136,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
     );
 
     //store pagination state in your own state
-    const [pagination, setPagination] = useState({
+    const [pagination] = useState({
         pageIndex: 0,
         pageSize: 200, //customize the default page size
     });
@@ -175,7 +175,8 @@ export default function DataSheetEffectivenessArmor(props: any) {
                         <Card.Footer>
                             This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. <br />
                             This table starts with ammo grouped by Expected Hits to Kill and these groups are closed, click the group to expand these rows.<br />
-                            Currently will show all ammo with 20 penetration or above, and less than or equal to the (AC *10) + 15.
+                            Currently will show all ammo with 20 penetration or above, and less than or equal to the (AC *10) + 15.<br />
+                            Drag and drop a column to move it or to the top bar with the '=' to add it to the grouping. <br />
                         </Card.Footer>
                     </Card>
 
@@ -201,7 +202,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                             pagination: pagination,
 
                             grouping: ['expectedShotsToKill'], //an array of columns to group by by default (can be multiple)
-                            // expanded: true, //expand all groups by default
+                            expanded: true, //expand all groups by default
                             sorting: [{ id: 'expectedShotsToKill', desc: false }, { id: 'expectedKillShotConfidence', desc: true }], //sort by state by default
                         }} //hide AmmoRec column by default
 

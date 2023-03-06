@@ -164,7 +164,7 @@ namespace WishGranterProto.ExtensionMethods
                     inputList = inputList.OrderBy(x => WG_Market.GetBestCashOfferPriceByItemId(x.Id)).ToList();
                 }
             }
-            
+
             return inputList;
         }
 
@@ -311,6 +311,110 @@ namespace WishGranterProto.ExtensionMethods
             return inputList;
         }
 
+        private static List<WeaponMod> EnhancedLogic_SVDS(List<WeaponMod> inputList, string mode)
+        {
+            // This once will be pretty easy, on slots 6 and 7 of the SVDS are the SVDS UB, DustCover (and handguard) OR the SAG MK1 + CDC
+            // UB + DC = (polymer) +7 ergo / (XRS-DRG) -1 recoil +8 ergo / (SVD modern) -6 recoil +7 ergo
+            // SAG + CDC = -3 recoil and +13 ergo
+            // so to rank:
+            // SVD Modern = 0
+            //? 5e56991336989c75ab4f03f6 - Modern
+            //? 5e569a0156edd02abe09f27d - Top Rail
+            // SAG + CDC = 1
+            //? 5dfcd0e547101c39625f66f9 - SAG
+            //? 5dfce88fe9dc277128008b2e - CDC
+            // .XRS-DRG = 2
+            //? 5e5699df2161e06ac158df6f - XRS-DRG
+            // default = 3
+            //? 5c471c2d2e22164bef5d077f - UB
+            //? 5c471c6c2e221602b66cd9ae - Poly HG
+            //? 5c471bd12e221602b4129c3a - Dust Cover
+
+            List<string> removalList = new List<string>();
+            removalList.Add("5e56991336989c75ab4f03f6");
+            removalList.Add("5e569a0156edd02abe09f27d");
+            removalList.Add("5dfcd0e547101c39625f66f9");
+            removalList.Add("5dfce88fe9dc277128008b2e");
+            removalList.Add("5e5699df2161e06ac158df6f");
+            removalList.Add("5c471c2d2e22164bef5d077f");
+            removalList.Add("5c471c6c2e221602b66cd9ae");
+            removalList.Add("5c471bd12e221602b4129c3a");
+
+            List<WeaponMod> FinalCombos = new();
+
+
+            //! Might as well do this procedurally
+
+            // Default combo - don't need to check that the defaults are in the inputList, as we know it will be there always
+            WeaponMod dummy = new WeaponMod();
+            dummy.Name = "Hi, I'm a dummy";
+            Slot dummySlot1 = new Slot();
+            Slot dummySlot2 = new Slot();
+            Slot dummySlot3 = new Slot();
+
+            dummySlot1.ContainedItem = inputList.Find(x => x.Id.Equals("5c471c2d2e22164bef5d077f")); // UB
+            dummySlot2.ContainedItem = inputList.Find(x => x.Id.Equals("5c471c6c2e221602b66cd9ae")); // HG
+            dummySlot3.ContainedItem = inputList.Find(x => x.Id.Equals("5c471bd12e221602b4129c3a")); // DC
+
+            dummy.Slots.Add(dummySlot1);
+            dummy.Slots.Add(dummySlot2);
+            dummy.Slots.Add(dummySlot3);
+
+            FinalCombos.Add(dummy);
+
+            //. XRS combo
+            if (inputList.Any(x => x.Id.Equals("5e5699df2161e06ac158df6f")))
+            {
+                var XRS_Clone = dummy.DeepClone();
+                XRS_Clone.Slots[1].ContainedItem = inputList.Find(x => x.Id.Equals("5e5699df2161e06ac158df6f")); // HG
+                FinalCombos.Add(XRS_Clone);
+            }
+
+            //. Modernization combo
+            if (inputList.Any(x => x.Id.Equals("5e56991336989c75ab4f03f6")))
+            {
+                var Modern_Clone = dummy.DeepClone();
+
+                if (inputList.Any(x => x.Id.Equals("5e569a0156edd02abe09f27d")))
+                {
+                    var handguard = inputList.Find(x => x.Id.Equals("5e56991336989c75ab4f03f6"));
+                    var top_rail = inputList.Find(x => x.Id.Equals("5e569a0156edd02abe09f27d"));
+                    handguard.Slots[6].ContainedItem = top_rail;
+
+                    Modern_Clone.Slots[1].ContainedItem = handguard; // HG
+                }
+                else
+                {
+                    Modern_Clone.Slots[1].ContainedItem = inputList.Find(x => x.Id.Equals("5e56991336989c75ab4f03f6")); // HG
+                }
+                FinalCombos.Add(Modern_Clone);
+            }
+
+            // SAG combo
+            if (inputList.Any(x => x.Id.Equals("5dfcd0e547101c39625f66f9")) && inputList.Any(x => x.Id.Equals("5dfce88fe9dc277128008b2e")))
+            {
+                var SAG_Clone = dummy.DeepClone();
+                SAG_Clone.Slots[0].ContainedItem = inputList.Find(x => x.Id.Equals("5dfcd0e547101c39625f66f9")); // UB
+                SAG_Clone.Slots[1].ContainedItem = null;
+                SAG_Clone.Slots[2].ContainedItem = inputList.Find(x => x.Id.Equals("5dfce88fe9dc277128008b2e")); // DC
+
+                FinalCombos.Add(SAG_Clone);
+            }
+
+            // Remove all of the mods we're looking at
+            inputList.RemoveAll(x => removalList.Contains(x.Id));
+
+            // Sort the combos by the mode
+            FinalCombos = SortWeaponModListByMode(FinalCombos, mode);
+
+            // Get the best one, add those mods back to the input list and return that.
+            var thatResult = FinalCombos.First();
+            var theList = AggregateListOfModsRecursively(thatResult);
+            inputList.AddRange(theList);
+
+            return inputList;
+        }
+
         //Currently used by the SA-58 and the G36
         public static List<WeaponMod> EnhancedLogic_Handguards_Barrels(List<WeaponMod> inputList, string mode)
         {
@@ -388,8 +492,9 @@ namespace WishGranterProto.ExtensionMethods
 
             // First let's get all of the T4AUG combos
             var T4AUG = inputList.Find(x => x.Id.Equals("630f2982cdb9e392db0cbcc7"));
-            if (T4AUG != null){
-                
+            if (T4AUG != null)
+            {
+
                 // Add the conflicting items to the BL
                 temp_BL = temp_BL.Union(T4AUG.ConflictingItems).ToHashSet();
                 foreach (var barrel in barrels)
@@ -465,7 +570,7 @@ namespace WishGranterProto.ExtensionMethods
             inputList.RemoveAll(x => receivers.Contains(x));
 
             List<WeaponMod> fittedGasBlocks = new List<WeaponMod>();
-            foreach(var gasblock in gasblocks)
+            foreach (var gasblock in gasblocks)
             {
                 //Don't need to account for the UltiMAK M1-B as it can't fit any foregrips anyway
                 foreach (var handguard in handguards)
@@ -491,11 +596,11 @@ namespace WishGranterProto.ExtensionMethods
             // Additionally, as we have a limited number of dust covers, a way to slim down the problem is to get the best compatible handguard/gastube combo for that dust cover
             // and then compare the these combinations
             List<WeaponMod> FinalCombos = new();
-            foreach(var dustcover in receivers)
+            foreach (var dustcover in receivers)
             {
                 // Get the shortlist of compatible combos with this DC
                 var shortlistOfGasBlocks = fittedGasBlocks.Where(
-                        (x) => 
+                        (x) =>
                         !x.Slots[0].ContainedItem.ConflictingItems.Contains(dustcover.Id) && // Hand Guard
                         !dustcover.ConflictingItems.Contains(x.Slots[0].ContainedItem.Id)    // Dust Cover
                     ).ToList();
@@ -553,16 +658,16 @@ namespace WishGranterProto.ExtensionMethods
         {
             // First clone the Item, so we don't pollute the input
             var localClone = CI.DeepClone();
-            
+
             List<string> AR15_type = new List<string>
-            { 
+            {
                 "5c07c60e0db834002330051f", // ADAR
                 "5447a9cd4bdc2dbd208b4567", // M4A1
                 "5d43021ca4b9362eab4b5e25", // TX-15
                 "5bb2475ed4351e00853264e3"  // 416
             };
 
-            if (AR15_type.Contains(CI.Id ))
+            if (AR15_type.Contains(CI.Id))
             {
                 inputList = EnhancedLogic_AR15_Uppers(inputList, mode);
             }
@@ -579,6 +684,10 @@ namespace WishGranterProto.ExtensionMethods
             else if (CI.Id.Equals("62e7c4fba689e8c9c50dfc38") || CI.Id.Equals("63171672192e68c5460cebc5"))
             {
                 inputList = EnhancedLogic_AUG(inputList, mode);
+            }
+            else if (CI.Id.Equals("5c46fbd72e2216398b5a8c9c"))
+            {
+                inputList = EnhancedLogic_SVDS(inputList, mode);
             }
 
             //? Now back to our regular programming...
@@ -612,7 +721,7 @@ namespace WishGranterProto.ExtensionMethods
             result.Name = $"ERROR: I'm a mod which should have been changed for {slot.Name}";
 
             // Get a list of the candidate mods, we also don't allow for mods which have been blacklisted
-            var candidates = inputList.Where(x  => slot.Filters[0].Whitelist.Contains(x.Id) && !CommonBlackListIds.Contains(x.Id)).ToList();
+            var candidates = inputList.Where(x => slot.Filters[0].Whitelist.Contains(x.Id) && !CommonBlackListIds.Contains(x.Id)).ToList();
 
             //? This is here incase there are any duplciates in the candidates list, which might cause a problem in the branch selection if unaddressed
             candidates = candidates.Distinct().ToList();
@@ -624,13 +733,13 @@ namespace WishGranterProto.ExtensionMethods
                 //? Right, probs need to fit this out actually first lmao
                 candidates[0] = (WeaponMod)SMFS_Wrapper(candidates[0], inputList, mode, CommonBlackListIds);
                 result = candidates[0];
-                
+
             }
             //! More than one candidate
             else
             {
                 var blockers = candidates.Where(x => x.ConflictingItems.Count > 0).ToList();
-                
+
                 //! If any blockers
                 if (blockers.Count > 0)
                 {
@@ -838,7 +947,7 @@ namespace WishGranterProto.ExtensionMethods
                         options.Add((WeaponMod)SMFS_Wrapper(weaponMod, inputList, mode, CommonBlackListIds));
                     }
 
-                    if(options.Count > 0)
+                    if (options.Count > 0)
                     {
                         // Sort options by mode and select the best one
                         options = SortWeaponModListForSlotByMode(slot, options, mode);
@@ -859,7 +968,7 @@ namespace WishGranterProto.ExtensionMethods
             var blockers = returnList.Where(x => x.ConflictingItems.Count > 0).ToList();
             var names = blockers.Select(x => x.Name).ToList();
 
-            foreach(var blocker in blockers)
+            foreach (var blocker in blockers)
             {
                 // First, do a check to see if the blocker is the only one of it's kind, because if it is we're not going to be able to pick anything else, eg, gun barrel.
                 var oneOfAKind = inputList.Where(x => x.GetType() == blocker.GetType()).ToList();
@@ -876,7 +985,7 @@ namespace WishGranterProto.ExtensionMethods
                     if (oneBlockerOfAKind.Count >= 1)
                     {
                         //todo Expand this area later.
-                        if(mode == "recoil")
+                        if (mode == "recoil")
                         {
                             oneBlockerOfAKind = oneBlockerOfAKind.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList(); //! helps if you make recoils be floats you dingus
                         }
@@ -916,7 +1025,7 @@ namespace WishGranterProto.ExtensionMethods
 
             return result;
         }
-        
+
         // Get a list of all possible items for a CI
         public static List<string> CreateMasterWhiteListIds(CompoundItem CompItem, List<WeaponMod> AvailableWeaponMods)
         {
@@ -934,7 +1043,7 @@ namespace WishGranterProto.ExtensionMethods
                     //We add the IDs which are a part of our AWM_Ids, as we are only concerned with mods which are available 
                     var slotWhiteList = slot.Filters[0].Whitelist;
                     var AWM_Ids_on_SlotWhiteList = AWM_Ids.Where(id => slotWhiteList.Contains(id)).ToList();
-                    
+
                     MasterWhiteList.UnionWith(AWM_Ids_on_SlotWhiteList);
                 }
 
@@ -953,7 +1062,7 @@ namespace WishGranterProto.ExtensionMethods
                 }
                 // Unite the MWL with the results of recursion and then return it
                 MasterWhiteList.UnionWith(cache);
-            } 
+            }
 
 
             return MasterWhiteList.ToList();
@@ -966,8 +1075,8 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach (var id in Ids)
             {
-                var found = AvailibleWeaponMods.Find(x =>x.Id == id);
-                if(found != null)
+                var found = AvailibleWeaponMods.Find(x => x.Id == id);
+                if (found != null)
                 {
                     //Console.WriteLine(found.Name);
                     Names.Add(found.Name);
@@ -1034,7 +1143,7 @@ namespace WishGranterProto.ExtensionMethods
             {
                 var weapon = (Weapon)item;
 
-                sumErgo = weapon.Ergonomics + (int) TotalErgo;
+                sumErgo = weapon.Ergonomics + (int)TotalErgo;
                 sumRecoil = weapon.RecoilForceUp + (weapon.RecoilForceUp * (TotalRecoil / 100));
             }
             else if (typeof(T) == typeof(WeaponMod))
@@ -1058,7 +1167,7 @@ namespace WishGranterProto.ExtensionMethods
             //}
 
             // Return the values as Ints because that makes comparision easier and we don't care about a .5 ergo difference.
-            return ( (int)sumErgo, (int)sumRecoil);
+            return ((int)sumErgo, (int)sumRecoil);
         }
 
         public static (int TotalErgo, double TotalRecoil) GetCompoundItemTotals_RecoilFloat<T>(this CompoundItem item)
@@ -1100,7 +1209,7 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach (Slot slot in notNulls)
             {
-                WeaponMod wm = (WeaponMod) slot.ContainedItem;
+                WeaponMod wm = (WeaponMod)slot.ContainedItem;
                 attachedMods.Add(wm);
                 attachedMods.AddRange(AccumulateMods(wm.Slots));
             }
@@ -1148,7 +1257,7 @@ namespace WishGranterProto.ExtensionMethods
 
             foreach (var slot in CI.Slots)
             {
-                if(slot.ContainedItem != null)
+                if (slot.ContainedItem != null)
                 {
                     var temp = (CompoundItem)slot.ContainedItem;
                     PrintAttachedModNames_Recursively(temp, depth + 1);
@@ -1160,11 +1269,11 @@ namespace WishGranterProto.ExtensionMethods
         {
             List<string> result = new();
             result.AddRange(CI.ConflictingItems);
-            foreach(var slot in CI.Slots)
+            foreach (var slot in CI.Slots)
             {
-                if(slot.ContainedItem != null)
+                if (slot.ContainedItem != null)
                 {
-                    result.AddRange(AggregateBlacklistRecursively((CompoundItem) slot.ContainedItem));
+                    result.AddRange(AggregateBlacklistRecursively((CompoundItem)slot.ContainedItem));
                 }
             }
             return result;
@@ -1200,17 +1309,17 @@ namespace WishGranterProto.ExtensionMethods
         {
             bool result = true;
 
-            foreach(var slot in CI.Slots)
+            foreach (var slot in CI.Slots)
             {
-                if(slot.Required == true && slot.ContainedItem == null && result == true)
+                if (slot.Required == true && slot.ContainedItem == null && result == true)
                 {
-                    result = false; 
+                    result = false;
                 }
                 else if (slot.Required == true && slot.ContainedItem != null)
                 {
-                    var temp = CheckThatAllRequiredSlotsFilled((CompoundItem) slot.ContainedItem);
+                    var temp = CheckThatAllRequiredSlotsFilled((CompoundItem)slot.ContainedItem);
 
-                    if(result == true && temp == false)
+                    if (result == true && temp == false)
                     {
                         result = false;
                     }
@@ -1245,9 +1354,9 @@ namespace WishGranterProto.ExtensionMethods
         {
             List<WeaponMod> result = new();
             result.Add(theMod);
-            foreach(var slot in theMod.Slots)
+            foreach (var slot in theMod.Slots)
             {
-                if(slot.ContainedItem != null)
+                if (slot.ContainedItem != null)
                 {
                     result.AddRange(AggregateListOfModsRecursively((WeaponMod)slot.ContainedItem));
                 }

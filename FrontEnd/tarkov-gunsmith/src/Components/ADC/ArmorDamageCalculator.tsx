@@ -344,7 +344,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                 <Card.Header as="h2" >
                     <Stack direction="horizontal" gap={3}>
-                        Armor Damage Calculator - Presets
+                        Terminal Ballistics Simulator - Presets
                         <div className="ms-auto">
                             <Stack direction='horizontal' gap={2}>
                                 <Button variant="secondary" onClick={handleEnableCustomCal}>Change mode to Custom</Button>
@@ -523,7 +523,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <Card.Footer>
                         <div className="d-grid gap-2">
                             <Button variant="success" type="submit" className='form-btn'>
-                                Calculate
+                                Simulate
                             </Button>
                         </div>
                     </Card.Footer>
