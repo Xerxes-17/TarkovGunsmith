@@ -123,7 +123,7 @@ export default function DataSheetArmor(props: any) {
     );
 
     //store pagination state in your own state
-    const [pagination, setPagination] = useState({
+    const [pagination] = useState({
         pageIndex: 0,
         pageSize: 200, //customize the default page size
     });
