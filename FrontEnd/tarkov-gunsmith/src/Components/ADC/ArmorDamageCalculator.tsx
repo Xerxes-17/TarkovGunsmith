@@ -558,7 +558,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Row>
                                         <Col md={4}>
                                             <Form.Group className="md" controlId="ArmorClass">
-                                                <Form.Label>Armor Class 🛡</Form.Label>
+                                                <Form.Label>🛡 Armor Class</Form.Label>
                                                 <Form.Select aria-label="Default select example" defaultValue={armorClass} onChange={(e) => { setArmorClass(parseInt(e.target.value)) }}>
                                                     <option value={2}>2</option>
                                                     <option value={3}>3</option>
@@ -570,7 +570,7 @@ export default function ArmorDamageCalculator(props: any) {
                                             <br />
 
                                             <Form.Group className="md" controlId="ArmorClass">
-                                                <Form.Label>Armor Material 🧱</Form.Label>
+                                                <Form.Label>🧱 Armor Material</Form.Label>
                                                 <Form.Select aria-label="Default select example" value={armorMaterial} onChange={(e) => { setArmorMaterial(e.target.value) }}>
                                                     <option value={"Aramid"}>Aramid</option>
                                                     <option value={"UHMWPE"}>UHMWPE</option>
@@ -586,7 +586,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                                         <Col md={7}>
                                             <Form.Group controlId="MaxDurability">
-                                                <Form.Label>Armor Durability Max</Form.Label>
+                                                <Form.Label>🔧 Armor Durability Max</Form.Label>
                                                 <Form.Control type="number" placeholder="Enter max durability as a number" defaultValue={armorDurabilityMax_Custom}
                                                     onChange={(e) => {
                                                         if (parseInt(e.target.value) < 1) {
@@ -630,7 +630,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <Row>
                                         <Col md={3}>
                                             <Form.Group className="md" controlId="Penetration">
-                                                <Form.Label>Penetration ✒</Form.Label>
+                                                <Form.Label>⛏ Penetration</Form.Label>
                                                 {errorPenetration === "" &&
                                                     <>
                                                         <Form.Control type="number" placeholder="Enter penetration as a number" defaultValue={penetration}
@@ -657,7 +657,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                                         <Col md={3}>
                                             <Form.Group className="md" controlId="Penetration">
-                                                <Form.Label>Damage 💀</Form.Label>
+                                                <Form.Label>💀 Damage</Form.Label>
                                                 {errorDamage === "" &&
                                                     <>
                                                         <Form.Control type="number" placeholder="Enter damage as a number" defaultValue={damage}
@@ -665,13 +665,13 @@ export default function ArmorDamageCalculator(props: any) {
                                                                 if (parseInt(e.target.value) < 1) {
                                                                     e.target.value = "1"
                                                                 } // It's jank, but it werks
-                                                                setPenetration(parseInt(e.target.value))
+                                                                setDamage(parseInt(e.target.value))
                                                             }}
                                                         />
                                                     </>}
                                                 {errorDamage.includes("Sorry,") &&
                                                     <>
-                                                        <Form.Control isInvalid type="number" placeholder="Enter penetration as a number" defaultValue={damage} onChange={(e) => { setDamage(parseInt(e.target.value)) }} />
+                                                        <Form.Control isInvalid type="number" placeholder="Enter damage as a number" defaultValue={damage} onChange={(e) => { setDamage(parseInt(e.target.value)) }} />
                                                     </>}
                                                 <Form.Text className="text-muted">
                                                     Eg: "50" without quotes.
@@ -687,7 +687,7 @@ export default function ArmorDamageCalculator(props: any) {
                                             <Form.Group>
                                                 <Row>
                                                     <Col md>
-                                                        <Form.Label>Armor Damage Percentage 📐</Form.Label>
+                                                        <Form.Label>📏 Armor Damage Percentage</Form.Label>
                                                         <Form.Range value={armorDamagePerc} max={100} min={1} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
                                                     </Col>
                                                     <Col md="3">
