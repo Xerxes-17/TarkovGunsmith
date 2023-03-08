@@ -117,7 +117,7 @@ export default function ArmorDamageCalculator(props: any) {
     const [smallestArmorDamPerc] = useState(22);
     const [biggestArmorDamPerc] = useState(89);
 
-    const [traderLevel, setTraderLevel] = useState(5); // Need to make these values be drawn from something rather than magic numbers
+    const [traderLevel, setTraderLevel] = useState(6); // Need to make these values be drawn from something rather than magic numbers
     const [smallestTraderLevel] = useState(1);
     const [biggestTraderLevel] = useState(6); // 5 is for FLea market, 6 is for FIR
 
