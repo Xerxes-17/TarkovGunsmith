@@ -211,10 +211,9 @@ namespace WishGranterProto.ExtensionMethods
 
             List<SelectionArmor> result = new();
             IEnumerable<Item> All_Armor = database.GetItems(m => m is Armor);
-            All_Armor = All_Armor.Where(a => a.Id != "63737f448b28897f2802b874"); // This seems to be a BSG dev armor
+            //All_Armor = All_Armor.Where(a => a.Id != "63737f448b28897f2802b874"); // This was the HPC ya eedjit!
 
             IEnumerable<Item> All_Rigs = database.GetItems(m => m is ChestRig);
-            All_Rigs = All_Rigs.Where(a => a.Id != "639343fce101f4caa40a4ef3"); // This seems to be a BSG dev armor
             All_Rigs = All_Rigs.Where(x => {
                 var temp = (ChestRig)x;
                 return temp.ArmorClass > 0;

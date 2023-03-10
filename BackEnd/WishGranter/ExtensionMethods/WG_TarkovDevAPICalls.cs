@@ -37,6 +37,7 @@ namespace WishGranterProto.ExtensionMethods
         {
             // We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presests.
             JObject DefaultPresestsJSON = TarkovDevQueryAsync("{ items(type: gun) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesWeapon { presets { id name containsItems { item { id name } count } bartersFor{ trader{ name } level requiredItems{ quantity item{ id name buyFor{ priceRUB vendor{ name } } } } } buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesPreset { default } } } } } } }", "NewPresets").Result;
+
             Console.WriteLine("DefaultPresetsJSON returned.");
 
             return DefaultPresestsJSON;
