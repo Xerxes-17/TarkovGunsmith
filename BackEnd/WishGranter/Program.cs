@@ -9,13 +9,13 @@ using WishGranter;
 
 using OpenTelemetry.Resources;
 using OpenTelemetry.Metrics;
-using System.Diagnostics.Metrics;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Logs;
 using System.Diagnostics;
 using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
+
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -92,8 +92,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Define some important constants to initialize tracing with
 //https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-7.0&tabs=windows#environment-variables
-var honeycombServiceName = builder.Configuration["Honeycomb:ServiceName"];
-var honeycombApiKey = builder.Configuration["Honeycomb:ApiKey"];
+//? Use these for local dev
+//var honeycombServiceName = builder.Configuration["Honeycomb:ServiceName"];
+//var honeycombApiKey = builder.Configuration["Honeycomb:ApiKey_DEV"];
+
+//? Use these for AWS deploys
+var honeycombServiceName = Environment.GetEnvironmentVariable("ServiceName");
+//var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_DEV");
+var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_PROD");
+//todo make this choice automatic
 
 var serviceName = honeycombServiceName;
 
