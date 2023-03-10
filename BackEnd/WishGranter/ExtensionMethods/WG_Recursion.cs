@@ -257,7 +257,7 @@ namespace WishGranterProto.ExtensionMethods
                     LHS_Prohibited = AggregateBlacklistRecursively(fittedBarrel);
 
                     var intersection = LHS_Prohibited.Intersect(RHS_Ids);
-                    if (intersection.Count() == 0)
+                    if (!intersection.Any())
                     {
                         var fc_Rec = pairedReceiver.DeepClone();
                         var fc_Bar = fittedBarrel.DeepClone();
