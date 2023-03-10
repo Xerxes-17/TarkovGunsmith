@@ -3,4 +3,4 @@
 
 //export const API_URL = "http://localhost:5000"
 
-export const API_URL = "http://wishgranter1-dev.eba-mu2mdv3g.us-east-1.elasticbeanstalk.com"
+export const API_URL = "http://wishgranter-prod.eba-mpkq99uq.us-east-1.elasticbeanstalk.com"
