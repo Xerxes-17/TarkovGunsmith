@@ -7,7 +7,31 @@ using Newtonsoft.Json;
 using Force.DeepCloner;
 using WishGranter;
 
-Console.WriteLine("Wishgranter-API is starting.");
+using OpenTelemetry.Resources;
+using OpenTelemetry.Metrics;
+using System.Diagnostics.Metrics;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Logs;
+using System.Diagnostics;
+using OpenTelemetry.Exporter;
+using Honeycomb.OpenTelemetry;
+using OpenTelemetry;
+
+static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureLogging(logging =>
+        {
+            logging.ClearProviders();
+            logging.AddConsole();
+            logging.AddDebug();
+            logging.AddEventSourceLogger();
+        });
+
+IHost host = CreateHostBuilder(args).Build();
+
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Host created.");
+logger.LogInformation("Wishgranter-API is starting.");
 
 // Need this to get Russian chars and symbols. This is here incase we don't load a localization correctly and need to read Russian names.
 //CultureInfo ci = new CultureInfo("ru-RU");
@@ -15,12 +39,12 @@ Console.WriteLine("Wishgranter-API is starting.");
 //Console.WriteLine(ci.DisplayName + " - currency symbol: " + ci.NumberFormat.CurrencySymbol);
 //? Goign to see if this is the cause of the logs on AWS being all single line
 
-var watch = new System.Diagnostics.Stopwatch();
+var watch = new Stopwatch();
 watch.Start();
 
 // This loads all of the weapons, mods and ammo from the items.json into a RatStashDB using the EN localization
 Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
-Console.WriteLine("RatStashDB started from file.");
+logger.LogInformation("RatStashDB started from file.");
 
 var DefaultPresestsJSON = WG_TarkovDevAPICalls.GetAllGunPresets();
 var MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
@@ -32,11 +56,11 @@ Console.WriteLine($"Obtaining TarkovDev data finished by {watch.ElapsedMilliseco
 //! Compiling the marketData
 //TODO If we move this into WG_Market, we can then setup a simple fetch method for other parts of the program to use, no need to share the List itself around, could also add a refresh method too as we will need later.
 watch.Start();
-Console.WriteLine("Compiling MarketData");
+logger.LogInformation("Compiling MarketData");
 var MarketData = WG_Market.CompileMarketDataList(MarketDataJSON);
-Console.WriteLine($"Number of Market Entries: {MarketData.Count}");
+logger.LogInformation($"Number of Market Entries: {MarketData.Count}");
 watch.Stop();
-Console.WriteLine($"Compiling MarketData finished by {watch.ElapsedMilliseconds} ms.\n");
+logger.LogInformation($"Compiling MarketData finished by {watch.ElapsedMilliseconds} ms.\n");
 
 //using StreamWriter writetext = new("outputs\\MyMarketData.json"); // This is here as a debug/verify
 //writetext.Write(JToken.Parse(JsonConvert.SerializeObject(MarketData)));
@@ -44,16 +68,16 @@ Console.WriteLine($"Compiling MarketData finished by {watch.ElapsedMilliseconds}
 
 //! Processing the Default Presets
 watch.Start();
-Console.WriteLine("Compiling default weapon presets");
+logger.LogInformation("Compiling default weapon presets");
 
 var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresestsJSON, RatStashDB);
 
-Console.WriteLine($"Number of presets: {DefaultWeaponPresets.Count}");
+logger.LogInformation($"Number of presets: {DefaultWeaponPresets.Count}");
 var SelectionWeaponPresets = WG_Output.WriteStockPresetList(DefaultWeaponPresets);
-Console.WriteLine($"Number of SelectionWeaponPresets: {SelectionWeaponPresets.Count}");
+logger.LogInformation($"Number of SelectionWeaponPresets: {SelectionWeaponPresets.Count}");
 
 watch.Stop();
-Console.WriteLine($"Compiling default weapon presets finished by {watch.ElapsedMilliseconds} ms.\n");
+logger.LogInformation($"Compiling default weapon presets finished by {watch.ElapsedMilliseconds} ms.\n");
 
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
@@ -62,13 +86,63 @@ var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
 WG_DataScience dataScience = new WG_DataScience();
 dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 
-startAPI();
 
-void startAPI()
+//! All the builder stuff
+var builder = WebApplication.CreateBuilder(args);
+
+// Define some important constants to initialize tracing with
+//https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-7.0&tabs=windows#environment-variables
+var honeycombServiceName = builder.Configuration["Honeycomb:ServiceName"];
+var honeycombApiKey = builder.Configuration["Honeycomb:ApiKey"];
+
+var serviceName = honeycombServiceName;
+
+var serviceVersion = "1.0.0";
+var appResourceBuilder = ResourceBuilder.CreateDefault()
+.AddService(serviceName: serviceName, serviceVersion: serviceVersion);
+var MyActivitySource = new ActivitySource(serviceName);
+
+var options = new HoneycombOptions
+{
+    ServiceName = honeycombServiceName,
+    ServiceVersion = "1.0.0",
+    ApiKey = honeycombApiKey,
+    ResourceBuilder = ResourceBuilder.CreateDefault()
+    //.AddAttributes(
+    //    new Dictionary<string, object>
+    //    {
+    //        {"custom-resource-attribute", "some-value"}
+    //    })
+};
+
+using var tracerProvider = Sdk.CreateTracerProviderBuilder()
+    .AddHoneycomb(options)
+    .Build();
+
+
+startAPIAsync();
+
+async Task startAPIAsync()
 {
     const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-    var builder = WebApplication.CreateBuilder(args);
+    builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder =>
+    {
+        tracerProviderBuilder
+            .AddConsoleExporter()
+            .AddSource(MyActivitySource.Name)
+            .SetResourceBuilder(appResourceBuilder)
+            .AddHttpClientInstrumentation()
+            .AddAspNetCoreInstrumentation()
+            .AddSqlClientInstrumentation()
+            .AddOtlpExporter(opt =>
+            {
+                opt.Endpoint = new Uri("https://api.honeycomb.io");
+                opt.Headers = $"x-honeycomb-team={honeycombApiKey}";
+                opt.Protocol = OtlpExportProtocol.HttpProtobuf;
+            });
+    });
+
     builder.Services.AddCors(options =>
     {
         options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -81,6 +155,7 @@ void startAPI()
     });
     builder.Services.AddHealthChecks();
     builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddLogging();
     builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tarkov-Gunsmith", Description = "Mod your guns, test your armor/ammo", Version = "v1" });
@@ -129,32 +204,42 @@ void startAPI()
     app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
 
     app.Run();
+    await host.RunAsync();
 }
 
 List<SelectionWeapon> GetWeaponOptionsList()
 {
-    Console.WriteLine($"Request for WeaponOptionList");
-    //return WG_Output.WriteStockPresetList(DefaultWeaponPresets);
+    using var myActivity = MyActivitySource.StartActivity("Request for WeaponOptionList");
     return SelectionWeaponPresets;
 }
 List<SelectionArmor> GetArmorOptionsList()
 {
-    Console.WriteLine($"Request for ArmorOptionList");
+    using var myActivity = MyActivitySource.StartActivity("Request for ArmorOptionList");
     return ArmorOptionsList;
 }
 List<SelectionAmmo> GetAmmoOptionsList()
 {
-    Console.WriteLine($"Request for AmmoOptionList");
+    using var myActivity = MyActivitySource.StartActivity("Request for AmmoOptionList");
     return AmmoOptionsList;
 }
 
 string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string presetID, int purchaseType)
 {
+
+
     // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
     WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals((OfferType)purchaseType)).DeepClone();
 
     // Note in the console log the request.
     Console.WriteLine($"Request from MWB for single weapon: [{playerLevel}, {mode}, {muzzleMode}, {presetID} ({WantedPreset.Weapon.Name}), {purchaseType}]");
+
+    using var myActivity = MyActivitySource.StartActivity("Request from MWB for single weapon");
+    myActivity?.SetTag("playerLevel", playerLevel);
+    myActivity?.SetTag("mode", mode);
+    myActivity?.SetTag("muzzleMode", muzzleMode);
+    myActivity?.SetTag("presetID", presetID);
+    myActivity?.SetTag("weaponName", WantedPreset.Weapon.Name);
+    myActivity?.SetTag("purchaseType", purchaseType);
 
     // Get all of the trader offers - It's in the main program space
     // No need now to make a mask as we only need to filter by player level and the transaction type now, neat!
@@ -204,7 +289,8 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     }
 
     //? A little check to see if a build is valid, to help with debugging and maintenance
-    Console.WriteLine($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
+    logger.LogInformation($"The build was valid: {WG_Recursion.CheckIfCompoundItemIsValid(weapon_result)}");
+    myActivity?.SetTag("valid", WG_Recursion.CheckIfCompoundItemIsValid(weapon_result));
 
     // Setup the serialzier
     var options = new JsonSerializerSettings
@@ -220,7 +306,10 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
 {
-    Console.WriteLine($"Request for CalculateArmorVsBulletSeries");
+    using var myActivity = MyActivitySource.StartActivity("Request for CalculateArmorVsBulletSeries");
+    myActivity?.SetTag("armorID", armorID);
+    myActivity?.SetTag("bulletID", bulletID);
+    myActivity?.SetTag("startingDuraPerc", startingDuraPerc);
 
     var Bullet = RatStashDB.GetItem(bulletID);
 
@@ -233,7 +322,16 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage)
 {
-    Console.WriteLine($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
+    logger.LogInformation($"Request for ADC_Custom: [{ac}, {maxDurability}, {startingDurabilityPerc}, {material}, {penetration}, {armorDamagePerc}, {damage}]");
+
+    using var myActivity = MyActivitySource.StartActivity("Request for ADC_Custom");
+    myActivity?.SetTag("ac", ac);
+    myActivity?.SetTag("maxDurability", maxDurability);
+    myActivity?.SetTag("startingDurabilityPerc", startingDurabilityPerc);
+    myActivity?.SetTag("material", material);
+    myActivity?.SetTag("penetration", penetration);
+    myActivity?.SetTag("armorDamagePerc", armorDamagePerc);
+    myActivity?.SetTag("damage", damage);
 
     return WG_Calculation.FindPenetrationChanceSeries_Custom(ac, maxDurability, startingDurabilityPerc, material, penetration, armorDamagePerc, damage);
 }
@@ -243,31 +341,37 @@ List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzl
     // Get the WeaponPreset that the request wants, we clone it to ensure no original record contamination.
     WeaponPreset WantedPreset = DefaultWeaponPresets.Find(p => p.Id.Equals(presetID) && p.PurchaseOffer.OfferType.Equals((OfferType)purchaseType)).DeepClone();
 
-    Console.WriteLine($"Request for Stats curve of {WantedPreset.Weapon.Name}");
+    logger.LogInformation($"Request for Stats curve of {WantedPreset.Weapon.Name}");
+    using var myActivity = MyActivitySource.StartActivity("Request for Stats curve");
+    myActivity?.SetTag("weaponName", WantedPreset.Weapon.Name);
+
+
     var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashDB);
     return result;
 }
 
 List<AmmoTableRow> GetAmmoDataSheetData()
 {
-    Console.WriteLine($"Request for AmmoDataSheet");
+    using var myActivity = MyActivitySource.StartActivity("Request for AmmoDataSheet");
+
     return WG_DataScience.CompileAmmoTable(RatStashDB);
 }
 List<ArmorTableRow> GetArmorDataSheetData()
 {
-    Console.WriteLine($"Request for ArmorDataSheet");
+    using var myActivity = MyActivitySource.StartActivity("Request for ArmorDataSheet");
     return WG_DataScience.CompileArmorTable(RatStashDB);
 }
 
 List<WeaponTableRow> GetWeaponsDataSheetData()
 {
-    Console.WriteLine($"Request for WeaponsDataSheet");
+    using var myActivity = MyActivitySource.StartActivity("Request for WeaponsDataSheet");
     return WG_DataScience.CompileWeaponTable(DefaultWeaponPresets);
 }
 
 List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
 {
-    Console.WriteLine($"Request for Armor vs Ammo Data");
+    using var myActivity = MyActivitySource.StartActivity("Request for Armor vs Ammo Data");
+    myActivity?.SetTag("armorID", armorID);
 
     var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
@@ -276,7 +380,8 @@ List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
 
 List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
 {
-    Console.WriteLine($"Request for Ammo vs Armor Data");
+    using var myActivity = MyActivitySource.StartActivity("Request for Ammo vs Armor Data");
+    myActivity?.SetTag("ammoID", ammoID);
     var ammo = (Ammo) RatStashDB.GetItem(ammoID);
 
     return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashDB);
@@ -284,6 +389,6 @@ List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
 
 List<CondensedDataRow> GetCondensedAmmoEffectivenessTable()
 {
-    Console.WriteLine($"Request for Ammo Effectiveness Table");
+    using var myActivity = MyActivitySource.StartActivity("Request for Ammo Effectiveness Table");
     return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
 }
