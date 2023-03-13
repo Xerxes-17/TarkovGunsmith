@@ -1,12 +1,12 @@
 # # This workflow will build a .NET project
 # # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: CI-Pipeline
+name: CI-Pipeline-Dev
 
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   # pull_request:
   #   branches: [ "main" ]
 
@@ -131,7 +131,7 @@ jobs:
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
           source_dir: ./build_FE
           destination_dir: ''
   

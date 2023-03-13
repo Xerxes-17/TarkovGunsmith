@@ -98,8 +98,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //? Use these for AWS deploys
 var honeycombServiceName = Environment.GetEnvironmentVariable("ServiceName");
-//var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_DEV");
-var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_PROD");
+var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_Honeycomb");
 //todo make this choice automatic
 
 var serviceName = honeycombServiceName;

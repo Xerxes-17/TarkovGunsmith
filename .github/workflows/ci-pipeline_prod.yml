@@ -1,0 +1,189 @@
+# # This workflow will build a .NET project
+# # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: CI-Pipeline-Prod
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+jobs:
+#   build-test-BE:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 6.0.x
+        
+#     - name: Restore dependencies
+#       working-directory: ./BackEnd/WishGranter
+#       run: dotnet restore
+      
+#     - name: Publish
+#       working-directory: ./BackEnd/WishGranter
+#       run: 	dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+      
+#     - name: Test
+#       working-directory: ./BackEnd/UnitTests_WishGranter
+#       run: dotnet test --no-build --verbosity normal
+
+    # Share artifact inside workflow
+    # - name: Share artifact inside workflow
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: dotnet-github-actions-publish
+    #     path: ./BackEnd/WishGranter/publish
+
+    # - name: Display structure of files
+    #   run: ls -R
+
+
+  # deploy-BE:
+  #   needs: build-test-BE
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: dotnet-github-actions-publish
+  #         path: ./publish
+
+  #     - name: Generate deployment package
+  #       run: cd ./publish; zip -r ../deploy.zip .
+  #       # zip -r deploy.zip publish might also work
+
+  #     - name: Deploy to EB
+  #       uses: einaregilsson/beanstalk-deploy@v21
+  #       with:
+  #         aws_access_key: ${{ secrets.AWS_KEY_ID }}
+  #         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         application_name: WishGranter1
+  #         environment_name: WishGranter1-dev
+  #         version_label: ${{ github.head_ref }}.${{ github.sha }}
+  #         region: ${{ secrets.AWS_REGION }}
+  #         deployment_package: deploy.zip
+
+#https://gist.github.com/ljmocic/3b171a3ee6e2a613eac7c465480a72e1
+  build-test-FE:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
+
+      # - name: Install tree package and run
+      #   run: |
+      #     sudo apt-get -y install tree
+      #     which tree
+      #     tree
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: ./FrontEnd/tarkov-gunsmith/build
+
+  deploy-FE:
+    runs-on: ubuntu-latest
+    needs: build-test-FE
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: ./build_FE
+          
+      # - name: Display structure of downloaded files
+      #   run: ls -R
+
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET_PROD }}
+          source_dir: ./build_FE
+          destination_dir: ''
+  
+
+
+  #   steps:
+  #     - uses: actions/checkout@master
+  #     - uses: shallwefootball/s3-upload-action@master
+  #       with:
+  #         aws_key_id: ${{ secrets.AWS_KEY_ID }}
+  #         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+  #         aws_bucket: ${{ secrets.AWS_BUCKET }}
+  #         source_dir: react-github-actions-build/
+  #         destination_dir: './TG_test'
+
+
+  # deploy-FE:
+#     runs-on: ubuntu-latest
+#     needs: build-test-FE
+#     steps:
+#       # Download previously shared build
+#       - name: Get artifact
+#         uses: actions/download-artifact@v1
+#         with:
+#           name: react-github-actions-build
+#       # Set the credentials from repository settings/secrets
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          
+#       # Copy the files from build folder to the S3 bucket
+#       - name: Deploy to S3
+#         run: aws s3 sync . s3://react-github-actions --acl public-read
+#         working-directory: react-github-actions-build
+
+# # name: Upload to S3
+
+# # on:
+# #   workflow_dispatch:
+
+# jobs:
+#   upload:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - uses: shallwefootball/s3-upload-action@master
+#         with:
+#           aws_key_id: ${{ secrets.AWS_KEY_ID }}
+#           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+#           aws_bucket: ${{ secrets.AWS_BUCKET }}
+#           source_dir: react-github-actions-build/
+#           destination_dir: './TG_test'
