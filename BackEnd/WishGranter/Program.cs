@@ -93,13 +93,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Define some important constants to initialize tracing with
 //https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-7.0&tabs=windows#environment-variables
 //? Use these for local dev
-//var honeycombServiceName = builder.Configuration["Honeycomb:ServiceName"];
-//var honeycombApiKey = builder.Configuration["Honeycomb:ApiKey_DEV"];
+var honeycombServiceName = builder.Configuration["Honeycomb:ServiceName"];
+var honeycombApiKey = builder.Configuration["Honeycomb:ApiKey_DEV"];
 
-//? Use these for AWS deploys
-var honeycombServiceName = Environment.GetEnvironmentVariable("ServiceName");
-var honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_Honeycomb");
-//todo make this choice automatic
+if (string.IsNullOrEmpty(honeycombApiKey))
+{
+    //? Use these for AWS deploys
+    honeycombServiceName = Environment.GetEnvironmentVariable("ServiceName");
+    honeycombApiKey = Environment.GetEnvironmentVariable("ApiKey_Honeycomb"); // this is in the AWS deploy plan
+}
 
 var serviceName = honeycombServiceName;
 

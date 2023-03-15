@@ -18,6 +18,13 @@ namespace WishGranterTests
         static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
 
         [TestMethod]
+        public void Test_TagillaMask()
+        {
+            var result = RatStashDB.GetItems(x => x.Name.Contains("Tagilla's welding mask"));
+        }
+
+
+        [TestMethod]
         public void Test_CompileArmorTable()
         {
             var result = WG_DataScience.CompileArmorTable(RatStashDB);
