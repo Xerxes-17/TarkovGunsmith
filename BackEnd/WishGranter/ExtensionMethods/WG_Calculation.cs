@@ -213,6 +213,17 @@ namespace WishGranterProto.ExtensionMethods
                 armorItem.ArmorType = "Helmet";
                 armorItem.BluntThroughput = temp.BluntThroughput;
             }
+            else if (Armor.GetType() == typeof(FaceCover))
+            {
+                var temp = (FaceCover)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
 
             return armorItem;
         }

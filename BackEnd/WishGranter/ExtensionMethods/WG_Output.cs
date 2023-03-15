@@ -220,7 +220,11 @@ namespace WishGranterProto.ExtensionMethods
             });
 
             var armoredEquipment = database.GetItems(x => x.GetType() == typeof(ArmoredEquipment)).Cast<ArmoredEquipment>().ToList();
+
             armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 1).ToList();
+
+            var tagillaMasks = database.GetItems(x => x.Name.Contains("Tagilla's welding mask")).Cast<ArmoredEquipment>().ToList();
+            armoredEquipment.AddRange(tagillaMasks);
 
             foreach (var item in Helmets)
             {

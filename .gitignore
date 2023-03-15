@@ -139,3 +139,5 @@ BackEnd/WishGranter/TarkovDev_jsons/FleaMarketData.json
 BackEnd/WishGranter/TarkovDev_jsons/TestingTraderOffers.json
 BackEnd/WishGranter/TarkovDev_jsons/TraderOffers.json
 BackEnd/WishGranter/results/AmmoReport_133224458701657259.csv
+BackEnd/WishGranter/.platform/nginx/conf.d/myconf.conf.bak
+BackEnd/WishGranter/.platform/nginx/nginx.conf.bak
