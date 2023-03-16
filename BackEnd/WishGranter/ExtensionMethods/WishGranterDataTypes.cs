@@ -298,5 +298,6 @@ namespace WishGranterProto.ExtensionMethods
     {
         public Ammo ammo { get; set; } = new();
         public List<string> ratings { get; set; } = new();
+        public int traderCashLevel { get; set; } = new();
     }
 }
