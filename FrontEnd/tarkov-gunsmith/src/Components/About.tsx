@@ -1,9 +1,9 @@
-import { Col, Card } from "react-bootstrap";
+import { Col, Card, Container } from "react-bootstrap";
 
 // Renders the home
 export default function About(props: any) {
     return (
-        <>
+        <Container className='main-app-container'>
             <Col xl>
                 <Card bg="dark" border="secondary" text="light" className="xl">
 
@@ -51,6 +51,6 @@ export default function About(props: any) {
                     </Card.Body>
                 </Card>
             </Col>
-        </>
+        </Container>
     );
 }

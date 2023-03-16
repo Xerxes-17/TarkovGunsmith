@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert, Container } from "react-bootstrap";
 import Select from 'react-select'
 import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, Label, YAxis, Legend, Line, Bar, Tooltip } from "recharts";
 import { requestWeaponBuild, requestWeaponDataCurve } from "../../Context/Requests";
@@ -725,7 +725,8 @@ export default function ModdedWeaponBuilder(props: any) {
     }
 
     let content = (
-        <>
+
+        <Container className='main-app-container'>
             <div className="row gy-2">
                 {TopSection}
             </div>
@@ -735,7 +736,7 @@ export default function ModdedWeaponBuilder(props: any) {
             <div className="row gy-2">
                 {dataCurveSection}
             </div>
-        </>
+        </Container>
     );
     return (
         content

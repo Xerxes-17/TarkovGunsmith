@@ -4,7 +4,6 @@ import './App.scss';
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
-import { Container } from 'react-bootstrap';
 import Header from './Components/Header';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
@@ -26,8 +25,6 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <Container className='main-app-container'>
-
           <Routes>
             <Route path={"/"} element={<Home />} />
             <Route path={HOME} element={<Home />} />
@@ -45,10 +42,6 @@ function App() {
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />
           </Routes>
-
-
-
-        </Container>
         <footer>
           &copy; Copyright 2023. Created by Xerxes17.
           Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.

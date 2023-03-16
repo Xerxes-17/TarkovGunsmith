@@ -176,6 +176,25 @@ namespace WishGranterProto.ExtensionMethods
             return ReadyMarketData.Where( x => x.PurchaseOffer.ReqPlayerLevel <= playerLevel && (x.PurchaseOffer.OfferType == OfferType.Cash || x.PurchaseOffer.OfferType == OfferType.Barter)).ToList();
         }
 
+        public static int GetTraderLevelById(string id)
+        {
+            var marketData = ReadyMarketData.FindAll( x => x.Id == id );
+            marketData = marketData.Where(x=> x.PurchaseOffer.OfferType == OfferType.Cash).ToList();
+            marketData.OrderBy(x => x.PurchaseOffer.MinVendorLevel);
+
+            int result = -1;
+            if (marketData.Count > 0)
+            {
+                result = marketData[0].PurchaseOffer.MinVendorLevel;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
         public static int GetBestCashOfferPriceByItemId(string Id)
         {
             int result = -1;

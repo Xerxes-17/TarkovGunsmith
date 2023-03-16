@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
 import { TransmissionArmorTestResult, TransmissionArmorTestShot } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -10,7 +10,7 @@ import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS 
 import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
-import { copyImageToClipboard} from 'copy-image-clipboard';
+import { copyImageToClipboard } from 'copy-image-clipboard';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -240,7 +240,7 @@ export default function ArmorDamageCalculator(props: any) {
         requestArmorTestSerires(requestDetails).then(response => {
             // console.log(response)
             setResult(response);
-            
+
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
@@ -310,13 +310,13 @@ export default function ArmorDamageCalculator(props: any) {
             link = document.createElement('a');
 
         link.href = data;
-        if(result !== undefined){
+        if (result !== undefined) {
             link.download = `${result.testName}.png`;
         }
-        else{
+        else {
             link.download = "TarkovGunsmith_ADC_Chart.png"
         }
-        
+
 
         document.body.appendChild(link);
         link.click();
@@ -326,8 +326,8 @@ export default function ArmorDamageCalculator(props: any) {
     const handleCopyImage = async () => {
         try {
             const element: any = document.getElementById('print'),
-            canvas = await html2canvas(element),
-            data = canvas.toDataURL('image/png');
+                canvas = await html2canvas(element),
+                data = canvas.toDataURL('image/png');
 
             if (data) await copyImageToClipboard(data)
         } catch (e: any) {
@@ -750,15 +750,15 @@ export default function ArmorDamageCalculator(props: any) {
                                 </div>
                             </Stack>
                         </Card.Header>
-                        
+
                         <Card.Body >
                             <Row>
                                 <Col>
                                     <p>
                                         <strong>Expected shots to kill:</strong> {result.killShot}<br />
-                                        <strong>Kill confidence at {result.killShot} shots:</strong> {(result.shots[result.killShot-1] as TransmissionArmorTestShot).probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Kill confidence at {result.killShot} shots:</strong> {(result.shots[result.killShot - 1] as TransmissionArmorTestShot).probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
                                         <strong>Expected time to kill:</strong> {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
-                                        
+
                                         Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
                                     </p>
                                 </Col>
@@ -866,7 +866,9 @@ export default function ArmorDamageCalculator(props: any) {
     }
 
     return (
-        content
+        <Container className='main-app-container'>
+            {content}
+        </Container>
     );
 
 }

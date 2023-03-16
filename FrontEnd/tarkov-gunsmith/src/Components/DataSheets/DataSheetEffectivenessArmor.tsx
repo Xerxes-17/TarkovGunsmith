@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table"
 import { useState, useEffect, useMemo } from "react"
-import { Col, Card, Form, Button } from "react-bootstrap"
+import { Col, Card, Form, Button, Container } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
@@ -148,7 +148,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
     });
 
     return (
-        <>
+        <Container className='main-app-container'>
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline />
                 <Col xxl>
@@ -220,7 +220,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                     />
                 </Col>
             </ThemeProvider>
-        </>
+        </Container>
 
     )
 }
