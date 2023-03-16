@@ -5,10 +5,22 @@
 // export const API_URL = "http://localhost:5000"
 
 //! PROD
-//export const API_URL = "http://wishgranter-prod.eba-mpkq99uq.us-east-1.elasticbeanstalk.com"
-//export const API_URL = "https://api.tarkovgunsmith.com"
-export const API_URL = "https://blue.api.tarkovgunsmith.com"
+//export const API_URL = "https://blue.api.tarkovgunsmith.com"
 
 //? DEV-TEST
-// export const API_URL = "http://wishgranter-dev-env.eba-wm4piz3d.us-east-1.elasticbeanstalk.com"
 // export const API_URL = "https://api.dev.tarkovgunsmith.com"
+
+
+var api: string = process.env.API_URL ?? ''
+var API: string = '';
+// empty strings are falsy/falsey
+if (api) 
+{ 
+     API = api;
+}
+else 
+{ 
+    API = "http://localhost:5000"
+}
+
+export const API_URL = API;
