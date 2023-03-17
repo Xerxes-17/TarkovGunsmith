@@ -3,6 +3,9 @@
 
 name: CI-Pipeline-Dev
 
+env:
+  WISHGRANTER_API_URL: "https://api.dev.tarkovgunsmith.com"
+
 on:
   workflow_dispatch:
   push:
@@ -79,7 +82,7 @@ jobs:
     steps:
       - name: Show variable
         run: |
-          echo "variable from shell environment : $WISHGRANTER_API_URL"
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
 
       - name: Clone repository
         uses: actions/checkout@v3
