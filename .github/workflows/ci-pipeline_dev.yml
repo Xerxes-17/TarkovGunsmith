@@ -9,8 +9,6 @@ on:
     branches: [ "dev" ]
   # pull_request:
   #   branches: [ "main" ]
-env:
-  env_api_url: ${{ GITHUB_API_URL }}
 jobs:
 #   build-test-BE:
 #     runs-on: ubuntu-latest
@@ -79,9 +77,8 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Show variables
+      - name: Show variable
         run: |
-          echo "process variable : ${{ vars.env_api_url }}"
           echo "variable from shell environment : $GITHUB_API_URL"
 
       - name: Clone repository
