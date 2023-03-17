@@ -11,7 +11,7 @@
 // export const API_URL = "https://api.dev.tarkovgunsmith.com"
 
 
-var api: string = process.env.API_URL ?? ''
+var api: string = process.env.GITHUB_API_URL ?? ''
 var API: string = '';
 // empty strings are falsy/falsey
 if (api) 
