@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { Accordion, Card, Col, ToggleButton } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, ToggleButton } from 'react-bootstrap';
 export default function SimplifiedAmmoRatingsTable(props: any) {
     //store pagination state in your own state
     const [pagination] = useState({
@@ -229,7 +229,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                
+
                 Cell: ({ cell }) => (
                     <>
                         {penetrationConditionalColour(cell.getValue<number>())}
@@ -316,7 +316,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     },
                 },
                 Cell: ({ cell }) => (
-                    <span style={{ display: "inline-block"}}>
+                    <span style={{ display: "inline-block" }}>
                         {greenRedOrNothing(cell.getValue<number>())}
                     </span>
                 )
@@ -493,36 +493,220 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                         </Card.Header>
                         <Card.Body>
                             <>
-                                This table shows the effectiveness rating of all ammo with 20 penetration and above* on the basis of average <strong>shots to kill</strong> for a given AC.<br /><br />
-                                The format is: "<strong>Thorax.Head.Legs | FirstShotPenChance</strong>".<br /><br />
+                                This table shows the effectiveness rating of all ammo with 20 penetration and above* on the basis of average <strong>shots to kill</strong> for a given AC like so:<br />
+                                &nbsp;
+                                <Box
+                                    component="span"
+                                    sx={() => ({
+                                        backgroundColor: getEffectivenessColorCode("3.1.6 | 55%	"),
+                                        borderRadius: '0.25rem',
+                                        color: '#fff',
+                                        maxWidth: '9ch',
+                                        p: '0.25rem',
+                                    })}
+                                >
+                                    <span>3.1.6 | 55%</span>
+                                </Box>
+                                &nbsp;
+                                in the format of: "<strong>ShotsToKill[Thorax.Head.Legs] | (First shot penetration chance)</strong>".<br /><br />
                                 Each cell is highlighted to how effective it is against a <strong>thorax</strong> target: <br />
 
                                 <ul>
-                                    <li><strong>Purple</strong> Kills with 1 thorax hit on average. (Incredible)</li>
-                                    <li><strong>Blue</strong> Kills with 2 thorax hits on average. (Excellent)</li>
-                                    <li><strong>Green</strong> Kills with 3 or 4 thorax hits on average. (Good)</li>
-                                    <li><strong>Yellow</strong> Kills with 5 or 6 thorax hits on average. (Okay)</li>
-                                    <li><strong>Orange</strong> Kills with 7 or 8 thorax hits on average. (Poor)</li>
-                                    <li><strong>Red</strong> Kills with 9+ thorax hits on average.     (Terrible)</li>
+
+                                    <li className='special_li'>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_PURPLE,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Incredible
+                                        </Box>
+                                        &nbsp;kills with 1 thorax hit on average.
+                                    </li>
+
+                                    <li>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_BLUE,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Excellent
+                                        </Box>
+                                        &nbsp;kills with 2 thorax hits on average.
+                                    </li>
+                                    <li>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_GREEN,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Good
+                                        </Box>
+                                        &nbsp;kills with 3 or 4 thorax hits on average.
+                                    </li>
+                                    <li>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_YELLOW,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Okay
+                                        </Box>
+                                        &nbsp;kills with 5 or 6 thorax hits on average.
+                                    </li>
+                                    <li>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_ORANGE,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Poor
+                                        </Box>
+                                        &nbsp;kills with 7 or 8 thorax hits on average.
+                                    </li>
+                                    <li>
+                                        <Box
+                                            component="span"
+                                            sx={() => ({
+                                                backgroundColor: MY_RED,
+                                                borderRadius: '0.25rem',
+                                                color: '#fff',
+                                                maxWidth: '9ch',
+                                                p: '0.25rem',
+                                            })}
+                                        >
+                                            Terrible
+                                        </Box>
+                                        &nbsp;kills with 9+ thorax hits on average.
+                                    </li>
                                 </ul>
                                 <Accordion defaultActiveKey="0" flush>
                                     <Accordion.Item eventKey="0">
-                                        <Accordion.Header>Example with 5.45 PS gs</Accordion.Header>
+                                        <Accordion.Header>
+                                            Example:&nbsp;<em>5.45x39mm PS gs</em>&nbsp;against armor classes:
+                                        </Accordion.Header>
                                         <Accordion.Body>
                                             <ul>
-                                                <li>You will kill a player in 6 leg shots when we account for fragmentation.</li>
-                                                <li>Against class 2 armor, such as a PACA, you will almost always kill on two shots to thorax, and with a class 2 headgear like the Heavy-Trooper mask, in one shot.</li>
-                                                <li>Against class 3 armor, such as the Kirasa-N, you will almost always kill on three shots to the thorax, and against a 6B47 Ratnik helmet, in one shot.</li>
-                                                <li>Against class 4 armor, such as the 6B3TM-01M RatRig, you will on average kill on six shots to the thorax, and against a TC-2001, in 3 shots. So just mag-dump center of mass.</li>
-                                                <li>Against class 5 and 6 armor you hit the wall where you will need 13 or more shots to kill on thorax, and more than 9 on the head. You should aim at their legs instead!</li>
+                                                {/* <li>You will kill a player in 6 leg shots when we account for fragmentation.</li> */}
+                                                <li>
+                                                    AC 2 &nbsp;
+                                                    <Box
+                                                        component="span"
+                                                        sx={() => ({
+                                                            backgroundColor: getEffectivenessColorCode("2.1.6 | 97%"),
+                                                            borderRadius: '0.25rem',
+                                                            color: '#fff',
+                                                            maxWidth: '9ch',
+                                                            p: '0.25rem',
+                                                        })}
+                                                    >
+                                                        <span>2.1.6 | 97%</span>
+                                                    </Box>
+                                                    &nbsp; You will usually kill on 2 <strong>thorax</strong> hits, 1 <strong>head</strong> hit, 6 <strong>leg</strong> hits. You have a 97% chance to penetrate this AC on your first hit.
+                                                </li>
+                                                <li>
+                                                    AC 3 &nbsp;
+                                                    <Box
+                                                        component="span"
+                                                        sx={() => ({
+                                                            backgroundColor: getEffectivenessColorCode("3.1.6 | 91%"),
+                                                            borderRadius: '0.25rem',
+                                                            color: '#fff',
+                                                            maxWidth: '9ch',
+                                                            p: '0.25rem',
+                                                        })}
+                                                    >
+                                                        <span>3.1.6 | 91%</span>
+                                                    </Box>
+                                                    &nbsp; You will usually kill on 3 <strong>thorax</strong> hits, 1 <strong>head</strong> hit, 6 <strong>leg</strong> hits. You have a 91% chance to penetrate this AC on your first hit.
+                                                </li>
+                                                <li>
+                                                    AC 4 &nbsp;
+                                                    <Box
+                                                        component="span"
+                                                        sx={() => ({
+                                                            backgroundColor: getEffectivenessColorCode("6.3.6 | 13%"),
+                                                            borderRadius: '0.25rem',
+                                                            color: '#fff',
+                                                            maxWidth: '9ch',
+                                                            p: '0.25rem',
+                                                        })}
+                                                    >
+                                                        <span>6.3.6 | 13%</span>
+                                                    </Box>
+                                                    &nbsp; You will usually kill on 6 <strong>thorax</strong> hits, 3 <strong>head</strong> hits, 6 <strong>leg</strong> hits. You have a 13% chance to penetrate this AC on your first hit.
+                                                </li>
+                                                <li>
+                                                    AC 5 &nbsp;
+                                                    <Box
+                                                        component="span"
+                                                        sx={() => ({
+                                                            backgroundColor: getEffectivenessColorCode("13.9.6 | 0%"),
+                                                            borderRadius: '0.25rem',
+                                                            color: '#fff',
+                                                            maxWidth: '9ch',
+                                                            p: '0.25rem',
+                                                        })}
+                                                    >
+                                                        <span>13.9.6 | 0%</span>
+                                                    </Box>
+                                                    &nbsp; You will usually kill on 13 <strong>thorax</strong> hits, 9 <strong>head</strong> hits, 6 <strong>leg</strong> hits. You have a 0% chance to penetrate this AC on your first hit.
+                                                </li>
+                                                <li>
+                                                    AC 6 &nbsp;
+                                                    <Box
+                                                        component="span"
+                                                        sx={() => ({
+                                                            backgroundColor: getEffectivenessColorCode("15.10.6 | 0%"),
+                                                            borderRadius: '0.25rem',
+                                                            color: '#fff',
+                                                            maxWidth: '9ch',
+                                                            p: '0.25rem',
+                                                        })}
+                                                    >
+                                                        <span>15.10.6 | 0%</span>
+                                                    </Box>
+                                                    &nbsp; You will usually kill on 15 <strong>thorax</strong> hits, 10 <strong>head</strong> hits, 6 <strong>leg</strong> hits. You have a 0% chance to penetrate this AC on your first hit.
+                                                </li>
                                             </ul>
 
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                <br />
-                                Please note that <strong>Flechette</strong> rounds haven't had their special edge case addressed yet.<br />
+                                Please note that <strong>Flechette</strong> rounds haven't had their special edge case addressed yet; divide their numbers by 8 in your head.<br />
                                 *This is because my model doesn't account for the lower pen rounds yet or AC 1 equipment, I'll get around to it soon I swear! <br />
+                            </>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <MaterialReactTable
+                    renderTopToolbarCustomActions={({ table }) => (
+                        <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
                                 <ToggleButton
                                     size='sm'
                                     className="mb-2"
@@ -533,13 +717,21 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                     value="1"
                                     onChange={(e) => setPicturesYesNo(e.currentTarget.checked)}
                                 >
-                                    Ammo Pictures
+                                    Ammo Pictures on/off
                                 </ToggleButton>
-                            </>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <MaterialReactTable
+                                <Button
+                                    disabled
+                                    size='sm'
+                                    className="mb-2"
+                                    variant="outline-info"
+                                >
+                                    This table has Heavy and Light 🩸 hidden by default. Press
+                                    <svg className='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root' focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ViewColumnIcon"><path d="M14.67 5v14H9.33V5h5.34zm1 14H21V5h-5.33v14zm-7.34 0V5H3v14h5.33z"></path></svg>
+                                    on the top right to show them.
+                                </Button>
+                        </Box>
+                    )}
+
                     columns={columns}
                     data={AmmoTableData}
 
@@ -549,7 +741,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     // enableRowActions
                     // enableColumnFilterModes
 
-                    
+
                     enableColumnOrdering
                     enableGrouping
                     enablePinning
@@ -566,6 +758,9 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             price: false,
                             traderLevel: true,
                             cal: false
+                        },
+                        columnPinning: {
+                            left: ['header_normal']
                         },
                         pagination: pagination,
 
