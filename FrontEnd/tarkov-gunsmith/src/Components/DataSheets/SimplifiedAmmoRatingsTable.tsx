@@ -725,9 +725,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                     className="mb-2"
                                     variant="outline-info"
                                 >
-                                    This table has Heavy and Light 🩸 hidden by default. Press
-                                    <svg className='MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root' focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ViewColumnIcon"><path d="M14.67 5v14H9.33V5h5.34zm1 14H21V5h-5.33v14zm-7.34 0V5H3v14h5.33z"></path></svg>
-                                    on the top right to show them.
+                                    This table has Heavy and Light 🩸 hidden by default. Press ||| on the top right to show them.
                                 </Button>
                         </Box>
                     )}
