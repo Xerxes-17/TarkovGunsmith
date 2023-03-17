@@ -79,7 +79,7 @@ jobs:
     steps:
       - name: Show variable
         run: |
-          echo "variable from shell environment : $GITHUB_API_URL"
+          echo "variable from shell environment : $WISHGRANTER_API_URL"
 
       - name: Clone repository
         uses: actions/checkout@v3

@@ -14,7 +14,7 @@ for (const envVar in process.env) {
     console.log(`${envVar}: ${process.env[envVar]}`);
   }
 
-var api: string = process.env.GITHUB_API_URL ?? ''
+var api: string = process.env.WISHGRANTER_API_URL ?? ''
 var API: string = '';
 // empty strings are falsy/falsey
 if (api) 
