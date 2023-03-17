@@ -3,13 +3,15 @@
 
 name: CI-Pipeline-Dev
 
+env:
+  WISHGRANTER_API_URL: "https://api.dev.tarkovgunsmith.com"
+
 on:
   workflow_dispatch:
   push:
     branches: [ "dev" ]
   # pull_request:
   #   branches: [ "main" ]
-
 jobs:
 #   build-test-BE:
 #     runs-on: ubuntu-latest
@@ -78,6 +80,10 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Show variable
+        run: |
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
+
       - name: Clone repository
         uses: actions/checkout@v3
         
@@ -98,7 +104,7 @@ jobs:
           
       - name: Generate build
         working-directory: ./FrontEnd/tarkov-gunsmith
-        run: npm run build
+        run: npm run build:development
 
       # - name: Install tree package and run
       #   run: |

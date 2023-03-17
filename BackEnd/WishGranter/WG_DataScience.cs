@@ -599,7 +599,15 @@ namespace WishGranter
                     int meanSTK_vests = (int) STK_vals_vests.Average(); 
                     int meanSTK_helmets = (int) STK_vals_helmets.Average();
 
-                    string resultString = $"{GetVestRatingFromAverageSTK(meanSTK_vests)}.{GetHelmetRatingFromAverageSTK(meanSTK_helmets)}";
+                    //? We can insert the leg-meta effectiveness here as all we need is the round information, and later, the target info (like bosses).
+                    int meanSTK_legs = GetLegMetaSTK(round);
+
+                    //! Hey, why don't we add in the first shot pen chance too? We can just grab the first one from the list as it's going to be the same for the entire class.
+                    var firstShotPenChance = (int) armorClass[0].FirstShot_PenChance;
+
+                    //? Let's also change this to use raw STK values
+                    //string resultString = $"{GetVestRatingFromAverageSTK(meanSTK_vests)}.{GetHelmetRatingFromAverageSTK(meanSTK_helmets)}";
+                    string resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
 
                     ratings.Add(resultString);
                 }
@@ -607,6 +615,7 @@ namespace WishGranter
                 CondensedDataRow cdr = new CondensedDataRow();
                 cdr.ammo = round;
                 cdr.ratings = ratings;
+                cdr.traderCashLevel = WG_Market.GetTraderLevelById(round.Id);
 
                 data.Add(cdr);
             }
@@ -617,6 +626,26 @@ namespace WishGranter
             }
 
             return data;
+        }
+
+        public static int GetLegMetaSTK(Ammo ammo)
+        {
+            /* In this function we will find the STK of the ammo vs legs. For this we need to consider the bullet damage, the fragmentation chance and from those two the average damage.
+             * Perhaps later we could also include the the CoK and CCoK for a given shot being a kill, but for now let's just use an average figure.
+             * As legs have a 1.0 damage multiplier for blacked limb damage, it's pretty simple.
+             */
+            double health_pool = 440;
+            double frag_chance = ammo.FragmentationChance;
+            if (ammo.PenetrationPower < 20)
+            {
+                frag_chance = 0;
+            }
+
+            double average_damage = (ammo.Damage * 1 - frag_chance) + ((ammo.Damage * 1.5) * frag_chance);
+
+            double shots = health_pool / average_damage;
+
+            return (int)Math.Ceiling(shots);
         }
 
         public static void ChestRigReport(List<ChestRig> ChestRigs, string filename)

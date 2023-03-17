@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table"
 import { useState, useEffect, useMemo } from "react"
-import { Col, Card, Form, Button } from "react-bootstrap"
+import { Col, Card, Form, Button, Container } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
@@ -158,6 +158,20 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell, table }) => (
+                    <>
+                        Average by{' '}
+                        {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
+                        <Box sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                            <>{cell.getValue<number>()?.toLocaleString?.('en-US', {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            })} %
+                            </>
+                        </Box>
+                    </>
+                ),
             },
 
         ],
@@ -177,7 +191,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
     });
 
     return (
-        <>
+        <Container className='main-app-container'>
             <ThemeProvider theme={darkTheme}>
                 <CssBaseline />
                 <Col xxl>
@@ -228,11 +242,10 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                                 firstShot_PenDamage: false,
                                 firstShot_BluntDamage: false,
                                 firstShot_ArmorDamage: false,
-
                             },
                             pagination: pagination,
 
-                            grouping: ['armorClass'], //an array of columns to group by by default (can be multiple)
+                            grouping: ['armorClass', 'armorType'], //an array of columns to group by by default (can be multiple)
                             expanded: true, //expand all groups by default
                             sorting: [{ id: 'armorClass', desc: false }, { id: 'expectedShotsToKill', desc: false }, { id: 'expectedKillShotConfidence', desc: true }], //sort by state by default
                         }} //hide AmmoRec column by default
@@ -251,7 +264,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                     />
                 </Col>
             </ThemeProvider>
-        </>
+        </Container>
 
     )
 }

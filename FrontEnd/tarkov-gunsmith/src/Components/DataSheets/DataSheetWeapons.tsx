@@ -255,6 +255,5 @@ export default function DataSheetWeapons(props: any) {
                 />
             </ThemeProvider>
         </>
-
     )
 }
