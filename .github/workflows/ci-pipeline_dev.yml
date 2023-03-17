@@ -104,7 +104,7 @@ jobs:
           
       - name: Generate build
         working-directory: ./FrontEnd/tarkov-gunsmith
-        run: npm run build
+        run: npm run build:development
 
       # - name: Install tree package and run
       #   run: |

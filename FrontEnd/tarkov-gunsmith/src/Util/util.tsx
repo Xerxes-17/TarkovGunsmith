@@ -14,7 +14,9 @@ for (const envVar in process.env) {
     console.log(`${envVar}: ${process.env[envVar]}`);
   }
 
-var api: string = process.env.WISHGRANTER_API_URL ?? ''
+console.log(process.env.REACT_APP_WISHGRANTER_API_URL);
+
+var api: string = process.env.REACT_APP_WISHGRANTER_API_URL ?? ''
 var API: string = '';
 // empty strings are falsy/falsey
 if (api) 

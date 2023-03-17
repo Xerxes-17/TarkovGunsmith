@@ -18,6 +18,7 @@
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "copy-image-clipboard": "^2.1.2",
+    "env-cmd": "^10.1.0",
     "html2canvas": "^1.4.1",
     "material-react-table": "^1.8.3",
     "node-sass": "^7.0.3",
@@ -37,6 +38,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
+    "build:development": "env-cmd -f .env.development npm run build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
