@@ -9,20 +9,37 @@ import { requestAmmoEffectivenessData } from "../../Context/Requests";
 import { AmmoOption } from "../ADC/AmmoData";
 import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
 
 export default function DataSheetEffectivenessAmmo(props: any) {
-
+    const history = useNavigate();
+    const {id_ammo} = useParams();
+    console.log(id_ammo)
     //! Armor Selection List
     // Selector - Init
     const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
+    const [defaultSelection, setDefaultSelection] = useState<AmmoOption>();
+
     const ammo = async () => {
         const response = await fetch(API_URL + '/GetAmmoOptionsList');
-        console.log(response)
         setAmmoOptions(await response.json())
     }
     useEffect(() => {
         ammo();
     }, [])
+
+    useEffect(() => {
+        if (id_ammo !== undefined && AmmoOptions.length > 0) {
+            getAmmoVsArmorData(id_ammo);
+            handleAmmoSelection(id_ammo);
+
+            var temp = AmmoOptions.find((x) => x.value === id_ammo)
+            if(temp !== undefined){
+                setDefaultSelection(temp);
+            }
+        }
+    }, [AmmoOptions, id_ammo])
 
     // Selector - Selection
     const [ammoId, setAmmoId] = useState("");
@@ -32,11 +49,12 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        getAmmoVsArmorData(ammoId);
+        history(`${AMMO_VS_ARMOR}/${ammoId}`);
+    }
 
-        const requestDetails = {
-            ammoId: ammoId,
-        }
-        requestAmmoEffectivenessData(requestDetails).then(response => {
+    const getAmmoVsArmorData = (id: string) => {
+        requestAmmoEffectivenessData(id).then(response => {
             // console.log(response)
             setAmmoTableData(response);
 
@@ -77,7 +95,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span>{renderedCellValue}</span>
+                        <span><Link to={`${DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },
@@ -205,7 +223,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                                 <Form onSubmit={handleSubmit}>
                                     <strong>Available Choices:</strong> {AmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
-                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={AmmoOptions} />
+                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={AmmoOptions} selectedId={ammoId} defaultSelection={defaultSelection}/>
                                     <br />
                                     <div className="d-grid gap-2">
                                         <Button variant="success" type="submit" className='form-btn'>

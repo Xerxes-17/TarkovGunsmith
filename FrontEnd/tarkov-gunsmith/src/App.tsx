@@ -29,6 +29,9 @@ function App() {
             <Route path={ABOUT} element={<About />} />
             <Route path={MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
             <Route path={DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
+            <Route path={`${DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
+            <Route path={`${DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
+            <Route path={`${DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} />
 
             <Route path={DATA_SHEETS_AMMO} element={<DataSheetAmmo />} />
             
@@ -37,10 +40,10 @@ function App() {
             <Route path={DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
 
             <Route path={ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
-            <Route path={`${ARMOR_VS_AMMO}/:id`} element={<DataSheetEffectivenessArmor />} />
+            <Route path={`${ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
 
             <Route path={AMMO_VS_ARMOR} element={<DataSheetEffectivenessAmmo />} />
-            <Route path={`${AMMO_VS_ARMOR}/:id`} element={<DataSheetEffectivenessAmmo />} />
+            <Route path={`${AMMO_VS_ARMOR}/:id_ammo`} element={<DataSheetEffectivenessAmmo />} />
 
             <Route path={AMMO_EFFECTIVENESS_CHART} element={<SimplifiedAmmoRatingsTable />} />
 

@@ -56,10 +56,10 @@ export async function requestWeaponDataCurve(requestDetails: any) {
     return response.data;
 }
 
-export async function requestArmorEffectivenessData(requestDetails: any) {
+export async function requestArmorEffectivenessData(armorId: string) {
     let response = null;
     try {
-        response = await axios.get(API_URL + `/GetArmorEffectivenessData/${requestDetails.armorId}`);
+        response = await axios.get(API_URL + `/GetArmorEffectivenessData/${armorId}`);
     } catch (error) {
         throw error;
     }
@@ -68,10 +68,10 @@ export async function requestArmorEffectivenessData(requestDetails: any) {
     return response.data;
 }
 
-export async function requestAmmoEffectivenessData(requestDetails: any) {
+export async function requestAmmoEffectivenessData(ammoId: string) {
     let response = null;
     try {
-        response = await axios.get(API_URL + `/GetAmmoEffectivenessData/${requestDetails.ammoId}`);
+        response = await axios.get(API_URL + `/GetAmmoEffectivenessData/${ammoId}`);
     } catch (error) {
         throw error;
     }

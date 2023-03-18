@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container, NavItem } from "react-bootstrap";
 import { TransmissionArmorTestResult, TransmissionArmorTestShot } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -11,9 +11,17 @@ import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
 import { copyImageToClipboard } from 'copy-image-clipboard';
-import { ARMOR_DAMAGE_CALC } from '../../Util/links';
+import { AMMO_VS_ARMOR, ARMOR_VS_AMMO, DAMAGE_SIMULATOR } from '../../Util/links';
+import { useParams } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function ArmorDamageCalculator(props: any) {
+    const history = useNavigate();
+    const { id_armor } = useParams();
+    const { id_ammo } = useParams();
+
+
     // Info Modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -51,6 +59,8 @@ export default function ArmorDamageCalculator(props: any) {
     )
 
     //Armor Stuff
+    const [defaultSelection_Armor, setDefaultSelection_Armor] = useState<ArmorOption>();
+
     const [ArmorOptions, setArmorOptions] = useState<ArmorOption[]>([]);
 
     const [armorId, setArmorId] = useState("");
@@ -69,7 +79,6 @@ export default function ArmorDamageCalculator(props: any) {
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetArmorOptionsList');
-        console.log(response)
         setArmorOptions(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
@@ -80,8 +89,6 @@ export default function ArmorDamageCalculator(props: any) {
     useEffect(() => {
         setFilteredArmorOptions(filterArmorOptions(newArmorTypes, newArmorClasses, newMaterials, ArmorOptions));
     }, [newArmorTypes, ArmorOptions, newArmorClasses, newMaterials])
-
-
 
     const handleNewArmorClassesTBG = (val: SetStateAction<number[]>) => {
         if (val.length > 0) {
@@ -101,10 +108,28 @@ export default function ArmorDamageCalculator(props: any) {
         setArmorDurabilityNum(maxDurability);
     }
 
+    useEffect(() => {
+        if (id_armor !== undefined && ArmorOptions.length > 0) {
+            var temp = ArmorOptions.find((x) => x.value === id_armor)
+            if (temp !== undefined) {
+                handleArmorSelection(id_armor, temp.maxDurability);
+                setDefaultSelection_Armor(temp);
+                setArmorDurabilityMax(temp.maxDurability);
+                setArmorDurabilityNum(temp.maxDurability);
+            }
+        }
+    }, [ArmorOptions, id_armor])
+
     // Ammo Stuff
+    const [defaultSelection_Ammo, setDefaultSelection_Ammo] = useState<AmmoOption>();
+
     const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
 
     const [ammoId, setAmmoId] = useState("");
+
+    function handleAmmoSelection(ammoId: string) {
+        setAmmoId(ammoId);
+    }
 
     const [minDamage, setMinDamage] = useState(25); // Need to make these values be drawn from something rather than magic numbers
     const [smallestDamage] = useState(25);
@@ -229,10 +254,20 @@ export default function ArmorDamageCalculator(props: any) {
         setFilteredAmmoOptions(filterAmmoOptions(AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers));
     }, [AmmoOptions, minDamage, minPenPower, minArmorDamPerc, traderLevel, calibers])
 
+    useEffect(() => {
+        if (id_ammo !== undefined && AmmoOptions.length > 0) {
+            handleAmmoSelection(id_ammo);
+            var temp = AmmoOptions.find((x) => x.value === id_ammo)
+            if (temp !== undefined) {
+                setAmmoId(temp.value);
+                setDefaultSelection_Ammo(temp);
+            }
+        }
+    }, [AmmoOptions, id_ammo])
+
     // Submit / Result
     const handleSubmit = (e: any) => {
         e.preventDefault();
-
         const requestDetails = {
             armorId: armorId,
             armorDurability: (armorDurabilityNum / armorDurabilityMax * 100),
@@ -246,6 +281,7 @@ export default function ArmorDamageCalculator(props: any) {
             alert(`The error was: ${error}`);
             // console.log(error);
         });
+        history(`${DAMAGE_SIMULATOR}/${armorId}/${ammoId}`);
     }
 
     const [result, setResult] = useState<TransmissionArmorTestResult>();
@@ -406,7 +442,7 @@ export default function ArmorDamageCalculator(props: any) {
                             <Card.Body style={{ paddingTop: "1px" }}>
                                 <strong>Available Choices:</strong> {filteredArmorOptions.length} <br />
                                 <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
-                                <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} />
+                                <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} defaultSelection={defaultSelection_Armor} />
 
                                 <br />
 
@@ -426,14 +462,22 @@ export default function ArmorDamageCalculator(props: any) {
                                         </Col>
                                     </Row>
                                 </Form.Group>
-
+                                {armorId !== "" && (
+                                    <div className="d-grid gap-2">
+                                        <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}` }>
+                                            <Button variant="outline-info" style={{ width: "100%" }}>
+                                                See how this armor compares in <strong>Armor</strong> vs Ammo.
+                                            </Button>
+                                        </LinkContainer>
+                                    </div>
+                                )}
                             </Card.Body>
                         </Col>
 
                         <Col xl>
                             <Card.Header as="h4">⚔ Ammo Selection</Card.Header>
                             <Accordion flush>
-                                <Accordion.Item eventKey="0">
+                                <Accordion.Item eventKey="1">
                                     <Accordion.Header><strong>Ammo Filters</strong></Accordion.Header>
                                     <Accordion.Body>
                                         {
@@ -501,12 +545,12 @@ export default function ArmorDamageCalculator(props: any) {
 
                                     <strong>Available Choices:</strong> {filteredAmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
-                                    <SelectAmmo handleAmmoSelection={setAmmoId} ammoOptions={filteredAmmoOptions} />
+                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={filteredAmmoOptions} selectedId={ammoId} defaultSelection={defaultSelection_Ammo} />
                                 </>
 
                                 <br />
 
-                                <Form.Group className="mb-3">
+                                <Form.Group className="mb-3" style={{ paddingTop: "7.5px" }}>
                                     <Row>
                                         <Col>
                                             <Form.Label>Rate Of Fire</Form.Label>
@@ -516,9 +560,21 @@ export default function ArmorDamageCalculator(props: any) {
                                             <Form.Label>Number</Form.Label>
                                             <Form.Control value={rateOfFire} onChange={(e) => { setRateOfFire(parseInt(e.target.value)) }} />
                                         </Col>
+
                                     </Row>
                                 </Form.Group>
+                                {ammoId !== "" && (
+                                    <div className="d-grid gap-2">
+                                        <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}` }>
+                                            <Button variant="outline-info" style={{ width: "100%" }}>
+                                                See how this ammo compares in <strong>Ammo</strong> vs Armor.
+                                            </Button>
+                                        </LinkContainer>
+                                    </div>
+                                )}
+
                             </Card.Body>
+
                         </Col>
                     </Row>
                     <Card.Footer>
@@ -815,7 +871,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com/{ARMOR_DAMAGE_CALC}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{DAMAGE_SIMULATOR}
                             </Form.Text>
                         </Card.Body>
 

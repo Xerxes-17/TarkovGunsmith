@@ -11,12 +11,42 @@ export default function SelectAmmo(props: any) {
     return (
         <>
             <div className='black-text'>
-                <Select
+                {(props.defaultSelection !== undefined && (
+                    <Select
+                        required
+                        placeholder="Select your ammo..."
+                        className="selectorZIndexBodge"
+                        classNamePrefix="select"
+                        defaultValue={props.defaultSelection}
+                        isClearable={true}
+                        isSearchable={true}
+                        name="selectAmmo"
+                        options={props.ammoOptions}
+                        formatOptionLabel={option => (
+                            <Row>
+                                <Col style={{ maxWidth: "75px" }}>
+                                    <img src={option.imageLink} alt={option.label} />
+                                </Col>
+                                <Col>
+                                    <span>{option.label}</span>
+                                    <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
+                                        <span style={{ minWidth: "55px" }}>⛏ PEN: {option.penetrationPower}</span>
+                                        <span style={{ minWidth: "55px" }}>📏 AD%: {option.armorDamagePerc}</span>
+                                        <span style={{ minWidth: "55px" }}>💀 DAM: {option.damage}</span>
+                                        <span>👨‍🔧 TRDR:{option.traderLevel} </span>
+                                    </Stack>
+                                </Col>
+                            </Row>
+                        )}
+                        onChange={handleChange}
+                    />
+                ))}
+                {(props.defaultSelection === undefined && (
+                    <Select
                     required
                     placeholder="Select your ammo..."
                     className="selectorZIndexBodge"
                     classNamePrefix="select"
-                    // defaultValue={ammoOptions[29]}
                     isClearable={true}
                     isSearchable={true}
                     name="selectAmmo"
@@ -39,6 +69,8 @@ export default function SelectAmmo(props: any) {
                     )}
                     onChange={handleChange}
                 />
+                ))}
+
             </div>
         </>
     )
