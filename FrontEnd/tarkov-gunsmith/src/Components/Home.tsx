@@ -1,6 +1,6 @@
 import { Col, Card, Nav, Row, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE } from "../Util/links";
+import { DAMAGE_SIMULATOR, MODDED_WEAPON_BUILDER, AMMO_EFFECTIVENESS_CHART } from "../Util/links";
 
 // Renders the home
 export default function Home(props: any) {
@@ -42,7 +42,7 @@ export default function Home(props: any) {
                     </Col>
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={ARMOR_DAMAGE_CALC}>
+                            <LinkContainer to={DAMAGE_SIMULATOR}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
@@ -70,7 +70,7 @@ export default function Home(props: any) {
                 <div className="row gy-2 mb-2">
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE}>
+                            <LinkContainer to={AMMO_EFFECTIVENESS_CHART}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>
