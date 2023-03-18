@@ -11,6 +11,7 @@ import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
 import { copyImageToClipboard } from 'copy-image-clipboard';
+import { ARMOR_DAMAGE_CALC } from '../../Util/links';
 
 export default function ArmorDamageCalculator(props: any) {
     // Info Modal
@@ -814,7 +815,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from http://tarkovgunsmith.com/
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com/{ARMOR_DAMAGE_CALC}
                             </Form.Text>
                         </Card.Body>
 

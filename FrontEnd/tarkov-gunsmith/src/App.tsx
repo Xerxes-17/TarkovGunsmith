@@ -11,12 +11,12 @@ import About from './Components/About';
 import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
 import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SHEETS_AMMO, DATA_SHEETS_ARMOR, DATA_SHEETS_EFFECTIVENESS_ARMOR, DATA_SHEETS_WEAPONS, HOME, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE } from './Util/links';
-import DataSheetAmmo from './Components/DataSheets/DataSheetAmmo';
-import DataSheetArmor from './Components/DataSheets/DataSheetArmor';
-import DataSheetWeapons from './Components/DataSheets/DataSheetWeapons';
-import DataSheetEffectivenessArmor from './Components/DataSheets/DataSheetEffectivenessArmor';
-import DataSheetEffectivenessAmmo from './Components/DataSheets/DataSheetEffectivenessAmmo';
-import SimplifiedAmmoRatingsTable from './Components/DataSheets/SimplifiedAmmoRatingsTable';
+import DataSheetAmmo from './Components/DataSheets/Stats_Ammo';
+import DataSheetArmor from './Components/DataSheets/Stats_Armor';
+import DataSheetWeapons from './Components/DataSheets/Stats_Weapons';
+import DataSheetEffectivenessArmor from './Components/DataSheets/ArmorVsAmmo';
+import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
+import SimplifiedAmmoRatingsTable from './Components/DataSheets/AmmoEffectivenessChart';
 
 function App() {
 
