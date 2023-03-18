@@ -15,7 +15,6 @@ import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
 export default function DataSheetEffectivenessAmmo(props: any) {
     const history = useNavigate();
     const {id_ammo} = useParams();
-    console.log(id_ammo)
     //! Armor Selection List
     // Selector - Init
     const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
