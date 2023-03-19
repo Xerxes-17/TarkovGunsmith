@@ -12,7 +12,7 @@ on:
 
 env:
   WISHGRANTER_API_URL: "https://blue.api.tarkovgunsmith.com"
-
+  CI: false
 jobs:
 #   build-test-BE:
 #     runs-on: ubuntu-latest

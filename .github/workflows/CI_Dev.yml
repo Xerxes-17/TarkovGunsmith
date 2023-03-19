@@ -3,10 +3,11 @@
 
 name: Dev-Testing CI
 
+#Disabling this for now.
 on:
   workflow_dispatch:
   push:
-    branches: [ "dev", "dev-*", "hotfix-*" ]
+    # branches: [ "dev", "dev-*", "hotfix-*" ]
   pull_request:
     # branches: [ "dev" ]
 

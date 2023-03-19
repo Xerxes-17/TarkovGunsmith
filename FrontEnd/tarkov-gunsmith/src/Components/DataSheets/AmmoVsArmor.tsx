@@ -5,40 +5,54 @@ import { Col, Card, Form, Button, Container } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
-import { ArmorOption } from "../ADC/ArmorData";
-import SelectArmor from "../ADC/SelectArmor";
-import { requestArmorEffectivenessData } from "../../Context/Requests";
+import { requestAmmoEffectivenessData } from "../../Context/Requests";
+import { AmmoOption } from "../ADC/AmmoData";
+import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
 
-export default function DataSheetEffectivenessArmor(props: any) {
+export default function DataSheetEffectivenessAmmo(props: any) {
+    const navigate = useNavigate();
+    const { id_ammo } = useParams();
 
     //! Armor Selection List
     // Selector - Init
-    const [ArmorOptions, setArmorOptions] = useState<ArmorOption[]>([]);
-    const armors = async () => {
-        const response = await fetch(API_URL + '/GetArmorOptionsList');
-        console.log(response)
-        setArmorOptions(await response.json())
+    const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
+    const [defaultSelection, setDefaultSelection] = useState<AmmoOption>();
+
+    const ammo = async () => {
+        const response = await fetch(API_URL + '/GetAmmoOptionsList');
+        setAmmoOptions(await response.json())
     }
     useEffect(() => {
-        armors();
+        ammo();
     }, [])
 
+    useEffect(() => {
+        if (id_ammo !== undefined && AmmoOptions.length > 0) {
+            getAmmoVsArmorData(id_ammo);
+            
+            var temp = AmmoOptions.find((x) => x.value === id_ammo)
+            if (temp !== undefined) {
+                handleAmmoSelection(temp);
+                setDefaultSelection(temp);
+            }
+        }
+    }, [AmmoOptions, id_ammo])
+
     // Selector - Selection
-    const [armorId, setArmorId] = useState("");
-    function handleArmorSelection(armorId: string) {
-        setArmorId(armorId);
+    const [ammoId, setAmmoId] = useState("");
+
+    function handleAmmoSelection(selectedOption: AmmoOption) {
+        setAmmoId(selectedOption.value);
+        navigate(`${AMMO_VS_ARMOR}/${selectedOption?.value}`)
     }
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-
-        const requestDetails = {
-            armorId: armorId,
-        }
-        requestArmorEffectivenessData(requestDetails).then(response => {
+    const getAmmoVsArmorData = (id: string) => {
+        requestAmmoEffectivenessData(id).then(response => {
             // console.log(response)
-            setArmorTableData(response);
+            setTableData(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
@@ -48,14 +62,16 @@ export default function DataSheetEffectivenessArmor(props: any) {
 
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
-    const [ArmorTableData, setArmorTableData] = useState<effectivenessDataRow[]>([]);
 
+    const [TableData, setTableData] = useState<effectivenessDataRow[]>([]);
+
+    // https://www.material-react-table.com/docs/examples/aggregation-and-grouping
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<effectivenessDataRow>[]>(
         () => [
             {
-                accessorKey: 'ammoName', //simple recommended way to define a column
+                accessorKey: 'armorName', //simple recommended way to define a column
                 header: 'Name',
                 muiTableHeadCellProps: { sx: { color: 'white' } }, //custom props
                 size: 10, //small column
@@ -71,21 +87,34 @@ export default function DataSheetEffectivenessArmor(props: any) {
                         <img
                             alt="avatar"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.ammoId}-icon.jpg`}
+                            src={`https://assets.tarkov.dev/${row.original.armorId}-icon.jpg`}
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span>{renderedCellValue}</span>
+                        <span><Link to={`${DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },
+            {
+                accessorKey: 'armorType',
+                header: 'Type',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 10, //small column
+            },
+            {
+                accessorKey: 'armorClass',
+                header: 'AC',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 10, //small column
+            },
+
             {
                 accessorKey: 'firstShot_PenChance',
                 header: 'First Shot PenChance',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} %</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
             },
             {
@@ -94,7 +123,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
             },
             {
@@ -103,7 +132,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
             },
             {
@@ -112,14 +141,28 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
             },
             {
                 accessorKey: 'expectedShotsToKill',
-                header: 'Expected Shots To Kill',
+                header: 'Shots To Kill',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
+                aggregationFn: 'mean',
+                //required to render an aggregated cell, show the average salary in the group
+                AggregatedCell: ({ cell, table }) => (
+                    <>
+                        Average by{' '}
+                        {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
+                        <Box sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                            {cell.getValue<number>()?.toLocaleString?.('en-US', {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            })}
+                        </Box>
+                    </>
+                ),
             },
             {
                 accessorKey: 'expectedKillShotConfidence',
@@ -127,10 +170,23 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} %</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell, table }) => (
+                    <>
+                        Average by{' '}
+                        {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
+                        <Box sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                            <>{cell.getValue<number>()?.toLocaleString?.('en-US', {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0,
+                            })} %
+                            </>
+                        </Box>
+                    </>
                 ),
             },
-
         ],
         [],
     );
@@ -154,35 +210,40 @@ export default function DataSheetEffectivenessArmor(props: any) {
                 <Col xxl>
                     <Card bg="dark" border="secondary" text="light" className="xxl">
                         <Card.Header as="h2" >
-                            Armor vs Ammo
+                            Ammo vs Armor
                         </Card.Header>
 
                         <Card.Body>
                             <>
-                                <strong>Available Choices:</strong> {ArmorOptions.length} <br />
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
-                                    <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={ArmorOptions} style={{}} />
-                                    <br />
-                                    <div className="d-grid gap-2">
-                                        <Button variant="success" type="submit" className='form-btn'>
-                                            Get Data
-                                        </Button>
-                                    </div>
+                                <Form>
+                                    <strong>Available Choices:</strong> {AmmoOptions.length} <br />
+                                    <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
+                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={AmmoOptions} selectedId={ammoId} defaultSelection={defaultSelection} />
                                 </Form>
                             </>
                         </Card.Body>
                         <Card.Footer>
                             This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. <br />
-                            This table starts with ammo grouped by Expected Hits to Kill and these groups are closed, click the group to expand these rows.<br />
-                            Currently will show all ammo with 20 penetration or above, and less than or equal to the (AC *10) + 15.<br />
+                            This table starts with Amor grouped by Armor Class.  <br />
                             Drag and drop a column to move it or to the top bar with the '=' to add it to the grouping. <br />
                         </Card.Footer>
                     </Card>
 
                     <MaterialReactTable
+                        renderTopToolbarCustomActions={({ table }) => (
+                            <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+                                <Button
+                                    disabled
+                                    size='sm'
+                                    className="mb-2"
+                                    variant="outline-info"
+                                >
+                                    Displaying data for: {(TableData.at(0)?.ammoName)}
+                                </Button>
+                            </Box>
+                        )}
                         columns={columns}
-                        data={ArmorTableData}
+                        data={TableData}
 
                         enableRowSelection={false}//enable some features
                         enableSelectAll={false}
@@ -196,14 +257,16 @@ export default function DataSheetEffectivenessArmor(props: any) {
                         initialState={{
                             density: 'compact',
                             columnVisibility: {
+                                firstShot_PenChance: false,
+                                firstShot_PenDamage: false,
                                 firstShot_BluntDamage: false,
-                                firstShot_ArmorDamage: false
+                                firstShot_ArmorDamage: false,
                             },
                             pagination: pagination,
 
-                            grouping: ['expectedShotsToKill'], //an array of columns to group by by default (can be multiple)
+                            grouping: ['armorClass', 'armorType'], //an array of columns to group by by default (can be multiple)
                             expanded: true, //expand all groups by default
-                            sorting: [{ id: 'expectedShotsToKill', desc: false }, { id: 'expectedKillShotConfidence', desc: true }], //sort by state by default
+                            sorting: [{ id: 'armorClass', desc: false }, { id: 'expectedShotsToKill', desc: false }, { id: 'expectedKillShotConfidence', desc: true }], //sort by state by default
                         }} //hide AmmoRec column by default
 
                         defaultColumn={{

@@ -1,24 +1,35 @@
+import { useEffect, useState } from 'react';
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { MaterialType } from './ArmorData';
+import { MaterialType, ArmorOption } from './ArmorData';
 
 export default function SelectArmor(props: any) {
+    const [item, setItem] = useState<ArmorOption>();
 
-    const handleChange = (selectedOption: any) => {
-        props.handleArmorSelection(selectedOption.value, selectedOption.maxDurability)
-        //console.log(`Option selected:`, selectedOption);
-    };
+    const handleClick = (selectedOption: any) => {
+        setItem(selectedOption)
+        props.handleArmorSelection(selectedOption, selectedOption.maxDurability)
 
+        //! Navigate needs to be passed in as a prop from the parent.
+        //? We will do this as part of handleArmorSelection.
+    }
+    // This useEffect sets the item according to the URL param ID if there is one
+    useEffect(() => {
+        //console.log("props.defaultSelection", props.defaultSelection)
+        if (props.defaultSelection!) {
+            setItem(props.defaultSelection)
+        }
+    }, [props.defaultSelection])
+    
     return (
         <>
             <div className='black-text'>
-                <Select 
-
+                <Select
+                    value={item}
                     required
                     placeholder="Select your armor..."
                     className="selectorZIndexBodge"
                     classNamePrefix="select"
-                    // defaultValue={armorOptions[8]}
                     isClearable={false}
                     isSearchable={true}
                     name="selectArmor"
@@ -35,13 +46,13 @@ export default function SelectArmor(props: any) {
                                     <span style={{ minWidth: "90px" }}>🔧 DUR: {option.maxDurability}</span>
                                     <span style={{ minWidth: "165px" }}>🧱 MAT: {MaterialType[option.armorMaterial]}</span>
                                     <span style={{ minWidth: "65px" }}>⚖ E.DURA: {option.effectiveDurability}</span>
-                                    
+
                                 </Stack>
                                 <span>👨‍🔧 TRDR:{option.traderLevel}</span>
                             </Col>
                         </Row>
                     )}
-                    onChange={handleChange}
+                    onChange={handleClick}
                 />
             </div>
         </>
