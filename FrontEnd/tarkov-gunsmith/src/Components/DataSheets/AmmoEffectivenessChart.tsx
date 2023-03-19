@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Accordion, Button, Card, Col, ToggleButton } from 'react-bootstrap';
-import { AMMO_VS_ARMOR, ARMOR_VS_AMMO } from '../../Util/links';
+import { AMMO_VS_ARMOR } from '../../Util/links';
 import { Link } from 'react-router-dom';
 export default function SimplifiedAmmoRatingsTable(props: any) {
     //store pagination state in your own state

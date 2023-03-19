@@ -5,7 +5,7 @@ name: CI-Pipeline-Dev
 
 env:
   WISHGRANTER_API_URL: "https://api.dev.tarkovgunsmith.com"
-
+  CI: false
 on:
   workflow_dispatch:
   push:
