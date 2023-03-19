@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container, NavItem } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
 import { TransmissionArmorTestResult, TransmissionArmorTestShot } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -112,6 +112,7 @@ export default function ArmorDamageCalculator(props: any) {
                 // setArmorDurabilityNum(temp.maxDurability);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ArmorOptions, id_armor])
 
     //! Handle Selections - Got tired of scrolling  to find the damn things
@@ -307,9 +308,8 @@ export default function ArmorDamageCalculator(props: any) {
                 setDefaultSelection_Ammo(temp);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [AmmoOptions, id_ammo])
-
-
 
     //Custom Mode
     const [customCalculation, setCustomCalculation] = useState(false);
