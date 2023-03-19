@@ -1,6 +1,6 @@
 import { Col, Card, Nav, Row, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { ARMOR_DAMAGE_CALC, MODDED_WEAPON_BUILDER, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE } from "../Util/links";
+import { DAMAGE_SIMULATOR, MODDED_WEAPON_BUILDER, AMMO_EFFECTIVENESS_CHART } from "../Util/links";
 
 // Renders the home
 export default function Home(props: any) {
@@ -42,7 +42,7 @@ export default function Home(props: any) {
                     </Col>
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={ARMOR_DAMAGE_CALC}>
+                            <LinkContainer to={DAMAGE_SIMULATOR}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
@@ -70,7 +70,7 @@ export default function Home(props: any) {
                 <div className="row gy-2 mb-2">
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE}>
+                            <LinkContainer to={AMMO_EFFECTIVENESS_CHART}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>
@@ -130,6 +130,27 @@ export default function Home(props: any) {
                                     I figure that keeping some record of what's been happening along with my thought process
                                     behind changes and decisions could be useful and also interesting to other people.
                                 </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="row gy-2 mb-2">
+                    <Col>
+                        <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                            <Card.Header as="h5">
+                                18/03/2023
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    The ammo effectiveness chart has been given a set of improvements, and has been moved to a STK format rather than using categories. Feedback and reflection made me realize that I was just hiding
+                                    the relevant number for no real reason. I've also added conditional formatting to a bunch of columns so that a sense of how good or bad a stat is relative to all others in the column can be gained.
+                                    THe prompt and instructions at the top have also been made a hello f a lot better.<br /><br />
+
+                                    In the background I've also fixed up the CI/CD to the level where deploys are much easier now, so going forward I should be making a lot of smaller and more frequent updates.<br /><br />
+
+                                    <a href="https://twitter.com/TarkovGunsmith">I've now got a twitter!</a> Follow so you can keep updated about TG, and boost me in the algorithm. <br /><br />
+                                </Card.Text>
+                                <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_aec_2.png'} style={{ maxWidth: 1058, maxHeight: 1130 }} />
                             </Card.Body>
                         </Card>
                     </Col>

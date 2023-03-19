@@ -3,7 +3,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
-import { ABOUT, ARMOR_DAMAGE_CALC, DATA_SHEETS_AMMO, DATA_SHEETS_ARMOR, DATA_SHEETS_EFFECTIVENESS_AMMO, DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE, DATA_SHEETS_EFFECTIVENESS_ARMOR, DATA_SHEETS_WEAPONS, HOME, MODDED_WEAPON_BUILDER } from '../Util/links';
+import { ABOUT, DAMAGE_SIMULATOR, DATA_SHEETS_AMMO, DATA_SHEETS_ARMOR, AMMO_VS_ARMOR, AMMO_EFFECTIVENESS_CHART, ARMOR_VS_AMMO, DATA_SHEETS_WEAPONS, HOME, MODDED_WEAPON_BUILDER } from '../Util/links';
 
 function BrandExample() {
     return (
@@ -29,25 +29,25 @@ function BrandExample() {
                                 <Nav.Link>Modded Weapon Builder</Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer to={ARMOR_DAMAGE_CALC}>
+                            <LinkContainer to={DAMAGE_SIMULATOR}>
                                 <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
                             </LinkContainer>
 
                             <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
-                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO_SIMPLE}>
+                                    <LinkContainer to={AMMO_EFFECTIVENESS_CHART}>
                                         <Nav.Link>Ammo Effectiveness</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_AMMO}>
+                                    <LinkContainer to={AMMO_VS_ARMOR}>
                                         <Nav.Link>Ammo vs Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={DATA_SHEETS_EFFECTIVENESS_ARMOR}>
+                                    <LinkContainer to={ARMOR_VS_AMMO}>
                                         <Nav.Link>Armor vs Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
