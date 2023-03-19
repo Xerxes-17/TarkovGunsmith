@@ -17,7 +17,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 export default function ArmorDamageCalculator(props: any) {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const { id_armor } = useParams();
     const { id_ammo } = useParams();
 
@@ -102,23 +102,71 @@ export default function ArmorDamageCalculator(props: any) {
         }
     }
 
-    function handleArmorSelection(armorId: string, maxDurability: number) {
-        setArmorId(armorId);
-        setArmorDurabilityMax(maxDurability);
-        setArmorDurabilityNum(maxDurability);
-    }
-
     useEffect(() => {
         if (id_armor !== undefined && ArmorOptions.length > 0) {
             var temp = ArmorOptions.find((x) => x.value === id_armor)
             if (temp !== undefined) {
-                handleArmorSelection(id_armor, temp.maxDurability);
+                handleArmorSelection(temp);
                 setDefaultSelection_Armor(temp);
-                setArmorDurabilityMax(temp.maxDurability);
-                setArmorDurabilityNum(temp.maxDurability);
+                // setArmorDurabilityMax(temp.maxDurability);
+                // setArmorDurabilityNum(temp.maxDurability);
             }
         }
     }, [ArmorOptions, id_armor])
+
+    //! Handle Selections - Got tired of scrolling  to find the damn things
+    function handleArmorSelection(selectedOption: ArmorOption) {
+        setArmorId(selectedOption.value);
+        setArmorDurabilityMax(selectedOption.maxDurability!);
+        setArmorDurabilityNum(selectedOption.maxDurability!);
+
+        console.log("armorId -hndlArmor", selectedOption.value)
+        console.log("ammoId -hndlArmor", ammoId)
+
+        if ( ammoId !== "") {
+            requestData(selectedOption.value, ammoId)
+            navigate(`${DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
+        }
+    }
+
+    function handleAmmoSelection(selectedOption: AmmoOption) {
+        setAmmoId(selectedOption.value);
+
+        console.log("armorId -hndlAmmo", armorId)
+        console.log("ammoId -hndlAmmo", selectedOption.value)
+
+        if (armorId !== "") {
+            requestData(armorId, selectedOption.value)
+            navigate(`${DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
+        }
+    }
+
+    function handleSubmit(e:any){
+        e.preventDefault();
+        requestData(armorId, ammoId);
+    }
+    //! Request Data
+    function requestData(_armorId: string, _ammoId: string) {
+
+        console.log("_armorId - requestData", _armorId)
+        console.log("_ammoId - requestData", _ammoId)
+
+        const requestDetails = {
+            armorId: _armorId,
+            armorDurability: (armorDurabilityNum / armorDurabilityMax * 100),
+            ammoId: _ammoId,
+        }
+        requestArmorTestSerires(requestDetails).then(response => {
+            // console.log(response)
+            setResult(response);
+
+        }).catch(error => {
+            alert(`The error was: ${error}`);
+            // console.log(error);
+        });
+    }
+
+    const [result, setResult] = useState<TransmissionArmorTestResult>();
 
     // Ammo Stuff
     const [defaultSelection_Ammo, setDefaultSelection_Ammo] = useState<AmmoOption>();
@@ -126,10 +174,6 @@ export default function ArmorDamageCalculator(props: any) {
     const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
 
     const [ammoId, setAmmoId] = useState("");
-
-    function handleAmmoSelection(ammoId: string) {
-        setAmmoId(ammoId);
-    }
 
     const [minDamage, setMinDamage] = useState(25); // Need to make these values be drawn from something rather than magic numbers
     const [smallestDamage] = useState(25);
@@ -256,35 +300,16 @@ export default function ArmorDamageCalculator(props: any) {
 
     useEffect(() => {
         if (id_ammo !== undefined && AmmoOptions.length > 0) {
-            handleAmmoSelection(id_ammo);
+
             var temp = AmmoOptions.find((x) => x.value === id_ammo)
             if (temp !== undefined) {
-                setAmmoId(temp.value);
+                handleAmmoSelection(temp);
                 setDefaultSelection_Ammo(temp);
             }
         }
     }, [AmmoOptions, id_ammo])
 
-    // Submit / Result
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        const requestDetails = {
-            armorId: armorId,
-            armorDurability: (armorDurabilityNum / armorDurabilityMax * 100),
-            ammoId: ammoId,
-        }
-        requestArmorTestSerires(requestDetails).then(response => {
-            // console.log(response)
-            setResult(response);
 
-        }).catch(error => {
-            alert(`The error was: ${error}`);
-            // console.log(error);
-        });
-        history(`${DAMAGE_SIMULATOR}/${armorId}/${ammoId}`);
-    }
-
-    const [result, setResult] = useState<TransmissionArmorTestResult>();
 
     //Custom Mode
     const [customCalculation, setCustomCalculation] = useState(false);
@@ -442,7 +467,7 @@ export default function ArmorDamageCalculator(props: any) {
                             <Card.Body style={{ paddingTop: "1px" }}>
                                 <strong>Available Choices:</strong> {filteredArmorOptions.length} <br />
                                 <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
-                                <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} defaultSelection={defaultSelection_Armor} />
+                                <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={filteredArmorOptions} selectedId={armorId} defaultSelection={defaultSelection_Armor} />
 
                                 <br />
 
@@ -464,7 +489,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {armorId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}` }>
+                                        <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See how this armor compares in <strong>Armor</strong> vs Ammo.
                                             </Button>
@@ -565,7 +590,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {ammoId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}` }>
+                                        <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See how this ammo compares in <strong>Ammo</strong> vs Armor.
                                             </Button>
@@ -580,7 +605,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <Card.Footer>
                         <div className="d-grid gap-2">
                             <Button variant="success" type="submit" className='form-btn'>
-                                Simulate
+                                Simulate / Update
                             </Button>
                         </div>
                     </Card.Footer>

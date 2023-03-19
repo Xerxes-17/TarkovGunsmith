@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table"
 import { useState, useEffect, useMemo } from "react"
-import { Col, Card, Form, Button, Container } from "react-bootstrap"
+import { Col, Card, Form, Container, Button } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
@@ -13,8 +13,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ARMOR_VS_AMMO, DAMAGE_SIMULATOR } from "../../Util/links";
 
 export default function DataSheetEffectivenessArmor(props: any) {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const { id_armor } = useParams();
+
     //! Armor Selection List
     // Selector - Init
     const [ArmorOptions, setArmorOptions] = useState<ArmorOption[]>([]);
@@ -31,25 +32,21 @@ export default function DataSheetEffectivenessArmor(props: any) {
     useEffect(() => {
         if (id_armor !== undefined && ArmorOptions.length > 0) {
             getArmorVsAmmoData(id_armor);
-            handleArmorSelection(id_armor);
+
             var temp = ArmorOptions.find((x) => x.value === id_armor)
-            if(temp !== undefined){
+            if (temp !== undefined) {
+                handleArmorSelection(temp);
                 setDefaultSelection(temp);
             }
         }
     }, [ArmorOptions, id_armor])
 
-
     // Selector - Selection
     const [armorId, setArmorId] = useState("");
-    function handleArmorSelection(armorId: string) {
-        setArmorId(armorId);
-    }
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        getArmorVsAmmoData(armorId);
-        history(`${ARMOR_VS_AMMO}/${armorId}`);
+    function handleArmorSelection(selectedOption: ArmorOption) {
+        setArmorId(selectedOption.value);
+        navigate(`${ARMOR_VS_AMMO}/${selectedOption?.value}`);
     }
 
     const getArmorVsAmmoData = (id: string) => {
@@ -60,7 +57,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
-        });  
+        });
     }
 
 
@@ -179,15 +176,10 @@ export default function DataSheetEffectivenessArmor(props: any) {
                         <Card.Body>
                             <>
                                 <strong>Available Choices:</strong> {ArmorOptions.length} <br />
-                                <Form onSubmit={handleSubmit}>
+                                <Form>
                                     <Form.Text>You can search by the name by selecting this box and typing.</Form.Text>
-                                    <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={ArmorOptions} style={{}} selectedId={armorId} defaultSelection={defaultSelection}/>
+                                    <SelectArmor handleArmorSelection={handleArmorSelection} armorOptions={ArmorOptions} style={{}} selectedId={armorId} defaultSelection={defaultSelection} />
                                     <br />
-                                    <div className="d-grid gap-2">
-                                        <Button variant="success" type="submit" className='form-btn'>
-                                            Get Data
-                                        </Button>
-                                    </div>
                                 </Form>
                             </>
                         </Card.Body>
@@ -200,6 +192,18 @@ export default function DataSheetEffectivenessArmor(props: any) {
                     </Card>
 
                     <MaterialReactTable
+                        renderTopToolbarCustomActions={({ table }) => (
+                            <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+                                <Button
+                                    disabled
+                                    size='sm'
+                                    className="mb-2"
+                                    variant="outline-info"
+                                >
+                                    Displaying data for: {(ArmorTableData.at(0)?.armorName)}
+                                </Button>
+                            </Box>
+                        )}
                         columns={columns}
                         data={ArmorTableData}
 

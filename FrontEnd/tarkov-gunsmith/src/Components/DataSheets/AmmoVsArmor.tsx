@@ -13,8 +13,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
 
 export default function DataSheetEffectivenessAmmo(props: any) {
-    const history = useNavigate();
-    const {id_ammo} = useParams();
+    const navigate = useNavigate();
+    const { id_ammo } = useParams();
+
     //! Armor Selection List
     // Selector - Init
     const [AmmoOptions, setAmmoOptions] = useState<AmmoOption[]>([]);
@@ -31,10 +32,10 @@ export default function DataSheetEffectivenessAmmo(props: any) {
     useEffect(() => {
         if (id_ammo !== undefined && AmmoOptions.length > 0) {
             getAmmoVsArmorData(id_ammo);
-            handleAmmoSelection(id_ammo);
-
+            
             var temp = AmmoOptions.find((x) => x.value === id_ammo)
-            if(temp !== undefined){
+            if (temp !== undefined) {
+                handleAmmoSelection(temp);
                 setDefaultSelection(temp);
             }
         }
@@ -42,20 +43,16 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
     // Selector - Selection
     const [ammoId, setAmmoId] = useState("");
-    function handleAmmoSelection(ammoId: string) {
-        setAmmoId(ammoId);
-    }
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        getAmmoVsArmorData(ammoId);
-        history(`${AMMO_VS_ARMOR}/${ammoId}`);
+    function handleAmmoSelection(selectedOption: AmmoOption) {
+        setAmmoId(selectedOption.value);
+        navigate(`${AMMO_VS_ARMOR}/${selectedOption?.value}`)
     }
 
     const getAmmoVsArmorData = (id: string) => {
         requestAmmoEffectivenessData(id).then(response => {
             // console.log(response)
-            setAmmoTableData(response);
+            setTableData(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
@@ -66,7 +63,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
 
-    const [ArmorTableData, setAmmoTableData] = useState<effectivenessDataRow[]>([]);
+    const [TableData, setTableData] = useState<effectivenessDataRow[]>([]);
 
     // https://www.material-react-table.com/docs/examples/aggregation-and-grouping
 
@@ -190,7 +187,6 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                     </>
                 ),
             },
-
         ],
         [],
     );
@@ -219,16 +215,10 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
                         <Card.Body>
                             <>
-                                <Form onSubmit={handleSubmit}>
+                                <Form>
                                     <strong>Available Choices:</strong> {AmmoOptions.length} <br />
                                     <Form.Text>You can search by the name by selecting this box and typing. </Form.Text>
-                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={AmmoOptions} selectedId={ammoId} defaultSelection={defaultSelection}/>
-                                    <br />
-                                    <div className="d-grid gap-2">
-                                        <Button variant="success" type="submit" className='form-btn'>
-                                            Get Data
-                                        </Button>
-                                    </div>
+                                    <SelectAmmo handleAmmoSelection={handleAmmoSelection} ammoOptions={AmmoOptions} selectedId={ammoId} defaultSelection={defaultSelection} />
                                 </Form>
                             </>
                         </Card.Body>
@@ -240,8 +230,20 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                     </Card>
 
                     <MaterialReactTable
+                        renderTopToolbarCustomActions={({ table }) => (
+                            <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+                                <Button
+                                    disabled
+                                    size='sm'
+                                    className="mb-2"
+                                    variant="outline-info"
+                                >
+                                    Displaying data for: {(TableData.at(0)?.ammoName)}
+                                </Button>
+                            </Box>
+                        )}
                         columns={columns}
-                        data={ArmorTableData}
+                        data={TableData}
 
                         enableRowSelection={false}//enable some features
                         enableSelectAll={false}
