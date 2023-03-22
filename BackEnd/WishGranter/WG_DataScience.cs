@@ -88,7 +88,7 @@ namespace WishGranter
             IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
             Helmets = Helmets.Where(x => {
                 var temp = (Headwear)x;
-                return temp.ArmorClass > 2;
+                return temp.ArmorClass > 0;
             });
 
             IEnumerable<Item> All_Armor = database.GetItems(m => m is Armor);
@@ -102,7 +102,7 @@ namespace WishGranter
             });
 
             var armoredEquipment = database.GetItems(x => x.GetType() == typeof(ArmoredEquipment)).Cast<ArmoredEquipment>().ToList();
-            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 1).ToList();
+            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 0).ToList();
 
             foreach (var item in Helmets)
             {
@@ -378,7 +378,7 @@ namespace WishGranter
             effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
             effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
             effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
-            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.ArmorItemDamageFromAmmo(armorItem, ammo);
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, 100);
 
             effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
             effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot-1].ProbabilityOfKillCumulative;
@@ -436,11 +436,11 @@ namespace WishGranter
 
             Ammo = Ammo.Where(x => !prohibited.Contains(x.Id)).ToList();
 
-            var ArmorClassTimes10 = armorItem.ArmorClass * 10;
+            //var ArmorClassTimes10 = armorItem.ArmorClass * 10;
 
-            //Ammo = Ammo.Where(x=> x.PenetrationPower > ArmorClassTimes10 - 15 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
+            ////Ammo = Ammo.Where(x=> x.PenetrationPower > ArmorClassTimes10 - 15 && x.PenetrationPower < ArmorClassTimes10 + 15).ToList();
 
-            Ammo = Ammo.Where(x => x.PenetrationPower > 19 && x.PenetrationPower <= ArmorClassTimes10 + 15).ToList();
+            //Ammo = Ammo.Where(x => x.PenetrationPower > 19 && x.PenetrationPower <= ArmorClassTimes10 + 15).ToList();
 
             foreach (var ammo in Ammo)
             {
@@ -563,7 +563,6 @@ namespace WishGranter
 
             List<Ammo> Ammo = database.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
             Ammo = Ammo.Where(x => !prohibited.Contains(x.Id)).ToList();
-            Ammo = Ammo.Where(x => x.PenetrationPower > 19).ToList();
 
             foreach(var round in Ammo)
             {
@@ -572,17 +571,18 @@ namespace WishGranter
                 var effectivenessData = CalculateAmmoEffectivenessData(round, database);
 
                 // organize the data by armor class
-                List<EffectivenessDataRow>[] armorClasses = new List<EffectivenessDataRow>[5];
+                List<EffectivenessDataRow>[] armorClasses = new List<EffectivenessDataRow>[6];
 
                 armorClasses[0] = new List<EffectivenessDataRow>();
                 armorClasses[1] = new List<EffectivenessDataRow>();
                 armorClasses[2] = new List<EffectivenessDataRow>();
                 armorClasses[3] = new List<EffectivenessDataRow>();
                 armorClasses[4] = new List<EffectivenessDataRow>();
+                armorClasses[5] = new List<EffectivenessDataRow>();
 
                 foreach (var result in effectivenessData)
                 {
-                    armorClasses[result.ArmorClass-2].Add(result);
+                    armorClasses[result.ArmorClass-1].Add(result);
                 }
 
                 List<string> ratings = new List<string>();
@@ -590,14 +590,20 @@ namespace WishGranter
                 foreach(var armorClass in armorClasses)
                 {
                     var vests = armorClass.Where(x => x.ArmorType.Equals("Armor"));
+                    int meanSTK_vests = 0;
+                    if (vests.Any())
+                    {
+                        var STK_vals_vests = vests.Select(x => x.ExpectedShotsToKill).ToList();
+                        meanSTK_vests = (int)Math.Round(STK_vals_vests.Average());
+                    }
+
                     var helmets = armorClass.Where(x => x.ArmorType.Equals("Helmet"));
-
-                    var STK_vals_vests = vests.Select(x => x.ExpectedShotsToKill).ToList();
-                    var STK_vals_helmets = helmets.Select(x => x.ExpectedShotsToKill).ToList();
-
-                    // Going to use an int with these as we're not concerned with upper-outliers
-                    int meanSTK_vests = (int) STK_vals_vests.Average(); 
-                    int meanSTK_helmets = (int) STK_vals_helmets.Average();
+                    int meanSTK_helmets = 0;
+                    if (helmets.Any())
+                    {
+                        var STK_vals_helmets = helmets.Select(x => x.ExpectedShotsToKill).ToList();
+                        meanSTK_helmets = (int)Math.Round(STK_vals_helmets.Average());
+                    }
 
                     //? We can insert the leg-meta effectiveness here as all we need is the round information, and later, the target info (like bosses).
                     int meanSTK_legs = GetLegMetaSTK(round);
@@ -608,6 +614,16 @@ namespace WishGranter
                     //? Let's also change this to use raw STK values
                     //string resultString = $"{GetVestRatingFromAverageSTK(meanSTK_vests)}.{GetHelmetRatingFromAverageSTK(meanSTK_helmets)}";
                     string resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
+                    //? Do this in the FE
+                    //if (round.ProjectileCount > 1)
+                    //{
+                    //    resultString = $"{Math.Max(1, meanSTK_vests/ round.ProjectileCount)}.{Math.Max(1, meanSTK_helmets / round.ProjectileCount)}.{Math.Max(1, meanSTK_legs / round.ProjectileCount)} | {firstShotPenChance}%";
+                    //}
+                    //else
+                    //{
+                    //    resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
+                    //}
+
 
                     ratings.Add(resultString);
                 }

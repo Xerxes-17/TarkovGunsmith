@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { Accordion, Button, Card, Col, ToggleButton } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, Tooltip } from 'react-bootstrap';
 import { AMMO_VS_ARMOR } from '../../Util/links';
 import { Link } from 'react-router-dom';
 export default function SimplifiedAmmoRatingsTable(props: any) {
@@ -48,6 +48,62 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
         ammos();
     }, [])
 
+    function dealWithMultiShotAmmo(input: string, projectileCount: number) {
+
+
+
+
+
+
+        if (projectileCount === 1) {
+            return (
+                <span>{input}</span>
+            )
+        }
+        else {
+
+            var split1 = input.split('|');
+            var split2 = split1[0].split('.');
+
+            console.log("split", split2);
+
+            var numbers = split2.map((x) => {
+                console.log("num proj:", x)
+                return parseInt(x)
+            });
+
+            const renderTooltip = (props: any) => (
+                <Tooltip id="button-tooltip" {...props}>
+                    Num. pellets: {numbers[0]}.{numbers[1]}.{numbers[2]}
+                </Tooltip>
+            );
+
+            return (
+                <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip}
+                >
+                    <span>
+                        {/* thorax shells */}
+                        {`${Math.max(1, Math.ceil(numbers[0] / projectileCount))}.`}
+
+                        {/* head shells */}
+                        {`${Math.max(1, Math.ceil(numbers[1] / projectileCount))}.`}
+
+                        {/* leg shells */}
+                        {`${Math.max(1, Math.ceil(numbers[2] / projectileCount))} |`}
+                        {split1[1]}
+                    </span>
+                </OverlayTrigger>
+
+            )
+        }
+
+
+
+    }
+
     function getTraderConditionalCell(input: number) {
         if (input === 1) {
             return <span style={{ color: MY_ORANGE }}>{(input)}</span>
@@ -67,8 +123,12 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
     }
 
 
-    function getEffectivenessColorCode(input: string) {
+    function getEffectivenessColorCode(input: string, projectileCount: number) {
         var thoraxSTK = Number.parseInt(input.split(".").at(0)!, 10);
+        if (projectileCount > 1) {
+            thoraxSTK = Math.ceil(thoraxSTK / projectileCount)
+        }
+
         if (thoraxSTK === 1) {
             return MY_PURPLE
         }
@@ -127,6 +187,15 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
         }
         else {
             return <span style={{ color: "red" }}>{(input).toLocaleString()}</span>
+        }
+    }
+
+    function fragmentationCutoff(input: number, penetration: number) {
+        if (penetration >= 20) {
+            return input;
+        }
+        else {
+            return 0;
         }
     }
 
@@ -240,7 +309,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
             },
             {
                 accessorKey: 'ammo.damage',
-                header: 'DAM',
+                header: 'DMG',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
                 },
@@ -255,6 +324,22 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
+                accessorKey: 'ammo.projectileCount',
+                header: 'Projectiles',
+                id: 'projectiles',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>()}
+                    </>
+                )
+            },
+            {
                 accessorKey: 'ammo.fragmentationChance',
                 header: 'Frag %',
                 muiTableHeadCellProps: {
@@ -264,9 +349,9 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     align: 'center',
                 },
                 filterFn: 'greaterThanOrEqualTo',
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
                     <>
-                        {fragmentationConditionalColour(cell.getValue<number>())}
+                        {fragmentationConditionalColour(fragmentationCutoff(cell.getValue<number>(), row.original.ammo.penetrationPower))}
                     </>
                 )
             },
@@ -348,18 +433,21 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(0) + ''),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(1) + '', row.original.ammo.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        <span>{(cell.getValue<string[]>().at(0))}</span>
+                        <>
+                            {dealWithMultiShotAmmo(cell.getValue<string[]>().at(1)!, row.original.ammo.projectileCount)}
+                        </>
+
                     </Box>
                 ),
             },
@@ -373,19 +461,19 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
 
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(1) + ''),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(2) + '', row.original.ammo.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        <span>{(cell.getValue<string[]>().at(1))}</span>
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(2)!, row.original.ammo.projectileCount)}
                     </Box>
                 ),
             },
@@ -399,18 +487,18 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(2) + ''),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(3) + '', row.original.ammo.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        <span>{(cell.getValue<string[]>().at(2))}</span>
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(3)!, row.original.ammo.projectileCount)}
                     </Box>
                 ),
             },
@@ -424,18 +512,18 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(3) + ''),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(4) + '', row.original.ammo.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        <span>{(cell.getValue<string[]>().at(3))}</span>
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(4)!, row.original.ammo.projectileCount)}
                     </Box>
                 ),
             },
@@ -449,18 +537,18 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableBodyCellProps: {
                     align: 'center',
                 },
-                Cell: ({ cell }) => (
+                Cell: ({ cell, row }) => (
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(4) + ''),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(5) + '', row.original.ammo.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        <span>{(cell.getValue<string[]>().at(4))}</span>
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(5)!, row.original.ammo.projectileCount)}
                     </Box>
                 ),
             },
@@ -495,12 +583,12 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                         </Card.Header>
                         <Card.Body>
                             <>
-                                This table shows the effectiveness rating of all ammo with 20 penetration and above* on the basis of average <strong>shots to kill</strong> for a given AC like so:<br />
+                                This table shows the effectiveness rating of all ammo on the basis of average <strong>Hits to kill</strong> for a given AC like so:<br />
                                 &nbsp;
                                 <Box
                                     component="span"
                                     sx={() => ({
-                                        backgroundColor: getEffectivenessColorCode("3.1.6 | 55%	"),
+                                        backgroundColor: getEffectivenessColorCode("3.1.6 | 55%", 1),
                                         borderRadius: '0.25rem',
                                         color: '#fff',
                                         maxWidth: '9ch',
@@ -510,7 +598,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                     <span>3.1.6 | 55%</span>
                                 </Box>
                                 &nbsp;
-                                in the format of: "<strong>ShotsToKill[Thorax.Head.Legs] | (First shot penetration chance)</strong>".<br /><br />
+                                in the format of: "<strong>HitsToKill[Thorax.Head.Legs] | (First shot penetration chance)</strong>".<br /><br />
                                 Each cell is highlighted to how effective it is against a <strong>thorax</strong> target: <br />
 
                                 <ul>
@@ -620,7 +708,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                                     <Box
                                                         component="span"
                                                         sx={() => ({
-                                                            backgroundColor: getEffectivenessColorCode("2.1.6 | 97%"),
+                                                            backgroundColor: getEffectivenessColorCode("2.1.6 | 97%", 1),
                                                             borderRadius: '0.25rem',
                                                             color: '#fff',
                                                             maxWidth: '9ch',
@@ -636,7 +724,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                                     <Box
                                                         component="span"
                                                         sx={() => ({
-                                                            backgroundColor: getEffectivenessColorCode("3.1.6 | 91%"),
+                                                            backgroundColor: getEffectivenessColorCode("3.1.6 | 91%", 1),
                                                             borderRadius: '0.25rem',
                                                             color: '#fff',
                                                             maxWidth: '9ch',
@@ -652,7 +740,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                                     <Box
                                                         component="span"
                                                         sx={() => ({
-                                                            backgroundColor: getEffectivenessColorCode("6.3.6 | 13%"),
+                                                            backgroundColor: getEffectivenessColorCode("6.3.6 | 13%", 1),
                                                             borderRadius: '0.25rem',
                                                             color: '#fff',
                                                             maxWidth: '9ch',
@@ -668,7 +756,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                                     <Box
                                                         component="span"
                                                         sx={() => ({
-                                                            backgroundColor: getEffectivenessColorCode("13.9.6 | 0%"),
+                                                            backgroundColor: getEffectivenessColorCode("13.9.6 | 0%", 1),
                                                             borderRadius: '0.25rem',
                                                             color: '#fff',
                                                             maxWidth: '9ch',
@@ -684,7 +772,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                                     <Box
                                                         component="span"
                                                         sx={() => ({
-                                                            backgroundColor: getEffectivenessColorCode("15.10.6 | 0%"),
+                                                            backgroundColor: getEffectivenessColorCode("15.10.6 | 0%", 1),
                                                             borderRadius: '0.25rem',
                                                             color: '#fff',
                                                             maxWidth: '9ch',
@@ -700,8 +788,12 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                Please note that <strong>Flechette</strong> rounds haven't had their special edge case addressed yet; divide their numbers by 8 in your head.<br />
-                                *This is because my model doesn't account for the lower pen rounds yet or AC 1 equipment, I'll get around to it soon I swear! <br />
+                                <strong>Multi-projectile</strong> rounds are displayed in "Shells to Kill", if you want to see the "Projectiles to Kill", check their tooltip. Number of projectiles is an available column.<br />
+                                <strong>Please note:</strong>
+                                <ul>
+                                    <li>Distance drop-off of damage and penetration is not yet modeled, so marginal cases in practice might take an extra shot.</li>
+                                    <li>I've set fragmentation for ammo with less than 20 penetration to 0 to save you from having to cross check it and do it in your head, aren't I nice?</li>
+                                </ul>
                             </>
                         </Card.Body>
                     </Card>
@@ -709,26 +801,26 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 <MaterialReactTable
                     renderTopToolbarCustomActions={({ table }) => (
                         <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
-                                <ToggleButton
-                                    size='sm'
-                                    className="mb-2"
-                                    id="toggle-check"
-                                    type="checkbox"
-                                    variant="outline-primary"
-                                    checked={picturesYesNo}
-                                    value="1"
-                                    onChange={(e) => setPicturesYesNo(e.currentTarget.checked)}
-                                >
-                                    Ammo Pictures on/off
-                                </ToggleButton>
-                                <Button
-                                    disabled
-                                    size='sm'
-                                    className="mb-2"
-                                    variant="outline-info"
-                                >
-                                    This table has Heavy and Light 🩸 hidden by default. Press ||| on the top right to show them.
-                                </Button>
+                            <ToggleButton
+                                size='sm'
+                                className="mb-2"
+                                id="toggle-check"
+                                type="checkbox"
+                                variant="outline-primary"
+                                checked={picturesYesNo}
+                                value="1"
+                                onChange={(e) => setPicturesYesNo(e.currentTarget.checked)}
+                            >
+                                Ammo Pictures on/off
+                            </ToggleButton>
+                            <Button
+                                disabled
+                                size='sm'
+                                className="mb-2"
+                                variant="outline-info"
+                            >
+                                This table has Projectiles and Light and Heavy 🩸 hidden by default. Press ||| on the top right to show them.
+                            </Button>
                         </Box>
                     )}
 
@@ -739,7 +831,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     enableSelectAll={false}
 
                     // enableRowActions
-                    // enableColumnFilterModes
+                    enableColumnFilterModes
 
 
                     enableColumnOrdering
@@ -757,7 +849,8 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             tracer: false,
                             price: false,
                             traderLevel: true,
-                            cal: false
+                            cal: false,
+                            projectiles: false
                         },
                         columnPinning: {
                             left: ['header_normal']

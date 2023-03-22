@@ -44,7 +44,7 @@ export default function SelectAmmo(props: any) {
                                 <Stack direction='horizontal' gap={1} style={{ flexWrap: "wrap" }}>
                                     <span style={{ minWidth: "55px" }}>⛏ PEN: {option.penetrationPower}</span>
                                     <span style={{ minWidth: "55px" }}>📏 AD%: {option.armorDamagePerc}</span>
-                                    <span style={{ minWidth: "55px" }}>💀 DAM: {option.damage}</span>
+                                    <span style={{ minWidth: "55px" }}>💀 DMG: {option.damage}</span>
                                     <span>👨‍🔧 TRDR:{option.traderLevel} </span>
                                 </Stack>
                             </Col>
