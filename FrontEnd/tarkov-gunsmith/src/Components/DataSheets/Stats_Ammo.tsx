@@ -74,7 +74,7 @@ export default function DataSheetAmmo(props: any) {
             },
             {
                 accessorKey: 'damage',
-                header: 'DAM',
+                header: 'DMG',
                 muiTableHeadCellProps: { sx: { color: 'red' } },
                 size: 50, //small column
             },

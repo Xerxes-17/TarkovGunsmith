@@ -119,6 +119,48 @@ namespace WishGranterProto.ExtensionMethods
             return bullet_penetration * armorDamagePercentage_dbl * armor_destructability * RoundUpAdjustment * ArmorDamageMultiplier;
         }
 
+        //! This function was gleaned from reverse regression analysis of a big data set of test results from in-game.
+        public static double DamageToArmorBlock(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        {
+            double armor_destructability = GetDestructabilityFromMaterial(armor_material);
+            double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
+
+            double A_Factor = CalculateFactor_A(armorDurability, armor_class);
+
+            //! 1.1 max is shown in test result of 5.45 BT vs Usec Trooper. .6 min is shown in rest results of 5.45 T vs a Korund and a Slick plate.
+            double result = bullet_penetration * armorDamagePercentage_dbl * armor_destructability * Math.Clamp(bullet_penetration / A_Factor, .6d, 1.1d);
+
+            //! CZTL's minimum dura damage as per buckshot vs a slick plate
+            result = Math.Max(result, 1);
+
+            return result;
+        }
+        //! This function was gleaned from reverse regression analysis of a big data set of test results from in-game.
+        public static double DamageToArmorPenetration(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        {
+            double armor_destructability = GetDestructabilityFromMaterial(armor_material);
+            double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
+
+            double A_Factor = CalculateFactor_A(armorDurability, armor_class);
+
+            //! .9 max is shown in test result of ignolnik vs PACA, Zhuk-3, etc. .5 min is shown in rest results of 5.45 T vs pretty much everything lmao.
+            double result = bullet_penetration * armorDamagePercentage_dbl * armor_destructability * Math.Clamp(bullet_penetration / A_Factor, .5d, .9d);
+
+            //! CZTL's minimum dura damage as per buckshot vs a slick plate
+            result = Math.Max(result, 1);
+
+            return result;
+        }
+
+        public static double getExpectedArmorDamage(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        {
+            var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
+            var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
+            double probabilityOfPenetration = PenetrationChance(armor_class, bullet_penetration, armorDurability);
+
+            return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
+        }
+
         // This Function provides the blunt damage that a character will receive after a bullet is stopped by armor.
         public static double BluntDamage(double armorDurability, int armorClass, double bluntThroughput, int bulletDamage, int bulletPenetration)
         {
@@ -224,6 +266,17 @@ namespace WishGranterProto.ExtensionMethods
                 armorItem.ArmorType = "Helmet";
                 armorItem.BluntThroughput = temp.BluntThroughput;
             }
+            else if (Armor.GetType() == typeof(VisObservDevice))
+            {
+                var temp = (VisObservDevice)Armor;
+                armorItem.Name = temp.ShortName;
+                armorItem.Id = temp.Id;
+                armorItem.MaxDurability = temp.MaxDurability;
+                armorItem.ArmorClass = temp.ArmorClass;
+                armorItem.ArmorMaterial = temp.ArmorMaterial;
+                armorItem.ArmorType = "Helmet";
+                armorItem.BluntThroughput = temp.BluntThroughput;
+            }
 
             return armorItem;
         }
@@ -255,7 +308,7 @@ namespace WishGranterProto.ExtensionMethods
                 }
 
                 // ADPS
-                testResult.ArmorDamagePerShot = ArmorItemDamageFromAmmo(armorItem, ammo);
+                testResult.ArmorDamagePerShot = getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, 100);
 
                 while (doneDamage < startingDura || HitPoints > 0)
                 {
@@ -327,7 +380,7 @@ namespace WishGranterProto.ExtensionMethods
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
-                    doneDamage = doneDamage + ArmorItemDamageFromAmmo(armorItem, ammo);
+                    doneDamage = doneDamage + getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, (double) testResult.Shots.Last().DurabilityPerc!); ;
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();
