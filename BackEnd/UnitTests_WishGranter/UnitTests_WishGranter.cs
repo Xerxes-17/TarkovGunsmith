@@ -12,6 +12,40 @@ using WishGranter;
 
 namespace WishGranterTests
 {
+
+    [TestClass]
+    public class CalculationTests
+    {
+        static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
+
+        [TestMethod]
+        public void Test_Korund_Penetration_545_BT()
+        {
+            ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString("5f5f41476bdad616ad46d631", RatStashDB);
+            var Bullet = (Ammo) RatStashDB.GetItem("56dff061d2720bb5668b4567");
+            var result = WG_Calculation.DamageToArmorPenetration(armorItem.ArmorClass, armorItem.ArmorMaterial, Bullet.PenetrationPower, Bullet.ArmorDamage, 100);
+            Console.WriteLine(result);
+
+
+        }
+        [TestMethod]
+        public void Test_Korund_Block_545_BT()
+        {
+            ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString("5f5f41476bdad616ad46d631", RatStashDB);
+            var Bullet = (Ammo)RatStashDB.GetItem("56dff061d2720bb5668b4567");
+            var result = WG_Calculation.DamageToArmorBlock(armorItem.ArmorClass, armorItem.ArmorMaterial, Bullet.PenetrationPower, Bullet.ArmorDamage, 100);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_Korund_Block_7mmBuckshot()
+        {
+            ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString("5f5f41476bdad616ad46d631", RatStashDB);
+            var Bullet = (Ammo)RatStashDB.GetItem("560d5e524bdc2d25448b4571");
+            var result = WG_Calculation.DamageToArmorBlock(armorItem.ArmorClass, armorItem.ArmorMaterial, Bullet.PenetrationPower, Bullet.ArmorDamage, 100);
+            Console.WriteLine(result);
+        }
+    }
     [TestClass]
     public class DataScienceTests
     {

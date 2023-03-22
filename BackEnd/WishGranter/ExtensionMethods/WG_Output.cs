@@ -161,7 +161,7 @@ namespace WishGranterProto.ExtensionMethods
             All_Ammo = All_Ammo.Where(m =>
             {
                 var temp = (Ammo) m;
-                return temp.PenetrationPower > 19 && !prohibited.Contains(temp.Id);
+                return !prohibited.Contains(temp.Id);
             });
 
             foreach (var item in All_Ammo)
@@ -206,7 +206,7 @@ namespace WishGranterProto.ExtensionMethods
             IEnumerable<Item> Helmets = database.GetItems(m => m is Headwear);
             Helmets = Helmets.Where(x => {
                 var temp = (Headwear)x;
-                return temp.ArmorClass > 2;
+                return temp.ArmorClass > 0;
             });
 
             List<SelectionArmor> result = new();
@@ -221,10 +221,15 @@ namespace WishGranterProto.ExtensionMethods
 
             var armoredEquipment = database.GetItems(x => x.GetType() == typeof(ArmoredEquipment)).Cast<ArmoredEquipment>().ToList();
 
-            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 1).ToList();
+            armoredEquipment = armoredEquipment.Where(x => x.ArmorClass > 0).ToList();
 
             var tagillaMasks = database.GetItems(x => x.Name.Contains("Tagilla's welding mask")).Cast<ArmoredEquipment>().ToList();
             armoredEquipment.AddRange(tagillaMasks);
+
+            var armoredGlasses = database.GetItems(x => x.Name.Contains("Oakley SI Batwolf glasses")).Cast<ArmoredEquipment>().ToList();
+            armoredGlasses.Add((ArmoredEquipment)database.GetItem(x => x.Name.Contains("NPP KlASS Condor glasses")));
+
+            armoredEquipment.AddRange(armoredGlasses);
 
             foreach (var item in Helmets)
             {

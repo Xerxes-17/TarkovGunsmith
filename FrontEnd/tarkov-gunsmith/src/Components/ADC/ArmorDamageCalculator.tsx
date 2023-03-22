@@ -180,12 +180,12 @@ export default function ArmorDamageCalculator(props: any) {
     const [smallestDamage] = useState(25);
     const [biggestDamage] = useState(192);
 
-    const [minPenPower, setMinPenPower] = useState(20); // Need to make these values be drawn from something rather than magic numbers
-    const [smallestPenPower] = useState(20);
+    const [minPenPower, setMinPenPower] = useState(0); // Need to make these values be drawn from something rather than magic numbers
+    const [smallestPenPower] = useState(0);
     const [biggestPenPower] = useState(79);
 
-    const [minArmorDamPerc, setArmorDamPerc] = useState(22); // Need to make these values be drawn from something rather than magic numbers
-    const [smallestArmorDamPerc] = useState(22);
+    const [minArmorDamPerc, setArmorDamPerc] = useState(0); // Need to make these values be drawn from something rather than magic numbers
+    const [smallestArmorDamPerc] = useState(0);
     const [biggestArmorDamPerc] = useState(89);
 
     const [traderLevel, setTraderLevel] = useState(6); // Need to make these values be drawn from something rather than magic numbers
@@ -332,8 +332,8 @@ export default function ArmorDamageCalculator(props: any) {
     const handleCustomSubmit = (e: any) => {
         e.preventDefault();
 
-        if (penetration < 20) {
-            setErrorPenetration("Sorry, value must be above 20 for now.")
+        if (penetration < 1) {
+            setErrorPenetration("Sorry, value must be above 1 for now.")
         }
         else if (penetration > 79) {
             setErrorPenetration("Sorry, value must be below 80 for now.")
@@ -491,7 +491,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <div className="d-grid gap-2">
                                         <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
-                                                See how this armor compares in <strong>Armor</strong> vs Ammo.
+                                                See this armor in <strong>Armor</strong> vs Ammo.
                                             </Button>
                                         </LinkContainer>
                                     </div>
@@ -592,7 +592,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     <div className="d-grid gap-2">
                                         <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
-                                                See how this ammo compares in <strong>Ammo</strong> vs Armor.
+                                                See this ammo in <strong>Ammo</strong> vs Armor.
                                             </Button>
                                         </LinkContainer>
                                     </div>
