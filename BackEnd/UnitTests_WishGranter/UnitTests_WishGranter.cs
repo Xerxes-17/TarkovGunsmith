@@ -14,6 +14,47 @@ namespace WishGranterTests
 {
 
     [TestClass]
+    public class BallisticTests
+    {
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_001m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(866.9968f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_010m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(854.3049f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_050m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(806.42944f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_100m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(731.42474f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetBulletSpeedAtDistance_545BT_100m()
+        {
+            var result = WG_Ballistics.GetBulletSpeedAtDistance(100, 3.02f, 5.62f, .209f, 880);
+            Console.WriteLine(result);
+
+            Assert.IsTrue(731.42474 - result < .00005);
+        }
+    }
+
+    [TestClass]
     public class CalculationTests
     {
         static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");

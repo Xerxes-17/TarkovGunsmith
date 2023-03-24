@@ -44,6 +44,7 @@ export default function About(props: any) {
                         <ul>
                             <li><strong>What's for dinner</strong> for his immense help with AWS, CI/CD orchestration and more. Really helped me get past some major roadblocks.</li>
                             <li><strong>Night Shade</strong> for sharing his expertise in C# on many occasions, and providing the Chance of Kill and Cumulative Chance of Kill functions; saved me a lot of trouble with that and provided a major feature.</li>
+                            <li><strong>RatherLogical</strong> for providing the base code for some ballistics functions. Thanks to him we can account for distance on this site, which is a huge!</li>
                             <li><strong><a href="https://twitter.com/cztl_crstalli">cztl</a></strong> for getting me started on the armor system rabbit hole, providing feedback on ideas and helping out in general.</li>
                             <li><strong>RedWyvern</strong> for helping me out with web config issues and getting HTTPS working in particular, being an absolute king in general.</li>
                             <li><strong>Arrow</strong> for letting me shoot him in offline raids over 500 times to get the baseline dataset needed to verify some simulated numbers.</li>
