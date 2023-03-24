@@ -5,7 +5,7 @@ namespace WishGranter
 {
     public class WG_DataScience
     {
-        public List<CondensedDataRow> AmmoEffectivenessCache = new();
+        public Dictionary<int, List<CondensedDataRow>> AmmoEffectivenessCache = new();
 
         public Dictionary<string, List<CurveDataPoint>> statsCurvesCache = new();
         public List<CurveDataPoint> CreateListOfWeaponStats(WeaponPreset preset, string mode, int muzzleMode, Database ratStashDB)
@@ -362,7 +362,7 @@ namespace WishGranter
             return Table;
         }
 
-        public static EffectivenessDataRow CalculateEffectivenessDataRow(Ammo ammo, ArmorItem armorItem)
+        public static EffectivenessDataRow CalculateEffectivenessDataRow(Ammo ammo, ArmorItem armorItem, float distance)
         {
             EffectivenessDataRow effectivenssDataRow = new EffectivenessDataRow();
             effectivenssDataRow.ArmorId = armorItem.Id;
@@ -373,12 +373,14 @@ namespace WishGranter
             effectivenssDataRow.AmmoId = ammo.Id;
             effectivenssDataRow.AmmoName = ammo.Name;
 
-            var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, ammo, 100);
+            var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, ammo, 100, distance);
 
             effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
             effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
             effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
-            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, 100);
+
+            var penetrationPowerAtDistance = WG_Ballistics.GetDamageAndPenetrationAtDistance(distance, ammo).finalPenetration;
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPowerAtDistance, ammo.ArmorDamage, 100);
 
             effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
             effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot-1].ProbabilityOfKillCumulative;
@@ -444,13 +446,13 @@ namespace WishGranter
 
             foreach (var ammo in Ammo)
             {
-                data.Add(CalculateEffectivenessDataRow(ammo, armorItem));
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem, 5));
             }
 
             return data;
         }
 
-        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database)
+        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database, float distance = 5f)
         {
             // Need to get every vest within the requested range
             // run the ADC calc between the ammo and the vests
@@ -464,62 +466,39 @@ namespace WishGranter
             foreach(var armorID in armorOptions)
             {
                 ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, database);
-                data.Add(CalculateEffectivenessDataRow(ammo, armorItem));
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem, distance));
             }
 
             return data;
         }
 
-        public static int GetVestRatingFromAverageSTK(int average)
+        public List<CondensedDataRow> getAmmoEffectivenessChartForDistance(int distance)
         {
-            if(average == 1)
-            {
-                return 0;
-            }
-            else if(average == 2)
-            {
-                return 1;
-            }
-            else if (average <= 4)
-            {
-                return 2;
-            }
-            else if (average <= 6)
-            {
-                return 3;
-            }
-            else if (average <= 8)
-            {
-                return 4;
-            }
-            else
-            {
-                return 5;
-            }
-        }
-        public static char GetHelmetRatingFromAverageSTK(int average)
-        {
-            if (average == 1)
-            {
-                return 'A';
-            }
-            else if (average == 2)
-            {
-                return 'B';
-            }
-            else
-            {
-                return 'C';
-            }
+            return AmmoEffectivenessCache.GetValueOrDefault(distance);
         }
 
-        public List<CondensedDataRow> CreateCondensedAmmoEffectivenessTable(Database database)
+
+        public Dictionary<int, List<CondensedDataRow>> CreateAmmoEffectivenessCharts (Database database)
         {
-            //! Give the cached answer if there is one
-            if (AmmoEffectivenessCache.Any())
+            var result = new Dictionary<int, List<CondensedDataRow>>();
+            int[] ranges = { 1, 15, 50, 100};
+
+            foreach(var range in ranges)
             {
-                return AmmoEffectivenessCache;
+                var temp = CreateCondensedAmmoEffectivenessTable(database, range);
+                result.Add(range, temp);
             }
+
+            //! Cache the answer for other users to get
+            if (!AmmoEffectivenessCache.Any())
+            {
+                AmmoEffectivenessCache = result;
+            }
+
+            return result;
+        }
+        public List<CondensedDataRow> CreateCondensedAmmoEffectivenessTable(Database database, float distance = 5)
+        {
 
             // Make the return variable
             List<CondensedDataRow> data = new();
@@ -568,7 +547,7 @@ namespace WishGranter
             {
                 round.Caliber = round.Caliber.Remove(0, 7);
                 // get the AED for the round
-                var effectivenessData = CalculateAmmoEffectivenessData(round, database);
+                var effectivenessData = CalculateAmmoEffectivenessData(round, database, distance);
 
                 // organize the data by armor class
                 List<EffectivenessDataRow>[] armorClasses = new List<EffectivenessDataRow>[6];
@@ -612,35 +591,22 @@ namespace WishGranter
                     var firstShotPenChance = (int) armorClass[0].FirstShot_PenChance;
 
                     //? Let's also change this to use raw STK values
-                    //string resultString = $"{GetVestRatingFromAverageSTK(meanSTK_vests)}.{GetHelmetRatingFromAverageSTK(meanSTK_helmets)}";
                     string resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
-                    //? Do this in the FE
-                    //if (round.ProjectileCount > 1)
-                    //{
-                    //    resultString = $"{Math.Max(1, meanSTK_vests/ round.ProjectileCount)}.{Math.Max(1, meanSTK_helmets / round.ProjectileCount)}.{Math.Max(1, meanSTK_legs / round.ProjectileCount)} | {firstShotPenChance}%";
-                    //}
-                    //else
-                    //{
-                    //    resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
-                    //}
-
 
                     ratings.Add(resultString);
                 }
 
+                var distanceValues = WG_Ballistics.GetDamageAndPenetrationAtDistance(distance, round);
+
                 CondensedDataRow cdr = new CondensedDataRow();
                 cdr.ammo = round;
+                cdr.distanceDamage = distanceValues.finalDamage;
+                cdr.distancePenetrationPower = distanceValues.finalPenetration;
                 cdr.ratings = ratings;
                 cdr.traderCashLevel = WG_Market.GetTraderLevelById(round.Id);
 
                 data.Add(cdr);
             }
-            //! Cache the answer for other users to get
-            if (!AmmoEffectivenessCache.Any())
-            {
-                AmmoEffectivenessCache = data;
-            }
-
             return data;
         }
 

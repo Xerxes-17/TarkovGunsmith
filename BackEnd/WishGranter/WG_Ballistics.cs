@@ -175,6 +175,29 @@ namespace WishGranter
 
             return (finalDamage, finalPenetration);
         }
+
+        public static (float finalDamage, float finalPenetration) GetDamageAndPenetrationAtDistance(float distance, Ammo ammo)
+        {
+            var speed = GetBulletSpeedAtDistance((float)distance, ammo.BulletMass, ammo.BulletDiameterMillimeters, ammo.BallisticCoeficient, ammo.InitialSpeed);
+            return GetDamageAndPenetrationAtSpeed(speed, ammo.InitialSpeed, ammo.Damage, ammo.PenetrationPower);
+        }
+
+        public static void CalculateSpeedAndDistanceLookupTable(int[] distanceIntervals)
+        {
+            /*
+             * This method will take the distanceIntervals array, and a list of Ammo.
+             * It will check if there is a locally made copy of a saved JSON of output values.
+             * If there isn't, it will calculate the distance values for the ammo by the intervals provided.
+             * These tuple results will be saved and keyed so they can be looked up later in a JSON and we can save a significant amount of calculation time when wishgranter initializses.
+             * Will most likely need to include a magic number for the "version" of this json so that it can be invalidated and updated as needed.
+             * Idea: perhaps each key can have the base stats of the ammo type, and when these values change an update is triggered for that row only. Would also remove the need to manually set versioning and would speed up updates.
+             *  Should include the damage, penetration and speed at a given distance.
+             *  
+             *  DPS @ Dist lookup table > ammo effectiveness tables for distance > other tables
+             */
+
+
+        }
     }
 }
 

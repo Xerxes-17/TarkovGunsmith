@@ -1,6 +1,7 @@
 ﻿using RatStash;
 using Newtonsoft.Json.Linq;
 using Force.DeepCloner;
+using WishGranter;
 
 namespace WishGranterProto.ExtensionMethods
 {
@@ -78,7 +79,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // Self explainatory
-        public static double PenetrationChance(int armorClass, int bulletPen, double armorDurability)
+        public static double PenetrationChance(int armorClass, double bulletPen, double armorDurability)
         {
             /**  
              * The goal of this is to work out the value with a given set of inputs.
@@ -120,7 +121,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         //! This function was gleaned from reverse regression analysis of a big data set of test results from in-game.
-        public static double DamageToArmorBlock(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        public static double DamageToArmorBlock(int armor_class, ArmorMaterial armor_material, double bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
         {
             double armor_destructability = GetDestructabilityFromMaterial(armor_material);
             double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
@@ -136,7 +137,7 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
         //! This function was gleaned from reverse regression analysis of a big data set of test results from in-game.
-        public static double DamageToArmorPenetration(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        public static double DamageToArmorPenetration(int armor_class, ArmorMaterial armor_material, double bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
         {
             double armor_destructability = GetDestructabilityFromMaterial(armor_material);
             double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
@@ -152,7 +153,7 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
-        public static double getExpectedArmorDamage(int armor_class, ArmorMaterial armor_material, int bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        public static double getExpectedArmorDamage(int armor_class, ArmorMaterial armor_material, double bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
@@ -162,7 +163,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // This Function provides the blunt damage that a character will receive after a bullet is stopped by armor.
-        public static double BluntDamage(double armorDurability, int armorClass, double bluntThroughput, int bulletDamage, int bulletPenetration)
+        public static double BluntDamage(double armorDurability, int armorClass, double bluntThroughput, double bulletDamage, double bulletPenetration)
         {
             double median(double a, double b, double c)
             {
@@ -181,7 +182,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // This function provides the damage that a character will receive after a bullet penetrates armor, accounting for the damage mitigation, if any.
-        public static double DamageToCharacter(double armorDurability, int armorClass, int bulletDamage, int bulletPenetration)
+        public static double DamageToCharacter(double armorDurability, int armorClass, double bulletDamage, double bulletPenetration)
         {
             double median(double a, double b, double c)
             {
@@ -282,7 +283,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // Finds the test serires result of a given armor at a percentage of durability vs a given ammo type
-        public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc)
+        public static TransmissionArmorTestResult FindPenetrationChanceSeries(ArmorItem armorItem, Ammo ammo, double startingDuraPerc, float? distance)
         {
             // Setup variables
             TransmissionArmorTestResult testResult = new();
@@ -290,6 +291,19 @@ namespace WishGranterProto.ExtensionMethods
 
             double doneDamage = 0;
             double startingDura = -1;
+
+            double penetrationPower = ammo.PenetrationPower;
+            double damage = ammo.Damage;
+
+            if (distance != null)
+            {
+                var speed = WG_Ballistics.GetBulletSpeedAtDistance((float) distance, ammo.BulletMass, ammo.BulletDiameterMillimeters, ammo.BallisticCoeficient, ammo.InitialSpeed);
+                var newValues = WG_Ballistics.GetDamageAndPenetrationAtSpeed(speed, ammo.InitialSpeed, ammo.Damage, ammo.PenetrationPower);
+
+                penetrationPower = newValues.finalPenetration;
+                damage = newValues.finalDamage;
+            }
+
 
             if (armorItem.MaxDurability != null)
             {
@@ -308,18 +322,18 @@ namespace WishGranterProto.ExtensionMethods
                 }
 
                 // ADPS
-                testResult.ArmorDamagePerShot = getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, 100);
+                testResult.ArmorDamagePerShot = getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, 100);
 
                 while (doneDamage < startingDura || HitPoints > 0)
                 {
                     // Get the current durability and pen chance
                     double durability = ((double)startingDura - doneDamage) / (double)armorItem.MaxDurability * 100;
-                    double penChance = PenetrationChance(armorItem.ArmorClass, ammo.PenetrationPower, durability);
+                    double penChance = PenetrationChance(armorItem.ArmorClass, penetrationPower, durability);
                     double penetrationChance = penChance * 100;
 
                     // Calc Potential damages:
-                    var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, ammo.Damage, ammo.PenetrationPower);
-                    var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, ammo.Damage, ammo.PenetrationPower);
+                    var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, damage, penetrationPower);
+                    var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, damage, penetrationPower);
                     
 
                     // Calc Average Damage and apply it to HP pool
@@ -327,7 +341,7 @@ namespace WishGranterProto.ExtensionMethods
                     //! Exception for when the armor is at zero durability
                     if(durability <= 0)
                     {
-                        HitPoints = HitPoints - ammo.Damage;
+                        HitPoints = HitPoints - damage;
                     }
                     else
                     {
@@ -359,8 +373,8 @@ namespace WishGranterProto.ExtensionMethods
                         testShot.Durability = 0;
                         testShot.DurabilityPerc = 0;
                         testShot.PenetrationChance = 100;
-                        testShot.PenetratingDamage = ammo.Damage;
-                        testShot.AverageDamage = ammo.Damage;
+                        testShot.PenetratingDamage = damage;
+                        testShot.AverageDamage = damage;
                         testShot.DoneDamage = (double)armorItem.MaxDurability * (startingDuraPerc / 100);
                     }
 
@@ -380,7 +394,7 @@ namespace WishGranterProto.ExtensionMethods
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
-                    doneDamage = doneDamage + getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, ammo.PenetrationPower, ammo.ArmorDamage, (double) testResult.Shots.Last().DurabilityPerc!); ;
+                    doneDamage = doneDamage + getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double) testResult.Shots.Last().DurabilityPerc!); ;
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();

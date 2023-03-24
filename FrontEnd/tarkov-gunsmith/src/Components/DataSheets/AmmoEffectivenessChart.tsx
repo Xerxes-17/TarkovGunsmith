@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, Tooltip } from 'react-bootstrap';
+import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, ToggleButtonGroup, Tooltip } from 'react-bootstrap';
 import { AMMO_VS_ARMOR } from '../../Util/links';
 import { Link } from 'react-router-dom';
 export default function SimplifiedAmmoRatingsTable(props: any) {
@@ -22,6 +22,8 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
     // strongly typed if you are using TypeScript (optional, but recommended)
     interface RatingsTableRow {
         ammo: any
+        distancePenetrationPower: number
+        distanceDamage: number
         ratings: string[]
         traderCashLevel: number
     }
@@ -34,27 +36,25 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
     const MY_ORANGE = "#c45200"
     const MY_RED = "#910d1d";
 
-
     const [AmmoTableData, setAmmoTableData] = useState<RatingsTableRow[]>([]);
 
     const [picturesYesNo, setPicturesYesNo] = useState(false);
 
+    const [distance, setDistance] = useState(15);
+    const distances: number[] = [1, 15, 25, 50, 75, 100, 125];
+
+    const handleDistanceChange = (val: any) => setDistance(val);
+
     const ammos = async () => {
-        const response = await fetch(API_URL + '/GetCondensedAmmoEffectivenessTable');
+        const response = await fetch(API_URL + `/GetAmmoEffectivenessChartAtDistance/${distance}`);
         setAmmoTableData(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
     useEffect(() => {
         ammos();
-    }, [])
+    }, [distance])
 
     function dealWithMultiShotAmmo(input: string, projectileCount: number) {
-
-
-
-
-
-
         if (projectileCount === 1) {
             return (
                 <span>{input}</span>
@@ -64,11 +64,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
 
             var split1 = input.split('|');
             var split2 = split1[0].split('.');
-
-            console.log("split", split2);
-
             var numbers = split2.map((x) => {
-                console.log("num proj:", x)
                 return parseInt(x)
             });
 
@@ -150,43 +146,43 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
     }
     function damageConditionalColour(input: number) {
         if (input >= 146) {
-            return <span style={{ color: MY_VIOLET }}>{(input)}</span>
+            return <span style={{ color: MY_VIOLET }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else if (input >= 110) {
-            return <span style={{ color: MY_BLUE }}>{(input)}</span>
+            return <span style={{ color: MY_BLUE }}>{(input.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }))}</span>
         }
         else if (input >= 73) {
-            return <span style={{ color: MY_GREEN }}>{(input)}</span>
+            return <span style={{ color: MY_GREEN }}>{(input.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }))}</span>
         }
         else if (input >= 55) {
-            return <span style={{ color: MY_YELLOW_BRIGHT }}>{(input)}</span>
+            return <span style={{ color: MY_YELLOW_BRIGHT }}>{(input.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }))}</span>
         }
         else if (input >= 43) {
-            return <span style={{ color: MY_ORANGE }}>{(input)}</span>
+            return <span style={{ color: MY_ORANGE }}>{(input.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }))}</span>
         }
         else {
-            return <span style={{ color: "red" }}>{(input)}</span>
+            return <span style={{ color: "red" }}>{(input.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }))}</span>
         }
     }
 
     function penetrationConditionalColour(input: number) {
         if (input >= 57) {
-            return <span style={{ color: MY_VIOLET }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: MY_VIOLET }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else if (input >= 47) {
-            return <span style={{ color: MY_BLUE }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: MY_BLUE }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else if (input >= 37) {
-            return <span style={{ color: "green" }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: "green" }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else if (input >= 27) {
-            return <span style={{ color: MY_YELLOW_BRIGHT }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: MY_YELLOW_BRIGHT }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else if (input >= 17) {
-            return <span style={{ color: MY_ORANGE }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: MY_ORANGE }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
         else {
-            return <span style={{ color: "red" }}>{(input).toLocaleString()}</span>
+            return <span style={{ color: "red" }}>{(input).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</span>
         }
     }
 
@@ -292,7 +288,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
             },
             {
-                accessorKey: 'ammo.penetrationPower',
+                accessorKey: 'distancePenetrationPower',
                 header: 'PEN',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' },
@@ -308,7 +304,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ammo.damage',
+                accessorKey: 'distanceDamage',
                 header: 'DMG',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
@@ -384,6 +380,22 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 Cell: ({ cell }) => (
                     <>
                         {positiveGreenOrNothing_Percent(cell.getValue<number>())}
+                    </>
+                )
+            },
+            {
+                accessorKey: 'ammo.initialSpeed',
+                header: 'Initial Speed',
+                id: 'InitialSpeed',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>().toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} m/s
                     </>
                 )
             },
@@ -821,6 +833,21 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             >
                                 This table has Projectiles and Light and Heavy 🩸 hidden by default. Press ||| on the top right to show them.
                             </Button>
+                            <div className='mb-2'>
+                                <ToggleButtonGroup size="sm" type="radio" value={distance} onChange={handleDistanceChange} name="distanceMode">
+                                    <ToggleButton size='sm' variant='outline-success' disabled id={"dummy"} value={"dummy"}>
+                                        Distance:
+                                    </ToggleButton>
+                                    {distances.map((item: any, i: number) => {
+                                        return (
+                                            <ToggleButton size='sm' key={JSON.stringify(item)} variant='outline-success' id={`tbg-btn-dist-${item}`} value={item}>
+                                                {item}
+                                            </ToggleButton>
+                                        )
+                                    })}
+                                </ToggleButtonGroup>
+                            </div>
+
                         </Box>
                     )}
 

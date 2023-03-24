@@ -84,8 +84,7 @@ var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
 
 // Init the DataScience instance, get the big data table ready
 WG_DataScience dataScience = new WG_DataScience();
-dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
-
+dataScience.CreateAmmoEffectivenessCharts(RatStashDB);
 
 //! All the builder stuff
 var builder = WebApplication.CreateBuilder(args);
@@ -210,6 +209,7 @@ async Task startAPIAsync()
     app.MapGet("/GetAmmoEffectivenessData/{ammoId}", (string ammoId) => GetEffectivenessDataForAmmo(ammoId));
 
     app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
+    app.MapGet("/GetAmmoEffectivenessChartAtDistance/{distance}", (int distance) => GetAmmoEffectivenessChartAtDistance(distance));
 
     app.Run();
     await host.RunAsync();
@@ -312,7 +312,7 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
     return jsonString;
 }
 
-TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc)
+TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string bulletID, double startingDuraPerc, float distance = 100)
 {
     using var myActivity = MyActivitySource.StartActivity("Request for CalculateArmorVsBulletSeries");
     myActivity?.SetTag("armorID", armorID);
@@ -325,7 +325,10 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
 
     ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
 
-    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc);
+    myActivity?.SetTag("bulletName", Bullet.ShortName);
+    myActivity?.SetTag("armorName", armorItem.Name);
+
+    return WG_Calculation.FindPenetrationChanceSeries(armorItem, (Ammo)Bullet, startingDuraPerc, distance);
 }
 
 TransmissionArmorTestResult CalculateArmorVsBulletSeries_Custom(int ac, double maxDurability, double startingDurabilityPerc, string material, int penetration, int armorDamagePerc, int damage)
@@ -399,4 +402,11 @@ List<CondensedDataRow> GetCondensedAmmoEffectivenessTable()
 {
     using var myActivity = MyActivitySource.StartActivity("Request for Ammo Effectiveness Table");
     return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
+}
+
+List<CondensedDataRow> GetAmmoEffectivenessChartAtDistance(int distance)
+{
+    using var myActivity = MyActivitySource.StartActivity($"Request for Ammo Effectiveness Chart at Distance");
+    myActivity?.SetTag("distance", distance);
+    return dataScience.getAmmoEffectivenessChartForDistance(distance);
 }

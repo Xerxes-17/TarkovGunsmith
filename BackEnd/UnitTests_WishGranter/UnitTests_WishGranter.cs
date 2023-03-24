@@ -60,6 +60,13 @@ namespace WishGranterTests
         static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
 
         [TestMethod]
+        public void test()
+        {
+            List<Ammo> Ammo = RatStashDB.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+            Console.WriteLine("blah");
+        }
+
+        [TestMethod]
         public void Test_Korund_Penetration_545_BT()
         {
             ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString("5f5f41476bdad616ad46d631", RatStashDB);
