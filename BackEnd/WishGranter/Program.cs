@@ -16,7 +16,6 @@ using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
 
-
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
         .ConfigureLogging(logging =>
@@ -42,10 +41,6 @@ logger.LogInformation("Wishgranter-API is starting.");
 var watch = new Stopwatch();
 watch.Start();
 
-// This loads all of the weapons, mods and ammo from the items.json into a RatStashDB using the EN localization
-Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
-logger.LogInformation("RatStashDB started from file.");
-
 var DefaultPresestsJSON = WG_TarkovDevAPICalls.GetAllGunPresets();
 var MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
 
@@ -70,7 +65,10 @@ logger.LogInformation($"Compiling MarketData finished by {watch.ElapsedMilliseco
 watch.Start();
 logger.LogInformation("Compiling default weapon presets");
 
-var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresestsJSON, RatStashDB);
+AmmoInformationAuthority ammoInformationAuthority = new AmmoInformationAuthority();
+ammoInformationAuthority.InitializeInstance();
+
+var DefaultWeaponPresets = WG_Compilation.CompileDefaultPresets(DefaultPresestsJSON, RatStashSingleton.Instance.DB());
 
 logger.LogInformation($"Number of presets: {DefaultWeaponPresets.Count}");
 var SelectionWeaponPresets = WG_Output.WriteStockPresetList(DefaultWeaponPresets);
@@ -79,12 +77,12 @@ logger.LogInformation($"Number of SelectionWeaponPresets: {SelectionWeaponPreset
 watch.Stop();
 logger.LogInformation($"Compiling default weapon presets finished by {watch.ElapsedMilliseconds} ms.\n");
 
-var ArmorOptionsList = WG_Output.WriteArmorList(RatStashDB);
-var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashDB);
+var ArmorOptionsList = WG_Output.WriteArmorList(RatStashSingleton.Instance.DB());
+var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashSingleton.Instance.DB());
 
 // Init the DataScience instance, get the big data table ready
 WG_DataScience dataScience = new WG_DataScience();
-dataScience.CreateAmmoEffectivenessCharts(RatStashDB);
+dataScience.CreateAmmoEffectivenessCharts(RatStashSingleton.Instance.DB());
 
 //! All the builder stuff
 var builder = WebApplication.CreateBuilder(args);
@@ -210,6 +208,7 @@ async Task startAPIAsync()
 
     app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
     app.MapGet("/GetAmmoEffectivenessChartAtDistance/{distance}", (int distance) => GetAmmoEffectivenessChartAtDistance(distance));
+    app.MapGet("/GetAmmoAuthorityData", () => GetAmmoAuthorityData());
 
     app.Run();
     await host.RunAsync();
@@ -251,10 +250,10 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
     // Get all of the trader offers - It's in the main program space
     // No need now to make a mask as we only need to filter by player level and the transaction type now, neat!
-    // We can then use these IDs with the RatStashDB to get appropriate Mods, Ammo, etc.
+    // We can then use these IDs with the RatStashSingleton.Instance.DB() to get appropriate Mods, Ammo, etc.
     List<MarketEntry> filteredMarketData = WG_Market.GetMarketDataFilteredByPlayerLeverl(playerLevel);
 
-    // While I could combine these statements, it would be messy an unreadable. So first we get the list of IDs of weapon mods and ammo then we get lists of the mods and ammo from the RatStashDB.
+    // While I could combine these statements, it would be messy an unreadable. So first we get the list of IDs of weapon mods and ammo then we get lists of the mods and ammo from the RatStashSingleton.Instance.DB().
     List<string> SelectedIDs_Mods_Ammo = filteredMarketData.Select(x => x.Id).ToList();
 
     List<Type> TypeFilterList = new List<Type>()
@@ -266,10 +265,10 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
         // typeof(Revolver),  typeof(Shotgun),  typeof(Smg),  typeof(SniperRifle),  typeof(SpecialWeapon)
     };
 
-    List<WeaponMod> AvailibleWeaponMods = RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && !TypeFilterList.Contains(x.GetType())).Cast<WeaponMod>().ToList();
+    List<WeaponMod> AvailibleWeaponMods = RatStashSingleton.Instance.DB().GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && !TypeFilterList.Contains(x.GetType())).Cast<WeaponMod>().ToList();
 
     // Get the ammo too and then filter it down to the caliber of the weapon
-    List<Ammo> AvailableAmmoChoices= RatStashDB.GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+    List<Ammo> AvailableAmmoChoices= RatStashSingleton.Instance.DB().GetItems(x => SelectedIDs_Mods_Ammo.Contains(x.Id) && x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
     AvailableAmmoChoices = AvailableAmmoChoices.Where(x => x.Caliber.Equals(WantedPreset.Weapon.AmmoCaliber)).ToList();
 
     // We also need to add the mods that are in the preset to the availible mods, this is for cases where the preset is the only place where a mod can be purchased.
@@ -281,7 +280,7 @@ string getSingleWeaponBuild(int playerLevel, string mode, int muzzleMode, string
 
     // Next the MWL is made in relation to the current weapon, as we don't need to care about M4 parts when building an AK, Да? We then make a shortlist from the MWL.
     List<string> MasterWhiteList = WG_Recursion.CreateMasterWhiteListIds(WantedPreset.Weapon, AvailibleWeaponMods);
-    List<WeaponMod> ShortList_WeaponMods = RatStashDB.GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
+    List<WeaponMod> ShortList_WeaponMods = RatStashSingleton.Instance.DB().GetItems(x => MasterWhiteList.Contains(x.Id)).Cast<WeaponMod>().ToList();
 
     var AWM_Names = ShortList_WeaponMods.Select(x => x.Name).ToList();
 
@@ -319,11 +318,11 @@ TransmissionArmorTestResult CalculateArmorVsBulletSeries(string armorID, string 
     myActivity?.SetTag("bulletID", bulletID);
     myActivity?.SetTag("startingDuraPerc", startingDuraPerc);
 
-    var Bullet = RatStashDB.GetItem(bulletID);
+    var Bullet = RatStashSingleton.Instance.DB().GetItem(bulletID);
 
     TransmissionArmorTestResult result = new();
 
-    ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
+    ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashSingleton.Instance.DB());
 
     myActivity?.SetTag("bulletName", Bullet.ShortName);
     myActivity?.SetTag("armorName", armorItem.Name);
@@ -357,7 +356,7 @@ List<CurveDataPoint> GetWeaponStatsCurve(string presetID, string mode, int muzzl
     myActivity?.SetTag("weaponName", WantedPreset.Weapon.Name);
 
 
-    var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashDB);
+    var result = dataScience.CreateListOfWeaponStats(WantedPreset, mode, muzzleMode, RatStashSingleton.Instance.DB());
     return result;
 }
 
@@ -365,12 +364,12 @@ List<AmmoTableRow> GetAmmoDataSheetData()
 {
     using var myActivity = MyActivitySource.StartActivity("Request for AmmoDataSheet");
 
-    return WG_DataScience.CompileAmmoTable(RatStashDB);
+    return WG_DataScience.CompileAmmoTable(RatStashSingleton.Instance.DB());
 }
 List<ArmorTableRow> GetArmorDataSheetData()
 {
     using var myActivity = MyActivitySource.StartActivity("Request for ArmorDataSheet");
-    return WG_DataScience.CompileArmorTable(RatStashDB);
+    return WG_DataScience.CompileArmorTable(RatStashSingleton.Instance.DB());
 }
 
 List<WeaponTableRow> GetWeaponsDataSheetData()
@@ -384,24 +383,24 @@ List<EffectivenessDataRow> GetEffectivenessDataForArmor(string armorID)
     using var myActivity = MyActivitySource.StartActivity("Request for Armor vs Ammo Data");
     myActivity?.SetTag("armorID", armorID);
 
-    var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashDB);
+    var armor = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, RatStashSingleton.Instance.DB());
 
-    return WG_DataScience.CalculateArmorEffectivenessData(armor, RatStashDB);
+    return WG_DataScience.CalculateArmorEffectivenessData(armor, RatStashSingleton.Instance.DB());
 }
 
 List<EffectivenessDataRow> GetEffectivenessDataForAmmo(string ammoID)
 {
     using var myActivity = MyActivitySource.StartActivity("Request for Ammo vs Armor Data");
     myActivity?.SetTag("ammoID", ammoID);
-    var ammo = (Ammo) RatStashDB.GetItem(ammoID);
+    var ammo = (Ammo) RatStashSingleton.Instance.DB().GetItem(ammoID);
 
-    return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashDB);
+    return WG_DataScience.CalculateAmmoEffectivenessData(ammo, RatStashSingleton.Instance.DB());
 }
 
 List<CondensedDataRow> GetCondensedAmmoEffectivenessTable()
 {
     using var myActivity = MyActivitySource.StartActivity("Request for Ammo Effectiveness Table");
-    return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashDB);
+    return dataScience.CreateCondensedAmmoEffectivenessTable(RatStashSingleton.Instance.DB());
 }
 
 List<CondensedDataRow> GetAmmoEffectivenessChartAtDistance(int distance)
@@ -409,4 +408,10 @@ List<CondensedDataRow> GetAmmoEffectivenessChartAtDistance(int distance)
     using var myActivity = MyActivitySource.StartActivity($"Request for Ammo Effectiveness Chart at Distance");
     myActivity?.SetTag("distance", distance);
     return dataScience.getAmmoEffectivenessChartForDistance(distance);
+}
+
+SortedDictionary<string, AmmoReccord> GetAmmoAuthorityData()
+{
+    using var myActivity = MyActivitySource.StartActivity($"Request for Ammo Reccords");
+    return ammoInformationAuthority.AmmoReccords;
 }

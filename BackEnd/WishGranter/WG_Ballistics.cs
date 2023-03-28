@@ -1,13 +1,220 @@
 ﻿using RatStash;
+using WishGranterProto.ExtensionMethods;
 
 namespace WishGranter
 {
+    public class AmmoRatingsBag
+    {
+        public float distancePenetrationPower { get; set; } = 0;
+        public float distanceDamage { get; set; } = 0;
+        public List<string> ratings { get; set; } = new();
+    }
+
+    public class bulletStatsPOCO
+    {
+        public int penetration { get; set; } = -1 ;
+        public int damage { get; set; } = -1;
+        public float massGrams { get; set; } = -1;
+        public float diameterMillimeters { get; set; } = -1;
+        public float ballisticCoefficient { get; set; } = -1;
+        public int initialSpeed { get; set; } = -1;
+
+        public bulletStatsPOCO() { } //Default Con
+
+        public bulletStatsPOCO(int _penetration, int _damage, float _massGrams, float _diameterMillimeters, float _ballisticCoefficient, int _initialSpeed)
+        {
+            penetration = _penetration;
+            damage = _damage;
+            massGrams = _massGrams;
+            diameterMillimeters = _diameterMillimeters;
+            ballisticCoefficient = _ballisticCoefficient;
+            initialSpeed = _initialSpeed;
+        }
+    }
+
+    public class BulletRangeTableData
+    {
+        // Need to modify this so that it is appropriate for the given round. No point in calculating data for a buckshot pellet past 50m for example
+        // Pehaps it should be made into based on the caliber
+        //{ 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 200, 250, 300, 350, 450, 500, 600 }
+        public int[]? rangeIntervals { get; set; } = null;
+
+        public string bulletID { get; set; } = "";
+        public string bulletName { get; set; } = "";
+        public bulletStatsPOCO bulletStats { get; set; } = new ();
+        SortedList<int, (float damageAtDistance, float penetrationAtDistance, float speedAtDistance)> rangeTable { get; set; } = new (); // int key is range in meters
+
+        //Adding in the AmmoEffectiveness Data to this class since it relies on the dam/pen of the range table. We will need to be able to invalidate it too when there are changes.
+        public SortedList<int, CondensedDataRow> AmmoEffectivenessData { get; set; } = new (); // This will store the effectiveness data for a bullet at a given range.
+
+        public BulletRangeTableData() { } //Default Con
+
+        public BulletRangeTableData(string _bulletID, string _bulletName, bulletStatsPOCO _stats, Database database)
+        {
+            bulletID = _bulletID;
+            bulletName = _bulletName;
+            bulletStats = _stats;
+            
+            if (bulletName.Contains("flechette") || bulletName.Contains("buckshot"))
+            {
+                int[] temp = { 1, 10, 25, 50 };
+                rangeIntervals = temp;
+            }
+            // Slugs and pistols
+            else if (
+                bulletName.Contains("slug") ||
+                bulletName.Contains("12/70 RIP") ||
+                bulletName.Contains(".45 ACP") ||
+                bulletName.Contains("9x21mm") ||
+                bulletName.Contains("12/70 RIP") ||
+                bulletName.Contains("9x1") ||
+                bulletName.Contains("5.7x28") ||
+                bulletName.Contains("4.6x30") ||
+                bulletName.Contains("9x21mm") ||
+                bulletName.Contains("7.62x25") ||
+                bulletName.Contains(".357"))
+            {
+                int[] temp = { 1, 10, 25, 50, 75, 100 };
+                rangeIntervals = temp;
+            }
+            // Intermediate rouunds
+            else if (
+                bulletName.Contains("x39mm") ||
+                bulletName.Contains("5.56x45mm") ||
+                bulletName.Contains(".300") ||
+                bulletName.Contains("12.7x55mm")
+                )
+            {
+                int[] temp = { 1, 10, 25, 50, 75, 100, 110, 125, 150, 200 };
+                rangeIntervals = temp;
+            }
+
+            else
+            {
+                int[] temp = { 1, 10, 25, 50, 75, 100, 110, 125, 150, 200, 250, 300, 350, 450, 500, 600 };
+                rangeIntervals = temp;
+            }
+
+        }
+
+        public bool invalidateCurrentData(bulletStatsPOCO newData, Database database)
+        {
+            if (newData == bulletStats)
+                return false;
+
+            bulletStats = newData;
+
+            var ammo = (Ammo) database.GetItem(bulletID);
+            //updateBulletRangeTable(ammo, database);
+            return true;               
+        }
+
+
+
+        public void updateAmmoEffectivenessData(Ammo round, Database database)
+        {
+            foreach(int distance in rangeIntervals)
+            {
+                var ammoStatsAtDistance = rangeTable.FirstOrDefault(x => x.Key.Equals(distance)).Value;
+
+                //round.Caliber = round.Caliber.Remove(0, 7); // Get rid of the "caliber" part of the string
+
+                // get the AED for the round at this distance 
+                var effectivenessData = WG_DataScience.CalculateAmmoEffectivenessData(round, database, distance);
+
+                // organize the data by armor class
+                List<EffectivenessDataRow>[] armorClasses = new List<EffectivenessDataRow>[6];
+                armorClasses[0] = new List<EffectivenessDataRow>();
+                armorClasses[1] = new List<EffectivenessDataRow>();
+                armorClasses[2] = new List<EffectivenessDataRow>();
+                armorClasses[3] = new List<EffectivenessDataRow>();
+                armorClasses[4] = new List<EffectivenessDataRow>();
+                armorClasses[5] = new List<EffectivenessDataRow>();
+
+                foreach (var result in effectivenessData)
+                {
+                    armorClasses[result.ArmorClass - 1].Add(result);
+                }
+
+                List<string> ratings = new List<string>();
+
+                foreach (var armorClass in armorClasses)
+                {
+                    var vests = armorClass.Where(x => x.ArmorType.Equals("Armor"));
+                    int meanSTK_vests = 0;
+                    if (vests.Any())
+                    {
+                        var STK_vals_vests = vests.Select(x => x.ExpectedShotsToKill).ToList();
+                        meanSTK_vests = (int)Math.Round(STK_vals_vests.Average());
+                    }
+
+                    var helmets = armorClass.Where(x => x.ArmorType.Equals("Helmet"));
+                    int meanSTK_helmets = 0;
+                    if (helmets.Any())
+                    {
+                        var STK_vals_helmets = helmets.Select(x => x.ExpectedShotsToKill).ToList();
+                        meanSTK_helmets = (int)Math.Round(STK_vals_helmets.Average());
+                    }
+
+                    //? We can insert the leg-meta effectiveness here as all we need is the round information, and later, the target info (like bosses).
+                    int meanSTK_legs = WG_DataScience.GetLegMetaSTK(round);
+
+                    //! Hey, why don't we add in the first shot pen chance too? We can just grab the first one from the list as it's going to be the same for the entire class.
+                    var firstShotPenChance = (int)armorClass[0].FirstShot_PenChance;
+
+                    //? Let's also change this to use raw STK values
+                    string resultString = $"{meanSTK_vests}.{meanSTK_helmets}.{meanSTK_legs} | {firstShotPenChance}%";
+
+                    ratings.Add(resultString);
+                }
+
+                AmmoRatingsBag arb = new AmmoRatingsBag();
+                arb.distanceDamage = ammoStatsAtDistance.damageAtDistance;
+                arb.distancePenetrationPower = ammoStatsAtDistance.penetrationAtDistance;
+                arb.ratings = ratings;
+                //? Need to fix this
+                //!AmmoEffectivenessData.Add(distance, cdr);
+            }
+        }
+    }
+
+    public class OLD_AmmoInformationAuthority
+    {
+        public SortedDictionary<string, BulletRangeTableData> RangeTables_Ammo { get; set; } = new () ;
+
+        public OLD_AmmoInformationAuthority() { } //Default Con
+
+        public OLD_AmmoInformationAuthority(List<Ammo> ammoList, Database database) 
+        {
+            foreach (Ammo ammo in ammoList)
+            {
+                var temp = makeRangeTableEntryFromAmmo(ammo, database);
+                RangeTables_Ammo.Add(temp.bulletID, temp);
+                Console.WriteLine($"Ranged Data calcualted for: {ammo.Name}");
+            }
+        }
+
+        public BulletRangeTableData makeRangeTableEntryFromAmmo(Ammo ammo, Database database)
+        {
+            bulletStatsPOCO bulletStatsPOCO = new (ammo.PenetrationPower, ammo.Damage, ammo.BulletMass, ammo.BulletDiameterMillimeters, ammo.BallisticCoeficient, ammo.InitialSpeed);
+
+            return new BulletRangeTableData(ammo.Id, ammo.Name, bulletStatsPOCO, database);
+        }
+
+        public BulletRangeTableData getBulletEntryById(string id)
+        {
+            return RangeTables_Ammo.FirstOrDefault(x=> x.Key.Equals(id)).Value;
+        }
+    }
+
     public class WG_Ballistics
     {
         // Maximum simulation iterations (*SHOULD* be enough for every round in the game)
         private const int _maxIterations = 2000;
         // The time step between each simulation iteration
         private const float _simTimeStep = 0.01f;
+
+        private static readonly int[] rangeIntervals = { 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 200, 250, 300, 350, 450, 500, 600 };
 
         public readonly struct G1DragModel
         {
@@ -126,6 +333,62 @@ namespace WishGranter
             return (G1Coefficents[num].Ballist - ballist) / (num3 - num2) * (velocity - num2) + ballist;
         }
 
+        //? Not Sure if this should stay here or become a part of BulletRangeTableData -- No it will stay here because it needs the constsants of this class
+        public static SortedList<int, (float damageAtDistance, float penetrationAtDistance, float speedAtDistance)> GetBulletStatsTupleAtIntervals(int[] intervals, BallisticStatsCard bulletStats)
+        {
+            // Results storage
+            SortedList<int, (float damageAtDistance, float penetrationAtDistance, float speedAtDistance)> newbulletRangeTable = new();
+
+            // Perform calculations based on the bullet properties
+            float BW1 = bulletStats.massGrams * 2f;
+            float BDW1 = bulletStats.massGrams * 0.0014223f / (bulletStats.diameterMillimeters * bulletStats.diameterMillimeters * bulletStats.ballisticCoefficient);
+            float BDW2 = bulletStats.diameterMillimeters * bulletStats.diameterMillimeters * 3.1415927f / 4f;
+            float BDW3 = 1.2f * BDW2;
+
+            // Working vars
+            float lastDist = 0;
+            float lastVel = bulletStats.initialSpeed;
+
+            int intervalsIndex = 0;
+
+            for (int i = 1; i < _maxIterations; i++)
+            {
+                // Calc drag
+                float dragCoef = CalculateDragCoefficient(lastVel) * BDW1;
+
+                // Create offset
+                float offset = BDW3 * -dragCoef * lastVel * lastVel / BW1;
+
+                // Set current distance
+                float currDist = lastDist + lastVel * _simTimeStep + 5e-05f * offset;
+                float currVel = lastVel + offset * _simTimeStep;
+
+                // Is it the first point the bullet goes over an inverval value?
+                if (currDist >= intervals[intervalsIndex])
+                {
+                    var damageAndPen = GetDamageAndPenetrationAtSpeed(currVel, bulletStats.initialSpeed, bulletStats.damage, bulletStats.penetration);
+                    newbulletRangeTable.Add(intervals[intervalsIndex], (damageAndPen.finalDamage, damageAndPen.finalPenetration, currVel));
+
+                    intervalsIndex++;
+                    lastDist = currDist;
+                    lastVel = currVel;
+                }
+                // If not, update and continue.
+                else
+                {
+                    lastDist = currDist;
+                    lastVel = currVel;
+                }
+                // If we exhaust our desired intervals, break loop
+                if(intervalsIndex == intervals.Length)
+                {
+                    i = _maxIterations + 1;
+                }
+            }
+
+            return newbulletRangeTable;
+        }
+
         public static float GetBulletSpeedAtDistance(float shotDistance, float BulletMassGrams, float BulletDiameterMillimeters, float BallisticCoefficient, float BulletSpeed)
         {
             // Perform calculations based on the bullet properties
@@ -182,7 +445,7 @@ namespace WishGranter
             return GetDamageAndPenetrationAtSpeed(speed, ammo.InitialSpeed, ammo.Damage, ammo.PenetrationPower);
         }
 
-        public static void CalculateSpeedAndDistanceLookupTable(int[] distanceIntervals)
+        public static void GenerateSpeedAndDistanceLookupTables(int[] distanceIntervals, List<Ammo> ammoList)
         {
             /*
              * This method will take the distanceIntervals array, and a list of Ammo.
@@ -196,8 +459,15 @@ namespace WishGranter
              *  DPS @ Dist lookup table > ammo effectiveness tables for distance > other tables
              */
 
+            foreach(Ammo ammo in ammoList)
+            {
+
+            }
+
 
         }
+
+
     }
 }
 

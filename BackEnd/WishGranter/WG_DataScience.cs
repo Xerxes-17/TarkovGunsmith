@@ -387,6 +387,30 @@ namespace WishGranter
 
             return effectivenssDataRow;
         }
+        public static EffectivenessDataRow CalculateEffectivenessDataRow(Ammo ammo, ArmorItem armorItem, float penetration, float damage)
+        {
+            EffectivenessDataRow effectivenssDataRow = new EffectivenessDataRow();
+            effectivenssDataRow.ArmorId = armorItem.Id;
+            effectivenssDataRow.ArmorName = armorItem.Name;
+            effectivenssDataRow.ArmorType = armorItem.ArmorType;
+            effectivenssDataRow.ArmorClass = armorItem.ArmorClass;
+
+            effectivenssDataRow.AmmoId = ammo.Id;
+            effectivenssDataRow.AmmoName = ammo.Name;
+
+            var test = WG_Calculation.FindPenetrationChanceSeries(armorItem, ammo, 100, penetration, damage);
+
+            effectivenssDataRow.FirstShot_PenChance = (double)test.Shots[0].PenetrationChance;
+            effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
+            effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
+
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetration, ammo.ArmorDamage, 100);
+
+            effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
+            effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot - 1].ProbabilityOfKillCumulative;
+
+            return effectivenssDataRow;
+        }
 
         public static List<EffectivenessDataRow> CalculateArmorEffectivenessData(ArmorItem armorItem, Database database)
         {
@@ -452,6 +476,17 @@ namespace WishGranter
             return data;
         }
 
+        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessForRTE(Ammo ammo, Database database, float penetration, float damage)
+        {
+            List<EffectivenessDataRow> data = new();
+            var armorOptions = WG_Output.WriteArmorList(database).Select(x => x.Value);
+            foreach (var armorID in armorOptions)
+            {
+                ArmorItem armorItem = WG_Calculation.GetArmorItemFromRatstashByIdString(armorID, database);
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem, penetration, damage));
+            }
+            return data;
+        }
         public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database, float distance = 5f)
         {
             // Need to get every vest within the requested range
