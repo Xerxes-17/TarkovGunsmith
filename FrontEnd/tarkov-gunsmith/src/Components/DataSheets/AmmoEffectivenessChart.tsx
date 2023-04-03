@@ -6,7 +6,28 @@ import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, ToggleButtonGroup, Tooltip } from 'react-bootstrap';
 import { AMMO_VS_ARMOR } from '../../Util/links';
 import { Link } from 'react-router-dom';
+import { requestAmmoAuthorityData } from '../../Context/Requests';
+
+
+
 export default function SimplifiedAmmoRatingsTable(props: any) {
+    const [ammoData, setAmmoData] = useState([]);
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AmmoData')!);
+        if (data) {
+          setAmmoData(data);
+        }
+        else{
+          requestAmmoAuthorityData().then(response => {
+            setAmmoData(response);
+            localStorage.setItem('TarkovGunsmith_AmmoData', JSON.stringify(response));
+          }).catch(error => {
+            console.error(error);
+          });
+        }
+      }, []);
+
+
     //store pagination state in your own state
     const [pagination] = useState({
         pageIndex: 0,
