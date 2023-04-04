@@ -138,13 +138,30 @@ export default function Home(props: any) {
                     <Col>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                             <Card.Header as="h5">
+                                24/03/2023
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    Huge thanks to RatherLogical for providing the base code for some ballistics calculations. From this I made a simplified/sanitized version of it for getting the speed of a bullet at a given distance. As such, we now can account for range in our simulations!<br /><br />
+
+                                    With this addition, I am confident in being able to say that the Ammo Effectiveness Chart of this website is the new gold-standard for this topic.<br /><br />
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row className="row gy-2 mb-2">
+                    <Col>
+                        <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                            <Card.Header as="h5">
                                 22/03/2023
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
                                     We can now simulate all of the ammo and armor in the game 🥳. On top of this the armor damage calculation has been improved.<br /><br />
 
-                                    STK has been renamed to HTK as it's a better name, and I've set it to round rather than floor on a fractional number, DAM is now DMG, enabled advanced filtering on the AEC and a few other small interface changes<br /><br />
+                                    STK has been renamed to HTK as it's a better name, and I've set it to round rather than floor on a fractional number, DAM is now DMG, enabled advanced filtering on the AEC and a few other small interface changes.<br /><br />
                                 </Card.Text>
                             </Card.Body>
                         </Card>

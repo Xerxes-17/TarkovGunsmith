@@ -238,7 +238,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                                     className="mb-2"
                                     variant="outline-info"
                                 >
-                                    Displaying data for: {(TableData.at(0)?.ammoName)}
+                                    Displaying data for: {(TableData.at(0)?.ammoName)} @ 10m
                                 </Button>
                             </Box>
                         )}

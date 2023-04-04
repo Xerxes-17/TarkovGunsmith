@@ -297,6 +297,8 @@ namespace WishGranterProto.ExtensionMethods
     public class CondensedDataRow
     {
         public Ammo ammo { get; set; } = new();
+        public float distancePenetrationPower { get; set; } = 0;
+        public float distanceDamage { get; set; } = 0;
         public List<string> ratings { get; set; } = new();
         public int traderCashLevel { get; set; } = new();
     }

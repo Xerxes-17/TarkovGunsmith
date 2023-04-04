@@ -9,14 +9,125 @@ using Force.DeepCloner;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using WishGranter;
+using Newtonsoft.Json;
 
 namespace WishGranterTests
 {
+    [TestClass]
+    public class SingletonTests
+    {
+        [TestMethod]
+        public void Test_RatStashSingleton_Init()
+        {
+            var result = RatStashSingleton.Instance.DB().GetItems();
+            Console.WriteLine($"Count of Items in RatstashSingleton: {result.Count()}");
+        }
+    }
+
+
+    [TestClass]
+    public class BallisticTests
+    {
+        static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
+
+        [TestMethod]
+        public void Test_AmmoAuthority_Init()
+        {
+            AmmoInformationAuthority result = new();
+            
+            using StreamWriter writetext = new("RangeTables.json");
+            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_001m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(866.9968f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_010m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(854.3049f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_050m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(806.42944f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtSpeed_545BT_100m()
+        {
+            var result = WG_Ballistics.GetDamageAndPenetrationAtSpeed(731.42474f, 880f, 42, 42);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_GetBulletSpeedAtDistance_545BT_100m()
+        {
+            var result = WG_Ballistics.GetBulletSpeedAtDistance(100, 3.02f, 5.62f, .209f, 880);
+            Console.WriteLine(result);
+
+            Assert.IsTrue(731.42474 - result < .00005);
+        }
+        [TestMethod]
+        public void Test_GetBulletSpeedAtDistance_545BT_400m()
+        {
+            var result = WG_Ballistics.GetBulletSpeedAtDistance(400, 3.02f, 5.62f, .209f, 880);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_BulletRangeTableData_invalidateCurrentData_545BT()
+        {
+            BulletRangeTableData instance = new();
+            instance.bulletID = "56dff061d2720bb5668b4567";
+            instance.bulletName = "5.45x39mm BT gs";
+
+            bulletStatsPOCO bulletStatsPOCO = new bulletStatsPOCO();
+            bulletStatsPOCO.penetration = 42;
+            bulletStatsPOCO.damage = 42;
+            bulletStatsPOCO.massGrams = 3.02f;
+            bulletStatsPOCO.diameterMillimeters = 5.62f;
+            bulletStatsPOCO.ballisticCoefficient = .209f;
+            bulletStatsPOCO.initialSpeed = 880;
+
+            var result = instance.invalidateCurrentData(bulletStatsPOCO, RatStashDB);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void Test_BulletRangeTablesAuthority_All()
+        {
+
+            List<Ammo> Ammo = RatStashDB.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+            Ammo = Ammo.Where(x => x.Name.Contains("12/70")).ToList();
+            OLD_AmmoInformationAuthority bulletRangeTablesAuthority = new OLD_AmmoInformationAuthority(Ammo, RatStashDB);
+
+            using StreamWriter writetext = new("RangeTables.json");
+            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(bulletRangeTablesAuthority)));
+
+            Console.WriteLine($"Number of entries: {bulletRangeTablesAuthority.RangeTables_Ammo.Count}");
+        }
+    }
 
     [TestClass]
     public class CalculationTests
     {
         static Database RatStashDB = Database.FromFile("ratstash_jsons/items.json", false, "ratstash_jsons/en.json");
+
+        [TestMethod]
+        public void test()
+        {
+            List<Ammo> Ammo = RatStashDB.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
+            Console.WriteLine("blah");
+        }
 
         [TestMethod]
         public void Test_Korund_Penetration_545_BT()
@@ -450,8 +561,8 @@ namespace WishGranterTests
     [TestClass]
     public class MarketTests
     {
-        static JObject MarketDataJSON;
-        static List<MarketEntry> MarketData; 
+        static JObject? MarketDataJSON;
+        static List<MarketEntry>? MarketData; 
 
         [TestInitialize]
         public void testInit()

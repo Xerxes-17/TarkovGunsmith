@@ -19,6 +19,7 @@ import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import SimplifiedAmmoRatingsTable from './Components/DataSheets/AmmoEffectivenessChart';
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
