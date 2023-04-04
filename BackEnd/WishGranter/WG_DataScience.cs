@@ -470,7 +470,7 @@ namespace WishGranter
 
             foreach (var ammo in Ammo)
             {
-                data.Add(CalculateEffectivenessDataRow(ammo, armorItem, 5));
+                data.Add(CalculateEffectivenessDataRow(ammo, armorItem, 10));
             }
 
             return data;
@@ -487,7 +487,7 @@ namespace WishGranter
             }
             return data;
         }
-        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database, float distance = 5f)
+        public static List<EffectivenessDataRow> CalculateAmmoEffectivenessData(Ammo ammo, Database database, float distance = 10f)
         {
             // Need to get every vest within the requested range
             // run the ADC calc between the ammo and the vests

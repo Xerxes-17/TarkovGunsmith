@@ -410,8 +410,9 @@ List<CondensedDataRow> GetAmmoEffectivenessChartAtDistance(int distance)
     return dataScience.getAmmoEffectivenessChartForDistance(distance);
 }
 
-SortedDictionary<string, AmmoReccord> GetAmmoAuthorityData()
+List<AmmoReccord> GetAmmoAuthorityData()
 {
     using var myActivity = MyActivitySource.StartActivity($"Request for Ammo Reccords");
-    return ammoInformationAuthority.AmmoReccords;
+    Console.WriteLine($"sending count of reccords: {ammoInformationAuthority.AmmoReccords.Count}");
+    return ammoInformationAuthority.GetAllReccordsAsList();
 }

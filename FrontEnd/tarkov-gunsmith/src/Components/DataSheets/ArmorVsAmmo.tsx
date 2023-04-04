@@ -200,7 +200,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                                     className="mb-2"
                                     variant="outline-info"
                                 >
-                                    Displaying data for: {(ArmorTableData.at(0)?.armorName)}
+                                    Displaying data for: {(ArmorTableData.at(0)?.armorName)} @ 10m
                                 </Button>
                             </Box>
                         )}

@@ -822,7 +822,7 @@ export default function ArmorDamageCalculator(props: any) {
                     <Card bg="dark" border="secondary" text="light" className="xl" id="print">
                         <Card.Header as="h4">
                             <Stack direction="horizontal" gap={3}>
-                                📉 {result.testName} @ {rateOfFire}rpm
+                                📉 {result.testName} @ {rateOfFire}rpm @ 10m distance
                                 <div className="ms-auto">
 
                                     <Stack direction='horizontal' gap={2}>

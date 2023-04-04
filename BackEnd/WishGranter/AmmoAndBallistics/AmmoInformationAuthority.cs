@@ -117,6 +117,11 @@ namespace WishGranter
             return result;
         }
 
+        public List<AmmoReccord> GetAllReccordsAsList()
+        {
+            return AmmoReccords.Values.ToList();
+        }
+
         public int invalidateCurrentReccords()
         {
             int counter = 0;

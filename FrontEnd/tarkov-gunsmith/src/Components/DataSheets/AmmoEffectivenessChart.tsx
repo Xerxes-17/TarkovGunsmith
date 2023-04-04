@@ -1,33 +1,16 @@
 import MaterialReactTable from 'material-react-table';
 import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScript (optional, but recommended)
 import { useEffect, useMemo, useState } from 'react';
-import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, ToggleButtonGroup, Tooltip } from 'react-bootstrap';
 import { AMMO_VS_ARMOR } from '../../Util/links';
 import { Link } from 'react-router-dom';
 import { requestAmmoAuthorityData } from '../../Context/Requests';
+import { JsxElement } from 'typescript';
 
 
 
 export default function SimplifiedAmmoRatingsTable(props: any) {
-    const [ammoData, setAmmoData] = useState([]);
-    useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AmmoData')!);
-        if (data) {
-          setAmmoData(data);
-        }
-        else{
-          requestAmmoAuthorityData().then(response => {
-            setAmmoData(response);
-            localStorage.setItem('TarkovGunsmith_AmmoData', JSON.stringify(response));
-          }).catch(error => {
-            console.error(error);
-          });
-        }
-      }, []);
-
-
     //store pagination state in your own state
     const [pagination] = useState({
         pageIndex: 0,
@@ -39,15 +22,8 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
             mode: 'dark',
         },
     });
-    // If using TypeScript, define the shape of your data (optional, but recommended)
-    // strongly typed if you are using TypeScript (optional, but recommended)
-    interface RatingsTableRow {
-        ammo: any
-        distancePenetrationPower: number
-        distanceDamage: number
-        ratings: string[]
-        traderCashLevel: number
-    }
+
+
     const MY_VIOLET = "#fc03f4";
     const MY_PURPLE = "#83048f";
     const MY_BLUE = "#027cbf";
@@ -57,23 +33,41 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
     const MY_ORANGE = "#c45200"
     const MY_RED = "#910d1d";
 
-    const [AmmoTableData, setAmmoTableData] = useState<RatingsTableRow[]>([]);
-
     const [picturesYesNo, setPicturesYesNo] = useState(false);
 
-    const [distance, setDistance] = useState(15);
-    const distances: number[] = [1, 15, 25, 50, 75, 100, 125];
+    const [distance, setDistance] = useState(10);
+    const distances: number[] = [1, 10, 25, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600];
 
     const handleDistanceChange = (val: any) => setDistance(val);
 
-    const ammos = async () => {
-        const response = await fetch(API_URL + `/GetAmmoEffectivenessChartAtDistance/${distance}`);
-        setAmmoTableData(await response.json())
+    interface AmmoEffectivenessRow {
+        ballisticStats: any
+        details: any
+        rangeIntervals: number[]
+        rangeTable: any
+        traderLevel: number
     }
-    // This useEffect will update the ArmorOptions with the result from the async API call
+
+    const [ammoData, setAmmoData] = useState([]);
     useEffect(() => {
-        ammos();
-    }, [distance])
+        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AmmoData')!);
+        if (data) {
+            setAmmoData(data);
+        }
+        else {
+            requestAmmoAuthorityData().then(response => {
+                localStorage.setItem('TarkovGunsmith_AmmoData', JSON.stringify(response));
+            }).catch(error => {
+                console.error(error);
+            });
+        }
+    }, []);
+
+    const [filteredAmmoData, setFilteredAmmoData] = useState([]);
+    useEffect(() => {
+        const filtered = ammoData.filter((item: AmmoEffectivenessRow) => item.rangeIntervals.includes(distance));
+        setFilteredAmmoData(filtered)
+    }, [ammoData, distance])
 
     function dealWithMultiShotAmmo(input: string, projectileCount: number) {
         if (projectileCount === 1) {
@@ -116,9 +110,54 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
 
             )
         }
+    }
 
+    function deltaToolTip(current: number, initial: number, unit?: string) {
+        const renderTooltip = (props: any) => (
+            <Tooltip id="button-tooltip" {...props}>
+                Initial: {initial.toFixed(0)} {unit}<br />
+                Δ: {(current - initial).toFixed(2)} {unit} <br />
+                Current: {current.toFixed(2)} {unit}
+                
+            </Tooltip>
+        );
 
+        return (
+            <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+            >
+                <span>
+                    {current.toFixed(1)} {unit}
+                </span>
+            </OverlayTrigger>
 
+        )
+    }
+    function deltaToolTipElement(current: number, initial: number, element: JSX.Element) {
+        const renderTooltip = (props: any) => (
+            <Tooltip id="button-tooltip" {...props}>
+                Initial: {initial.toFixed(0)} <br />
+                Δ: {(current - initial).toFixed(2)} <br />
+                Current: {current.toFixed(2)} 
+                
+            </Tooltip>
+        );
+
+        return (
+            <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+            >
+                <span>
+                    {element}
+                </span>
+
+            </OverlayTrigger>
+
+        )
     }
 
     function getTraderConditionalCell(input: number) {
@@ -267,15 +306,18 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
             return <></>
         }
     }
+    function trimCaliber(input: string) {
+        return input.substring(7);
+    }
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-    const columns = useMemo<MRT_ColumnDef<RatingsTableRow>[]>(
+    const columns = useMemo<MRT_ColumnDef<AmmoEffectivenessRow>[]>(
         () => [
             {
-                accessorKey: 'ammo.name', //simple recommended way to define a column
+                accessorKey: 'details.name', //simple recommended way to define a column
                 header: 'Name',
-                id: 'header_normal',
-                muiTableHeadCellProps: { sx: { color: 'green' } }, //custom props
+                id: 'name',
+                muiTableHeadCellProps: { sx: { color: 'white' } }, //custom props
                 enableSorting: true,
                 filterFn: 'fuzzy',
                 Cell: ({ renderedCellValue, row }) => (
@@ -292,24 +334,30 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                 <img
                                     alt="avatar"
                                     height={40}
-                                    src={`https://assets.tarkov.dev/${row.original.ammo.id}-icon.jpg`}
+                                    src={`https://assets.tarkov.dev/${row.original.details.id}-icon.jpg`}
                                     loading="lazy"
                                 />
                             }
 
                             {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                            <span><Link to={`${AMMO_VS_ARMOR}/${row.original.ammo.id}`}>{renderedCellValue}</Link></span>
+                            <span><Link to={`${AMMO_VS_ARMOR}/${row.original.details.id}`}>{renderedCellValue}</Link></span>
                         </Box>
                     </>
                 ),
             },
             {
-                accessorKey: 'ammo.caliber',
+                accessorKey: 'details.caliber',
                 header: 'Cal.',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
+                Cell: ({ cell }) => (
+                    <>
+                        {trimCaliber(cell.getValue<string>())}
+                    </>
+                ),
             },
             {
-                accessorKey: 'distancePenetrationPower',
+                accessorKey: 'ballisticStats.penetration',
+                id: 'initialPenetration',
                 header: 'PEN',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' },
@@ -325,7 +373,8 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'distanceDamage',
+                accessorKey: 'ballisticStats.damage',
+                id: 'initialDamage',
                 header: 'DMG',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
@@ -341,7 +390,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ammo.projectileCount',
+                accessorKey: 'details.projectileCount',
                 header: 'Projectiles',
                 id: 'projectiles',
                 muiTableHeadCellProps: {
@@ -357,7 +406,78 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ammo.fragmentationChance',
+                accessorKey: 'details.initialSpeed',
+                header: 'Initial Speed',
+                id: 'InitialSpeed',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>().toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} m/s
+                    </>
+                )
+            },
+
+            {
+                accessorKey: `rangeTable.${distance}.speed`,
+                header: `Speed, ${distance}m`,
+                id: 'DistanceSpeed',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell, row }) => (
+                    <>
+                        {deltaToolTip(cell.getValue<number>(), row.original.details.initialSpeed, "m/s")}
+
+                        {/* {cell.getValue<number>().toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} m/s (-{(row.original.details.initialSpeed - cell.getValue<number>()).toFixed(0)}m/s) */}
+                    </>
+                )
+            },
+            {
+                accessorKey: `rangeTable.${distance}.penetration`,
+                header: `PEN, ${distance}m`,
+                id: 'DistancePenetration',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell, row }) => (
+                    <>
+                        {deltaToolTipElement(cell.getValue<number>(), row.original.details.penetrationPower, penetrationConditionalColour(cell.getValue<number>()))}
+
+                        {/* {penetrationConditionalColour(cell.getValue<number>())} (-{(row.original.details.penetrationPower - cell.getValue<number>()).toFixed(2)}) */}
+                    </>
+                )
+            },
+            {
+                accessorKey: `rangeTable.${distance}.damage`,
+                header: `DMG, ${distance}m`,
+                id: 'DistanceDamage',
+                muiTableHeadCellProps: {
+                    sx: { color: 'white' }
+                },
+                muiTableBodyCellProps: {
+                    align: 'center',
+                },
+                Cell: ({ cell, row }) => (
+                    <>
+                        {deltaToolTipElement(cell.getValue<number>(), row.original.details.damage, damageConditionalColour(cell.getValue<number>()))}
+
+                        {/* {damageConditionalColour(cell.getValue<number>())} (-{(row.original.details.damage - cell.getValue<number>()).toFixed(2)}) */}
+                    </>
+                )
+            },
+            {
+                accessorKey: 'details.fragmentationChance',
                 header: 'Frag %',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
@@ -368,12 +488,12 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 filterFn: 'greaterThanOrEqualTo',
                 Cell: ({ cell, row }) => (
                     <>
-                        {fragmentationConditionalColour(fragmentationCutoff(cell.getValue<number>(), row.original.ammo.penetrationPower))}
+                        {fragmentationConditionalColour(fragmentationCutoff(cell.getValue<number>(), row.original.details.penetrationPower))}
                     </>
                 )
             },
             {
-                accessorKey: 'ammo.lightBleedingDelta',
+                accessorKey: 'details.lightBleedingDelta',
                 header: 'LBC Δ %',
                 id: 'LBD',
                 muiTableHeadCellProps: {
@@ -389,7 +509,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ammo.heavyBleedingDelta',
+                accessorKey: 'details.heavyBleedingDelta',
                 header: 'HBC Δ %',
                 id: 'HBD',
                 muiTableHeadCellProps: {
@@ -404,24 +524,9 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     </>
                 )
             },
+
             {
-                accessorKey: 'ammo.initialSpeed',
-                header: 'Initial Speed',
-                id: 'InitialSpeed',
-                muiTableHeadCellProps: {
-                    sx: { color: 'white' }
-                },
-                muiTableBodyCellProps: {
-                    align: 'center',
-                },
-                Cell: ({ cell }) => (
-                    <>
-                        {cell.getValue<number>().toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} m/s
-                    </>
-                )
-            },
-            {
-                accessorKey: 'ammo.ammoAccuracy',
+                accessorKey: 'details.ammoAccuracy',
                 header: 'Ammo Acc %',
                 size: 10,
                 muiTableHeadCellProps: {
@@ -442,7 +547,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ammo.ammoRec',
+                accessorKey: 'details.ammoRec',
                 header: 'Recoil',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
@@ -457,7 +562,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 )
             },
             {
-                accessorKey: 'ratings',
+                accessorKey: `rangeTable.${distance}.ratings`,
                 header: 'AC 2',
                 id: "ac2",
                 muiTableHeadCellProps: {
@@ -470,7 +575,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(1) + '', row.original.ammo.projectileCount),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(1) + '', row.original.details.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
@@ -478,14 +583,14 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                         })}
                     >
                         <>
-                            {dealWithMultiShotAmmo(cell.getValue<string[]>().at(1)!, row.original.ammo.projectileCount)}
+                            {dealWithMultiShotAmmo(cell.getValue<string[]>().at(1)!, row.original.details.projectileCount)}
                         </>
 
                     </Box>
                 ),
             },
             {
-                accessorKey: 'ratings',
+                accessorKey: `rangeTable.${distance}.ratings`,
                 header: 'AC 3',
                 id: "ac3",
                 muiTableHeadCellProps: {
@@ -499,19 +604,19 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(2) + '', row.original.ammo.projectileCount),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(2) + '', row.original.details.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(2)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(2)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
             {
-                accessorKey: 'ratings',
+                accessorKey: `rangeTable.${distance}.ratings`,
                 header: 'AC 4',
                 id: "ac4",
                 muiTableHeadCellProps: {
@@ -524,19 +629,19 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(3) + '', row.original.ammo.projectileCount),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(3) + '', row.original.details.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(3)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(3)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
             {
-                accessorKey: 'ratings',
+                accessorKey: `rangeTable.${distance}.ratings`,
                 header: 'AC 5',
                 id: "ac5",
                 muiTableHeadCellProps: {
@@ -549,19 +654,19 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(4) + '', row.original.ammo.projectileCount),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(4) + '', row.original.details.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(4)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(4)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
             {
-                accessorKey: 'ratings',
+                accessorKey: `rangeTable.${distance}.ratings`,
                 header: 'AC 6',
                 id: "ac6",
                 muiTableHeadCellProps: {
@@ -574,19 +679,19 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     <Box
                         component="span"
                         sx={() => ({
-                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(5) + '', row.original.ammo.projectileCount),
+                            backgroundColor: getEffectivenessColorCode(cell.getValue<string>().at(5) + '', row.original.details.projectileCount),
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(5)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string[]>().at(5)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
             {
-                accessorKey: 'traderCashLevel',
+                accessorKey: 'traderLevel',
                 header: 'Trader $ Level',
                 muiTableHeadCellProps: {
                     sx: { color: 'white' }
@@ -601,7 +706,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                 ),
             },
         ],
-        [picturesYesNo],
+        [picturesYesNo, distance],
     );
 
 
@@ -821,10 +926,10 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                <strong>Multi-projectile</strong> rounds are displayed in "Shells to Kill", if you want to see the "Projectiles to Kill", check their tooltip. Number of projectiles is an available column.<br />
+                                <strong>Multi-projectile</strong> rounds are displayed in "Shells to Kill", if you want to see the "Projectiles to Kill", check their tooltip. Number of projectiles is an available column. Remember that not all shot in a shell will hit, particularly at a distance.<br />
                                 <strong>Please note:</strong>
                                 <ul>
-                                    <li>Distance drop-off of damage and penetration is not yet modeled, so marginal cases in practice might take an extra shot.</li>
+                                    <li>Distance drop-off of damage and penetration is modeled, select it with the green distance numbers. Buckshot max is 50m, slugs and pistols max is 100m, intermediate rifles max is 200m, remainder max is 600m.</li>
                                     <li>I've set fragmentation for ammo with less than 20 penetration to 0 to save you from having to cross check it and do it in your head, aren't I nice?</li>
                                 </ul>
                             </>
@@ -873,14 +978,13 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     )}
 
                     columns={columns}
-                    data={AmmoTableData}
+                    data={filteredAmmoData}
 
                     enableRowSelection={false}//enable some features
                     enableSelectAll={false}
 
                     // enableRowActions
                     enableColumnFilterModes
-
 
                     enableColumnOrdering
                     enableGrouping
@@ -891,6 +995,9 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                     initialState={{
                         density: 'compact',
                         columnVisibility: {
+                            initialPenetration: false,
+                            initialDamage: false,
+                            InitialSpeed: false,
                             AmmoRec: false,
                             LBD: false,
                             HBD: false,
@@ -905,9 +1012,9 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                         },
                         pagination: pagination,
 
-                        grouping: ['ammo.caliber'], //an array of columns to group by by default (can be multiple)
+                        grouping: ['details.caliber'], //an array of columns to group by by default (can be multiple)
                         expanded: true, //expand all groups by default
-                        sorting: [{ id: 'ammo.penetrationPower', desc: true }], //sort by state by default
+                        sorting: [{ id: 'DistancePenetration', desc: true }], //sort by state by default
                     }} //hide AmmoRec column by default
 
                     defaultColumn={{
