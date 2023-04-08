@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using System.Runtime.InteropServices;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace WishGranterProto.ExtensionMethods
 {
@@ -98,6 +100,7 @@ namespace WishGranterProto.ExtensionMethods
     }
     public class TransmissionArmorTestResult
     {
+
         public string? TestName { get; set;}
         public double? ArmorDamagePerShot { get; set; }
 
@@ -115,10 +118,13 @@ namespace WishGranterProto.ExtensionMethods
     }
     public class TransmissionArmorTestShot
     {
-        public double? DurabilityPerc { get; set; }
-        public double? Durability { get; set; }
-        public double? DoneDamage { get; set; }
-        public double? PenetrationChance { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public double DurabilityPerc { get; set; } = -1;
+        public double Durability { get; set; } = -1;
+        public double DoneDamage { get; set; } = -1;
+        public double PenetrationChance { get; set; } = -1;
 
         public double BluntDamage { get; set; } = -1;
         public double PenetratingDamage { get; set; } = -1;
