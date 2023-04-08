@@ -37,6 +37,28 @@ namespace WishGranterTests
             TBS_datastore.Instance.Bodge_Armor_Ammo_DB();
         }
 
+        [TestMethod]
+        public void Test_StaticRatStash_Count()
+        {
+            int result = StaticRatStash.DB.GetItems().Count();
+            Console.WriteLine($"Ratstash.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticArmors_CleanedCount()
+        {
+            var result = StaticArmors.Cleaned.Count;
+            Console.WriteLine($"Armors.Cleaned.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticAmmos_CleanedCount()
+        {
+            var result = StaticAmmos.Cleaned.Count;
+            Console.WriteLine($"Ammos.Cleaned.Count: {result}");
+        }
+
+
     }
 
 
