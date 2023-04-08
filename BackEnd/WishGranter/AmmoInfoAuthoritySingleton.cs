@@ -5,7 +5,7 @@ namespace WishGranter
     public class AmmoInfoAuthoritySingleton
     {
         private static AmmoInfoAuthoritySingleton? _instance = null;
-        private AmmoInformationAuthority info { get; } = new();
+        public AmmoInformationAuthority info { get; } = new();
 
         private static readonly object lockObj = new object();
 

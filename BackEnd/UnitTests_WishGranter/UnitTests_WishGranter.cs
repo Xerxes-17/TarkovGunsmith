@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using WishGranter;
 using Newtonsoft.Json;
+using WishGranter.TerminalBallisticsSimulation;
 
 namespace WishGranterTests
 {
@@ -22,6 +23,20 @@ namespace WishGranterTests
             var result = RatStashSingleton.Instance.DB().GetItems();
             Console.WriteLine($"Count of Items in RatstashSingleton: {result.Count()}");
         }
+
+        [TestMethod]
+        public void Test_TBS_datastore_Init()
+        {
+            var result = TBS_datastore.Instance.CalculateAllCombinations();
+            Console.WriteLine($"Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_TBS_datastore_AA_Bodge()
+        {
+            TBS_datastore.Instance.Bodge_Armor_Ammo_DB();
+        }
+
     }
 
 

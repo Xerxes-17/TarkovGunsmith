@@ -15,6 +15,7 @@ using System.Diagnostics;
 using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
+using WishGranter.TerminalBallisticsSimulation;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -79,6 +80,9 @@ logger.LogInformation($"Compiling default weapon presets finished by {watch.Elap
 
 var ArmorOptionsList = WG_Output.WriteArmorList(RatStashSingleton.Instance.DB());
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashSingleton.Instance.DB());
+
+//Starting this singleton and init
+TBS_datastore.Instance.CalculateAllCombinations();
 
 // Init the DataScience instance, get the big data table ready
 WG_DataScience dataScience = new WG_DataScience();
