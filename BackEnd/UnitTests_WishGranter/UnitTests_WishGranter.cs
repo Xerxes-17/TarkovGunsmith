@@ -11,6 +11,7 @@ using System.IO;
 using WishGranter;
 using Newtonsoft.Json;
 using WishGranter.TerminalBallisticsSimulation;
+using WishGranter.Statics;
 
 namespace WishGranterTests
 {
@@ -56,6 +57,30 @@ namespace WishGranterTests
         {
             var result = StaticAmmos.Cleaned.Count;
             Console.WriteLine($"Ammos.Cleaned.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_Count()
+        {
+            var result = StaticModsWeapons.CleanedWeapons.Count;
+            var result2 = StaticModsWeapons.CleanedMods.Count;
+
+            Console.WriteLine($"AllWeapons.Count: {result}");
+            Console.WriteLine($"AllMods.Count: {result2}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_Silencers()
+        {
+            var result = StaticModsWeapons.GetListWithQuietMuzzles().Count;
+            Console.WriteLine($"CleanedMods.Silencers.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_LoudMuzzles()
+        {
+            var result = StaticModsWeapons.GetListWithLoudMuzzles().Count;
+            Console.WriteLine($"CleanedMods.LoudMuzzles.Count: {result}");
         }
 
 
