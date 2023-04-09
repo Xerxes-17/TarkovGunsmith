@@ -62,8 +62,8 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_StaticModsWeapons_Count()
         {
-            var result = StaticModsWeapons.CleanedWeapons.Count;
-            var result2 = StaticModsWeapons.CleanedMods.Count;
+            var result = StaticModsWeaponsPresets.CleanedWeapons.Count;
+            var result2 = StaticModsWeaponsPresets.CleanedMods.Count;
 
             Console.WriteLine($"AllWeapons.Count: {result}");
             Console.WriteLine($"AllMods.Count: {result2}");
@@ -72,14 +72,14 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_StaticModsWeapons_Silencers()
         {
-            var result = StaticModsWeapons.GetListWithQuietMuzzles().Count;
+            var result = StaticModsWeaponsPresets.GetListWithQuietMuzzles().Count;
             Console.WriteLine($"CleanedMods.Silencers.Count: {result}");
         }
 
         [TestMethod]
         public void Test_StaticModsWeapons_LoudMuzzles()
         {
-            var result = StaticModsWeapons.GetListWithLoudMuzzles().Count;
+            var result = StaticModsWeaponsPresets.GetListWithLoudMuzzles().Count;
             Console.WriteLine($"CleanedMods.LoudMuzzles.Count: {result}");
         }
 
