@@ -1,4 +1,5 @@
 ﻿using RatStash;
+using WishGranterProto;
 using WishGranterProto.ExtensionMethods;
 
 namespace WishGranter

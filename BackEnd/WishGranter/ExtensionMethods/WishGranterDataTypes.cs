@@ -11,14 +11,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WishGranterProto.ExtensionMethods
 {
-    public enum OfferType
-    {
-        None,
-        Sell,
-        Cash,
-        Barter,
-        Flea
-    }
     public class TraderCashOffer
     {
         public string TraderName { get; set; } = string.Empty;
@@ -30,23 +22,6 @@ namespace WishGranterProto.ExtensionMethods
 
         public int PriceInRUB { get; set; } = -1;
 
-    }
-
-    public class MarketEntry
-    {
-        public string Name { get; set; } = "Not set after construction";
-        public string Id { get; set; } = "Not set after construction";
-        public PurchaseOffer PurchaseOffer { get; set; } = new();
-    }
-    public class PurchaseOffer
-    {
-        public int PriceRUB { get; set; } = -1;
-        public int Price { get; set; } = -1;
-        public string Currency { get; set; } = string.Empty;
-        public string Vendor { get; set; } = string.Empty;
-        public int MinVendorLevel { get; set; } = -1;
-        public int ReqPlayerLevel { get; set; } = -1;
-        public OfferType OfferType { get; set; } = OfferType.None;
     }
     public class WeaponPreset
     {

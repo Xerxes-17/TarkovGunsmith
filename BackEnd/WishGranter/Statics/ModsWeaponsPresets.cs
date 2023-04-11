@@ -1,9 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
 using RatStash;
+using WishGranterProto;
 using WishGranterProto.ExtensionMethods;
 
 namespace WishGranter.Statics
 {
+    public enum MuzzleType
+    {
+        Loud,
+        Quiet,
+        Any
+    }
+
     // Decided to combine these two categories into one as Mods are only relevant to Weapons, possibly going to add presets too?
     public static class ModsWeaponsPresets
     {
@@ -85,7 +93,20 @@ namespace WishGranter.Statics
 
             return result;
         }
+        public static List<WeaponMod> GetListWithLoudMuzzles()
+        {
+            List<WeaponMod> list = CleanedMods;
 
+            list.RemoveAll(x => x is Silencer);
+
+            // Debug print
+            foreach (var item in list.Where(x => x is MuzzleDevice))
+            {
+                Console.WriteLine($"{item.Name}, {item.Id}");
+            }
+
+            return list;
+        }
         public static List<WeaponMod> GetListWithQuietMuzzles()
         {
             //Get out list from Cleaned mods, remove all of the Muzzle devices
@@ -117,22 +138,66 @@ namespace WishGranter.Statics
 
             return list;
         }
-
-        public static List<WeaponMod> GetListWithLoudMuzzles()
+        public static List<string> GetAllPossibleChildrenIdsForCI(string compoundItemId)
         {
-            List<WeaponMod> list = CleanedMods;
+            HashSet<string> output = new ();
 
-            list.RemoveAll(x => x is Silencer);
+            var compoundItem = (CompoundItem) StaticRatStash.DB.GetItem(compoundItemId);
 
-            // Debug print
-            foreach (var item in list.Where(x=>x is MuzzleDevice))
+            foreach (var slot in compoundItem.Slots)
             {
-                Console.WriteLine($"{item.Name}, {item.Id}");
-            }
+                if (slot.Filters[0].Whitelist.Any())
+                {
+                    output.UnionWith(slot.Filters[0].Whitelist);
 
-            return list;
+                    foreach(var id in slot.Filters[0].Whitelist)
+                    {
+                        output.UnionWith(GetAllPossibleChildrenIdsForCI(id));
+                    }
+                }
+            }
+            return output.ToList();
         }
 
+        public static List<WeaponMod> FilterModsListByIdList(List<WeaponMod> inputMods, List<string> inputIds)
+        {
+            return inputMods.Where(x=>inputIds.Contains(x.Id)).ToList();
+        }
+        public static List<WeaponMod> GetShortListOfModsForCompundItemWithParams(string compundItemID, MuzzleType muzzleType, int playerLevel, bool fleaMarket, List<string>? exclusionList = null)
+        {
+            // Make return list
+            List<WeaponMod> output = new();
+
+            // Get the cleaned master list with the chosen muzzle devices
+            if (muzzleType == MuzzleType.Loud)
+                output = GetListWithLoudMuzzles();
+            else if (muzzleType == MuzzleType.Quiet)
+                output = GetListWithQuietMuzzles();
+            else
+                output = CleanedMods;
+
+            // Make a list of Ids that the provided weapon or mod could possibly fit to itself and children.
+            var shortListOfIds = GetAllPossibleChildrenIdsForCI(compundItemID);
+
+            // Filter the master list by that list of possibilities
+            output = FilterModsListByIdList(output, shortListOfIds);
+
+            // Filter the list to items which meet player level requirement and possibly include flea offers.
+            List<MarketEntry> marketData= new();
+            if (fleaMarket)
+                marketData = Market.GetFreeMarketPurchaseOffersByPlayerLevel(playerLevel);
+            else
+                marketData = Market.GetTraderOffersByPlayerlevel(playerLevel);
+
+            var marketIds = marketData.Select(x => x.Id).ToList();
+            output = FilterModsListByIdList(output, marketIds);
+
+            // Remove any items that have been explicitly excluded, if there are any.
+            if(exclusionList != null)
+                output = output.Where(x => !exclusionList.Contains(x.Id)).ToList();
+
+            return output;
+        }
         public static List<WeaponPreset> ConstructDefaultPresets()
         {
             List<WeaponPreset> ReturnedPresets = new();
@@ -270,15 +335,5 @@ namespace WishGranter.Statics
             }
             return ReturnedPresets;
         }
-    }
-
-    public class WeaponPreset
-    {
-        public string Name { get; set; } = "Hey this didn't get set after construction.";
-        public string Id { get; set; } = "Hey this didn't get set after construction.";
-        public Weapon Weapon { get; set; } = new Weapon();
-
-        //todo move this type somewhere better.
-        public PurchaseOffer PurchaseOffer { get; set; } = new();
     }
 }

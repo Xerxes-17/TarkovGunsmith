@@ -2,7 +2,7 @@
 
 namespace WishGranter
 {
-    public static class StaticAmmos
+    public static class Ammos
     {
         public static List<Item> Cleaned { get; } = ConstructCleanedList();
 

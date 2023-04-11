@@ -16,6 +16,7 @@ using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
 using WishGranter.TerminalBallisticsSimulation;
+using WishGranterProto;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)

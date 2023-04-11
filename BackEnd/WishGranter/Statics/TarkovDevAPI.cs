@@ -2,7 +2,7 @@
 
 namespace WishGranter.Statics
 {
-    public static class StaticTarkovDevAPI
+    public static class TarkovDevAPI
     {
         private static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filename)
         {
@@ -67,6 +67,34 @@ namespace WishGranter.Statics
             JObject MarketDataJSON = TarkovDevQueryAsync("{ items(types: [ any ]) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } bartersFor { level requiredItems { quantity item { id name buyFor { priceRUB vendor { name } } } } trader{ name } } sellFor { priceRUB vendor { name } } } }", "MarketData_Any").Result;
             Console.WriteLine("MarketDataJSON returned.");
             return MarketDataJSON;
+        }
+
+        public static JObject GetFleaMarketData()
+        {
+            // Get all of the flea market offers for any item.
+            JObject marketDataJSON = TarkovDevQueryAsync("{ items(types: [any]) { id name buyFor { price currency priceRUB vendor { name } } } }", "AllPurchaseOffers_Any").Result;
+            Console.WriteLine("AllPurchaseOffers returned.");
+
+            JArray itemsArray = marketDataJSON["data"]["items"] as JArray;
+
+            var selectedItems = new JArray();
+
+            foreach (var item in itemsArray)
+            {
+                var buyForArray = item["buyFor"] as JArray;
+
+                var selectedBuyForArray = buyForArray.Where(buyFor => buyFor["vendor"]["name"].Value<string>() == "Flea Market").ToList();
+
+                if (selectedBuyForArray.Count > 0)
+                {
+                    var selectedItem = new JObject(new JProperty("id", item["id"]), new JProperty("name", item["name"]), new JProperty("buyFor", new JArray(selectedBuyForArray)));
+                    selectedItems.Add(selectedItem);
+                }
+            }
+
+            JObject selectedObject = new JObject(new JProperty("data", new JObject(new JProperty("items", selectedItems))));
+
+            return selectedObject;
         }
     }
 }

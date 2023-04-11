@@ -2,7 +2,7 @@
 
 namespace WishGranter
 {
-    public static class StaticArmors
+    public static class Armors
     {
         private static List<Type> SelectionFilter = new List<Type>()
         {

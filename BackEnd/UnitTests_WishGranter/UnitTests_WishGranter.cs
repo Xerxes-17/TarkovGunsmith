@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using WishGranter.TerminalBallisticsSimulation;
 using WishGranter.Statics;
 
+
 namespace WishGranterTests
 {
     [TestClass]
@@ -48,22 +49,22 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_StaticArmors_CleanedCount()
         {
-            var result = StaticArmors.Cleaned.Count;
+            var result = Armors.Cleaned.Count;
             Console.WriteLine($"Armors.Cleaned.Count: {result}");
         }
 
         [TestMethod]
         public void Test_StaticAmmos_CleanedCount()
         {
-            var result = StaticAmmos.Cleaned.Count;
+            var result = Ammos.Cleaned.Count;
             Console.WriteLine($"Ammos.Cleaned.Count: {result}");
         }
 
         [TestMethod]
         public void Test_StaticModsWeapons_Count()
         {
-            var result = StaticModsWeaponsPresets.CleanedWeapons.Count;
-            var result2 = StaticModsWeaponsPresets.CleanedMods.Count;
+            var result = ModsWeaponsPresets.CleanedWeapons.Count;
+            var result2 = ModsWeaponsPresets.CleanedMods.Count;
 
             Console.WriteLine($"AllWeapons.Count: {result}");
             Console.WriteLine($"AllMods.Count: {result2}");
@@ -72,17 +73,49 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_StaticModsWeapons_Silencers()
         {
-            var result = StaticModsWeaponsPresets.GetListWithQuietMuzzles().Count;
+            var result = ModsWeaponsPresets.GetListWithQuietMuzzles().Count;
             Console.WriteLine($"CleanedMods.Silencers.Count: {result}");
         }
 
         [TestMethod]
         public void Test_StaticModsWeapons_LoudMuzzles()
         {
-            var result = StaticModsWeaponsPresets.GetListWithLoudMuzzles().Count;
+            var result = ModsWeaponsPresets.GetListWithLoudMuzzles().Count;
             Console.WriteLine($"CleanedMods.LoudMuzzles.Count: {result}");
         }
 
+        [TestMethod]
+        public void Test_TarkovDevApi_GetFleaMarketData()
+        {
+            var result = TarkovDevAPI.GetFleaMarketData();
+            Console.WriteLine($"GetAllFlea.Result: {result}");
+        }
+
+        [TestMethod]
+        public void Test_TarkovDevApi_GetAllMarketData()
+        {
+            var result = TarkovDevAPI.GetAllMarketData();
+            Console.WriteLine($"GetAllFlea.Result: {result}");
+        }
+
+        [TestMethod]
+        public void Test_GetAllPossibleChildrenIdsForCI()
+        {
+            var loadDict = Market.LoyaltyLevelsByPlayerLevel;
+
+            CompoundItem input = (CompoundItem) StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74M 5.45x39 assault rifle"));
+
+            var result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(input.Id, MuzzleType.Loud, 40, false);
+            Console.WriteLine($"GetShortListOfModsForCompundItemWithParams.Result.Count: {result.Count}");
+        }
+
+        [TestMethod]
+        public void Test_StaticTest()
+        {
+            var loadDict = Market.LoyaltyLevelsByPlayerLevel;
+
+            Console.WriteLine($"wtf: {loadDict.Count}");
+        }
 
     }
 
