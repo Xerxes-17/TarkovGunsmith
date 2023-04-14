@@ -9,7 +9,7 @@ export default function Home(props: any) {
             <Container className='main-app-container'>
                 <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                     <Card.Header as="h1">
-                        Welcome to Tarkov Gunsmith! This text is temporary.
+                        Welcome to Tarkov Gunsmith!
                     </Card.Header>
                 </Card>
                 <div className="row gy-2 mb-2">
@@ -129,6 +129,22 @@ export default function Home(props: any) {
                                 <Card.Text>
                                     I figure that keeping some record of what's been happening along with my thought process
                                     behind changes and decisions could be useful and also interesting to other people.
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row className="row gy-2 mb-2">
+                    <Col>
+                        <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                            <Card.Header as="h5">
+                                14/04/2023
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    Sorry about the outage over the past week or so, the elastic beanstalk environment broke and some "fix up later" issues came home to roost right when I had less time available for this.<br /><br />
+
+                                    However, it's now been fixed and I've also now got a fully operational death st-, ahem, CI/CD pipeline, and not a janky one like I had before. So now changes and fixes can be developed and applied much faster.<br /><br />
                                 </Card.Text>
                             </Card.Body>
                         </Card>
