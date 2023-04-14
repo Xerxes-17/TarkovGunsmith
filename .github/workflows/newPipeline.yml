@@ -56,7 +56,7 @@ jobs:
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v3
         with:
-          name: wish-granter
+          name: wish-granter-${{needs.mark-time.outputs.time}}
           path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
 
   build-FE:
@@ -97,7 +97,7 @@ jobs:
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v3
         with:
-          name: react-github-actions-build
+          name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
           path: ./FrontEnd/tarkov-gunsmith/build
 
   deploy-fullstack:
