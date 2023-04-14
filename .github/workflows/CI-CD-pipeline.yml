@@ -114,9 +114,9 @@ jobs:
 
   deploy-FE:
     runs-on: ubuntu-latest
-    needs: deploy-fullstack
+    needs: [deploy-fullstack, mark-time]
     steps:
-      - run: echo "${{jobs.mark-time.outputs.time}}"
+      - run: echo "${{needs.mark-time.outputs.time}}"
       - uses: actions/checkout@v3
 
       - uses: actions/download-artifact@v3
@@ -147,9 +147,9 @@ jobs:
 
   deploy-BE:
     runs-on: ubuntu-latest
-    needs: deploy-fullstack
+    needs: [deploy-fullstack, mark-time]
     steps:
-      - run: echo "${{jobs.mark-time.outputs.time}}"
+      - run: echo "${{needs.mark-time.outputs.time}}"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
