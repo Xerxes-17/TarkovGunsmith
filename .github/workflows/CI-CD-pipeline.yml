@@ -119,7 +119,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: react-github-actions-build
+          name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
           path: ./build_FE
           
       # - name: Display structure of downloaded files
@@ -177,5 +177,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: deploy.zip
+          deployment_package: ${{github.workspace}}/wish-granter-${{needs.mark-time.outputs.formattedTime}}.zip
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
