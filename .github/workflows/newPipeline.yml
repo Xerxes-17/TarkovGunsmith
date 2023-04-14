@@ -1,0 +1,120 @@
+name: New Elastic Beanstalk + S3/CF pipeline
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  mark-time:
+  # needs: mark-time                     // to access this item
+  # "${{needs.mark-time.outputs.time}}"  // use this format
+    runs-on: ubuntu-latest
+    outputs:
+      time: ${{ steps.current-time.outputs.formattedTime }}
+    steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH-mm-ss
+          utcOffset: "+10:00"
+
+  build-BE:
+    runs-on: ubuntu-latest
+    needs: mark-time
+    defaults:
+      run:
+        working-directory: ./BackEnd/WishGranter
+
+    steps:
+      - run: echo "${{needs.mark-time.outputs.time}}
+
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Publish
+        run: dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+
+      - name: Generate deployment package
+        run: cd ./publish; zip -r ../deploy-${{needs.mark-time.outputs.time}}.zip .
+
+      - name: Display structure of files
+        run: ls -R
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: wish-granter
+          path: deploy-${{needs.mark-time.outputs.time}}.zip
+
+  build-FE:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Show variable
+        run: |
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
+          
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: ./FrontEnd/tarkov-gunsmith/build
+
+  deploy-fullstack:
+    runs-on: ubuntu-latest
+    needs: [build-BE, build-FE]
+    if: false
+    #if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: react-github-actions-build
+          path: ./build_FE
+          
+      # - name: Display structure of downloaded files
+      #   run: ls -R
+
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET_PROD }}
+          source_dir: ./build_FE
+          destination_dir: ''

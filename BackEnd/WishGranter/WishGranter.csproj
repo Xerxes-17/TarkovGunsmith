@@ -21,16 +21,18 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	  <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="$(RuntimeInstrumentationPkgVer)" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Content Include=".ebextensions\**\*" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 
+  <ItemGroup>
+	<Content Include=".platform\**\*" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+	
   <ItemGroup>
     <Folder Include="outputs\" />
     <Folder Include="results\" />
   </ItemGroup>
-
-	<ItemGroup>
-		<Content Include=".platform\nginx\nginx.conf">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
 
 </Project>
