@@ -57,8 +57,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: wish-granter
-          path: deploy-${{needs.mark-time.outputs.time}}.zip
-          working-directory: ./BackEnd/WishGranter
+          path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
 
   build-FE:
     runs-on: ubuntu-latest
