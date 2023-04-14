@@ -1,4 +1,4 @@
-name: New Elastic Beanstalk + S3/CF pipeline
+name: Elastic Beanstalk + S3/CF pipeline
 on:
   push:
     branches:
@@ -23,6 +23,7 @@ jobs:
         with:
           format: YYYYMMDD-HH-mm-ss
           utcOffset: "+10:00"
+
 
   build-BE:
     runs-on: ubuntu-latest
@@ -49,8 +50,8 @@ jobs:
         run: cd ./publish; zip -r ../deploy-${{needs.mark-time.outputs.time}}.zip .
         working-directory: ./BackEnd/WishGranter
 
-      - name: Display structure of files
-        run: ls -R
+      # - name: Display structure of files
+      #   run: ls -R
 
       # Share artifact inside workflow
       - name: Share artifact inside workflow
@@ -58,6 +59,7 @@ jobs:
         with:
           name: wish-granter-${{needs.mark-time.outputs.time}}
           path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
+
 
   build-FE:
     runs-on: ubuntu-latest
@@ -100,11 +102,16 @@ jobs:
           name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
           path: ./FrontEnd/tarkov-gunsmith/build
 
+
   deploy-fullstack:
     runs-on: ubuntu-latest
     needs: [build-BE, build-FE]
-    if: false
     #if: github.ref == 'refs/heads/main'
+
+
+  deploy-FE:
+    runs-on: ubuntu-latest
+    needs: deploy-fullstack
     steps:
       - uses: actions/checkout@v3
 
@@ -116,10 +123,57 @@ jobs:
       # - name: Display structure of downloaded files
       #   run: ls -R
 
-      - uses: shallwefootball/s3-upload-action@master
+      - name: upload tarkov-gunsmith to S3
+        uses: shallwefootball/s3-upload-action@master
         with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET_PROD }}
           source_dir: ./build_FE
           destination_dir: ''
+
+      - name: Create CloudFront Invalidation
+        run: |
+          aws configure set preview.cloudfront true
+          aws cloudfront create-invalidation --distribution-id E1OJABBLRRO8DL --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.EB_REGION }}
+
+  deploy-BE:
+    runs-on: ubuntu-latest
+    needs: deploy-fullstack
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.EB_REGION }}
+
+      - name: Check if EB-environment exists
+        id: check-env
+        run: |
+          env_exists=$(aws elasticbeanstalk describe-environments \
+            --environment-names ${{ vars.EB_ENV_NAME }} \
+            --query 'length(Environments)')
+          if [[ $env_exists -eq 0 ]]; then
+            echo "::set-output name=env_exists::false"
+          else
+            echo "::set-output name=env_exists::true"
+          fi
+
+      - name: Beanstalk Deploy for app
+        if: steps.check-env.outputs.env_exists == 'true'
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ vars.EB_APP_NAME }}
+          environment_name: ${{ vars.EB_ENV_NAME }}
+          version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
+          version_description: ${{github.SHA}}
+          region: ${{ vars.EB_REGION }}
+          deployment_package: deploy.zip
+          existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
