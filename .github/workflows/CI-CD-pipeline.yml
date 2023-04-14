@@ -153,6 +153,7 @@ jobs:
     needs: [deploy-fullstack, mark-time]
     steps:
       - run: echo "${{needs.mark-time.outputs.time}}"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -172,6 +173,11 @@ jobs:
             echo "::set-output name=env_exists::true"
           fi
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: wish-granter-${{needs.mark-time.outputs.time}}
+          path: ./deploy-BE.zip
+
       - name: Beanstalk Deploy for app
         if: steps.check-env.outputs.env_exists == 'true'
         uses: einaregilsson/beanstalk-deploy@v21
@@ -183,5 +189,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: ${{github.workspace}}/wish-granter-${{needs.mark-time.outputs.time}}
+          deployment_package: deploy-BE.zip
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
