@@ -176,7 +176,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: wish-granter-${{needs.mark-time.outputs.time}}
-          path: ./deploy-BE.zip
+          path: ./deploy-BE
+
+      - name: Generate deployment package
+        run: cd ./deploy-BE; zip -r ../deploy-BE.zip .
 
       - name: Beanstalk Deploy for app
         if: steps.check-env.outputs.env_exists == 'true'
