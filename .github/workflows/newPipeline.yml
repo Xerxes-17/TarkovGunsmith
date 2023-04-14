@@ -4,7 +4,11 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+env:
+  WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
+  CI: false
+  # This is here so I can skip some issues in linting
+  
 jobs:
   mark-time:
   # needs: mark-time                     // to access this item
@@ -23,9 +27,6 @@ jobs:
   build-BE:
     runs-on: ubuntu-latest
     needs: mark-time
-    defaults:
-      run:
-        working-directory: ./BackEnd/WishGranter
 
     steps:
       - run: echo "${{needs.mark-time.outputs.time}}
@@ -38,12 +39,15 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+        working-directory: ./BackEnd/WishGranter
 
       - name: Publish
         run: dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+        working-directory: ./BackEnd/WishGranter
 
       - name: Generate deployment package
         run: cd ./publish; zip -r ../deploy-${{needs.mark-time.outputs.time}}.zip .
+        working-directory: ./BackEnd/WishGranter
 
       - name: Display structure of files
         run: ls -R
@@ -54,9 +58,11 @@ jobs:
         with:
           name: wish-granter
           path: deploy-${{needs.mark-time.outputs.time}}.zip
+          working-directory: ./BackEnd/WishGranter
 
   build-FE:
     runs-on: ubuntu-latest
+    needs: mark-time
 
     permissions:
       id-token: write
