@@ -59,7 +59,7 @@ jobs:
         with:
           name: wish-granter-${{needs.mark-time.outputs.time}}
           path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
-
+          retention-days: 7
 
   build-FE:
     runs-on: ubuntu-latest
@@ -101,6 +101,7 @@ jobs:
         with:
           name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
           path: ./FrontEnd/tarkov-gunsmith/build
+          retention-days: 7
 
 
   deploy-fullstack:
@@ -111,6 +112,7 @@ jobs:
     steps:
       - name: thicc step
         run: echo "This is a dummy job"
+
 
   deploy-FE:
     runs-on: ubuntu-latest
@@ -144,6 +146,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ vars.EB_REGION }}
+
 
   deploy-BE:
     runs-on: ubuntu-latest
@@ -180,5 +183,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: ${{github.workspace}}/wish-granter-${{needs.mark-time.outputs.time}}.zip
+          deployment_package: ${{github.workspace}}/wish-granter-${{needs.mark-time.outputs.time}}
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
