@@ -106,8 +106,10 @@ jobs:
   deploy-fullstack:
     runs-on: ubuntu-latest
     needs: [build-BE, build-FE]
-    #if: github.ref == 'refs/heads/main'
-
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: thicc step
+        run: echo "This is a dummy job"
 
   deploy-FE:
     runs-on: ubuntu-latest
