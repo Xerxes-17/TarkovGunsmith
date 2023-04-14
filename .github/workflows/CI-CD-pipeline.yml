@@ -178,8 +178,8 @@ jobs:
           name: wish-granter-${{needs.mark-time.outputs.time}}
           path: ./deploy-BE
 
-      - name: Generate deployment package
-        run: cd ./deploy-BE; zip -r ../deploy-BE.zip .
+      # - name: Generate deployment package
+      #   run: cd ./deploy-BE; zip -r ../deploy-BE.zip .
 
       - name: Beanstalk Deploy for app
         if: steps.check-env.outputs.env_exists == 'true'
@@ -192,5 +192,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: deploy-BE.zip
+          deployment_package: ./deploy-BE/deploy-${{needs.mark-time.outputs.time}}.zip
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
