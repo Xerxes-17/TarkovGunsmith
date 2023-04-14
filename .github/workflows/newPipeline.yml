@@ -8,7 +8,7 @@ env:
   WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
   CI: false
   # This is here so I can skip some issues in linting
-  
+
 jobs:
   mark-time:
   # needs: mark-time                     // to access this item
@@ -29,7 +29,7 @@ jobs:
     needs: mark-time
 
     steps:
-      - run: echo "${{needs.mark-time.outputs.time}}
+      - run: echo "${{needs.mark-time.outputs.time}}"
 
       - uses: actions/checkout@v3
       - name: Setup .NET
