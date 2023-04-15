@@ -9,7 +9,7 @@ export default function Home(props: any) {
             <Container className='main-app-container'>
                 <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                     <Card.Header as="h1">
-                        Welcome to Tarkov Gunsmith!
+                        Welcome to Tarkov Gunsmith! testing CI
                     </Card.Header>
                 </Card>
                 <div className="row gy-2 mb-2">

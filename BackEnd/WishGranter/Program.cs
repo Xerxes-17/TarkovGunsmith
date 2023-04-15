@@ -31,7 +31,7 @@ IHost host = CreateHostBuilder(args).Build();
 
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("Host created.");
-logger.LogInformation("Wishgranter-API is starting.");
+logger.LogInformation("Wishgranter-API is starting. testing CI");
 
 // Need this to get Russian chars and symbols. This is here incase we don't load a localization correctly and need to read Russian names.
 //CultureInfo ci = new CultureInfo("ru-RU");
