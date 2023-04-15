@@ -2,7 +2,6 @@ name: FE-pipeline-dev
 on:
   push:
     branches:
-      - pipelines-split
       - dev*
       - hotfix*
     paths:
