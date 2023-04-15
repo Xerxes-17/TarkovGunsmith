@@ -1,4 +1,4 @@
-name: FE-pipeline-prod
+name: FE-pipeline-dev
 on:
   push:
     branches:
@@ -44,8 +44,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
-          cache-dependency-path: ./FrontEnd/package-lock.json
           
       - name: Install dependencies
         working-directory: ./FrontEnd/tarkov-gunsmith
