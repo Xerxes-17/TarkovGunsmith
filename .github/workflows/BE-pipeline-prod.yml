@@ -1,0 +1,91 @@
+name: BE-pipeline-prod
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - BackEnd/**
+
+## Remember:
+# ${{ env.WISHGRANTER_API_URL }}     // for env
+# ${{ secrets.AWS_ACCESS_KEY_ID }}   // for secrets
+# ${{ vars.EB_REGION }}              // for repo vars
+
+## If you need to find something
+# - name: Display structure of files 
+#   run: ls -R
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-BE:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./BackEnd/WishGranter
+
+      - name: Publish
+        run: dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+        working-directory: ./BackEnd/WishGranter
+
+
+
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: wish-granter-api.zip
+          path: ./BackEnd/WishGranter/publish
+          retention-days: 2
+
+
+  deploy-BE:
+    runs-on: ubuntu-latest
+    needs: [build-BE]
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.EB_REGION }}
+
+      - name: Check if EB-environment exists
+        id: check-env
+        run: |
+          env_exists=$(aws elasticbeanstalk describe-environments \
+            --environment-names ${{ vars.EB_ENV_NAME }} \
+            --query 'length(Environments)')
+          if [[ $env_exists -eq 0 ]]; then
+            echo "::set-output name=env_exists::false"
+          else
+            echo "::set-output name=env_exists::true"
+          fi
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: wish-granter-api.zip
+          path: ./deploy-BE
+
+      - name: Beanstalk Deploy for app
+        if: steps.check-env.outputs.env_exists == 'true'
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ vars.EB_APP_NAME }}
+          environment_name: ${{ vars.EB_ENV_NAME }}
+          version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
+          version_description: ${{github.SHA}}
+          region: ${{ vars.EB_REGION }}
+          deployment_package: ./deploy-BE/wish-granter-api.zip
+          existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1

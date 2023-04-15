@@ -1,0 +1,194 @@
+name: Elastic Beanstalk + S3/CF pipeline
+on:
+  push:
+  workflow_dispatch:
+env:
+  WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
+  CI: false
+  # This is here so I can skip some issues in linting
+
+jobs:
+  mark-time:  
+  # needs: mark-time                     // to access this item
+  # "${{needs.mark-time.outputs.time}}"  // use this format
+    runs-on: ubuntu-latest
+    outputs:
+      time: ${{ steps.current-time.outputs.formattedTime }}
+    steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH-mm-ss
+          utcOffset: "+10:00"
+
+
+  build-BE:
+    runs-on: ubuntu-latest
+    needs: mark-time
+
+    steps:
+      - run: echo "${{needs.mark-time.outputs.time}}"
+
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./BackEnd/WishGranter
+
+      - name: Publish
+        run: dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+        working-directory: ./BackEnd/WishGranter
+
+      - name: Generate deployment package
+        run: cd ./publish; zip -r ../deploy-${{needs.mark-time.outputs.time}}.zip .
+        working-directory: ./BackEnd/WishGranter
+
+      # - name: Display structure of files
+      #   run: ls -R
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: wish-granter-${{needs.mark-time.outputs.time}}
+          path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
+          retention-days: 2
+
+  build-FE:
+    runs-on: ubuntu-latest
+    needs: mark-time
+
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Show variable
+        run: |
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
+          
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
+          path: ./FrontEnd/tarkov-gunsmith/build
+          retention-days: 7
+
+
+  deploy-fullstack:
+    runs-on: ubuntu-latest
+    needs: [build-BE, build-FE]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: thicc step
+        run: echo "This is a dummy job"
+
+
+  deploy-FE:
+    runs-on: ubuntu-latest
+    needs: [deploy-fullstack, mark-time]
+    steps:
+      - run: echo "${{needs.mark-time.outputs.time}}"
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: tarkov-gunsmith-${{needs.mark-time.outputs.time}}
+          path: ./build_FE
+          
+      # - name: Display structure of downloaded files
+      #   run: ls -R
+
+      - name: upload tarkov-gunsmith to S3
+        uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET_PROD }}
+          source_dir: ./build_FE
+          destination_dir: ''
+
+      - name: Create CloudFront Invalidation
+        run: |
+          aws configure set preview.cloudfront true
+          aws cloudfront create-invalidation --distribution-id E1OJABBLRRO8DL --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.EB_REGION }}
+
+
+  deploy-BE:
+    runs-on: ubuntu-latest
+    needs: [deploy-fullstack, mark-time]
+    steps:
+      - run: echo "${{needs.mark-time.outputs.time}}"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.EB_REGION }}
+
+      - name: Check if EB-environment exists
+        id: check-env
+        run: |
+          env_exists=$(aws elasticbeanstalk describe-environments \
+            --environment-names ${{ vars.EB_ENV_NAME }} \
+            --query 'length(Environments)')
+          if [[ $env_exists -eq 0 ]]; then
+            echo "::set-output name=env_exists::false"
+          else
+            echo "::set-output name=env_exists::true"
+          fi
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: wish-granter-${{needs.mark-time.outputs.time}}
+          path: ./deploy-BE
+
+      # - name: Generate deployment package
+      #   run: cd ./deploy-BE; zip -r ../deploy-BE.zip .
+
+      - name: Beanstalk Deploy for app
+        if: steps.check-env.outputs.env_exists == 'true'
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ vars.EB_APP_NAME }}
+          environment_name: ${{ vars.EB_ENV_NAME }}
+          version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
+          version_description: ${{github.SHA}}
+          region: ${{ vars.EB_REGION }}
+          deployment_package: ./deploy-BE/deploy-${{needs.mark-time.outputs.time}}.zip
+          existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1

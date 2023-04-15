@@ -1,0 +1,98 @@
+name: FE-pipeline-prod
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - FrontEnd/**
+
+## Remember:
+# ${{ env.WISHGRANTER_API_URL }}     // for env
+# ${{ secrets.AWS_ACCESS_KEY_ID }}   // for secrets
+# ${{ vars.EB_REGION }}              // for repo vars
+
+## If you need to find something
+# - name: Display structure of files 
+#   run: ls -R
+
+env:
+  WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
+  CI: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-FE:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Show variable
+        run: |
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
+          
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          cache-dependency-path: ./FrontEnd/package-lock.json
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build
+
+      # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: tarkov-gunsmith-FE.zip
+          path: ./FrontEnd/tarkov-gunsmith/build
+          retention-days: 2
+
+  deploy-FE:
+    runs-on: ubuntu-latest
+    needs: [build-FE]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: tarkov-gunsmith-FE.zip
+          path: ./build_FE
+          
+      # - name: Display structure of downloaded files
+      #   run: ls -R
+
+      - name: upload tarkov-gunsmith to S3
+        uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET_PROD }}
+          source_dir: ./build_FE
+          destination_dir: ''
+
+      - name: Create CloudFront Invalidation
+        run: |
+          aws configure set preview.cloudfront true
+          aws cloudfront create-invalidation --distribution-id E1OJABBLRRO8DL --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.EB_REGION }}
