@@ -6,7 +6,7 @@ The front end is functional react with TypeScript.
 
 Come check out [the website][tarkovgunsmith] or [the discord][discord]
 
-[tarkovgunsmith]: http:tarkov-gunsmith.com
+[tarkovgunsmith]: http:tarkovgunsmith.com
 [discord]: https://discord.gg/F7GZE4H7fq
 [tarkov-api]: https://github.com/the-hideout/tarkov-api
 [escape-from-tarkov]: https://www.escapefromtarkov.com/
