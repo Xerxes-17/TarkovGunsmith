@@ -1,0 +1,62 @@
+name: FE-pipeline-prod
+on:
+  push:
+    branches:
+      - pipelines-split
+      - dev*
+      - hotfix*
+    paths:
+      - FrontEnd/**
+
+## Remember:
+# ${{ env.WISHGRANTER_API_URL }}     // for env
+# ${{ secrets.AWS_ACCESS_KEY_ID }}   // for secrets
+# ${{ vars.EB_REGION }}              // for repo vars
+
+## If you need to find something
+# - name: Display structure of files 
+#   run: ls -R
+
+env:
+  WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
+  CI: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-FE:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Show variable
+        run: |
+          echo "WISHGRANTER_API_URL : ${{ env.WISHGRANTER_API_URL }}"
+          
+      - name: Clone repository
+        uses: actions/checkout@v3
+        
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          cache-dependency-path: ./FrontEnd/package-lock.json
+          
+      - name: Install dependencies
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm install    
+        
+      - name: Test
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm test
+        env:
+          CI: true
+          
+      - name: Generate build
+        working-directory: ./FrontEnd/tarkov-gunsmith
+        run: npm run build

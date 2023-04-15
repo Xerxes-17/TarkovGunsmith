@@ -1,8 +1,6 @@
 name: Elastic Beanstalk + S3/CF pipeline
 on:
   push:
-    branches:
-      - main
   workflow_dispatch:
 env:
   WISHGRANTER_API_URL: "https://api.tarkovgunsmith.com"
@@ -59,7 +57,7 @@ jobs:
         with:
           name: wish-granter-${{needs.mark-time.outputs.time}}
           path: ./BackEnd/WishGranter/deploy-${{needs.mark-time.outputs.time}}.zip
-          retention-days: 7
+          retention-days: 2
 
   build-FE:
     runs-on: ubuntu-latest

@@ -1,0 +1,40 @@
+name: BE-pipeline-dev
+on:
+  push:
+    branches:
+      - pipelines-split
+      - dev*
+      - hotfix*
+    paths:
+      - BackEnd/**
+
+## Remember:
+# ${{ env.WISHGRANTER_API_URL }}     // for env
+# ${{ secrets.AWS_ACCESS_KEY_ID }}   // for secrets
+# ${{ vars.EB_REGION }}              // for repo vars
+
+## If you need to find something
+# - name: Display structure of files 
+#   run: ls -R
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-BE:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./BackEnd/WishGranter
+
+      - name: Publish
+        run: dotnet publish -r linux-x64 -c Release --self-contained true -o ./publish
+        working-directory: ./BackEnd/WishGranter
