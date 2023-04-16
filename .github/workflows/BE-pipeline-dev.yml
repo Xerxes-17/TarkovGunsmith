@@ -2,10 +2,13 @@ name: BE-pipeline-dev
 on:
   push:
     branches:
-      - dev*
+      - dev-*
       - hotfix*
     paths:
       - BackEnd/**
+  pull_request:
+    branches:
+      - main
 
 ## Remember:
 # ${{ env.WISHGRANTER_API_URL }}     // for env
