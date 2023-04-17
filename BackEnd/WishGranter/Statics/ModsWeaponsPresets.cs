@@ -13,7 +13,7 @@ namespace WishGranter.Statics
         Any
     }
 
-    // Decided to combine these two categories into one as Mods are only relevant to Weapons, possibly going to add presets too?
+    // Decided to combine these three categories into one as Mods are only relevant to Weapons and presets need weapons and mods soo...
     public static class ModsWeaponsPresets
     {
         public static List<Weapon> CleanedWeapons = ConstructCleanedWeaponList();
@@ -141,8 +141,6 @@ namespace WishGranter.Statics
 
             return list;
         }
-        //? Ahh, the problem with this is that it's going raw to the RatStash, and isn't using the CleanedList
-        // With the fact that this is compiling a list of strings... we need to use it correctly later
         public static List<string> GetAllPossibleChildrenIdsForCI(string compoundItemId)
         {
             HashSet<string> output = new ();
@@ -163,7 +161,6 @@ namespace WishGranter.Statics
             }
             return output.ToList();
         }
-
         public static List<WeaponMod> FilterModsListByIdList(List<WeaponMod> inputMods, List<string> inputIds)
         {
             return inputMods.Where(x=>inputIds.Contains(x.Id)).ToList();
@@ -340,7 +337,6 @@ namespace WishGranter.Statics
             }
             return ReturnedPresets;
         }
-
         public static List<Weapon> PatchWeaponStatsFromAPI(List<Weapon> inputList)
         {
             // Send API Req for all stats of interest
