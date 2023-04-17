@@ -42,6 +42,15 @@ namespace WishGranter.Statics
 
             return DefaultPresestsJSON;
         }
+        public static JObject GetAllGunBaseStats()
+        {
+            // We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presests.
+            JObject DefaultPresestsJSON = TarkovDevQueryAsync("{ items(types: [gun]) { id name properties { ... on ItemPropertiesWeapon { ergonomics recoilAngle recoilVertical recoilDispersion convergence } } } }", "GunStats").Result;
+
+            Console.WriteLine("GunStatsJSON returned.");
+
+            return DefaultPresestsJSON;
+        }
 
         // Get all of the Ammo and Mods with thier vendor information included, for cash, barters and flea
         public static JObject GetAllAmmoAndMods()

@@ -71,6 +71,14 @@ namespace WishGranterTests
         }
 
         [TestMethod]
+        public void Test_WeaponsStatsAPIPatch()
+        {
+            var result = ModsWeaponsPresets.CleanedWeapons.Find(x=>x.Name.Contains("OP-SKS"));
+            Console.WriteLine($"OP-SKS vertical Recoil: {result.RecoilForceUp}");
+            Console.WriteLine($"FirstWeapon: {result}");
+        }
+
+        [TestMethod]
         public void Test_StaticModsWeapons_Silencers()
         {
             var result = ModsWeaponsPresets.GetListWithQuietMuzzles().Count;
@@ -101,8 +109,6 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_GetAllPossibleChildrenIdsForCI()
         {
-            var loadDict = Market.LoyaltyLevelsByPlayerLevel;
-
             CompoundItem input = (CompoundItem) StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74M 5.45x39 assault rifle"));
 
             var result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(input.Id, MuzzleType.Loud, 40, false);
@@ -115,6 +121,7 @@ namespace WishGranterTests
             var loadDict = Market.LoyaltyLevelsByPlayerLevel;
 
             Console.WriteLine($"wtf: {loadDict.Count}");
+            Console.WriteLine($"wtf: {loadDict}");
         }
 
     }
@@ -660,7 +667,7 @@ namespace WishGranterTests
         static List<MarketEntry>? MarketData; 
 
         [TestInitialize]
-        public void testInit()
+        public void test_Init()
         {
             MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
             MarketData = WG_Market.CompileMarketDataList(MarketDataJSON);

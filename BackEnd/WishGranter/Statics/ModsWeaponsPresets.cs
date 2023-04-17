@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RatStash;
 using WishGranterProto;
 using WishGranterProto.ExtensionMethods;
@@ -36,11 +37,13 @@ namespace WishGranter.Statics
             //    Console.WriteLine($"{weapon.Name}, {weapon.Id}");
             //}
 
+            result = PatchWeaponStatsFromAPI(result);
+
             return result;
         }
         private static List<WeaponMod> ConstructCleanedWeaponModList()
         {
-            List<WeaponMod> result = StaticRatStash.DB.GetItems(x => x is WeaponMod).Cast<WeaponMod>().ToList();
+            List<WeaponMod> startList = StaticRatStash.DB.GetItems(x => x is WeaponMod).Cast<WeaponMod>().ToList();
 
             // Setup the filters for things that I don't think are relevant, but we also remove the Mounts so they can be added in clean later
             List<Type> ModsFilter = new List<Type>() {
@@ -51,20 +54,20 @@ namespace WishGranter.Statics
                 typeof(Mount), typeof(Launcher)};
 
             // Apply that filter
-            var temp = result.Where(mod => !ModsFilter.Contains(mod.GetType())).ToList();
+            var temp = startList.Where(mod => !ModsFilter.Contains(mod.GetType())).ToList();
 
             // Get the mounts from AllMods into a list, filter it to be only the mounts we want (for foregrips) and add them back to FilteredMods
-            IEnumerable<Mount> Mounts = result.OfType<Mount>();
+            IEnumerable<Mount> Mounts = startList.OfType<Mount>();
             var MountsFiltered = Mounts.Where(mod => mod.Slots.Any(slot => slot.Name == "mod_foregrip")).ToArray();
             temp.AddRange(MountsFiltered);
 
             // Magwells for G36 which are "mounts"
-            var magwell_1 = result.Find(x => x.Id.Equals("622f02437762f55aaa68ac85"));
+            var magwell_1 = startList.Find(x => x.Id.Equals("622f02437762f55aaa68ac85"));
             if (magwell_1 != null)
             {
                 temp.Add(magwell_1);
             }
-            var magwell_2 = result.Find(x => x.Id.Equals("622f039199f4ea1a4d6c9a17"));
+            var magwell_2 = startList.Find(x => x.Id.Equals("622f039199f4ea1a4d6c9a17"));
             if (magwell_2 != null)
             {
                 temp.Add(magwell_2);
@@ -78,20 +81,20 @@ namespace WishGranter.Statics
             }
 
             // Need to add in the AUG A1 scope as it is a receiver too
-            var AUG_A1_Scope = result.Find(x => x.Id.Equals("62ea7c793043d74a0306e19f"));
+            var AUG_A1_Scope = startList.Find(x => x.Id.Equals("62ea7c793043d74a0306e19f"));
             if (AUG_A1_Scope != null)
             {
                 temp.Add(AUG_A1_Scope);
             }
 
             // Need to add in the SVDS UB as it is a "mount"
-            var SVDS_UB = result.Find(x => x.Id.Equals("5c471c2d2e22164bef5d077f"));
+            var SVDS_UB = startList.Find(x => x.Id.Equals("5c471c2d2e22164bef5d077f"));
             if (SVDS_UB != null)
             {
                 temp.Add(SVDS_UB);
             }
 
-            return result;
+            return temp;
         }
         public static List<WeaponMod> GetListWithLoudMuzzles()
         {
@@ -100,10 +103,10 @@ namespace WishGranter.Statics
             list.RemoveAll(x => x is Silencer);
 
             // Debug print
-            foreach (var item in list.Where(x => x is MuzzleDevice))
-            {
-                Console.WriteLine($"{item.Name}, {item.Id}");
-            }
+            //foreach (var item in list.Where(x => x is MuzzleDevice))
+            //{
+            //    Console.WriteLine($"{item.Name}, {item.Id}");
+            //}
 
             return list;
         }
@@ -131,13 +134,15 @@ namespace WishGranter.Statics
             list.OrderBy(x => x.Name);
 
             // Debug print
-            foreach (var item in otherMuzzleDevices.Union(silencers))
-            {
-                Console.WriteLine($"{item.Name}, {item.Id}");
-            }
+            //foreach (var item in otherMuzzleDevices.Union(silencers))
+            //{
+            //    Console.WriteLine($"{item.Name}, {item.Id}");
+            //}
 
             return list;
         }
+        //? Ahh, the problem with this is that it's going raw to the RatStash, and isn't using the CleanedList
+        // With the fact that this is compiling a list of strings... we need to use it correctly later
         public static List<string> GetAllPossibleChildrenIdsForCI(string compoundItemId)
         {
             HashSet<string> output = new ();
@@ -334,6 +339,34 @@ namespace WishGranter.Statics
                 }
             }
             return ReturnedPresets;
+        }
+
+        public static List<Weapon> PatchWeaponStatsFromAPI(List<Weapon> inputList)
+        {
+            // Send API Req for all stats of interest
+            var apiDetails = TarkovDevAPI.GetAllGunBaseStats();
+
+            // Break JSON down into set of tokens
+            string searchJSONpath = "$.data.items.[*]";
+            var tokens = apiDetails.SelectTokens(searchJSONpath).ToList();
+
+            foreach (var preset in tokens)
+            {
+                // Match each token to a weapon
+                var id = preset.SelectToken("$.id").ToString();
+                var match = inputList.Find(x=>x.Id.Equals(id));
+
+                if (match != null)
+                {
+                    match.Ergonomics = int.Parse(preset.SelectToken("$.properties.ergonomics").ToString());
+                    match.RecoilAngle = int.Parse(preset.SelectToken("$.properties.recoilAngle").ToString());
+                    match.RecoilForceUp = int.Parse(preset.SelectToken("$.properties.recoilVertical").ToString());
+                    match.RecoilDispersion = int.Parse(preset.SelectToken("$.properties.recoilDispersion").ToString());
+                    match.Convergence = float.Parse(preset.SelectToken("$.properties.convergence").ToString());
+                }
+            }
+
+            return inputList;
         }
     }
 }
