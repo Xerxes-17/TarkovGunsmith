@@ -311,6 +311,15 @@ namespace WishGranter.Statics
 
             return offersForItem[0];
         }
+        public static MarketEntry GetCheapestTraderPurchaseOffer(string id)
+        {
+            var offers = GetTraderOffers();
+            var offersForItem = offers.Where(x => x.Id == id).ToList();
+
+            offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
+
+            return offersForItem[0];
+        }
 
         public static List<MarketEntry> GetFreeMarketPurchaseOffersByPlayerLevel(int playerLevel)
         {
