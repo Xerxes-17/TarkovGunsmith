@@ -6,17 +6,6 @@ namespace WishGranter.Statics
     // This class will handle all of the fittings logic
     public static class Gunsmith
     {
-        // The assumption here is that you're being fed in a list of Items which sometimes includes the ammo, we don't need a list of IDs as the list is all of the mods needed
-        public static Weapon AddDefaultAttachments(this Weapon weapon, List<Item> baseAttachments)
-        {
-
-            List<WeaponMod> attachmentsList = baseAttachments.Where(x => x.GetType() != typeof(Ammo)).Cast<WeaponMod>().ToList();
-
-            weapon = (Weapon)FitCompoundItem_Simple(weapon, attachmentsList);
-
-            return weapon;
-        }
-
         // A method for removing a mod from a compund item, without needing to know where it is exactly.
         public static void RemoveModFromCompoundItem(CompoundItem compItem, WeaponMod mod)
         {
@@ -959,74 +948,6 @@ namespace WishGranter.Statics
             return result;
         }
 
-        public static void ProcessBlockersInListOfMods_MK2(List<WeaponMod> inputList, Weapon inputWeapon, string mode)
-        {
-            // Make a list which will be mustated and returned later.
-            List<WeaponMod> returnList = new List<WeaponMod>();
-            returnList.AddRange(inputList);
-
-            // From the list, get all of the blocker types
-            var blockers = returnList.Where(x => x.ConflictingItems.Count > 0).ToList();
-            var names = blockers.Select(x => x.Name).ToList();
-
-            foreach (var blocker in blockers)
-            {
-                // First, do a check to see if the blocker is the only one of it's kind, because if it is we're not going to be able to pick anything else, eg, gun barrel.
-                var oneOfAKind = inputList.Where(x => x.GetType() == blocker.GetType()).ToList();
-                if (oneOfAKind.Count <= 1)
-                {
-                    // If it is the only candidate, we're just going to remove the incompatible mods from the return list, and move on to the next mod
-                    //todo warning: this could be an issue where a mod removes another blocker before it is checked in this loop!
-                    returnList.RemoveAll(mod => blocker.ConflictingItems.Contains(mod.Id));
-                }
-                else
-                {
-                    // Let's now check if the blocker is the only one of it's kind. If it is, great, move on, if not, compare it with the others and then choose the one which is best.
-                    var oneBlockerOfAKind = blockers.Where(b => b.GetType() == blocker.GetType()).ToList();
-                    if (oneBlockerOfAKind.Count >= 1)
-                    {
-                        //todo Expand this area later.
-                        if (mode == "recoil")
-                        {
-                            oneBlockerOfAKind = oneBlockerOfAKind.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList(); //! helps if you make recoils be floats you dingus
-                        }
-                        else if (mode == "Meta Recoil")
-                        {
-                            oneBlockerOfAKind = oneBlockerOfAKind.OrderBy(x => GetCompoundItemTotals_RecoilFloat<WeaponMod>(x).TotalRecoil).ToList();
-                        }
-                        // We better remove the other blockers from the return list too while we're here
-                        var slice = oneBlockerOfAKind.Skip(1).ToList();
-                        returnList.RemoveAll(x => slice.Contains(x));
-                    }
-                    //! There will always be at least one blocker, it's why we're here, so we can select it like this.
-                    var candidateBlocker = oneBlockerOfAKind.First();
-
-                    // We need to get the Mods which are of the same type of item, and the mods which are blocked, and not the blocker itself again, natch.
-                    var competitorMods = returnList.Where(x => x.GetType() == candidateBlocker.GetType() || candidateBlocker.ConflictingItems.Contains(x.Id) && x.Id != candidateBlocker.Id).ToList();
-                }
-            }
-        }
-
-        public static List<WeaponMod> CreateListOfModsFromIds(List<string> Ids, List<WeaponMod> WeaponMods)
-        {
-            List<WeaponMod> result = new List<WeaponMod>();
-
-            foreach (string id in Ids)
-            {
-                var found = WeaponMods.Find(x => x.Id == id);
-                if (found != null)
-                {
-                    //foreach(Slot slot in found.Slots)
-                    //{
-                    //    slot.ContainedItem = null;
-                    //} // Get rid of any default attached mods, because wtf?
-                    result.Add(found);
-                }
-            }
-
-            return result;
-        }
-
         // Get a list of all possible items for a CI
         public static List<string> CreateMasterWhiteListIds(CompoundItem CompItem, List<WeaponMod> AvailableWeaponMods)
         {
@@ -1068,24 +989,6 @@ namespace WishGranter.Statics
 
             return MasterWhiteList.ToList();
         }
-
-        // Put the Ids into names
-        public static List<string> CreateHumanReadableMWL(List<string> Ids, List<WeaponMod> AvailibleWeaponMods)
-        {
-            List<string> Names = new List<string>();
-
-            foreach (var id in Ids)
-            {
-                var found = AvailibleWeaponMods.Find(x => x.Id == id);
-                if (found != null)
-                {
-                    //Console.WriteLine(found.Name);
-                    Names.Add(found.Name);
-                }
-            }
-            return Names;
-        }
-
         public static bool CheckAllRequiredSlotsFilled(CompoundItem input, List<WeaponMod> candidateList)
         {
             bool result = true;
@@ -1128,47 +1031,6 @@ namespace WishGranter.Statics
             }
 
             return result;
-        }
-
-
-        // Take a given compound item of either Weapon or WeaponMod type, and return the total ergo and recoil as ints
-        public static (int TotalErgo, int TotalRecoil) GetCompoundItemTotals<T>(this CompoundItem item)
-        {
-            float sumErgo = -1;
-            float sumRecoil = -1;
-            List<WeaponMod> Children = AccumulateMods(item.Slots);
-            var (TotalErgo, TotalRecoil) = GetAttachmentsTotals(Children);
-
-
-            if (typeof(T) == typeof(Weapon))
-            {
-                var weapon = (Weapon)item;
-
-                sumErgo = weapon.Ergonomics + (int)TotalErgo;
-                sumRecoil = weapon.RecoilForceUp + (weapon.RecoilForceUp * (TotalRecoil / 100));
-            }
-            else if (typeof(T) == typeof(WeaponMod))
-            {
-                var mod = (WeaponMod)item;
-
-                sumErgo = mod.Ergonomics + TotalErgo;
-                sumRecoil = mod.Recoil + TotalRecoil;
-            }
-            else
-            {
-                Console.Error.WriteLine("Error: Incorrect type given to method GetCompoundItemTotals()");
-            }
-
-            //var isValid = CheckAllRequiredSlotsFilled(item);
-
-            //if (!isValid)
-            //{
-            //    sumErgo = -2000;
-            //    sumRecoil = 2000;
-            //}
-
-            // Return the values as Ints because that makes comparision easier and we don't care about a .5 ergo difference.
-            return ((int)sumErgo, (int)sumRecoil);
         }
 
         public static (int TotalErgo, double TotalRecoil) GetCompoundItemTotals_RecoilFloat<T>(this CompoundItem item)
