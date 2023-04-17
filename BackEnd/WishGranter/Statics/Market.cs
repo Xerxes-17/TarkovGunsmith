@@ -24,7 +24,8 @@ namespace WishGranter.Statics
                 "Peacekeeper",
                 "Mechanic",
                 "Jaeger",
-                "Ragman"
+                "Ragman",
+                "Therapist"
             };
             return TraderNames;
         }
@@ -37,7 +38,8 @@ namespace WishGranter.Statics
                 { "Peacekeeper", new[] { 1, 14, 23, 37 } },
                 { "Mechanic", new[] { 1, 20, 30, 40 } },
                 { "Jaeger", new[] { 1, 15, 22, 33 } },
-                { "Ragman", new[] { 1, 17, 32, 42 } }
+                { "Ragman", new[] { 1, 17, 32, 42 } },
+                { "Therapist", new[] { 1, 13, 24, 35 } }
             };
 
             return LoyaltyLevelsByPlayerLevel;
@@ -162,20 +164,24 @@ namespace WishGranter.Statics
                     sellOffersSimple.Add((vendor, priceRUB));
                 }
                 sellOffersSimple.RemoveAll(x => x.Item1.Equals("Flea Market"));
-                var bestSeller = sellOffersSimple.MaxBy(x => x.Item2);
+                if(sellOffersSimple.Count > 0)
+                {
+                    var bestSeller = sellOffersSimple.MaxBy(x => x.Item2);
 
-                PurchaseOffer purchaseOffer_Sell = new PurchaseOffer();
-                purchaseOffer_Sell.PriceRUB = bestSeller.Item2;
-                purchaseOffer_Sell.Vendor = bestSeller.Item1;
-                purchaseOffer_Sell.ReqPlayerLevel = 1;
-                purchaseOffer_Sell.OfferType = OfferType.Sell;
+                    PurchaseOffer purchaseOffer_Sell = new PurchaseOffer();
+                    purchaseOffer_Sell.PriceRUB = bestSeller.Item2;
+                    purchaseOffer_Sell.Vendor = bestSeller.Item1;
+                    purchaseOffer_Sell.ReqPlayerLevel = 1;
+                    purchaseOffer_Sell.OfferType = OfferType.Sell;
 
-                MarketEntry marketEntry_Sell = new MarketEntry();
-                marketEntry_Sell.Id = id;
-                marketEntry_Sell.Name = name;
-                marketEntry_Sell.PurchaseOffer = purchaseOffer_Sell;
+                    MarketEntry marketEntry_Sell = new MarketEntry();
+                    marketEntry_Sell.Id = id;
+                    marketEntry_Sell.Name = name;
+                    marketEntry_Sell.PurchaseOffer = purchaseOffer_Sell;
 
-                CompiledMarketDataList.Add(marketEntry_Sell);
+                    CompiledMarketDataList.Add(marketEntry_Sell);
+                }
+                
             }
             return CompiledMarketDataList;
         }
