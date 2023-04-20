@@ -127,9 +127,8 @@ namespace WishGranter.Statics
                 ).ToList();
 
             // Add the silencers and their compatible mounts back to the list
-            list = otherMuzzleDevices.Union(silencers).ToList();
+            list = list.Union(otherMuzzleDevices.Union(silencers)).ToList();
             //? Need to check if muzzle devices like the AUG flash hiders are included here.
-
 
             list.OrderBy(x => x.Name);
 
