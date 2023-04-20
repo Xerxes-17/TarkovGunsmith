@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Force.DeepCloner;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RatStash;
 using WishGranterProto;
@@ -98,7 +99,7 @@ namespace WishGranter.Statics
         }
         public static List<WeaponMod> GetListWithLoudMuzzles()
         {
-            List<WeaponMod> list = CleanedMods;
+            List<WeaponMod> list = CleanedMods.DeepClone();
 
             list.RemoveAll(x => x is Silencer);
 
@@ -113,7 +114,7 @@ namespace WishGranter.Statics
         public static List<WeaponMod> GetListWithQuietMuzzles()
         {
             //Get out list from Cleaned mods, remove all of the Muzzle devices
-            List<WeaponMod> list = CleanedMods;
+            List<WeaponMod> list = CleanedMods.DeepClone();
             list = list.Where(x => x is not MuzzleDevice).ToList();
 
             // Get all the silencers, and their IDs
@@ -164,7 +165,7 @@ namespace WishGranter.Statics
         {
             return inputMods.Where(x=>inputIds.Contains(x.Id)).ToList();
         }
-        public static List<WeaponMod> GetShortListOfModsForCompundItemWithParams(string compundItemID, MuzzleType muzzleType, int playerLevel, bool fleaMarket, List<string>? exclusionList = null)
+        public static List<WeaponMod> GetShortListOfModsForCompundItemWithParams(string compundItemID, MuzzleType muzzleType, int playerLevel, bool fleaMarket)
         {
             // Make return list
             List<WeaponMod> output = new();
@@ -175,7 +176,7 @@ namespace WishGranter.Statics
             else if (muzzleType == MuzzleType.Quiet)
                 output = GetListWithQuietMuzzles();
             else
-                output = CleanedMods;
+                output = CleanedMods.DeepClone();
 
             // Make a list of Ids that the provided weapon or mod could possibly fit to itself and children.
             var shortListOfIds = GetAllPossibleChildrenIdsForCI(compundItemID);
@@ -192,10 +193,6 @@ namespace WishGranter.Statics
 
             var marketIds = marketData.Select(x => x.Id).ToList();
             output = FilterModsListByIdList(output, marketIds);
-
-            // Remove any items that have been explicitly excluded, if there are any.
-            if(exclusionList != null)
-                output = output.Where(x => !exclusionList.Contains(x.Id)).ToList();
 
             return output;
         }

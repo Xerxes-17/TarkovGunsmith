@@ -21,7 +21,7 @@ namespace WishGranter.Statics
             var localClone = weapon.DeepClone();
 
             // Next, get the Mods that weapon is going to potentially use.
-            var modsForWeapon = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(localClone.Id, muzzleType, playerLevel, fleaMarket, exclusionList);
+            var modsForWeapon = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(localClone.Id, muzzleType, playerLevel, fleaMarket);
 
             // If the weapon is a preset, we will add any currently attached mods to the list if they're not there already.
             modsForWeapon = modsForWeapon.Union(AggregateAttachedModsRecursively(localClone)).ToList();
@@ -32,7 +32,11 @@ namespace WishGranter.Statics
                 slot.ContainedItem = null;
             }
 
-            // Now we need to go through EnhancedLogic processing.
+            // Remove any items that have been explicitly excluded, if there are any.
+            if (exclusionList != null)
+                modsForWeapon = modsForWeapon.Where(x => !exclusionList.Contains(x.Id)).ToList();
+
+            // Nex, we need to go through EnhancedLogic processing.
             modsForWeapon = EnhancedLogic_Function(localClone, modsForWeapon, priority);
 
             // Finally, we send the prepared list, weappon and other params into the SimpleFitting recursion and return that
@@ -40,7 +44,7 @@ namespace WishGranter.Statics
         }
 
         // Contract: we pass in first the base weapon and the starting input list. As we recursively go through the fitting process, we use a selected mod as the CompItem, but keep the same input list.
-        // Said List should ahve been provided by MWP's GetShortListOfModsForCompundItemWithParams() function.
+        // Said List should have been provided by MWP's GetShortListOfModsForCompundItemWithParams() function.
         public static CompoundItem SimpleFitting(CompoundItem CompItem, in List<WeaponMod> InputMods, FittingPriority mode)
         {
             // Need to do this so that mutation doesn't spread.
@@ -77,7 +81,7 @@ namespace WishGranter.Statics
             }
             return CompItemClone;
         }
-        // Need the blacklist for AR-15 weapons and thier complicated barrel context 🙄
+        // Need the blacklist for AR-15 weapons and thier complicated barrel context
         public static CompoundItem SimpleFitting(CompoundItem CompItem, in List<WeaponMod> InputMods, FittingPriority mode, HashSet<string> blackList)
         {
             // Need to do this so that mutation doesn't spread.
@@ -114,6 +118,8 @@ namespace WishGranter.Statics
             }
             return CompItemClone;
         }
+        //? Might be an idea to spin these sorting functions off into thier own class - follow MechTurk's idea of the ModList Class which would also have the build parameters as attributes.
+        //? For now, maintain the current limitation of trader deals for mods.
         public static List<WeaponMod> SortWeaponModListByMode(List<WeaponMod> inputList, FittingPriority mode, Slot? slot = null)
         {
             if(slot != null)
@@ -131,7 +137,7 @@ namespace WishGranter.Statics
             }
             else if (mode == FittingPriority.Recoil)
             {
-                inputList = SortWeaponModListHelper_Recoil(inputList);
+                inputList = SortWeaponModListHelper_EconRecoil(inputList);
             }
             else if (mode == FittingPriority.MetaErgonomics)
             {
@@ -139,7 +145,7 @@ namespace WishGranter.Statics
             }
             else if (mode == FittingPriority.Ergonomics)
             {
-                inputList = SortWeaponModListHelper_Ergonomics(inputList);
+                inputList = SortWeaponModListHelper_EconErgonomics(inputList);
             }
             return inputList;
         }
@@ -158,7 +164,7 @@ namespace WishGranter.Statics
 
             return inputList;
         }
-        private static List<WeaponMod> SortWeaponModListHelper_Recoil(List<WeaponMod> inputList)
+        private static List<WeaponMod> SortWeaponModListHelper_EconRecoil(List<WeaponMod> inputList)
         {
             // Get the max value, filter out any that don't have it, then sort by the price.
             var inputsRecoilMax = inputList.Min(x => GetCompoundItemStatsTotals<WeaponMod>(x).TotalRecoil);
@@ -182,7 +188,7 @@ namespace WishGranter.Statics
 
             return inputList;
         }
-        private static List<WeaponMod> SortWeaponModListHelper_Ergonomics(List<WeaponMod> inputList)
+        private static List<WeaponMod> SortWeaponModListHelper_EconErgonomics(List<WeaponMod> inputList)
         {
 
             // Get the max value, filter out any that don't have it, then sort by the price.
@@ -195,8 +201,12 @@ namespace WishGranter.Statics
         }
 
         //The idea of this is to specifically handle the special edge-cases which were causing issues with the generic fitting process, this will allow that to be simpler and cleaner
+        //? Might be an idea to spin these EnhancedLogic functions off into thier own class + do a SOLID pass on these logics - follow MechTurk's idea of the ModList Class which would also have the build parameters as attributes.
         private static List<WeaponMod> EnhancedLogic_Function(Weapon inputWeapon, List<WeaponMod> inputList, FittingPriority priority)
         {
+            // We run this before the others as it is independant and self-selecting
+            inputList = EnhancedLogic_ComboGripStocks(inputList, priority);
+
             List<string> AR15_type = new List<string>
                 {
                     "5c07c60e0db834002330051f", // ADAR
@@ -222,7 +232,7 @@ namespace WishGranter.Statics
                     inputList = EnhancedLogic_SVDS(inputList, priority);
                     break;
                 case string id when inputWeapon.Name.Contains("Kalashnikov"):
-                    inputList = EnhancedLogic_Kalashnikovs(inputList, priority);
+                    inputList = EnhancedLogic_Kalashnikovs_GasTubes_Handguards_DustCovers(inputList, priority);
                     break;
                 default:
                     break;
@@ -696,18 +706,186 @@ namespace WishGranter.Statics
 
             return inputList;
         }
-        private static List<WeaponMod> EnhancedLogic_Kalashnikovs_PistolGrips_Stocks(List<WeaponMod> inputList)
+        public static List<WeaponMod> EnhancedLogic_ComboGripStocks(List<WeaponMod> inputList, FittingPriority priority)
         {
-            //todo This entire logic lmao
-            //? Maybe it can be made generic for both ARs and AKs?
-            return inputList;
-        }
-        private static List<WeaponMod> EnhancedLogic_Kalashnikovs(List<WeaponMod> inputList, FittingPriority mode)
-        {
-            inputList = EnhancedLogic_Kalashnikovs_GasTubes_Handguards_DustCovers(inputList, mode);
+            // 1. First we need to find if there are any combo PG-Stock items in the list.
+            List<string> ComboGripStocks = new List<string>
+            {
+                "5c0e2ff6d174af02a1659d4a", // ADAR
+                "5a33e75ac4a2826c6e06d759", // CQR (AR-15)
+                "5a69a2ed8dc32e000d46d1f1", // R43 AS-VAL
+                "619b69037b9de8162902673e"  // CQR-47
+            };
+            if (inputList.Any(x => ComboGripStocks.Contains(x.Id)))
+            {
+                // 2. If there is one, extract it from the input list, and then extract the incompatible items to the combo-stock from the list as well
+                var nonComboList = inputList.Where(x => !ComboGripStocks.Contains(x.Id)).ToList();
 
-            // Will need to add a check for if the AK is of a fixed stock type or not as this function is only relevant for them.
-            inputList = EnhancedLogic_Kalashnikovs_PistolGrips_Stocks(inputList);
+                // There's only ever going to be one, aside from if there is the ADAR+CQR, and we know the ADAR is worse so might as well remove it.
+                var comboStocks = inputList.Where(x=> ComboGripStocks.Contains(x.Id)).ToList();
+                if(comboStocks.Count > 1)
+                    comboStocks.RemoveAll(x=>x.Id.Equals(comboStocks[0].Id));
+                var comboStock = comboStocks.First();
+
+                //? Remove all PGs and Stocks, so we can add in the champion(s) later
+                inputList.RemoveAll(x => x is PistolGrip || x is Stock);
+
+                // Branch point: buffer tube (ADAR/CQR) vs no buffer tube (R43/CQR47)
+                // 3. Assemble the best competitor combo to the stock
+                // 4. Compare the two options
+                // 4.A If the combo-stock wins, insert it back into the list.
+                // 4.B If the normal item combo wins, insert them back into the list
+                // 5. return the list
+                if (comboStock.Id.Equals("5c0e2ff6d174af02a1659d4a") || comboStock.Id.Equals("5a33e75ac4a2826c6e06d759"))
+                {
+                    // Need to get all of the grips and stocks.
+                    var grips = nonComboList.Where(x => x is PistolGrip).ToList();
+                    var stocks = nonComboList.Where(x => x is Stock).ToList();
+
+                    // Need to get the best tube for the GripStockCombo
+                    var tubes = stocks.Where(x=>x.Slots.Count > 0).ToList();
+
+                    tubes = tubes.Where(x=> !comboStock.ConflictingItems.Contains(x.Id)).ToList();
+
+                    tubes = SortWeaponModListByMode(tubes, priority);
+                    var bestTube = tubes.FirstOrDefault();
+
+                    // Make totals
+                    (int TotalErgo, float TotalRecoil) comboTotals = ((int) bestTube.Ergonomics + (int)comboStock.Ergonomics, bestTube.Recoil+comboStock.Recoil);
+
+                    // Fit out all of the stocks, choose the best
+                    List<WeaponMod> fittedStocks = new List<WeaponMod>();
+                    foreach(var stock in stocks)
+                    {
+                        fittedStocks.Add((WeaponMod)SimpleFitting(stock, nonComboList, priority));
+                    }
+                    fittedStocks = SortWeaponModListByMode(fittedStocks, priority);
+                    var bestStock = fittedStocks.FirstOrDefault();
+
+                    // Choose the best grip
+                    grips = SortWeaponModListByMode(grips, priority);
+                    var bestGrip = grips.FirstOrDefault();
+
+                    var nonComboTotals = GetCompoundItemStatsTotals<WeaponMod>(bestStock);
+                    nonComboTotals.TotalErgo += (int) bestGrip.Ergonomics;
+
+                    // If the combo doesn't win the primary stat, we don't care about the secondary or the price 
+                    if (priority == FittingPriority.Recoil || priority == FittingPriority.MetaRecoil)
+                    {
+                        if (comboTotals.TotalRecoil < nonComboTotals.TotalRecoil)
+                        {
+                            inputList.Add(bestTube);
+                            inputList.Add(comboStock);
+                        }
+                        else
+                        {
+                            inputList.Add(bestGrip);
+                            inputList.AddRange(AggregateListOfModsRecursively(bestStock));
+                        }
+                    }
+                    else
+                    {
+                        if (comboTotals.TotalErgo > nonComboTotals.TotalErgo)
+                        {
+                            inputList.Add(bestTube);
+                            inputList.Add(comboStock);
+                        }
+                        else
+                        {
+                            inputList.Add(bestGrip);
+                            inputList.AddRange(AggregateListOfModsRecursively(bestStock));
+                        }
+                    }
+
+                }
+                else if (comboStock.Id.Equals("5a69a2ed8dc32e000d46d1f1"))
+                {
+                    // If it's the R43-Val, we need to compare it vs the normal PG and Stock, of which we can safely assume are options
+                    var defaultGrip = (WeaponMod) StaticRatStash.DB.GetItem(x => x.Name.Contains("AS VAL pistol grip"));
+                    var defaultStock = (WeaponMod) StaticRatStash.DB.GetItem(x => x.Name.Contains("AS VAL skeleton stock"));
+                    var defaultTotalErgo = defaultGrip.Ergonomics + defaultStock.Ergonomics; // Just use the stock's recoil by itself
+
+                    // Do all R43
+                    var fittedCombo = (WeaponMod)SimpleFitting(comboStock, nonComboList, priority);
+                    var rotorTotals = GetCompoundItemStatsTotals<WeaponMod>(fittedCombo);
+
+                    // If the combo doesn't win the primary stat, we don't care about the secondary or the price 
+                    if (priority == FittingPriority.Recoil || priority == FittingPriority.MetaRecoil)
+                    {
+                        if (defaultStock.Recoil < rotorTotals.TotalRecoil)
+                        {
+                            inputList.Add(defaultGrip);
+                            inputList.Add(defaultStock);
+                        }
+                        else
+                        {
+                            inputList.AddRange(AggregateListOfModsRecursively(fittedCombo));
+                        }
+                    }
+                    else
+                    {
+                        if (defaultTotalErgo > rotorTotals.TotalErgo)
+                        {
+                            inputList.Add(defaultGrip);
+                            inputList.Add(defaultStock);
+                        }
+                        else
+                        {
+                            inputList.AddRange(AggregateListOfModsRecursively(fittedCombo));
+                        }
+                    }
+                }
+                else
+                {
+                    // If it's the CQR-47, we just need to go to the input list and find if there is a combo to PG and stock which is better.
+                    var grips = nonComboList.Where(x => x is PistolGrip).ToList();
+                    var stocks = nonComboList.Where(x => x is Stock).ToList();
+
+                    List<WeaponMod> fittedStocks = new();
+                    foreach(var stock in stocks)
+                    {
+                        fittedStocks.Add((WeaponMod)SimpleFitting(stock, nonComboList, priority));
+                    }
+
+                    // Thankfully, no conflicts between fitted stocks and grips, yay! Sort and get the best
+                    grips = SortWeaponModListByMode(grips, priority);
+                    fittedStocks = SortWeaponModListByMode(fittedStocks, priority);
+                    var bestGrip = grips.First();
+                    var bestStock = fittedStocks.First();
+
+                    // We can just use the recoil of the stock as grips have no input there.
+                    var totalsForStock = GetCompoundItemStatsTotals<WeaponMod>(bestStock);
+                    var totalErgo = bestGrip.Ergonomics + totalsForStock.TotalErgo;
+                    var totalRecoil = totalsForStock.TotalRecoil;
+
+                    // If the combo doesn't win the primary stat, we don't care about the secondary or the price 
+                    if (priority == FittingPriority.Recoil || priority == FittingPriority.MetaRecoil)
+                    {
+                        if(totalRecoil < comboStock.Recoil)
+                        {
+                            inputList.Add(bestGrip);
+                            inputList.AddRange(AggregateListOfModsRecursively(bestStock));
+                        }
+                        else
+                        {
+                            inputList.Add(comboStock);
+                        }
+                    }
+                    else
+                    {
+                        if(totalErgo > comboStock.Ergonomics)
+                        {
+                            inputList.Add(bestGrip);
+                            inputList.AddRange(AggregateListOfModsRecursively(bestStock));
+                        }
+                        else
+                        {
+                            inputList.Add(comboStock);
+                        }
+                    }
+
+                }
+            }
 
             return inputList;
         }
@@ -772,7 +950,7 @@ namespace WishGranter.Statics
             return (t_ergo, t_recoil);
         }
 
-        public static (bool, string) CheckIfCompoundItemIsValid(CompoundItem CI)
+        public static (bool Valid, string Reason) CheckIfCompoundItemIsValid(CompoundItem CI)
         {
             bool result = true;
             string resultString = string.Empty;
@@ -854,6 +1032,15 @@ namespace WishGranter.Statics
             }
             return result;
         }
+        public static void PrintOutAttachedMods(Weapon weapon)
+        {
+            var list = AggregateAttachedModsRecursively(weapon);
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Name}, {item.Id}");
+            }
+        }
+
         public static List<WeaponMod> AggregateListOfModsRecursively(WeaponMod theMod)
         {
             List<WeaponMod> result = new();
@@ -890,6 +1077,8 @@ namespace WishGranter.Statics
             }
             return result;
         }
+
+
     }
     
 }
