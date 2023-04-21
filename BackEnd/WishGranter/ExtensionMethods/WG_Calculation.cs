@@ -153,7 +153,7 @@ namespace WishGranterProto.ExtensionMethods
             return result;
         }
 
-        public static double getExpectedArmorDamage(int armor_class, ArmorMaterial armor_material, double bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
+        public static double GetExpectedArmorDamage(int armor_class, ArmorMaterial armor_material, double bullet_penetration, int bullet_armorDamagePercentage, double armorDurability)
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
@@ -182,7 +182,7 @@ namespace WishGranterProto.ExtensionMethods
         }
 
         // This function provides the damage that a character will receive after a bullet penetrates armor, accounting for the damage mitigation, if any.
-        public static double DamageToCharacter(double armorDurability, int armorClass, double bulletDamage, double bulletPenetration)
+        public static double PenetrationDamage(double armorDurability, int armorClass, double bulletDamage, double bulletPenetration)
         {
             double median(double a, double b, double c)
             {
@@ -311,7 +311,7 @@ namespace WishGranterProto.ExtensionMethods
                 }
 
                 // ADPS
-                testResult.ArmorDamagePerShot = getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, 100);
+                testResult.ArmorDamagePerShot = GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, 100);
 
                 while (doneDamage < startingDura || HitPoints > 0)
                 {
@@ -322,7 +322,7 @@ namespace WishGranterProto.ExtensionMethods
 
                     // Calc Potential damages:
                     var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, damage, penetrationPower);
-                    var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, damage, penetrationPower);
+                    var ShotPenetrating = PenetrationDamage(durability, armorItem.ArmorClass, damage, penetrationPower);
 
 
                     // Calc Average Damage and apply it to HP pool
@@ -383,7 +383,7 @@ namespace WishGranterProto.ExtensionMethods
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
-                    doneDamage = doneDamage + getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double)testResult.Shots.Last().DurabilityPerc!); ;
+                    doneDamage = doneDamage + GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double)testResult.Shots.Last().DurabilityPerc!); ;
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();
@@ -447,7 +447,7 @@ namespace WishGranterProto.ExtensionMethods
                 }
 
                 // ADPS
-                testResult.ArmorDamagePerShot = getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, 100);
+                testResult.ArmorDamagePerShot = GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, 100);
 
                 while (doneDamage < startingDura || HitPoints > 0)
                 {
@@ -458,7 +458,7 @@ namespace WishGranterProto.ExtensionMethods
 
                     // Calc Potential damages:
                     var ShotBlunt = BluntDamage(durability, armorItem.ArmorClass, armorItem.BluntThroughput, damage, penetrationPower);
-                    var ShotPenetrating = DamageToCharacter(durability, armorItem.ArmorClass, damage, penetrationPower);
+                    var ShotPenetrating = PenetrationDamage(durability, armorItem.ArmorClass, damage, penetrationPower);
                     
 
                     // Calc Average Damage and apply it to HP pool
@@ -519,7 +519,7 @@ namespace WishGranterProto.ExtensionMethods
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
-                    doneDamage = doneDamage + getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double) testResult.Shots.Last().DurabilityPerc!); ;
+                    doneDamage = doneDamage + GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double) testResult.Shots.Last().DurabilityPerc!); ;
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();
@@ -586,7 +586,7 @@ namespace WishGranterProto.ExtensionMethods
 
                 // Calc Potential damages:
                 var ShotBlunt = BluntDamage(durability, ac, .27, damage, penetration);
-                var ShotPenetrating = DamageToCharacter(durability, ac, damage, penetration);
+                var ShotPenetrating = PenetrationDamage(durability, ac, damage, penetration);
 
                 // Calc Average Damage and apply it to HP
                 var AverageDamage = (ShotBlunt * (1 - penChance)) + (ShotPenetrating * penChance);

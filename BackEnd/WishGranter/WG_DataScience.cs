@@ -381,7 +381,7 @@ namespace WishGranter
             effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
 
             var penetrationPowerAtDistance = WG_Ballistics.GetDamageAndPenetrationAtDistance(distance, ammo).finalPenetration;
-            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPowerAtDistance, ammo.ArmorDamage, 100);
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPowerAtDistance, ammo.ArmorDamage, 100);
 
             effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
             effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot-1].ProbabilityOfKillCumulative;
@@ -405,7 +405,7 @@ namespace WishGranter
             effectivenssDataRow.FirstShot_PenDamage = (double)test.Shots[0].PenetratingDamage;
             effectivenssDataRow.FirstShot_BluntDamage = (double)test.Shots[0].BluntDamage;
 
-            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.getExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetration, ammo.ArmorDamage, 100);
+            effectivenssDataRow.FirstShot_ArmorDamage = WG_Calculation.GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetration, ammo.ArmorDamage, 100);
 
             effectivenssDataRow.ExpectedShotsToKill = test.KillShot;
             effectivenssDataRow.ExpectedKillShotConfidence = test.Shots[test.KillShot - 1].ProbabilityOfKillCumulative;
