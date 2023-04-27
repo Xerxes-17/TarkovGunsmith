@@ -12,6 +12,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.WishGranter/Migrations/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
