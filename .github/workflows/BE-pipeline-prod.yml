@@ -30,11 +30,11 @@ jobs:
           dotnet-version: 6.0.x
 
       - name: Restore dependencies
-        run: dotnet restore ./WishGranter.sln
+        run: dotnet restore ./WishGranter.csproj
         working-directory: ./BackEnd/WishGranter
 
       - name: Publish
-        run: dotnet publish ./WishGranter.sln -r linux-x64 -c Release --self-contained true -o ./publish
+        run: dotnet publish ./WishGranter.csproj -r linux-x64 -c Release --self-contained true -o ./publish
         working-directory: ./BackEnd/WishGranter
 
       - name: Generate deployment package
