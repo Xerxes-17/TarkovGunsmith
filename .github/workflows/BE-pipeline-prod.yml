@@ -89,7 +89,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ vars.EB_APP_NAME }}
           environment_name: ${{ vars.EB_ENV_NAME }}
-          version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
+          version_label: "${{ vars.EB_APP_NAME }}-${{github.SHA}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
           deployment_package: ./deploy-BE/api-deploy.zip
