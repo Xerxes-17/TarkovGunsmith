@@ -20,7 +20,6 @@ namespace WishGranter.Statics
         public float Speed { get; set; }
         public List<BallisticRating> Ratings { get; set; }
 
-
         public void LoadAmmo()
         {
             Ammo = Ammos.Cleaned.FirstOrDefault(x => x.Id == AmmoId); // Load the Ammo property
