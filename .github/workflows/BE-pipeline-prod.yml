@@ -76,7 +76,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: wish-granter-api
-          path: ./deploy-BE/wish-granter-api
+          path: ./deploy-BE/
 
       - name: Display structure of files
         run: ls -R
