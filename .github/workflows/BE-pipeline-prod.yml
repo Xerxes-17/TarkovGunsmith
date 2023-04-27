@@ -74,11 +74,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: wish-granter-api.zip
-          path: ./deploy-BE
+          path: ./deploy-BE/wish-granter-api.zip
 
       - name: Display structure of files
         run: ls -R
-        
+
       - name: Beanstalk Deploy for app
         if: steps.check-env.outputs.env_exists == 'true'
         uses: einaregilsson/beanstalk-deploy@v21 
@@ -90,5 +90,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: ./BackEnd/WishGranter/deploy-BE/wish-granter-api.zip
+          deployment_package: ./deploy-BE/wish-granter-api.zip
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
