@@ -42,7 +42,7 @@ jobs:
       - name: Share artifact inside workflow
         uses: actions/upload-artifact@v3
         with:
-          name: wish-granter-api.zip
+          name: wish-granter-api
           path: ./BackEnd/WishGranter/publish
           retention-days: 2
 
@@ -73,8 +73,8 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: wish-granter-api.zip
-          path: ./deploy-BE/wish-granter-api.zip
+          name: wish-granter-api
+          path: ./deploy-BE/wish-granter-api
 
       - name: Display structure of files
         run: ls -R
@@ -90,5 +90,5 @@ jobs:
           version_label: "${{ vars.EB_APP_NAME }}-${{needs.mark-time.outputs.time}}"
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
-          deployment_package: ./deploy-BE/wish-granter-api.zip
+          deployment_package: ./deploy-BE/wish-granter-api
           existing_bucket_name: cdk-hnb659fds-assets-531639184061-us-east-1
