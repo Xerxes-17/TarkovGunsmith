@@ -18,8 +18,8 @@ namespace WishGranter.Statics
         public float Penetration { get; set; }
         public float Damage { get; set; }
         public float Speed { get; set; }
-
         public List<BallisticRating> Ratings { get; set; }
+
 
         public void LoadAmmo()
         {

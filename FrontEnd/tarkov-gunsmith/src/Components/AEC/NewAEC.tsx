@@ -258,6 +258,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
             },
         };
     }
+    
     const columns = useMemo<MRT_ColumnDef<AEC_Row>[]>(
         () => [
             CustomCell_Column("Ammo.ShortName", "Name", "Name", 'left', NameCell),
