@@ -25,6 +25,7 @@ namespace WishGranter
                 .ToList();
 
             result.RemoveAll(x => x.Id == "58ac60eb86f77401897560ff");
+            result.RemoveAll(x => x.Id == "59e8936686f77467ce798647"); // Dev balaclava
 
             //Debug Print
             //foreach (var item in result)

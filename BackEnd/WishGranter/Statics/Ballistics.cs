@@ -26,7 +26,7 @@ namespace WishGranter.Statics
         public int ArmorDamagePerc { get; init; }
     };
 
-    // This is used purely for passing in the details of a calculation to the engine.
+    // POCO for encapsulating a custom Simulation Result.
     public record struct CustomSimulationResult
     {
         public SimulationParameters SimulationParameters { get; init; }
@@ -98,7 +98,7 @@ namespace WishGranter.Statics
             {
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
-                float penetrationChance = PenetrationChance(parameters.ArmorClass, parameters.Penetration, currentDurability);
+                float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, currentDurability);
 
                 // Calc Potential damages:
                 float shotBlunt = (float) BluntDamage(currentDurability, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
@@ -159,6 +159,10 @@ namespace WishGranter.Statics
                 }
 
                 hits.Add(thisHit);
+
+                // Add the damage of the current shot so it can be used in the next loop
+                var durabilityPerc = currentDurability / parameters.MaxDurability;
+                currentDurabilityDamageTotal = (float)(currentDurabilityDamageTotal + GetExpectedArmorDamage(parameters.ArmorClass, parameters.ArmorMaterial, parameters.Penetration, parameters.ArmorDamagePerc, durabilityPerc));
 
                 // Update the previousHpProbabilities so that the next loop can use it and increase the hit counter.
                 previousHpProbabilities = currentHpProbabilities.DeepClone();
@@ -264,13 +268,13 @@ namespace WishGranter.Statics
 
             return armor_destructability;
         }
-        public static float PenetrationChance(int armorClass, float bulletPen, float armorDurability)
+        public static double PenetrationChance(int armorClass, float bulletPen, float armorDurabilityPerc)
         {
             /**  
              * The goal of this is to work out the value with a given set of inputs.
              * Equations taken and modified from https://www.desmos.com/calculator/m8cmsfokkl.
              */
-            double factor_a = CalculateFactor_A(armorDurability, armorClass);
+            double factor_a = CalculateFactor_A(armorDurabilityPerc, armorClass);
 
             double result = 0;
 
@@ -322,7 +326,7 @@ namespace WishGranter.Statics
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
-            double probabilityOfPenetration = PenetrationChance(armor_class, bullet_penetration, armorDurability);
+            double probabilityOfPenetration =  PenetrationChance(armor_class, (float) bullet_penetration, (float) armorDurability);
 
             return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
         }
@@ -360,6 +364,31 @@ namespace WishGranter.Statics
             double finalResult = medianResult * bulletDamage;
 
             return finalResult;
+        }
+        public static int GetLegMetaHTK(Ammo ammo)
+        {
+            /* In this function we will find the STK of the ammo vs legs. For this we need to consider the bullet damage, the fragmentation chance and from those two the average damage.
+             * Perhaps later we could also include the the CoK and CCoK for a given shot being a kill, but for now let's just use an average figure.
+             * As legs have a 1.0 damage multiplier for blacked limb damage, it's pretty simple.
+             */
+            double health_pool = 440;
+            double frag_chance = ammo.FragmentationChance;
+            if (ammo.PenetrationPower < 20)
+            {
+                frag_chance = 0;
+            }
+
+            double average_damage = (ammo.Damage * 1 - frag_chance) + ((ammo.Damage * 1.5) * frag_chance);
+
+            double shots = health_pool / average_damage;
+
+            return (int)Math.Ceiling(shots);
+        }
+        public static int GetLegMetaHTK(string ammoId)
+        {
+            Ammo ammo = (Ammo) Ammos.Cleaned.FirstOrDefault(x=>x.Id == ammoId);
+
+            return GetLegMetaHTK(ammo);
         }
     }
 }

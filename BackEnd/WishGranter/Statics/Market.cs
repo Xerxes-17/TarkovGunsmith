@@ -246,16 +246,20 @@ namespace WishGranter.Statics
             return output;
         }
 
+        //todo rename these to say "GetOffersTraderToPlayer_type(cash/barter/all)" and "GetOffersPlayerToTrader_Sell"
+        // SaleOffer is YOU sell to the TRADER
         public static List<MarketEntry> GetSaleOffers()
         {
             return Offers.Where(x=>x.PurchaseOffer.OfferType == OfferType.Sell).ToList();
         }
 
+        // BarterOffer is TRADER sells to YOU
         public static List<MarketEntry> GetBarterOffers()
         {
             return Offers.Where(x => x.PurchaseOffer.OfferType == OfferType.Barter).ToList();
         }
 
+        // CashOffer is TRADER sells to YOU
         public static List<MarketEntry> GetCashOffers()
         {
             return Offers.Where(x => x.PurchaseOffer.OfferType == OfferType.Cash).ToList();
@@ -276,6 +280,7 @@ namespace WishGranter.Statics
             Offers = newOffers.Union(newFleaOffers).ToList();
         }
 
+        // Gets a combo of cash and barters
         public static List<MarketEntry> GetTraderOffers()
         {
             var Cash = GetCashOffers();
@@ -291,17 +296,23 @@ namespace WishGranter.Statics
 
             return union.Where(x=>x.PurchaseOffer.ReqPlayerLevel <= playerLevel).ToList();
         }
-
-        public static MarketEntry GetBestTraderSaleOffer(string id)
+        public static List<MarketEntry> GetTraderSaleOffers(string id)
         {
             var offers = GetSaleOffers();
             var offersForItem = offers.Where(x => x.Id == id).ToList();
+
+            return offersForItem;
+        }
+        public static MarketEntry GetBestTraderSaleOffer(string id)
+        {
+            var offersForItem = GetTraderSaleOffers(id);
 
             offersForItem = offersForItem.OrderByDescending(x => x.PurchaseOffer.PriceRUB).ToList();
 
             return offersForItem[0];
         }
 
+        // Cash + Barter
         public static MarketEntry GetCheapestTraderPurchaseOffer(string id, int playerLevel)
         {
             var offers = GetTraderOffersByPlayerlevel(playerLevel);
@@ -311,6 +322,7 @@ namespace WishGranter.Statics
 
             return offersForItem[0];
         }
+        // Cash + Barter
         public static MarketEntry GetCheapestTraderPurchaseOffer(string id)
         {
             var offers = GetTraderOffers();
@@ -319,6 +331,25 @@ namespace WishGranter.Statics
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
             return offersForItem[0];
+        }
+        // Cash + Barter
+        public static MarketEntry GetEarliestCheapestTraderPurchaseOffer(string id)
+        {
+            var offers = GetTraderOffers();
+            var offersForItem = offers.Where(x => x.Id == id).ToList();
+
+            if(offersForItem.Count > 0)
+            {
+                var earliest = offersForItem.Min(x => x.PurchaseOffer.MinVendorLevel);
+                offersForItem = offersForItem.Where(x => x.PurchaseOffer.MinVendorLevel == earliest).ToList();
+
+                offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
+                return offersForItem[0];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static List<MarketEntry> GetFreeMarketPurchaseOffersByPlayerLevel(int playerLevel)

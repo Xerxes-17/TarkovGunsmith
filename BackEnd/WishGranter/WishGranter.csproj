@@ -40,5 +40,9 @@
     <Folder Include="outputs\" />
     <Folder Include="results\" />
   </ItemGroup>
+	
+  <ItemGroup>
+	  <Content Include="monolit.db" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 
 </Project>

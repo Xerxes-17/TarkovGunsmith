@@ -12,10 +12,71 @@ using WishGranter;
 using Newtonsoft.Json;
 using WishGranter.TerminalBallisticsSimulation;
 using WishGranter.Statics;
-
+using WishGranter.AmmoEffectivenessChart;
 
 namespace WishGranterTests
 {
+    [TestClass]
+    public class AECTests
+    {
+        [TestMethod]
+        public void Test_Constructor()
+        {
+            AEC AEC = new();
+
+            Console.WriteLine($"AEC.Rows.Count: {AEC.Rows.Count}");
+        }
+    }
+
+    [TestClass]
+    public class MonolitTests
+    {
+        [TestMethod]
+        public void Test_UpdateEverthingFromRatStashOrigin()
+        {
+            Ammo_SQL.UpdateEverthingFromRatStashOrigin();
+        }
+
+        [TestMethod]
+        public void Test_BallisticRatingsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticRating.Dev_Generate_Save_All_BallisticRatings();
+        }
+
+        [TestMethod]
+        public void Test_BallisticTestsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticTest.Dev_Generate_Save_All_BallisticTests();
+        }
+
+        [TestMethod]
+        public void Test_ArmorItemsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            ArmorItemStats.Dev_Generate_Save_All_ArmorItems();
+        }
+
+        [TestMethod]
+        public void Test_BallisticDetailsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticDetails.Dev_Generate_Save_All_BallisticDetails();
+        }
+        
+        [TestMethod]
+        public void Test_AmmoTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            Ammo_SQL.Dev_Generate_Save_All_Ammo();
+        }
+    }
     [TestClass]
     public class ModsWeaponsPresetsTests
     {

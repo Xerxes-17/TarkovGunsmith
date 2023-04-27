@@ -20,7 +20,7 @@
     "copy-image-clipboard": "^2.1.2",
     "env-cmd": "^10.1.0",
     "html2canvas": "^1.4.1",
-    "material-react-table": "^1.8.3",
+    "material-react-table": "^1.11.0",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",

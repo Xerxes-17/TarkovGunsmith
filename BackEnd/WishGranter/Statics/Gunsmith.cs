@@ -11,6 +11,29 @@ namespace WishGranter.Statics
         Ergonomics
     }
 
+    public record struct GunsmithParameters
+    {
+        public FittingPriority priority { get; init; }
+        public MuzzleType muzzleType { get; init; }
+        public int playerLevel { get; init; }
+        public bool fleaMarket { get; init; }
+        public List<string>? exclusionList { get; init; } = null;
+
+        public GunsmithParameters(
+        FittingPriority priority,
+        MuzzleType muzzleType,
+        int playerLevel,
+        bool fleaMarket,
+        List<string>? exclusionList = null)
+        {
+            this.priority = priority;
+            this.muzzleType = muzzleType;
+            this.playerLevel = playerLevel;
+            this.fleaMarket = fleaMarket;
+            this.exclusionList = exclusionList;
+        }
+    };
+
     // This class will handle all of the fittings logic
     public static class Gunsmith
     {

@@ -4,9 +4,9 @@ namespace WishGranter
 {
     public static class Ammos
     {
-        public static List<Item> Cleaned { get; } = ConstructCleanedList();
+        public static List<Ammo> Cleaned { get; } = ConstructCleanedList();
 
-        private static List<Item> ConstructCleanedList()
+        private static List<Ammo> ConstructCleanedList()
         {
             List<Ammo> Ammo = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
 
@@ -24,8 +24,11 @@ namespace WishGranter
             Ammo.RemoveAll(x => x.Name.Contains("40mm VOG-25 grenade"));
             Ammo.RemoveAll(x => x.Name.Contains("30x29mm"));
             Ammo.RemoveAll(x => x.Name.Contains("12.7x108mm"));
-            Ammo.RemoveAll(x => x.Name.Contains("40x46mm M4"));
-            Ammo.RemoveAll(x => x.Name.Contains("40x46mm M3"));
+
+            Ammo.RemoveAll(x => x.Name.Contains("40x46mm"));
+            //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M3"));
+            //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M4"));
+            //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M5"));
 
             Ammo.RemoveAll(x => x.Id.Equals("5e85aac65505fa48730d8af2"));  //Some dev thing
             Ammo.RemoveAll(x => x.Id.Equals("5f647fd3f6e4ab66c82faed6"));  //Some dev thing
@@ -33,12 +36,12 @@ namespace WishGranter
             Ammo = Ammo.OrderBy(x=>x.Caliber).ThenByDescending(x=>x.PenetrationPower).ToList();
 
             //Debug Print
-            foreach (var item in Ammo)
-            {
-                Console.WriteLine($"{item.Name}, {item.Id} ");
-            }
+            //foreach (var item in Ammo)
+            //{
+            //    Console.WriteLine($"{item.Name}, {item.Id} ");
+            //}
 
-            return Ammo.Cast<Item>().ToList();
+            return Ammo.ToList();
         }
     }
 }

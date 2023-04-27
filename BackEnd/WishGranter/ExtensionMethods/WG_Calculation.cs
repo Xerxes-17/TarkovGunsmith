@@ -383,7 +383,7 @@ namespace WishGranterProto.ExtensionMethods
                     testResult.Shots.Add(testShot);
 
                     // Add the damage of the current shot so it can be used in the next loop
-                    doneDamage = doneDamage + GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double)testResult.Shots.Last().DurabilityPerc!); ;
+                    doneDamage = doneDamage + GetExpectedArmorDamage(armorItem.ArmorClass, armorItem.ArmorMaterial, penetrationPower, ammo.ArmorDamage, (double)testResult.Shots.Last().DurabilityPerc!);
 
                     // Update the previousHpProbabilities so that the next loop can use it
                     previousHpProbabilities = currentHpProbabilities.DeepClone();

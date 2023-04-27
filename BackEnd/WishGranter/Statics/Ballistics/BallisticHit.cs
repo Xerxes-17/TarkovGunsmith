@@ -59,8 +59,11 @@ namespace WishGranter.Statics
                 .IsRequired();
 
             builder.HasOne<BallisticTest>()
-            .WithMany()
-            .HasForeignKey(b => b.TestId);
+                .WithMany()
+                .HasForeignKey(b => b.TestId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasIndex(x => new { x.TestId, x.HitNum}).IsUnique();
         }
     }
 }
