@@ -2,6 +2,7 @@ name: BE-pipeline-dev
 on:
   push:
     branches:
+      - dev
       - dev-*
       - hotfix*
     paths:
