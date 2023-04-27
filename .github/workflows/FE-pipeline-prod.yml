@@ -37,21 +37,11 @@ jobs:
           
       - name: Clone repository
         uses: actions/checkout@v3
-        
-      - name: Clear cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-        
+      
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
-          cache-dependency-path: ./FrontEnd/package-lock.json
           
       - name: Install dependencies
         working-directory: ./FrontEnd/tarkov-gunsmith
