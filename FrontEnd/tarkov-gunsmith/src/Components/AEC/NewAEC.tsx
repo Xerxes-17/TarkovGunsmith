@@ -244,6 +244,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
         };
     }
 
+    
     function Standard_Column(accessorKey: string, header: string, id: string): MRT_ColumnDef<AEC_Row> {
         return {
             accessorKey: accessorKey as keyof AEC_Row,
@@ -258,7 +259,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
             },
         };
     }
-    
+
     const columns = useMemo<MRT_ColumnDef<AEC_Row>[]>(
         () => [
             CustomCell_Column("Ammo.ShortName", "Name", "Name", 'left', NameCell),

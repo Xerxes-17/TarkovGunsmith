@@ -31,7 +31,6 @@ namespace WishGranter.Statics
             Ratings = db.BallisticRatings.Where(x => x.BallisticDetailsId.Equals(Id)).ToList();
         }
         
-
         public static void CheckGenerateAndSavetoDB(Ammo parent)
         {
             using var db = new Monolit();
