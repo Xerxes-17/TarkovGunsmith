@@ -583,7 +583,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                         })}
                     >
                         <>
-                            {dealWithMultiShotAmmo(cell.getValue<string>().at(1)!, row.original.ammo.projectileCount)}
+                            {dealWithMultiShotAmmo(cell.getValue<string>().at(1)!, row.original.details.projectileCount)}
                         </>
 
                     </Box>
@@ -611,7 +611,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string>().at(2)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string>().at(2)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
@@ -636,7 +636,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string>().at(3)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string>().at(3)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
@@ -661,7 +661,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string>().at(4)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string>().at(4)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },
@@ -686,7 +686,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             p: '0.25rem',
                         })}
                     >
-                        {dealWithMultiShotAmmo(cell.getValue<string>().at(5)!, row.original.ammo.projectileCount)}
+                        {dealWithMultiShotAmmo(cell.getValue<string>().at(5)!, row.original.details.projectileCount)}
                     </Box>
                 ),
             },

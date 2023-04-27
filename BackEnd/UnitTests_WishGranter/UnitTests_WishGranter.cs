@@ -11,12 +11,282 @@ using System.IO;
 using WishGranter;
 using Newtonsoft.Json;
 using WishGranter.TerminalBallisticsSimulation;
+using WishGranter.Statics;
+using WishGranter.AmmoEffectivenessChart;
 
 namespace WishGranterTests
 {
     [TestClass]
+    public class AECTests
+    {
+        [TestMethod]
+        public void Test_Constructor()
+        {
+            AEC AEC = new();
+
+            Console.WriteLine($"AEC.Rows.Count: {AEC.Rows.Count}");
+        }
+    }
+
+    [TestClass]
+    public class MonolitTests
+    {
+        [TestMethod]
+        public void Test_UpdateEverthingFromRatStashOrigin()
+        {
+            Ammo_SQL.UpdateEverthingFromRatStashOrigin();
+        }
+
+        [TestMethod]
+        public void Test_BallisticRatingsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticRating.Dev_Generate_Save_All_BallisticRatings();
+        }
+
+        [TestMethod]
+        public void Test_BallisticTestsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticTest.Dev_Generate_Save_All_BallisticTests();
+        }
+
+        [TestMethod]
+        public void Test_ArmorItemsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            ArmorItemStats.Dev_Generate_Save_All_ArmorItems();
+        }
+
+        [TestMethod]
+        public void Test_BallisticDetailsTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            BallisticDetails.Dev_Generate_Save_All_BallisticDetails();
+        }
+        
+        [TestMethod]
+        public void Test_AmmoTable_Generation()
+        {
+            Monolit monolit = new Monolit();
+
+            Ammo_SQL.Dev_Generate_Save_All_Ammo();
+        }
+    }
+    [TestClass]
+    public class ModsWeaponsPresetsTests
+    {
+        [TestMethod]
+        public void Test_GetShortListOfModsForCompundItemWithParams_AK74_Loud_40_noFLea()
+        {
+            string weapon_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74 5.45")).Id;
+            List<WeaponMod> result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(weapon_id, MuzzleType.Loud, 40, false);
+            Console.WriteLine($"Count: {result.Count}");
+            foreach(WeaponMod mod in result)
+            {
+                Console.WriteLine($"{mod.Name}, {mod.Id}");
+            }
+        }
+        [TestMethod]
+        public void Test_GetShortListOfModsForCompundItemWithParams_AK74_Silent_40_noFLea()
+        {
+            string weapon_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74 5.45")).Id;
+            List<WeaponMod> result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(weapon_id, MuzzleType.Quiet, 40, false);
+            Console.WriteLine($"Count: {result.Count}");
+            foreach (WeaponMod mod in result)
+            {
+                Console.WriteLine($"{mod.Name}, {mod.Id}");
+            }
+        }
+        [TestMethod]
+        public void Test_GetShortListOfModsForCompundItemWithParams_AK74_Any_40_noFLea()
+        {
+            string weapon_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74 5.45")).Id;
+            List<WeaponMod> result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(weapon_id, MuzzleType.Any, 40, false);
+            Console.WriteLine($"Count: {result.Count}");
+            foreach (WeaponMod mod in result)
+            {
+                Console.WriteLine($"{mod.Name}, {mod.Id}");
+            }
+        }
+    }
+
+    [TestClass]
+    public class GunsmithTests
+    {
+        static string AK_74M_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74M")).Id;
+        static string M4A1_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Colt M4A1 5.56x45 ass")).Id;
+        static string AK_74N_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74N")).Id;
+
+        [TestMethod]
+        public void Test_FitWeapon_AK74N_Loud_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(AK_74N_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Loud, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+        [TestMethod]
+        public void Test_FitWeapon_AK74N_Quiet_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(AK_74N_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Quiet, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+        [TestMethod]
+        public void Test_FitWeapon_AK74N_Any_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(AK_74N_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Any, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+
+
+        [TestMethod]
+        public void Test_FitWeapon_M4A1_Loud_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(M4A1_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Loud, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+
+
+        [TestMethod]
+        public void Test_FitWeapon_M4A1_Silent_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(M4A1_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Quiet, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+        [TestMethod]
+        public void Test_FitWeapon_M4A1_Any_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(M4A1_id);
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Any, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+
+
+        [TestMethod]
+        public void Test_FitWeapon_74M_Loud_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(AK_74M_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Loud, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+
+
+        [TestMethod]
+        public void Test_FitWeapon_74M_Silent_MetaRecoil()
+        {
+            var weapon = (Weapon) StaticRatStash.DB.GetItem(AK_74M_id);
+
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Quiet, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+        [TestMethod]
+        public void Test_FitWeapon_74M_Any_MetaRecoil()
+        {
+            var weapon = (Weapon)StaticRatStash.DB.GetItem(AK_74M_id);
+            Weapon fitted = Gunsmith.FitWeapon(weapon, FittingPriority.MetaRecoil, MuzzleType.Any, 40, false);
+
+            var result = Gunsmith.GetCompoundItemStatsTotals<Weapon>(fitted);
+            var validTuple = Gunsmith.CheckIfCompoundItemIsValid(fitted);
+
+            Console.WriteLine($"result: {result}");
+            Console.WriteLine($"Verify: {validTuple}");
+            Gunsmith.PrintOutAttachedMods(fitted);
+
+            Assert.IsTrue(validTuple.Valid);
+        }
+    }
+
+
+    [TestClass]
     public class SingletonTests
     {
+        [TestMethod]
+        public void Test_GetSomeIDs_Init()
+        {
+            var adar = StaticRatStash.DB.GetItem(x => x.Name.Contains("AR-15 ADAR 2-15 wooden stock"));
+            var r43_val = StaticRatStash.DB.GetItem(x => x.Name.Contains("AS VAL Rotor 43 pistol grip & buffer tube"));
+            var cqr = StaticRatStash.DB.GetItem(x => x.Name.Contains("AR-15 Hera Arms CQR pistol grip/buttstock"));
+            var cqr47 = StaticRatStash.DB.GetItem(x => x.Name.Contains("AKM/AK-74 Hera Arms CQR47 pistol grip/buttstock"));
+        }
+
         [TestMethod]
         public void Test_RatStashSingleton_Init()
         {
@@ -35,6 +305,91 @@ namespace WishGranterTests
         public void Test_TBS_datastore_AA_Bodge()
         {
             TBS_datastore.Instance.Bodge_Armor_Ammo_DB();
+        }
+
+        [TestMethod]
+        public void Test_StaticRatStash_Count()
+        {
+            int result = StaticRatStash.DB.GetItems().Count();
+            Console.WriteLine($"Ratstash.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticArmors_CleanedCount()
+        {
+            var result = Armors.Cleaned.Count;
+            Console.WriteLine($"Armors.Cleaned.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticAmmos_CleanedCount()
+        {
+            var result = Ammos.Cleaned.Count;
+            Console.WriteLine($"Ammos.Cleaned.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_Count()
+        {
+            var result = ModsWeaponsPresets.CleanedWeapons.Count;
+            var result2 = ModsWeaponsPresets.CleanedMods.Count;
+
+            Console.WriteLine($"AllWeapons.Count: {result}");
+            Console.WriteLine($"AllMods.Count: {result2}");
+        }
+
+        [TestMethod]
+        public void Test_WeaponsStatsAPIPatch()
+        {
+            var result = ModsWeaponsPresets.CleanedWeapons.Find(x=>x.Name.Contains("OP-SKS"));
+            Console.WriteLine($"OP-SKS vertical Recoil: {result.RecoilForceUp}");
+            Console.WriteLine($"FirstWeapon: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_Silencers()
+        {
+            var result = ModsWeaponsPresets.GetListWithQuietMuzzles().Count;
+            Console.WriteLine($"CleanedMods.Silencers.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticModsWeapons_LoudMuzzles()
+        {
+            var result = ModsWeaponsPresets.GetListWithLoudMuzzles().Count;
+            Console.WriteLine($"CleanedMods.LoudMuzzles.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_TarkovDevApi_GetFleaMarketData()
+        {
+            var result = TarkovDevAPI.GetFleaMarketData();
+            Console.WriteLine($"GetAllFlea.Result: {result}");
+        }
+
+        [TestMethod]
+        public void Test_TarkovDevApi_GetAllMarketData()
+        {
+            var result = TarkovDevAPI.GetAllMarketData();
+            Console.WriteLine($"GetAllFlea.Result: {result}");
+        }
+
+        [TestMethod]
+        public void Test_GetAllPossibleChildrenIdsForCI()
+        {
+            CompoundItem input = (CompoundItem) StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74M 5.45x39 assault rifle"));
+
+            var result = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(input.Id, MuzzleType.Loud, 40, false);
+            Console.WriteLine($"GetShortListOfModsForCompundItemWithParams.Result.Count: {result.Count}");
+        }
+
+        [TestMethod]
+        public void Test_StaticTest()
+        {
+            var loadDict = Market.LoyaltyLevelsByPlayerLevel;
+
+            Console.WriteLine($"wtf: {loadDict.Count}");
+            Console.WriteLine($"wtf: {loadDict}");
         }
 
     }
@@ -580,7 +935,7 @@ namespace WishGranterTests
         static List<MarketEntry>? MarketData; 
 
         [TestInitialize]
-        public void testInit()
+        public void test_Init()
         {
             MarketDataJSON = WG_TarkovDevAPICalls.GetAllArmorAmmoMods();
             MarketData = WG_Market.CompileMarketDataList(MarketDataJSON);

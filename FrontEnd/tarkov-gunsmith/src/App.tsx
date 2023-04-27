@@ -17,6 +17,7 @@ import DataSheetWeapons from './Components/DataSheets/Stats_Weapons';
 import DataSheetEffectivenessArmor from './Components/DataSheets/ArmorVsAmmo';
 import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import SimplifiedAmmoRatingsTable from './Components/DataSheets/AmmoEffectivenessChart';
+import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 
 function App() {
 
@@ -43,10 +44,10 @@ function App() {
             <Route path={ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
 
-            <Route path={AMMO_VS_ARMOR} element={<DataSheetEffectivenessAmmo />} />
+            <Route path={AMMO_VS_ARMOR} element={<SimplifiedAmmoRatingsTable />} />
             <Route path={`${AMMO_VS_ARMOR}/:id_ammo`} element={<DataSheetEffectivenessAmmo />} />
 
-            <Route path={AMMO_EFFECTIVENESS_CHART} element={<SimplifiedAmmoRatingsTable />} />
+            <Route path={AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessChartPage/>} />
 
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />

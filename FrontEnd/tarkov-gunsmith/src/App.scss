@@ -171,6 +171,13 @@ footer {
 //     margin-top: 34px;
 //   }
 // }
+.Mui-TableHeadCell-Content {
+  display: flex;
+  flex-wrap: wrap;
+ }
+ .Mui-TableHeadCell-Content-Labels {
+  width: -webkit-fill-available;
+ }
 
 @media screen and (max-width: 768px) {
   .main-app-container {

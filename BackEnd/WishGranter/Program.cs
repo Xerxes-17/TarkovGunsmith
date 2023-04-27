@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Force.DeepCloner;
 using WishGranter;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 using OpenTelemetry.Resources;
 using OpenTelemetry.Metrics;
@@ -16,6 +18,8 @@ using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
 using WishGranter.TerminalBallisticsSimulation;
+using WishGranterProto;
+using WishGranter.AmmoEffectivenessChart;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -82,11 +86,19 @@ var ArmorOptionsList = WG_Output.WriteArmorList(RatStashSingleton.Instance.DB())
 var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashSingleton.Instance.DB());
 
 //Starting this singleton and init
-TBS_datastore.Instance.CalculateAllCombinations();
+//TBS_datastore.Instance.CalculateAllCombinations();
 
 // Init the DataScience instance, get the big data table ready
 WG_DataScience dataScience = new WG_DataScience();
-dataScience.CreateAmmoEffectivenessCharts(RatStashSingleton.Instance.DB());
+//dataScience.CreateAmmoEffectivenessCharts(RatStashSingleton.Instance.DB());
+
+AEC AmmoEffectivenessChart = new AEC();
+var jsonOptions = new JsonSerializerOptions
+{
+    WriteIndented = true
+};
+
+string jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
 
 //! All the builder stuff
 var builder = WebApplication.CreateBuilder(args);
@@ -213,6 +225,8 @@ async Task startAPIAsync()
     app.MapGet("/GetCondensedAmmoEffectivenessTable", () => GetCondensedAmmoEffectivenessTable());
     app.MapGet("/GetAmmoEffectivenessChartAtDistance/{distance}", (int distance) => GetAmmoEffectivenessChartAtDistance(distance));
     app.MapGet("/GetAmmoAuthorityData", () => GetAmmoAuthorityData());
+
+    app.MapGet("/GetAmmoEffectivenessChart", () => GetAmmoEffectivenessChart()).Produces<AEC>();
 
     app.Run();
     await host.RunAsync();
@@ -419,4 +433,10 @@ List<AmmoReccord> GetAmmoAuthorityData()
     using var myActivity = MyActivitySource.StartActivity($"Request for Ammo Reccords");
     Console.WriteLine($"sending count of reccords: {ammoInformationAuthority.AmmoReccords.Count}");
     return ammoInformationAuthority.GetAllReccordsAsList();
+}
+
+string GetAmmoEffectivenessChart()
+{
+    using var myActivity = MyActivitySource.StartActivity("Request for Ammo Effectiveness Chart");
+    return jsonAmmoEffectivenessChart;
 }
