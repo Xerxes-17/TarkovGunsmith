@@ -4,6 +4,7 @@ import { MY_BLUE, MY_GREEN, MY_ORANGE, MY_PURPLE, MY_RED, MY_YELLOW, getEffectiv
 
 export default function AECTableIntroSection(props: any) {
     return (
+        
         <Col xxl>
             <Card bg="dark" border="secondary" text="light" className="xxl">
                 <Card.Header as="h2" >
