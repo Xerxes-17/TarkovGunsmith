@@ -21,10 +21,7 @@
       property="og:description"
       content="Get a computer to build your guns for you because you're lazy! Test how good armor is vs a given projectile and find the CCoK at N shots! Look at pretty color-coded tables to see how things compare! You'll be a real chad if you prepare for raids here, surely."
     />
-    <meta
-      property="og:image"
-      content="%PUBLIC_URL%/preview.png"
-    />
+    <meta property="og:image" content="%PUBLIC_URL%/preview.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -34,10 +31,7 @@
       property="twitter:description"
       content="Check ammo and armor effectiveness in shots to kill, get a computer to make a leveled weapon metabuild for you. Surely you'll be a chad now!"
     />
-    <meta
-      property="twitter:image"
-      content="%PUBLIC_URL%/preview.png"
-    />
+    <meta property="twitter:image" content="%PUBLIC_URL%/preview.png" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/TG_icon.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -68,4 +62,18 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-3J376CCVX0"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-3J376CCVX0");
+  </script>
 </html>
