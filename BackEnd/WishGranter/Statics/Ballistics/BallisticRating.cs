@@ -24,8 +24,10 @@ namespace WishGranter.Statics
             Console.WriteLine($"Database path: {db.DbPath}.");
 
             db.BallisticRatings.RemoveRange(db.BallisticRatings);
+            db.SaveChanges();
 
             Dev_Generate_Save_All_BallisticRatings();
+            db.SaveChanges();
         }
 
         public static void CheckGenerateAndSavetoDB(BallisticDetails parent)

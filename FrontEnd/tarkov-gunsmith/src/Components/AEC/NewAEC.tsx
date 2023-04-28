@@ -53,7 +53,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const [picturesYesNo, setPicturesYesNo] = useState(false);
 
     const [distance, setDistance] = useState(10);
-    const distances: number[] = [1, 10, 25, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600];
+    const distances: number[] = [1, 10, 25, 50, 75, 100, 110, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600];
     const [distanceIndex, setDistanceIndex] = useState(1);
     const handleDistanceChange = (val: any) => {
         console.log("val: ", val)

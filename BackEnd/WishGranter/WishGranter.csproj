@@ -42,8 +42,9 @@
     <Folder Include="results\" />
   </ItemGroup>
 	
-  <ItemGroup>
+<!-- Let's see if this fixes an issue with deploys-->
+  <!--<ItemGroup>
 	  <Content Include="monolit.db" CopyToPublishDirectory="PreserveNewest" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
