@@ -1,5 +1,5 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { BallisticRating, OfferType, PurchaseOffer } from "./AEC_Interfaces";
+import { BallisticRating, OfferType, PurchaseOffer, TargetZoneDisplayAEC } from "./AEC_Interfaces";
 
 export const MY_VIOLET = "#fc03f4";
 export const MY_PURPLE = "#83048f";
@@ -10,23 +10,129 @@ export const MY_YELLOW = "#ad8200";
 export const MY_ORANGE = "#c45200"
 export const MY_RED = "#910d1d";
 
-export function dealWithMultiShotAmmo(input: BallisticRating, projectileCount: number) {
+
+export function displaySelectedTargetZone(displayMode: TargetZoneDisplayAEC, input: BallisticRating) {
+    switch (displayMode) {
+        case TargetZoneDisplayAEC.Classic:
+            return (
+                <>
+                    {`${input.ThoraxHTK_avg}.`}
+                    {`${input.HeadHTK_avg}.`}
+                    {`${input.LegHTK_avg} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </>
+            )
+        case TargetZoneDisplayAEC.Head:
+            return (
+                <>
+                    {`${input.HeadHTK_avg} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </>
+            )
+        case TargetZoneDisplayAEC.Thorax:
+            return (
+                <>
+                    {`${input.ThoraxHTK_avg} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </>
+            )
+        case TargetZoneDisplayAEC.Legs:
+            return (
+                <>
+                    {`${input.LegHTK_avg} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </>
+            )
+        default:
+            return (
+                <>
+                    Something is wrong
+                    {`${input.ThoraxHTK_avg}.`}
+                    {`${input.HeadHTK_avg}.`}
+                    {`${input.LegHTK_avg} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </>
+            )
+    }
+}
+
+export function MultiProjToolTipContentSelector(displayMode: TargetZoneDisplayAEC, input: BallisticRating) {
+    switch (displayMode) {
+        case TargetZoneDisplayAEC.Classic:
+            return (
+                <>Num. pellets: {input.ThoraxHTK_avg.toFixed(0)}.{input.HeadHTK_avg.toFixed(0)}.{input.LegHTK_avg.toFixed(0)}</>
+            )
+        case TargetZoneDisplayAEC.Head:
+            return (
+                <>Num. pellets: {input.HeadHTK_avg.toFixed(0)}</>
+            )
+        case TargetZoneDisplayAEC.Thorax:
+            return (
+                <>Num. pellets: {input.ThoraxHTK_avg.toFixed(0)}</>
+            )
+        case TargetZoneDisplayAEC.Legs:
+            return (
+                <>Num. pellets: {input.LegHTK_avg.toFixed(0)}</>
+            )
+        default:
+            return (
+                <>Something wrong: {input.ThoraxHTK_avg.toFixed(0)}.{input.HeadHTK_avg.toFixed(0)}.{input.LegHTK_avg.toFixed(0)}</>
+            )
+    }
+}
+
+export function MultiProjToolMainSpanSelector(displayMode: TargetZoneDisplayAEC, input: BallisticRating, projectileCount: number) {
+    switch (displayMode) {
+        case TargetZoneDisplayAEC.Classic:
+            return (
+                <span>
+                    {`${Math.max(1, Math.ceil(input.ThoraxHTK_avg / projectileCount)).toFixed(0)}.`}
+                    {`${Math.max(1, Math.ceil(input.HeadHTK_avg / projectileCount)).toFixed(0)}.`}
+                    {`${Math.max(1, Math.ceil(input.LegHTK_avg / projectileCount)).toFixed(0)} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </span>
+            )
+        case TargetZoneDisplayAEC.Head:
+            return (
+                <span>
+                    {`${Math.max(1, Math.ceil(input.HeadHTK_avg / projectileCount)).toFixed(0)} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </span>
+            )
+        case TargetZoneDisplayAEC.Thorax:
+            return (
+                <span>
+                    {`${Math.max(1, Math.ceil(input.ThoraxHTK_avg / projectileCount)).toFixed(0)} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </span>
+            )
+        case TargetZoneDisplayAEC.Legs:
+            return (
+                <span>
+                    {`${Math.max(1, Math.ceil(input.LegHTK_avg / projectileCount)).toFixed(0)} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </span>
+            )
+        default:
+            return (
+                <span>
+                    {`${Math.max(1, Math.ceil(input.ThoraxHTK_avg / projectileCount)).toFixed(0)}.`}
+                    {`${Math.max(1, Math.ceil(input.HeadHTK_avg / projectileCount)).toFixed(0)}.`}
+                    {`${Math.max(1, Math.ceil(input.LegHTK_avg / projectileCount)).toFixed(0)} | `}
+                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
+                </span>
+            )
+    }
+}
+
+export function dealWithMultiShotAmmo(displayMode: TargetZoneDisplayAEC, input: BallisticRating, projectileCount: number) {
     if (projectileCount === 1) {
-        return (
-            <span>
-                {`${Math.max(1, Math.ceil(input.ThoraxHTK_avg))}.`}
-
-                {`${Math.max(1, Math.ceil(input.HeadHTK_avg))}.`}
-
-                {`${Math.max(1, Math.ceil(input.LegHTK_avg))} | `}
-                {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-            </span>
-        )
+        return displaySelectedTargetZone(displayMode, input);
     }
     else {
         const renderTooltip = (props: any) => (
             <Tooltip id="button-tooltip" {...props}>
-                Num. pellets: {input.ThoraxHTK_avg.toFixed(0)}.{input.HeadHTK_avg.toFixed(0)}.{input.LegHTK_avg.toFixed(0)}
+                {MultiProjToolTipContentSelector(displayMode, input)}
             </Tooltip>
         );
 
@@ -36,17 +142,7 @@ export function dealWithMultiShotAmmo(input: BallisticRating, projectileCount: n
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderTooltip}
             >
-                <span>
-                    {/* thorax shells */}
-                    {`${Math.max(1, Math.ceil(input.ThoraxHTK_avg / projectileCount)).toFixed(0)}.`}
-
-                    {/* head shells */}
-                    {`${Math.max(1, Math.ceil(input.HeadHTK_avg / projectileCount)).toFixed(0)}.`}
-
-                    {/* leg shells */}
-                    {`${Math.max(1, Math.ceil(input.LegHTK_avg / projectileCount)).toFixed(0)} | `}
-                    {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </span>
+                {MultiProjToolMainSpanSelector(displayMode, input, projectileCount)}
             </OverlayTrigger>
 
         )
@@ -196,25 +292,47 @@ export function getTraderConditionalCell(input: number) {
 }
 
 
-export function getEffectivenessColorCode(input: number, projectileCount: number) {
-    var thoraxSTK = input;
-    if (projectileCount > 1) {
-        thoraxSTK = Math.ceil(thoraxSTK / projectileCount)
+export function getEffectivenessColorCode(displayMode: TargetZoneDisplayAEC, input: any, projectileCount: number) {
+    var selectedSTK =-1;
+    switch (displayMode) {
+        case TargetZoneDisplayAEC.Classic:
+            selectedSTK = input.ThoraxHTK_avg;
+            break;
+
+        case TargetZoneDisplayAEC.Head:
+            selectedSTK = input.HeadHTK_avg;
+            break;
+            
+        case TargetZoneDisplayAEC.Thorax:
+            selectedSTK = input.ThoraxHTK_avg;
+            break;
+            
+        case TargetZoneDisplayAEC.Legs:
+            selectedSTK = input.LegHTK_avg;
+            break;
+            
+        default:
+            selectedSTK = input.ThoraxHTK_avg;
+            break;
     }
 
-    if (thoraxSTK === 1) {
+    if (projectileCount > 1) {
+        selectedSTK = Math.ceil(selectedSTK / projectileCount)
+    }
+
+    if (selectedSTK === 1) {
         return MY_PURPLE
     }
-    else if (thoraxSTK === 2) {
+    else if (selectedSTK === 2) {
         return MY_BLUE
     }
-    else if (thoraxSTK <= 4) {
+    else if (selectedSTK <= 4) {
         return MY_GREEN
     }
-    else if (thoraxSTK <= 6) {
+    else if (selectedSTK <= 6) {
         return MY_YELLOW
     }
-    else if (thoraxSTK <= 8) {
+    else if (selectedSTK <= 8) {
         return MY_ORANGE
     }
     else {

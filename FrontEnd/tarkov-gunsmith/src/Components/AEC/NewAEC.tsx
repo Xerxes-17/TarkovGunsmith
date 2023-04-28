@@ -4,7 +4,7 @@ import { Box, CssBaseline, TableCell, TableFooter, TableRow, ThemeProvider, crea
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { Button, Form, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { TraderToolTipElement, damageConditionalColour, dealWithMultiShotAmmo, deltaToolTip, deltaToolTipElement, fragmentationConditionalColour, fragmentationCutoff, getEffectivenessColorCode, getTraderConditionalCell, greenRedOrNothing, negativeGreen_PositiveRed_OrNothing, penetrationConditionalColour, RenameCaliber, trimCaliber, positiveGreenOrNothing_Percent, ArmorDamageToolTipElement } from "./AEC_Helper_Funcs";
-import { AEC, AEC_Row } from "./AEC_Interfaces";
+import { AEC, AEC_Row, TargetZoneDisplayAEC } from "./AEC_Interfaces";
 import AECTableIntroSection from "./AEC_TableIntroSection";
 import { Link } from "react-router-dom";
 import { AMMO_EFFECTIVENESS_CHART, AMMO_VS_ARMOR } from "../../Util/links";
@@ -48,6 +48,16 @@ export default function AmmoEffectivenessChartPage(props: any) {
         } catch (e: any) {
             if (e?.message) alert(e.message)
         }
+    }
+
+    const [targetZone, setTargetZone] = useState<TargetZoneDisplayAEC>(TargetZoneDisplayAEC.Classic);
+    const TargetZones: TargetZoneDisplayAEC[] = [TargetZoneDisplayAEC.Classic, TargetZoneDisplayAEC.Thorax, TargetZoneDisplayAEC.Head, TargetZoneDisplayAEC.Legs];
+    const handleTargetZoneChange = (val: any) => {
+        console.log("val: ", val)
+        setTargetZone(val);
+
+        var temp = TargetZones.findIndex((element) => element === val)
+        console.log("temp: ", temp)
     }
 
     const [picturesYesNo, setPicturesYesNo] = useState(false);
@@ -216,7 +226,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
             <Box
                 component="span"
                 sx={() => ({
-                    backgroundColor: getEffectivenessColorCode(value.ThoraxHTK_avg, row.original.Ammo.ProjectileCount),
+                    backgroundColor: getEffectivenessColorCode(targetZone, value, row.original.Ammo.ProjectileCount),
                     borderRadius: '0.25rem',
                     color: '#fff',
                     maxWidth: '9ch',
@@ -224,7 +234,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                 })}
             >
                 <>
-                    {dealWithMultiShotAmmo(value!, row.original.Ammo.ProjectileCount)}
+                    {dealWithMultiShotAmmo(targetZone, value!, row.original.Ammo.ProjectileCount)}
                 </>
 
             </Box>
@@ -311,18 +321,8 @@ export default function AmmoEffectivenessChartPage(props: any) {
 
             CustomCell_Column(`PurchaseOffer`, "Trader $ Level", "Trader", 'left', Trader_Cell),
         ],
-        [picturesYesNo, distanceIndex]
+        [picturesYesNo, distanceIndex, targetZone]
     )
-    const Footer = () => (
-        <TableFooter>
-            <TableRow>
-                <TableCell>
-                    Custom Footer Content
-                </TableCell>
-            </TableRow>
-        </TableFooter>
-    );
-
     return (
         <>
             <ThemeProvider theme={darkTheme}>
@@ -360,6 +360,20 @@ export default function AmmoEffectivenessChartPage(props: any) {
                                             {distances.map((item: any, i: number) => {
                                                 return (
                                                     <ToggleButton size='sm' key={JSON.stringify(item)} variant='outline-success' id={`tbg-btn-dist-${item}`} value={item}>
+                                                        {item}
+                                                    </ToggleButton>
+                                                )
+                                            })}
+                                        </ToggleButtonGroup>
+                                    </div>
+                                    <div className='mb-2'>
+                                        <ToggleButtonGroup size="sm" type="radio" value={targetZone} onChange={handleTargetZoneChange} name="TargetZoneMode">
+                                            <ToggleButton size='sm' variant='outline-warning' disabled id={"dummy"} value={"dummy"}>
+                                                Target Zone:
+                                            </ToggleButton>
+                                            {TargetZones.map((item: any, i: number) => {
+                                                return (
+                                                    <ToggleButton size='sm' key={`TargetZoneMode-${item}`} variant='outline-warning' id={`tbg-btn-TargetZoneMode-${item}`} value={item}>
                                                         {item}
                                                     </ToggleButton>
                                                 )
