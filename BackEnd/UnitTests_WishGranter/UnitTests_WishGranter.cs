@@ -26,6 +26,37 @@ namespace WishGranterTests
 
             Console.WriteLine($"AEC.Rows.Count: {AEC.Rows.Count}");
         }
+
+        [TestMethod]
+        public void Test_BallsiticThing()
+        {
+            SimulationParameters parameters = new SimulationParameters
+            {
+                ArmorClass = 4,
+                MaxDurability = 38,
+                StartingDurabilityPerc = 100,
+                BluntThroughput = .156f,
+                ArmorMaterial = ArmorMaterial.Aramid,
+                TargetZone = TargetZone.Head,
+                Penetration = 47.593f,
+                Damage = 37.715f,
+                ArmorDamagePerc = 58
+            };
+
+            var result = Ballistics.SimulateHitSeries_Engine(parameters);
+
+            Console.WriteLine($"result.Count: {result.Count}");
+            Console.WriteLine($"result[0].PenetrationDamage: {result[0].PenetrationDamage}");
+            Console.WriteLine($"result[0].BluntDamage: {result[0].BluntDamage}");
+        }
+        [TestMethod]
+        public void Test_BallsiticThing2()
+        {
+            var result = Ballistics.PenetrationDamage(50, 4, 35.425 , 44.702);
+
+            Console.WriteLine($"result: {result}");
+        }
+
     }
 
     [TestClass]

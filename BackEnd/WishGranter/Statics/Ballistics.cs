@@ -74,7 +74,7 @@ namespace WishGranter.Statics
         // 1 - Damage and Penetration will be provided as appropriate for a given distance, so no ballstic adjustment is needed here
         // 2 - We only need to be saving calcs done with preset items, custom calcs are just done live and not stored
         //? Might be an idea to add a "Hit Zero" in each series which is the details at the start of the simulation?
-        private static List<BallisticHit> SimulateHitSeries_Engine(SimulationParameters parameters)
+        public static List<BallisticHit> SimulateHitSeries_Engine(SimulationParameters parameters)
         {
             List<BallisticHit> hits = new ();
 
@@ -100,9 +100,11 @@ namespace WishGranter.Statics
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
                 float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, currentDurability);
 
+                float armorDurabilityPercentage = (currentDurability / startingDurability) * 100;
+
                 // Calc Potential damages:
-                float shotBlunt = (float) BluntDamage(currentDurability, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
-                float shotPenetrating = (float) PenetrationDamage(currentDurability, parameters.ArmorClass, parameters.Damage, parameters.Penetration);
+                float shotBlunt = (float) BluntDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
+                float shotPenetrating = (float) PenetrationDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.Damage, parameters.Penetration);
 
                 // Calc Average Damage and apply it to HP pool
                 var AverageDamage = (shotBlunt * (1 - penetrationChance)) + (shotPenetrating * penetrationChance);
@@ -331,7 +333,7 @@ namespace WishGranter.Statics
             return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
         }
         // This Function provides the blunt damage that a character will receive after a bullet is stopped by armor.
-        public static double BluntDamage(double armorDurability, int armorClass, double bluntThroughput, double bulletDamage, double bulletPenetration)
+        public static double BluntDamage(double armorDurabilityPercentage, int armorClass, double bluntThroughput, double bulletDamage, double bulletPenetration)
         {
             double median(double a, double b, double c)
             {
@@ -340,7 +342,7 @@ namespace WishGranter.Statics
                 return arr[1];
             }
 
-            var factor_a = CalculateFactor_A(armorDurability, armorClass);
+            var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
 
             double medianResult = median(0.2, 1 - (0.03 * (factor_a - bulletPenetration)), 1);
 
@@ -349,7 +351,7 @@ namespace WishGranter.Statics
             return finalResult;
         }
         // This function provides the damage that a character will receive after a bullet penetrates armor, accounting for the damage mitigation, if any.
-        public static double PenetrationDamage(double armorDurability, int armorClass, double bulletDamage, double bulletPenetration)
+        public static double PenetrationDamage(double armorDurabilityPercentage, int armorClass, double bulletDamage, double bulletPenetration)
         {
             double median(double a, double b, double c)
             {
@@ -358,7 +360,7 @@ namespace WishGranter.Statics
                 return arr[1];
             }
 
-            var factor_a = CalculateFactor_A(armorDurability, armorClass);
+            var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
 
             double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
             double finalResult = medianResult * bulletDamage;
