@@ -78,6 +78,9 @@ namespace WishGranter.Statics
 
         public static void UpdateEverthingFromRatStashOrigin()
         {
+            using var db = new Monolit();
+            Console.WriteLine($"Database path: {db.DbPath}.");
+
             var toBeUpdated = GetListOfStaleAmmoComparedToRatStash();
 
             //Debug Print
@@ -86,7 +89,7 @@ namespace WishGranter.Statics
                 Console.WriteLine($"{item.Name}, {item.Id} ");
             }
 
-            using var db = new Monolit();
+            
 
             db.Ammos.RemoveRange(toBeUpdated);
 

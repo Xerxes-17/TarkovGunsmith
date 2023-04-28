@@ -103,3 +103,15 @@ export async function requestAmmoEffectivenessChart() {
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
+
+export async function requestAmmoEffectivenessTimestamp() {
+    let response = null;
+    try {
+        response = await axios.get(API_URL + `/GetTimestampAEC`);
+    } catch (error) {
+        throw error;
+    }
+    //console.log(response.data);
+    //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
+    return response.data;
+}

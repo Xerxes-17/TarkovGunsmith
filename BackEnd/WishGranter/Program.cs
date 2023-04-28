@@ -92,12 +92,14 @@ var AmmoOptionsList = WG_Output.WriteAmmoList(RatStashSingleton.Instance.DB());
 WG_DataScience dataScience = new WG_DataScience();
 //dataScience.CreateAmmoEffectivenessCharts(RatStashSingleton.Instance.DB());
 
+using var db = new WishGranter.Statics.Monolit();
+Console.WriteLine($"Database path: {db.DbPath}.");
+
 AEC AmmoEffectivenessChart = new AEC();
 var jsonOptions = new JsonSerializerOptions
 {
     WriteIndented = true
 };
-
 string jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
 
 //! All the builder stuff
@@ -227,6 +229,8 @@ async Task startAPIAsync()
     app.MapGet("/GetAmmoAuthorityData", () => GetAmmoAuthorityData());
 
     app.MapGet("/GetAmmoEffectivenessChart", () => GetAmmoEffectivenessChart()).Produces<AEC>();
+    app.MapPut("/UpdateAmmoRatingsInAEC", () => UpdateRatingsAEC());
+    app.MapGet("/GetTimestampAEC", () => GetTimestampAEC());
 
     app.Run();
     await host.RunAsync();
@@ -435,8 +439,21 @@ List<AmmoReccord> GetAmmoAuthorityData()
     return ammoInformationAuthority.GetAllReccordsAsList();
 }
 
+long GetTimestampAEC()
+{
+    return AmmoEffectivenessChart.GenerationTimeStamp;
+}
+
 string GetAmmoEffectivenessChart()
 {
     using var myActivity = MyActivitySource.StartActivity("Request for Ammo Effectiveness Chart");
     return jsonAmmoEffectivenessChart;
+}
+
+void UpdateRatingsAEC()
+{
+    using var myActivity = MyActivitySource.StartActivity("Request to update ratings for AEC");
+    WishGranter.Statics.BallisticRating.BurnAndReplaceAllRatings();
+    AmmoEffectivenessChart = new AEC();
+    jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
 }

@@ -35,5 +35,6 @@ export interface AEC_Row {
     PurchaseOffer: PurchaseOffer
 }
 export interface AEC {
+    GenerationTimeStamp: number;
     Rows: AEC_Row[]
 }

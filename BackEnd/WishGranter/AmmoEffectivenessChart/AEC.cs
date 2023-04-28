@@ -8,6 +8,7 @@ namespace WishGranter.AmmoEffectivenessChart
     //todo add update method
     public class AEC
     {
+        public long GenerationTimeStamp { get; set; }
         public List<AEC_Row> Rows { get; set; }
 
         public AEC()
@@ -18,6 +19,11 @@ namespace WishGranter.AmmoEffectivenessChart
             {
                 Rows.Add(new AEC_Row(ammoId));
             }
+
+            DateTime currentDateTime = DateTime.Now;
+            DateTimeOffset dateTimeOffset = new DateTimeOffset(currentDateTime);
+            GenerationTimeStamp = dateTimeOffset.ToUnixTimeSeconds();
+
         }
     }
     public class AEC_Row

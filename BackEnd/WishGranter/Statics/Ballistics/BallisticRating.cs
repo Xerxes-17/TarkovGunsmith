@@ -18,6 +18,16 @@ namespace WishGranter.Statics
         public int LegHTK_avg { get; set; }
         public float FirstHitPenChance { get; set; }
 
+        public static void BurnAndReplaceAllRatings()
+        {
+            using var db = new Monolit();
+            Console.WriteLine($"Database path: {db.DbPath}.");
+
+            db.BallisticRatings.RemoveRange(db.BallisticRatings);
+
+            Dev_Generate_Save_All_BallisticRatings();
+        }
+
         public static void CheckGenerateAndSavetoDB(BallisticDetails parent)
         {
             using var db = new Monolit();
@@ -49,18 +59,18 @@ namespace WishGranter.Statics
                 {
                     BallisticDetailsId = (int)parent.Id,
                     AC = i,
-                    HeadHTK_avg = (int)Math.Round(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
+                    HeadHTK_avg = (int)Math.Ceiling(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
                     LegHTK_avg = Ballistics.GetLegMetaHTK(parent.AmmoId),
                     FirstHitPenChance = (float)Ballistics.PenetrationChance(i, parent.Penetration, 100)
                 };
                 // with AC there currently are no AC1 thorax armors, so we can say that the HTK would be equivalent to no armor at all.
                 if (i == 1)
                 {
-                    result.ThoraxHTK_avg = (int)Math.Round(85 / parent.Damage);
+                    result.ThoraxHTK_avg = (int)Math.Ceiling(85 / parent.Damage);
                 }
                 else
                 {
-                    result.ThoraxHTK_avg = (int)Math.Round(thoraxTestsAtThisAC.Select(x => x.ProbableKillShot).Average());
+                    result.ThoraxHTK_avg = (int)Math.Ceiling(thoraxTestsAtThisAC.Select(x => x.ProbableKillShot).Average());
                 }
 
                 db.Add(result);
@@ -101,18 +111,18 @@ namespace WishGranter.Statics
                     {
                         BallisticDetailsId = (int)bDetails.Id,
                         AC = i,
-                        HeadHTK_avg = (int)Math.Round(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
+                        HeadHTK_avg = (int)Math.Ceiling(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
                         LegHTK_avg = Ballistics.GetLegMetaHTK(bDetails.AmmoId),
                         FirstHitPenChance = (float)Ballistics.PenetrationChance(i, bDetails.Penetration, 100)
                     };
                     // with AC there currently are no AC1 thorax armors, so we can say that the HTK would be equivalent to no armor at all.
                     if (i == 1)
                     {
-                        result.ThoraxHTK_avg = (int)Math.Round(85 / bDetails.Damage);
+                        result.ThoraxHTK_avg = (int)Math.Ceiling(85 / bDetails.Damage);
                     }
                     else
                     {
-                        result.ThoraxHTK_avg = (int)Math.Round(thoraxTestsAtThisAC.Select(x => x.ProbableKillShot).Average());
+                        result.ThoraxHTK_avg = (int)Math.Ceiling(thoraxTestsAtThisAC.Select(x => x.ProbableKillShot).Average());
                     }
 
                     db.Add(result);

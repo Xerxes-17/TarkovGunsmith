@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
-import { requestAmmoEffectivenessChart } from "../../Context/Requests"
+import { requestAmmoEffectivenessChart, requestAmmoEffectivenessTimestamp } from "../../Context/Requests"
 import { Box, CssBaseline, TableCell, TableFooter, TableRow, ThemeProvider, createTheme } from "@mui/material";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { Button, Form, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
@@ -66,18 +66,42 @@ export default function AmmoEffectivenessChartPage(props: any) {
 
     const [AECData, setAECData] = useState<AEC>();
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AEC_DEV')!);
+        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AEC')!);
         if (data) {
-            setAECData(data);
-        }
-        else {
-            requestAmmoEffectivenessChart().then(response => {
-                localStorage.setItem('TarkovGunsmith_AEC_DEV', JSON.stringify(response));
-            }).catch(error => {
-                console.error(error);
+          // Check if outdated
+          var remoteVersionNum = 0;
+          requestAmmoEffectivenessTimestamp()
+            .then(response => {
+              remoteVersionNum = response;
+              if(remoteVersionNum > data.GenerationTimeStamp){
+                requestAmmoEffectivenessChart()
+                  .then(response => {
+                    localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+                    setAECData(response);
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+              }
+              else{
+                setAECData(data);
+              }
+            })
+            .catch(error => {
+              console.error(error);
             });
         }
-    }, []);
+        else {
+          requestAmmoEffectivenessChart()
+            .then(response => {
+              localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+              setAECData(response);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      }, []);
 
     const [filteredAECData, setFilteredAECData] = useState<AEC_Row[]>([]);
     useEffect(() => {
