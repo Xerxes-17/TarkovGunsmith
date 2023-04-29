@@ -17,6 +17,7 @@ namespace WishGranter.Statics
         public int HeadHTK_avg { get; set; }
         public int LegHTK_avg { get; set; }
         public float FirstHitPenChance { get; set; }
+        public float FirstHitPenetrationDamage { get; set; }
 
         public static void BurnAndReplaceAllRatings()
         {
@@ -63,7 +64,8 @@ namespace WishGranter.Statics
                     AC = i,
                     HeadHTK_avg = (int)Math.Ceiling(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
                     LegHTK_avg = Ballistics.GetLegMetaHTK(parent.AmmoId),
-                    FirstHitPenChance = (float)Ballistics.PenetrationChance(i, parent.Penetration, 100)
+                    FirstHitPenChance = (float)Ballistics.PenetrationChance(i, parent.Penetration, 100),
+                    FirstHitPenetrationDamage = (float)Ballistics.PenetrationDamage(100, i, parent.Damage, parent.Penetration)
                 };
                 // with AC there currently are no AC1 thorax armors, so we can say that the HTK would be equivalent to no armor at all.
                 if (i == 1)
@@ -115,7 +117,8 @@ namespace WishGranter.Statics
                         AC = i,
                         HeadHTK_avg = (int)Math.Ceiling(headTestsAtThisAC.Select(x => x.ProbableKillShot).Average()),
                         LegHTK_avg = Ballistics.GetLegMetaHTK(bDetails.AmmoId),
-                        FirstHitPenChance = (float)Ballistics.PenetrationChance(i, bDetails.Penetration, 100)
+                        FirstHitPenChance = (float)Ballistics.PenetrationChance(i, bDetails.Penetration, 100),
+                        FirstHitPenetrationDamage = (float)Ballistics.PenetrationDamage(100, i, bDetails.Damage, bDetails.Penetration)
                     };
                     // with AC there currently are no AC1 thorax armors, so we can say that the HTK would be equivalent to no armor at all.
                     if (i == 1)
