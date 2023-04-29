@@ -15,43 +15,43 @@ export function displaySelectedTargetZone(displayMode: TargetZoneDisplayAEC, inp
     switch (displayMode) {
         case TargetZoneDisplayAEC.Classic:
             return (
-                <>
+                <span>
                     {`${input.ThoraxHTK_avg}.`}
                     {`${input.HeadHTK_avg}.`}
                     {`${input.LegHTK_avg} | `}
                     {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </>
+                </span>
             )
         case TargetZoneDisplayAEC.Head:
             return (
-                <>
+                <span>
                     {`${input.HeadHTK_avg} | `}
                     {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </>
+                </span>
             )
         case TargetZoneDisplayAEC.Thorax:
             return (
-                <>
+                <span>
                     {`${input.ThoraxHTK_avg} | `}
                     {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </>
+                </span>
             )
         case TargetZoneDisplayAEC.Legs:
             return (
-                <>
+                <span>
                     {`${input.LegHTK_avg} | `}
                     {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </>
+                </span>
             )
         default:
             return (
-                <>
+                <span>
                     Something is wrong
                     {`${input.ThoraxHTK_avg}.`}
                     {`${input.HeadHTK_avg}.`}
                     {`${input.LegHTK_avg} | `}
                     {`${(input.FirstHitPenChance * 100).toFixed(0)}%`}
-                </>
+                </span>
             )
     }
 }
@@ -125,26 +125,60 @@ export function MultiProjToolMainSpanSelector(displayMode: TargetZoneDisplayAEC,
     }
 }
 
-export function dealWithMultiShotAmmo(displayMode: TargetZoneDisplayAEC, input: BallisticRating, projectileCount: number) {
+export function dealWithMultiShotAmmo(displayMode: TargetZoneDisplayAEC, input: BallisticRating, rowOriginal: any, distanceIndex:number) {
+    const projectileCount = rowOriginal.Ammo.ProjectileCount;
+    const details = rowOriginal.Details[distanceIndex]
+    const renderTooltipSingleShot = (props: any) => (
+        <Tooltip id="button-tooltip" {...props}>
+            <>
+                Damage if 1st hit penetrates<br />
+                including armor mitigation: <br />
+                {input.FirstHitPenetrationDamage.toFixed(2)} <br />
+                Δ: {(input.FirstHitPenetrationDamage - details.Damage).toFixed(2)}<br />
+            </>
+        </Tooltip>
+    );
+    const renderTooltipMultiShot = (props: any) => (
+        <Tooltip id="button-tooltip" {...props}>
+            {MultiProjToolTipContentSelector(displayMode, input)}
+        </Tooltip>
+    );
+
     if (projectileCount === 1) {
-        return displaySelectedTargetZone(displayMode, input);
+        var content;
+        if (input.FirstHitPenChance > 0) {
+            content = (
+                <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltipSingleShot}
+                >
+                    {displaySelectedTargetZone(displayMode, input)}
+                </OverlayTrigger>
+            )
+        }
+        else {
+            content = (
+                <>
+                    {displaySelectedTargetZone(displayMode, input)}
+                </>
+            )
+        }
+        return (
+            <>
+                {content}
+            </>
+        )
     }
     else {
-        const renderTooltip = (props: any) => (
-            <Tooltip id="button-tooltip" {...props}>
-                {MultiProjToolTipContentSelector(displayMode, input)}
-            </Tooltip>
-        );
-
         return (
             <OverlayTrigger
                 placement="top"
                 delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltip}
+                overlay={renderTooltipMultiShot}
             >
                 {MultiProjToolMainSpanSelector(displayMode, input, projectileCount)}
             </OverlayTrigger>
-
         )
     }
 }
@@ -293,7 +327,7 @@ export function getTraderConditionalCell(input: number) {
 
 
 export function getEffectivenessColorCode(displayMode: TargetZoneDisplayAEC, input: any, projectileCount: number) {
-    var selectedSTK =-1;
+    var selectedSTK = -1;
     switch (displayMode) {
         case TargetZoneDisplayAEC.Classic:
             selectedSTK = input.ThoraxHTK_avg;
@@ -302,15 +336,15 @@ export function getEffectivenessColorCode(displayMode: TargetZoneDisplayAEC, inp
         case TargetZoneDisplayAEC.Head:
             selectedSTK = input.HeadHTK_avg;
             break;
-            
+
         case TargetZoneDisplayAEC.Thorax:
             selectedSTK = input.ThoraxHTK_avg;
             break;
-            
+
         case TargetZoneDisplayAEC.Legs:
             selectedSTK = input.LegHTK_avg;
             break;
-            
+
         default:
             selectedSTK = input.ThoraxHTK_avg;
             break;

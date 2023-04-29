@@ -172,6 +172,9 @@ namespace WishGranter.Migrations.MonolitMigrations
                         .HasColumnType("float")
                         .HasColumnName("FirstHitPenChance");
 
+                    b.Property<float>("FirstHitPenetrationDamage")
+                        .HasColumnType("REAL");
+
                     b.Property<int>("HeadHTK_avg")
                         .HasColumnType("int")
                         .HasColumnName("HeadHTK_avg");

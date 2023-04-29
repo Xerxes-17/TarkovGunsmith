@@ -234,7 +234,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                 })}
             >
                 <>
-                    {dealWithMultiShotAmmo(targetZone, value!, row.original.Ammo.ProjectileCount)}
+                    {dealWithMultiShotAmmo(targetZone, value!, row.original, distanceIndex)}
                 </>
 
             </Box>

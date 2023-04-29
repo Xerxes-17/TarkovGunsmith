@@ -52,7 +52,7 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_BallsiticThing2()
         {
-            var result = Ballistics.PenetrationDamage(50, 4, 35.425 , 44.702);
+            var result = Ballistics.PenetrationDamage(100, 4, 35.425 , 44.702);
 
             Console.WriteLine($"result: {result}");
         }
@@ -63,6 +63,16 @@ namespace WishGranterTests
     public class MonolitTests
     {
         [TestMethod]
+        public void Test_MonolitRebuild()
+        {
+            Ammo_SQL.Dev_Generate_Save_All_Ammo();
+            BallisticDetails.Dev_Generate_Save_All_BallisticDetails();
+            ArmorItemStats.Dev_Generate_Save_All_ArmorItems();
+            BallisticTest.Dev_Generate_Save_All_BallisticTests();
+            BallisticRating.Dev_Generate_Save_All_BallisticRatings();
+        }
+
+        [TestMethod]
         public void Test_UpdateEverthingFromRatStashOrigin()
         {
             Ammo_SQL.UpdateEverthingFromRatStashOrigin();
@@ -71,40 +81,30 @@ namespace WishGranterTests
         [TestMethod]
         public void Test_BallisticRatingsTable_Generation()
         {
-            Monolit monolit = new Monolit();
-
             BallisticRating.Dev_Generate_Save_All_BallisticRatings();
         }
 
         [TestMethod]
         public void Test_BallisticTestsTable_Generation()
         {
-            Monolit monolit = new Monolit();
-
             BallisticTest.Dev_Generate_Save_All_BallisticTests();
         }
 
         [TestMethod]
         public void Test_ArmorItemsTable_Generation()
         {
-            Monolit monolit = new Monolit();
-
             ArmorItemStats.Dev_Generate_Save_All_ArmorItems();
         }
 
         [TestMethod]
         public void Test_BallisticDetailsTable_Generation()
         {
-            Monolit monolit = new Monolit();
-
             BallisticDetails.Dev_Generate_Save_All_BallisticDetails();
         }
         
         [TestMethod]
         public void Test_AmmoTable_Generation()
         {
-            Monolit monolit = new Monolit();
-
             Ammo_SQL.Dev_Generate_Save_All_Ammo();
         }
     }

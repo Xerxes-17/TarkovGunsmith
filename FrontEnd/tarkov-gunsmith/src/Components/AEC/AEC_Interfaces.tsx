@@ -1,6 +1,7 @@
 export interface BallisticRating {
     AC: number,
     FirstHitPenChance: number,
+    FirstHitPenetrationDamage: number,
     HeadHTK_avg: number,
     LegHTK_avg: number,
     ThoraxHTK_avg: number
