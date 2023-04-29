@@ -38,3 +38,10 @@ export interface AEC {
     GenerationTimeStamp: number;
     Rows: AEC_Row[]
 }
+
+export enum TargetZoneDisplayAEC{
+    Classic = "Combo",
+    Thorax = "Thorax",
+    Head = "Head",
+    Legs = "Legs"
+}
