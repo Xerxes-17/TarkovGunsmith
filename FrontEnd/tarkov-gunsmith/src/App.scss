@@ -38,6 +38,8 @@ footer {
   }
 }
 
+
+
 .main-app-container {
   margin-top: 14px;
   margin-bottom: 34px;
@@ -198,10 +200,79 @@ footer {
 }
 
 
-li + li {
+.special_ul > li + li {
   margin-top: 3px;
 }
 
 .mb-2 {
   margin-bottom: 0.5rem!important;
+}
+
+.my-custom-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40; /* Dark background color */
+  border-radius: 0.25rem; /* Rounded corners */
+  padding: 0.5rem; /* Padding around the buttons */
+}
+
+.my-custom-pagination .pagination > li:not(:first-child):not(:last-child)::before {
+  display: none;
+  list-style-type: none;
+}
+
+.my-custom-pagination .page-item.first::before {
+  position: relative;
+  margin-right: 5px;
+  margin-top: 6px;
+}
+
+.my-custom-pagination .pagination > li {
+  display: none;
+  list-style-type: none;
+  margin-top: 0 !important;
+}
+
+li.page-item.disabled::marker {
+  display: none !important;
+
+}
+ul.my-custom-pagination.dark {
+  list-style-type: none !important;
+
+}
+
+.my-custom-pagination .page-link {
+  color: #fff; /* Text color for the buttons */
+  background-color: #343a40; /* Button background color */
+  border: none; /* Remove border */
+  transition: background-color 0.2s ease; /* Add transition on hover */
+  padding-left: 0.5rem; /* Add some padding to the left of the button */
+  padding-right: 0.5rem; /* Add some padding to the right of the button */
+}
+
+.my-custom-pagination .page-link:hover {
+  background-color: #6c757d; /* Button background color on hover */
+}
+
+.my-custom-pagination .page-item.active .page-link {
+  background-color: #6c757d; /* Active button background color */
+  border: none; /* Remove border */
+}
+
+.my-custom-pagination .page-item.disabled .page-link {
+  opacity: 0.5; /* Set opacity for disabled buttons */
+  pointer-events: none; /* Disable pointer events on disabled buttons */
+}
+.my-custom-pagination .pagination {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; /* Remove the marker for the <li> elements */
+}
+.my-custom-pagination .pagination > li {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  list-style-type: none; /* Remove the marker for the <li> elements */
 }
