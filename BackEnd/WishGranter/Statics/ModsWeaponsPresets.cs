@@ -267,23 +267,10 @@ namespace WishGranter.Statics
                         offerType = OfferType.Flea;
                     }
 
-                    BasePreset PresetForReturned = new();
-                    PresetForReturned.Name = name;
-                    PresetForReturned.Id = id;
-                    PresetForReturned.Weapon = weapon;
-                    PresetForReturned.WeaponMods = weaponMods;
-                    PresetForReturned.StatsSummary = statsSummary;
+                    PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
 
-                    PurchaseOffer purchaseOffer = new();
-                    purchaseOffer.PriceRUB = priceRUB;
-                    purchaseOffer.Currency = currency;
-                    purchaseOffer.Price = price;
-                    purchaseOffer.Vendor = vendor;
-                    purchaseOffer.MinVendorLevel = minTraderLevel;
-                    purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
-                    purchaseOffer.OfferType = offerType;
+                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                    PresetForReturned.PurchaseOffer = purchaseOffer;
                     ReturnedPresets.Add(PresetForReturned);
                 }
 
@@ -322,22 +309,8 @@ namespace WishGranter.Statics
                     // If the barter wants something that isn't buyable on the flea, we disregard it
                     if (barterTotalCost != -1)
                     {
-                        BasePreset PresetForReturned = new();
-                        PresetForReturned.Name = name;
-                        PresetForReturned.Id = id;
-                        PresetForReturned.Weapon = weapon;
-                        PresetForReturned.WeaponMods = weaponMods;
-                        PresetForReturned.StatsSummary = statsSummary;
-
-                        PurchaseOffer purchaseOffer = new();
-                        purchaseOffer.PriceRUB = barterTotalCost;
-                        purchaseOffer.Vendor = trader;
-                        purchaseOffer.MinVendorLevel = minTraderLevel;
-                        purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
-                        purchaseOffer.OfferType = offerType;
-
-                        PresetForReturned.PurchaseOffer = purchaseOffer;
-
+                        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
                         ReturnedPresets.Add(PresetForReturned);
                     }
@@ -348,6 +321,7 @@ namespace WishGranter.Statics
             return ReturnedPresets;
         }
 
+        //? This is marked for replacement with BasePresets
         public static List<WeaponPreset> ConstructDefaultPresets()
         {
             List<WeaponPreset> ReturnedPresets = new();

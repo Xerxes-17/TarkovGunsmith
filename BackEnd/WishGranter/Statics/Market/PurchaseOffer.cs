@@ -9,5 +9,17 @@
         public int MinVendorLevel { get; set; } = -1;
         public int ReqPlayerLevel { get; set; } = -1;
         public OfferType OfferType { get; set; } = OfferType.None;
+
+        public PurchaseOffer() { }
+        public PurchaseOffer(int priceRUB, int price, string currency, string vendor, int minVendorLevel, int reqPlayerLevel, OfferType offerType)
+        {
+            PriceRUB = priceRUB;
+            Price = price;
+            Currency = currency;
+            Vendor = vendor;
+            MinVendorLevel = minVendorLevel;
+            ReqPlayerLevel = reqPlayerLevel;
+            OfferType = offerType;
+        }
     }
 }

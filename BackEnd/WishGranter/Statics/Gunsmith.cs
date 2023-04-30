@@ -37,6 +37,32 @@ namespace WishGranter.Statics
     // This class will handle all of the fittings logic
     public static class Gunsmith
     {
+        // Our new method which returns that new format
+        public static PurchasedMods GetPurchasedMods(Weapon weapon, GunsmithParameters parameters) 
+        {
+            var SelectedMods = AggregateAttachedModsRecursively(FitWeapon(weapon, parameters)).ToList();
+
+            var SelectedModIds = SelectedMods.Select(x => x.Id).ToList();
+
+            var marketEntries = Market.GetPurchaseOfferTraderOrFleaList(SelectedModIds, parameters.playerLevel, parameters.fleaMarket);
+
+            List<PurchasedMod> PurchasedMods = new List<PurchasedMod>();
+
+            foreach (var id in SelectedModIds)
+            { 
+                var mod = SelectedMods.First(x => x.Id == id);
+                var marketEntry = marketEntries.First(x => x.Id == id);
+
+                PurchasedMods.Add(new PurchasedMod(mod, marketEntry.PurchaseOffer));
+            }
+            
+            return new PurchasedMods(PurchasedMods);
+        }
+
+        public static Weapon FitWeapon(Weapon weapon, GunsmithParameters parameters)
+        {
+            return FitWeapon(weapon, parameters.priority, parameters.muzzleType, parameters.playerLevel, parameters.fleaMarket, parameters.exclusionList);
+        }
         // This can accept either a naked gun or a fitted preset gun.
         public static Weapon FitWeapon(Weapon weapon, FittingPriority priority, MuzzleType muzzleType, int playerLevel, bool fleaMarket, List<string>? exclusionList = null)
         {

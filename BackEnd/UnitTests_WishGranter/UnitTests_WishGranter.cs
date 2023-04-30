@@ -118,7 +118,7 @@ namespace WishGranterTests
             Console.WriteLine($"Count: {result.Count}");
             foreach (var preset in result)
             {
-                Console.WriteLine($"{preset.Name}, {preset.Id}, {preset.PurchaseOffer.OfferType}");
+                Console.WriteLine($"{preset.Name}, {preset.Id},[{preset.StatsSummary.Ergonomics}, {preset.StatsSummary.Recoil_Vertical}, {preset.StatsSummary.Weight}] {preset.PurchaseOffer.OfferType}");
             }
         }
 
