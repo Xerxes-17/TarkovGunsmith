@@ -112,6 +112,17 @@ namespace WishGranterTests
     public class ModsWeaponsPresetsTests
     {
         [TestMethod]
+        public void Test_VerifyBasePresets_Count()
+        {
+            var result = ModsWeaponsPresets.BasePresets;
+            Console.WriteLine($"Count: {result.Count}");
+            foreach (var preset in result)
+            {
+                Console.WriteLine($"{preset.Name}, {preset.Id}, {preset.PurchaseOffer.OfferType}");
+            }
+        }
+
+        [TestMethod]
         public void Test_GetShortListOfModsForCompundItemWithParams_AK74_Loud_40_noFLea()
         {
             string weapon_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Kalashnikov AK-74 5.45")).Id;
