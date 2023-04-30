@@ -4,7 +4,7 @@ import { MY_BLUE, MY_GREEN, MY_ORANGE, MY_PURPLE, MY_RED, MY_YELLOW, getEffectiv
 
 export default function AECTableIntroSection(props: any) {
     return (
-        
+
         <Col xxl>
             <Card bg="dark" border="secondary" text="light" className="xxl">
                 <Card.Header as="h2" >
@@ -30,9 +30,9 @@ export default function AECTableIntroSection(props: any) {
                         in the format of: "<strong>HitsToKill[Thorax.Head.Legs] | (First shot penetration chance)</strong>".<br /><br />
                         Each cell is highlighted to how effective it is against a <strong>thorax</strong> target: <br />
 
-                        <ul>
+                        <ul className='special_ul'>
 
-                            <li className='special_li'>
+                            <li>
                                 <Box
                                     component="span"
                                     sx={() => ({
@@ -130,7 +130,7 @@ export default function AECTableIntroSection(props: any) {
                                     Example:&nbsp;<em>5.45x39mm PS gs</em>&nbsp;against armor classes:
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <ul>
+                                    <ul className='special_ul'>
                                         {/* <li>You will kill a player in 6 leg shots when we account for fragmentation.</li> */}
                                         <li>
                                             AC 2 &nbsp;
@@ -219,7 +219,7 @@ export default function AECTableIntroSection(props: any) {
                         </Accordion>
                         <strong>Multi-projectile</strong> rounds are displayed in "Shells to Kill", if you want to see the "Projectiles to Kill", check their tooltip. Number of projectiles is an available column. Remember that not all shot in a shell will hit, particularly at a distance.<br />
                         <strong>Please note:</strong>
-                        <ul>
+                        <ul className='special_ul'>
                             <li>Distance drop-off of damage and penetration is modeled, select it with the green distance numbers. Buckshot max is 50m, slugs and pistols max is 100m, intermediate rifles max is 200m, remainder max is 600m.</li>
                             <li>Armor Damage is in "effective durability" which is before any material modifiers, and in game this value is clamped to always do at least 1 durability point of damage eg: 1/40.</li>
                             <li>I've set fragmentation for ammo with less than 20 penetration to 0 to save you from having to cross check it and do it in your head, aren't I nice?</li>
