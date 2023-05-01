@@ -17,6 +17,48 @@ using WishGranter.AmmoEffectivenessChart;
 namespace WishGranterTests
 {
     [TestClass]
+    public class FittingThingTests
+    {
+        [TestMethod]
+        public void Test_FittingBundle_Many()
+        {
+            var preset = ModsWeaponsPresets.BasePresets[0];
+            List<FittingBundle> bundles = new List<FittingBundle>();
+
+            for(int i = preset.PurchaseOffer.ReqPlayerLevel; i <= 40; i++)
+            {
+                var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, i, true);
+                FittingBundle fittingBundle = new(preset, param);
+                bundles.Add(fittingBundle);
+            }
+            
+
+            
+            Console.WriteLine($"bundles.Count: {bundles.Count}");
+        }
+
+        [TestMethod]
+        public void Test_FittingBundle_1()
+        {
+            var preset = ModsWeaponsPresets.BasePresets[0];
+            var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 25, true);
+
+            FittingBundle fittingBundle = new(preset, param);
+            Console.WriteLine("Fin.");
+        }
+
+
+
+        [TestMethod]
+        public void Test_GetBestAmmo()
+        {
+            var preset = ModsWeaponsPresets.BasePresets[0];
+            var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 15, true);
+            PurchasedAmmo.GetBestPurchasedAmmo(preset, param);
+        }
+    }
+
+    [TestClass]
     public class AECTests
     {
         [TestMethod]

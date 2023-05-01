@@ -405,7 +405,7 @@ namespace WishGranter.Statics
             var offersForItem = offers.Where(x => x.Id == id).ToList();
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
     }
 }

@@ -52,11 +52,8 @@ namespace WishGranter.Statics
             Weight = weapon.Weight + weightSum;
         }
     }
-    public class FittingBundleThing
+    public class FittingBundle
     {
-        //! No need for the Weapon to be saved at this level, as it can be found in the preset
-        //? Could make it be a pointer at this level?
-        //? If we put the cross-intreset methods in this class, it will have access to all of the children information
         //? I also need to consider the Mags list, but that would be simple enough to code as a independent function, or to store it as a list here. Considering the commonality of them, perhps that list should be parceled out to reduce repetition
         BasePreset BasePreset { get; set; } = new(); // The preset that we're going to use! Wow! Includes all of the associated info
         public GunsmithParameters GunsmithParameters { get; set; } = new(); // The parameters we're going to use to create the PurchasedMods with.
@@ -64,21 +61,17 @@ namespace WishGranter.Statics
         PurchasedAmmo PurchasedAmmo { get; set; } = new(); // Our Ammo choice
         FittingSummary FittingSummary { get; set; } = new();
 
-        public FittingBundleThing() { }
-        //todo full parameter constructor
-        public FittingBundleThing(BasePreset basePreset, GunsmithParameters gunsmithParameters)
+        public FittingBundle() { }
+        public FittingBundle(BasePreset basePreset, GunsmithParameters gunsmithParameters)
         {
             BasePreset = basePreset;
             GunsmithParameters = gunsmithParameters;
             PurchasedMods = Gunsmith.GetPurchasedMods(basePreset.Weapon, GunsmithParameters);
-
-
-            //todo the ammo selection, then we can get the fitting summary constructor (also todo) to use it and gun+mods to make the summary
+            PurchasedAmmo = PurchasedAmmo.GetBestPurchasedAmmo(basePreset, gunsmithParameters);
+            UpdateFittingSummary();
         }
-
-        public void AcceptFitting(PurchasedMods newPurchasedMods)
+        public void UpdateFittingSummary()
         {
-            PurchasedMods = newPurchasedMods;
             FittingSummary.UpdateSummary(BasePreset, PurchasedMods, PurchasedAmmo);
         }
     }
@@ -95,7 +88,7 @@ namespace WishGranter.Statics
         public void UpdateSummary(BasePreset basePreset, PurchasedMods purchasedMods, PurchasedAmmo purchasedAmmo)
         {
             // Summarize the new stats 
-            StatsSummary.SummarizeFromObjects(basePreset.Weapon, purchasedMods.GetWeaponMods(), purchasedAmmo.Ammo);
+            StatsSummary.SummarizeFromObjects(basePreset.Weapon, purchasedMods.GetWeaponMods());
 
             // Get the refund total of sold preset mods, get the except of the preseet mods in the fitterd mods.
             var modIdsToBePawned = basePreset.WeaponMods.Except(purchasedMods.GetWeaponMods()).Select(x => x.Id).ToList();
@@ -144,11 +137,37 @@ namespace WishGranter.Statics
             PurchaseOffer = purchaseOffer;
         }
     }
-
     public struct PurchasedAmmo
     {
         // Hey, combining the Ammo selection with it's purchase info would be pretty cool too!
-        public Ammo Ammo { get; set; }
-        public PurchaseOffer PurchaseOffer { get; set; }
+        public Ammo Ammo { get; set; } = new();
+        public PurchaseOffer PurchaseOffer { get; set; } = new();
+
+        public PurchasedAmmo() { }
+        public PurchasedAmmo(Ammo ammo, PurchaseOffer purchaseOffer)
+        {
+            Ammo = ammo;
+            PurchaseOffer = purchaseOffer;
+        }
+
+        public static PurchasedAmmo GetBestPurchasedAmmo(BasePreset basePreset, GunsmithParameters gunsmithParameters)
+        {
+            var shortlist = Ammos.GetAmmoOfCalibre(basePreset.Weapon.AmmoCaliber);
+            var ammoIds = shortlist.Select(x => x.Id).ToList();
+            //Get a list of the ammo type Ids which are avail on the market
+            var marketEntries = Market.GetPurchaseOfferTraderOrFleaList(ammoIds, gunsmithParameters.playerLevel, gunsmithParameters.fleaMarket).Where(x => x != null);
+            var marketEntryIds = marketEntries.Select(x => x.Id).ToList();
+
+            // Filter the ammo choices by that and choose the one with the best pen
+            shortlist = shortlist.Where(x => marketEntryIds.Contains(x.Id)).ToList();
+
+            shortlist = shortlist.OrderByDescending(x => x.PenetrationPower).ToList();
+
+            var bestPen = shortlist[0];
+            var bestPen_market = marketEntries.FirstOrDefault(x => x.Id == bestPen.Id);
+
+            PurchasedAmmo purchasedAmmo = new PurchasedAmmo(bestPen, bestPen_market.PurchaseOffer);
+            return purchasedAmmo;
+        }
     }
 }

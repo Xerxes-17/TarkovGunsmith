@@ -171,31 +171,35 @@ namespace WishGranter.Statics
         //? For now, maintain the current limitation of trader deals for mods.
         public static List<WeaponMod> SortWeaponModListByMode(List<WeaponMod> inputList, FittingPriority mode, Slot? slot = null)
         {
-            if(slot != null)
+            if(inputList.Count > 0)
             {
-                // If we're dealing with a muzzle slot item, we want to remove things like thread protectors in these modes because otherwise they will be chosen over useful attachments.
-                if (slot.Name.Equals("mod_muzzle") && (mode == FittingPriority.MetaErgonomics || mode == FittingPriority.Ergonomics))
+                if (slot != null)
                 {
-                    inputList.RemoveAll(x => x.Ergonomics > 0 || (x.Ergonomics == 0 && x.Recoil == 0));
+                    // If we're dealing with a muzzle slot item, we want to remove things like thread protectors in these modes because otherwise they will be chosen over useful attachments.
+                    if (slot.Name.Equals("mod_muzzle") && (mode == FittingPriority.MetaErgonomics || mode == FittingPriority.Ergonomics))
+                    {
+                        inputList.RemoveAll(x => x.Ergonomics > 0 || (x.Ergonomics == 0 && x.Recoil == 0));
+                    }
+                }
+                // Then do the sorts
+                if (mode == FittingPriority.MetaRecoil)
+                {
+                    inputList = SortWeaponModListHelper_MetaRecoil(inputList);
+                }
+                else if (mode == FittingPriority.Recoil)
+                {
+                    inputList = SortWeaponModListHelper_EconRecoil(inputList);
+                }
+                else if (mode == FittingPriority.MetaErgonomics)
+                {
+                    inputList = SortWeaponModListHelper_MetaErgonomics(inputList);
+                }
+                else if (mode == FittingPriority.Ergonomics)
+                {
+                    inputList = SortWeaponModListHelper_EconErgonomics(inputList);
                 }
             }
-            // Then do the sorts
-            if (mode == FittingPriority.MetaRecoil)
-            {
-                inputList = SortWeaponModListHelper_MetaRecoil(inputList);
-            }
-            else if (mode == FittingPriority.Recoil)
-            {
-                inputList = SortWeaponModListHelper_EconRecoil(inputList);
-            }
-            else if (mode == FittingPriority.MetaErgonomics)
-            {
-                inputList = SortWeaponModListHelper_MetaErgonomics(inputList);
-            }
-            else if (mode == FittingPriority.Ergonomics)
-            {
-                inputList = SortWeaponModListHelper_EconErgonomics(inputList);
-            }
+            
             return inputList;
         }
         private static List<WeaponMod> SortWeaponModListHelper_MetaRecoil(List<WeaponMod> inputList)
