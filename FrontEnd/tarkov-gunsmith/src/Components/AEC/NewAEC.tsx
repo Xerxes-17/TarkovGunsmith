@@ -7,7 +7,7 @@ import { TraderToolTipElement, damageConditionalColour, dealWithMultiShotAmmo, d
 import { AEC, AEC_Row, TargetZoneDisplayAEC } from "./AEC_Interfaces";
 import AECTableIntroSection from "./AEC_TableIntroSection";
 import { Link } from "react-router-dom";
-import { AMMO_EFFECTIVENESS_CHART, AMMO_VS_ARMOR } from "../../Util/links";
+import { LINKS } from "../../Util/links";
 import { Margin } from "@mui/icons-material";
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
@@ -333,7 +333,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                     <MaterialReactTable
                         renderBottomToolbarCustomActions={({ table }) => (
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{AMMO_EFFECTIVENESS_CHART}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.AMMO_EFFECTIVENESS_CHART}
                             </Form.Text>
                         )
                         }
