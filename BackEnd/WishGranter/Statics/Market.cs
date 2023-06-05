@@ -358,7 +358,7 @@ namespace WishGranter.Statics
 
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
         // Cash + Barter
         public static MarketEntry GetCheapestTraderPurchaseOffer(string id)
@@ -368,7 +368,7 @@ namespace WishGranter.Statics
 
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
         // Cash + Barter
         public static MarketEntry GetEarliestCheapestTraderPurchaseOffer(string id)

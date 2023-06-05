@@ -11,58 +11,72 @@ namespace WishGranter.Statics
         Ergonomics
     }
 
-    public record struct GunsmithParameters
-    {
-        public FittingPriority priority { get; init; }
-        public MuzzleType muzzleType { get; init; }
-        public int playerLevel { get; init; }
-        public bool fleaMarket { get; init; }
-        public List<string>? exclusionList { get; init; } = null;
 
-        public GunsmithParameters(
-        FittingPriority priority,
-        MuzzleType muzzleType,
-        int playerLevel,
-        bool fleaMarket,
-        List<string>? exclusionList = null)
-        {
-            this.priority = priority;
-            this.muzzleType = muzzleType;
-            this.playerLevel = playerLevel;
-            this.fleaMarket = fleaMarket;
-            this.exclusionList = exclusionList;
-        }
-    };
 
     // This class will handle all of the fittings logic
     public static class Gunsmith
     {
         // Our new method which returns that new format
-        public static PurchasedMods GetPurchasedMods(Weapon weapon, GunsmithParameters parameters) 
+        public static PurchasedMods GetPurchasedMods(BasePreset basePreset, GunsmithParameters parameters) 
         {
-            var SelectedMods = AggregateAttachedModsRecursively(FitWeapon(weapon, parameters)).ToList();
+            var SelectedMods = AggregateAttachedModsRecursively(FitWeapon(basePreset, parameters)).ToList();
 
             var SelectedModIds = SelectedMods.Select(x => x.Id).ToList();
 
-            var marketEntries = Market.GetPurchaseOfferTraderOrFleaList(SelectedModIds, parameters.playerLevel, parameters.fleaMarket);
+            var marketEntries = Market.GetPurchaseOfferTraderOrFleaList(SelectedModIds, parameters.playerLevel, parameters.fleaMarket).Where(x=> x != null).ToList();
 
             List<PurchasedMod> PurchasedMods = new List<PurchasedMod>();
 
             foreach (var id in SelectedModIds)
             { 
                 var mod = SelectedMods.First(x => x.Id == id);
-                var marketEntry = marketEntries.First(x => x.Id == id);
-
-                PurchasedMods.Add(new PurchasedMod(mod, marketEntry.PurchaseOffer));
+                var marketEntry = marketEntries.FirstOrDefault(x => x.Id == id);
+                if(marketEntry == null)
+                {
+                    PurchasedMods.Add(new PurchasedMod(mod, null));
+                }
+                else
+                {
+                    PurchasedMods.Add(new PurchasedMod(mod, marketEntry.PurchaseOffer));
+                }             
             }
             
             return new PurchasedMods(PurchasedMods);
         }
 
-        public static Weapon FitWeapon(Weapon weapon, GunsmithParameters parameters)
+        public static Weapon FitWeapon(BasePreset basePreset, GunsmithParameters parameters)
         {
-            return FitWeapon(weapon, parameters.priority, parameters.muzzleType, parameters.playerLevel, parameters.fleaMarket, parameters.exclusionList);
+            return FitWeapon(basePreset, parameters.priority, parameters.muzzleType, parameters.playerLevel, parameters.fleaMarket, parameters.exclusionList);
         }
+        public static Weapon FitWeapon(BasePreset basePreset, FittingPriority priority, MuzzleType muzzleType, int playerLevel, bool fleaMarket, List<string>? exclusionList = null)
+        {
+            // First clone the Item, so we don't pollute the input
+            var localClone = basePreset.Weapon.DeepClone();
+
+            // Next, get the Mods that weapon is going to potentially use.
+            var modsForWeapon = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(localClone.Id, muzzleType, playerLevel, fleaMarket);
+            modsForWeapon.AddRange(basePreset.WeaponMods);
+
+            // If the weapon is a preset, we will add any currently attached mods to the list if they're not there already.
+            modsForWeapon = modsForWeapon.Union(AggregateAttachedModsRecursively(localClone)).ToList();
+
+            // We will also remove all currently attached Mods to the weapon, to ensure that they go through the EnhancedLogic compatibility checks with the rest.
+            foreach (var slot in localClone.Slots)
+            {
+                slot.ContainedItem = null;
+            }
+
+            // Remove any items that have been explicitly excluded, if there are any.
+            if (exclusionList != null)
+                modsForWeapon = modsForWeapon.Where(x => !exclusionList.Contains(x.Id)).ToList();
+
+            // Nex, we need to go through EnhancedLogic processing.
+            modsForWeapon = EnhancedLogic_Function(localClone, modsForWeapon, priority);
+
+            // Finally, we send the prepared list, weappon and other params into the SimpleFitting recursion and return that
+            return (Weapon)SimpleFitting(localClone, modsForWeapon, priority);
+        }
+
         // This can accept either a naked gun or a fitted preset gun.
         public static Weapon FitWeapon(Weapon weapon, FittingPriority priority, MuzzleType muzzleType, int playerLevel, bool fleaMarket, List<string>? exclusionList = null)
         {

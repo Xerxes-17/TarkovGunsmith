@@ -148,19 +148,22 @@ namespace WishGranter.Statics
             HashSet<string> output = new();
 
             var compoundItem = (CompoundItem)StaticRatStash.DB.GetItem(compoundItemId);
-
-            foreach (var slot in compoundItem.Slots)
+            if(compoundItem != null)
             {
-                if (slot.Filters[0].Whitelist.Any())
+                foreach (var slot in compoundItem.Slots)
                 {
-                    output.UnionWith(slot.Filters[0].Whitelist);
-
-                    foreach (var id in slot.Filters[0].Whitelist)
+                    if (slot.Filters[0].Whitelist.Any() && !slot.Name.Contains("camora")) // Fucking MTS shotgun
                     {
-                        output.UnionWith(GetAllPossibleChildrenIdsForCI(id));
+                        output.UnionWith(slot.Filters[0].Whitelist);
+
+                        foreach (var id in slot.Filters[0].Whitelist)
+                        {
+                            output.UnionWith(GetAllPossibleChildrenIdsForCI(id));
+                        }
                     }
                 }
             }
+            
             return output.ToList();
         }
         public static List<WeaponMod> FilterModsListByIdList(List<WeaponMod> inputMods, List<string> inputIds)
@@ -239,8 +242,8 @@ namespace WishGranter.Statics
                 List<WeaponMod> weaponMods = items.Where(x => x is WeaponMod).Cast<WeaponMod>().ToList();
 
                 // Summarize 
-                StatsSummary statsSummary = new StatsSummary();
-                statsSummary.SummarizeFromObjects(weapon, weaponMods);
+                //StatsSummary statsSummary = new StatsSummary();
+                //statsSummary.SummarizeFromObjects(weapon, weaponMods);
 
                 //Now we need to process the cashOffers, if any
                 var cashOffers = preset.SelectTokens("$.buyFor.[*]");
@@ -270,6 +273,10 @@ namespace WishGranter.Statics
                     PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
 
                     BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                    //using var db = new Monolit();
+                    //db.Attach(PresetForReturned);
+                    //db.SaveChanges();
 
                     ReturnedPresets.Add(PresetForReturned);
                 }
@@ -316,6 +323,15 @@ namespace WishGranter.Statics
                     }
                 }
             }
+            ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
+
+            for (int i = 0; i < ReturnedPresets.Count; i++)
+            {
+                Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
+            }
+
+
+
 
 
             return ReturnedPresets;
@@ -457,7 +473,10 @@ namespace WishGranter.Statics
                     }
                 }
             }
-            return ReturnedPresets;
+
+
+
+            return ReturnedPresets.Distinct().ToList();
         }
         public static List<Weapon> PatchWeaponStatsFromAPI(List<Weapon> inputList)
         {

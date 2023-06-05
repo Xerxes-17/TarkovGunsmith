@@ -232,6 +232,153 @@ namespace WishGranter.Migrations.MonolitMigrations
                     b.ToTable("BallisticTests", (string)null);
                 });
 
+            modelBuilder.Entity("WishGranter.Statics.BasePreset", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Ergonomics")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Ergonomics");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Recoil_Vertical")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Recoil_Vertical");
+
+                    b.Property<string>("WeaponId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeaponId");
+
+                    b.ToTable("BasePresets", (string)null);
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.Fitting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BasePresetId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Ergonomics")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Ergonomics");
+
+                    b.Property<int>("GunsmithParametersId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PresetModsRefund")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PurchasedModsCost")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("PurchasedModsHashId")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<float>("Recoil_Vertical")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Recoil_Vertical");
+
+                    b.Property<int>("TotalRubleCost")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ValidityString")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WeaponId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("REAL")
+                        .HasColumnName("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasePresetId");
+
+                    b.HasIndex("GunsmithParametersId");
+
+                    b.HasIndex("PurchasedModsHashId");
+
+                    b.HasIndex("WeaponId");
+
+                    b.ToTable("Fittings", (string)null);
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.GunsmithParameters", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("fleaMarket")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("muzzleType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("playerLevel")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("priority")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GunsmithParameters", (string)null);
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.PurchasedMods", b =>
+                {
+                    b.Property<byte[]>("HashId")
+                        .HasMaxLength(32)
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("List")
+                        .IsRequired()
+                        .HasColumnType("BLOB")
+                        .HasColumnName("ListBlob");
+
+                    b.HasKey("HashId");
+
+                    b.ToTable("PurchasedMods", (string)null);
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.Weapon_SQL", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Weapons", (string)null);
+                });
+
             modelBuilder.Entity("WishGranter.Statics.BallisticDetails", b =>
                 {
                     b.HasOne("WishGranter.Statics.Ammo_SQL", null)
@@ -274,6 +421,46 @@ namespace WishGranter.Migrations.MonolitMigrations
                         .IsRequired();
 
                     b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.BasePreset", b =>
+                {
+                    b.HasOne("WishGranter.Statics.Weapon_SQL", null)
+                        .WithMany()
+                        .HasForeignKey("WeaponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WishGranter.Statics.Fitting", b =>
+                {
+                    b.HasOne("WishGranter.Statics.BasePreset", "BasePreset")
+                        .WithMany()
+                        .HasForeignKey("BasePresetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WishGranter.Statics.GunsmithParameters", "GunsmithParameters")
+                        .WithMany()
+                        .HasForeignKey("GunsmithParametersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WishGranter.Statics.PurchasedMods", null)
+                        .WithMany()
+                        .HasForeignKey("PurchasedModsHashId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WishGranter.Statics.Weapon_SQL", null)
+                        .WithMany()
+                        .HasForeignKey("WeaponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BasePreset");
+
+                    b.Navigation("GunsmithParameters");
                 });
 
             modelBuilder.Entity("WishGranter.Statics.BallisticDetails", b =>

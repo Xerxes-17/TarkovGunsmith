@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using WishGranter.TerminalBallisticsSimulation;
 using WishGranter.Statics;
 using WishGranter.AmmoEffectivenessChart;
+using System.Text.Json;
 
 namespace WishGranterTests
 {
@@ -20,22 +21,95 @@ namespace WishGranterTests
     public class FittingThingTests
     {
         [TestMethod]
-        public void Test_FittingBundle_Many()
+        public void Test_GetAllPossibleChildrenIdsForCI()
         {
-            var preset = ModsWeaponsPresets.BasePresets[0];
+            var result = ModsWeaponsPresets.GetAllPossibleChildrenIdsForCI("60db29ce99594040e04c4a27");
+        }
+
+
+        [TestMethod]
+        public void Test_FittingBundle_Many_Many()
+        {
+            using var db = new Monolit();
+            Console.WriteLine($"Database path: {db.DbPath}.");
+
             List<FittingBundle> bundles = new List<FittingBundle>();
 
-            for(int i = preset.PurchaseOffer.ReqPlayerLevel; i <= 40; i++)
+            foreach (var preset in ModsWeaponsPresets.BasePresets.Where(x=>x.PurchaseOffer.OfferType == OfferType.Cash).ToList())
             {
-                var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, i, true);
-                FittingBundle fittingBundle = new(preset, param);
-                bundles.Add(fittingBundle);
+                for (int i = preset.PurchaseOffer.ReqPlayerLevel; i <= 40; i++)
+                {
+                    var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, i, false);
+                    FittingBundle fittingBundle = new(preset, param);
+                    bundles.Add(fittingBundle);
+                }
             }
-            
 
-            
             Console.WriteLine($"bundles.Count: {bundles.Count}");
+
+            //var jsonOptions = new JsonSerializerOptions
+            //{
+            //    WriteIndented = true
+            //};
+            //string temp = System.Text.Json.JsonSerializer.Serialize(bundles, jsonOptions);
+
+            //// Save the result as a local JSON
+            //using StreamWriter writetext = new("TESTING_WeaponBundles.json"); // This is here as a debug/verify
+            //writetext.Write(temp);
+            //writetext.Close();
         }
+
+        [TestMethod]
+        public void Test_Hydrate_DB_Fittings_CashOnly()
+        {
+            var result = Fitting.Hydrate_DB_WithBasicFittings();
+            Console.WriteLine($"Changes: {result}");
+        }
+
+
+        [TestMethod]
+        public void Test_Hydrate_DB_GunsmithParameters()
+        {
+            var result = GunsmithParameters.Hydrate_DB_GunsmithParameters();
+            Console.WriteLine($"Changes: {result}");
+        }
+
+        [TestMethod]
+        public void Test_Hydrate_DB_WithPresets()
+        {
+            var result = BasePreset.Hydrate_DB_BasePreset();
+            Console.WriteLine($"Changes: {result}");
+        }
+
+        [TestMethod]
+        public void Test_Hydrate_DB_WithWeapons()
+        {
+            var result = Weapon_SQL.Hydrate_DB_WithWeapons();
+            Console.WriteLine($"Changes: {result}");
+        }
+
+
+        //[TestMethod]
+        //public void Test_FittingBundle_Many()
+        //{
+
+        //    var preset = ModsWeaponsPresets.BasePresets[0];
+        //    List<FittingBundle> bundles = new List<FittingBundle>();
+
+        //    using var db = new Monolit();
+        //    Console.WriteLine($"Database path: {db.DbPath}.");
+
+        //    for (int i = preset.PurchaseOffer.ReqPlayerLevel; i <= 40; i++)
+        //    {
+        //        var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, i, true);
+        //        FittingBundle fittingBundle = new(preset, param);
+        //        bundles.Add(fittingBundle);
+        //    }
+        //    db.AddRange(bundles);
+        //    db.SaveChanges();
+
+        //    Console.WriteLine($"bundles.Count: {bundles.Count}");
+        //}
 
         [TestMethod]
         public void Test_FittingBundle_1()
@@ -153,16 +227,16 @@ namespace WishGranterTests
     [TestClass]
     public class ModsWeaponsPresetsTests
     {
-        [TestMethod]
-        public void Test_VerifyBasePresets_Count()
-        {
-            var result = ModsWeaponsPresets.BasePresets;
-            Console.WriteLine($"Count: {result.Count}");
-            foreach (var preset in result)
-            {
-                Console.WriteLine($"{preset.Name}, {preset.Id},[{preset.StatsSummary.Ergonomics}, {preset.StatsSummary.Recoil_Vertical}, {preset.StatsSummary.Weight}] {preset.PurchaseOffer.OfferType}");
-            }
-        }
+        //[TestMethod]
+        //public void Test_VerifyBasePresets_Count()
+        //{
+        //    var result = ModsWeaponsPresets.BasePresets;
+        //    Console.WriteLine($"Count: {result.Count}");
+        //    foreach (var preset in result)
+        //    {
+        //        Console.WriteLine($"{preset.Name}, {preset.Id},[{preset.Ergonomics}, {preset.Recoil_Vertical}, {preset.Weight}] {preset.PurchaseOffer.OfferType}");
+        //    }
+        //}
 
         [TestMethod]
         public void Test_GetShortListOfModsForCompundItemWithParams_AK74_Loud_40_noFLea()
