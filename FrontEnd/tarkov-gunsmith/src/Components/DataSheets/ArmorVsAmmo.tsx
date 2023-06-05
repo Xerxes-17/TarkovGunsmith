@@ -10,7 +10,7 @@ import SelectArmor from "../ADC/SelectArmor";
 import { requestArmorEffectivenessData } from "../../Context/Requests";
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ARMOR_VS_AMMO, DAMAGE_SIMULATOR } from "../../Util/links";
+import { LINKS } from "../../Util/links";
 
 export default function DataSheetEffectivenessArmor(props: any) {
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
 
     function handleArmorSelection(selectedOption: ArmorOption) {
         setArmorId(selectedOption.value);
-        navigate(`${ARMOR_VS_AMMO}/${selectedOption?.value}`);
+        navigate(`${LINKS.ARMOR_VS_AMMO}/${selectedOption?.value}`);
     }
 
     const getArmorVsAmmoData = (id: string) => {
@@ -91,7 +91,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span><Link to={`${DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
+                        <span><Link to={`${LINKS.DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },

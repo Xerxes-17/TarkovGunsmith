@@ -10,7 +10,7 @@ import { AmmoOption } from "../ADC/AmmoData";
 import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
+import { LINKS } from "../../Util/links";
 
 export default function DataSheetEffectivenessAmmo(props: any) {
     const navigate = useNavigate();
@@ -91,7 +91,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span><Link to={`${DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
+                        <span><Link to={`${LINKS.DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { requestAmmoEffectivenessChart, requestAmmoEffectivenessTimestamp } from "../../Context/Requests"
-import { Box, CssBaseline, TableCell, TableFooter, TableRow, ThemeProvider, createTheme } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { Button, Form, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { TraderToolTipElement, damageConditionalColour, dealWithMultiShotAmmo, deltaToolTip, deltaToolTipElement, fragmentationConditionalColour, fragmentationCutoff, getEffectivenessColorCode, getTraderConditionalCell, greenRedOrNothing, negativeGreen_PositiveRed_OrNothing, penetrationConditionalColour, RenameCaliber, trimCaliber, positiveGreenOrNothing_Percent, ArmorDamageToolTipElement } from "./AEC_Helper_Funcs";
