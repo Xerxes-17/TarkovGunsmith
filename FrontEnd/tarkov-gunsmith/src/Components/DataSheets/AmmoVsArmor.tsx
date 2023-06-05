@@ -46,7 +46,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
     function handleAmmoSelection(selectedOption: AmmoOption) {
         setAmmoId(selectedOption.value);
-        navigate(`${AMMO_VS_ARMOR}/${selectedOption?.value}`)
+        navigate(`${LINKS.AMMO_VS_ARMOR}/${selectedOption?.value}`)
     }
 
     const getAmmoVsArmorData = (id: string) => {

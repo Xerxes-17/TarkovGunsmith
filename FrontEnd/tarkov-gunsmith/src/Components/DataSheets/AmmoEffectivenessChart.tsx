@@ -3,11 +3,9 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, ToggleButtonGroup, Tooltip } from 'react-bootstrap';
-import { AMMO_VS_ARMOR } from '../../Util/links';
+import { LINKS } from '../../Util/links';
 import { Link } from 'react-router-dom';
 import { requestAmmoAuthorityData } from '../../Context/Requests';
-import { JsxElement } from 'typescript';
-
 
 
 export default function SimplifiedAmmoRatingsTable(props: any) {
@@ -340,7 +338,7 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             }
 
                             {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                            <span><Link to={`${AMMO_VS_ARMOR}/${row.original.details.id}`}>{renderedCellValue}</Link></span>
+                            <span><Link to={`${LINKS.AMMO_VS_ARMOR}/${row.original.details.id}`}>{renderedCellValue}</Link></span>
                         </Box>
                     </>
                 ),

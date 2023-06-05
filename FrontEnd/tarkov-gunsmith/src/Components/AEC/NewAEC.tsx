@@ -145,7 +145,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                     }
 
                     {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                    <span><Link to={`${AMMO_VS_ARMOR}/${row.original.Ammo.Id}`}>{value}</Link></span>
+                    <span><Link to={`${LINKS.AMMO_VS_ARMOR}/${row.original.Ammo.Id}`}>{value}</Link></span>
                 </Box>
             </>
         );

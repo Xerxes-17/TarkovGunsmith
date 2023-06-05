@@ -11,7 +11,7 @@ import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
 import { copyImageToClipboard } from 'copy-image-clipboard';
-import { AMMO_VS_ARMOR, ARMOR_VS_AMMO, DAMAGE_SIMULATOR } from '../../Util/links';
+import { LINKS } from '../../Util/links';
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -126,7 +126,7 @@ export default function ArmorDamageCalculator(props: any) {
 
         if ( ammoId !== "") {
             requestData(selectedOption.value, ammoId)
-            navigate(`${DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
+            navigate(`${LINKS.DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
         }
     }
 
@@ -138,7 +138,7 @@ export default function ArmorDamageCalculator(props: any) {
 
         if (armorId !== "") {
             requestData(armorId, selectedOption.value)
-            navigate(`${DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
+            navigate(`${LINKS.DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
         }
     }
 
@@ -489,7 +489,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {armorId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}`}>
+                                        <LinkContainer to={`${LINKS.ARMOR_VS_AMMO}/${armorId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See this armor in <strong>Armor</strong> vs Ammo.
                                             </Button>
@@ -590,7 +590,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {ammoId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}`}>
+                                        <LinkContainer to={`${LINKS.AMMO_VS_ARMOR}/${ammoId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See this ammo in <strong>Ammo</strong> vs Armor.
                                             </Button>
@@ -896,7 +896,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{DAMAGE_SIMULATOR}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
                             </Form.Text>
                         </Card.Body>
 
