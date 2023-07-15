@@ -121,8 +121,8 @@ export default function ArmorDamageCalculator(props: any) {
         setArmorDurabilityMax(selectedOption.maxDurability!);
         setArmorDurabilityNum(selectedOption.maxDurability!);
 
-        console.log("armorId -hndlArmor", selectedOption.value)
-        console.log("ammoId -hndlArmor", ammoId)
+        // console.log("armorId -hndlArmor", selectedOption.value)
+        // console.log("ammoId -hndlArmor", ammoId)
 
         if (ammoId !== "") {
             requestData(selectedOption.value, ammoId)
@@ -133,8 +133,8 @@ export default function ArmorDamageCalculator(props: any) {
     function handleAmmoSelection(selectedOption: AmmoOption) {
         setAmmoId(selectedOption.value);
 
-        console.log("armorId -hndlAmmo", armorId)
-        console.log("ammoId -hndlAmmo", selectedOption.value)
+        // console.log("armorId -hndlAmmo", armorId)
+        // console.log("ammoId -hndlAmmo", selectedOption.value)
 
         if (armorId !== "") {
             requestData(armorId, selectedOption.value)
@@ -149,8 +149,8 @@ export default function ArmorDamageCalculator(props: any) {
     //! Request Data
     function requestData(_armorId: string, _ammoId: string) {
 
-        console.log("_armorId - requestData", _armorId)
-        console.log("_ammoId - requestData", _ammoId)
+        // console.log("_armorId - requestData", _armorId)
+        // console.log("_ammoId - requestData", _ammoId)
 
         const requestDetails = {
             armorId: _armorId,
@@ -158,12 +158,12 @@ export default function ArmorDamageCalculator(props: any) {
             ammoId: _ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
-            // console.log(response)
+            // // console.log(response)
             setResult(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
+            // // console.log(error);
         });
     }
 
@@ -362,11 +362,11 @@ export default function ArmorDamageCalculator(props: any) {
             }
 
             requestArmorTestSerires_Custom(requestDetails).then(response => {
-                // console.log(response);
+                // // console.log(response);
                 setResultCustom(response);
             }).catch(error => {
                 alert(`The error was: ${error}`);
-                // console.log(error);
+                // // console.log(error);
             });
         }
     }

@@ -11,10 +11,10 @@
 // export const API_URL = "https://api.dev.tarkovgunsmith.com"
 
 // for (const envVar in process.env) {
-//     console.log(`${envVar}: ${process.env[envVar]}`);
+//     // console.log(`${envVar}: ${process.env[envVar]}`);
 //   }
 
-// console.log(process.env.REACT_APP_WISHGRANTER_API_URL);
+// // console.log(process.env.REACT_APP_WISHGRANTER_API_URL);
 
 var api: string = process.env.REACT_APP_WISHGRANTER_API_URL ?? ''
 var API: string = '';

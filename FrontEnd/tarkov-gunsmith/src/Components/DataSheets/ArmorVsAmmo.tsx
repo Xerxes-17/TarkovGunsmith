@@ -51,12 +51,12 @@ export default function DataSheetEffectivenessArmor(props: any) {
 
     const getArmorVsAmmoData = (id: string) => {
         requestArmorVsAmmo(id).then(response => {
-            // console.log(response)
+            // // console.log(response)
             setArmorTableData(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
+            // // console.log(error);
         });
     }
 

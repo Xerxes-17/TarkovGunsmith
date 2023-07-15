@@ -93,7 +93,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const weapons = async () => {
         const response = await fetch(API_URL + '/GetWeaponOptionsList');
-        // console.log(response)
+        // // console.log(response)
         setWeaponOptions(await response.json())
     }
 
@@ -208,11 +208,11 @@ export default function ModdedWeaponBuilder(props: any) {
             flea: checkedFlea
         }
         requestWeaponBuild(requestDetails).then(response => {
-            // console.log(response)
+            // // console.log(response)
             setResult(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
+            // // console.log(error);
         });
 
         // const curveRequestDetails = {
@@ -225,7 +225,7 @@ export default function ModdedWeaponBuilder(props: any) {
         // requestWeaponDataCurve(curveRequestDetails).then(response => {
         //     setWaitingForCurve(false);
         //     setFittingCurve(response);
-        //     // console.log(response);
+        //     // // console.log(response);
         // }).catch(error => {
         //     alert(`The error was: ${error}`);
         //     setWaitingForCurve(false);
@@ -235,11 +235,11 @@ export default function ModdedWeaponBuilder(props: any) {
     }
 
     const handleWeaponSelectionChange = (selectedOption: any) => {
-        //console.log(selectedOption);
+        //// console.log(selectedOption);
 
         if (selectedOption !== undefined || selectedOption !== null) {
             setChosenGun(selectedOption)
-            // console.log(`Option selected:`, selectedOption);
+            // // console.log(`Option selected:`, selectedOption);
         }
         else {
             setChosenGun(undefined)
@@ -611,7 +611,7 @@ export default function ModdedWeaponBuilder(props: any) {
     // );
     // if (result !== undefined) {
     //     if (waitingForCurve === false) {
-    //         console.log(fittingCurve)
+    //         // console.log(fittingCurve)
     //         dataCurveSection = (
     //             <Col xl>
     //                 <Card bg="dark" border="secondary" text="light" className="xl">

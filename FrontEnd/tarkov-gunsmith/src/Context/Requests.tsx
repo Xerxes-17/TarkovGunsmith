@@ -9,7 +9,7 @@ export async function requestArmorTestSerires(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    console.log(response.data);
+    // console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -24,7 +24,7 @@ export async function requestArmorTestSerires_Custom(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    console.log(response.data);
+    // console.log(response.data);
     // window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
     return response.data;
 }
@@ -37,7 +37,7 @@ export async function requestWeaponBuild(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    // console.log(response.data);
+    // // console.log(response.data);
     return response.data;
 }
 
@@ -49,7 +49,7 @@ export async function requestWeaponDataCurve(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    // console.log(response.data);
+    // // console.log(response.data);
     return response.data;
 }
 
@@ -60,7 +60,7 @@ export async function requestArmorVsAmmo(armorId: string) {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -72,7 +72,7 @@ export async function requestAmmoVsArmor(ammoId: string) {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -84,7 +84,7 @@ export async function requestAmmoAuthorityData() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -96,7 +96,7 @@ export async function requestAmmoEffectivenessChart() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -108,7 +108,7 @@ export async function requestAmmoEffectivenessTimestamp() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }

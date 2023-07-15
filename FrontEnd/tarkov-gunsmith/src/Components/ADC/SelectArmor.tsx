@@ -5,7 +5,7 @@ import { MaterialType, ArmorOption } from './ArmorData';
 
 export default function SelectArmor(props: any) {
 
-    console.log("props.armorOptions", props.armorOptions)
+    // console.log("props.armorOptions", props.armorOptions)
     const [item, setItem] = useState<ArmorOption>();
 
     const handleClick = (selectedOption: any) => {
@@ -17,7 +17,7 @@ export default function SelectArmor(props: any) {
     }
     // This useEffect sets the item according to the URL param ID if there is one
     useEffect(() => {
-        //console.log("props.defaultSelection", props.defaultSelection)
+        //// console.log("props.defaultSelection", props.defaultSelection)
         if (props.defaultSelection!) {
             setItem(props.defaultSelection)
         }

@@ -35,7 +35,7 @@ export default function DataSheetWeapons(props: any) {
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetWeaponDataSheetData');
-        console.log(response)
+        // console.log(response)
         setArmorTableData(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call

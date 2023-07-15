@@ -54,11 +54,11 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const [targetZone, setTargetZone] = useState<TargetZoneDisplayAEC>(TargetZoneDisplayAEC.Classic);
     const TargetZones: TargetZoneDisplayAEC[] = [TargetZoneDisplayAEC.Classic, TargetZoneDisplayAEC.Thorax, TargetZoneDisplayAEC.Head, TargetZoneDisplayAEC.Legs];
     const handleTargetZoneChange = (val: any) => {
-        console.log("val: ", val)
+        // console.log("val: ", val)
         setTargetZone(val);
 
         var temp = TargetZones.findIndex((element) => element === val)
-        console.log("temp: ", temp)
+        // console.log("temp: ", temp)
     }
 
     const [picturesYesNo, setPicturesYesNo] = useState(false);
@@ -67,17 +67,17 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const distances: number[] = [1, 10, 25, 50, 75, 100, 110, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600];
     const [distanceIndex, setDistanceIndex] = useState(1);
     const handleDistanceChange = (val: any) => {
-        console.log("val: ", val)
+        // console.log("val: ", val)
         setDistance(val);
 
         var temp = distances.findIndex((element) => element === val)
-        console.log("temp: ", temp)
+        // console.log("temp: ", temp)
         setDistanceIndex(temp)
     }
 
     const [AECData, setAECData] = useState<AEC>();
     useEffect(() => {
-        console.log(AEC_LS_KEY)
+        // console.log(AEC_LS_KEY)
         const data = JSON.parse(localStorage.getItem(AEC_LS_KEY)!);
         if (data) {
           // Check if outdated
