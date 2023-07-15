@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
 import { ArmorOption } from "../ADC/ArmorData";
 import SelectArmor from "../ADC/SelectArmor";
-import { requestArmorEffectivenessData } from "../../Context/Requests";
+import { requestArmorVsAmmo } from "../../Context/Requests";
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LINKS } from "../../Util/links";
@@ -50,7 +50,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
     }
 
     const getArmorVsAmmoData = (id: string) => {
-        requestArmorEffectivenessData(id).then(response => {
+        requestArmorVsAmmo(id).then(response => {
             // console.log(response)
             setArmorTableData(response);
 

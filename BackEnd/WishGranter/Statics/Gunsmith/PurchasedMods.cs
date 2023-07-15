@@ -7,9 +7,9 @@ using System.Text.Json;
 
 namespace WishGranter.Statics
 {
-    public class PurchasedMods
+    public class PurchasedMods : IEquatable<PurchasedMods>
     {
-        public byte[] HashId { get; set; } = new byte[32];
+        public string HashId { get; set; } = "";
         public List<PurchasedMod> List { get; set; } = new List<PurchasedMod>();
 
 
@@ -54,7 +54,7 @@ namespace WishGranter.Statics
             return JsonSerializer.Deserialize<List<PurchasedMod>>(bytes, _options);
         }
 
-        public byte[] GetHash()
+        public string GetHash()
         {
             var serializedObjects = new List<byte[]>();
             foreach (var obj in List)
@@ -65,7 +65,37 @@ namespace WishGranter.Statics
             var concatenatedBytes = ConcatenateByteArrays(serializedObjects);
             using var sha256 = SHA256.Create();
             var hashBytes = sha256.ComputeHash(concatenatedBytes);
-            return hashBytes;
+
+            string hashString = Convert.ToBase64String(hashBytes);
+
+            return hashString;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashId.GetHashCode();
+        }
+
+        public bool Equals(PurchasedMods? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+
+            if (other.HashId.Equals(HashId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as PurchasedMods);
         }
 
         private byte[] ConcatenateByteArrays(IEnumerable<byte[]> byteArrays)

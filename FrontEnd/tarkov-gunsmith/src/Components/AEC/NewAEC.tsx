@@ -11,6 +11,7 @@ import { LINKS } from "../../Util/links";
 import { Margin } from "@mui/icons-material";
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
+import { AEC_LS_KEY } from "../../Util/util";
 
 export default function AmmoEffectivenessChartPage(props: any) {
     const [pagination] = useState({
@@ -76,7 +77,8 @@ export default function AmmoEffectivenessChartPage(props: any) {
 
     const [AECData, setAECData] = useState<AEC>();
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AEC')!);
+        console.log(AEC_LS_KEY)
+        const data = JSON.parse(localStorage.getItem(AEC_LS_KEY)!);
         if (data) {
           // Check if outdated
           var remoteVersionNum = 0;
@@ -86,7 +88,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
               if(remoteVersionNum > data.GenerationTimeStamp){
                 requestAmmoEffectivenessChart()
                   .then(response => {
-                    localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+                    localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
                     setAECData(response);
                   })
                   .catch(error => {
@@ -104,7 +106,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
         else {
           requestAmmoEffectivenessChart()
             .then(response => {
-              localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+              localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
               setAECData(response);
             })
             .catch(error => {

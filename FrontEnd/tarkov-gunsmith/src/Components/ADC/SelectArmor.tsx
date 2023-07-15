@@ -4,6 +4,8 @@ import Select from 'react-select'
 import { MaterialType, ArmorOption } from './ArmorData';
 
 export default function SelectArmor(props: any) {
+
+    console.log("props.armorOptions", props.armorOptions)
     const [item, setItem] = useState<ArmorOption>();
 
     const handleClick = (selectedOption: any) => {

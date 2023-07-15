@@ -11,7 +11,7 @@ namespace WishGranter.Statics
     // Update-Database -Context Monolit
     public class Monolit : DbContext
     {
-        const string DB_NAME = "monolit_dev.db";
+        const string DB_NAME = "monolit.db";
 
         public DbSet<BallisticHit> BallisticHits { get; set; }
         public DbSet<BallisticTest> BallisticTests { get; set; }
@@ -29,13 +29,14 @@ namespace WishGranter.Statics
         public string DbPath { get; }
         public Monolit()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, DB_NAME);
+            //! For Dev
+            //var folder = Environment.SpecialFolder.LocalApplicationData;
+            //var path = Environment.GetFolderPath(folder);
+            //DbPath = System.IO.Path.Join(path, DB_NAME);
 
-
-            //var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
-            //DbPath = Path.Combine(baseFolder, DB_NAME);
+            //! For Prod
+            var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+            DbPath = Path.Combine(baseFolder, DB_NAME);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,9 +48,6 @@ namespace WishGranter.Statics
 
             //optionsBuilder.LogTo(s => System.Diagnostics.Debug.WriteLine(s));
         }
-
-        
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AmmoEntityTypeConfiguration());
@@ -64,6 +62,45 @@ namespace WishGranter.Statics
             modelBuilder.ApplyConfiguration(new GunsmithParametersEntityConfiguration());
             modelBuilder.ApplyConfiguration(new FittingEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PurchasedModsConfiguration());
+        }
+
+        public static string CreateMonolitFromScratch()
+        {
+            string result = "CMFS Started";
+            // Make Ammos
+            Ammo_SQL.Generate_Save_All_Ammo();
+            // Make BallisticDetails
+            Statics.BallisticDetails.Generate_Save_All_BallisticDetails();
+
+            // Make ArmorItems
+            ArmorItemStats.Generate_Save_All_ArmorItems();
+
+            // Make BallisticTests - > BallisticHits
+            BallisticTest.Generate_Save_All_BallisticTests();
+
+            // Make BallisticRatings
+            BallisticRating.Generate_Save_All_BallisticRatings();
+
+            CreateGunsmithDBStuff();
+
+            result = "CMFS Success";
+
+            return result;
+        }
+
+        public static void CreateGunsmithDBStuff()
+        {
+            // Make Weapons
+            Weapon_SQL.Hydrate_DB_WithWeapons();
+
+            // Make BasePresets
+            BasePreset.Hydrate_DB_BasePreset();
+
+            // Make Gunsmith Parameters
+            Statics.GunsmithParameters.Hydrate_DB_GunsmithParameters();
+
+            // Make Fittings -> PurchasedMods
+            //Fitting.Hydrate_DB_WithAllFittings();
         }
     }
 }

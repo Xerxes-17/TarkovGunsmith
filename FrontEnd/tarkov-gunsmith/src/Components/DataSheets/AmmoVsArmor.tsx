@@ -5,7 +5,7 @@ import { Col, Card, Form, Button, Container } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
-import { requestAmmoEffectivenessData } from "../../Context/Requests";
+import { requestAmmoVsArmor } from "../../Context/Requests";
 import { AmmoOption } from "../ADC/AmmoData";
 import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
@@ -50,7 +50,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
     }
 
     const getAmmoVsArmorData = (id: string) => {
-        requestAmmoEffectivenessData(id).then(response => {
+        requestAmmoVsArmor(id).then(response => {
             // console.log(response)
             setTableData(response);
 

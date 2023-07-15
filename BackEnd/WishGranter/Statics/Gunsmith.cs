@@ -44,6 +44,20 @@ namespace WishGranter.Statics
             return new PurchasedMods(PurchasedMods);
         }
 
+        public static bool FitWeapon_Precheck(BasePreset basePreset, MuzzleType muzzleType, int playerLevel, bool fleaMarket)
+        {
+            // Asumption: mods can only ever be added to the potential purchasing list, and never lost, so if thisSet.length - previousSet.length > 0, then it has new mods to consider
+            //todo this won't account for the fleaMarket mode, because then the player can purchase anuthing and what changes is the price.
+            var thisSet = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(basePreset.WeaponId, muzzleType, playerLevel, fleaMarket);
+            var previousSet = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(basePreset.WeaponId, muzzleType, playerLevel-1, fleaMarket);
+
+            if(thisSet.Count - previousSet.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static Weapon FitWeapon(BasePreset basePreset, GunsmithParameters parameters)
         {
             return FitWeapon(basePreset, parameters.priority, parameters.muzzleType, parameters.playerLevel, parameters.fleaMarket, parameters.exclusionList);
@@ -54,7 +68,7 @@ namespace WishGranter.Statics
             var localClone = basePreset.Weapon.DeepClone();
 
             // Next, get the Mods that weapon is going to potentially use.
-            var modsForWeapon = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(localClone.Id, muzzleType, playerLevel, fleaMarket);
+            var modsForWeapon = ModsWeaponsPresets.GetShortListOfModsForCompundItemWithParams(basePreset.WeaponId, muzzleType, playerLevel, fleaMarket); //todo Need to fix this so that the BasePreset Weapon is saved correctly. Probably need to revise the initial logic 
             modsForWeapon.AddRange(basePreset.WeaponMods);
 
             // If the weapon is a preset, we will add any currently attached mods to the list if they're not there already.
@@ -138,7 +152,10 @@ namespace WishGranter.Statics
                         }
 
                         options = SortWeaponModListByMode(options, mode, slot);
-                        slot.ContainedItem = options.First();
+                        if (options.Any())
+                        {
+                            slot.ContainedItem = options.First();
+                        }
                     }
                 }
             }
@@ -195,26 +212,58 @@ namespace WishGranter.Statics
                         inputList.RemoveAll(x => x.Ergonomics > 0 || (x.Ergonomics == 0 && x.Recoil == 0));
                     }
                 }
-                // Then do the sorts
-                if (mode == FittingPriority.MetaRecoil)
+                if(inputList.Count > 0) //This is here because after we remove the Thread protectors and such, you can end up with an empty list!
                 {
-                    inputList = SortWeaponModListHelper_MetaRecoil(inputList);
+                    // Then do the sorts
+                    if (mode == FittingPriority.MetaRecoil)
+                    {
+                        inputList = SortWeaponModListHelper_MetaRecoil(inputList);
+                    }
+                    else if (mode == FittingPriority.Recoil)
+                    {
+                        inputList = SortWeaponModListHelper_EconRecoil(inputList);
+                    }
+                    else if (mode == FittingPriority.MetaErgonomics)
+                    {
+                        inputList = SortWeaponModListHelper_MetaErgonomics(inputList);
+                    }
+                    else if (mode == FittingPriority.Ergonomics)
+                    {
+                        inputList = SortWeaponModListHelper_EconErgonomics(inputList);
+                    }
                 }
-                else if (mode == FittingPriority.Recoil)
-                {
-                    inputList = SortWeaponModListHelper_EconRecoil(inputList);
-                }
-                else if (mode == FittingPriority.MetaErgonomics)
-                {
-                    inputList = SortWeaponModListHelper_MetaErgonomics(inputList);
-                }
-                else if (mode == FittingPriority.Ergonomics)
-                {
-                    inputList = SortWeaponModListHelper_EconErgonomics(inputList);
-                }
+                
             }
             
             return inputList;
+        }
+        private static int SortWeaponModListHelper_EconHelper(WeaponMod weaponMod)
+        {
+            int num = -1;
+
+            if (weaponMod.Name.Equals("Hi, I'm a dummy"))
+            {
+                
+                foreach (var slot in weaponMod.Slots)
+                {
+                    var theOffer = Market.GetCheapestTraderPurchaseOffer(slot.ContainedItem.Id);
+                    if(theOffer != null)
+                    {
+                        num += 1;
+                        num += theOffer.PurchaseOffer.PriceRUB;
+                    }
+                }
+            }
+            else
+            {
+                var theOffer = Market.GetCheapestTraderPurchaseOffer(weaponMod.Id);
+
+                if(theOffer != null)
+                    num += 1 + theOffer.PurchaseOffer.PriceRUB;
+            }
+            //todo make these null return safe
+
+            return num;
         }
         private static List<WeaponMod> SortWeaponModListHelper_MetaRecoil(List<WeaponMod> inputList)
         {
@@ -237,8 +286,13 @@ namespace WishGranter.Statics
             var inputsRecoilMax = inputList.Min(x => GetCompoundItemStatsTotals<WeaponMod>(x).TotalRecoil);
             inputList = inputList.Where(x => GetCompoundItemStatsTotals<WeaponMod>(x).TotalRecoil == inputsRecoilMax).ToList();
 
-            inputList = inputList.OrderBy(x => Market.GetCheapestTraderPurchaseOffer(x.Id).PurchaseOffer.PriceRUB).ToList();
-
+            if(inputList.Count > 1)
+            {
+                inputList = inputList.OrderBy(x => SortWeaponModListHelper_EconHelper(x)).ToList();
+            }
+            //todo I made an assumption that this would only ever be called on singular WMs, but it isn't being called in this case.
+            //todo Thus, I need to add an exception here for dealing with this situation. Make a function which recursively gets the market price, and will skip if the item is a dummy.
+            
             return inputList;
         }
         private static List<WeaponMod> SortWeaponModListHelper_MetaErgonomics(List<WeaponMod> inputList)
@@ -262,8 +316,11 @@ namespace WishGranter.Statics
             var inputsErgoMax = inputList.Max(x => GetCompoundItemStatsTotals<WeaponMod>(x).TotalErgo);
             inputList = inputList.Where(x => GetCompoundItemStatsTotals<WeaponMod>(x).TotalErgo == inputsErgoMax).ToList();
 
-            inputList = inputList.OrderBy(x => Market.GetCheapestTraderPurchaseOffer(x.Id).PurchaseOffer.PriceRUB).ToList();
-
+            if (inputList.Count > 1)
+            {
+                inputList = inputList.OrderBy(x => SortWeaponModListHelper_EconHelper(x)).ToList();
+            }
+                
             return inputList;
         }
 
@@ -764,10 +821,14 @@ namespace WishGranter.Statics
 
             // Sort the combos by the mode
             FinalCombos = SortWeaponModListByMode(FinalCombos, mode);
+            //todo this needs to be fixed so that the sort is done correctly for the dummy-WMs that are being used here. It wasn't a problem before as we weren't sorting by purchase value like we are in econ modes.
 
             // Get the best one, add those mods back to the input list and return that.
             var thatResult = FinalCombos.First();
             var theList = AggregateListOfModsRecursively(thatResult);
+
+            //! Also need to remove that dummy
+            theList.Remove(thatResult);
 
             inputList.AddRange(theList);
 

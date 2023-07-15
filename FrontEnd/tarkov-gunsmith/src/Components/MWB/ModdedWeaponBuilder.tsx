@@ -6,16 +6,34 @@ import { requestWeaponBuild, requestWeaponDataCurve } from "../../Context/Reques
 import { API_URL } from "../../Util/util";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
-import { TransmissionWeaponBuildResult, TransmissionAttachedMod } from './WeaponData';
+import { TransmissionWeaponBuildResult, TransmissionAttachedMod, Fitting } from './WeaponData';
+import { FormControlLabel, Radio, Switch } from "@mui/material";
+
+enum OfferType {
+    None,
+    Sell,
+    Cash,
+    Barter,
+    Flea
+}
+
+enum fitPriority
+{
+    MetaRecoil = "MetaRecoil",
+    Recoil = "Recoil",
+    MetaErgonomics = "MetaErgonomics",
+    Ergonomics= "Ergonomics"
+}
+
+enum MuzzleType
+{
+    Loud,
+    Quiet,
+    Any
+}
 
 export default function ModdedWeaponBuilder(props: any) {
-    enum OfferType {
-        None,
-        Sell,
-        Cash,
-        Barter,
-        Flea
-    }
+    
 
     interface WeaponOption {
         ergonomics: number;
@@ -49,6 +67,9 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const [PurchaseOfferTypes, setPurchaseOfferTypes] = useState([OfferType.Cash])
     const handlePOTChange = (val: any) => setPurchaseOfferTypes(val);
+
+    const [checkedFlea, setCheckedFlea] = useState(false);
+
 
     // This useEffect will update the WeaponOptions with the result from the async API call
     useEffect(() => {
@@ -88,7 +109,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
     const [chosenGun, setChosenGun] = useState<any>(null);
 
-    const [result, setResult] = useState<TransmissionWeaponBuildResult>();
+    const [result, setResult] = useState<Fitting>();
 
     function handlePlayerLevelChange(input: number) {
         setPlayerLevel(input);
@@ -104,6 +125,7 @@ export default function ModdedWeaponBuilder(props: any) {
     const [mechanicLevel, setMechanicLevel] = useState(1);
     const [peacekeeperLevel, setPeacekeeperLevel] = useState(1);
     const [jaegerLevel, setJaegerLevel] = useState(1);
+    
 
     function updateTraderLevels(playerLevel: number) {
         let prapor = 1;
@@ -167,7 +189,7 @@ export default function ModdedWeaponBuilder(props: any) {
     const [MuzzleModeToggle, setMuzzleModeToggle] = useState(1);
     const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
 
-    const [FittingPriority, setFittingPriority] = useState("recoil");
+    const [FittingPriority, setFittingPriority] = useState<"MetaRecoil" | "Recoil" | "MetaErgonomics" | "Ergonomics">("Recoil");
     const handleFPChange = (val: any) => setFittingPriority(val);
 
     const [fittingCurve, setFittingCurve] = useState<CurveDataPoint[]>();
@@ -176,35 +198,38 @@ export default function ModdedWeaponBuilder(props: any) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
+        const parsed = fitPriority[FittingPriority];
+
         const requestDetails = {
             level: playerLevel,
-            mode: FittingPriority,
-            muzzleMode: MuzzleModeToggle,
-            searchString: chosenGun.value,
-            purchaseType: chosenGun.offerType
+            priority: parsed,
+            muzzleMode: MuzzleModeToggle-1,
+            presetId: chosenGun.value,
+            flea: checkedFlea
         }
         requestWeaponBuild(requestDetails).then(response => {
+            // console.log(response)
             setResult(response);
         }).catch(error => {
             alert(`The error was: ${error}`);
             // console.log(error);
         });
 
-        const curveRequestDetails = {
-            presetID: chosenGun.value,
-            mode: FittingPriority,
-            muzzleMode: MuzzleModeToggle,
-            purchaseType: chosenGun.offerType
-        }
-        setWaitingForCurve(true);
-        requestWeaponDataCurve(curveRequestDetails).then(response => {
-            setWaitingForCurve(false);
-            setFittingCurve(response);
-            // console.log(response);
-        }).catch(error => {
-            alert(`The error was: ${error}`);
-            setWaitingForCurve(false);
-        });
+        // const curveRequestDetails = {
+        //     presetID: chosenGun.value,
+        //     mode: FittingPriority,
+        //     muzzleMode: MuzzleModeToggle,
+        //     purchaseType: chosenGun.offerType
+        // }
+        // setWaitingForCurve(true);
+        // requestWeaponDataCurve(curveRequestDetails).then(response => {
+        //     setWaitingForCurve(false);
+        //     setFittingCurve(response);
+        //     // console.log(response);
+        // }).catch(error => {
+        //     alert(`The error was: ${error}`);
+        //     setWaitingForCurve(false);
+        // });
 
 
     }
@@ -355,7 +380,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                 </Stack>
 
                                 <br />
-                                <Form.Label>Purchase Offer Types</Form.Label><br />
+                                <Form.Label>Weapon Purchase Offer Filter</Form.Label><br />
                                 <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
                                     <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
                                         Cash
@@ -368,6 +393,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                     </ToggleButton>
                                 </ToggleButtonGroup>
                                 <br /><br />
+                                
                             </Col>
                             <Col>
                                 <Form.Label>Muzzle Device Mode</Form.Label><br />
@@ -386,20 +412,22 @@ export default function ModdedWeaponBuilder(props: any) {
 
                                 <Form.Label>Fitting Priority</Form.Label><br />
                                 <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={FittingPriority} onChange={handleFPChange}>
-                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"recoil"}>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"Recoil"}>
                                         Recoil
                                     </ToggleButton>
-                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"Meta Recoil"}>
+                                    <ToggleButton variant="outline-primary" id="tbg-radio-FP_MetaRecoil" value={"MetaRecoil"}>
                                         Meta Recoil
                                     </ToggleButton>
-                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"ergo"}>
+                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_Ergonomics" value={"Ergonomics"}>
                                         Ergonomics
                                     </ToggleButton>
-                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"Meta Ergonomics"}>
+                                    <ToggleButton variant="outline-danger" id="tbg-radio-FP_MetaErgonomics" value={"MetaErgonomics"}>
                                         Meta Ergonomics
                                     </ToggleButton>
                                 </ToggleButtonGroup>
                                 <br />
+                                {/* <br />
+                                <FormControlLabel control={<Switch checked={checkedFlea} onChange={(event) => setCheckedFlea(event.currentTarget.checked)} />} label="Allow Flea Market Mods?" /> */}
                             </Col>
                         </Row>
                         {WeaponOptions.length === 0 && (
@@ -448,7 +476,7 @@ export default function ModdedWeaponBuilder(props: any) {
                 <Card bg="secondary" border="dark" text="light" className="xl">
                     <Card.Header as="h2">
                         <Stack direction="horizontal" gap={3}>
-                            {result.ShortName}
+                            {result.BasePreset!.Weapon!.Name}
                             <div className="ms-auto">
                                 <Button variant="outline-secondary" disabled id="YouCan'tSeeMe">
                                     .
@@ -458,7 +486,7 @@ export default function ModdedWeaponBuilder(props: any) {
                     </Card.Header>
                     <Card.Body>
                         <div style={{ textAlign: "center" }}>
-                            {result.Valid === false &&
+                            {result.ValidityString !== '' &&
                                 <>
                                     <Alert variant={"danger"}>
                                         Sorry, this build isn't valid! Please report it on the <a href="https://discord.gg/F7GZE4H7fq">discord</a>.
@@ -467,11 +495,11 @@ export default function ModdedWeaponBuilder(props: any) {
 
                             <Row className="weapon-stats-box">
                                 <Col>
-                                    <img src={`https://assets.tarkov.dev/${result.Id}-grid-image.jpg`} alt={result.ShortName} className={"mod_img"} />
+                                    <img src={`https://assets.tarkov.dev/${result.BasePreset!.Id.split("_")[0]}-grid-image.jpg`} alt={result.BasePreset!.Weapon!.ShortName} className={"mod_img"} />
                                 </Col>
                                 <Col>
                                     <strong> Preset Price<br /> </strong>
-                                    ₽ {result.PresetPrice.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
+                                    ₽ {result.BasePreset!.PurchaseOffer!.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
                                 </Col>
 
                                 <Col>
@@ -480,60 +508,60 @@ export default function ModdedWeaponBuilder(props: any) {
                                 </Col>
                                 <Col>
                                     <strong> Preset Mods Refund<br /> </strong>
-                                    ₽ -{result.SellBackValue.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
+                                    ₽ -{result.PresetModsRefund.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
                                 </Col>
                                 <Col>
                                     <strong> Final Cost <br /> </strong>
-                                    ₽ {result.FinalCost.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
+                                    ₽ {result.TotalRubleCost.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}<br />
                                 </Col>
                             </Row>
                             <Row>
 
                                 <Col className="hidden-stats-box">
                                     <h5>Convergence</h5>
-                                    🔽 {result.Convergence.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} <br />
+                                    🔽 {result.BasePreset!.Weapon!.Convergence.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} <br />
                                     <h5>Recoil Dispersion</h5>
-                                    ◀▶ {result.RecoilDispersion}
+                                    ◀▶ {result.BasePreset!.Weapon!.RecoilDispersion}
                                 </Col>
 
                                 <Col className="initial-stats-box">
                                     <h5>Base Ergonomics</h5>
-                                    ✍ {result.BaseErgo}
+                                    ✍ {result.BasePreset!.Ergonomics}
                                     <h5>Base Recoil</h5>
-                                    ⏫ {result.BaseRecoil}
+                                    ⏫ {result.BasePreset!.Recoil_Vertical}
                                 </Col>
 
                                 <Col className="final-stats-box">
                                     <h5>Final Ergonomics</h5>
-                                    ✍ {result.FinalErgo}
+                                    ✍ {result.Ergonomics}
                                     <h5>Final Recoil</h5>
-                                    ⏫ {result.FinalRecoil}
+                                    ⏫ {result.Recoil_Vertical}
                                 </Col>
                             </Row>
                             <Row className="ammo-stats-box">
                                 <Col>
                                     <strong> Rate of Fire <br /></strong>
-                                    {result.RateOfFire} <br />
+                                    {result.BasePreset!.Weapon!.bFirerate} <br />
                                     <strong>Selected Round</strong><br />
-                                    {result.SelectedPatron.ShortName} <br />
+                                    {result.PurchasedAmmo!.Ammo!.ShortName} <br />
                                 </Col>
                                 <Col>
                                     <strong>Damage</strong> <br />
-                                    {result.SelectedPatron.Damage}<br />
+                                    {result.PurchasedAmmo!.Ammo!.Damage}<br />
                                     <strong>Frag Chance</strong><br />
-                                    {(result.SelectedPatron.FragChance * 100).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} %<br />
+                                    {(result.PurchasedAmmo!.Ammo!.FragmentationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} %<br />
                                 </Col>
                                 <Col>
                                     <strong>Penetration</strong>  <br />
-                                    {result.SelectedPatron.Penetration}<br />
+                                    {result.PurchasedAmmo!.Ammo!.PenetrationPower}<br />
                                     <strong> ArmorDam%</strong> <br />
-                                    {result.SelectedPatron.ArmorDamagePerc}<br />
+                                    {result.PurchasedAmmo!.Ammo!.ArmorDamage}<br />
                                 </Col>
                             </Row>
                         </div>
                         <Row className='modBoxes'>
-                            {result.AttachedModsFLat.map((item: TransmissionAttachedMod, i: number) => {
-                                let itemKey = item.Id.concat(i.toString())
+                            {result.PurchasedMods!.List.map((item: any, i: number) => {
+                                let itemKey = item.WeaponMod.Id.concat(i.toString())
                                 return (
                                     <Mod key={itemKey} item={item} i={i} />
                                 )
@@ -577,152 +605,152 @@ export default function ModdedWeaponBuilder(props: any) {
         )
     }
 
-    let dataCurveSection = (
-        <>
-        </>
-    );
-    if (result !== undefined) {
-        if (waitingForCurve === false) {
-            console.log(fittingCurve)
-            dataCurveSection = (
-                <Col xl>
-                    <Card bg="dark" border="secondary" text="light" className="xl">
+    // let dataCurveSection = (
+    //     <>
+    //     </>
+    // );
+    // if (result !== undefined) {
+    //     if (waitingForCurve === false) {
+    //         console.log(fittingCurve)
+    //         dataCurveSection = (
+    //             <Col xl>
+    //                 <Card bg="dark" border="secondary" text="light" className="xl">
 
-                        <Card.Header as="h3">
-                            Stats curves of {result.ShortName} in mode "{FittingPriority}"
-                        </Card.Header>
-                        <Card.Body>
-                            <div className='black-text'>
-                                <ResponsiveContainer
-                                    width="100%"
-                                    height="100%"
-                                    minWidth={200}
-                                    minHeight={400}
-                                >
-                                    <ComposedChart
-                                        width={800}
-                                        height={400}
-                                        data={fittingCurve}
-                                        margin={{
-                                            top: 5,
-                                            right: 30,
-                                            left: 20,
-                                            bottom: 20,
-                                        }}
-                                    >
-                                        <CartesianGrid strokeDasharray="7 7" />
-                                        <XAxis
-                                            dataKey={"level"}
-                                            type="number"
-                                            domain={[0, 40]}
-                                        >
-                                            <Label
-                                                style={{
-                                                    textAnchor: "middle",
-                                                    fontSize: "100%",
-                                                    fill: "white",
-                                                }}
-                                                position="bottom"
-                                                value={"Player Level"} />
-                                        </XAxis>
-                                        <YAxis
-                                            yAxisId="left"
-                                            type="number"
-                                        >
-                                            <Label
-                                                style={{
-                                                    textAnchor: "middle",
-                                                    fontSize: "100%",
-                                                    fill: "white",
-                                                }}
-                                                angle={270}
-                                                position="left"
-                                                value={"Ergo / Recoil / Penetration"}
-                                            />
-                                        </YAxis>
+    //                     <Card.Header as="h3">
+    //                         Stats curves of {result.ShortName} in mode "{FittingPriority}"
+    //                     </Card.Header>
+    //                     <Card.Body>
+    //                         <div className='black-text'>
+    //                             <ResponsiveContainer
+    //                                 width="100%"
+    //                                 height="100%"
+    //                                 minWidth={200}
+    //                                 minHeight={400}
+    //                             >
+    //                                 <ComposedChart
+    //                                     width={800}
+    //                                     height={400}
+    //                                     data={fittingCurve}
+    //                                     margin={{
+    //                                         top: 5,
+    //                                         right: 30,
+    //                                         left: 20,
+    //                                         bottom: 20,
+    //                                     }}
+    //                                 >
+    //                                     <CartesianGrid strokeDasharray="7 7" />
+    //                                     <XAxis
+    //                                         dataKey={"level"}
+    //                                         type="number"
+    //                                         domain={[0, 40]}
+    //                                     >
+    //                                         <Label
+    //                                             style={{
+    //                                                 textAnchor: "middle",
+    //                                                 fontSize: "100%",
+    //                                                 fill: "white",
+    //                                             }}
+    //                                             position="bottom"
+    //                                             value={"Player Level"} />
+    //                                     </XAxis>
+    //                                     <YAxis
+    //                                         yAxisId="left"
+    //                                         type="number"
+    //                                     >
+    //                                         <Label
+    //                                             style={{
+    //                                                 textAnchor: "middle",
+    //                                                 fontSize: "100%",
+    //                                                 fill: "white",
+    //                                             }}
+    //                                             angle={270}
+    //                                             position="left"
+    //                                             value={"Ergo / Recoil / Penetration"}
+    //                                         />
+    //                                     </YAxis>
 
-                                        <YAxis
-                                            yAxisId="right"
-                                            orientation="right"
-                                            dataKey="price"
-                                            type="number"
-                                            tickFormatter={(value: number) => value.toLocaleString("en-US")}
-                                        >
-                                            <Label
-                                                style={{
-                                                    textAnchor: "middle",
-                                                    fontSize: "100%",
-                                                    fill: "white",
-                                                }}
-                                                angle={270}
-                                                position="right"
-                                                value={"Price - ₽"}
-                                                offset={15}
-                                            />
-                                        </YAxis>
-                                        <YAxis
-                                            domain={[1, 0]}
-                                            yAxisId="BOOL"
-                                            hide={true}
-                                        />
-                                        <Tooltip
-                                            contentStyle={{ backgroundColor: "#dde9f0" }}
-                                            formatter={function (value, name) {
-                                                if (name === "price") {
-                                                    return `${value.toLocaleString("en-US")} ₽`;
-                                                }
-                                                else {
-                                                    return `${value}`;
-                                                }
+    //                                     <YAxis
+    //                                         yAxisId="right"
+    //                                         orientation="right"
+    //                                         dataKey="price"
+    //                                         type="number"
+    //                                         tickFormatter={(value: number) => value.toLocaleString("en-US")}
+    //                                     >
+    //                                         <Label
+    //                                             style={{
+    //                                                 textAnchor: "middle",
+    //                                                 fontSize: "100%",
+    //                                                 fill: "white",
+    //                                             }}
+    //                                             angle={270}
+    //                                             position="right"
+    //                                             value={"Price - ₽"}
+    //                                             offset={15}
+    //                                         />
+    //                                     </YAxis>
+    //                                     <YAxis
+    //                                         domain={[1, 0]}
+    //                                         yAxisId="BOOL"
+    //                                         hide={true}
+    //                                     />
+    //                                     <Tooltip
+    //                                         contentStyle={{ backgroundColor: "#dde9f0" }}
+    //                                         formatter={function (value, name) {
+    //                                             if (name === "price") {
+    //                                                 return `${value.toLocaleString("en-US")} ₽`;
+    //                                             }
+    //                                             else {
+    //                                                 return `${value}`;
+    //                                             }
 
-                                            }}
-                                            labelFormatter={function (value) {
-                                                return `level: ${value}`;
-                                            }}
+    //                                         }}
+    //                                         labelFormatter={function (value) {
+    //                                             return `level: ${value}`;
+    //                                         }}
 
-                                        />
-                                        <Legend verticalAlign="top" />
-                                        <Line yAxisId="right" type="monotone" dataKey="price" stroke="#faa107" activeDot={{ r: 8 }} />
-                                        <Line yAxisId="left" type="monotone" dataKey="recoil" stroke="#239600" />
-                                        <Line yAxisId="left" type="monotone" dataKey="ergo" stroke="#2667ff" />
-                                        <Line yAxisId="left" type="monotone" dataKey="penetration" stroke="#7b26a3" />
-                                        <Line yAxisId="left" type="monotone" dataKey="damage" stroke="#7bc9c9" />
-                                        <Bar yAxisId="BOOL" dataKey="invalid" barSize={25} fill="red" />
-                                    </ComposedChart >
-                                </ResponsiveContainer>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            )
-        }
+    //                                     />
+    //                                     <Legend verticalAlign="top" />
+    //                                     <Line yAxisId="right" type="monotone" dataKey="price" stroke="#faa107" activeDot={{ r: 8 }} />
+    //                                     <Line yAxisId="left" type="monotone" dataKey="recoil" stroke="#239600" />
+    //                                     <Line yAxisId="left" type="monotone" dataKey="ergo" stroke="#2667ff" />
+    //                                     <Line yAxisId="left" type="monotone" dataKey="penetration" stroke="#7b26a3" />
+    //                                     <Line yAxisId="left" type="monotone" dataKey="damage" stroke="#7bc9c9" />
+    //                                     <Bar yAxisId="BOOL" dataKey="invalid" barSize={25} fill="red" />
+    //                                 </ComposedChart >
+    //                             </ResponsiveContainer>
+    //                         </div>
+    //                     </Card.Body>
+    //                 </Card>
+    //             </Col>
+    //         )
+    //     }
 
-        else if (waitingForCurve === true) {
-            dataCurveSection = (
-                <Col xl>
-                    <Card bg="dark" border="secondary" text="light" className="xl">
+    //     else if (waitingForCurve === true) {
+    //         dataCurveSection = (
+    //             <Col xl>
+    //                 <Card bg="dark" border="secondary" text="light" className="xl">
 
-                        <Card.Header as="h3">
-                            Stats curve of {result.ShortName} in mode "{FittingPriority}"
-                        </Card.Header>
-                        <Card.Body>
-                            <Button variant="dark" disabled>
-                                <Stack direction="horizontal" gap={2}>
-                                    <Spinner animation="grow" role="status" size="sm">
+    //                     <Card.Header as="h3">
+    //                         Stats curve of {result.ShortName} in mode "{FittingPriority}"
+    //                     </Card.Header>
+    //                     <Card.Body>
+    //                         <Button variant="dark" disabled>
+    //                             <Stack direction="horizontal" gap={2}>
+    //                                 <Spinner animation="grow" role="status" size="sm">
 
-                                        <span className="visually-hidden">Waiting for Stats Curve</span>
-                                    </Spinner>
-                                    <div className="vr" />
-                                    Waiting for Stats Curve
-                                </Stack>
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            )
-        }
+    //                                     <span className="visually-hidden">Waiting for Stats Curve</span>
+    //                                 </Spinner>
+    //                                 <div className="vr" />
+    //                                 Waiting for Stats Curve
+    //                             </Stack>
+    //                         </Button>
+    //                     </Card.Body>
+    //                 </Card>
+    //             </Col>
+    //         )
+    //     }
 
-    }
+    // }
 
     let content = (
 
@@ -733,9 +761,9 @@ export default function ModdedWeaponBuilder(props: any) {
             <div className="row gy-2">
                 {ResultsSection}
             </div>
-            <div className="row gy-2">
+            {/* <div className="row gy-2">
                 {dataCurveSection}
-            </div>
+            </div> */}
         </Container>
     );
     return (

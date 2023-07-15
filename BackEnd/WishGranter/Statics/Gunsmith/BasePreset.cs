@@ -28,7 +28,7 @@ namespace WishGranter.Statics
         public BasePreset(string name, string id, Weapon weapon, PurchaseOffer purchaseOffer, List<WeaponMod> weaponMods) 
         {
             Name = name;
-            Id = id+"-"+purchaseOffer.GetHashCode();
+            Id = id+"_"+purchaseOffer.GetHashCode();
             WeaponId = weapon.Id;
             Weapon = weapon;
             PurchaseOffer = purchaseOffer;
@@ -41,7 +41,7 @@ namespace WishGranter.Statics
             using var db = new Monolit();
             Console.WriteLine($"Database path: {db.DbPath}.");
 
-            var temp = ModsWeaponsPresets.BasePresets;
+            var temp = ModsWeaponsPresets.BasePresets.Distinct().ToHashSet();
             int count = 0;
 
             foreach (var item in temp)
