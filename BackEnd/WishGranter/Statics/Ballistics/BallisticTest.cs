@@ -33,7 +33,7 @@ namespace WishGranter.Statics
             db.SaveChanges();
         }
 
-        public static void Dev_Generate_Save_All_BallisticTests()
+        public static void Generate_Save_All_BallisticTests()
         {
             using var db = new Monolit();
             var armorItems = db.ArmorItems;
@@ -50,10 +50,14 @@ namespace WishGranter.Statics
                     {
                         var result = Ballistics.SimulateHitSeries_Presets(item, 100, details);
                         db.Add(result);
+
+                        // Don't put SaveChanges here, far too slow.
                     }
+                    // SaveChanges here is 130MB to 210MB RAM, still too slow
                 }
+                // About a GB or 2, takes 10 minutes
             }
-            db.SaveChanges();
+            db.SaveChanges(); // Absolutely Chonks RAM, but is really fast at about 3.6 - 3.8 mins
         }
     };
 

@@ -79,17 +79,15 @@ namespace WishGranter.Statics
         public static void UpdateEverthingFromRatStashOrigin()
         {
             using var db = new Monolit();
-            Console.WriteLine($"Database path: {db.DbPath}.");
+            //Console.WriteLine($"Database path: {db.DbPath}.");
 
             var toBeUpdated = GetListOfStaleAmmoComparedToRatStash();
 
             //Debug Print
-            foreach (var item in toBeUpdated)
-            {
-                Console.WriteLine($"{item.Name}, {item.Id} ");
-            }
-
-            
+            //foreach (var item in toBeUpdated)
+            //{
+            //    Console.WriteLine($"{item.Name}, {item.Id} ");
+            //}
 
             db.Ammos.RemoveRange(toBeUpdated);
 
@@ -101,12 +99,12 @@ namespace WishGranter.Statics
             }
         }
 
-        public static void Dev_Generate_Save_All_Ammo()
+        public static void Generate_Save_All_Ammo()
         {
             var AllAmmoRecords = Ammos.Cleaned;
 
             using var db = new Monolit();
-            Console.WriteLine($"Database path: {db.DbPath}.");
+            //Console.WriteLine($"Database path: {db.DbPath}.");
 
             foreach (var item in AllAmmoRecords)
             {

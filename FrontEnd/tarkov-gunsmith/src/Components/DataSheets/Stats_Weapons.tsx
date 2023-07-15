@@ -1,5 +1,5 @@
 import MaterialReactTable from 'material-react-table';
-import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScript (optional, but recommended)
+import type { MRT_ColumnDef } from 'material-react-table';
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box } from '@mui/material';
@@ -8,11 +8,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";
 
 export default function DataSheetWeapons(props: any) {
-    // If using TypeScript, define the shape of your data (optional, but recommended)
-    // strongly typed if you are using TypeScript (optional, but recommended)
     interface WeaponsTableRow {
         id: string
         name: string
+        imageLink : string
         caliber: string
 
         rateOfFire: number
@@ -36,6 +35,7 @@ export default function DataSheetWeapons(props: any) {
 
     const armors = async () => {
         const response = await fetch(API_URL + '/GetWeaponDataSheetData');
+        // console.log(response)
         setArmorTableData(await response.json())
     }
     // This useEffect will update the ArmorOptions with the result from the async API call
@@ -61,9 +61,9 @@ export default function DataSheetWeapons(props: any) {
                         }}
                     >
                         <img
-                            alt="avatar"
+                            alt="icon"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.jpg`}
+                            src={row.original.imageLink}
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}

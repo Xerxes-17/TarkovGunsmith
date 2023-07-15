@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from "react"
 import { requestAmmoEffectivenessChart, requestAmmoEffectivenessTimestamp } from "../../Context/Requests"
-import { Box, CssBaseline, TableCell, TableFooter, TableRow, ThemeProvider, createTheme } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { Button, Form, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { TraderToolTipElement, damageConditionalColour, dealWithMultiShotAmmo, deltaToolTip, deltaToolTipElement, fragmentationConditionalColour, fragmentationCutoff, getEffectivenessColorCode, getTraderConditionalCell, greenRedOrNothing, negativeGreen_PositiveRed_OrNothing, penetrationConditionalColour, RenameCaliber, trimCaliber, positiveGreenOrNothing_Percent, ArmorDamageToolTipElement } from "./AEC_Helper_Funcs";
 import { AEC, AEC_Row, TargetZoneDisplayAEC } from "./AEC_Interfaces";
 import AECTableIntroSection from "./AEC_TableIntroSection";
 import { Link } from "react-router-dom";
-import { AMMO_EFFECTIVENESS_CHART, AMMO_VS_ARMOR } from "../../Util/links";
+import { LINKS } from "../../Util/links";
 import { Margin } from "@mui/icons-material";
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
+import { AEC_LS_KEY } from "../../Util/util";
 
 export default function AmmoEffectivenessChartPage(props: any) {
     const [pagination] = useState({
@@ -53,11 +54,11 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const [targetZone, setTargetZone] = useState<TargetZoneDisplayAEC>(TargetZoneDisplayAEC.Classic);
     const TargetZones: TargetZoneDisplayAEC[] = [TargetZoneDisplayAEC.Classic, TargetZoneDisplayAEC.Thorax, TargetZoneDisplayAEC.Head, TargetZoneDisplayAEC.Legs];
     const handleTargetZoneChange = (val: any) => {
-        console.log("val: ", val)
+        // console.log("val: ", val)
         setTargetZone(val);
 
         var temp = TargetZones.findIndex((element) => element === val)
-        console.log("temp: ", temp)
+        // console.log("temp: ", temp)
     }
 
     const [picturesYesNo, setPicturesYesNo] = useState(false);
@@ -66,17 +67,18 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const distances: number[] = [1, 10, 25, 50, 75, 100, 110, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600];
     const [distanceIndex, setDistanceIndex] = useState(1);
     const handleDistanceChange = (val: any) => {
-        console.log("val: ", val)
+        // console.log("val: ", val)
         setDistance(val);
 
         var temp = distances.findIndex((element) => element === val)
-        console.log("temp: ", temp)
+        // console.log("temp: ", temp)
         setDistanceIndex(temp)
     }
 
     const [AECData, setAECData] = useState<AEC>();
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem('TarkovGunsmith_AEC')!);
+        // console.log(AEC_LS_KEY)
+        const data = JSON.parse(localStorage.getItem(AEC_LS_KEY)!);
         if (data) {
           // Check if outdated
           var remoteVersionNum = 0;
@@ -86,7 +88,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
               if(remoteVersionNum > data.GenerationTimeStamp){
                 requestAmmoEffectivenessChart()
                   .then(response => {
-                    localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+                    localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
                     setAECData(response);
                   })
                   .catch(error => {
@@ -104,7 +106,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
         else {
           requestAmmoEffectivenessChart()
             .then(response => {
-              localStorage.setItem('TarkovGunsmith_AEC', JSON.stringify(response));
+              localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
               setAECData(response);
             })
             .catch(error => {
@@ -145,7 +147,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                     }
 
                     {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                    <span><Link to={`${AMMO_VS_ARMOR}/${row.original.Ammo.Id}`}>{value}</Link></span>
+                    <span><Link to={`${LINKS.AMMO_VS_ARMOR}/${row.original.Ammo.Id}`}>{value}</Link></span>
                 </Box>
             </>
         );
@@ -333,7 +335,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                     <MaterialReactTable
                         renderBottomToolbarCustomActions={({ table }) => (
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{AMMO_EFFECTIVENESS_CHART}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.AMMO_EFFECTIVENESS_CHART}
                             </Form.Text>
                         )
                         }

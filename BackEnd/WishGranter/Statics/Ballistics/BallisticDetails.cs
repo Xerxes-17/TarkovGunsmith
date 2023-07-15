@@ -10,7 +10,6 @@ namespace WishGranter.Statics
     {
         [JsonIgnore]
         public int? Id { get; set; }
-        [JsonIgnore]
         public string AmmoId { get; set; }
         [JsonIgnore]
         public Ammo? Ammo { get; set; }
@@ -58,12 +57,11 @@ namespace WishGranter.Statics
             db.SaveChanges();
         }
 
-        public static void Dev_Generate_Save_All_BallisticDetails()
+        public static void Generate_Save_All_BallisticDetails()
         {
             var AllAmmoRecords = Ammos.Cleaned;
 
             using var db = new Monolit();
-            Console.WriteLine($"Database path: {db.DbPath}.");
 
             foreach (var ammo in AllAmmoRecords)
             {
@@ -90,6 +88,12 @@ namespace WishGranter.Statics
                 }
             }
             db.SaveChanges();
+        }
+
+        public static BallisticDetails GetBallisticDetailsByIdDistance(string ammoId, float distance)
+        {
+            using var db = new Monolit();
+            return db.BallisticDetails.FirstOrDefault(x => x.AmmoId == ammoId && x.Distance == distance);
         }
     }
     public class BallisticDetailsEntityTypeConfiguration : IEntityTypeConfiguration<BallisticDetails>

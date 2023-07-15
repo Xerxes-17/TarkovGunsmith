@@ -19,7 +19,8 @@ namespace WishGranter.Statics
     {
         public static List<Weapon> CleanedWeapons = ConstructCleanedWeaponList();
         public static List<WeaponMod> CleanedMods = ConstructCleanedWeaponModList();
-        public static List<WeaponPreset> Presets = ConstructDefaultPresets();
+
+        public static List<BasePreset> BasePresets = ConstructBasePresets();
 
         private static List<Weapon> ConstructCleanedWeaponList()
         {
@@ -124,7 +125,7 @@ namespace WishGranter.Statics
             // Get all of the flash hiders and compensators, then filter them by if they have a compatibility with a silencer.
             var otherMuzzleDevices = CleanedMods.Where(x => x is Flashhider || x is CombMuzzleDevice).ToList();
             otherMuzzleDevices = otherMuzzleDevices.Where(x =>
-                    x.Slots.Any(s=>s.Filters[0].Whitelist.Intersect(SilencerIds).Any())
+                    x.Slots.Any(s => s.Filters[0].Whitelist.Intersect(SilencerIds).Any())
                 ).ToList();
 
             // Add the silencers and their compatible mounts back to the list
@@ -143,27 +144,30 @@ namespace WishGranter.Statics
         }
         public static List<string> GetAllPossibleChildrenIdsForCI(string compoundItemId)
         {
-            HashSet<string> output = new ();
+            HashSet<string> output = new();
 
-            var compoundItem = (CompoundItem) StaticRatStash.DB.GetItem(compoundItemId);
-
-            foreach (var slot in compoundItem.Slots)
+            var compoundItem = (CompoundItem)StaticRatStash.DB.GetItem(compoundItemId);
+            if(compoundItem != null)
             {
-                if (slot.Filters[0].Whitelist.Any())
+                foreach (var slot in compoundItem.Slots)
                 {
-                    output.UnionWith(slot.Filters[0].Whitelist);
-
-                    foreach(var id in slot.Filters[0].Whitelist)
+                    if (slot.Filters[0].Whitelist.Any() && !slot.Name.Contains("camora")) // Fucking MTS shotgun
                     {
-                        output.UnionWith(GetAllPossibleChildrenIdsForCI(id));
+                        output.UnionWith(slot.Filters[0].Whitelist);
+
+                        foreach (var id in slot.Filters[0].Whitelist)
+                        {
+                            output.UnionWith(GetAllPossibleChildrenIdsForCI(id));
+                        }
                     }
                 }
             }
+            
             return output.ToList();
         }
         public static List<WeaponMod> FilterModsListByIdList(List<WeaponMod> inputMods, List<string> inputIds)
         {
-            return inputMods.Where(x=>inputIds.Contains(x.Id)).ToList();
+            return inputMods.Where(x => inputIds.Contains(x.Id)).ToList();
         }
         public static List<WeaponMod> GetShortListOfModsForCompundItemWithParams(string compundItemID, MuzzleType muzzleType, int playerLevel, bool fleaMarket)
         {
@@ -185,7 +189,7 @@ namespace WishGranter.Statics
             output = FilterModsListByIdList(output, shortListOfIds);
 
             // Filter the list to items which meet player level requirement and possibly include flea offers.
-            List<MarketEntry> marketData= new();
+            List<MarketEntry> marketData = new();
             if (fleaMarket)
                 marketData = Market.GetFreeMarketPurchaseOffersByPlayerLevel(playerLevel);
             else
@@ -196,12 +200,17 @@ namespace WishGranter.Statics
 
             return output;
         }
-        public static List<WeaponPreset> ConstructDefaultPresets()
+
+        // Need to make this take base presets from the DB if possible
+        //! In fact, we might need to switch over to saving the BPs with blob objects in the DB instead
+        public static List<BasePreset> ConstructBasePresets()
         {
-            List<WeaponPreset> ReturnedPresets = new();
+            using var db = new Monolit();
+
+            List<BasePreset> ReturnedPresets = new();
 
             var DefaultPresetsJSON = TarkovDevAPI.GetAllWeaponPresets();
-            // We're handed the Default Prests JSON by param, so let's break that down into a set of tokens
+            // We're handed the Default Prests JSON, so let's break that down into a set of tokens
             string searchJSONpath = "$.data.items..properties.presets.[*]";
             var filtering = DefaultPresetsJSON.SelectTokens(searchJSONpath).ToList();
 
@@ -209,130 +218,267 @@ namespace WishGranter.Statics
             foreach (var preset in filtering)
             {
                 var id = preset.SelectToken("$.id").ToString();
-                var name = preset.SelectToken("$.name").ToString();
 
-                var contents = preset.SelectTokens("$..containsItems..item.id");
-                List<string> containedIDs = new();
+                // Split this here between full build from JSON and DB+JSON
+                var check = db.BasePresets.Any(x => x.Id == id);
 
-                foreach (var result in contents)
+                if (check)
                 {
-                    containedIDs.Add(result.ToString());
+                    BasePreset FromDB = db.BasePresets.First(x => x.Id == id);
+                    ReturnedPresets.AddRange(ConstructBasePresetFromDBandJson(preset, FromDB));
+                }
+                else
+                {
+                    ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
+                }
+                
+            }
+            ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
+
+            for (int i = 0; i < ReturnedPresets.Count; i++)
+            {
+                Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
+            }
+            //In case any duplicates snuck in
+            return ReturnedPresets.Distinct().ToList();
+        }
+
+        private static List<BasePreset> ConstructBasePresetFromJson(JToken preset)
+        {
+            List<BasePreset> ReturnedPresets = new();
+
+            var id = preset.SelectToken("$.id").ToString();
+            var name = preset.SelectToken("$.name").ToString();
+
+            var contents = preset.SelectTokens("$..containsItems..item.id");
+            List<string> containedIDs = new();
+
+            foreach (var result in contents)
+            {
+                containedIDs.Add(result.ToString());
+            }
+
+            // Now let's get a list of all these items in the contents from the RatStashDB
+            List<Item> items = new List<Item>();
+            foreach (var ItemId in containedIDs)
+            {
+                items.Add(StaticRatStash.DB.GetItem(ItemId));
+            }
+
+            // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
+            Weapon weapon = (Weapon)items[0];
+
+            // Remove it so we can do a smooth cast in the next method
+            items.RemoveAt(0);
+
+            // We don't need to fit the weapon anymore, so we jsut save the list of them
+            List<WeaponMod> weaponMods = items.Where(x => x is WeaponMod).Cast<WeaponMod>().ToList();
+
+            // Summarize 
+            //StatsSummary statsSummary = new StatsSummary();
+            //statsSummary.SummarizeFromObjects(weapon, weaponMods);
+
+            //Now we need to process the cashOffers, if any
+            var cashOffers = preset.SelectTokens("$.buyFor.[*]");
+            foreach (var cashOffer in cashOffers)
+            {
+                var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
+                var currency = cashOffer.SelectToken("$.currency").ToString();
+                var price = cashOffer.SelectToken("$.price").ToObject<int>();
+                var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
+                var minTraderLevel = -1;
+                var offerType = OfferType.Cash;
+
+                int reqPlayerLevel;
+                if (vendor != "Flea Market")
+                {
+                    minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
+                    reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[vendor][minTraderLevel - 1];
+
+                }
+                else
+                {
+                    minTraderLevel = 5;
+                    reqPlayerLevel = 15;
+                    offerType = OfferType.Flea;
                 }
 
-                // Now let's get a list of all these items in the contents from the RatStashDB
-                List<Item> items = new List<Item>();
-                foreach (var ItemId in containedIDs)
+                PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
+
+                BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                //using var db = new Monolit();
+                //db.Attach(PresetForReturned);
+                //db.SaveChanges();
+                if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
                 {
-                    items.Add(StaticRatStash.DB.GetItem(ItemId));
+                    ReturnedPresets.Add(PresetForReturned);
+                    //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
                 }
 
-                // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
-                Weapon weapon = (Weapon)items[0];
-                // Remove it so we can do a smooth cast in the next method
-                items.RemoveAt(0);
+            }
 
-                // This will go and create a ratstash weapon from the preset mods list
-                weapon = WG_Recursion.AddDefaultAttachments(weapon, items);
+            // Let's also process the barter offers, if any.
+            var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
 
-                //Now we need to process the cashOffers, if any
-                var cashOffers = preset.SelectTokens("$.buyFor.[*]");
-                foreach (var cashOffer in cashOffers)
+            foreach (var barterOffer in barterOffers)
+            {
+                var trader = barterOffer.SelectToken("$.trader.name").ToString();
+                var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
+                var reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[trader][minTraderLevel - 1];
+
+
+                var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
+                var barterTotalCost = -1;
+                foreach (var requiredItem in requiredItems)
                 {
-                    var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
-                    var currency = cashOffer.SelectToken("$.currency").ToString();
-                    var price = cashOffer.SelectToken("$.price").ToObject<int>();
-                    var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
-                    var minTraderLevel = -1;
-                    var offerType = OfferType.Cash;
+                    var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
+                    var barterName = requiredItem.SelectToken("$.item.name").ToString();
 
-                    int reqPlayerLevel;
-                    if (vendor != "Flea Market")
-                    {
-                        minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
-                        reqPlayerLevel = WG_Market.LoyaltyLevelByPlayerLevel[vendor][minTraderLevel - 1];
+                    var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
 
-                    }
-                    else
+                    int priceRUB_value = -1;
+                    if (priceRUB != null)
                     {
-                        minTraderLevel = 5;
-                        reqPlayerLevel = 15;
-                        offerType = OfferType.Flea;
+                        priceRUB_value = priceRUB.Value<int>();
                     }
 
-                    WeaponPreset PresetForReturned = new();
-                    PresetForReturned.Name = name;
-                    PresetForReturned.Id = id;
-                    PresetForReturned.Weapon = weapon;
+                    if (priceRUB_value != -1)
+                    {
+                        barterTotalCost += (quantity * priceRUB_value);
+                    }
+                }
+                var offerType = OfferType.Barter;
 
-                    PurchaseOffer purchaseOffer = new();
-                    purchaseOffer.PriceRUB = priceRUB;
-                    purchaseOffer.Currency = currency;
-                    purchaseOffer.Price = price;
-                    purchaseOffer.Vendor = vendor;
-                    purchaseOffer.MinVendorLevel = minTraderLevel;
-                    purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
-                    purchaseOffer.OfferType = offerType;
+                // If the barter wants something that isn't buyable on the flea, we disregard it
+                if (barterTotalCost != -1)
+                {
+                    PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                    PresetForReturned.PurchaseOffer = purchaseOffer;
                     ReturnedPresets.Add(PresetForReturned);
                 }
-
-                // Let's also process the barter offers, if any.
-                var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
-
-                foreach (var barterOffer in barterOffers)
-                {
-                    var trader = barterOffer.SelectToken("$.trader.name").ToString();
-                    var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
-                    var reqPlayerLevel = WG_Market.LoyaltyLevelByPlayerLevel[trader][minTraderLevel - 1];
-
-
-                    var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
-                    var barterTotalCost = -1;
-                    foreach (var requiredItem in requiredItems)
-                    {
-                        var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
-                        var barterName = requiredItem.SelectToken("$.item.name").ToString();
-
-                        var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
-
-                        int priceRUB_value = -1;
-                        if (priceRUB != null)
-                        {
-                            priceRUB_value = priceRUB.Value<int>();
-                        }
-
-                        if (priceRUB_value != -1)
-                        {
-                            barterTotalCost += (quantity * priceRUB_value);
-                        }
-                    }
-                    var offerType = OfferType.Barter;
-
-                    // If the barter wants something that isn't buyable on the flea, we disregard it
-                    if (barterTotalCost != -1)
-                    {
-                        WeaponPreset PresetForReturned = new();
-                        PresetForReturned.Name = name;
-                        PresetForReturned.Id = id;
-                        PresetForReturned.Weapon = weapon;
-
-                        PurchaseOffer purchaseOffer = new();
-                        purchaseOffer.PriceRUB = barterTotalCost;
-                        purchaseOffer.Vendor = trader;
-                        purchaseOffer.MinVendorLevel = minTraderLevel;
-                        purchaseOffer.ReqPlayerLevel = reqPlayerLevel;
-                        purchaseOffer.OfferType = offerType;
-
-                        PresetForReturned.PurchaseOffer = purchaseOffer;
-
-
-                        ReturnedPresets.Add(PresetForReturned);
-                    }
-                }
             }
+
             return ReturnedPresets;
         }
+        private static List<BasePreset> ConstructBasePresetFromDBandJson(JToken preset, BasePreset fromDB)
+        {
+            List<BasePreset> ReturnedPresets = new();
+
+            var id = preset.SelectToken("$.id").ToString();
+            var name = preset.SelectToken("$.name").ToString();
+
+            var contents = preset.SelectTokens("$..containsItems..item.id");
+            List<string> containedIDs = new();
+
+            foreach (var result in contents)
+            {
+                containedIDs.Add(result.ToString());
+            }
+
+            // Now let's get a list of all these items in the contents from the RatStashDB
+            List<Item> items = new List<Item>();
+            foreach (var ItemId in containedIDs)
+            {
+                items.Add(StaticRatStash.DB.GetItem(ItemId));
+            }
+
+            // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
+            Weapon weapon = (Weapon)items[0];
+
+            // Remove it so we can do a smooth cast in the next method
+            items.RemoveAt(0);
+
+            // We don't need to fit the weapon anymore, so we jsut save the list of them
+            List<WeaponMod> weaponMods = items.Where(x => x is WeaponMod).Cast<WeaponMod>().ToList();
+
+            var cashOffers = preset.SelectTokens("$.buyFor.[*]");
+            foreach (var cashOffer in cashOffers)
+            {
+                var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
+                var currency = cashOffer.SelectToken("$.currency").ToString();
+                var price = cashOffer.SelectToken("$.price").ToObject<int>();
+                var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
+                var minTraderLevel = -1;
+                var offerType = OfferType.Cash;
+
+                int reqPlayerLevel;
+                if (vendor != "Flea Market")
+                {
+                    minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
+                    reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[vendor][minTraderLevel - 1];
+
+                }
+                else
+                {
+                    minTraderLevel = 5;
+                    reqPlayerLevel = 15;
+                    offerType = OfferType.Flea;
+                }
+
+                PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
+
+                fromDB.PurchaseOffer = purchaseOffer;
+                fromDB.Weapon = weapon;
+                fromDB.WeaponMods = weaponMods;
+
+                if (!ReturnedPresets.Any(x => x.Id.Equals(fromDB.Id)))
+                {
+                    ReturnedPresets.Add(fromDB);
+                    //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
+                }
+
+            }
+
+            // Let's also process the barter offers, if any.
+            var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
+
+            foreach (var barterOffer in barterOffers)
+            {
+                var trader = barterOffer.SelectToken("$.trader.name").ToString();
+                var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
+                var reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[trader][minTraderLevel - 1];
+
+
+                var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
+                var barterTotalCost = -1;
+                foreach (var requiredItem in requiredItems)
+                {
+                    var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
+                    var barterName = requiredItem.SelectToken("$.item.name").ToString();
+
+                    var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
+
+                    int priceRUB_value = -1;
+                    if (priceRUB != null)
+                    {
+                        priceRUB_value = priceRUB.Value<int>();
+                    }
+
+                    if (priceRUB_value != -1)
+                    {
+                        barterTotalCost += (quantity * priceRUB_value);
+                    }
+                }
+                var offerType = OfferType.Barter;
+
+                // If the barter wants something that isn't buyable on the flea, we disregard it
+                if (barterTotalCost != -1)
+                {
+                    PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+
+                    fromDB.PurchaseOffer = purchaseOffer;
+                    fromDB.Weapon = weapon;
+                    fromDB.WeaponMods = weaponMods;
+
+                    ReturnedPresets.Add(fromDB);
+                }
+            }
+
+            return ReturnedPresets;
+        }
+
         public static List<Weapon> PatchWeaponStatsFromAPI(List<Weapon> inputList)
         {
             // Send API Req for all stats of interest
@@ -346,7 +492,7 @@ namespace WishGranter.Statics
             {
                 // Match each token to a weapon
                 var id = preset.SelectToken("$.id").ToString();
-                var match = inputList.Find(x=>x.Id.Equals(id));
+                var match = inputList.Find(x => x.Id.Equals(id));
 
                 if (match != null)
                 {

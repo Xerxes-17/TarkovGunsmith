@@ -1,14 +1,15 @@
-export const HOME = "/index.html"
-export const ABOUT = "/about"
-export const MODDED_WEAPON_BUILDER = "/moddedweaponbuilder"
-export const DAMAGE_SIMULATOR = "/armordamagecalculator" 
+const DATA_SHEETS = "/datasheets"
 
-export const DATA_SHEETS = "/datasheets"
-export const DATA_SHEETS_AMMO = `${DATA_SHEETS}/ammo`
-export const DATA_SHEETS_ARMOR = `${DATA_SHEETS}/armor`
-export const DATA_SHEETS_WEAPONS = `${DATA_SHEETS}/weapons`
-
-export const ARMOR_VS_AMMO = `${DATA_SHEETS}/armor_vs_ammo`
-export const AMMO_VS_ARMOR = `${DATA_SHEETS}/ammo_vs_armor`
-
-export const AMMO_EFFECTIVENESS_CHART = `${DATA_SHEETS}/ammo_effectiveness`
+export const LINKS = {
+    HOME: "/index.html",
+    ABOUT: "/about",
+    MODDED_WEAPON_BUILDER: "/moddedweaponbuilder",
+    DAMAGE_SIMULATOR: "/armordamagecalculator",
+    DATA_SHEETS: "/datasheets",
+    DATA_SHEETS_AMMO: `${DATA_SHEETS}/ammo`,
+    DATA_SHEETS_ARMOR: `${DATA_SHEETS}/armor`,
+    DATA_SHEETS_WEAPONS: `${DATA_SHEETS}/weapons`,
+    ARMOR_VS_AMMO: `${DATA_SHEETS}/armor_vs_ammo`,
+    AMMO_VS_ARMOR: `${DATA_SHEETS}/ammo_vs_armor`,
+    AMMO_EFFECTIVENESS_CHART: `${DATA_SHEETS}/ammo_effectiveness`
+}

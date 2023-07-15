@@ -1,8 +1,9 @@
 import { Col, Card, Nav, Row, Container } from "react-bootstrap";
 import { Pagination as ReactBootstrapPagination } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
-import { DAMAGE_SIMULATOR, MODDED_WEAPON_BUILDER, AMMO_EFFECTIVENESS_CHART } from "../Util/links";
+import { LINKS } from "../Util/links";
 import { SetStateAction, useState } from "react";
+
 
 // Renders the home
 export default function Home(props: any) {
@@ -344,7 +345,7 @@ export default function Home(props: any) {
                 <div className="row gy-2 mb-2">
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={MODDED_WEAPON_BUILDER}>
+                            <LinkContainer to={LINKS.MODDED_WEAPON_BUILDER}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Modded Weapon Builder</Card.Header>
                                 </Nav.Link>
@@ -371,7 +372,7 @@ export default function Home(props: any) {
                     </Col>
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={DAMAGE_SIMULATOR}>
+                            <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
@@ -399,7 +400,7 @@ export default function Home(props: any) {
                 <div className="row gy-2 mb-2">
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={AMMO_EFFECTIVENESS_CHART}>
+                            <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>

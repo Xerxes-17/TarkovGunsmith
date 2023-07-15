@@ -27,7 +27,7 @@ namespace WishGranter.Statics
             db.BallisticRatings.RemoveRange(db.BallisticRatings);
             db.SaveChanges();
 
-            Dev_Generate_Save_All_BallisticRatings();
+            Generate_Save_All_BallisticRatings();
             db.SaveChanges();
         }
 
@@ -82,7 +82,7 @@ namespace WishGranter.Statics
             db.SaveChanges();
         }
 
-        public static void Dev_Generate_Save_All_BallisticRatings()
+        public static void Generate_Save_All_BallisticRatings()
         {
             using var db = new Monolit();
 

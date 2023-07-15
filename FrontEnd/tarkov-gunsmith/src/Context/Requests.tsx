@@ -3,16 +3,13 @@ import { API_URL } from "../Util/util";
 import axios from "axios";
 
 export async function requestArmorTestSerires(requestDetails: any) {
-
-
     let response = null;
-
     try {
         response = await axios.get(API_URL + `/CalculateArmorVsBulletSeries/${requestDetails.armorId}/${requestDetails.armorDurability}/${requestDetails.ammoId}`);
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    // console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -23,11 +20,11 @@ export async function requestArmorTestSerires_Custom(requestDetails: any) {
 
     try {
         // CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{penetration}/{armorDamagePerc}
-        response = await axios.get(API_URL + `/CalculateArmorVsBulletSeries_Custom/${requestDetails.armorClass}/${requestDetails.armorMaterial}/${requestDetails.armorDurabilityMax}/${requestDetails.armorDurabilityPerc}/${requestDetails.penetration}/${requestDetails.armorDamagePerc}/${requestDetails.damage}`);
+        response = await axios.get(API_URL + `/CalculateArmorVsBulletSeries_Custom/${requestDetails.armorClass}/${requestDetails.armorMaterial}/${requestDetails.armorDurabilityMax}/${requestDetails.armorDurabilityPerc}/${requestDetails.bluntThroughput}/${requestDetails.penetration}/${requestDetails.armorDamagePerc}/${requestDetails.damage}/${requestDetails.targetZone}`);
     } catch (error) {
         throw error;
     }
-
+    // console.log(response.data);
     // window.localStorage.setItem("armorTestDetails_custom", JSON.stringify(response.data));
     return response.data;
 }
@@ -36,11 +33,11 @@ export async function requestWeaponBuild(requestDetails: any) {
     let response = null;
 
     try {
-        response = await axios.get(API_URL + `/getSingleWeaponBuild/${requestDetails.level}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.searchString}/${requestDetails.purchaseType}`);
+        response = await axios.get(API_URL + `/getSingleWeaponBuild/${requestDetails.level}/${requestDetails.priority}/${requestDetails.muzzleMode}/${requestDetails.presetId}/${requestDetails.flea}`);
     } catch (error) {
         throw error;
     }
-    // console.log(response.data);
+    // // console.log(response.data);
     return response.data;
 }
 
@@ -52,30 +49,30 @@ export async function requestWeaponDataCurve(requestDetails: any) {
     } catch (error) {
         throw error;
     }
-    // console.log(response.data);
+    // // console.log(response.data);
     return response.data;
 }
 
-export async function requestArmorEffectivenessData(armorId: string) {
+export async function requestArmorVsAmmo(armorId: string) {
     let response = null;
     try {
-        response = await axios.get(API_URL + `/GetArmorEffectivenessData/${armorId}`);
+        response = await axios.get(API_URL + `/GetArmorVsArmmo/${armorId}`);
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
 
-export async function requestAmmoEffectivenessData(ammoId: string) {
+export async function requestAmmoVsArmor(ammoId: string) {
     let response = null;
     try {
-        response = await axios.get(API_URL + `/GetAmmoEffectivenessData/${ammoId}`);
+        response = await axios.get(API_URL + `/GetAmmoVsArmor/${ammoId}`);
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -87,7 +84,7 @@ export async function requestAmmoAuthorityData() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -99,7 +96,7 @@ export async function requestAmmoEffectivenessChart() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }
@@ -111,7 +108,7 @@ export async function requestAmmoEffectivenessTimestamp() {
     } catch (error) {
         throw error;
     }
-    //console.log(response.data);
+    //// console.log(response.data);
     //window.localStorage.setItem("armorTestDetails", JSON.stringify(response.data));
     return response.data;
 }

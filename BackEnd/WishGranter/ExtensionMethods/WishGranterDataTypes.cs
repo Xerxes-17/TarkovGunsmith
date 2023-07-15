@@ -11,25 +11,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WishGranterProto.ExtensionMethods
 {
-    public class TraderCashOffer
-    {
-        public string TraderName { get; set; } = string.Empty;
-        public int TraderLevel { get; set; } = -1;
-        public int RequiredPlayerLevel { get; set; } = -1;
+    //public class TraderCashOffer
+    //{
+    //    public string TraderName { get; set; } = string.Empty;
+    //    public int TraderLevel { get; set; } = -1;
+    //    public int RequiredPlayerLevel { get; set; } = -1;
 
-        public string ItemId { get; set; } = string.Empty;
-        public string ItemName { get; set; } = string.Empty;
+    //    public string ItemId { get; set; } = string.Empty;
+    //    public string ItemName { get; set; } = string.Empty;
 
-        public int PriceInRUB { get; set; } = -1;
+    //    public int PriceInRUB { get; set; } = -1;
 
-    }
-    public class WeaponPreset
-    {
-        public string Name { get; set; } = "Hey this didn't get set after construction.";
-        public string Id { get; set; } = "Hey this didn't get set after construction.";
-        public Weapon Weapon { get; set; } = new Weapon();
-        public PurchaseOffer PurchaseOffer { get; set; } = new();
-    }
+    ////}
+    //public class WeaponPreset
+    //{
+    //    public string Name { get; set; } = "Hey this didn't get set after construction.";
+    //    public string Id { get; set; } = "Hey this didn't get set after construction.";
+    //    public Weapon Weapon { get; set; } = new Weapon();
+    //    public PurchaseOffer PurchaseOffer { get; set; } = new();
+    //}
 
     public class TransmissionWeapon
     {
@@ -162,7 +162,7 @@ namespace WishGranterProto.ExtensionMethods
         // Adding camera recoil and jam stats might be an idea for later
         public int Ergonomics { get; set; } = -1;
 
-        public int RecoilForceUp { get; set; } = -1;
+        public double RecoilForceUp { get; set; } = -1;
         public int RecoilAngle { get; set; } = -1;
         public int RecoilDispersion { get; set; } = -1;
         public double Convergence { get; set; } = -1;
@@ -180,8 +180,8 @@ namespace WishGranterProto.ExtensionMethods
     public record struct CurveDataPoint
     (
         int level,
-        int recoil, 
-        int ergo, 
+        float recoil, 
+        float ergo, 
         int price,
         int penetration,
         int damage,
@@ -192,6 +192,8 @@ namespace WishGranterProto.ExtensionMethods
     {
         public string Id { get; set; } = "default";
         public string Name { get; set; } = "default";
+
+
         public int ArmorClass { get; set; } = -1;
         public int MaxDurability { get; set; } = -1;
         public ArmorMaterial Material { get; set; } = new();
@@ -200,6 +202,7 @@ namespace WishGranterProto.ExtensionMethods
         public int Price { get; set; } = 0;
         public int TraderLevel { get; set; } = -1;
         public string Type { get; set; } = "default"; // "Helmet", "ArmorVest", "ChestRig", "ArmoredEquipment"
+
     }
 
     public class AmmoTableRow
@@ -241,13 +244,19 @@ namespace WishGranterProto.ExtensionMethods
         public double CameraRecoil { get; set; } = -1;
 
         // Default Preset Stats
-        public int DefaultErgonomics { get; set; } = -1;
-        public int DefaultRecoil { get; set; } = -1;
+        public float DefaultErgonomics { get; set; } = -1;
+        public float DefaultRecoil { get; set; } = -1;
 
         // Trader information will be for the base preset
         public int Price { get; set; } = 0;
         public int TraderLevel { get; set; } = -1;
         public int FleaPrice { get; set; } = -1;
+
+        public string? ImageLink { get; set; }
+        public void SetImageLinkWithId(string Id)
+        {
+            ImageLink = $"https://assets.tarkov.dev/{Id}-icon.jpg";
+        }
     }
 
     public class EffectivenessDataRow

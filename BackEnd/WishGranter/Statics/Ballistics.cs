@@ -98,9 +98,9 @@ namespace WishGranter.Statics
             {
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
-                float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, currentDurability);
-
                 float armorDurabilityPercentage = (currentDurability / startingDurability) * 100;
+
+                float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, armorDurabilityPercentage);
 
                 // Calc Potential damages:
                 float shotBlunt = (float) BluntDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
@@ -176,6 +176,7 @@ namespace WishGranter.Statics
 
         public static BallisticTest SimulateHitSeries_Presets(ArmorItemStats armorItemStats, float startingDurabilityPerc, BallisticDetails ballisticDetails)
         {
+            ballisticDetails.LoadAmmo();
             SimulationParameters parameters = new SimulationParameters
             {
                 ArmorClass = armorItemStats.ArmorClass,
@@ -372,8 +373,10 @@ namespace WishGranter.Statics
             /* In this function we will find the STK of the ammo vs legs. For this we need to consider the bullet damage, the fragmentation chance and from those two the average damage.
              * Perhaps later we could also include the the CoK and CCoK for a given shot being a kill, but for now let's just use an average figure.
              * As legs have a 1.0 damage multiplier for blacked limb damage, it's pretty simple.
+             * lmao, not anymore. Now legs have .7, and now you gotta assume if all shots are going into one leg or both. I will assume both.
              */
-            double health_pool = 440;
+            double health_pool = 375;
+            double legs_pool = 65;
             double frag_chance = ammo.FragmentationChance;
             if (ammo.PenetrationPower < 20)
             {
@@ -382,9 +385,27 @@ namespace WishGranter.Statics
 
             double average_damage = (ammo.Damage * 1 - frag_chance) + ((ammo.Damage * 1.5) * frag_chance);
 
-            double shots = health_pool / average_damage;
+            double remainderFromLegs;
+            int legPoolShots;
+            if (average_damage < legs_pool)
+            {
+                legPoolShots = (int)Math.Ceiling(legs_pool / average_damage);
+                remainderFromLegs = (legPoolShots * average_damage) - legs_pool;
+            }
 
-            return (int)Math.Ceiling(shots);
+            else
+            {
+                remainderFromLegs = average_damage % legs_pool; // 150 % 130 = 20
+                legPoolShots = 1;
+            }
+            health_pool = health_pool - (remainderFromLegs * .7);
+
+            var math = health_pool / (average_damage * .7);
+            int shots = (int)Math.Ceiling((decimal) math);
+
+            shots = shots + legPoolShots;
+
+            return shots;
         }
         public static int GetLegMetaHTK(string ammoId)
         {

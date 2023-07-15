@@ -15,7 +15,7 @@ export default function SelectAmmo(props: any) {
     }
     // This useEffect sets the item according to the URL param ID if there is one
     useEffect(() => {
-        //console.log("props.defaultSelection", props.defaultSelection)
+        //// console.log("props.defaultSelection", props.defaultSelection)
         if (props.defaultSelection!) {
             setItem(props.defaultSelection)
         }
