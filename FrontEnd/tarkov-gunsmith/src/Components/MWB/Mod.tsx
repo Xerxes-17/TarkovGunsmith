@@ -11,25 +11,37 @@ export default function Mod(props: any) {
         rowClassString = "modRowOdd"
     }
 
+    var aPrice: number;
+    if(props.item.PurchaseOffer!){
+        aPrice = props.item.PurchaseOffer!.PriceRUB!;
+    }
+    
+    var aText;
+    if(aPrice!){
+        aText = props.item.PurchaseOffer!.PriceRUB!.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 });}
+    else{
+        aText = "n/a";
+    }
+
     return (
         <Row className={rowClassString}>
             <Col sm={4}>
-                <img src={`https://assets.tarkov.dev/${props.item.Id}-grid-image.webp`} alt={props.item.ShortName} className={"mod_img"} />
+                <img src={`https://assets.tarkov.dev/${props.item.WeaponMod.Id}-grid-image.webp`} alt={props.item.WeaponMod.ShortName} className={"mod_img"} />
             </Col>
             <Col className="mod-text-centered">
-                {props.item.ShortName}
+                {props.item.WeaponMod.Name}
             </Col>
             <Col className="mod-text-centered">
                 ✍<br/>
-                {props.item.Ergo}
+                {props.item.WeaponMod.Ergonomics}
             </Col>
             <Col className="mod-text-centered">
                 ⏬ <br/>
-                {props.item.RecoilMod}
+                {props.item.WeaponMod.Recoil}
             </Col>
             <Col className="mod-text-centered">
                 💸 <br/>
-                ₽ {props.item.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
+                ₽ {aText}
             </Col>
         </Row>
     )

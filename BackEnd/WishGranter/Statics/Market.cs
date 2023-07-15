@@ -252,6 +252,32 @@ namespace WishGranter.Statics
         {
             return Offers.Where(x=>x.PurchaseOffer.OfferType == OfferType.Sell).ToList();
         }
+        public static List<MarketEntry> GetTraderSaleOffers(string id)
+        {
+            var offers = GetSaleOffers();
+            var offersForItem = offers.Where(x => x.Id == id).ToList();
+
+            return offersForItem;
+        }
+        public static MarketEntry GetBestTraderSaleOffer(string id)
+        {
+            var offersForItem = GetTraderSaleOffers(id);
+
+            offersForItem = offersForItem.OrderByDescending(x => x.PurchaseOffer.PriceRUB).ToList();
+
+            return offersForItem[0];
+        }
+        public static int GetTraderBuyBackTotalFromIdList(List<string> ids)
+        {
+            int sum = 0;
+
+            foreach (var id in ids)
+            {
+                sum += GetBestTraderSaleOffer(id).PurchaseOffer.PriceRUB;
+            }
+
+            return sum;
+        }
 
         // BarterOffer is TRADER sells to YOU
         public static List<MarketEntry> GetBarterOffers()
@@ -268,6 +294,32 @@ namespace WishGranter.Statics
         public static List<MarketEntry> GetFleaOffers()
         {
             return Offers.Where(x => x.PurchaseOffer.OfferType == OfferType.Flea).ToList();
+        }
+
+        public static List<MarketEntry> GetPurchaseOfferTraderOrFleaList(List<string> ids, int playerLevel, bool canFlea)
+        {
+            List<MarketEntry> marketEntries = new List<MarketEntry>();
+
+            foreach (var id in ids)
+            {
+                marketEntries.Add(GetPurchaseOfferTraderOrFlea(id, playerLevel, canFlea));
+            }
+
+            return marketEntries;
+        }
+        public static MarketEntry GetPurchaseOfferTraderOrFlea(string id, int playerLevel, bool canFlea)
+        {
+            MarketEntry ME;
+            if (canFlea)
+            {
+                ME = GetCheapestFreeMarketPurchaseOffer(id, playerLevel);
+            }
+            else
+            {
+                ME = GetCheapestTraderPurchaseOffer(id, playerLevel);
+            }
+
+            return ME;
         }
 
         //? Hang on, if we update the flea offers we need to update the barters too, if we're updating barters and flea offers at the same time, we might as well just call a full refresh with the ConstructMarketData() method.
@@ -296,21 +348,7 @@ namespace WishGranter.Statics
 
             return union.Where(x=>x.PurchaseOffer.ReqPlayerLevel <= playerLevel).ToList();
         }
-        public static List<MarketEntry> GetTraderSaleOffers(string id)
-        {
-            var offers = GetSaleOffers();
-            var offersForItem = offers.Where(x => x.Id == id).ToList();
 
-            return offersForItem;
-        }
-        public static MarketEntry GetBestTraderSaleOffer(string id)
-        {
-            var offersForItem = GetTraderSaleOffers(id);
-
-            offersForItem = offersForItem.OrderByDescending(x => x.PurchaseOffer.PriceRUB).ToList();
-
-            return offersForItem[0];
-        }
 
         // Cash + Barter
         public static MarketEntry GetCheapestTraderPurchaseOffer(string id, int playerLevel)
@@ -320,7 +358,7 @@ namespace WishGranter.Statics
 
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
         // Cash + Barter
         public static MarketEntry GetCheapestTraderPurchaseOffer(string id)
@@ -330,7 +368,7 @@ namespace WishGranter.Statics
 
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
         // Cash + Barter
         public static MarketEntry GetEarliestCheapestTraderPurchaseOffer(string id)
@@ -367,7 +405,7 @@ namespace WishGranter.Statics
             var offersForItem = offers.Where(x => x.Id == id).ToList();
             offersForItem = offersForItem.OrderBy(x => x.PurchaseOffer.PriceRUB).ToList();
 
-            return offersForItem[0];
+            return offersForItem.FirstOrDefault();
         }
     }
 }

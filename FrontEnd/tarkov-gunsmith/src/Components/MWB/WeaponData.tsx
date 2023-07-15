@@ -19,6 +19,35 @@ export type TransmissionWeaponBuildResult = {
     FinalCost: number
 }
 
+interface BasePreset {
+    Name: string;
+    Id: string;
+    WeaponId: string;
+    Ergonomics: number;
+    Recoil_Vertical: number;
+    Weight: number;
+    Weapon?: any;
+    PurchaseOffer?: any;
+    WeaponMods: any[];
+  }
+
+  export type Fitting = {
+    Id: number;
+    BasePresetId: string;
+    BasePreset?: BasePreset;
+    Ergonomics: number;
+    Recoil_Vertical: number;
+    Weight: number;
+    TotalRubleCost: number;
+    PurchasedModsCost: number;
+    PresetModsRefund: number;
+    IsValid: boolean;
+    ValidityString: string;
+    PurchasedModsHashId: string;
+    PurchasedMods?: any;
+    PurchasedAmmo?: any;
+  }
+
 export type SelectedPatron = {
     ArmorDamagePerc: number,
     Damage: number,

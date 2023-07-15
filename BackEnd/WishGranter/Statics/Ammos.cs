@@ -43,5 +43,15 @@ namespace WishGranter
 
             return Ammo.ToList();
         }
+
+        public static List<Ammo> GetAmmoOfCalibre(string ammoCaliber)
+        {
+            return Cleaned.Where(x=>x.Caliber.Equals(ammoCaliber)).ToList();
+        }
+
+        public static Ammo GetAmmoById(string Id)
+        {
+            return Cleaned.Find(x=>x.Id.Equals(Id));
+        }
     }
 }

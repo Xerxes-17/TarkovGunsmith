@@ -5,12 +5,12 @@ import { Col, Card, Form, Button, Container } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
-import { requestAmmoEffectivenessData } from "../../Context/Requests";
+import { requestAmmoVsArmor } from "../../Context/Requests";
 import { AmmoOption } from "../ADC/AmmoData";
 import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { AMMO_VS_ARMOR, DAMAGE_SIMULATOR } from "../../Util/links";
+import { LINKS } from "../../Util/links";
 
 export default function DataSheetEffectivenessAmmo(props: any) {
     const navigate = useNavigate();
@@ -46,17 +46,17 @@ export default function DataSheetEffectivenessAmmo(props: any) {
 
     function handleAmmoSelection(selectedOption: AmmoOption) {
         setAmmoId(selectedOption.value);
-        navigate(`${AMMO_VS_ARMOR}/${selectedOption?.value}`)
+        navigate(`${LINKS.AMMO_VS_ARMOR}/${selectedOption?.value}`)
     }
 
     const getAmmoVsArmorData = (id: string) => {
-        requestAmmoEffectivenessData(id).then(response => {
-            // console.log(response)
+        requestAmmoVsArmor(id).then(response => {
+            // // console.log(response)
             setTableData(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
+            // // console.log(error);
         });
     }
 
@@ -91,7 +91,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span><Link to={`${DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
+                        <span><Link to={`${LINKS.DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },

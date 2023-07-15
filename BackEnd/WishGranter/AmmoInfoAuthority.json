@@ -2381,7 +2381,7 @@
           "y": 0,
           "z": 0
         },
-        "Damage": 40,
+        "Damage": 42,
         "Deterioration": 1,
         "ExplosionStrength": 0,
         "ExplosionType": "",
@@ -2458,7 +2458,7 @@
         },
         "StackObjectsCount": 1,
         "NotShownInSlot": false,
-        "ExaminedByDefault": false,
+        "ExaminedByDefault": true,
         "ExamineTime": 1,
         "IsUndiscardable": false,
         "IsUnsaleable": false,

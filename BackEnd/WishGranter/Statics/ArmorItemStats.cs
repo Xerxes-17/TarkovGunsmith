@@ -9,9 +9,9 @@ namespace WishGranter.Statics
     public record class ArmorItemStats
     {
         [Key]
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         [Required]
         public int ArmorClass { get; set; }
         [Required]
@@ -22,6 +22,8 @@ namespace WishGranter.Statics
         public int MaxDurability { get; set; }
         [Required]
         public TargetZone TargetZone { get; set; }
+        [Required]
+        public string Type { get; set; } = "";
 
         // The input list should be provided by the Armors static class
         public static List<ArmorItemStats> GenerateListOfArmorItems(List<Item> armorList)
@@ -40,6 +42,17 @@ namespace WishGranter.Statics
                 else
                     targetZone = TargetZone.Head;
 
+                string type;
+                if (armor is Headwear) {
+                    type = "Helmet";
+                }
+                else if(armor is Armor){
+                    type = "ArmorVest";
+                }
+                else{
+                    type = "ArmoredEquipment";
+                }
+
                 ArmorItemStats armorItemStats = new ArmorItemStats
                 {
                     Id = armor.Id,
@@ -48,7 +61,8 @@ namespace WishGranter.Statics
                     ArmorMaterial = armor.ArmorMaterial,
                     BluntThroughput = armor.BluntThroughput,
                     MaxDurability = armor.MaxDurability,
-                    TargetZone = targetZone
+                    TargetZone = targetZone,
+                    Type = type,
                 };
                 outputList.Add(armorItemStats);
             }
@@ -63,7 +77,8 @@ namespace WishGranter.Statics
                     ArmorMaterial = rig.ArmorMaterial,
                     BluntThroughput = rig.BluntThroughput,
                     MaxDurability = rig.MaxDurability,
-                    TargetZone = TargetZone.Thorax
+                    TargetZone = TargetZone.Thorax,
+                    Type = "ChestRig"
                 };
                 outputList.Add(armorItemStats);
             }
@@ -71,7 +86,7 @@ namespace WishGranter.Statics
             return outputList;
         }
 
-        public static  void Dev_Generate_Save_All_ArmorItems()
+        public static void Generate_Save_All_ArmorItems()
         {
             var items = GenerateListOfArmorItems(Armors.Cleaned);
 
@@ -87,6 +102,15 @@ namespace WishGranter.Statics
                 }
             }
             db.SaveChanges();
+        }
+
+        public static ArmorItemStats GetArmorItemStatsByID(string Id)
+        {
+            using var db = new Monolit();
+
+            var item = db.ArmorItems.FirstOrDefault(x => x.Id == Id);
+
+            return item;
         }
     }
 }

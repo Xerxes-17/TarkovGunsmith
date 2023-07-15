@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
-import { TransmissionArmorTestResult, TransmissionArmorTestShot } from '../../Context/ArmorTestsContext';
+import { BallisticHit, NewArmorTestResult, NewCustomTestResult, TransmissionArmorTestResult, TransmissionArmorTestShot, TargetZone } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
 import SelectArmor from './SelectArmor';
@@ -11,7 +11,7 @@ import { filterAmmoOptions, AmmoOption } from './AmmoData';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
 import { copyImageToClipboard } from 'copy-image-clipboard';
-import { AMMO_VS_ARMOR, ARMOR_VS_AMMO, DAMAGE_SIMULATOR } from '../../Util/links';
+import { LINKS } from '../../Util/links';
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -112,7 +112,7 @@ export default function ArmorDamageCalculator(props: any) {
                 // setArmorDurabilityNum(temp.maxDurability);
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ArmorOptions, id_armor])
 
     //! Handle Selections - Got tired of scrolling  to find the damn things
@@ -121,36 +121,36 @@ export default function ArmorDamageCalculator(props: any) {
         setArmorDurabilityMax(selectedOption.maxDurability!);
         setArmorDurabilityNum(selectedOption.maxDurability!);
 
-        console.log("armorId -hndlArmor", selectedOption.value)
-        console.log("ammoId -hndlArmor", ammoId)
+        // console.log("armorId -hndlArmor", selectedOption.value)
+        // console.log("ammoId -hndlArmor", ammoId)
 
-        if ( ammoId !== "") {
+        if (ammoId !== "") {
             requestData(selectedOption.value, ammoId)
-            navigate(`${DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
+            navigate(`${LINKS.DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
         }
     }
 
     function handleAmmoSelection(selectedOption: AmmoOption) {
         setAmmoId(selectedOption.value);
 
-        console.log("armorId -hndlAmmo", armorId)
-        console.log("ammoId -hndlAmmo", selectedOption.value)
+        // console.log("armorId -hndlAmmo", armorId)
+        // console.log("ammoId -hndlAmmo", selectedOption.value)
 
         if (armorId !== "") {
             requestData(armorId, selectedOption.value)
-            navigate(`${DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
+            navigate(`${LINKS.DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
         }
     }
 
-    function handleSubmit(e:any){
+    function handleSubmit(e: any) {
         e.preventDefault();
         requestData(armorId, ammoId);
     }
     //! Request Data
     function requestData(_armorId: string, _ammoId: string) {
 
-        console.log("_armorId - requestData", _armorId)
-        console.log("_ammoId - requestData", _ammoId)
+        // console.log("_armorId - requestData", _armorId)
+        // console.log("_ammoId - requestData", _ammoId)
 
         const requestDetails = {
             armorId: _armorId,
@@ -158,16 +158,16 @@ export default function ArmorDamageCalculator(props: any) {
             ammoId: _ammoId,
         }
         requestArmorTestSerires(requestDetails).then(response => {
-            // console.log(response)
+            // // console.log(response)
             setResult(response);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
-            // console.log(error);
+            // // console.log(error);
         });
     }
 
-    const [result, setResult] = useState<TransmissionArmorTestResult>();
+    const [result, setResult] = useState<NewArmorTestResult>();
 
     // Ammo Stuff
     const [defaultSelection_Ammo, setDefaultSelection_Ammo] = useState<AmmoOption>();
@@ -308,7 +308,7 @@ export default function ArmorDamageCalculator(props: any) {
                 setDefaultSelection_Ammo(temp);
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [AmmoOptions, id_ammo])
 
     //Custom Mode
@@ -320,6 +320,7 @@ export default function ArmorDamageCalculator(props: any) {
     const [armorMaterial, setArmorMaterial] = useState("Titan");
     const [armorDurabilityNum_Custom, setArmorDurabilityNum_Custom] = useState(40);
     const [armorDurabilityMax_Custom, setArmorDurabilityMax_Custom] = useState(40);
+    const [armorBluntThroughput_Custom, setArmorBluntThroughput_Custom] = useState(20);
 
     const [penetration, setPenetration] = useState(35);
     const [armorDamagePerc, setArmorDamagePerc] = useState(52);
@@ -328,6 +329,10 @@ export default function ArmorDamageCalculator(props: any) {
 
     const [damage, setDamage] = useState(50);
     const [errorDamage, setErrorDamage] = useState("");
+
+    const [targetZone_Custom, setTargetZone_Custom] = useState<"Thorax" | "Head">("Thorax");
+
+    const [resultCustom, setResultCustom] = useState<NewCustomTestResult>();
 
     const handleCustomSubmit = (e: any) => {
         e.preventDefault();
@@ -349,18 +354,19 @@ export default function ArmorDamageCalculator(props: any) {
                 armorMaterial: armorMaterial,
                 armorDurabilityPerc: (armorDurabilityNum_Custom / armorDurabilityMax_Custom * 100),
                 armorDurabilityMax: armorDurabilityMax_Custom,
-
+                bluntThroughput: armorBluntThroughput_Custom / 100, //Alas, the form component only seems to deal in ints
                 penetration: penetration,
                 armorDamagePerc: armorDamagePerc,
-                damage: damage
+                damage: damage,
+                targetZone: targetZone_Custom
             }
 
             requestArmorTestSerires_Custom(requestDetails).then(response => {
-                // console.log(response);
-                setResult(response);
+                // // console.log(response);
+                setResultCustom(response);
             }).catch(error => {
                 alert(`The error was: ${error}`);
-                // console.log(error);
+                // // console.log(error);
             });
         }
     }
@@ -489,7 +495,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {armorId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${ARMOR_VS_AMMO}/${armorId}`}>
+                                        <LinkContainer to={`${LINKS.ARMOR_VS_AMMO}/${armorId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See this armor in <strong>Armor</strong> vs Ammo.
                                             </Button>
@@ -590,7 +596,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Form.Group>
                                 {ammoId !== "" && (
                                     <div className="d-grid gap-2">
-                                        <LinkContainer to={`${AMMO_VS_ARMOR}/${ammoId}`}>
+                                        <LinkContainer to={`${LINKS.AMMO_VS_ARMOR}/${ammoId}`}>
                                             <Button variant="outline-info" style={{ width: "100%" }}>
                                                 See this ammo in <strong>Ammo</strong> vs Armor.
                                             </Button>
@@ -623,7 +629,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                     <Card.Header as="h2" >
                         <Stack direction="horizontal" gap={3}>
-                            Armor Damage Calculator - Custom
+                        Terminal Ballistics Simulator - Custom
                             <div className="ms-auto">
                                 <Stack direction='horizontal' gap={2}>
                                     <Button variant="secondary" onClick={handleDisableCustomCal}>Change mode to Presets</Button>
@@ -700,10 +706,27 @@ export default function ArmorDamageCalculator(props: any) {
                                                         <Form.Control disabled={true} value={(armorDurabilityNum_Custom / armorDurabilityMax_Custom * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + "%"} />
                                                     </Col>
                                                 </Row>
+
                                             </Form.Group>
+
                                         </Col>
+                                        <Row>
+                                            <Col md="7">
+                                                <Form.Label>Blunt Damage Throughput %</Form.Label>
+                                                <Form.Range value={armorBluntThroughput_Custom} min={4} max={60} onChange={(e) => { setArmorBluntThroughput_Custom(parseFloat(e.target.value)) }} />
+                                            </Col>
+                                            <Col md="4">
+                                                <Form.Label>BDT %</Form.Label>
+                                                <Form.Control value={armorBluntThroughput_Custom} onChange={(e) => { setArmorBluntThroughput_Custom(parseFloat(e.target.value)) }} />
+                                            </Col>
+                                            <Form.Text className="text-muted">
+                                                Min is 4%, max is 60%, average is 20%.
+                                            </Form.Text>
+                                        </Row>
                                     </Row>
+
                                 </Card.Body>
+
                             </Col>
                             <Col xl>
                                 <Card.Header as="h4">⚔ Ammo settings</Card.Header>
@@ -729,7 +752,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                         <Form.Control isInvalid type="number" placeholder="Enter penetration as a number" defaultValue={penetration} onChange={(e) => { setPenetration(parseInt(e.target.value)) }} />
                                                     </>}
                                                 <Form.Text className="text-muted">
-                                                    Eg: "35" without quotes.
+                                                    Eg: "35".
                                                 </Form.Text>
                                                 <br />
                                                 <Form.Text className="text-danger"> {errorPenetration}</Form.Text>
@@ -737,6 +760,24 @@ export default function ArmorDamageCalculator(props: any) {
                                             </Form.Group>
                                         </Col>
 
+                                        <Col md={7}>
+                                            <Form.Group>
+                                                <Row>
+                                                    <Col md>
+                                                        <Form.Label>📏 Armor Damage Percentage</Form.Label>
+                                                        <Form.Range value={armorDamagePerc} max={100} min={1} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
+                                                    </Col>
+                                                    <Col md="3">
+                                                        <Form.Text>ADP</Form.Text>
+                                                        <Form.Control disabled value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
+                                                    </Col>
+                                                </Row>
+                                            </Form.Group>
+                                        </Col>
+
+
+                                    </Row>
+                                    <Row>
                                         <Col md={3}>
                                             <Form.Group className="md" controlId="Penetration">
                                                 <Form.Label>💀 Damage</Form.Label>
@@ -756,27 +797,11 @@ export default function ArmorDamageCalculator(props: any) {
                                                         <Form.Control isInvalid type="number" placeholder="Enter damage as a number" defaultValue={damage} onChange={(e) => { setDamage(parseInt(e.target.value)) }} />
                                                     </>}
                                                 <Form.Text className="text-muted">
-                                                    Eg: "50" without quotes.
+                                                    Eg: "50".
                                                 </Form.Text>
                                                 <br />
                                                 <Form.Text className="text-danger"> {errorDamage}</Form.Text>
 
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col md={7}>
-                                            <Form.Group>
-                                                <Row>
-                                                    <Col md>
-                                                        <Form.Label>📏 Armor Damage Percentage</Form.Label>
-                                                        <Form.Range value={armorDamagePerc} max={100} min={1} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
-                                                    </Col>
-                                                    <Col md="3">
-                                                        <Form.Text>ADP</Form.Text>
-                                                        <Form.Control disabled value={armorDamagePerc} onChange={(e) => { setArmorDamagePerc(parseInt(e.target.value)) }} />
-                                                    </Col>
-                                                </Row>
                                             </Form.Group>
                                         </Col>
                                         <br />
@@ -797,6 +822,15 @@ export default function ArmorDamageCalculator(props: any) {
                                             </Form.Group>
                                         </Col>
                                     </Row>
+                                    <Row>
+                                        <Col>
+                                            <Form.Label>Target Zone</Form.Label>
+                                            <Form.Select value={targetZone_Custom} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTargetZone_Custom(e.target.value as "Thorax" | "Head")}>
+                                                <option value="Thorax">Thorax</option>
+                                                <option value="Head">Head</option>
+                                            </Form.Select>
+                                        </Col>
+                                    </Row>
 
                                 </Card.Body>
                             </Col>
@@ -815,14 +849,14 @@ export default function ArmorDamageCalculator(props: any) {
     }
 
     let resultCard;
-    if (result !== undefined) {
+    if (result !== undefined && customCalculation === false) {
         resultCard = (
             <>
                 <Col xl>
                     <Card bg="dark" border="secondary" text="light" className="xl" id="print">
                         <Card.Header as="h4">
                             <Stack direction="horizontal" gap={3}>
-                                📉 {result.testName} @ {rateOfFire}rpm @ 10m distance
+                                📉 {result.testName} @{rateOfFire}rpm
                                 <div className="ms-auto">
 
                                     <Stack direction='horizontal' gap={2}>
@@ -837,17 +871,16 @@ export default function ArmorDamageCalculator(props: any) {
                             <Row>
                                 <Col>
                                     <p>
-                                        <strong>Expected shots to kill:</strong> {result.killShot}<br />
-                                        <strong>Kill confidence at {result.killShot} shots:</strong> {(result.shots[result.killShot - 1] as TransmissionArmorTestShot).probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
-                                        <strong>Expected time to kill:</strong> {((60 / rateOfFire) * result.killShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
+                                        <strong>Expected shots to kill:</strong> {result.ballisticTest.probableKillShot}<br />
+                                        <strong>Kill confidence at {result.ballisticTest.probableKillShot} shots:</strong> {(result.ballisticTest.hits[result.ballisticTest.probableKillShot - 1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Expected time to kill:</strong> {((60 / rateOfFire) * result.ballisticTest.probableKillShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
 
-                                        Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                        {/* Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} */}
                                     </p>
                                 </Col>
                                 <Col xs={8}>
                                     <ul>
                                         <li>Assumption: vest or rig, it is assumed to be hitting thorax (85hp) with all shots, for helmets the head. (35hp)</li>
-                                        <li>Custom calculations are for thorax only at the moment, and have an average blunt throughput value of '.27'.</li>
                                         <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
                                         <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
                                     </ul>
@@ -873,22 +906,22 @@ export default function ArmorDamageCalculator(props: any) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {result.shots.map((item: TransmissionArmorTestShot, i: number) => {
+                                        {result.ballisticTest.hits.map((item: BallisticHit, i: number) => {
                                             return (
                                                 <tr>
                                                     <td>{i + 1}</td>
-                                                    <td>{item.durability.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.durabilityPerc.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.doneDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.penetrationChance.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+                                                    <td>{item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{((item.durabilityBeforeHit / result.ballisticTest.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{(item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
 
                                                     <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.penetratingDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.averageDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.remainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.penetrationDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{((item.bluntDamage*(1-item.penetrationChance)+(item.penetrationDamage*item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
 
-                                                    <td>{item.probabilityOfKillCumulative.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
-                                                    <td>{item.probabilityOfKillSpecific.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>{item.cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>{item.specificChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
                                                 </tr>
                                             )
                                         })}
@@ -896,7 +929,97 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{DAMAGE_SIMULATOR}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
+                            </Form.Text>
+                        </Card.Body>
+
+                    </Card>
+                </Col>
+            </>
+        )
+    }
+    else if (customCalculation === true && resultCustom !== undefined)
+    {
+        resultCard = (
+            <>
+                <Col xl>
+                    <Card bg="dark" border="secondary" text="light" className="xl" id="print">
+                        <Card.Header as="h4">
+                            <Stack direction="horizontal" gap={3}>
+                                📉 Custom Ballistic Simulation
+                                <div className="ms-auto">
+
+                                    <Stack direction='horizontal' gap={2}>
+                                        <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
+                                        <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
+                                    </Stack>
+                                </div>
+                            </Stack>
+                        </Card.Header>
+
+                        <Card.Body >
+                            <Row>
+                                <Col>
+                                    <p>
+                                        <strong>Target Zone:</strong> {TargetZone[resultCustom.simulationParameters.targetZone]}<br />
+                                        <strong>Expected shots to kill:</strong> {resultCustom.probableKillShot}<br />
+                                        <strong>Kill confidence at {resultCustom.probableKillShot} shots:</strong> {(resultCustom.hits[resultCustom.probableKillShot-1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Expected time to kill:</strong> {((60 / rateOfFire) * resultCustom.probableKillShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
+
+                                        {/* Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} */}
+                                    </p>
+                                </Col>
+                                <Col xs={8}>
+                                    <ul>
+                                        <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
+                                        <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
+                                    </ul>
+                                </Col>
+                            </Row>
+                            <div style={{ overflow: "auto" }}>
+                                <Table striped bordered hover variant="dark" responsive="sm" >
+                                    <thead>
+                                        <tr>
+                                            <th>Shot</th>
+                                            <th>Armor Durability</th>
+                                            <th>Durability Percentage</th>
+                                            <th>Done Armor Damage</th>
+                                            <th>Penetration Chance</th>
+
+                                            <th>Blunt Damage</th>
+                                            <th>Penetration Damage</th>
+                                            <th>Average Damage</th>
+                                            <th>Avg. HP Remaining</th>
+
+                                            <th>Cumulative Chance of Kill</th>
+                                            <th>Specific Chance of Kill</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {resultCustom.hits.map((item: BallisticHit, i: number) => {
+                                            return (
+                                                <tr>
+                                                    <td>{i + 1}</td>
+                                                    <td>{item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{((item.durabilityBeforeHit / resultCustom.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{(item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+
+                                                    <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.penetrationDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{((item.bluntDamage*(1-item.penetrationChance)+(item.penetrationDamage*item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>{item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+
+                                                    <td>{item.cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>{item.specificChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </Table>
+                            </div>
+                            <Form.Text>
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
                             </Form.Text>
                         </Card.Body>
 
