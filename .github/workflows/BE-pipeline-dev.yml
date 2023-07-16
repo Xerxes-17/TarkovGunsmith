@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - dev-*
-      - feat/*
-      - fix/*
+      - feat-*
+      - fix-*
     paths:
       - BackEnd/**
   pull_request:
