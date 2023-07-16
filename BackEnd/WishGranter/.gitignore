@@ -5,6 +5,7 @@
 
 ### Dev output files
 *.txt
+outputs/
 
 # User-specific files
 *.rsuser

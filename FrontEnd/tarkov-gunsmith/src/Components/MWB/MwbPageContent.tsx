@@ -1,257 +1,40 @@
-import { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert, Container } from "react-bootstrap";
-import Select from 'react-select'
-import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, Label, YAxis, Legend, Line, Bar, Tooltip } from "recharts";
-import { requestWeaponBuild, requestWeaponDataCurve } from "../../Context/Requests";
-import { API_URL } from "../../Util/util";
-import FilterRangeSelector from "../Forms/FilterRangeSelector";
+import { Alert, Button, Card, Col, Container, Form, Modal, Row, Spinner, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { MwbContext } from "../../Context/ContextMWB";
+import React, { useContext } from 'react';
 import Mod from "./Mod";
-import { TransmissionWeaponBuildResult, TransmissionAttachedMod, Fitting } from './WeaponData';
-import { FormControlLabel, Radio, Switch } from "@mui/material";
+import FilterRangeSelector from "../Forms/FilterRangeSelector";
 
-enum OfferType {
-    None,
-    Sell,
-    Cash,
-    Barter,
-    Flea
-}
+import Select from 'react-select'
+import { OfferType } from "../AEC/AEC_Interfaces";
 
-enum fitPriority
-{
-    MetaRecoil = "MetaRecoil",
-    Recoil = "Recoil",
-    MetaErgonomics = "MetaErgonomics",
-    Ergonomics= "Ergonomics"
-}
-
-enum MuzzleType
-{
-    Loud,
-    Quiet,
-    Any
-}
-
-export default function ModdedWeaponBuilder(props: any) {
-    
-
-    interface WeaponOption {
-        ergonomics: number;
-        recoilForceUp: number;
-        recoilAngle: number;
-        recoilDispersion: number;
-        convergence: number;
-        ammoCaliber: string;
-        bFirerate: number;
-        traderLevel: number;
-        requiredPlayerLevel: number;
-        value: string;
-        readonly label: string;
-        readonly imageLink: string;
-        offerType: OfferType;
-        priceRUB: number;
-    }
-
-    interface CurveDataPoint {
-        level: number,
-        recoil: number,
-        ergo: number,
-        price: number,
-        penetration: number,
-        damage: number,
-        invalid: Boolean
-    };
-
-    const [playerLevel, setPlayerLevel] = useState(15); // Need to make these values be drawn from something rather than magic numbers
-    const [WeaponOptions, setWeaponOptions] = useState<WeaponOption[]>([]);
-
-    const [PurchaseOfferTypes, setPurchaseOfferTypes] = useState([OfferType.Cash])
-    const handlePOTChange = (val: any) => setPurchaseOfferTypes(val);
-
-    const [checkedFlea, setCheckedFlea] = useState(false);
+export const MwbPageContent = () => {
+    const {
+        playerLevel,
+        weaponOptions,
+        purchaseOfferTypes,
+        filteredWeaponOptions,
+        chosenGun,
+        result,
+        praporLevel,
+        skierLevel,
+        mechanicLevel,
+        peacekeeperLevel,
+        jaegerLevel,
+        muzzleModeToggle,
+        fittingPriority,
+        show,
+        handleMDMChange,
+        handleFPChange,
+        handlePOTChange,
+        handleSubmit,
+        handlePlayerLevelChange,
+        handleWeaponSelectionChange,
+        handleClose,
+        handleShow,
+      } = useContext(MwbContext);
 
 
-    // This useEffect will update the WeaponOptions with the result from the async API call
-    useEffect(() => {
-        weapons();
-    }, [])
-
-    // This useEffect will watch for a change to WeaponOptions or playerLevel, then update the filteredStockWeaponOptions
-    useEffect(() => {
-        const result = WeaponOptions.filter(item =>
-            item.requiredPlayerLevel <= playerLevel
-            && PurchaseOfferTypes.includes(item.offerType)
-
-        )
-        setFilteredStockWeaponOptions(result)
-
-    }, [WeaponOptions, playerLevel, PurchaseOfferTypes])
-
-    useEffect(() => {
-        updateTraderLevels(playerLevel)
-    }, [playerLevel])
-
-    const weapons = async () => {
-        const response = await fetch(API_URL + '/GetWeaponOptionsList');
-        // // console.log(response)
-        setWeaponOptions(await response.json())
-    }
-
-    function filterStockWeaponOptions(playerLevel: number) {
-        const result = WeaponOptions.filter(item =>
-            item.requiredPlayerLevel <= playerLevel
-        )
-        // Expand on this later.
-        return result;
-    }
-
-    const [filteredStockWeaponOptions, setFilteredStockWeaponOptions] = useState(filterStockWeaponOptions(playerLevel));
-
-    const [chosenGun, setChosenGun] = useState<any>(null);
-
-    const [result, setResult] = useState<Fitting>();
-
-    function handlePlayerLevelChange(input: number) {
-        setPlayerLevel(input);
-        setFilteredStockWeaponOptions(filterStockWeaponOptions(input));
-
-        if (!filterStockWeaponOptions(input).includes(chosenGun)) {
-            setChosenGun(null);
-        }
-    }
-
-    const [praporLevel, setPraporLevel] = useState(1);
-    const [skierLevel, setSkierLevel] = useState(1);
-    const [mechanicLevel, setMechanicLevel] = useState(1);
-    const [peacekeeperLevel, setPeacekeeperLevel] = useState(1);
-    const [jaegerLevel, setJaegerLevel] = useState(1);
-    
-
-    function updateTraderLevels(playerLevel: number) {
-        let prapor = 1;
-        let skier = 1;
-        let mechanic = 1;
-        let peacekeeper = 1;
-        let jaeger = 1;
-
-        if (playerLevel >= 14) {
-            peacekeeper = 2;
-        }
-        if (playerLevel >= 15) {
-            prapor = 2;
-            skier = 2;
-            jaeger = 2;
-        }
-        if (playerLevel >= 20) {
-            mechanic = 2;
-        }
-
-        // level 3 traders
-        if (playerLevel >= 22) {
-            jaeger = 3;
-        }
-        if (playerLevel >= 23) {
-            peacekeeper = 3;
-        }
-        if (playerLevel >= 26) {
-            prapor = 3;
-        }
-        if (playerLevel >= 28) {
-            skier = 3;
-        }
-        if (playerLevel >= 30) {
-            mechanic = 3;
-        }
-
-        // level 4 traders
-        if (playerLevel >= 33) {
-            jaeger = 4;
-        }
-        if (playerLevel >= 36) {
-            prapor = 4;
-        }
-        if (playerLevel >= 37) {
-            peacekeeper = 4;
-        }
-        if (playerLevel >= 38) {
-            skier = 4;
-        }
-        if (playerLevel >= 40) {
-            mechanic = 4;
-        }
-
-        setPraporLevel(prapor);
-        setSkierLevel(skier);
-        setMechanicLevel(mechanic);
-        setPeacekeeperLevel(peacekeeper);
-        setJaegerLevel(jaeger);
-    }
-    const [MuzzleModeToggle, setMuzzleModeToggle] = useState(1);
-    const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
-
-    const [FittingPriority, setFittingPriority] = useState<"MetaRecoil" | "Recoil" | "MetaErgonomics" | "Ergonomics">("Recoil");
-    const handleFPChange = (val: any) => setFittingPriority(val);
-
-    const [fittingCurve, setFittingCurve] = useState<CurveDataPoint[]>();
-    const [waitingForCurve, setWaitingForCurve] = useState(false);
-
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-
-        const parsed = fitPriority[FittingPriority];
-
-        const requestDetails = {
-            level: playerLevel,
-            priority: parsed,
-            muzzleMode: MuzzleModeToggle-1,
-            presetId: chosenGun.value,
-            flea: checkedFlea
-        }
-        requestWeaponBuild(requestDetails).then(response => {
-            // // console.log(response)
-            setResult(response);
-        }).catch(error => {
-            alert(`The error was: ${error}`);
-            // // console.log(error);
-        });
-
-        // const curveRequestDetails = {
-        //     presetID: chosenGun.value,
-        //     mode: FittingPriority,
-        //     muzzleMode: MuzzleModeToggle,
-        //     purchaseType: chosenGun.offerType
-        // }
-        // setWaitingForCurve(true);
-        // requestWeaponDataCurve(curveRequestDetails).then(response => {
-        //     setWaitingForCurve(false);
-        //     setFittingCurve(response);
-        //     // // console.log(response);
-        // }).catch(error => {
-        //     alert(`The error was: ${error}`);
-        //     setWaitingForCurve(false);
-        // });
-
-
-    }
-
-    const handleWeaponSelectionChange = (selectedOption: any) => {
-        //// console.log(selectedOption);
-
-        if (selectedOption !== undefined || selectedOption !== null) {
-            setChosenGun(selectedOption)
-            // // console.log(`Option selected:`, selectedOption);
-        }
-        else {
-            setChosenGun(undefined)
-        }
-    }
-
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    
-    let ModalInfo = (
+      let ModalInfo = (
         <>
             <Button variant="info" onClick={handleShow}>
                 Info
@@ -297,7 +80,7 @@ export default function ModdedWeaponBuilder(props: any) {
                         isClearable={true}
                         isSearchable={true}
                         name="SelectWeapon"
-                        options={filteredStockWeaponOptions}
+                        options={filteredWeaponOptions}
                         getOptionLabel={(option) => option.label}
                         getOptionValue={(option) => option.value + option.offerType}
                         formatOptionLabel={option => (
@@ -383,7 +166,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
                                 <br />
                                 <Form.Label>Weapon Purchase Offer Filter</Form.Label><br />
-                                <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={PurchaseOfferTypes} onChange={handlePOTChange} >
+                                <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={purchaseOfferTypes} onChange={handlePOTChange} >
                                     <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
                                         Cash
                                     </ToggleButton>
@@ -399,7 +182,7 @@ export default function ModdedWeaponBuilder(props: any) {
                             </Col>
                             <Col>
                                 <Form.Label>Muzzle Device Mode</Form.Label><br />
-                                <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={MuzzleModeToggle} onChange={handleMDMChange} >
+                                <ToggleButtonGroup size="sm" type="radio" name="MuzzleDeviceMode" value={muzzleModeToggle} onChange={handleMDMChange} >
                                     <ToggleButton variant="outline-primary" id="tbg-radio-MDM_Loud" value={1}>
                                         Loud
                                     </ToggleButton>
@@ -413,7 +196,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                 <br /><br />
 
                                 <Form.Label>Fitting Priority</Form.Label><br />
-                                <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={FittingPriority} onChange={handleFPChange}>
+                                <ToggleButtonGroup size="sm" type="radio" name="FittingPriority" value={fittingPriority} onChange={handleFPChange}>
                                     <ToggleButton variant="outline-primary" id="tbg-radio-FP_recoil" value={"Recoil"}>
                                         Recoil
                                     </ToggleButton>
@@ -432,7 +215,7 @@ export default function ModdedWeaponBuilder(props: any) {
                                 <FormControlLabel control={<Switch checked={checkedFlea} onChange={(event) => setCheckedFlea(event.currentTarget.checked)} />} label="Allow Flea Market Mods?" /> */}
                             </Col>
                         </Row>
-                        {WeaponOptions.length === 0 && (
+                        {weaponOptions.length === 0 && (
                             <>
                                 <br />
                                 <div className="d-grid gap-2">
@@ -448,10 +231,10 @@ export default function ModdedWeaponBuilder(props: any) {
                                 <br />
                             </>
                         )}
-                        {WeaponOptions.length > 0 && (
+                        {weaponOptions.length > 0 && (
                             <>
                                 <br />
-                                <strong>Available Choices:</strong> {filteredStockWeaponOptions.length} <br />
+                                <strong>Available Choices:</strong> {filteredWeaponOptions.length} <br />
                                 {SelectSingleWeapon}
                                 <br />
                             </>
