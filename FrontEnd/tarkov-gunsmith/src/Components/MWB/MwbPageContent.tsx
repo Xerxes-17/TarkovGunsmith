@@ -37,6 +37,16 @@ export const MwbPageContent = (props: any) => {
         setWaitingForCurve,
         show,
         setShow,
+        handleMDMChange,
+        handleFPChange,
+        handlePOTChange,
+        filterStockWeaponOptions,
+        handleSubmit,
+        handlePlayerLevelChange,
+        updateTraderLevels,
+        handleWeaponSelectionChange,
+        handleClose,
+        handleShow,
       } = useContext(MwbContext);
 
 

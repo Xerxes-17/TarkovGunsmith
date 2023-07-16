@@ -145,52 +145,75 @@ type MwbStateStructure = {
     muzzleModeToggle: number;
     setMuzzleModeToggle: React.Dispatch<React.SetStateAction<number>>;
     fittingPriority: "MetaRecoil" | "Recoil" | "MetaErgonomics" | "Ergonomics";
-    setFittingPriority: React.Dispatch<React.SetStateAction<"MetaRecoil" | "Recoil" | "MetaErgonomics" | "Ergonomics">>;
+    setFittingPriority: React.Dispatch<
+      React.SetStateAction<"MetaRecoil" | "Recoil" | "MetaErgonomics" | "Ergonomics">
+    >;
     fittingCurve: CurveDataPoint[] | undefined;
-    setFittingCurve: React.Dispatch<React.SetStateAction<CurveDataPoint[] | undefined>>;
+    setFittingCurve: React.Dispatch<
+      React.SetStateAction<CurveDataPoint[] | undefined>
+    >;
     waitingForCurve: boolean;
     setWaitingForCurve: React.Dispatch<React.SetStateAction<boolean>>;
     show: boolean;
     setShow: React.Dispatch<React.SetStateAction<boolean>>;
-};
+    handleMDMChange: (val: any) => void;
+    handleFPChange: (val: any) => void;
+    handlePOTChange: (val: any) => void;
+    filterStockWeaponOptions: (playerLevel: number) => WeaponOption[];
+    handleSubmit: (e: any) => void;
+    handlePlayerLevelChange: (input: number) => void;
+    updateTraderLevels: (playerLevel: number) => void;
+    handleWeaponSelectionChange: (selectedOption: any) => void;
+    handleClose: () => void;
+    handleShow: () => void;
+  };
 
-const MwbStateStructure_Default: MwbStateStructure = {
+  const MwbStateStructure_Default: MwbStateStructure = {
     playerLevel: 15,
-    setPlayerLevel: () => { },
+    setPlayerLevel: () => {},
     weaponOptions: [],
-    setWeaponOptions: () => { },
+    setWeaponOptions: () => {},
     purchaseOfferTypes: [OfferType.Cash],
-    setPurchaseOfferTypes: () => { },
+    setPurchaseOfferTypes: () => {},
     checkedFlea: false,
-    setCheckedFlea: () => { },
+    setCheckedFlea: () => {},
     filteredWeaponOptions: [],
-    setFilteredWeaponOptions: () => { },
+    setFilteredWeaponOptions: () => {},
     chosenGun: null,
-    setChosenGun: () => { },
+    setChosenGun: () => {},
     result: undefined,
-    setResult: () => { },
+    setResult: () => {},
     praporLevel: 1,
-    setPraporLevel: () => { },
+    setPraporLevel: () => {},
     skierLevel: 1,
-    setSkierLevel: () => { },
+    setSkierLevel: () => {},
     mechanicLevel: 1,
-    setMechanicLevel: () => { },
+    setMechanicLevel: () => {},
     peacekeeperLevel: 1,
-    setPeacekeeperLevel: () => { },
+    setPeacekeeperLevel: () => {},
     jaegerLevel: 1,
-    setJaegerLevel: () => { },
+    setJaegerLevel: () => {},
     muzzleModeToggle: 1,
-    setMuzzleModeToggle: () => { },
+    setMuzzleModeToggle: () => {},
     fittingPriority: "Recoil",
-    setFittingPriority: () => { },
+    setFittingPriority: () => {},
     fittingCurve: undefined,
-    setFittingCurve: () => { },
+    setFittingCurve: () => {},
     waitingForCurve: false,
-    setWaitingForCurve: () => { },
+    setWaitingForCurve: () => {},
     show: false,
-    setShow: () => { },
-};
-
+    setShow: () => {},
+    handleMDMChange: () => {},
+    handleFPChange: () => {},
+    handlePOTChange: () => {},
+    filterStockWeaponOptions: () => [],
+    handleSubmit: () => {},
+    handlePlayerLevelChange: () => {},
+    updateTraderLevels: () => {},
+    handleWeaponSelectionChange: () => {},
+    handleClose: () => {},
+    handleShow: () => {},
+  };
 
 // Create a new context
 export const MwbContext = createContext(MwbStateStructure_Default);
@@ -382,64 +405,84 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
     }, [playerLevel])
 
 
-    // State variables...
-    const MwbContextState: MwbStateStructure = useMemo(
-        () => ({
-            playerLevel,
-            setPlayerLevel,
-            weaponOptions: WeaponOptions,
-            setWeaponOptions,
-            purchaseOfferTypes: PurchaseOfferTypes,
-            setPurchaseOfferTypes,
-            checkedFlea,
-            setCheckedFlea,
-            filteredWeaponOptions: filteredStockWeaponOptions,
-            setFilteredWeaponOptions: setFilteredStockWeaponOptions,
-            chosenGun,
-            setChosenGun,
-            result,
-            setResult,
-            praporLevel,
-            setPraporLevel,
-            skierLevel,
-            setSkierLevel,
-            mechanicLevel,
-            setMechanicLevel,
-            peacekeeperLevel,
-            setPeacekeeperLevel,
-            jaegerLevel,
-            setJaegerLevel,
-            muzzleModeToggle: MuzzleModeToggle,
-            setMuzzleModeToggle,
-            fittingPriority: FittingPriority,
-            setFittingPriority,
-            fittingCurve,
-            setFittingCurve,
-            waitingForCurve,
-            setWaitingForCurve,
-            show,
-            setShow,
-        }),
-        [
-            playerLevel,
-            WeaponOptions,
-            PurchaseOfferTypes,
-            checkedFlea,
-            filteredStockWeaponOptions,
-            chosenGun,
-            result,
-            praporLevel,
-            skierLevel,
-            mechanicLevel,
-            peacekeeperLevel,
-            jaegerLevel,
-            MuzzleModeToggle,
-            FittingPriority,
-            fittingCurve,
-            waitingForCurve,
-            show,
-        ]
-    );
+// State variables...
+const MwbContextState: MwbStateStructure = useMemo(
+    () => ({
+      playerLevel,
+      setPlayerLevel,
+      weaponOptions: WeaponOptions,
+      setWeaponOptions,
+      purchaseOfferTypes: PurchaseOfferTypes,
+      setPurchaseOfferTypes,
+      checkedFlea,
+      setCheckedFlea,
+      filteredWeaponOptions: filteredStockWeaponOptions,
+      setFilteredWeaponOptions: setFilteredStockWeaponOptions,
+      chosenGun,
+      setChosenGun,
+      result,
+      setResult,
+      praporLevel,
+      setPraporLevel,
+      skierLevel,
+      setSkierLevel,
+      mechanicLevel,
+      setMechanicLevel,
+      peacekeeperLevel,
+      setPeacekeeperLevel,
+      jaegerLevel,
+      setJaegerLevel,
+      muzzleModeToggle: MuzzleModeToggle,
+      setMuzzleModeToggle,
+      fittingPriority: FittingPriority,
+      setFittingPriority,
+      fittingCurve,
+      setFittingCurve,
+      waitingForCurve,
+      setWaitingForCurve,
+      show,
+      setShow,
+      handleMDMChange,
+      handleFPChange,
+      handlePOTChange,
+      filterStockWeaponOptions,
+      handleSubmit,
+      handlePlayerLevelChange,
+      updateTraderLevels,
+      handleWeaponSelectionChange,
+      handleClose,
+      handleShow,
+    }),
+    [
+      playerLevel,
+      WeaponOptions,
+      PurchaseOfferTypes,
+      checkedFlea,
+      filteredStockWeaponOptions,
+      chosenGun,
+      result,
+      praporLevel,
+      skierLevel,
+      mechanicLevel,
+      peacekeeperLevel,
+      jaegerLevel,
+      MuzzleModeToggle,
+      FittingPriority,
+      fittingCurve,
+      waitingForCurve,
+      show,
+      handleMDMChange,
+      handleFPChange,
+      handlePOTChange,
+      filterStockWeaponOptions,
+      handleSubmit,
+      handlePlayerLevelChange,
+      updateTraderLevels,
+      handleWeaponSelectionChange,
+      handleClose,
+      handleShow,
+    ]
+  );
 
     return <MwbContext.Provider value={MwbContextState}>{children}</MwbContext.Provider>;
 
