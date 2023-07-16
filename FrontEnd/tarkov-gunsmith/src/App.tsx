@@ -17,6 +17,7 @@ import DataSheetWeapons from './Components/DataSheets/Stats_Weapons';
 import DataSheetEffectivenessArmor from './Components/DataSheets/ArmorVsAmmo';
 import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
+import MwbBasePage from './Components/MWB/MwbBasePage';
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
             <Route path={"/"} element={<Home />} />
             <Route path={LINKS.HOME} element={<Home />} />
             <Route path={LINKS.ABOUT} element={<About />} />
-            <Route path={LINKS.MODDED_WEAPON_BUILDER} element={<ModdedWeaponBuilder />} />
+            <Route path={LINKS.MODDED_WEAPON_BUILDER} element={<MwbBasePage />} />
             <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
             <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
             <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
