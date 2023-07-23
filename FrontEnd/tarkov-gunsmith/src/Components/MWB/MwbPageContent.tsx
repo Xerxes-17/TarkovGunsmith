@@ -611,7 +611,7 @@ export const MwbPageContent = () => {
 
                 <Grid columns={48}>
 
-                    <Grid.Col xl={15} lg={24} md={48}>
+                    <Grid.Col xl={26} lg={26} md={48} >
                         <Input.Wrapper id={"test"} label="Player Level - Changes access to purchase offers">
                             <Flex
                                 gap="sm"
@@ -639,7 +639,11 @@ export const MwbPageContent = () => {
                                 />
                             </Flex>
                         </Input.Wrapper>
-                        <Form.Text>Trader Levels</Form.Text><br />
+
+                    </Grid.Col>
+
+                    <Grid.Col xl={22} lg={22} md={48}>
+                    <Form.Text>Trader Levels</Form.Text><br />
                         <Stack direction="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
                             <Button disabled size="sm" variant="outline-info">
                                 <Stack direction="horizontal" gap={2} >
@@ -677,9 +681,10 @@ export const MwbPageContent = () => {
                                 </Stack>
                             </Button>
                         </Stack>
+
                     </Grid.Col>
 
-                    <Grid.Col xl={25} lg={16} md={34}>
+                    <Grid.Col xl={26} lg={26} md={33} span={48}>
                         <Group>
                             <Input.Wrapper id={"test1"} label="Muzzle Device Mode" description="Any will choose from both loud + silenced." inputWrapperOrder={['label', 'input', 'description', 'error']} >
                                 <br />
@@ -714,7 +719,8 @@ export const MwbPageContent = () => {
                             </Input.Wrapper>
                         </Group>
                     </Grid.Col>
-                    <Grid.Col xl={8} lg={8} md={12} sm={14}>
+                    
+                    <Grid.Col xl={9} lg={9} md={11} span={48}>
                         <Input.Wrapper id={"test3"} label="Weapon Purchase Offer Filter" description="Must choose at least one" inputWrapperOrder={['label', 'input', 'description', 'error']}>
                             <br />
                             <ToggleButtonGroup type="checkbox" name="PurchaseOfferTypes" value={purchaseOfferTypes} onChange={(val) => {
@@ -733,6 +739,7 @@ export const MwbPageContent = () => {
                         </Input.Wrapper>
 
                     </Grid.Col>
+
                     <Grid.Col span={48}>
 
                         {weaponOptions.length === 0 && (
