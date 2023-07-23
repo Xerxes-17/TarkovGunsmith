@@ -18,11 +18,14 @@ import DataSheetEffectivenessArmor from './Components/DataSheets/ArmorVsAmmo';
 import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 import MwbBasePage from './Components/MWB/MwbBasePage';
+import { MantineProvider } from '@mantine/core';
 
 function App() {
 
   return (
     <>
+    <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
+
       <BrowserRouter>
         <Header />
           <Routes>
@@ -56,6 +59,7 @@ function App() {
           Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.
         </footer>
       </BrowserRouter>
+      </MantineProvider>
     </>
   );
 }

@@ -169,7 +169,7 @@ namespace WishGranter.API_Methods
 
                 selectionWeapon.Value = preset.Id;
                 selectionWeapon.Label = preset.Name;
-                selectionWeapon.SetImageLinkWithId(preset.WeaponId);
+                selectionWeapon.SetImageLinkWithId(preset.Id.Split("_").First());
 
                 selectionWeapon.Ergonomics = temp.TotalErgo; // Need to get the calculated val for the total.
                 selectionWeapon.RecoilForceUp = temp.TotalRecoil; // Same here

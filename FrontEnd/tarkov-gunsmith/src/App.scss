@@ -194,6 +194,11 @@ footer {
 .selectorZIndexBodge{
   z-index: 30
 }
+@media screen and (max-width: 440px) {
+.mantine-SegmentedControl-label {
+  white-space: normal !important;
+  height: 100% !important;
+}}
 
 .css-8uhtka{
   white-space: "normal" !important;

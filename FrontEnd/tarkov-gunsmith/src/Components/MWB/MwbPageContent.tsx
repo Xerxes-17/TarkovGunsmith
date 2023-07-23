@@ -1,14 +1,65 @@
-import { Alert, Button, Card, Col, Container, Form, Modal, Row, Spinner, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { Alert, Button, Card, Col, Form, Modal, Row, Spinner, Stack, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+
+import {
+    ActionIcon,
+    Button as ManButton,
+    Card as ManCard,
+    Image as ManImage,
+    Slider, Container,
+    SimpleGrid, Group,
+    Text, Badge, Divider, Title, Input, TextInput, Flex, NumberInput, SegmentedControl, Switch, Checkbox, Tooltip,
+    Select as ManSelect,
+    Avatar,
+    Grid
+} from '@mantine/core';
+
 import { MwbContext } from "../../Context/ContextMWB";
-import React, { useContext } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import Mod from "./Mod";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 
 import Select from 'react-select'
-import { OfferType } from "../AEC/AEC_Interfaces";
+import { OfferType, PurchaseOffer } from '../AEC/AEC_Interfaces';
+
+const marks = [
+    { value: 15, label: '15' },
+    { value: 20, label: '20' },
+    { value: 30, label: '30' },
+    { value: 40, label: '40' },
+];
+
+// Helper function to get the enum key based on its numerical value
+function getEnumKeyByValue(enumObj: any, enumValue: number): string | undefined {
+    return Object.keys(enumObj).find((key) => enumObj[key] === enumValue);
+}
 
 export const MwbPageContent = () => {
+    interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+        imageLink: string;
+        label: string;
+        description: string;
+        priceRUB: number;
+        offerType: number
+    }
+
+    const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+        ({ imageLink, label, description, priceRUB, offerType, ...others }: ItemProps, ref) => (
+            <div ref={ref} {...others}>
+                <Group noWrap>
+                    <Avatar src={imageLink} />
+
+                    <div>
+                        <Text size="sm">{label}</Text>
+                        <Text size="xs" opacity={0.65}>
+                            {getEnumKeyByValue(OfferType, offerType)} ₽ {priceRUB.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                        </Text>
+                    </div>
+                </Group>
+            </div>
+        )
+    );
     const {
+        searchValue,
         playerLevel,
         weaponOptions,
         purchaseOfferTypes,
@@ -31,39 +82,42 @@ export const MwbPageContent = () => {
         handleWeaponSelectionChange,
         handleClose,
         handleShow,
-      } = useContext(MwbContext);
+    } = useContext(MwbContext);
 
 
-      let ModalInfo = (
+    let ModalInfo = (
         <>
-            <Button variant="info" onClick={handleShow}>
+            <Button variant="info" onClick={handleShow} style={{ marginBottom: "5px" }}>
                 Info
             </Button>
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Information - MWB</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>This tool will automatically build your selected weapon according to the selected parameters.</p>
-                    <p>If you change the player level to one where the current weapon isn't available, it will be deselected.</p>
-                    <p>You can search through the gun options by typing with the select input focused.</p>
-                    <p>At the moment, weapons and modules are only available by Cash Offer from traders, this means no flea-market or barters.</p>
-                    <p>
-                        At the moment, you can select either a recoil or an ergo priority, and the other variable will be ignored.
-                        The exception for this is muzzle breaks, which will always prioritize recoil for obvious reasons.
-                        The cheapest option for the max effectiveness will also be chosen.
-                    </p>
-                    <p>You can select for a loud, silenced or either build. However do check if there is a silencer, as with certain level and weapon combos one might not be available.</p>
-                    <p>If a mod has a cost of -1, it can only be bought as part of the default stock build/gun, for example, the AKS-74U hand guard or ADAR charging handle.</p>
-                    <p>Optics, magazines and tactical devices aren't included as they are down to personal preference.</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
+                <div style={{ backgroundColor: "#2f3036" }} >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Information - MWB</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body >
+                        <p>This tool will automatically build your selected weapon according to the selected parameters.</p>
+                        <p>If you change the player level to one where the current weapon isn't available, it will be deselected.</p>
+                        <p>You can search through the gun options by typing with the select input focused.</p>
+                        <p>At the moment, weapons and modules are only available by Cash Offer from traders, this means no flea-market or barters.</p>
+                        <p>
+                            At the moment, you can select either a recoil or an ergo priority, and the other variable will be ignored.
+                            The exception for this is muzzle breaks, which will always prioritize recoil for obvious reasons.
+                            The cheapest option for the max effectiveness will also be chosen.
+                        </p>
+                        <p>You can select for a loud, silenced or either build. However do check if there is a silencer, as with certain level and weapon combos one might not be available.</p>
+                        <p>If a mod has a cost of -1, it can only be bought as part of the default stock build/gun, for example, the AKS-74U hand guard or ADAR charging handle.</p>
+                        <p>Optics, magazines and tactical devices aren't included as they are down to personal preference.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </div>
             </Modal>
+
         </>
     )
 
@@ -166,7 +220,10 @@ export const MwbPageContent = () => {
 
                                 <br />
                                 <Form.Label>Weapon Purchase Offer Filter</Form.Label><br />
-                                <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={purchaseOfferTypes} onChange={handlePOTChange} >
+                                <ToggleButtonGroup size="sm" type="checkbox" name="PurchaseOfferTypes" value={purchaseOfferTypes} onChange={(e) => {
+                                    console.log("e", e)
+                                    handlePOTChange(e)
+                                }} >
                                     <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
                                         Cash
                                     </ToggleButton>
@@ -178,7 +235,7 @@ export const MwbPageContent = () => {
                                     </ToggleButton>
                                 </ToggleButtonGroup>
                                 <br /><br />
-                                
+
                             </Col>
                             <Col>
                                 <Form.Label>Muzzle Device Mode</Form.Label><br />
@@ -537,18 +594,202 @@ export const MwbPageContent = () => {
 
     // }
 
+    let newContent = (
+
+        <ManCard shadow="sm" padding="md" radius="md" withBorder bg={"#212529"} style={{overflow:"scroll"}}>
+            <Form onSubmit={handleSubmit}>
+                <Stack direction="horizontal" gap={3}>
+                    <h2>Modded Weapon Builder</h2>
+                    <div className="ms-auto">
+                        {ModalInfo}
+                    </div>
+                </Stack>
+
+                <ManCard.Section>
+                    <Divider size="sm" />
+                </ManCard.Section>
+
+                <Grid columns={48}>
+
+                    <Grid.Col xl={15} lg={24} md={48}>
+                        <Input.Wrapper id={"test"} label="Player Level - Changes access to purchase offers">
+                            <Flex
+                                gap="sm"
+                                direction="row"
+                            >
+                                <Slider
+                                    w={"100%"}
+                                    py={5}
+                                    marks={marks}
+                                    value={playerLevel}
+                                    min={1}
+                                    max={40}
+                                    step={1}
+                                    label={(value) => value.toFixed(0)}
+                                    onChange={handlePlayerLevelChange}
+                                    onChangeEnd={handlePlayerLevelChange}
+                                />
+                                <NumberInput
+                                    maw={70}
+                                    miw={70}
+                                    value={playerLevel}
+                                    min={1}
+                                    max={40}
+                                    onChange={handlePlayerLevelChange}
+                                />
+                            </Flex>
+                        </Input.Wrapper>
+                        <Form.Text>Trader Levels</Form.Text><br />
+                        <Stack direction="horizontal" gap={2} style={{ flexWrap: "wrap" }}>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2} >
+                                    {praporLevel}
+                                    <div className="vr" />
+                                    Prapor
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {skierLevel}
+                                    <div className="vr" />
+                                    Skier
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {mechanicLevel}
+                                    <div className="vr" />
+                                    Mechanic
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {peacekeeperLevel}
+                                    <div className="vr" />
+                                    Peacekeeper
+                                </Stack>
+                            </Button>
+                            <Button disabled size="sm" variant="outline-info">
+                                <Stack direction="horizontal" gap={2}>
+                                    {jaegerLevel}
+                                    <div className="vr" />
+                                    Jaeger
+                                </Stack>
+                            </Button>
+                        </Stack>
+                    </Grid.Col>
+
+                    <Grid.Col xl={25} lg={16} md={34}>
+                        <Group>
+                            <Input.Wrapper id={"test1"} label="Muzzle Device Mode" description="Any will choose from both loud + silenced." inputWrapperOrder={['label', 'input', 'description', 'error']} >
+                                <br />
+                                <SegmentedControl
+                                    value={muzzleModeToggle}
+                                    onChange={handleMDMChange}
+                                    fullWidth
+                                    color="blue"
+                                    id="test1"
+                                    data={[
+                                        { label: 'Loud', value: 'Loud' },
+                                        { label: 'Silenced', value: 'Quiet' },
+                                        { label: 'Any', value: 'Any' },
+                                    ]}
+                                />
+                            </Input.Wrapper>
+                            <Input.Wrapper id={"test2"} label="Fitting Priority" description="Meta: Choose best of X, then best of Y." inputWrapperOrder={['label', 'input', 'description', 'error']}>
+                                <br />
+                                <SegmentedControl
+                                    style={{ whiteSpace: "normal", height: "100%" }}
+                                    value={fittingPriority}
+                                    onChange={handleFPChange}
+                                    color="blue"
+                                    id="test2"
+                                    data={[
+                                        { label: 'Recoil', value: 'Recoil' },
+                                        { label: 'Meta Recoil', value: 'MetaRecoil' },
+                                        { label: 'Ergonomics', value: 'Ergonomics' },
+                                        { label: 'Meta Ergonomics', value: 'MetaErgonomics' },
+                                    ]}
+                                />
+                            </Input.Wrapper>
+                        </Group>
+                    </Grid.Col>
+                    <Grid.Col xl={8} lg={8} md={12} sm={14}>
+                        <Input.Wrapper id={"test3"} label="Weapon Purchase Offer Filter" description="Must choose at least one" inputWrapperOrder={['label', 'input', 'description', 'error']}>
+                            <br />
+                            <ToggleButtonGroup type="checkbox" name="PurchaseOfferTypes" value={purchaseOfferTypes} onChange={(val) => {
+                                handlePOTChange(val)
+                            }} >
+                                <ToggleButton variant="outline-warning" id="tbg-radio-PO_Cash" value={OfferType.Cash}>
+                                    Cash
+                                </ToggleButton>
+                                <ToggleButton variant="outline-warning" id="tbg-radio-PO_Barter" value={OfferType.Barter}>
+                                    Barter
+                                </ToggleButton>
+                                <ToggleButton variant="outline-warning" id="tbg-radio-PO_Flea" value={OfferType.Flea}>
+                                    Flea
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Input.Wrapper>
+
+                    </Grid.Col>
+                    <Grid.Col span={48}>
+
+                        {weaponOptions.length === 0 && (
+                            <>
+                                <div className="d-grid gap-2">
+                                    <Button size="lg" variant="secondary" disabled>
+                                        <Stack direction="horizontal" gap={2}>
+                                            <Spinner animation="border" role="status">
+                                            </Spinner>
+                                            <div className="vr" />
+                                            Getting weapon options...
+                                        </Stack>
+                                    </Button>
+                                </div>
+                            </>
+                        )}
+                        {weaponOptions.length > 0 && (
+                            <ManSelect
+                                value={chosenGun}
+                                onChange={handleWeaponSelectionChange}
+                                withinPortal
+                                label={<Text fz="sm">Available Choices: {filteredWeaponOptions.length} </Text>}
+                                placeholder="Select your weapon..."
+                                itemComponent={SelectItem}
+                                data={filteredWeaponOptions}
+                                searchable
+                                maxDropdownHeight={400}
+                                nothingFound="No weapons found."
+                                required
+                                withAsterisk={false}
+                                clearable
+                                searchValue={searchValue}
+                            />
+                        )}
+                    </Grid.Col>
+
+                </Grid>
+                <ManButton variant="filled" color="teal" fullWidth mt="md" radius="md" uppercase type="submit">
+                    Build
+                </ManButton>
+            </Form>
+        </ManCard>
+    )
+
     let content = (
 
-        <Container className='main-app-container'>
-            <div className="row gy-2">
-                {TopSection}
-            </div>
-            <div className="row gy-2">
+        <Container size="xl" px="xs" pt="xs" pb={{ base: '3rem', xs: '2rem', md: '1rem' }}>
+            <SimpleGrid
+                cols={1}
+                spacing="xs"
+                verticalSpacing="sm"
+            >
+                {newContent}
+                {/* {TopSection} */}
                 {ResultsSection}
-            </div>
-            {/* <div className="row gy-2">
-                {dataCurveSection}
-            </div> */}
+                {/*{dataCurveSection}*/}
+            </SimpleGrid>
         </Container>
     );
     return (
