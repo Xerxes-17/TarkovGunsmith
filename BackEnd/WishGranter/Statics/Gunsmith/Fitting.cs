@@ -366,10 +366,17 @@ namespace WishGranter.Statics
 
             // Get the refund total of sold preset mods, get the except of the preseet mods in the fitterd mods.
             var modIdsToBePawned = basePreset.WeaponMods.Except(purchasedMods.GetWeaponMods()).Select(x => x.Id).ToList();
+
+            var presetModsKept = basePreset.WeaponMods.Intersect(purchasedMods.GetWeaponMods()).ToList();
+
+            // Get the mods that actually got purchased
+            var tempPMods = new PurchasedMods(purchasedMods.List
+                .Where(x => !presetModsKept.Contains(x.WeaponMod)).ToList());
+
             PresetModsRefund = Market.GetTraderBuyBackTotalFromIdList(modIdsToBePawned);
 
             // Storing this here for later display in FE, and using right now with the next step
-            PurchasedModsCost = purchasedMods.GetSummOfRUBprices();
+            PurchasedModsCost = tempPMods.GetSummOfRUBprices();
 
             // Now we can get the new total.
             TotalRubleCost = basePreset.PurchaseOffer.PriceRUB + PurchasedModsCost - PresetModsRefund;

@@ -281,3 +281,37 @@ ul.my-custom-pagination.dark {
   margin-left: 0.5rem;
   list-style-type: none; /* Remove the marker for the <li> elements */
 }
+
+
+/* CSS for the wide view */
+.WideWeaponSummary {
+  display: flex;
+}
+
+.NarrowWeaponSummary {
+  display: none;
+}
+
+/* CSS for the narrow view */
+@media (max-width: 772px) { /* Adjust the breakpoint as needed */
+  .WideWeaponSummary {
+    display: none;
+  }
+
+  .NarrowWeaponSummary {
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .NarrowWeaponSummary .WideView {
+    display: none;
+  }
+  .MWBresultCard {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .MWBresultCardTitle{
+    margin-left: 10px;
+  }
+}

@@ -56,8 +56,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
     const handleTargetZoneChange = (val: any) => {
         // console.log("val: ", val)
         setTargetZone(val);
-
-        var temp = TargetZones.findIndex((element) => element === val)
+        //var temp = TargetZones.findIndex((element) => element === val)
         // console.log("temp: ", temp)
     }
 
