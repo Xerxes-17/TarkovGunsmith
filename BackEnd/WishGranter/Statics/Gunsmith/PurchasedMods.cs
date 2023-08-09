@@ -12,7 +12,6 @@ namespace WishGranter.Statics
         public string HashId { get; set; } = "";
         public List<PurchasedMod> List { get; set; } = new List<PurchasedMod>();
 
-
         public List<WeaponMod> GetWeaponMods()
         {
             return List.Select(x => x.WeaponMod).ToList();

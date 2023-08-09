@@ -93,13 +93,19 @@ namespace WishGranter.Statics
             }
 
             int hitNumber = 1;
+            float CumulativeChanceOfKillMemory = 0;
 
-            while (currentDurabilityDamageTotal < startingDurability || HitPoints > 0)
+            while (CumulativeChanceOfKillMemory < 99.9)
             {
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
-                float armorDurabilityPercentage = (currentDurability / startingDurability) * 100;
 
+                if(currentDurability < 0)
+                {
+                    currentDurability = 0;
+                }
+
+                float armorDurabilityPercentage = (currentDurability / startingDurability) * 100;
                 float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, armorDurabilityPercentage);
 
                 // Calc Potential damages:
@@ -109,7 +115,7 @@ namespace WishGranter.Statics
                 // Calc Average Damage and apply it to HP pool
                 var AverageDamage = (shotBlunt * (1 - penetrationChance)) + (shotPenetrating * penetrationChance);
                
-                if (parameters.Damage <= 0)
+                if (currentDurability <= 0)
                 {
                      //! Exception for when the armor is at zero durability
                     HitPoints = HitPoints - parameters.Damage;
@@ -150,6 +156,7 @@ namespace WishGranter.Statics
                 if (currentHpProbabilities.ContainsKey(0))
                 {
                     thisHit.CumulativeChanceOfKill = currentHpProbabilities[0] * 100;
+                    CumulativeChanceOfKillMemory = thisHit.CumulativeChanceOfKill;
                     if (previousHpProbabilities.ContainsKey(0))
                     {
                         thisHit.SpecificChanceOfKill = (currentHpProbabilities[0] - previousHpProbabilities[0]) * 100;
