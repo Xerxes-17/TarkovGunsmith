@@ -95,7 +95,7 @@ namespace WishGranter.Statics
             int hitNumber = 1;
             float CumulativeChanceOfKillMemory = 0;
 
-            while (currentDurabilityDamageTotal < startingDurability || HitPoints > 0 || CumulativeChanceOfKillMemory < 99.9)
+            while (CumulativeChanceOfKillMemory < 99.9)
             {
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
