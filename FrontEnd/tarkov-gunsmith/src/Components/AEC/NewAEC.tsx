@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { requestAmmoEffectivenessChart, requestAmmoEffectivenessTimestamp } from "../../Context/Requests"
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
@@ -8,10 +8,10 @@ import { AEC, AEC_Row, TargetZoneDisplayAEC } from "./AEC_Interfaces";
 import AECTableIntroSection from "./AEC_TableIntroSection";
 import { Link } from "react-router-dom";
 import { LINKS } from "../../Util/links";
-import { Margin } from "@mui/icons-material";
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
 import { AEC_LS_KEY } from "../../Util/util";
+import { Flex } from "@mantine/core";
 
 export default function AmmoEffectivenessChartPage(props: any) {
     const [pagination] = useState({
@@ -79,40 +79,40 @@ export default function AmmoEffectivenessChartPage(props: any) {
         // console.log(AEC_LS_KEY)
         const data = JSON.parse(localStorage.getItem(AEC_LS_KEY)!);
         if (data) {
-          // Check if outdated
-          var remoteVersionNum = 0;
-          requestAmmoEffectivenessTimestamp()
-            .then(response => {
-              remoteVersionNum = response;
-              if(remoteVersionNum > data.GenerationTimeStamp){
-                requestAmmoEffectivenessChart()
-                  .then(response => {
-                    localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
-                    setAECData(response);
-                  })
-                  .catch(error => {
+            // Check if outdated
+            var remoteVersionNum = 0;
+            requestAmmoEffectivenessTimestamp()
+                .then(response => {
+                    remoteVersionNum = response;
+                    if (remoteVersionNum > data.GenerationTimeStamp) {
+                        requestAmmoEffectivenessChart()
+                            .then(response => {
+                                localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
+                                setAECData(response);
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                    else {
+                        setAECData(data);
+                    }
+                })
+                .catch(error => {
                     console.error(error);
-                  });
-              }
-              else{
-                setAECData(data);
-              }
-            })
-            .catch(error => {
-              console.error(error);
-            });
+                });
         }
         else {
-          requestAmmoEffectivenessChart()
-            .then(response => {
-              localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
-              setAECData(response);
-            })
-            .catch(error => {
-              console.error(error);
-            });
+            requestAmmoEffectivenessChart()
+                .then(response => {
+                    localStorage.setItem(AEC_LS_KEY, JSON.stringify(response));
+                    setAECData(response);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
-      }, []);
+    }, []);
 
     const [filteredAECData, setFilteredAECData] = useState<AEC_Row[]>([]);
     useEffect(() => {
@@ -126,7 +126,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
         value: any;
         row: any;
     }
-    const NameCell = ({ value, row }: CustomCellProps) => {
+    const NameCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 <Box
@@ -144,37 +144,39 @@ export default function AmmoEffectivenessChartPage(props: any) {
                             loading="lazy"
                         />
                     }
-
+    
                     {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                     <span><Link to={`${LINKS.AMMO_VS_ARMOR}/${row.original.Ammo.Id}`}>{value}</Link></span>
                 </Box>
             </>
         );
-    };
-
-    const CaliberCell = ({ value, row }: CustomCellProps) => {
+    }, [picturesYesNo]);
+    
+    const CaliberCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {trimCaliber(value)}
             </>
         );
-    };
-    const PenetrationCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const PenetrationCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {deltaToolTipElement(value, row.original.Ammo.PenetrationPower, penetrationConditionalColour(value))}
             </>
         );
-    };
-    const ArmorDamageCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const ArmorDamageCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {ArmorDamageToolTipElement(value, row.original.Ammo.ArmorDamage)}
             </>
         );
-    };
-
-    const DamageCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const DamageCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {deltaToolTipElement(value, row.original.Ammo.Damage, damageConditionalColour(value))}
@@ -185,44 +187,49 @@ export default function AmmoEffectivenessChartPage(props: any) {
                 ))}
             </>
         );
-    };
-    const SpeedCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const SpeedCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {deltaToolTip(value, row.original.Ammo.InitialSpeed, "m/s")}
             </>
         );
-    };
-    const FragCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const FragCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
                 {fragmentationConditionalColour(fragmentationCutoff(value, row.original.Ammo.PenetrationPower))}
             </>
         );
-    };
-    const GreenRedOrNothingCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const GreenRedOrNothingCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <span style={{ display: "inline-block" }}>
                 {greenRedOrNothing(value)}
             </span>
         );
-    };
-    const positiveGreenOrNothing_PercentCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const positiveGreenOrNothing_PercentCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <span style={{ display: "inline-block" }}>
                 {positiveGreenOrNothing_Percent(value)}
             </span>
         );
-    };
-
-    const negativeGreen_PositiveRed_OrNothingCell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const negativeGreen_PositiveRed_OrNothingCell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <span style={{ display: "inline-block" }}>
                 {negativeGreen_PositiveRed_OrNothing(value)}
             </span>
         );
-    };
-    const AC_Rating_Cell = ({ value, row }: CustomCellProps) => {
+    }, []);
+    
+    const AC_Rating_Cell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <Box
                 component="span"
@@ -237,49 +244,51 @@ export default function AmmoEffectivenessChartPage(props: any) {
                 <>
                     {dealWithMultiShotAmmo(targetZone, value!, row.original, distanceIndex)}
                 </>
-
             </Box>
         );
-    };
-    const Trader_Cell = ({ value, row }: CustomCellProps) => {
+    }, [targetZone, distanceIndex]);
+    
+    const Trader_Cell = useCallback(({ value, row }: CustomCellProps) => {
         return (
             <>
-                {(TraderToolTipElement(value))}
+                {TraderToolTipElement(value)}
             </>
         );
-    };
-
-    type Alignment = "left" | "center" | "right" | "justify" | "inherit" | undefined;
-
-    function CustomCell_Column(
-        accessorKey: string,
-        header: string,
-        id: string,
-        align: Alignment,
-        CustomCellComponent: React.ComponentType<{ value: any, row: any }>,
-
-    ): MRT_ColumnDef<AEC_Row> {
-        return {
-            accessorKey: accessorKey as keyof AEC_Row,
-            header,
-            id,
-            size: 8,
-            enableSorting: true,
-            filterFn: 'fuzzy',
-            muiTableHeadCellProps: {
-                sx:
-                {
-                    color: 'white',
-                }
-            },
-            muiTableBodyCellProps: {
-                align: align,
-            },
-            Cell: ({ cell, row }) => <CustomCellComponent value={cell.getValue()} row={row} />
-        };
-    }
-
+    }, []);
     
+    type Alignment = "left" | "center" | "right" | "justify" | "inherit" | undefined;
+    
+    const CustomCell_Column = useCallback(
+        (
+            accessorKey: string,
+            header: string,
+            id: string,
+            align: Alignment,
+            CustomCellComponent: React.ComponentType<{ value: any, row: any }>,
+        ): MRT_ColumnDef<AEC_Row> => {
+            return {
+                accessorKey: accessorKey as keyof AEC_Row,
+                header,
+                id,
+                size: 8,
+                enableSorting: true,
+                filterFn: 'fuzzy',
+                muiTableHeadCellProps: {
+                    sx: {
+                        color: 'white',
+                    },
+                },
+                muiTableBodyCellProps: {
+                    align: align,
+                },
+                Cell: ({ cell, row }) => <CustomCellComponent value={cell.getValue()} row={row} />,
+            };
+        },
+        []
+    );
+    
+
+
     function Standard_Column(accessorKey: string, header: string, id: string): MRT_ColumnDef<AEC_Row> {
         return {
             accessorKey: accessorKey as keyof AEC_Row,
@@ -322,7 +331,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
 
             CustomCell_Column(`PurchaseOffer`, "Trader $ Level", "Trader", 'left', Trader_Cell),
         ],
-        [picturesYesNo, distanceIndex, targetZone]
+        [CustomCell_Column, NameCell, CaliberCell, distanceIndex, SpeedCell, PenetrationCell, DamageCell, ArmorDamageCell, FragCell, positiveGreenOrNothing_PercentCell, GreenRedOrNothingCell, negativeGreen_PositiveRed_OrNothingCell, AC_Rating_Cell, Trader_Cell]
     )
     return (
         <>
@@ -330,20 +339,20 @@ export default function AmmoEffectivenessChartPage(props: any) {
                 <CssBaseline>
                     <AECTableIntroSection />
                 </CssBaseline>
-                <div id="print">
+                <div className="main-app-container" id="print">
                     <MaterialReactTable
-                        renderBottomToolbarCustomActions={({ table }) => (
-                            <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.AMMO_EFFECTIVENESS_CHART}
-                            </Form.Text>
-                        )
-                        }
                         renderTopToolbarCustomActions={({ table }) => (
                             <>
-                                <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+                                <Flex
+                                    gap="md"
+                                    justify="flex-start"
+                                    align="flex-start"
+                                    direction="row"
+                                    wrap="wrap"
+                                >
                                     <ToggleButton
                                         size='sm'
-                                        className="mb-2"
+                                        className="mt-1"
                                         id="toggle-check"
                                         type="checkbox"
                                         variant="outline-primary"
@@ -353,8 +362,8 @@ export default function AmmoEffectivenessChartPage(props: any) {
                                     >
                                         Ammo Pictures on/off
                                     </ToggleButton>
-                                    <div className='mb-2'>
-                                        <ToggleButtonGroup size="sm" type="radio" value={distance} onChange={handleDistanceChange} name="distanceMode">
+                                    <div className='mt-1'>
+                                        <ToggleButtonGroup style={{ flexWrap: "wrap" }} size="sm" type="radio" value={distance} onChange={handleDistanceChange} name="distanceMode">
                                             <ToggleButton size='sm' variant='outline-success' disabled id={"dummy"} value={"dummy"}>
                                                 Distance:
                                             </ToggleButton>
@@ -367,7 +376,7 @@ export default function AmmoEffectivenessChartPage(props: any) {
                                             })}
                                         </ToggleButtonGroup>
                                     </div>
-                                    <div className='mb-2'>
+                                    <div className='mt-1'>
                                         <ToggleButtonGroup size="sm" type="radio" value={targetZone} onChange={handleTargetZoneChange} name="TargetZoneMode">
                                             <ToggleButton size='sm' variant='outline-warning' disabled id={"dummy"} value={"dummy"}>
                                                 Target Zone:
@@ -381,16 +390,14 @@ export default function AmmoEffectivenessChartPage(props: any) {
                                             })}
                                         </ToggleButtonGroup>
                                     </div>
-
-
-                                </Box>
-                                <div className="ms-auto" style={{paddingTop: 4}}>
-
-                                    <Stack direction='horizontal' gap={2}>
+                                    <Stack className='mt-1' direction='horizontal' gap={2}>
                                         <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
                                         <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
                                     </Stack>
-                                </div>
+                                    <Form.Text>
+                                            This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.AMMO_EFFECTIVENESS_CHART}
+                                    </Form.Text>
+                                </Flex>
                             </>
                         )}
 
@@ -424,7 +431,6 @@ export default function AmmoEffectivenessChartPage(props: any) {
                             sorting: [{ id: 'Penetration', desc: true }], //sort by state by default
                         }}
                         enableStickyHeader
-
                     />
                 </div>
             </ThemeProvider>

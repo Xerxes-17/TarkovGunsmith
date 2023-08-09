@@ -314,13 +314,16 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
     const handleMDMChange = (val: any) => setMuzzleModeToggle(val);
     const handleFPChange = (val: any) => setFittingPriority(val);
     const handlePOTChange = (val: any) => setPurchaseOfferTypes(val);
-    const handlePlayerLevelChange = (val: number) => {
-        setPlayerLevel(val);
-        if(val < 15 && PurchaseOfferTypes.some((x)=> x === OfferType.Flea)){
-            const POTS = PurchaseOfferTypes.filter((x)=>x !== OfferType.Flea)
-            setPurchaseOfferTypes(POTS)
-        }
-    }
+    const handlePlayerLevelChange = useCallback(
+        (val: number) => {
+            setPlayerLevel(val);
+            if (val < 15 && PurchaseOfferTypes.some((x) => x === OfferType.Flea)) {
+                const POTS = PurchaseOfferTypes.filter((x) => x !== OfferType.Flea);
+                setPurchaseOfferTypes(POTS);
+            }
+        },
+        [setPlayerLevel, PurchaseOfferTypes, setPurchaseOfferTypes]
+    );
 
 
 
@@ -346,6 +349,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
                     alert(`The error was: ${error}`);
                 });
 
+                
             // const curveRequestDetails = {
             //     presetID: chosenGun.value,
             //     mode: FittingPriority,
@@ -389,7 +393,6 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
         if (selectedOption !== undefined || selectedOption !== null) {
             setChosenGun(selectedOption)
             setSearchValue(selectedOption.Label)
-            // // console.log(`Option selected:`, selectedOption);
         }
         else {
             setChosenGun(undefined)
@@ -502,6 +505,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
             show,
             filterStockWeaponOptions,
             handleSubmit,
+            handlePlayerLevelChange
         ]
     );
 

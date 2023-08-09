@@ -16,7 +16,7 @@ import {
 import { Box, CardContent, Card as MatCard, ThemeProvider, createTheme } from "@mui/material";
 
 import { MwbContext } from "../../Context/ContextMWB";
-import React, { forwardRef, useContext, useMemo, useState } from 'react';
+import React, { forwardRef, useCallback, useContext, useMemo, useState } from 'react';
 
 import { OfferType, PurchaseOffer } from '../AEC/AEC_Interfaces';
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
@@ -95,6 +95,7 @@ export const MwbPageContent = () => {
         muzzleModeToggle,
         fittingPriority,
         show,
+        setSearchValue,
         handleMDMChange,
         handleFPChange,
         handlePOTChange,
@@ -313,13 +314,14 @@ export const MwbPageContent = () => {
                                 placeholder="Select your weapon..."
                                 itemComponent={SelectItem}
                                 data={filteredWeaponOptions}
-                                searchable
                                 maxDropdownHeight={400}
-                                nothingFound="No weapons found."
                                 required
                                 withAsterisk={false}
-                                // clearable
+
+                                searchable
+                                onSearchChange={setSearchValue}
                                 searchValue={searchValue}
+                                nothingFound="No weapons found."
                             />
                         )}
                     </Grid.Col>
@@ -331,8 +333,7 @@ export const MwbPageContent = () => {
             </Form>
         </ManCard>
     )
-
-    function costToolTipElement(rowOriginal: any) {
+    const costToolTipElement = useCallback((rowOriginal: any) => {
         var included = false;
         if (result?.BasePreset?.WeaponMods.some((x) => x.Id === rowOriginal.WeaponMod.Id)) {
             included = true;
@@ -352,21 +353,39 @@ export const MwbPageContent = () => {
 
 
         if (rowOriginal.PurchaseOffer !== null) {
-            const currency = currencyStringToSymbol(rowOriginal.PurchaseOffer.Currency);
-            
-            tooltipContent = (
-                <>
-                    {rowOriginal.PurchaseOffer.Vendor} level {rowOriginal.PurchaseOffer.MinVendorLevel}
-                    <br />
-                    {currency} {rowOriginal.PurchaseOffer.Price.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
-                    <br />
-                    {included === true && (
-                        <>
-                            Comes with preset
-                        </>
-                    )}
-                </>
-            )
+            if (rowOriginal.PurchaseOffer.OfferType !== 3) {
+                const currency = currencyStringToSymbol(rowOriginal.PurchaseOffer.Currency);
+
+                tooltipContent = (
+                    <>
+                        {rowOriginal.PurchaseOffer.Vendor} level {rowOriginal.PurchaseOffer.MinVendorLevel}
+                        <br />
+                        {currency} {rowOriginal.PurchaseOffer.Price.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
+                        <br />
+                        {included === true && (
+                            <>
+                                Comes with preset
+                            </>
+                        )}
+                    </>
+                )
+            }
+            else {
+                tooltipContent = (
+                    <>
+                        {rowOriginal.PurchaseOffer.Vendor} level {rowOriginal.PurchaseOffer.MinVendorLevel}
+                        <br />
+                        Barter of equivalent to: ₽{rowOriginal.PurchaseOffer.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
+                        <br />
+                        {included === true && (
+                            <>
+                                Comes with preset
+                            </>
+                        )}
+                    </>
+                )
+            }
+
         }
 
 
@@ -383,26 +402,28 @@ export const MwbPageContent = () => {
                 overlay={renderTooltip}
             >
                 <span>
-                    {included === false && typeof(temp) === "string"  && (
+                    {included === false && typeof (temp) === "string" && (
                         <>
                             {resultStr}
                         </>
                     )}
-                    {included === true && typeof(temp) === "string" &&  (
+                    {included === true && typeof (temp) === "string" && (
                         <Text>{resultStr}</Text>
                     )}
 
-                    {included === false && typeof(temp) === "number" &&  (
+                    {included === false && typeof (temp) === "number" && (
                         <Text>{resultStr}</Text>
                     )}
-                    {included === true && typeof(temp) === "number" &&  (
+                    {included === true && typeof (temp) === "number" && (
                         <Text td="line-through">{resultStr}</Text>
                     )}
 
                 </span>
             </OverlayTrigger>
         )
-    }
+    }, [result?.BasePreset?.WeaponMods])
+
+
     const [picturesYesNo, setPicturesYesNo] = useState(false);
 
     const columns = useMemo<MRT_ColumnDef<PuchasedModsEntry>[]>(
@@ -484,7 +505,7 @@ export const MwbPageContent = () => {
                 },
             },
         ],
-        [picturesYesNo],
+        [picturesYesNo, costToolTipElement],
     );
 
     //store pagination state in your own state
@@ -547,11 +568,9 @@ export const MwbPageContent = () => {
     let newResultsSection;
 
     if (result !== undefined) {
-        console.log(result)
-
         let RoF = result.BasePreset?.Weapon.bFirerate;
 
-        if(result.BasePreset?.Weapon.weapFireType.length === 1 && result.BasePreset?.Weapon.weapFireType[0].includes("Single")){
+        if (result.BasePreset?.Weapon.weapFireType.length === 1 && result.BasePreset?.Weapon.weapFireType[0].includes("Single")) {
             RoF = result.BasePreset?.Weapon.SingleFireRate;
         }
 
@@ -709,104 +728,108 @@ export const MwbPageContent = () => {
                             <MatCard>
                                 <CardContent>
                                     <table style={{ padding: "5px", width: "100%" }}>
-                                        <tr >
-                                            <th colSpan={2} style={{ textAlign: "center" }} >Market Info / Costs</th>
-                                        </tr>
+                                        <tbody>
+                                            <tr >
+                                                <th colSpan={2} style={{ textAlign: "center" }} >Market Info / Costs</th>
+                                            </tr>
 
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Final Cost:</td>
-                                            <td style={{ textAlign: "right" }}>₽{result.TotalRubleCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Preset Cost:</td>
-                                            <td style={{ textAlign: "right" }}>₽{result.BasePreset?.PurchaseOffer?.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Purchased Mods Cost:</td>
-                                            <td style={{ textAlign: "right" }}>₽{result.PurchasedModsCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Preset Mods Refund:</td>
-                                            <td style={{ textAlign: "right" }}>₽{result.PresetModsRefund.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Trader:</td>
-                                            <td style={{ textAlign: "right" }}>{result.BasePreset?.PurchaseOffer?.Vendor} {result.BasePreset?.PurchaseOffer?.MinVendorLevel}</td>
-                                        </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Final Cost:</td>
+                                                <td style={{ textAlign: "right" }}>₽{result.TotalRubleCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Preset Cost:</td>
+                                                <td style={{ textAlign: "right" }}>₽{result.BasePreset?.PurchaseOffer?.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Purchased Mods Cost:</td>
+                                                <td style={{ textAlign: "right" }}>₽{result.PurchasedModsCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Preset Mods Refund:</td>
+                                                <td style={{ textAlign: "right" }}>₽{result.PresetModsRefund.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Trader:</td>
+                                                <td style={{ textAlign: "right" }}>{result.BasePreset?.PurchaseOffer?.Vendor} {result.BasePreset?.PurchaseOffer?.MinVendorLevel}</td>
+                                            </tr>
+                                        </tbody>
+
                                     </table>
                                 </CardContent>
                             </MatCard>
                             <MatCard sx={{ marginTop: "5px" }}>
                                 <CardContent>
                                     <table style={{ width: "100%" }}>
-                                        <tr >
-                                            <th colSpan={2} style={{ textAlign: "center" }} >Ammo: "{result.PurchasedAmmo.Ammo.Name}"</th>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Rate of Fire:</td>
-                                            <td style={{ textAlign: "center" }}> {RoF}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Damage:</td>
-                                            <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.Damage}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Penetration:</td>
-                                            <td style={{ textAlign: "center" }}> {result.PurchasedAmmo.Ammo.PenetrationPower}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Armor Damage %:</td>
-                                            <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.ArmorDamage}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>EAHP Damage:</td>
-                                            <td style={{ textAlign: "center" }}>{((result.PurchasedAmmo.Ammo.ArmorDamage / 100) * result.PurchasedAmmo.Ammo.PenetrationPower).toFixed(1)}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Frag Chance:</td>
-                                            <td style={{ textAlign: "center" }}>{(result.PurchasedAmmo.Ammo.FragmentationChance * 100).toFixed(0)}%</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Ammo Recoil:</td>
-                                            <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.ammoRec}</td>
-                                        </tr>
-                                        <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                            <td>Trader:</td>
-                                            <td style={{ textAlign: "center" }}>{result.PurchasedAmmo?.PurchaseOffer?.Vendor} {result.PurchasedAmmo?.PurchaseOffer?.MinVendorLevel}</td>
-                                        </tr>
-                                        {result.PurchasedAmmo?.PurchaseOffer?.OfferType === 2 && (
-                                            <>
-                                                <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                                    <td>Cost:</td>
-                                                    <td style={{ textAlign: "center" }}>
-                                                        {currencyStringToSymbol(result.PurchasedAmmo?.PurchaseOffer?.Currency)} {result.PurchasedAmmo?.PurchaseOffer?.Price.toLocaleString("en-US", { maximumFractionDigits: 0 })}
-                                                        {result.PurchasedAmmo?.PurchaseOffer?.Currency !== "RUB" && (
-                                                            <> (₽{result.PurchasedAmmo?.PurchaseOffer?.PriceRUB})</>
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                                <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                                    <td>Mag of 30:</td>
-                                                    <td style={{ textAlign: "center" }}>
-                                                        {currencyStringToSymbol(result.PurchasedAmmo?.PurchaseOffer?.Currency)} {(result.PurchasedAmmo?.PurchaseOffer?.Price * 30).toLocaleString("en-US", { maximumFractionDigits: 0 })}
-                                                        {result.PurchasedAmmo?.PurchaseOffer?.Currency !== "RUB" && (
-                                                            <> (₽{(result.PurchasedAmmo?.PurchaseOffer?.PriceRUB * 30).toLocaleString("en-US", { maximumFractionDigits: 0 })})</>
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        )}
-                                        {result.PurchasedAmmo?.PurchaseOffer?.OfferType === 3 && (
-                                            <>
-                                                <tr style={{ borderBottom: "1px solid #ddd" }}>
-                                                    <td>Barter in RUB equiv:</td>
-                                                    <td style={{ textAlign: "center" }}>
-                                                        <>₽{result.PurchasedAmmo?.PurchaseOffer?.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0 })}</>
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        )}
-
+                                        <tbody>
+                                            <tr >
+                                                <th colSpan={2} style={{ textAlign: "center" }} >Ammo: "{result.PurchasedAmmo.Ammo.Name}"</th>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Rate of Fire:</td>
+                                                <td style={{ textAlign: "center" }}> {RoF}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Damage:</td>
+                                                <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.Damage}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Penetration:</td>
+                                                <td style={{ textAlign: "center" }}> {result.PurchasedAmmo.Ammo.PenetrationPower}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Armor Damage %:</td>
+                                                <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.ArmorDamage}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>EAHP Damage:</td>
+                                                <td style={{ textAlign: "center" }}>{((result.PurchasedAmmo.Ammo.ArmorDamage / 100) * result.PurchasedAmmo.Ammo.PenetrationPower).toFixed(1)}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Frag Chance:</td>
+                                                <td style={{ textAlign: "center" }}>{(result.PurchasedAmmo.Ammo.FragmentationChance * 100).toFixed(0)}%</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Ammo Recoil:</td>
+                                                <td style={{ textAlign: "center" }}>{result.PurchasedAmmo.Ammo.ammoRec}</td>
+                                            </tr>
+                                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                <td>Trader:</td>
+                                                <td style={{ textAlign: "center" }}>{result.PurchasedAmmo?.PurchaseOffer?.Vendor} {result.PurchasedAmmo?.PurchaseOffer?.MinVendorLevel}</td>
+                                            </tr>
+                                            {result.PurchasedAmmo?.PurchaseOffer?.OfferType === 2 && (
+                                                <>
+                                                    <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                        <td>Cost:</td>
+                                                        <td style={{ textAlign: "center" }}>
+                                                            {currencyStringToSymbol(result.PurchasedAmmo?.PurchaseOffer?.Currency)} {result.PurchasedAmmo?.PurchaseOffer?.Price.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                                                            {result.PurchasedAmmo?.PurchaseOffer?.Currency !== "RUB" && (
+                                                                <> (₽{result.PurchasedAmmo?.PurchaseOffer?.PriceRUB})</>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                    <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                        <td>Mag of 30:</td>
+                                                        <td style={{ textAlign: "center" }}>
+                                                            {currencyStringToSymbol(result.PurchasedAmmo?.PurchaseOffer?.Currency)} {(result.PurchasedAmmo?.PurchaseOffer?.Price * 30).toLocaleString("en-US", { maximumFractionDigits: 0 })}
+                                                            {result.PurchasedAmmo?.PurchaseOffer?.Currency !== "RUB" && (
+                                                                <> (₽{(result.PurchasedAmmo?.PurchaseOffer?.PriceRUB * 30).toLocaleString("en-US", { maximumFractionDigits: 0 })})</>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )}
+                                            {result.PurchasedAmmo?.PurchaseOffer?.OfferType === 3 && (
+                                                <>
+                                                    <tr style={{ borderBottom: "1px solid #ddd" }}>
+                                                        <td>Barter in RUB equiv:</td>
+                                                        <td style={{ textAlign: "center" }}>
+                                                            <>₽{result.PurchasedAmmo?.PurchaseOffer?.PriceRUB.toLocaleString("en-US", { maximumFractionDigits: 0 })}</>
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )}
+                                        </tbody>
                                     </table>
                                     <br />
                                     {result.PurchasedAmmo !== undefined && (
@@ -860,40 +883,53 @@ export const MwbPageContent = () => {
                                 //     }
                                 // }}
                                 renderDetailPanel={({ row }) => (
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-around',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <Image
-                                            src={`https://assets.tarkov.dev/${row.original.WeaponMod.Id}-grid-image.webp`}
-                                            alt="avatar"
-                                            height={50}
-                                            maw={200}
-                                            fit="scale-down" />
-                                        <Box sx={{ textAlign: 'center' }}>
+                                    <Grid>
+                                        <Grid.Col span={2}>
+                                            <Image
+                                                src={`https://assets.tarkov.dev/${row.original.WeaponMod.Id}-grid-image.webp`}
+                                                alt="avatar"
+                                                height={50}
+                                                maw={200}
+                                                fit="scale-down" />
+                                        </Grid.Col>
+                                        <Grid.Col span={10}>
                                             {row.original.WeaponMod.Description}
-                                        </Box>
-                                        {/* Disabled until I can work out a better way of doing this */}
-                                        {/* <Box sx={{ textAlign: 'center' }}>
-                                            {row.original.PurchaseOffer !== null &&
-                                                <>
-                                                    {row.original.PurchaseOffer?.Vendor} level {row.original.PurchaseOffer?.MinVendorLevel}
-                                                    <br />
-                                                    {row.original.PurchaseOffer?.Currency ? currencyStringToSymbol(row.original.PurchaseOffer?.Currency) : ""}
-                                                    {' '}
-                                                    {row.original.PurchaseOffer?.Price.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
-                                                </>
-                                            }
-                                            {row.original.PurchaseOffer === null &&
-                                                <>
-                                                    -
-                                                </>
-                                            }
-                                        </Box> */}
-                                    </Box>
+                                        </Grid.Col>
+                                    </Grid>
+                                    // <Box
+                                    //     sx={{
+                                    //         display: 'flex',
+                                    //         justifyContent: 'space-around',
+                                    //         alignItems: 'center',
+                                    //     }}
+                                    // >
+                                    //     <Image
+                                    //         src={`https://assets.tarkov.dev/${row.original.WeaponMod.Id}-grid-image.webp`}
+                                    //         alt="avatar"
+                                    //         height={50}
+                                    //         maw={200}
+                                    //         fit="scale-down" />
+                                    //     <Box sx={{ textAlign: 'center' }}>
+                                    //         {row.original.WeaponMod.Description}
+                                    //     </Box>
+                                    //     {/* Disabled until I can work out a better way of doing this */}
+                                    //     {/* <Box sx={{ textAlign: 'center' }}>
+                                    //         {row.original.PurchaseOffer !== null &&
+                                    //             <>
+                                    //                 {row.original.PurchaseOffer?.Vendor} level {row.original.PurchaseOffer?.MinVendorLevel}
+                                    //                 <br />
+                                    //                 {row.original.PurchaseOffer?.Currency ? currencyStringToSymbol(row.original.PurchaseOffer?.Currency) : ""}
+                                    //                 {' '}
+                                    //                 {row.original.PurchaseOffer?.Price.toLocaleString("en-US", { maximumFractionDigits: 0, minimumFractionDigits: 0 })}
+                                    //             </>
+                                    //         }
+                                    //         {row.original.PurchaseOffer === null &&
+                                    //             <>
+                                    //                 -
+                                    //             </>
+                                    //         }
+                                    //     </Box> */}
+                                    // </Box>
                                 )} />
                         </Grid.Col>
                     </Grid>
