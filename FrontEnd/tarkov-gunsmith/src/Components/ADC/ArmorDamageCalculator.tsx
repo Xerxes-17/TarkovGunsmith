@@ -367,7 +367,8 @@ export default function ArmorDamageCalculator(props: any) {
             }
 
             requestArmorTestSerires_Custom(requestDetails).then(response => {
-                // // console.log(response);
+                // console.log(response);
+                
                 setResultCustom(response);
                 setChartDataCustom(response.hits);
             }).catch(error => {
@@ -1201,7 +1202,7 @@ export default function ArmorDamageCalculator(props: any) {
                                                     name="Durability %"
                                                     yAxisId="left"
                                                     type="linear"
-                                                    dataKey={(row: BallisticHit) => ((row.durabilityBeforeHit / chartData[0].durabilityBeforeHit) * 100).toFixed(0)}
+                                                    dataKey={(row: BallisticHit) => ((row.durabilityBeforeHit / chartDataCustom[0].durabilityBeforeHit) * 100).toFixed(0)}
                                                     stroke="#F76707"
                                                     strokeWidth={2}
                                                 />
