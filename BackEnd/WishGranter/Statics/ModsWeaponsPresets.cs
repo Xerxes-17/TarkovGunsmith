@@ -305,17 +305,19 @@ namespace WishGranter.Statics
 
                 PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
 
-                BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
-
-                //using var db = new Monolit();
-                //db.Attach(PresetForReturned);
-                //db.SaveChanges();
-                if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
+                if(CleanedWeapons.Any(x=>x.Id == id))
                 {
-                    ReturnedPresets.Add(PresetForReturned);
-                    //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
-                }
+                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
+                    //using var db = new Monolit();
+                    //db.Attach(PresetForReturned);
+                    //db.SaveChanges();
+                    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
+                    {
+                        ReturnedPresets.Add(PresetForReturned);
+                        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
+                    }
+                }
             }
 
             // Let's also process the barter offers, if any.
