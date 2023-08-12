@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Stack, Card, Modal, ToggleButton, ToggleButtonGroup, Table, Spinner, Accordion, Container, Tooltip as BSTooltip } from "react-bootstrap";
 import { BallisticHit, NewArmorTestResult, NewCustomTestResult, TransmissionArmorTestResult, TransmissionArmorTestShot, TargetZone } from '../../Context/ArmorTestsContext';
 import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../Context/Requests";
 
@@ -15,6 +15,9 @@ import { LINKS } from '../../Util/links';
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, ComposedChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Flex, Paper, Text } from '@mantine/core';
+import { margin } from '@mui/system';
 
 export default function ArmorDamageCalculator(props: any) {
     const navigate = useNavigate();
@@ -32,21 +35,20 @@ export default function ArmorDamageCalculator(props: any) {
                 Info
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} style={{color:"black"}}>
                 <Modal.Header closeButton>
                     <Modal.Title>Information - ADC</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Currently doesn't include rounds with less than 20 penetration because because I haven't done my own testing with these yet, and at that range either you're doing leg meta and it doesn't matter or you don't know what you're doing.</p>
                     <p>Custom mode allows you to set the stats of the armor and ammo to whatever you want. The defaults are for RatRig vs 7.62x39 PS.</p>
                     <h5>Glossary:</h5>
                     <p><strong>🛡 Armor Class:</strong> How strong your armor can be.</p>
                     <p><strong>⛓ Max Durability:</strong> How tough your armor can be.</p>
-                    <p><strong>⚖ Effective Durability:</strong> Durability divided by the armor material factor, allows you to compare armors of different materials directly.</p>
-                    <p><strong>✒ Penetration:</strong> It's the *pen*, geddit? Hahahah</p>
-                    <p><strong>📐 Armor Damage Percentage:</strong> The percentage of the penetration that is used in the armor damage formula, because flesh damage has nothing to do with it.</p>
-                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits/penetrations (before armor flesh damage mitigation that is).</p>
-                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. 5 means it can be bought on flea market, 6 means found in raid only. <br />Note: the app does not account for barters yet.</p>
+                    <p><strong>⚖ Effective Durability:</strong> Durability divided by the armor material factor, allows you to compare the toughness of armors with different materials directly.</p>
+                    <p><strong>⛏ Penetration:</strong> How well your bullet goes through armor.</p>
+                    <p><strong>📐 Armor Damage Percentage:</strong> The percentage applied to penetration get armor damage, regular damage has nothing to do with it.</p>
+                    <p><strong>💀 Damage:</strong> How much you will unalive someone on hits.</p>
+                    <p><strong>👨‍🔧 Trader level:</strong> The trader level for a cash offer. 5 means it can be bought on flea market, 6 means found in raid only. -1 Means I broke something. <br />Note: the app does not account for barters yet.</p>
 
                 </Modal.Body>
                 <Modal.Footer>
@@ -157,9 +159,10 @@ export default function ArmorDamageCalculator(props: any) {
             armorDurability: (armorDurabilityNum / armorDurabilityMax * 100),
             ammoId: _ammoId,
         }
-        requestArmorTestSerires(requestDetails).then(response => {
+        requestArmorTestSerires(requestDetails).then((response: NewArmorTestResult) => {
             // // console.log(response)
             setResult(response);
+            setChartData(response.ballisticTest.hits);
 
         }).catch(error => {
             alert(`The error was: ${error}`);
@@ -168,6 +171,8 @@ export default function ArmorDamageCalculator(props: any) {
     }
 
     const [result, setResult] = useState<NewArmorTestResult>();
+    const [chartData, setChartData] = useState<BallisticHit[]>([]);
+    const [chartDataCustom, setChartDataCustom] = useState<BallisticHit[]>([]);
 
     // Ammo Stuff
     const [defaultSelection_Ammo, setDefaultSelection_Ammo] = useState<AmmoOption>();
@@ -364,6 +369,7 @@ export default function ArmorDamageCalculator(props: any) {
             requestArmorTestSerires_Custom(requestDetails).then(response => {
                 // // console.log(response);
                 setResultCustom(response);
+                setChartDataCustom(response.hits);
             }).catch(error => {
                 alert(`The error was: ${error}`);
                 // // console.log(error);
@@ -629,7 +635,7 @@ export default function ArmorDamageCalculator(props: any) {
 
                     <Card.Header as="h2" >
                         <Stack direction="horizontal" gap={3}>
-                        Terminal Ballistics Simulator - Custom
+                            Terminal Ballistics Simulator - Custom
                             <div className="ms-auto">
                                 <Stack direction='horizontal' gap={2}>
                                     <Button variant="secondary" onClick={handleDisableCustomCal}>Change mode to Presets</Button>
@@ -848,6 +854,37 @@ export default function ArmorDamageCalculator(props: any) {
         )
     }
 
+    function formatYAxis(value: any, entry: number) {
+        const num = parseFloat(value);
+        if (num < 0) return "0";
+        if (num > 100) return "100";
+        return num.toString();
+    }
+    function statDelta(current: number, previous: number, unit: string = "") {
+
+        const difference = current - previous;
+        const colorVal = difference > 0 ? "#69DB7C" : difference < 0 ? "#FF8787" : ""
+        if (difference !== 0) {
+            return (
+                // <>
+                //      <Text c={color}> </Text>
+                // </>
+                <div style={{ display: 'flex', justifyContent: 'space-between', whiteSpace: 'nowrap' }}>
+                    <span style={{ textAlign: 'left' }}>{current.toFixed(1)}{unit}&nbsp;</span>
+                    <span style={{ textAlign: 'right', color: colorVal }}>Δ: {(difference).toFixed(2)}</span>
+                </div>
+            )
+        }
+        else {
+            return (
+                <>
+                    {current.toFixed(1)}{unit}
+                </>
+            )
+        }
+    }
+
+
     let resultCard;
     if (result !== undefined && customCalculation === false) {
         resultCard = (
@@ -858,7 +895,6 @@ export default function ArmorDamageCalculator(props: any) {
                             <Stack direction="horizontal" gap={3}>
                                 📉 {result.testName} @{rateOfFire}rpm
                                 <div className="ms-auto">
-
                                     <Stack direction='horizontal' gap={2}>
                                         <Button size='sm' variant="outline-info" onClick={handleImageDownload}>Download 📩</Button>
                                         <Button size='sm' variant="outline-info" onClick={handleCopyImage}>Copy 📋</Button>
@@ -871,38 +907,143 @@ export default function ArmorDamageCalculator(props: any) {
                             <Row>
                                 <Col>
                                     <p>
-                                        <strong>Expected shots to kill:</strong> {result.ballisticTest.probableKillShot}<br />
-                                        <strong>Kill confidence at {result.ballisticTest.probableKillShot} shots:</strong> {(result.ballisticTest.hits[result.ballisticTest.probableKillShot - 1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Expected hits to kill:</strong> {result.ballisticTest.probableKillShot}<br />
+                                        <strong>Kill confidence at {result.ballisticTest.probableKillShot} hits:</strong> {(result.ballisticTest.hits[result.ballisticTest.probableKillShot - 1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
                                         <strong>Expected time to kill:</strong> {((60 / rateOfFire) * result.ballisticTest.probableKillShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
-
-                                        {/* Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} */}
+                                        <strong>Armor damage per hit:</strong> {result.ballisticTest.hits[1].durabilityDamageTotalAfterHit.toFixed(2)}
                                     </p>
+                                    <dl>
+                                        <dt>Assumptions:</dt>
+                                        <dd>All hits hit thorax (85hp), or head. (35hp)</dd>
+                                        <dt>Notes:</dt>
+                                        <dd>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</dd>
+                                        <dd>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</dd>
+                                    </dl>
                                 </Col>
-                                <Col xs={8}>
-                                    <ul>
-                                        <li>Assumption: vest or rig, it is assumed to be hitting thorax (85hp) with all shots, for helmets the head. (35hp)</li>
-                                        <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
-                                        <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
-                                    </ul>
+                                <Col md={8} >
+                                    <Paper mb={4}>
+                                        <ResponsiveContainer width={"100%"} height={"100%"} minHeight={350} >
+                                            <ComposedChart
+                                                data={chartData}
+                                                margin={{
+                                                    top: 0,
+                                                    right: -10,
+                                                    left: 10,
+                                                    bottom: 25,
+                                                }}
+                                            >
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis
+                                                    dataKey="hitNum"
+                                                    label={{ value: 'Hit ', position: 'bottom', offset: 0 }}
+                                                />
+                                                <YAxis
+                                                    yAxisId="left"
+                                                    orientation="left"
+                                                    domain={[0, 100]}
+                                                    label={{ value: 'Probability %', position: 'top', angle: -90, offset: -120 }}
+                                                />
+                                                <YAxis
+                                                    yAxisId="right"
+                                                    stroke="#FFD43B"
+                                                    orientation="right"
+                                                    domain={[0, "max"]}
+                                                />
+
+                                                <Tooltip
+                                                    allowEscapeViewBox={{ x: false, y: true }}
+                                                    contentStyle={{ backgroundColor: "#1A1B1E" }}
+                                                    label={{}}
+                                                />
+                                                <Legend
+                                                    layout='horizontal'
+                                                    verticalAlign="top"
+                                                />
+
+                                                <Area
+                                                    name="Cumulative Chance of Kill %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.cumulativeChanceOfKill).toFixed(1)}
+                                                    stroke="#3BC9DB"
+                                                    fill="#1098AD"
+                                                    strokeWidth={2}
+                                                    legendType='square'
+                                                />
+                                                <Area
+                                                    name="Specific Chance of Kill %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.specificChanceOfKill).toFixed(1)}
+                                                    stroke="#82C91E"
+                                                    fill="#5C940D"
+                                                    strokeWidth={2}
+                                                    legendType='square'
+                                                />
+
+                                                <Line
+                                                    name="Durability %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => ((row.durabilityBeforeHit / chartData[0].durabilityBeforeHit) * 100).toFixed(0)}
+                                                    stroke="#F76707"
+                                                    strokeWidth={2}
+                                                />
+
+                                                <Line
+                                                    name="Penetration Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.penetrationDamage).toFixed(0)}
+                                                    stroke="#FFD43B"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Average Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => ((row.penetrationDamage * row.penetrationChance) + (row.bluntDamage * (1 - row.penetrationChance))).toFixed(0)}
+                                                    stroke="#FAB005"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Blunt Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.bluntDamage).toFixed(0)}
+                                                    stroke="#FFD43B"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Penetration %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.penetrationChance * 100).toFixed(0)}
+                                                    stroke="red"
+                                                    strokeWidth={2}
+                                                />
+                                            </ComposedChart>
+                                        </ResponsiveContainer>
+                                    </Paper>
                                 </Col>
                             </Row>
-                            <div style={{ overflow: "auto" }}>
+                            <div style={{ overflow: "auto" }} >
                                 <Table striped bordered hover variant="dark" responsive="sm" >
                                     <thead>
                                         <tr>
-                                            <th>Shot</th>
-                                            <th>Armor Durability</th>
-                                            <th>Durability Percentage</th>
-                                            <th>Done Armor Damage</th>
-                                            <th>Penetration Chance</th>
+                                            <th>Hit</th>
+                                            <th>Armor<br />Durability</th>
+                                            <th>Durability<br />Percentage</th>
+                                            <th>Done Armor<br />Damage</th>
+                                            <th>Penetration<br />Chance</th>
 
-                                            <th>Blunt Damage</th>
-                                            <th>Penetration Damage</th>
-                                            <th>Average Damage</th>
-                                            <th>Avg. HP Remaining</th>
+                                            <th>Blunt<br />Damage</th>
+                                            <th>Penetration<br />Damage</th>
+                                            <th>Average<br />Damage</th>
+                                            <th>Avg. HP<br />Remaining</th>
 
-                                            <th>Cumulative Chance of Kill</th>
-                                            <th>Specific Chance of Kill</th>
+                                            <th>Cumulative<br />Chance of Kill</th>
+                                            <th>Specific<br />Chance of Kill</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -910,18 +1051,42 @@ export default function ArmorDamageCalculator(props: any) {
                                             return (
                                                 <tr>
                                                     <td>{i + 1}</td>
-                                                    <td>{item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{((item.durabilityBeforeHit / result.ballisticTest.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{(item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+                                                    <td>
+                                                        {item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {((item.durabilityBeforeHit / result.ballisticTest.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && (item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })}
+                                                        {i > 0 && statDelta(result.ballisticTest.hits[i].penetrationChance * 100, result.ballisticTest.hits[i - 1].penetrationChance * 100, "%")}
+                                                    </td>
 
-                                                    <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.penetrationDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{((item.bluntDamage*(1-item.penetrationChance)+(item.penetrationDamage*item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>
+                                                        {item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && statDelta(result.ballisticTest.hits[i].penetrationDamage, result.ballisticTest.details.damage, "")}
+                                                        {i > 0 && statDelta(result.ballisticTest.hits[i].penetrationDamage, result.ballisticTest.hits[i - 1].penetrationDamage, "")}
+                                                    </td>
+                                                    <td>
+                                                        {((item.bluntDamage * (1 - item.penetrationChance) + (item.penetrationDamage * item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>
+                                                        {item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
 
-                                                    <td>{item.cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
-                                                    <td>{item.specificChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>
+                                                        {i === 0 && statDelta(result.ballisticTest.hits[i].cumulativeChanceOfKill, result.ballisticTest.hits[i].cumulativeChanceOfKill, "%")}
+                                                        {i > 0 && statDelta(result.ballisticTest.hits[i].cumulativeChanceOfKill, result.ballisticTest.hits[i - 1].cumulativeChanceOfKill, "%")}
+
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && statDelta(result.ballisticTest.hits[i].specificChanceOfKill, result.ballisticTest.hits[i].specificChanceOfKill, "%")}
+                                                        {i > 0 && statDelta(result.ballisticTest.hits[i].specificChanceOfKill, result.ballisticTest.hits[i - 1].specificChanceOfKill, "%")}
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -932,14 +1097,12 @@ export default function ArmorDamageCalculator(props: any) {
                                 This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
                             </Form.Text>
                         </Card.Body>
-
                     </Card>
                 </Col>
             </>
         )
     }
-    else if (customCalculation === true && resultCustom !== undefined)
-    {
+    else if (customCalculation === true && resultCustom !== undefined) {
         resultCard = (
             <>
                 <Col xl>
@@ -962,25 +1125,129 @@ export default function ArmorDamageCalculator(props: any) {
                                 <Col>
                                     <p>
                                         <strong>Target Zone:</strong> {TargetZone[resultCustom.simulationParameters.targetZone]}<br />
-                                        <strong>Expected shots to kill:</strong> {resultCustom.probableKillShot}<br />
-                                        <strong>Kill confidence at {resultCustom.probableKillShot} shots:</strong> {(resultCustom.hits[resultCustom.probableKillShot-1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
+                                        <strong>Expected hits to kill:</strong> {resultCustom.probableKillShot}<br />
+                                        <strong>Kill confidence at {resultCustom.probableKillShot} hits:</strong> {(resultCustom.hits[resultCustom.probableKillShot - 1] as BallisticHit).cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %<br />
                                         <strong>Expected time to kill:</strong> {((60 / rateOfFire) * resultCustom.probableKillShot).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}s<br />
-
-                                        {/* Expected armor damage per shot: {result.armorDamagePerShot.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} */}
+                                        <strong>Armor damage per hit:</strong> {resultCustom.hits[1].durabilityDamageTotalAfterHit.toFixed(2)}
                                     </p>
+                                    <dl>
+                                        <dt>Notes:</dt>
+                                        <dd>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</dd>
+                                        <dd>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</dd>
+                                    </dl>
                                 </Col>
                                 <Col xs={8}>
-                                    <ul>
-                                        <li>Penetration Damage is the damage dealt to the target while accounting for damage mitigation by the armor.</li>
-                                        <li>Average damage = (BluntDMG * (1 - penChance)) + (PenetratingDMG * penChance)</li>
-                                    </ul>
+                                <Paper mb={4}>
+                                        <ResponsiveContainer width={"100%"} height={"100%"} minHeight={350} >
+                                            <ComposedChart
+                                                data={chartDataCustom}
+                                                margin={{
+                                                    top: 0,
+                                                    right: -10,
+                                                    left: 10,
+                                                    bottom: 25,
+                                                }}
+                                            >
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis
+                                                    dataKey="hitNum"
+                                                    label={{ value: 'Hit ', position: 'bottom', offset: 0 }}
+                                                />
+                                                <YAxis
+                                                    yAxisId="left"
+                                                    orientation="left"
+                                                    domain={[0, 100]}
+                                                    label={{ value: 'Probability %', position: 'top', angle: -90, offset: -120 }}
+                                                />
+                                                <YAxis
+                                                    yAxisId="right"
+                                                    stroke="#FFD43B"
+                                                    orientation="right"
+                                                    domain={[0, "max"]}
+                                                />
+
+                                                <Tooltip
+                                                    allowEscapeViewBox={{ x: false, y: true }}
+                                                    contentStyle={{ backgroundColor: "#1A1B1E" }}
+                                                    label={{}}
+                                                />
+                                                <Legend
+                                                    layout='horizontal'
+                                                    verticalAlign="top"
+                                                />
+
+                                                <Area
+                                                    name="Cumulative Chance of Kill %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.cumulativeChanceOfKill).toFixed(1)}
+                                                    stroke="#3BC9DB"
+                                                    fill="#1098AD"
+                                                    strokeWidth={2}
+                                                    legendType='square'
+                                                />
+                                                <Area
+                                                    name="Specific Chance of Kill %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.specificChanceOfKill).toFixed(1)}
+                                                    stroke="#82C91E"
+                                                    fill="#5C940D"
+                                                    strokeWidth={2}
+                                                    legendType='square'
+                                                />
+
+                                                <Line
+                                                    name="Durability %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => ((row.durabilityBeforeHit / chartData[0].durabilityBeforeHit) * 100).toFixed(0)}
+                                                    stroke="#F76707"
+                                                    strokeWidth={2}
+                                                />
+
+                                                <Line
+                                                    name="Penetration Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.penetrationDamage).toFixed(0)}
+                                                    stroke="#FFD43B"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Average Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => ((row.penetrationDamage * row.penetrationChance) + (row.bluntDamage * (1 - row.penetrationChance))).toFixed(0)}
+                                                    stroke="#FAB005"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Blunt Damage"
+                                                    yAxisId="right"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.bluntDamage).toFixed(0)}
+                                                    stroke="#FFD43B"
+                                                    strokeWidth={2}
+                                                />
+                                                <Line
+                                                    name="Penetration %"
+                                                    yAxisId="left"
+                                                    type="linear"
+                                                    dataKey={(row: BallisticHit) => (row.penetrationChance * 100).toFixed(0)}
+                                                    stroke="red"
+                                                    strokeWidth={2}
+                                                />
+                                            </ComposedChart>
+                                        </ResponsiveContainer>
+                                    </Paper>
                                 </Col>
                             </Row>
                             <div style={{ overflow: "auto" }}>
                                 <Table striped bordered hover variant="dark" responsive="sm" >
                                     <thead>
                                         <tr>
-                                            <th>Shot</th>
+                                            <th>Hit</th>
                                             <th>Armor Durability</th>
                                             <th>Durability Percentage</th>
                                             <th>Done Armor Damage</th>
@@ -1000,18 +1267,42 @@ export default function ArmorDamageCalculator(props: any) {
                                             return (
                                                 <tr>
                                                     <td>{i + 1}</td>
-                                                    <td>{item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{((item.durabilityBeforeHit / resultCustom.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{(item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}%</td>
+                                                    <td>
+                                                        {item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {((item.durabilityBeforeHit / resultCustom.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && (item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })}
+                                                        {i > 0 && statDelta(resultCustom.hits[i].penetrationChance * 100, resultCustom.hits[i - 1].penetrationChance * 100, "%")}
+                                                    </td>
 
-                                                    <td>{item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.penetrationDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{((item.bluntDamage*(1-item.penetrationChance)+(item.penetrationDamage*item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
-                                                    <td>{item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>
+                                                        {item.bluntDamage.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && statDelta(resultCustom.hits[i].penetrationDamage, resultCustom.simulationParameters.damage, "")}
+                                                        {i > 0 && statDelta(resultCustom.hits[i].penetrationDamage, resultCustom.hits[i - 1].penetrationDamage, "")}
+                                                    </td>
+                                                    <td>
+                                                        {((item.bluntDamage * (1 - item.penetrationChance) + (item.penetrationDamage * item.penetrationChance))).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
+                                                    <td>
+                                                        {item.averageRemainingHitPoints.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                    </td>
 
-                                                    <td>{item.cumulativeChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
-                                                    <td>{item.specificChanceOfKill.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</td>
+                                                    <td>
+                                                        {i === 0 && statDelta(resultCustom.hits[i].cumulativeChanceOfKill, resultCustom.hits[i].cumulativeChanceOfKill, "%")}
+                                                        {i > 0 && statDelta(resultCustom.hits[i].cumulativeChanceOfKill, resultCustom.hits[i - 1].cumulativeChanceOfKill, "%")}
+
+                                                    </td>
+                                                    <td>
+                                                        {i === 0 && statDelta(resultCustom.hits[i].specificChanceOfKill, resultCustom.hits[i].specificChanceOfKill, "%")}
+                                                        {i > 0 && statDelta(resultCustom.hits[i].specificChanceOfKill, resultCustom.hits[i - 1].specificChanceOfKill, "%")}
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -1021,6 +1312,7 @@ export default function ArmorDamageCalculator(props: any) {
                             <Form.Text>
                                 This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
                             </Form.Text>
+
                         </Card.Body>
 
                     </Card>
