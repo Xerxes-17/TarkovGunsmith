@@ -255,6 +255,18 @@ namespace WishGranter.Statics
             return (int)(maxDurability / armor_destructability);
         }
 
+        public static List<BallisticTest> simulateArmorVsAmmoOverDurabilityRange(ArmorItemStats armorItemStats, BallisticDetails ballisticDetails)
+        {
+            var tests = new List<BallisticTest>();
+            for(int i = armorItemStats.MaxDurability; i > 0 ; i--)
+            {
+                var percentage = (float)i / armorItemStats.MaxDurability * 100;
+                var result = SimulateHitSeries_Presets(armorItemStats, percentage, ballisticDetails);
+                tests.Add(result);
+            }
+            return tests;
+        }
+
         public static double GetDestructabilityFromMaterial(ArmorMaterial armor_material)
         {
             double armor_destructability = -1;

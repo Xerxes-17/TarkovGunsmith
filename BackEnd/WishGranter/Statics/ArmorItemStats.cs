@@ -21,9 +21,13 @@ namespace WishGranter.Statics
         [Required]
         public int MaxDurability { get; set; }
         [Required]
+        public int EffectiveMaxDurability { get; set; }
+        [Required]
         public TargetZone TargetZone { get; set; }
         [Required]
         public string Type { get; set; } = "";
+        [Required]
+        public float Weight { get; set; }
 
         // The input list should be provided by the Armors static class
         public static List<ArmorItemStats> GenerateListOfArmorItems(List<Item> armorList)
@@ -61,8 +65,10 @@ namespace WishGranter.Statics
                     ArmorMaterial = armor.ArmorMaterial,
                     BluntThroughput = armor.BluntThroughput,
                     MaxDurability = armor.MaxDurability,
+                    EffectiveMaxDurability = Ballistics.GetEffectiveDurability(armor.MaxDurability, armor.ArmorMaterial),
                     TargetZone = targetZone,
                     Type = type,
+                    Weight = armor.Weight,
                 };
                 outputList.Add(armorItemStats);
             }
@@ -77,8 +83,10 @@ namespace WishGranter.Statics
                     ArmorMaterial = rig.ArmorMaterial,
                     BluntThroughput = rig.BluntThroughput,
                     MaxDurability = rig.MaxDurability,
+                    EffectiveMaxDurability = Ballistics.GetEffectiveDurability(rig.MaxDurability, rig.ArmorMaterial),
                     TargetZone = TargetZone.Thorax,
-                    Type = "ChestRig"
+                    Type = "ChestRig",
+                    Weight = rig.Weight,
                 };
                 outputList.Add(armorItemStats);
             }

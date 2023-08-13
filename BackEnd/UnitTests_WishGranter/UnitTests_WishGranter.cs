@@ -17,6 +17,50 @@ using System.Text.Json;
 namespace WishGranterTests
 {
     [TestClass]
+    public class Experimental
+    {
+        [TestMethod]
+        public void Test_simulateArmorVsAmmoOverDurabilityRange()
+        {
+            var armorID = "5ca21c6986f77479963115a7";
+            var bulletID = "5656d7c34bdc2d9d198b4587";
+            var distance = 10;
+
+            var armorItem = ArmorItemStats.GetArmorItemStatsByID(armorID);
+            var ballisticDetails = BallisticDetails.GetBallisticDetailsByIdDistance(bulletID, distance);
+
+            var result = Ballistics.simulateArmorVsAmmoOverDurabilityRange(armorItem, ballisticDetails);
+
+            var HTK_over_Dura = result.Select(x => (
+                StartingDurabilityPerc: x.StartingDurabilityPerc,
+                ProbableKillShot: x.ProbableKillShot,
+                SpecificChanceOfKill: x.Hits[x.ProbableKillShot-1].SpecificChanceOfKill,
+                CumulativeChanceOfKill: x.Hits[x.ProbableKillShot-1].CumulativeChanceOfKill
+                )
+            ).ToList();
+
+            var grouped = HTK_over_Dura.GroupBy(t => t.ProbableKillShot).ToList();
+
+            var firstValuesOfGroups = grouped
+                .Select(group => group.First())
+                .ToList();
+
+            // Parse response content into a JObject.
+            var jsonString = JsonConvert.SerializeObject(firstValuesOfGroups.Select(t => new {
+                StartingDurabilityPerc = t.Item1,
+                ProbableKillShot = t.Item2,
+                SpecificChanceOfKill = t.Item3,
+                CumulativeChanceOfKill = t.Item4
+            }), Formatting.Indented);
+
+            // Save the result as a local JSON
+            using StreamWriter writetext = new("simulationResults\\" + "simulateArmorVsAmmoOverDurabilityRange" + ".json"); // This is here as a debug/verify
+            writetext.Write(jsonString);
+            writetext.Close();
+
+        }
+    }
+    [TestClass]
     public class FittingThingTests
     {
 
