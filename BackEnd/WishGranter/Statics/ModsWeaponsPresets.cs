@@ -304,8 +304,9 @@ namespace WishGranter.Statics
                 }
 
                 PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
+                string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
 
-                if(CleanedWeapons.Any(x=>x.Id == id))
+                if(!hackyProhibit.Any(x=> name.Contains(x)))
                 {
                     BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
