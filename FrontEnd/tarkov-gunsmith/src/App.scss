@@ -1,315 +1,315 @@
-.App {
-  text-align: center;
-}
+// .App {
+//   text-align: center;
+// }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+// .App-logo {
+//   height: 40vmin;
+//   pointer-events: none;
+// }
 
-body {
-  position: relative;
-  margin: 0;
-  min-height: 100vh;
-  padding-top: 56px;
-  padding-bottom: 1.5rem;
-  box-sizing: inherit;
+// body {
+//   position: relative;
+//   margin: 0;
+//   min-height: 100vh;
+//   padding-top: 56px;
+//   padding-bottom: 1.5rem;
+//   box-sizing: inherit;
 
-  background-image: linear-gradient(#495b66, #353536);
-  background-position: center;
-  background-size: auto;
-  background-repeat: no-repeat;
-}
+//   background-image: linear-gradient(#495b66, #353536);
+//   background-position: center;
+//   background-size: auto;
+//   background-repeat: no-repeat;
+// }
 
-footer {
-  background: #151516;
-  color: aliceblue;
-  font-size: 14px;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  text-align: center;
-  position: absolute;
-}
+// footer {
+//   background: #151516;
+//   color: aliceblue;
+//   font-size: 14px;
+//   bottom: 0;
+//   right: 0;
+//   left: 0;
+//   text-align: center;
+//   position: absolute;
+// }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.main-app-container {
-  margin-top: 14px;
-  margin-bottom: 34px;
-}
-
-.black-text {
-  color: black;
-}
-
-.dropdown-menu {
-  background-color: #212529;
-  --bs-dropdown-link-hover-bg: #292e33;
-}
-
-// MWB
-.weapon_image {
-  max-width: 160px;
-}
-
-.weapon-stats-box {
-  padding: 5px;
-  background-color: rgba(9, 9, 12, 0.4);
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.hidden-stats-box {
-  padding: 5px;
-  background-color: rgba(70, 78, 100, 0.4);
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.initial-stats-box {
-  padding: 5px;
-  background-color: rgba(100, 87, 70, 0.4);
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.final-stats-box {
-  padding: 5px;
-  background-color: rgba(70, 100, 83, 0.4);
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.ammo-stats-box {
-  padding: 5px;
-  background-color: rgba(9, 9, 12, 0.4);
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.modBoxes {
-  flex-flow: wrap;
-}
-
-.modRowEven {
-  align-items: center;
-  justify-content: center;
-  margin-left: 0px;
-  padding: 2px;
-  padding-bottom: 2px;
-
-  background-color: #575c61;
-
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-.modRowOdd {
-  align-items: center;
-  justify-content: center;
-  margin-left: 0px;
-  padding: 2px;
-  padding-bottom: 2px;
-
-  background-color: #353536;
-
-  border: #353536;
-  border-width: 2px;
-  border-style: dashed;
-}
-
-.mod-text-centered {
-  text-align: center;
-  overflow-wrap: break-word;
-}
-
-.mod_img {
-  max-width: 160px;
-}
-
-// Overwriting default SCSS for accordions
-.accordion {
-  padding: 7px 5px;
-  --bs-accordion-color: none;
-  --bs-accordion-border-color: none;
-  --bs-accordion-bg: none;
-  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-}
-.accordion-button {
-  color: rgba(var(--bs-light-rgb),var(--bs-text-opacity))!important;
-  background-color: #262a2e;
-
-  // padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
-}
-.accordion-button:not(.collapsed) {
-  color: rgba(var(--bs-light-rgb),var(--bs-text-opacity))!important;
-  background-color: #262a2e;
-
-  // padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
-}
-.accordion-button:focus {
-  box-shadow: none;
-}
-.accordion-body {
-  padding: 0px var(--bs-accordion-body-padding-x) var(--bs-accordion-btn-padding-y);
-  background-color: #262a2e;
-}
-
-// @media screen and (max-width: 991px) {
-//   .main-app-container {
-//     margin-top: 34px;
+// @media (prefers-reduced-motion: no-preference) {
+//   .App-logo {
+//     animation: App-logo-spin infinite 20s linear;
 //   }
 // }
-.Mui-TableHeadCell-Content {
-  display: flex;
-  flex-wrap: wrap;
- }
- .Mui-TableHeadCell-Content-Labels {
-  width: -webkit-fill-available;
- }
 
-@media screen and (max-width: 768px) {
-  .main-app-container {
-    // margin-top: 54px;
-    margin-bottom: 54px;
-  }
-}
+// .main-app-container {
+//   margin-top: 14px;
+//   margin-bottom: 34px;
+// }
 
-// https://stackoverflow.com/a/46117607
-.html2canvas-container { width: 3000px !important; height: 3000px !important; }
+// .black-text {
+//   color: black;
+// }
 
-.selectorZIndexBodge{
-  z-index: 30
-}
-@media screen and (max-width: 440px) {
-.mantine-SegmentedControl-label {
-  white-space: normal !important;
-  height: 100% !important;
-}}
+// .dropdown-menu {
+//   background-color: #212529;
+//   --bs-dropdown-link-hover-bg: #292e33;
+// }
 
-.css-8uhtka{
-  white-space: "normal" !important;
-}
+// // MWB
+// .weapon_image {
+//   max-width: 160px;
+// }
+
+// .weapon-stats-box {
+//   padding: 5px;
+//   background-color: rgba(9, 9, 12, 0.4);
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .hidden-stats-box {
+//   padding: 5px;
+//   background-color: rgba(70, 78, 100, 0.4);
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .initial-stats-box {
+//   padding: 5px;
+//   background-color: rgba(100, 87, 70, 0.4);
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .final-stats-box {
+//   padding: 5px;
+//   background-color: rgba(70, 100, 83, 0.4);
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .ammo-stats-box {
+//   padding: 5px;
+//   background-color: rgba(9, 9, 12, 0.4);
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .modBoxes {
+//   flex-flow: wrap;
+// }
+
+// .modRowEven {
+//   align-items: center;
+//   justify-content: center;
+//   margin-left: 0px;
+//   padding: 2px;
+//   padding-bottom: 2px;
+
+//   background-color: #575c61;
+
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+// .modRowOdd {
+//   align-items: center;
+//   justify-content: center;
+//   margin-left: 0px;
+//   padding: 2px;
+//   padding-bottom: 2px;
+
+//   background-color: #353536;
+
+//   border: #353536;
+//   border-width: 2px;
+//   border-style: dashed;
+// }
+
+// .mod-text-centered {
+//   text-align: center;
+//   overflow-wrap: break-word;
+// }
+
+// .mod_img {
+//   max-width: 160px;
+// }
+
+// // Overwriting default SCSS for accordions
+// .accordion {
+//   padding: 7px 5px;
+//   --bs-accordion-color: none;
+//   --bs-accordion-border-color: none;
+//   --bs-accordion-bg: none;
+//   --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+//   --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+// }
+// .accordion-button {
+//   color: rgba(var(--bs-light-rgb),var(--bs-text-opacity))!important;
+//   background-color: #262a2e;
+
+//   // padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+// }
+// .accordion-button:not(.collapsed) {
+//   color: rgba(var(--bs-light-rgb),var(--bs-text-opacity))!important;
+//   background-color: #262a2e;
+
+//   // padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+// }
+// .accordion-button:focus {
+//   box-shadow: none;
+// }
+// .accordion-body {
+//   padding: 0px var(--bs-accordion-body-padding-x) var(--bs-accordion-btn-padding-y);
+//   background-color: #262a2e;
+// }
+
+// // @media screen and (max-width: 991px) {
+// //   .main-app-container {
+// //     margin-top: 34px;
+// //   }
+// // }
+// .Mui-TableHeadCell-Content {
+//   display: flex;
+//   flex-wrap: wrap;
+//  }
+//  .Mui-TableHeadCell-Content-Labels {
+//   width: -webkit-fill-available;
+//  }
+
+// @media screen and (max-width: 768px) {
+//   .main-app-container {
+//     // margin-top: 54px;
+//     margin-bottom: 54px;
+//   }
+// }
+
+// // https://stackoverflow.com/a/46117607
+// .html2canvas-container { width: 3000px !important; height: 3000px !important; }
+
+// .selectorZIndexBodge{
+//   z-index: 30
+// }
+// @media screen and (max-width: 440px) {
+// .mantine-SegmentedControl-label {
+//   white-space: normal !important;
+//   height: 100% !important;
+// }}
+
+// .css-8uhtka{
+//   white-space: "normal" !important;
+// }
 
 
-.special_ul > li + li {
-  margin-top: 3px;
-}
+// .special_ul > li + li {
+//   margin-top: 3px;
+// }
 
-.mb-2 {
-  margin-bottom: 0.5rem!important;
-}
+// .mb-2 {
+//   margin-bottom: 0.5rem!important;
+// }
 
-.my-custom-pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #343a40; /* Dark background color */
-  border-radius: 0.25rem; /* Rounded corners */
-  padding: 0.5rem; /* Padding around the buttons */
-}
+// .my-custom-pagination {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #343a40; /* Dark background color */
+//   border-radius: 0.25rem; /* Rounded corners */
+//   padding: 0.5rem; /* Padding around the buttons */
+// }
 
-.my-custom-pagination .pagination > li:not(:first-child):not(:last-child)::before {
-  display: none;
-  list-style-type: none;
-}
+// .my-custom-pagination .pagination > li:not(:first-child):not(:last-child)::before {
+//   display: none;
+//   list-style-type: none;
+// }
 
-.my-custom-pagination .page-item.first::before {
-  position: relative;
-  margin-right: 5px;
-  margin-top: 6px;
-}
+// .my-custom-pagination .page-item.first::before {
+//   position: relative;
+//   margin-right: 5px;
+//   margin-top: 6px;
+// }
 
-.my-custom-pagination .pagination > li {
-  display: none;
-  list-style-type: none;
-  margin-top: 0 !important;
-}
+// .my-custom-pagination .pagination > li {
+//   display: none;
+//   list-style-type: none;
+//   margin-top: 0 !important;
+// }
 
-li.page-item.disabled::marker {
-  display: none !important;
+// li.page-item.disabled::marker {
+//   display: none !important;
 
-}
-ul.my-custom-pagination.dark {
-  list-style-type: none !important;
+// }
+// ul.my-custom-pagination.dark {
+//   list-style-type: none !important;
 
-}
+// }
 
-.my-custom-pagination .page-link {
-  color: #fff; /* Text color for the buttons */
-  background-color: #343a40; /* Button background color */
-  border: none; /* Remove border */
-  transition: background-color 0.2s ease; /* Add transition on hover */
-  padding-left: 0.5rem; /* Add some padding to the left of the button */
-  padding-right: 0.5rem; /* Add some padding to the right of the button */
-}
+// .my-custom-pagination .page-link {
+//   color: #fff; /* Text color for the buttons */
+//   background-color: #343a40; /* Button background color */
+//   border: none; /* Remove border */
+//   transition: background-color 0.2s ease; /* Add transition on hover */
+//   padding-left: 0.5rem; /* Add some padding to the left of the button */
+//   padding-right: 0.5rem; /* Add some padding to the right of the button */
+// }
 
-.my-custom-pagination .page-link:hover {
-  background-color: #6c757d; /* Button background color on hover */
-}
+// .my-custom-pagination .page-link:hover {
+//   background-color: #6c757d; /* Button background color on hover */
+// }
 
-.my-custom-pagination .page-item.active .page-link {
-  background-color: #6c757d; /* Active button background color */
-  border: none; /* Remove border */
-}
+// .my-custom-pagination .page-item.active .page-link {
+//   background-color: #6c757d; /* Active button background color */
+//   border: none; /* Remove border */
+// }
 
-.my-custom-pagination .page-item.disabled .page-link {
-  opacity: 0.5; /* Set opacity for disabled buttons */
-  pointer-events: none; /* Disable pointer events on disabled buttons */
-}
-.my-custom-pagination .pagination {
-  margin: 0;
-  padding: 0;
-  list-style-type: none; /* Remove the marker for the <li> elements */
-}
-.my-custom-pagination .pagination > li {
-  display: inline-block;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-  list-style-type: none; /* Remove the marker for the <li> elements */
-}
+// .my-custom-pagination .page-item.disabled .page-link {
+//   opacity: 0.5; /* Set opacity for disabled buttons */
+//   pointer-events: none; /* Disable pointer events on disabled buttons */
+// }
+// .my-custom-pagination .pagination {
+//   margin: 0;
+//   padding: 0;
+//   list-style-type: none; /* Remove the marker for the <li> elements */
+// }
+// .my-custom-pagination .pagination > li {
+//   display: inline-block;
+//   margin-right: 0.5rem;
+//   margin-left: 0.5rem;
+//   list-style-type: none; /* Remove the marker for the <li> elements */
+// }
 
 
-/* CSS for the wide view */
-.WideWeaponSummary {
-  display: flex;
-}
+// /* CSS for the wide view */
+// .WideWeaponSummary {
+//   display: flex;
+// }
 
-.NarrowWeaponSummary {
-  display: none;
-}
+// .NarrowWeaponSummary {
+//   display: none;
+// }
 
-/* CSS for the narrow view */
-@media (max-width: 772px) { /* Adjust the breakpoint as needed */
-  .WideWeaponSummary {
-    display: none;
-  }
+// /* CSS for the narrow view */
+// @media (max-width: 772px) { /* Adjust the breakpoint as needed */
+//   .WideWeaponSummary {
+//     display: none;
+//   }
 
-  .NarrowWeaponSummary {
-    display: flex;
-    margin-left: 0;
-    margin-right: 0;
-  }
+//   .NarrowWeaponSummary {
+//     display: flex;
+//     margin-left: 0;
+//     margin-right: 0;
+//   }
 
-  .NarrowWeaponSummary .WideView {
-    display: none;
-  }
-  .MWBresultCard {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .MWBresultCardTitle{
-    margin-left: 10px;
-  }
-}
+//   .NarrowWeaponSummary .WideView {
+//     display: none;
+//   }
+//   .MWBresultCard {
+//     padding-left: 0;
+//     padding-right: 0;
+//   }
+//   .MWBresultCardTitle{
+//     margin-left: 10px;
+//   }
+// }
