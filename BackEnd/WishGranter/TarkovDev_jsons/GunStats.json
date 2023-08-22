@@ -18,8 +18,8 @@
         "properties": {
           "ergonomics": 85,
           "recoilAngle": 85,
-          "recoilVertical": 408,
-          "recoilDispersion": 13,
+          "recoilVertical": 480,
+          "recoilDispersion": 20,
           "convergence": 5
         }
       },
@@ -95,8 +95,8 @@
         "properties": {
           "ergonomics": 80,
           "recoilAngle": 85,
-          "recoilVertical": 387,
-          "recoilDispersion": 13,
+          "recoilVertical": 455,
+          "recoilDispersion": 20,
           "convergence": 5
         }
       },
@@ -161,8 +161,8 @@
         "properties": {
           "ergonomics": 80,
           "recoilAngle": 85,
-          "recoilVertical": 408,
-          "recoilDispersion": 13,
+          "recoilVertical": 480,
+          "recoilDispersion": 20,
           "convergence": 5
         }
       },
@@ -1330,6 +1330,72 @@
           "recoilVertical": 493,
           "recoilDispersion": 25,
           "convergence": 0.7
+        }
+      },
+      {
+        "id": "6410733d5dd49d77bd07847e",
+        "name": "Tokarev AVT-40 7.62x54R automatic rifle",
+        "properties": {
+          "ergonomics": 20,
+          "recoilAngle": 90,
+          "recoilVertical": 175,
+          "recoilDispersion": 20,
+          "convergence": 1.25
+        }
+      },
+      {
+        "id": "643ea5b23db6f9f57107d9fd",
+        "name": "Tokarev SVT-40 7.62x54R rifle",
+        "properties": {
+          "ergonomics": 20,
+          "recoilAngle": 90,
+          "recoilVertical": 175,
+          "recoilDispersion": 20,
+          "convergence": 1.25
+        }
+      },
+      {
+        "id": "64637076203536ad5600c990",
+        "name": "Kalashnikov PKM 7.62x54R machine gun",
+        "properties": {
+          "ergonomics": 35,
+          "recoilAngle": 90,
+          "recoilVertical": 210,
+          "recoilDispersion": 25,
+          "convergence": 1.15
+        }
+      },
+      {
+        "id": "64748cb8de82c85eaf0a273a",
+        "name": "MP-43 12ga sawed-off double-barrel shotgun",
+        "properties": {
+          "ergonomics": 50,
+          "recoilAngle": 90,
+          "recoilVertical": 311,
+          "recoilDispersion": 35,
+          "convergence": 1.2
+        }
+      },
+      {
+        "id": "6499849fc93611967b034949",
+        "name": "Kalashnikov AK-12 5.45x39 assault rifle",
+        "properties": {
+          "ergonomics": 36,
+          "recoilAngle": 90,
+          "recoilVertical": 106,
+          "recoilDispersion": 14,
+          "convergence": 1.65
+        }
+      },
+      {
+        "id": "64ca3d3954fc657e230529cc",
+        "name": "Kalashnikov PKP 7.62x54R infantry machine gun",
+        "properties": {
+          "ergonomics": 35,
+          "recoilAngle": 90,
+          "recoilVertical": 210,
+          "recoilDispersion": 25,
+          "convergence": 1.15
         }
       }
     ]

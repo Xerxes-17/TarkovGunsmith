@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
 import { requestAmmoVsArmor } from "../../Context/Requests";
-import { AmmoOption } from "../ADC/AmmoData";
+import { AmmoOption } from "../../Types/T_Ammo";
 import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -91,7 +91,7 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span><Link to={`${LINKS.DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
+                        <span><Link to={`${LINKS.ADC}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },

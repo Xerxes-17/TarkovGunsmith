@@ -5,7 +5,7 @@ import { Col, Card, Form, Container, Button } from "react-bootstrap"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { API_URL } from "../../Util/util"
-import { ArmorOption } from "../ADC/ArmorData";
+import { ArmorOption } from "../../Types/T_Armor";
 import SelectArmor from "../ADC/SelectArmor";
 import { requestArmorVsAmmo } from "../../Context/Requests";
 import { effectivenessDataRow } from "./DataSheetTypes";
@@ -91,7 +91,7 @@ export default function DataSheetEffectivenessArmor(props: any) {
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span><Link to={`${LINKS.DAMAGE_SIMULATOR}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
+                        <span><Link to={`${LINKS.ADC}/${row.original.armorId}/${row.original.ammoId}`}>{renderedCellValue}</Link></span>
                     </Box>
                 ),
             },

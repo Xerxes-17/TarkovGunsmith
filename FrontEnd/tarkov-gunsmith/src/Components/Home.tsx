@@ -372,7 +372,7 @@ export default function Home(props: any) {
                     </Col>
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
+                            <LinkContainer to={LINKS.ADC}>
                                 <Nav.Link>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>

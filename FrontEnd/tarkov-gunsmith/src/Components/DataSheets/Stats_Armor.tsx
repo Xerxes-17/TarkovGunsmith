@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box } from '@mui/material';
-import { convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
+import { convertEnumValToArmorString, MaterialType } from '../../Types/T_Armor';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";

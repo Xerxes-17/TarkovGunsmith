@@ -13,7 +13,7 @@
     "PriceRUB": 227580,
     "Value": "62973e474bb5ab23071c2a70_-1274706371",
     "Label": "Accuracy International AXMC .338 LM bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/627e14b21713922ded6f2c15-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62973e474bb5ab23071c2a70-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -29,7 +29,7 @@
     "PriceRUB": 45388,
     "Value": "5c10fcb186f774533e5529ab_-439261383",
     "Label": "ADAR 2-15 5.56x45 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5c07c60e0db834002330051f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c10fcb186f774533e5529ab-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -42,10 +42,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 44153,
-    "Value": "5c10fcb186f774533e5529ab_-1881857990",
+    "PriceRUB": 32242,
+    "Value": "5c10fcb186f774533e5529ab_1241820166",
     "Label": "ADAR 2-15 5.56x45 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5c07c60e0db834002330051f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c10fcb186f774533e5529ab-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -61,7 +61,7 @@
     "PriceRUB": 30305,
     "Value": "5ac4ac9486f774181345c3d2_1372165379",
     "Label": "APB 9x18PM silenced machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5abccb7dd8ce87001773e277-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ac9486f774181345c3d2-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -74,10 +74,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 24848,
-    "Value": "5ac4ac9486f774181345c3d2_408740908",
+    "PriceRUB": 33288,
+    "Value": "5ac4ac9486f774181345c3d2_725813425",
     "Label": "APB 9x18PM silenced machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5abccb7dd8ce87001773e277-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ac9486f774181345c3d2-icon.jpg"
   },
   {
     "Ergonomics": 46,
@@ -93,7 +93,7 @@
     "PriceRUB": 144499,
     "Value": "5841482e2459775a050cdda9_6266472",
     "Label": "AS VAL 9x39 special assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57c44b372459772d2b39b8ce-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5841482e2459775a050cdda9-icon.jpg"
   },
   {
     "Ergonomics": 46,
@@ -106,10 +106,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 198817,
-    "Value": "5841482e2459775a050cdda9_1694688687",
+    "PriceRUB": 70579,
+    "Value": "5841482e2459775a050cdda9_1840856232",
     "Label": "AS VAL 9x39 special assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57c44b372459772d2b39b8ce-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5841482e2459775a050cdda9-icon.jpg"
   },
   {
     "Ergonomics": 55,
@@ -122,10 +122,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 73290,
-    "Value": "5d23467086f77443f37fc602_1538725094",
+    "PriceRUB": 70270,
+    "Value": "5d23467086f77443f37fc602_-1910386077",
     "Label": "ASh-12 12.7x55 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5cadfbf7ae92152ac412eeef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d23467086f77443f37fc602-icon.jpg"
   },
   {
     "Ergonomics": 55,
@@ -138,10 +138,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 50657,
-    "Value": "5d23467086f77443f37fc602_1200712360",
+    "PriceRUB": 42437,
+    "Value": "5d23467086f77443f37fc602_1770041567",
     "Label": "ASh-12 12.7x55 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5cadfbf7ae92152ac412eeef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d23467086f77443f37fc602-icon.jpg"
   },
   {
     "Ergonomics": 55,
@@ -154,10 +154,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 70502,
-    "Value": "ash12silenced00000000001_1322070147",
+    "PriceRUB": 53654,
+    "Value": "ash12silenced00000000001_2021279539",
     "Label": "ASh-12 12.7x55 assault rifle Silenced",
-    "ImageLink": "https://assets.tarkov.dev/5cadfbf7ae92152ac412eeef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/ash12silenced00000000001-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -170,10 +170,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 32613,
-    "Value": "5e0340ab86f7745bb7339235_-424979710",
+    "PriceRUB": 34425,
+    "Value": "5e0340ab86f7745bb7339235_-970296260",
     "Label": "B&T MP9 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5e00903ae9dc277128008b87-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0340ab86f7745bb7339235-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -186,10 +186,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 29091,
-    "Value": "5e0340ab86f7745bb7339235_360620905",
+    "PriceRUB": 32281,
+    "Value": "5e0340ab86f7745bb7339235_1533865083",
     "Label": "B&T MP9 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5e00903ae9dc277128008b87-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0340ab86f7745bb7339235-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -202,10 +202,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 26391,
-    "Value": "5e03410186f77469041348ea_81598544",
+    "PriceRUB": 31561,
+    "Value": "5e03410186f77469041348ea_-497311426",
     "Label": "B&T MP9-N 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5de7bd7bfd6b4e6e2276dc25-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e03410186f77469041348ea-icon.jpg"
   },
   {
     "Ergonomics": 42,
@@ -221,7 +221,7 @@
     "PriceRUB": 41740,
     "Value": "62975de85c32d414f8797433_1235218990",
     "Label": "Benelli M3 Super 90 dual-mode 12ga shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/6259b864ebedf17603599e88-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62975de85c32d414f8797433-icon.jpg"
   },
   {
     "Ergonomics": 42,
@@ -234,10 +234,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 48235,
-    "Value": "62975de85c32d414f8797433_1016426382",
+    "PriceRUB": 57654,
+    "Value": "62975de85c32d414f8797433_1912222200",
     "Label": "Benelli M3 Super 90 dual-mode 12ga shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/6259b864ebedf17603599e88-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62975de85c32d414f8797433-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -250,10 +250,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 16191,
-    "Value": "5d3f0bc986f7743cb332abdc_333839627",
+    "PriceRUB": 17091,
+    "Value": "5d3f0bc986f7743cb332abdc_-1210227717",
     "Label": "Beretta M9A3 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5cadc190ae921500103bb3b6-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d3f0bc986f7743cb332abdc-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -266,10 +266,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 14950,
-    "Value": "5d3f0bc986f7743cb332abdc_1198286390",
+    "PriceRUB": 19999,
+    "Value": "5d3f0bc986f7743cb332abdc_957260772",
     "Label": "Beretta M9A3 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5cadc190ae921500103bb3b6-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d3f0bc986f7743cb332abdc-icon.jpg"
   },
   {
     "Ergonomics": 95,
@@ -285,7 +285,7 @@
     "PriceRUB": 8245,
     "Value": "624d7b2881a57812413b7954_683737153",
     "Label": "Chiappa Rhino 200DS 9x19 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/624c2e8614da335f1e034d8c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/624d7b2881a57812413b7954-icon.jpg"
   },
   {
     "Ergonomics": 95,
@@ -298,10 +298,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23750,
-    "Value": "624d7b2881a57812413b7954_312769413",
+    "PriceRUB": 15555,
+    "Value": "624d7b2881a57812413b7954_-2079224581",
     "Label": "Chiappa Rhino 200DS 9x19 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/624c2e8614da335f1e034d8c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/624d7b2881a57812413b7954-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -317,7 +317,7 @@
     "PriceRUB": 14069,
     "Value": "624d7a3691f0160c7324c3f4_-448590049",
     "Label": "Chiappa Rhino 50DS .357 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/61a4c8884f95bc3b2c5dc96f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/624d7a3691f0160c7324c3f4-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -330,10 +330,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 18394,
-    "Value": "624d7a3691f0160c7324c3f4_-938774967",
+    "PriceRUB": 27360,
+    "Value": "624d7a3691f0160c7324c3f4_1110853434",
     "Label": "Chiappa Rhino 50DS .357 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/61a4c8884f95bc3b2c5dc96f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/624d7a3691f0160c7324c3f4-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -349,7 +349,7 @@
     "PriceRUB": 36084,
     "Value": "624d7ae691f0160c7324c402_1972660304",
     "Label": "Chiappa Rhino 50DS .357 revolver Tactical",
-    "ImageLink": "https://assets.tarkov.dev/61a4c8884f95bc3b2c5dc96f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/624d7ae691f0160c7324c402-icon.jpg"
   },
   {
     "Ergonomics": 42,
@@ -365,7 +365,7 @@
     "PriceRUB": 140253,
     "Value": "60b7d76e2a3c79100f1979de_501856867",
     "Label": "CMMG Mk47 Mutant 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/606587252535c57a13424cfd-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60b7d76e2a3c79100f1979de-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -378,10 +378,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 14636,
-    "Value": "5eb2968186f7746d1f1a4fd5_-715472065",
+    "PriceRUB": 15449,
+    "Value": "5eb2968186f7746d1f1a4fd5_1139302828",
     "Label": "Colt M1911A1 .45 ACP pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5e81c3cbac2bb513793cdc75-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5eb2968186f7746d1f1a4fd5-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -394,10 +394,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 16568,
-    "Value": "5eb2968186f7746d1f1a4fd5_1584252238",
+    "PriceRUB": 29998,
+    "Value": "5eb2968186f7746d1f1a4fd5_-613870109",
     "Label": "Colt M1911A1 .45 ACP pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5e81c3cbac2bb513793cdc75-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5eb2968186f7746d1f1a4fd5-icon.jpg"
   },
   {
     "Ergonomics": 78,
@@ -410,10 +410,58 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15564,
-    "Value": "5f6762e964af6a2aa319deeb_-1597533824",
+    "PriceRUB": 28924,
+    "Value": "5f6762e964af6a2aa319deeb_2053672432",
     "Label": "Colt M45A1 .45 ACP pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5f36a0e5fbf956000b716b65-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f6762e964af6a2aa319deeb-icon.jpg"
+  },
+  {
+    "Ergonomics": 48,
+    "RecoilForceUp": 119.0,
+    "RecoilAngle": 90,
+    "RecoilDispersion": 15,
+    "Convergence": 1.5,
+    "AmmoCaliber": "Caliber556x45NATO",
+    "BFirerate": 800,
+    "traderLevel": 2,
+    "requiredPlayerLevel": 14,
+    "OfferType": 2,
+    "PriceRUB": 107918,
+    "Value": "5af08cf886f774223c269184_1344925901",
+    "Label": "Colt M4A1 5.56x45 assault rifle Carbine",
+    "ImageLink": "https://assets.tarkov.dev/5af08cf886f774223c269184-icon.jpg"
+  },
+  {
+    "Ergonomics": 48,
+    "RecoilForceUp": 119.0,
+    "RecoilAngle": 90,
+    "RecoilDispersion": 15,
+    "Convergence": 1.5,
+    "AmmoCaliber": "Caliber556x45NATO",
+    "BFirerate": 800,
+    "traderLevel": 5,
+    "requiredPlayerLevel": 15,
+    "OfferType": 4,
+    "PriceRUB": 100434,
+    "Value": "5af08cf886f774223c269184_-2009417163",
+    "Label": "Colt M4A1 5.56x45 assault rifle Carbine",
+    "ImageLink": "https://assets.tarkov.dev/5af08cf886f774223c269184-icon.jpg"
+  },
+  {
+    "Ergonomics": 48,
+    "RecoilForceUp": 119.0,
+    "RecoilAngle": 90,
+    "RecoilDispersion": 15,
+    "Convergence": 1.5,
+    "AmmoCaliber": "Caliber556x45NATO",
+    "BFirerate": 800,
+    "traderLevel": 1,
+    "requiredPlayerLevel": 1,
+    "OfferType": 3,
+    "PriceRUB": 160796,
+    "Value": "5af08cf886f774223c269184_1700080691",
+    "Label": "Colt M4A1 5.56x45 assault rifle Carbine",
+    "ImageLink": "https://assets.tarkov.dev/5af08cf886f774223c269184-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -426,10 +474,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 158123,
-    "Value": "5bbf1c5a88a45017bb03d7aa_1826727544",
+    "PriceRUB": 116835,
+    "Value": "5bbf1c5a88a45017bb03d7aa_-640669287",
     "Label": "Colt M4A1 5.56x45 assault rifle LVOA",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bbf1c5a88a45017bb03d7aa-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -442,10 +490,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 276716,
-    "Value": "5dd800eae49222636663133b_1348711695",
+    "PriceRUB": 204462,
+    "Value": "5dd800eae49222636663133b_-357664283",
     "Label": "Colt M4A1 5.56x45 assault rifle SAI",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5dd800eae49222636663133b-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -461,7 +509,7 @@
     "PriceRUB": 67809,
     "Value": "5af08cc686f77424a61595f2_1641664145",
     "Label": "Colt M4A1 5.56x45 assault rifle SOPMOD I",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08cc686f77424a61595f2-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -474,10 +522,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 141339,
-    "Value": "5a8ae73886f7747b2e6e1416_122113794",
+    "PriceRUB": 159313,
+    "Value": "5a8ae73886f7747b2e6e1416_-30162901",
     "Label": "Colt M4A1 5.56x45 assault rifle SOPMOD II",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a8ae73886f7747b2e6e1416-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -490,58 +538,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 3,
-    "PriceRUB": 165737,
-    "Value": "m4a1sopmodiiflash0000001_-68766910",
+    "PriceRUB": 148619,
+    "Value": "m4a1sopmodiiflash0000001_-946021377",
     "Label": "Colt M4A1 5.56x45 assault rifle SOPMOD II Flash",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
-  },
-  {
-    "Ergonomics": 48,
-    "RecoilForceUp": 119.0,
-    "RecoilAngle": 90,
-    "RecoilDispersion": 15,
-    "Convergence": 1.5,
-    "AmmoCaliber": "Caliber556x45NATO",
-    "BFirerate": 800,
-    "traderLevel": 2,
-    "requiredPlayerLevel": 14,
-    "OfferType": 2,
-    "PriceRUB": 102239,
-    "Value": "5af08cf886f774223c269184_-1047930089",
-    "Label": "Colt M4A1 5.56x45 assault rifle Standard",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
-  },
-  {
-    "Ergonomics": 48,
-    "RecoilForceUp": 119.0,
-    "RecoilAngle": 90,
-    "RecoilDispersion": 15,
-    "Convergence": 1.5,
-    "AmmoCaliber": "Caliber556x45NATO",
-    "BFirerate": 800,
-    "traderLevel": 5,
-    "requiredPlayerLevel": 15,
-    "OfferType": 4,
-    "PriceRUB": 93791,
-    "Value": "5af08cf886f774223c269184_1977198792",
-    "Label": "Colt M4A1 5.56x45 assault rifle Standard",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
-  },
-  {
-    "Ergonomics": 48,
-    "RecoilForceUp": 119.0,
-    "RecoilAngle": 90,
-    "RecoilDispersion": 15,
-    "Convergence": 1.5,
-    "AmmoCaliber": "Caliber556x45NATO",
-    "BFirerate": 800,
-    "traderLevel": 1,
-    "requiredPlayerLevel": 1,
-    "OfferType": 3,
-    "PriceRUB": 96071,
-    "Value": "5af08cf886f774223c269184_2121702051",
-    "Label": "Colt M4A1 5.56x45 assault rifle Standard",
-    "ImageLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/m4a1sopmodiiflash0000001-icon.jpg"
   },
   {
     "Ergonomics": 72,
@@ -554,10 +554,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 137449,
-    "Value": "5c98bd7386f7740cfb15654e_-192793822",
+    "PriceRUB": 145086,
+    "Value": "5c98bd7386f7740cfb15654e_1500630463",
     "Label": "Desert Tech MDR 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5c488a752e221602b412af63-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98bd7386f7740cfb15654e-icon.jpg"
   },
   {
     "Ergonomics": 72,
@@ -570,10 +570,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 66911,
-    "Value": "5c98bd7386f7740cfb15654e_575140619",
+    "PriceRUB": 111110,
+    "Value": "5c98bd7386f7740cfb15654e_2146422050",
     "Label": "Desert Tech MDR 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5c488a752e221602b412af63-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98bd7386f7740cfb15654e-icon.jpg"
   },
   {
     "Ergonomics": 72,
@@ -586,10 +586,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 193668,
-    "Value": "5e035eb586f774756048ec12_712753931",
+    "PriceRUB": 204428,
+    "Value": "5e035eb586f774756048ec12_509169731",
     "Label": "Desert Tech MDR 7.62x51 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5dcbd56fdbd3d91b3e5468d5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e035eb586f774756048ec12-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -602,10 +602,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 79564,
-    "Value": "5b83f22086f77464e15a1d5f_-923383958",
+    "PriceRUB": 55938,
+    "Value": "5b83f22086f77464e15a1d5f_1329434128",
     "Label": "DS Arms SA-58 7.62x51 assault rifle AUT",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b83f22086f77464e15a1d5f-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -618,10 +618,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 141097,
-    "Value": "5b83f23a86f7746d3d190a73_874315705",
+    "PriceRUB": 148936,
+    "Value": "5b83f23a86f7746d3d190a73_-1033974457",
     "Label": "DS Arms SA-58 7.62x51 assault rifle BEL",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b83f23a86f7746d3d190a73-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -634,10 +634,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 149795,
-    "Value": "5b439b5686f77428bd137424_-1170484416",
+    "PriceRUB": 158116,
+    "Value": "5b439b5686f77428bd137424_-701142169",
     "Label": "DS Arms SA-58 7.62x51 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b439b5686f77428bd137424-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -650,10 +650,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 116657,
-    "Value": "5b439b5686f77428bd137424_-1234995540",
+    "PriceRUB": 76662,
+    "Value": "5b439b5686f77428bd137424_1353276411",
     "Label": "DS Arms SA-58 7.62x51 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b439b5686f77428bd137424-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -666,10 +666,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 40,
     "OfferType": 3,
-    "PriceRUB": 101362,
-    "Value": "5b83f29886f7746d956305a1_34206607",
+    "PriceRUB": 242782,
+    "Value": "5b83f29886f7746d956305a1_1543387082",
     "Label": "DS Arms SA-58 7.62x51 assault rifle PBR",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b83f29886f7746d956305a1-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -682,10 +682,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 221351,
-    "Value": "sa58spr00000000000000001_622336463",
+    "PriceRUB": 244355,
+    "Value": "sa58spr00000000000000001_-721778722",
     "Label": "DS Arms SA-58 7.62x51 assault rifle SPR",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/sa58spr00000000000000001-icon.jpg"
   },
   {
     "Ergonomics": 39,
@@ -698,10 +698,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 147567,
-    "Value": "sa58xfal0000000000000001_1450788645",
+    "PriceRUB": 162903,
+    "Value": "sa58xfal0000000000000001_-495136504",
     "Label": "DS Arms SA-58 7.62x51 assault rifle X-FAL",
-    "ImageLink": "https://assets.tarkov.dev/5b0bbe4e5acfc40dc528a72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/sa58xfal0000000000000001-icon.jpg"
   },
   {
     "Ergonomics": 86,
@@ -714,10 +714,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 35497,
-    "Value": "5d7b845786f7743c1e531da7_-1283540466",
+    "PriceRUB": 37470,
+    "Value": "5d7b845786f7743c1e531da7_-1103338804",
     "Label": "FN Five-seveN MK2 5.7x28 pistol (FDE) Default",
-    "ImageLink": "https://assets.tarkov.dev/5d67abc1a4b93614ec50137f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d7b845786f7743c1e531da7-icon.jpg"
   },
   {
     "Ergonomics": 86,
@@ -730,10 +730,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 25654,
-    "Value": "5d7b845786f7743c1e531da7_-1068854081",
+    "PriceRUB": 29744,
+    "Value": "5d7b845786f7743c1e531da7_-985611277",
     "Label": "FN Five-seveN MK2 5.7x28 pistol (FDE) Default",
-    "ImageLink": "https://assets.tarkov.dev/5d67abc1a4b93614ec50137f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d7b845786f7743c1e531da7-icon.jpg"
   },
   {
     "Ergonomics": 86,
@@ -746,10 +746,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 35497,
-    "Value": "5d51290186f77419093e7c24_1086623464",
+    "PriceRUB": 37470,
+    "Value": "5d51290186f77419093e7c24_-768112399",
     "Label": "FN Five-seveN MK2 5.7x28 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5d3eb3b0a4b93615055e84d2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d51290186f77419093e7c24-icon.jpg"
   },
   {
     "Ergonomics": 86,
@@ -762,10 +762,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 26582,
-    "Value": "5d51290186f77419093e7c24_-1245577973",
+    "PriceRUB": 37350,
+    "Value": "5d51290186f77419093e7c24_-1595811127",
     "Label": "FN Five-seveN MK2 5.7x28 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5d3eb3b0a4b93615055e84d2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d51290186f77419093e7c24-icon.jpg"
   },
   {
     "Ergonomics": 86,
@@ -778,10 +778,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 59646,
-    "Value": "5d51290186f77419093e7c24_-1117746497",
+    "PriceRUB": 67957,
+    "Value": "5d51290186f77419093e7c24_1403614647",
     "Label": "FN Five-seveN MK2 5.7x28 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5d3eb3b0a4b93615055e84d2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d51290186f77419093e7c24-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -794,10 +794,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 237185,
-    "Value": "5d2340e986f77461496241bc_-1859355765",
+    "PriceRUB": 175253,
+    "Value": "5d2340e986f77461496241bc_245018923",
     "Label": "FN P90 5.7x28 submachine gun CWDG",
-    "ImageLink": "https://assets.tarkov.dev/5cc82d76e24e8d00134b4b83-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d2340e986f77461496241bc-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -810,10 +810,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 133043,
-    "Value": "5d23376786f77459bb77d838_-1748167877",
+    "PriceRUB": 140434,
+    "Value": "5d23376786f77459bb77d838_-1811812215",
     "Label": "FN P90 5.7x28 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5cc82d76e24e8d00134b4b83-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d23376786f77459bb77d838-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -826,10 +826,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 88007,
-    "Value": "5d23376786f77459bb77d838_1979164076",
+    "PriceRUB": 67153,
+    "Value": "5d23376786f77459bb77d838_513092971",
     "Label": "FN P90 5.7x28 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5cc82d76e24e8d00134b4b83-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d23376786f77459bb77d838-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -842,10 +842,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 69461,
-    "Value": "5d23404b86f7740d62079098_-1312411679",
+    "PriceRUB": 77747,
+    "Value": "5d23404b86f7740d62079098_-90584889",
     "Label": "FN P90 5.7x28 submachine gun SBR",
-    "ImageLink": "https://assets.tarkov.dev/5cc82d76e24e8d00134b4b83-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d23404b86f7740d62079098-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -861,7 +861,7 @@
     "PriceRUB": 174030,
     "Value": "6193e380069d61205d490dc7_240868142",
     "Label": "FN SCAR-H 7.62x51 assault rifle (FDE) CQC",
-    "ImageLink": "https://assets.tarkov.dev/6165ac306ef05c2ce828ef74-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e380069d61205d490dc7-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -874,10 +874,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 173565,
-    "Value": "6193e4fae693542ea37d11c6_-918325964",
+    "PriceRUB": 183207,
+    "Value": "6193e4fae693542ea37d11c6_-5255715",
     "Label": "FN SCAR-H 7.62x51 assault rifle (FDE) Default",
-    "ImageLink": "https://assets.tarkov.dev/6165ac306ef05c2ce828ef74-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e4fae693542ea37d11c6-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -890,10 +890,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 180827,
-    "Value": "6193e4a46bb904059c382295_-1372591284",
+    "PriceRUB": 190872,
+    "Value": "6193e4a46bb904059c382295_-858458501",
     "Label": "FN SCAR-H 7.62x51 assault rifle LB",
-    "ImageLink": "https://assets.tarkov.dev/6183afd850224f204c1da514-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e4a46bb904059c382295-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -906,10 +906,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 168117,
-    "Value": "6193e4a46bb904059c382295_951559960",
+    "PriceRUB": 178730,
+    "Value": "6193e4a46bb904059c382295_-1780392693",
     "Label": "FN SCAR-H 7.62x51 assault rifle LB",
-    "ImageLink": "https://assets.tarkov.dev/6183afd850224f204c1da514-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e4a46bb904059c382295-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -922,10 +922,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 197654,
-    "Value": "619e61e70459e93c12392ba7_543853300",
+    "PriceRUB": 146044,
+    "Value": "619e61e70459e93c12392ba7_1344708348",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) Contract Wars",
-    "ImageLink": "https://assets.tarkov.dev/618428466ef05c2ce828f218-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619e61e70459e93c12392ba7-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -938,10 +938,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 139336,
-    "Value": "6193e108c1982475fa2a7f16_-762797910",
+    "PriceRUB": 147077,
+    "Value": "6193e108c1982475fa2a7f16_-1887675128",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) CQC",
-    "ImageLink": "https://assets.tarkov.dev/618428466ef05c2ce828f218-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e108c1982475fa2a7f16-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -954,10 +954,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 118500,
-    "Value": "6193e226449ec003d9127fa6_2129253132",
+    "PriceRUB": 125084,
+    "Value": "6193e226449ec003d9127fa6_764690291",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) Default",
-    "ImageLink": "https://assets.tarkov.dev/618428466ef05c2ce828f218-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e226449ec003d9127fa6-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -970,10 +970,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 69063,
-    "Value": "6193e226449ec003d9127fa6_-868179214",
+    "PriceRUB": 106351,
+    "Value": "6193e226449ec003d9127fa6_823981445",
     "Label": "FN SCAR-L 5.56x45 assault rifle (FDE) Default",
-    "ImageLink": "https://assets.tarkov.dev/618428466ef05c2ce828f218-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e226449ec003d9127fa6-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -986,10 +986,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 119009,
-    "Value": "6193e18de693542ea37d11b3_1384550570",
+    "PriceRUB": 125620,
+    "Value": "6193e18de693542ea37d11b3_581877973",
     "Label": "FN SCAR-L 5.56x45 assault rifle LB",
-    "ImageLink": "https://assets.tarkov.dev/6184055050224f204c1da540-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e18de693542ea37d11b3-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -1002,10 +1002,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 69954,
-    "Value": "6193e18de693542ea37d11b3_-2036012661",
+    "PriceRUB": 101025,
+    "Value": "6193e18de693542ea37d11b3_-352649015",
     "Label": "FN SCAR-L 5.56x45 assault rifle LB",
-    "ImageLink": "https://assets.tarkov.dev/6184055050224f204c1da540-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e18de693542ea37d11b3-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1021,7 +1021,7 @@
     "PriceRUB": 15526,
     "Value": "5a88acfb86f77457fd2c0d8f_-221270769",
     "Label": "Glock 17 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88acfb86f77457fd2c0d8f-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1034,10 +1034,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 19089,
-    "Value": "5a88acfb86f77457fd2c0d8f_255708878",
+    "PriceRUB": 19411,
+    "Value": "5a88acfb86f77457fd2c0d8f_-508376005",
     "Label": "Glock 17 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88acfb86f77457fd2c0d8f-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1050,10 +1050,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 79061,
-    "Value": "5a88aed086f77476cd391963_334930713",
+    "PriceRUB": 58417,
+    "Value": "5a88aed086f77476cd391963_-1833412838",
     "Label": "Glock 17 9x19 pistol Fischer",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88aed086f77476cd391963-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1066,10 +1066,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 94274,
-    "Value": "5a88b0f686f77416370eca3e_96004739",
+    "PriceRUB": 48884,
+    "Value": "5a88b0f686f77416370eca3e_-701726330",
     "Label": "Glock 17 9x19 pistol Hex",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88b0f686f77416370eca3e-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1082,10 +1082,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 26663,
-    "Value": "glock17ps900000000000001_-1358398600",
+    "PriceRUB": 34759,
+    "Value": "glock17ps900000000000001_33486226",
     "Label": "Glock 17 9x19 pistol PS9",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/glock17ps900000000000001-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1098,10 +1098,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 47979,
-    "Value": "5a88b1f686f774159949926e_-1619550504",
+    "PriceRUB": 59049,
+    "Value": "5a88b1f686f774159949926e_1151199377",
     "Label": "Glock 17 9x19 pistol Spartan",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88b1f686f774159949926e-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1114,10 +1114,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 60469,
-    "Value": "5a88af5086f77411a871682c_-1014964701",
+    "PriceRUB": 43809,
+    "Value": "5a88af5086f77411a871682c_1193185209",
     "Label": "Glock 17 9x19 pistol Tac 2",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88af5086f77411a871682c-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1130,10 +1130,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 77000,
-    "Value": "5a88ad7b86f77479aa7226af_-349781861",
+    "PriceRUB": 58028,
+    "Value": "5a88ad7b86f77479aa7226af_-822474584",
     "Label": "Glock 17 9x19 pistol Tac 3",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88ad7b86f77479aa7226af-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1146,10 +1146,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 155749,
-    "Value": "5a88ae4a86f77457fd2c0dae_337851206",
+    "PriceRUB": 177469,
+    "Value": "5a88ae4a86f77457fd2c0dae_1370500397",
     "Label": "Glock 17 9x19 pistol Viper",
-    "ImageLink": "https://assets.tarkov.dev/5a7ae0c351dfba0017554310-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a88ae4a86f77457fd2c0dae-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1165,7 +1165,7 @@
     "PriceRUB": 36998,
     "Value": "5b439b1f86f7744fd8059cbe_238219587",
     "Label": "Glock 18C 9x19 machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5b1fa9b25acfc40018633c01-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b439b1f86f7744fd8059cbe-icon.jpg"
   },
   {
     "Ergonomics": 90,
@@ -1178,10 +1178,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34218,
-    "Value": "5b439b1f86f7744fd8059cbe_-1681407166",
+    "PriceRUB": 36424,
+    "Value": "5b439b1f86f7744fd8059cbe_2040172455",
     "Label": "Glock 18C 9x19 machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5b1fa9b25acfc40018633c01-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b439b1f86f7744fd8059cbe-icon.jpg"
   },
   {
     "Ergonomics": 93,
@@ -1197,7 +1197,7 @@
     "PriceRUB": 22023,
     "Value": "6398685ee678457197138035_-253104542",
     "Label": "Glock 19X 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/63088377b5cd696784087147-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6398685ee678457197138035-icon.jpg"
   },
   {
     "Ergonomics": 93,
@@ -1210,10 +1210,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20397,
-    "Value": "6398685ee678457197138035_1262464226",
+    "PriceRUB": 23378,
+    "Value": "6398685ee678457197138035_1052024214",
     "Label": "Glock 19X 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/63088377b5cd696784087147-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6398685ee678457197138035-icon.jpg"
   },
   {
     "Ergonomics": 51,
@@ -1226,10 +1226,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 117095,
-    "Value": "5c0d1e9386f77440120288b7_-1268142733",
+    "PriceRUB": 123600,
+    "Value": "5c0d1e9386f77440120288b7_-339472508",
     "Label": "HK 416A5 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bb2475ed4351e00853264e3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d1e9386f77440120288b7-icon.jpg"
   },
   {
     "Ergonomics": 51,
@@ -1242,10 +1242,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 93172,
-    "Value": "5c0d1e9386f77440120288b7_-1801079516",
+    "PriceRUB": 73870,
+    "Value": "5c0d1e9386f77440120288b7_952322040",
     "Label": "HK 416A5 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bb2475ed4351e00853264e3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d1e9386f77440120288b7-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -1261,7 +1261,7 @@
     "PriceRUB": 297669,
     "Value": "6193e590069d61205d490dd8_1339565724",
     "Label": "HK G28 7.62x51 marksman rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/6176aca650224f204c1da3fb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e590069d61205d490dd8-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -1274,10 +1274,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 3,
-    "PriceRUB": 231640,
-    "Value": "6193e5f3aa34a3034236bdb3_-1454684231",
+    "PriceRUB": 251332,
+    "Value": "6193e5f3aa34a3034236bdb3_1895440086",
     "Label": "HK G28 7.62x51 marksman rifle Patrol",
-    "ImageLink": "https://assets.tarkov.dev/6176aca650224f204c1da3fb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6193e5f3aa34a3034236bdb3-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1290,10 +1290,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 72842,
-    "Value": "629774055c32d414f8797477_903167376",
+    "PriceRUB": 76889,
+    "Value": "629774055c32d414f8797477_-1513831046",
     "Label": "HK G36 5.56x45 assault rifle C",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629774055c32d414f8797477-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1306,10 +1306,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 85363,
-    "Value": "6297738b9f1b474e440c45b5_-28352818",
+    "PriceRUB": 90106,
+    "Value": "6297738b9f1b474e440c45b5_-903518050",
     "Label": "HK G36 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6297738b9f1b474e440c45b5-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1322,10 +1322,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 57072,
-    "Value": "6297738b9f1b474e440c45b5_-2004511980",
+    "PriceRUB": 72548,
+    "Value": "6297738b9f1b474e440c45b5_-19430665",
     "Label": "HK G36 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6297738b9f1b474e440c45b5-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1338,10 +1338,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 75017,
-    "Value": "6297743d005016781231ab76_2024099611",
+    "PriceRUB": 79184,
+    "Value": "6297743d005016781231ab76_-799499642",
     "Label": "HK G36 5.56x45 assault rifle E",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6297743d005016781231ab76-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1354,10 +1354,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 82202,
-    "Value": "629774817d59e26b711f88be_1414926175",
+    "PriceRUB": 86769,
+    "Value": "629774817d59e26b711f88be_570475860",
     "Label": "HK G36 5.56x45 assault rifle E2",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629774817d59e26b711f88be-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -1370,10 +1370,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 68134,
-    "Value": "6297757b2aecda1b350da2a3_-740532747",
+    "PriceRUB": 71919,
+    "Value": "6297757b2aecda1b350da2a3_1659939893",
     "Label": "HK G36 5.56x45 assault rifle KV2",
-    "ImageLink": "https://assets.tarkov.dev/623063e994fc3f7b302a9696-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6297757b2aecda1b350da2a3-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -1386,10 +1386,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 39806,
-    "Value": "59411aa786f7747aeb37f9a5_-154880969",
+    "PriceRUB": 42017,
+    "Value": "59411aa786f7747aeb37f9a5_-2079923812",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
-    "ImageLink": "https://assets.tarkov.dev/5926bb2186f7744b1c6c6e60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59411aa786f7747aeb37f9a5-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -1402,10 +1402,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 36526,
-    "Value": "59411aa786f7747aeb37f9a5_-783882665",
+    "PriceRUB": 43633,
+    "Value": "59411aa786f7747aeb37f9a5_-1074930572",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
-    "ImageLink": "https://assets.tarkov.dev/5926bb2186f7744b1c6c6e60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59411aa786f7747aeb37f9a5-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -1418,10 +1418,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 41126,
-    "Value": "59411aa786f7747aeb37f9a5_-1646203318",
+    "PriceRUB": 58655,
+    "Value": "59411aa786f7747aeb37f9a5_-1436744443",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
-    "ImageLink": "https://assets.tarkov.dev/5926bb2186f7744b1c6c6e60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59411aa786f7747aeb37f9a5-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -1434,10 +1434,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 65824,
-    "Value": "59411abb86f77478f702b5d2_161097307",
+    "PriceRUB": 69481,
+    "Value": "59411abb86f77478f702b5d2_2103060697",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) SD",
-    "ImageLink": "https://assets.tarkov.dev/5926bb2186f7744b1c6c6e60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59411abb86f77478f702b5d2-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -1450,10 +1450,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 115768,
-    "Value": "59411abb86f77478f702b5d2_-451543358",
+    "PriceRUB": 208024,
+    "Value": "59411abb86f77478f702b5d2_2142158463",
     "Label": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) SD",
-    "ImageLink": "https://assets.tarkov.dev/5926bb2186f7744b1c6c6e60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59411abb86f77478f702b5d2-icon.jpg"
   },
   {
     "Ergonomics": 55,
@@ -1466,10 +1466,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 24581,
-    "Value": "5d3f06c886f7743bb5318c6a_-784492476",
+    "PriceRUB": 25946,
+    "Value": "5d3f06c886f7743bb5318c6a_715691753",
     "Label": "HK MP5K 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5d2f0d8048f0356c925bc3b0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d3f06c886f7743bb5318c6a-icon.jpg"
   },
   {
     "Ergonomics": 55,
@@ -1482,10 +1482,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 21116,
-    "Value": "5d3f06c886f7743bb5318c6a_-1039342876",
+    "PriceRUB": 27950,
+    "Value": "5d3f06c886f7743bb5318c6a_-221263431",
     "Label": "HK MP5K 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5d2f0d8048f0356c925bc3b0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d3f06c886f7743bb5318c6a-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -1498,10 +1498,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 80846,
-    "Value": "5bd056fa86f7743aba7658cd_309054048",
+    "PriceRUB": 85337,
+    "Value": "5bd056fa86f7743aba7658cd_1867076184",
     "Label": "HK MP7A1 4.6x30 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5ba26383d4351e00334c93d9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bd056fa86f7743aba7658cd-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -1514,10 +1514,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 57585,
-    "Value": "5bd056fa86f7743aba7658cd_361262336",
+    "PriceRUB": 46478,
+    "Value": "5bd056fa86f7743aba7658cd_-669468612",
     "Label": "HK MP7A1 4.6x30 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5ba26383d4351e00334c93d9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bd056fa86f7743aba7658cd-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -1530,10 +1530,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 208117,
-    "Value": "5bd05f1186f774572f181678_-1169476770",
+    "PriceRUB": 323373,
+    "Value": "5bd05f1186f774572f181678_-77040198",
     "Label": "HK MP7A1 4.6x30 submachine gun SEALS",
-    "ImageLink": "https://assets.tarkov.dev/5ba26383d4351e00334c93d9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bd05f1186f774572f181678-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -1546,10 +1546,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 92269,
-    "Value": "5bdb3ac186f77405f232ad22_-1976830078",
+    "PriceRUB": 45359,
+    "Value": "5bdb3ac186f77405f232ad22_2026689412",
     "Label": "HK MP7A2 4.6x30 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5bd70322209c4d00d7167b8f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bdb3ac186f77405f232ad22-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -1562,10 +1562,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 3,
-    "PriceRUB": 97404,
-    "Value": "5bdb3ac186f77405f232ad22_354767938",
+    "PriceRUB": 56345,
+    "Value": "5bdb3ac186f77405f232ad22_1483037528",
     "Label": "HK MP7A2 4.6x30 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5bd70322209c4d00d7167b8f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bdb3ac186f77405f232ad22-icon.jpg"
   },
   {
     "Ergonomics": 62,
@@ -1578,10 +1578,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 36304,
-    "Value": "5fd2517dbdd50d684f73a474_701490388",
+    "PriceRUB": 38321,
+    "Value": "5fd2517dbdd50d684f73a474_-1875672569",
     "Label": "HK UMP .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3e272f8b6a877a729eac5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd2517dbdd50d684f73a474-icon.jpg"
   },
   {
     "Ergonomics": 62,
@@ -1594,10 +1594,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 40997,
-    "Value": "5fd2517dbdd50d684f73a474_-234189263",
+    "PriceRUB": 70558,
+    "Value": "5fd2517dbdd50d684f73a474_-407047969",
     "Label": "HK UMP .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3e272f8b6a877a729eac5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd2517dbdd50d684f73a474-icon.jpg"
   },
   {
     "Ergonomics": 62,
@@ -1610,10 +1610,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 41126,
-    "Value": "5fd2517dbdd50d684f73a474_-1646203318",
+    "PriceRUB": 58655,
+    "Value": "5fd2517dbdd50d684f73a474_-1436744443",
     "Label": "HK UMP .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3e272f8b6a877a729eac5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd2517dbdd50d684f73a474-icon.jpg"
   },
   {
     "Ergonomics": 62,
@@ -1626,10 +1626,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 77164,
-    "Value": "5fd2517dbdd50d684f73a474_-1977709817",
+    "PriceRUB": 54411,
+    "Value": "5fd2517dbdd50d684f73a474_1739448843",
     "Label": "HK UMP .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3e272f8b6a877a729eac5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd2517dbdd50d684f73a474-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1642,10 +1642,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 25868,
-    "Value": "619d267f36b5be1f3236f9ba_881579534",
+    "PriceRUB": 27305,
+    "Value": "619d267f36b5be1f3236f9ba_-1307721677",
     "Label": "HK USP .45 ACP pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d267f36b5be1f3236f9ba-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1658,10 +1658,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 22273,
-    "Value": "619d267f36b5be1f3236f9ba_-460618089",
+    "PriceRUB": 31731,
+    "Value": "619d267f36b5be1f3236f9ba_-1825384072",
     "Label": "HK USP .45 ACP pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d267f36b5be1f3236f9ba-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1677,7 +1677,7 @@
     "PriceRUB": 34104,
     "Value": "619d272b0f9e4513744e7699_-928963408",
     "Label": "HK USP .45 ACP pistol Elite",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d272b0f9e4513744e7699-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1693,7 +1693,7 @@
     "PriceRUB": 26264,
     "Value": "619d276ca4712949ff3159b9_569536620",
     "Label": "HK USP .45 ACP pistol Expert",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d276ca4712949ff3159b9-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1709,7 +1709,7 @@
     "PriceRUB": 35560,
     "Value": "619d26ccc7791e3af27ae3cd_1041650045",
     "Label": "HK USP .45 ACP pistol Match",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d26ccc7791e3af27ae3cd-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -1722,10 +1722,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 31617,
-    "Value": "619d270836b5be1f3236f9c5_1416222298",
+    "PriceRUB": 33373,
+    "Value": "619d270836b5be1f3236f9c5_343993864",
     "Label": "HK USP .45 ACP pistol Tactical",
-    "ImageLink": "https://assets.tarkov.dev/6193a720f8ee7e52e42109ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619d270836b5be1f3236f9c5-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -1741,7 +1741,7 @@
     "PriceRUB": 42938,
     "Value": "5acf7dd986f774486e1281bf_-1420886177",
     "Label": "Kalashnikov AK-101 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66cb05acfc40198510a10-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7dd986f774486e1281bf-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -1754,10 +1754,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 54514,
-    "Value": "5acf7dd986f774486e1281bf_1731784558",
+    "PriceRUB": 70470,
+    "Value": "5acf7dd986f774486e1281bf_190817913",
     "Label": "Kalashnikov AK-101 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66cb05acfc40198510a10-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7dd986f774486e1281bf-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1773,7 +1773,7 @@
     "PriceRUB": 58119,
     "Value": "5acf7dfc86f774401e19c390_872770979",
     "Label": "Kalashnikov AK-102 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d015acfc400180ae6e4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7dfc86f774401e19c390-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1786,10 +1786,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 38943,
-    "Value": "5acf7dfc86f774401e19c390_-928473919",
+    "PriceRUB": 48369,
+    "Value": "5acf7dfc86f774401e19c390_-1541179906",
     "Label": "Kalashnikov AK-102 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d015acfc400180ae6e4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7dfc86f774401e19c390-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -1805,7 +1805,7 @@
     "PriceRUB": 47826,
     "Value": "5acf7e2b86f7740874790e20_1560108509",
     "Label": "Kalashnikov AK-103 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d2e5acfc43b321d4b53-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e2b86f7740874790e20-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -1818,10 +1818,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 45185,
-    "Value": "5acf7e2b86f7740874790e20_-220479676",
+    "PriceRUB": 62857,
+    "Value": "5acf7e2b86f7740874790e20_-1651641363",
     "Label": "Kalashnikov AK-103 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d2e5acfc43b321d4b53-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e2b86f7740874790e20-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1837,7 +1837,7 @@
     "PriceRUB": 53888,
     "Value": "5acf7e4c86f774499a3f3bdd_955852092",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e4c86f774499a3f3bdd-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1850,10 +1850,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33203,
-    "Value": "5acf7e4c86f774499a3f3bdd_-1074112741",
+    "PriceRUB": 43932,
+    "Value": "5acf7e4c86f774499a3f3bdd_-761468375",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e4c86f774499a3f3bdd-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1866,10 +1866,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 197654,
-    "Value": "618ab04934aa2e47480fba2b_-860469346",
+    "PriceRUB": 146044,
+    "Value": "618ab04934aa2e47480fba2b_754439401",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle RPKT mod.1",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/618ab04934aa2e47480fba2b-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1882,10 +1882,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 364705,
-    "Value": "5dd800bde492226366631317_1503658356",
+    "PriceRUB": 744397,
+    "Value": "5dd800bde492226366631317_9570294",
     "Label": "Kalashnikov AK-104 7.62x39 assault rifle T-SAW",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5dd800bde492226366631317-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1901,7 +1901,7 @@
     "PriceRUB": 44093,
     "Value": "5acf7e7986f774401e19c3a0_1610090827",
     "Label": "Kalashnikov AK-105 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d9b5acfc4001633997a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e7986f774401e19c3a0-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -1914,10 +1914,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34211,
-    "Value": "5acf7e7986f774401e19c3a0_-1716221064",
+    "PriceRUB": 37922,
+    "Value": "5acf7e7986f774401e19c3a0_882631889",
     "Label": "Kalashnikov AK-105 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac66d9b5acfc4001633997a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7e7986f774401e19c3a0-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -1933,7 +1933,7 @@
     "PriceRUB": 34309,
     "Value": "5c0c1ce886f77401c119d014_-564359193",
     "Label": "Kalashnikov AK-74 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bf3e03b0db834001d2c4a9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1ce886f77401c119d014-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -1946,10 +1946,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 35170,
-    "Value": "5c0c1ce886f77401c119d014_1781195470",
+    "PriceRUB": 49999,
+    "Value": "5c0c1ce886f77401c119d014_646244431",
     "Label": "Kalashnikov AK-74 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bf3e03b0db834001d2c4a9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1ce886f77401c119d014-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -1962,10 +1962,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 66521,
-    "Value": "5dd7f8c524e5d7504a4e3077_-2001037221",
+    "PriceRUB": 63817,
+    "Value": "5dd7f8c524e5d7504a4e3077_1704652726",
     "Label": "Kalashnikov AK-74 5.45x39 assault rifle Plum",
-    "ImageLink": "https://assets.tarkov.dev/5bf3e03b0db834001d2c4a9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5dd7f8c524e5d7504a4e3077-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -1981,7 +1981,7 @@
     "PriceRUB": 39037,
     "Value": "5acf7db286f7743a9c7092e3_535376077",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac4cd105acfc40016339859-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7db286f7743a9c7092e3-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -1994,10 +1994,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42277,
-    "Value": "5acf7db286f7743a9c7092e3_1326660659",
+    "PriceRUB": 74187,
+    "Value": "5acf7db286f7743a9c7092e3_761253199",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac4cd105acfc40016339859-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7db286f7743a9c7092e3-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -2010,10 +2010,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 48039,
-    "Value": "5acf7db286f7743a9c7092e3_-1312291420",
+    "PriceRUB": 71059,
+    "Value": "5acf7db286f7743a9c7092e3_-1873091325",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ac4cd105acfc40016339859-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5acf7db286f7743a9c7092e3-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -2026,10 +2026,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 214616,
-    "Value": "5bbf1c1c88a45017144d28c5_2034409368",
+    "PriceRUB": 83051,
+    "Value": "5bbf1c1c88a45017144d28c5_-769431972",
     "Label": "Kalashnikov AK-74M 5.45x39 assault rifle Zenitco",
-    "ImageLink": "https://assets.tarkov.dev/5ac4cd105acfc40016339859-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5bbf1c1c88a45017144d28c5-icon.jpg"
   },
   {
     "Ergonomics": 31,
@@ -2045,7 +2045,7 @@
     "PriceRUB": 35859,
     "Value": "5841474424597759ba49be91_1881271335",
     "Label": "Kalashnikov AK-74N 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5644bd2b4bdc2d3b4c8b4572-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5841474424597759ba49be91-icon.jpg"
   },
   {
     "Ergonomics": 31,
@@ -2058,10 +2058,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 40656,
-    "Value": "5841474424597759ba49be91_-2118078453",
+    "PriceRUB": 48974,
+    "Value": "5841474424597759ba49be91_-13668076",
     "Label": "Kalashnikov AK-74N 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5644bd2b4bdc2d3b4c8b4572-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5841474424597759ba49be91-icon.jpg"
   },
   {
     "Ergonomics": 31,
@@ -2074,10 +2074,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 3,
-    "PriceRUB": 237185,
-    "Value": "59430b9b86f77403c27945fd_2054079660",
+    "PriceRUB": 175253,
+    "Value": "59430b9b86f77403c27945fd_90528235",
     "Label": "Kalashnikov AK-74N 5.45x39 assault rifle Magpul",
-    "ImageLink": "https://assets.tarkov.dev/5644bd2b4bdc2d3b4c8b4572-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59430b9b86f77403c27945fd-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -2093,7 +2093,7 @@
     "PriceRUB": 43069,
     "Value": "59e8d2ab86f77407f03fc9c2_541950193",
     "Label": "Kalashnikov AKM 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/59d6088586f774275f37482f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e8d2ab86f77407f03fc9c2-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -2106,10 +2106,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 94407,
-    "Value": "59e8d2ab86f77407f03fc9c2_777635418",
+    "PriceRUB": 70767,
+    "Value": "59e8d2ab86f77407f03fc9c2_1334653643",
     "Label": "Kalashnikov AKM 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/59d6088586f774275f37482f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e8d2ab86f77407f03fc9c2-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -2122,10 +2122,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 56669,
-    "Value": "59e8d2ab86f77407f03fc9c2_-528731270",
+    "PriceRUB": 57965,
+    "Value": "59e8d2ab86f77407f03fc9c2_-1893978927",
     "Label": "Kalashnikov AKM 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/59d6088586f774275f37482f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e8d2ab86f77407f03fc9c2-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -2141,7 +2141,7 @@
     "PriceRUB": 48193,
     "Value": "5a325c3686f7744273716c5b_-1877731572",
     "Label": "Kalashnikov AKMN 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5a0ec13bfcdbcb00165aa685-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a325c3686f7744273716c5b-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -2154,10 +2154,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 59381,
-    "Value": "5a325c3686f7744273716c5b_-1698546571",
+    "PriceRUB": 90682,
+    "Value": "5a325c3686f7744273716c5b_2084005836",
     "Label": "Kalashnikov AKMN 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5a0ec13bfcdbcb00165aa685-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a325c3686f7744273716c5b-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -2173,7 +2173,7 @@
     "PriceRUB": 41873,
     "Value": "5a327f4a86f774766866140b_51697284",
     "Label": "Kalashnikov AKMS 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/59ff346386f77477562ff5e2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a327f4a86f774766866140b-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -2186,10 +2186,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 37365,
-    "Value": "5a327f4a86f774766866140b_-1179514825",
+    "PriceRUB": 52821,
+    "Value": "5a327f4a86f774766866140b_2010299589",
     "Label": "Kalashnikov AKMS 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/59ff346386f77477562ff5e2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a327f4a86f774766866140b-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -2205,7 +2205,7 @@
     "PriceRUB": 43063,
     "Value": "5ac4ab8886f7747d0f66429a_-1620278521",
     "Label": "Kalashnikov AKMSN 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5abcbc27d8ce8700182eceeb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ab8886f7747d0f66429a-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -2218,10 +2218,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 38881,
-    "Value": "5ac4ab8886f7747d0f66429a_1697243419",
+    "PriceRUB": 40679,
+    "Value": "5ac4ab8886f7747d0f66429a_-1033260500",
     "Label": "Kalashnikov AKMSN 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5abcbc27d8ce8700182eceeb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ab8886f7747d0f66429a-icon.jpg"
   },
   {
     "Ergonomics": 31,
@@ -2234,10 +2234,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 25958,
-    "Value": "5c0c1d2b86f77401c119d01f_-1697693547",
+    "PriceRUB": 37261,
+    "Value": "5c0c1d2b86f77401c119d01f_-2140365247",
     "Label": "Kalashnikov AKS-74 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bf3e0490db83400196199af-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1d2b86f77401c119d01f-icon.jpg"
   },
   {
     "Ergonomics": 32,
@@ -2253,7 +2253,7 @@
     "PriceRUB": 38072,
     "Value": "5ac4abf986f7747d117c67aa_-798946422",
     "Label": "Kalashnikov AKS-74N 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ab8e9fcd8ce870019439434-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4abf986f7747d117c67aa-icon.jpg"
   },
   {
     "Ergonomics": 32,
@@ -2266,10 +2266,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 38169,
-    "Value": "5ac4abf986f7747d117c67aa_-578490833",
+    "PriceRUB": 47800,
+    "Value": "5ac4abf986f7747d117c67aa_-1968233276",
     "Label": "Kalashnikov AKS-74N 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5ab8e9fcd8ce870019439434-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4abf986f7747d117c67aa-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2285,7 +2285,7 @@
     "PriceRUB": 24605,
     "Value": "584147732459775a2b6d9f12_-151748426",
     "Label": "Kalashnikov AKS-74U 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57dc2fa62459775949412633-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147732459775a2b6d9f12-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2298,10 +2298,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42540,
-    "Value": "584147732459775a2b6d9f12_338476178",
+    "PriceRUB": 28778,
+    "Value": "584147732459775a2b6d9f12_-1553918305",
     "Label": "Kalashnikov AKS-74U 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57dc2fa62459775949412633-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147732459775a2b6d9f12-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2317,7 +2317,7 @@
     "PriceRUB": 70827,
     "Value": "584147982459775a6c55e931_1698785601",
     "Label": "Kalashnikov AKS-74UB 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5839a40f24597726f856b511-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147982459775a6c55e931-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2330,10 +2330,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 77891,
-    "Value": "584147982459775a6c55e931_-1142353773",
+    "PriceRUB": 54292,
+    "Value": "584147982459775a6c55e931_-1279936846",
     "Label": "Kalashnikov AKS-74UB 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5839a40f24597726f856b511-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147982459775a6c55e931-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2346,10 +2346,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 102444,
-    "Value": "584147982459775a6c55e931_1688084907",
+    "PriceRUB": 78721,
+    "Value": "584147982459775a6c55e931_-1175348757",
     "Label": "Kalashnikov AKS-74UB 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5839a40f24597726f856b511-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147982459775a6c55e931-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2365,7 +2365,7 @@
     "PriceRUB": 35475,
     "Value": "584147ed2459775a77263501_1359093425",
     "Label": "Kalashnikov AKS-74UN 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/583990e32459771419544dd2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147ed2459775a77263501-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -2378,10 +2378,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33388,
-    "Value": "584147ed2459775a77263501_1547073818",
+    "PriceRUB": 29580,
+    "Value": "584147ed2459775a77263501_-1932931341",
     "Label": "Kalashnikov AKS-74UN 5.45x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/583990e32459771419544dd2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584147ed2459775a77263501-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -2397,7 +2397,7 @@
     "PriceRUB": 55199,
     "Value": "5f676b779ab5ec19f028eaf3_1202829796",
     "Label": "Kel-Tec RFB 7.62x51 rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5f2a9575926fd9352339381f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f676b779ab5ec19f028eaf3-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -2410,10 +2410,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 44255,
-    "Value": "5f676b779ab5ec19f028eaf3_107592431",
+    "PriceRUB": 50542,
+    "Value": "5f676b779ab5ec19f028eaf3_-1573852202",
     "Label": "Kel-Tec RFB 7.62x51 rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5f2a9575926fd9352339381f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f676b779ab5ec19f028eaf3-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -2426,10 +2426,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 55453,
-    "Value": "5f676b779ab5ec19f028eaf3_-1506473695",
+    "PriceRUB": 43999,
+    "Value": "5f676b779ab5ec19f028eaf3_1874147995",
     "Label": "Kel-Tec RFB 7.62x51 rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5f2a9575926fd9352339381f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f676b779ab5ec19f028eaf3-icon.jpg"
   },
   {
     "Ergonomics": 47,
@@ -2442,10 +2442,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 133042,
-    "Value": "5e03511086f7744ccb1fb6cf_1944820202",
+    "PriceRUB": 140433,
+    "Value": "5e03511086f7744ccb1fb6cf_1655891039",
     "Label": "Knight's Armament Company SR-25 7.62x51 marksman rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5df8ce05b11454561e39243b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e03511086f7744ccb1fb6cf-icon.jpg"
   },
   {
     "Ergonomics": 93,
@@ -2461,7 +2461,7 @@
     "PriceRUB": 18137,
     "Value": "60479fb29c15b12b9a480fb0_-2083051953",
     "Label": "Lebedev PL-15 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/602a9740da11d6478d5a06dc-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60479fb29c15b12b9a480fb0-icon.jpg"
   },
   {
     "Ergonomics": 93,
@@ -2474,10 +2474,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20851,
-    "Value": "60479fb29c15b12b9a480fb0_273452819",
+    "PriceRUB": 19037,
+    "Value": "60479fb29c15b12b9a480fb0_-1357615691",
     "Label": "Lebedev PL-15 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/602a9740da11d6478d5a06dc-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60479fb29c15b12b9a480fb0-icon.jpg"
   },
   {
     "Ergonomics": 93,
@@ -2490,10 +2490,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 25328,
-    "Value": "60479fb29c15b12b9a480fb0_323973701",
+    "PriceRUB": 21218,
+    "Value": "60479fb29c15b12b9a480fb0_470926158",
     "Label": "Lebedev PL-15 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/602a9740da11d6478d5a06dc-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60479fb29c15b12b9a480fb0-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -2506,10 +2506,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 38,
     "OfferType": 3,
-    "PriceRUB": 276899,
-    "Value": "59e8d2b386f77445830dd299_-601343542",
+    "PriceRUB": 201695,
+    "Value": "59e8d2b386f77445830dd299_-1767904669",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Saboteur",
-    "ImageLink": "https://assets.tarkov.dev/588892092459774ac91d4b11-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e8d2b386f77445830dd299-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -2525,7 +2525,7 @@
     "PriceRUB": 80243,
     "Value": "58dffc5d86f77407c744a847_1810213321",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Urbana",
-    "ImageLink": "https://assets.tarkov.dev/588892092459774ac91d4b11-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffc5d86f77407c744a847-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -2538,10 +2538,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 109436,
-    "Value": "58dffc5d86f77407c744a847_-1842868800",
+    "PriceRUB": 99169,
+    "Value": "58dffc5d86f77407c744a847_1581540113",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Urbana",
-    "ImageLink": "https://assets.tarkov.dev/588892092459774ac91d4b11-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffc5d86f77407c744a847-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -2554,10 +2554,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 28,
     "OfferType": 3,
-    "PriceRUB": 105857,
-    "Value": "58dffc5d86f77407c744a847_-1998399200",
+    "PriceRUB": 264247,
+    "Value": "58dffc5d86f77407c744a847_1400519638",
     "Label": "Lobaev Arms DVL-10 7.62x51 bolt-action sniper rifle Urbana",
-    "ImageLink": "https://assets.tarkov.dev/588892092459774ac91d4b11-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffc5d86f77407c744a847-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -2570,10 +2570,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 181529,
-    "Value": "5dd8013ff4c3af18c507b10a_-636790870",
+    "PriceRUB": 155689,
+    "Value": "5dd8013ff4c3af18c507b10a_-714270958",
     "Label": "Lone Star TX-15 DML 5.56x45 carbine D-WARRIOR",
-    "ImageLink": "https://assets.tarkov.dev/5d43021ca4b9362eab4b5e25-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5dd8013ff4c3af18c507b10a-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -2589,7 +2589,7 @@
     "PriceRUB": 210101,
     "Value": "5d4d617f86f77449c463d107_280447762",
     "Label": "Lone Star TX-15 DML 5.56x45 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5d43021ca4b9362eab4b5e25-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d4d617f86f77449c463d107-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -2602,10 +2602,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 149206,
-    "Value": "5d4d617f86f77449c463d107_33545836",
+    "PriceRUB": 139529,
+    "Value": "5d4d617f86f77449c463d107_124784243",
     "Label": "Lone Star TX-15 DML 5.56x45 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5d43021ca4b9362eab4b5e25-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d4d617f86f77449c463d107-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -2618,26 +2618,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 123027,
-    "Value": "5841499024597759f825ff3e_-207037194",
+    "PriceRUB": 48749,
+    "Value": "5841499024597759f825ff3e_-1652082085",
     "Label": "Makarov PM (t) 9x18PM pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/579204f224597773d619e051-icon.jpg"
-  },
-  {
-    "Ergonomics": 85,
-    "RecoilForceUp": 408.0,
-    "RecoilAngle": 85,
-    "RecoilDispersion": 13,
-    "Convergence": 5.0,
-    "AmmoCaliber": "Caliber9x18PM",
-    "BFirerate": 30,
-    "traderLevel": 1,
-    "requiredPlayerLevel": 1,
-    "OfferType": 2,
-    "PriceRUB": 6581,
-    "Value": "58414967245977598f1ad391_2070275093",
-    "Label": "Makarov PM 9x18PM pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5448bd6b4bdc2dfc2f8b4569-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5841499024597759f825ff3e-icon.jpg"
   },
   {
     "Ergonomics": 85,
@@ -2650,10 +2634,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 9326,
-    "Value": "58414967245977598f1ad391_221025494",
+    "PriceRUB": 13652,
+    "Value": "58414967245977598f1ad391_-1018084948",
     "Label": "Makarov PM 9x18PM pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5448bd6b4bdc2dfc2f8b4569-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414967245977598f1ad391-icon.jpg"
   },
   {
     "Ergonomics": 85,
@@ -2666,10 +2650,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 58903,
-    "Value": "58414967245977598f1ad391_1040936055",
+    "PriceRUB": 19416,
+    "Value": "58414967245977598f1ad391_-1976530627",
     "Label": "Makarov PM 9x18PM pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5448bd6b4bdc2dfc2f8b4569-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414967245977598f1ad391-icon.jpg"
   },
   {
     "Ergonomics": 29,
@@ -2685,7 +2669,7 @@
     "PriceRUB": 48302,
     "Value": "5c98bf9186f7740cf708c509_-1386231038",
     "Label": "Molot VPO-101 \"Vepr-Hunter\" 7.62x51 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5c501a4d2e221602b412b540-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98bf9186f7740cf708c509-icon.jpg"
   },
   {
     "Ergonomics": 29,
@@ -2698,10 +2682,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 39377,
-    "Value": "5c98bf9186f7740cf708c509_788031971",
+    "PriceRUB": 44623,
+    "Value": "5c98bf9186f7740cf708c509_-2046943384",
     "Label": "Molot VPO-101 \"Vepr-Hunter\" 7.62x51 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/5c501a4d2e221602b412b540-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98bf9186f7740cf708c509-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2717,7 +2701,7 @@
     "PriceRUB": 31198,
     "Value": "59ef24b986f77439987b8762_-517820218",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6152586f77473dc057aa1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef24b986f77439987b8762-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2730,10 +2714,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 28901,
-    "Value": "59ef24b986f77439987b8762_-111012225",
+    "PriceRUB": 33902,
+    "Value": "59ef24b986f77439987b8762_604887416",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6152586f77473dc057aa1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef24b986f77439987b8762-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2746,10 +2730,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 35544,
-    "Value": "59ef24b986f77439987b8762_1147236629",
+    "PriceRUB": 44144,
+    "Value": "59ef24b986f77439987b8762_-1961449150",
     "Label": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6152586f77473dc057aa1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef24b986f77439987b8762-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2765,7 +2749,7 @@
     "PriceRUB": 28378,
     "Value": "59ef247086f77439967a900a_-1580725478",
     "Label": "Molot VPO-209 .366 TKM carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6687d86f77411d949b251-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef247086f77439967a900a-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2781,7 +2765,7 @@
     "PriceRUB": 31217,
     "Value": "59ef247086f77439967a900a_783147131",
     "Label": "Molot VPO-209 .366 TKM carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6687d86f77411d949b251-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef247086f77439967a900a-icon.jpg"
   },
   {
     "Ergonomics": 30,
@@ -2794,10 +2778,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 33888,
-    "Value": "59ef247086f77439967a900a_-303405897",
+    "PriceRUB": 30095,
+    "Value": "59ef247086f77439967a900a_-1942520435",
     "Label": "Molot VPO-209 .366 TKM carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59e6687d86f77411d949b251-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef247086f77439967a900a-icon.jpg"
   },
   {
     "Ergonomics": 41,
@@ -2813,7 +2797,7 @@
     "PriceRUB": 18585,
     "Value": "5e0359bd86f7746b243db876_634958848",
     "Label": "Molot VPO-215 \"Gornostay\" .366 TKM bolt-action rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5de652c31b7e3716273428be-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0359bd86f7746b243db876-icon.jpg"
   },
   {
     "Ergonomics": 41,
@@ -2826,10 +2810,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23333,
-    "Value": "5e0359bd86f7746b243db876_19727092",
+    "PriceRUB": 40185,
+    "Value": "5e0359bd86f7746b243db876_1759546049",
     "Label": "Molot VPO-215 \"Gornostay\" .366 TKM bolt-action rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5de652c31b7e3716273428be-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0359bd86f7746b243db876-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2845,7 +2829,7 @@
     "PriceRUB": 34825,
     "Value": "5c0c1dff86f7744dba7a2892_641630005",
     "Label": "Mosin 7.62x54R bolt-action rifle (Infantry) Carbine",
-    "ImageLink": "https://assets.tarkov.dev/5bfd297f0db834001a669119-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1dff86f7744dba7a2892-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2861,7 +2845,7 @@
     "PriceRUB": 35043,
     "Value": "5c0c1e7486f7744dba7a289b_546479745",
     "Label": "Mosin 7.62x54R bolt-action rifle (Infantry) Default",
-    "ImageLink": "https://assets.tarkov.dev/5bfd297f0db834001a669119-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1e7486f7744dba7a289b-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2874,10 +2858,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 42199,
-    "Value": "5c0c1e7486f7744dba7a289b_1559035537",
+    "PriceRUB": 51129,
+    "Value": "5c0c1e7486f7744dba7a289b_-757841448",
     "Label": "Mosin 7.62x54R bolt-action rifle (Infantry) Default",
-    "ImageLink": "https://assets.tarkov.dev/5bfd297f0db834001a669119-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1e7486f7744dba7a289b-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2893,7 +2877,7 @@
     "PriceRUB": 42203,
     "Value": "5b8683a486f77467f2423114_1746100840",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) Default",
-    "ImageLink": "https://assets.tarkov.dev/5ae08f0a5acfc408fb1398a1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b8683a486f77467f2423114-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2906,10 +2890,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 70000,
-    "Value": "5b8683a486f77467f2423114_-1535244190",
+    "PriceRUB": 170000,
+    "Value": "5b8683a486f77467f2423114_1254112332",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) Default",
-    "ImageLink": "https://assets.tarkov.dev/5ae08f0a5acfc408fb1398a1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b8683a486f77467f2423114-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2922,10 +2906,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 347965,
-    "Value": "5c0c208886f7743e5335d279_1456991381",
+    "PriceRUB": 169869,
+    "Value": "5c0c208886f7743e5335d279_-247544296",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) Obrez M",
-    "ImageLink": "https://assets.tarkov.dev/5ae08f0a5acfc408fb1398a1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c208886f7743e5335d279-icon.jpg"
   },
   {
     "Ergonomics": 17,
@@ -2938,10 +2922,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 226534,
-    "Value": "mosinscopedbarter0000001_-1598682091",
+    "PriceRUB": 210289,
+    "Value": "mosinscopedbarter0000001_-719308951",
     "Label": "Mosin 7.62x54R bolt-action rifle (Sniper) PU 3.5x",
-    "ImageLink": "https://assets.tarkov.dev/5ae08f0a5acfc408fb1398a1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/mosinscopedbarter0000001-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -2954,10 +2938,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 38455,
-    "Value": "5f06d6bb4010601e3232cd22_-2104180049",
+    "PriceRUB": 40592,
+    "Value": "5f06d6bb4010601e3232cd22_1329224471",
     "Label": "Mossberg 590A1 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5e870397991fd70db46995c8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f06d6bb4010601e3232cd22-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -2970,10 +2954,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 41014,
-    "Value": "5f06d6bb4010601e3232cd22_-1897564",
+    "PriceRUB": 52363,
+    "Value": "5f06d6bb4010601e3232cd22_2133208902",
     "Label": "Mossberg 590A1 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5e870397991fd70db46995c8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f06d6bb4010601e3232cd22-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -2989,7 +2973,7 @@
     "PriceRUB": 23869,
     "Value": "584148f2245977598f1ad387_-661200554",
     "Label": "MP-133 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/54491c4f4bdc2db1078b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148f2245977598f1ad387-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -3002,10 +2986,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 44234,
-    "Value": "584148f2245977598f1ad387_85958168",
+    "PriceRUB": 74241,
+    "Value": "584148f2245977598f1ad387_1828388847",
     "Label": "MP-133 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/54491c4f4bdc2db1078b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148f2245977598f1ad387-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -3018,10 +3002,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 21758,
-    "Value": "584148f2245977598f1ad387_-35607098",
+    "PriceRUB": 16177,
+    "Value": "584148f2245977598f1ad387_2146345938",
     "Label": "MP-133 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/54491c4f4bdc2db1078b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148f2245977598f1ad387-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -3034,10 +3018,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 73216,
-    "Value": "5a8ae54786f7743b5e013ba0_-47527943",
+    "PriceRUB": 98209,
+    "Value": "5a8ae54786f7743b5e013ba0_108636248",
     "Label": "MP-133 12ga pump-action shotgun Tactical",
-    "ImageLink": "https://assets.tarkov.dev/54491c4f4bdc2db1078b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a8ae54786f7743b5e013ba0-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -3053,7 +3037,7 @@
     "PriceRUB": 29431,
     "Value": "58414907245977598f1ad38d_1445090356",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/56dee2bdd2720bc8328b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414907245977598f1ad38d-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -3066,10 +3050,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 28888,
-    "Value": "58414907245977598f1ad38d_-1569828355",
+    "PriceRUB": 88888,
+    "Value": "58414907245977598f1ad38d_1105014153",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/56dee2bdd2720bc8328b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414907245977598f1ad38d-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -3082,10 +3066,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 63200,
-    "Value": "58414907245977598f1ad38d_-700214833",
+    "PriceRUB": 49172,
+    "Value": "58414907245977598f1ad38d_-1629723201",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/56dee2bdd2720bc8328b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414907245977598f1ad38d-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -3098,10 +3082,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 62743,
-    "Value": "58414907245977598f1ad38d_775072341",
+    "PriceRUB": 157009,
+    "Value": "58414907245977598f1ad38d_2010946982",
     "Label": "MP-153 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/56dee2bdd2720bc8328b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414907245977598f1ad38d-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -3117,7 +3101,7 @@
     "PriceRUB": 34945,
     "Value": "60b7c28ee53e4c5c8945dd73_31981943",
     "Label": "MP-155 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/606dae0ab0e443224b421bb7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60b7c28ee53e4c5c8945dd73-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -3130,10 +3114,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 31368,
-    "Value": "60b7c28ee53e4c5c8945dd73_-90939995",
+    "PriceRUB": 93221,
+    "Value": "60b7c28ee53e4c5c8945dd73_-1188266144",
     "Label": "MP-155 12ga semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/606dae0ab0e443224b421bb7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60b7c28ee53e4c5c8945dd73-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -3149,7 +3133,7 @@
     "PriceRUB": 16065,
     "Value": "629792f0fd6eda47d6466fe8_996600261",
     "Label": "MP-18 7.62x54R single-shot rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/61f7c9e189e6fb1a5e3ea78d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629792f0fd6eda47d6466fe8-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -3162,10 +3146,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 49833,
-    "Value": "629792f0fd6eda47d6466fe8_-875430242",
+    "PriceRUB": 33333,
+    "Value": "629792f0fd6eda47d6466fe8_251228216",
     "Label": "MP-18 7.62x54R single-shot rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/61f7c9e189e6fb1a5e3ea78d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629792f0fd6eda47d6466fe8-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -3181,7 +3165,7 @@
     "PriceRUB": 8820,
     "Value": "6197d1f3585c515a052ad88f_1423667745",
     "Label": "MP-43-1C 12ga double-barrel shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5580223e4bdc2d1c128b457f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6197d1f3585c515a052ad88f-icon.jpg"
   },
   {
     "Ergonomics": 44,
@@ -3194,10 +3178,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 9999,
-    "Value": "6197d1f3585c515a052ad88f_1806323948",
+    "PriceRUB": 8800,
+    "Value": "6197d1f3585c515a052ad88f_-1331501255",
     "Label": "MP-43-1C 12ga double-barrel shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5580223e4bdc2d1c128b457f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6197d1f3585c515a052ad88f-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -3213,7 +3197,7 @@
     "PriceRUB": 21316,
     "Value": "6198e2ddef80673cae5d1c87_308219294",
     "Label": "MTs-255-12 12ga shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/60db29ce99594040e04c4a27-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6198e2ddef80673cae5d1c87-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -3226,10 +3210,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 172499,
-    "Value": "6198e2ddef80673cae5d1c87_-991251061",
+    "PriceRUB": 11,
+    "Value": "6198e2ddef80673cae5d1c87_-2018173262",
     "Label": "MTs-255-12 12ga shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/60db29ce99594040e04c4a27-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6198e2ddef80673cae5d1c87-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3245,7 +3229,7 @@
     "PriceRUB": 73329,
     "Value": "5e0354f786f77425b53eb6c5_885417741",
     "Label": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5df24cf80dee1b22f862e9bc-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0354f786f77425b53eb6c5-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3258,10 +3242,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 67434,
-    "Value": "5e0354f786f77425b53eb6c5_1151457287",
+    "PriceRUB": 101414,
+    "Value": "5e0354f786f77425b53eb6c5_634321921",
     "Label": "ORSIS T-5000M 7.62x51 bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5df24cf80dee1b22f862e9bc-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e0354f786f77425b53eb6c5-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -3277,7 +3261,7 @@
     "PriceRUB": 21467,
     "Value": "584149452459775992479702_678901312",
     "Label": "PB 9x18PM silenced pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/56e0598dd2720bb5668b45a6-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149452459775992479702-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -3290,10 +3274,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 17850,
-    "Value": "584149452459775992479702_925684643",
+    "PriceRUB": 20822,
+    "Value": "584149452459775992479702_-1371887443",
     "Label": "PB 9x18PM silenced pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/56e0598dd2720bb5668b45a6-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149452459775992479702-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3309,7 +3293,7 @@
     "PriceRUB": 21514,
     "Value": "59b81f7386f77421ac688a0a_963163706",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/59984ab886f7743e98271174-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59b81f7386f77421ac688a0a-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3322,10 +3306,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 23466,
-    "Value": "59b81f7386f77421ac688a0a_-1525340812",
+    "PriceRUB": 40049,
+    "Value": "59b81f7386f77421ac688a0a_-1093482387",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/59984ab886f7743e98271174-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59b81f7386f77421ac688a0a-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3338,10 +3322,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 85247,
-    "Value": "59b81f7386f77421ac688a0a_-1777108398",
+    "PriceRUB": 54995,
+    "Value": "59b81f7386f77421ac688a0a_1124049388",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/59984ab886f7743e98271174-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59b81f7386f77421ac688a0a-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3354,10 +3338,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 91682,
-    "Value": "5a8ae65f86f774377a23ed55_-313409972",
+    "PriceRUB": 78479,
+    "Value": "5a8ae65f86f774377a23ed55_1646683261",
     "Label": "PP-19-01 \"Vityaz\" 9x19 submachine gun Zenit",
-    "ImageLink": "https://assets.tarkov.dev/59984ab886f7743e98271174-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a8ae65f86f774377a23ed55-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3373,7 +3357,7 @@
     "PriceRUB": 23427,
     "Value": "584149ad2459775a7726350e_2031203707",
     "Label": "PP-9 \"Klin\" 9x18PMM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f4c844245977379d5c14d1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ad2459775a7726350e-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3386,10 +3370,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 19589,
-    "Value": "584149ad2459775a7726350e_-1766493645",
+    "PriceRUB": 27003,
+    "Value": "584149ad2459775a7726350e_931434316",
     "Label": "PP-9 \"Klin\" 9x18PMM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f4c844245977379d5c14d1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ad2459775a7726350e-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3402,10 +3386,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 88467,
-    "Value": "584149ad2459775a7726350e_-276301459",
+    "PriceRUB": 148481,
+    "Value": "584149ad2459775a7726350e_482460314",
     "Label": "PP-9 \"Klin\" 9x18PMM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f4c844245977379d5c14d1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ad2459775a7726350e-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3421,7 +3405,7 @@
     "PriceRUB": 21349,
     "Value": "584149c42459775a77263510_611642683",
     "Label": "PP-91 \"Kedr\" 9x18PM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57d14d2524597714373db789-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149c42459775a77263510-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3434,10 +3418,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20595,
-    "Value": "584149c42459775a77263510_326148962",
+    "PriceRUB": 22570,
+    "Value": "584149c42459775a77263510_-1109548524",
     "Label": "PP-91 \"Kedr\" 9x18PM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57d14d2524597714373db789-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149c42459775a77263510-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3453,7 +3437,7 @@
     "PriceRUB": 36154,
     "Value": "584149ea2459775a6c55e940_961932201",
     "Label": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f3c6bd24597738e730fa2f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ea2459775a6c55e940-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3466,10 +3450,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 99999,
-    "Value": "584149ea2459775a6c55e940_1539593793",
+    "PriceRUB": 44165,
+    "Value": "584149ea2459775a6c55e940_1529398466",
     "Label": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f3c6bd24597738e730fa2f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ea2459775a6c55e940-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -3482,10 +3466,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 90791,
-    "Value": "584149ea2459775a6c55e940_737845022",
+    "PriceRUB": 119183,
+    "Value": "584149ea2459775a6c55e940_2005038007",
     "Label": "PP-91-01 \"Kedr-B\" 9x18PM submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/57f3c6bd24597738e730fa2f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149ea2459775a6c55e940-icon.jpg"
   },
   {
     "Ergonomics": 16,
@@ -3501,7 +3485,7 @@
     "PriceRUB": 26599,
     "Value": "5eb2963686f7742d3f5ab0f8_-1504193697",
     "Label": "PPSh-41 7.62x25 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5ea03f7400685063ec28bfa8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5eb2963686f7742d3f5ab0f8-icon.jpg"
   },
   {
     "Ergonomics": 16,
@@ -3514,10 +3498,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34916,
-    "Value": "5eb2963686f7742d3f5ab0f8_-1047322520",
+    "PriceRUB": 40000,
+    "Value": "5eb2963686f7742d3f5ab0f8_-976046181",
     "Label": "PPSh-41 7.62x25 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5ea03f7400685063ec28bfa8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5eb2963686f7742d3f5ab0f8-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3530,10 +3514,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 168521,
-    "Value": "5c0c1dba86f7743e667da897_-1618343166",
+    "PriceRUB": 183002,
+    "Value": "5c0c1dba86f7743e667da897_413930129",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle AAC SD",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1dba86f7743e667da897-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3549,7 +3533,7 @@
     "PriceRUB": 69635,
     "Value": "5d383e1a86f7742a1468ce63_783001310",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle AICS",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d383e1a86f7742a1468ce63-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3565,7 +3549,7 @@
     "PriceRUB": 65377,
     "Value": "5d383ee786f7742a15793860_758947518",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle ARCH",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d383ee786f7742a15793860-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3578,10 +3562,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 51147,
-    "Value": "5c0c1d6586f7743e5335d264_1710129283",
+    "PriceRUB": 53989,
+    "Value": "5c0c1d6586f7743e5335d264_-1806997486",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1d6586f7743e5335d264-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3594,10 +3578,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 46200,
-    "Value": "5c0c1d6586f7743e5335d264_-712469990",
+    "PriceRUB": 59868,
+    "Value": "5c0c1d6586f7743e5335d264_-1575368525",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1d6586f7743e5335d264-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3610,10 +3594,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 36759,
-    "Value": "5c0c1d6586f7743e5335d264_1384657494",
+    "PriceRUB": 39929,
+    "Value": "5c0c1d6586f7743e5335d264_-1013948974",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0c1d6586f7743e5335d264-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3629,7 +3613,7 @@
     "PriceRUB": 104858,
     "Value": "5d38517786f7742a1468cf6a_-48362262",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle MRS",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d38517786f7742a1468cf6a-icon.jpg"
   },
   {
     "Ergonomics": 33,
@@ -3645,7 +3629,7 @@
     "PriceRUB": 72728,
     "Value": "5d383f5d86f7742a15793872_383221408",
     "Label": "Remington Model 700 7.62x51 bolt-action sniper rifle PRO",
-    "ImageLink": "https://assets.tarkov.dev/5bfea6e90db834001b7347f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d383f5d86f7742a15793872-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3658,10 +3642,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 125939,
-    "Value": "5af08d1c86f774223a7aa1b4_-76116973",
+    "PriceRUB": 120143,
+    "Value": "5af08d1c86f774223a7aa1b4_671092033",
     "Label": "Remington Model 870 12ga pump-action shotgun Breacher",
-    "ImageLink": "https://assets.tarkov.dev/5a7828548dc32e5a9c28b516-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08d1c86f774223a7aa1b4-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3677,7 +3661,7 @@
     "PriceRUB": 33923,
     "Value": "5ac4ad7586f7747d14551da3_2031299030",
     "Label": "Remington Model 870 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5a7828548dc32e5a9c28b516-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ad7586f7747d14551da3-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3690,10 +3674,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 25555,
-    "Value": "5ac4ad7586f7747d14551da3_-2030069842",
+    "PriceRUB": 90000,
+    "Value": "5ac4ad7586f7747d14551da3_1737618120",
     "Label": "Remington Model 870 12ga pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5a7828548dc32e5a9c28b516-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ad7586f7747d14551da3-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -3706,10 +3690,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 178875,
-    "Value": "5a3a85af86f774745637d46c_343368525",
+    "PriceRUB": 188813,
+    "Value": "5a3a85af86f774745637d46c_-1706396364",
     "Label": "Remington R11 RSASS 7.62x51 marksman rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5a367e5dc4a282000e49738f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a3a85af86f774745637d46c-icon.jpg"
   },
   {
     "Ergonomics": 41,
@@ -3725,7 +3709,7 @@
     "PriceRUB": 114619,
     "Value": "62972a7d91492d1a34152fbe_-714276105",
     "Label": "Rifle Dynamics RD-704 7.62x39 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/628a60ae6b1d481ff772e9c8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62972a7d91492d1a34152fbe-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3741,7 +3725,7 @@
     "PriceRUB": 68452,
     "Value": "5c0d1ec986f77439512a1a72_-1905075254",
     "Label": "RPK-16 5.45x39 light machine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5beed0f50db834001c062b12-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d1ec986f77439512a1a72-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3754,10 +3738,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 85282,
-    "Value": "5c0d1ec986f77439512a1a72_-324918248",
+    "PriceRUB": 63478,
+    "Value": "5c0d1ec986f77439512a1a72_1828718280",
     "Label": "RPK-16 5.45x39 light machine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5beed0f50db834001c062b12-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d1ec986f77439512a1a72-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3770,10 +3754,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 177891,
-    "Value": "5c0d1ec986f77439512a1a72_-250975756",
+    "PriceRUB": 100085,
+    "Value": "5c0d1ec986f77439512a1a72_-2094218325",
     "Label": "RPK-16 5.45x39 light machine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5beed0f50db834001c062b12-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d1ec986f77439512a1a72-icon.jpg"
   },
   {
     "Ergonomics": 45,
@@ -3786,10 +3770,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 131309,
-    "Value": "rpk16drum000000000000001_-560347256",
+    "PriceRUB": 80562,
+    "Value": "rpk16drum000000000000001_221759977",
     "Label": "RPK-16 5.45x39 light machine gun Drum",
-    "ImageLink": "https://assets.tarkov.dev/5beed0f50db834001c062b12-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/rpk16drum000000000000001-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -3802,10 +3786,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 89411,
-    "Value": "639868a207a3eb0207197bb5_791524511",
+    "PriceRUB": 62626,
+    "Value": "639868a207a3eb0207197bb5_-2106740249",
     "Label": "RSh-12 12.7x55 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/633ec7c2a6918cb895019c6c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/639868a207a3eb0207197bb5-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -3818,10 +3802,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 128330,
-    "Value": "639868a207a3eb0207197bb5_-2050173642",
+    "PriceRUB": 120223,
+    "Value": "639868a207a3eb0207197bb5_2132764773",
     "Label": "RSh-12 12.7x55 revolver Default",
-    "ImageLink": "https://assets.tarkov.dev/633ec7c2a6918cb895019c6c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/639868a207a3eb0207197bb5-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -3837,7 +3821,7 @@
     "PriceRUB": 72055,
     "Value": "62971cf67af74c3ff577954b_1350399177",
     "Label": "SAG AK-545 5.45x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/628b5638ad252a16da6dd245-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62971cf67af74c3ff577954b-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -3850,10 +3834,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 58202,
-    "Value": "62971cf67af74c3ff577954b_-1045670792",
+    "PriceRUB": 69258,
+    "Value": "62971cf67af74c3ff577954b_-1708047823",
     "Label": "SAG AK-545 5.45x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/628b5638ad252a16da6dd245-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62971cf67af74c3ff577954b-icon.jpg"
   },
   {
     "Ergonomics": 53,
@@ -3869,7 +3853,7 @@
     "PriceRUB": 81792,
     "Value": "629711787af74c3ff577951d_-143639603",
     "Label": "SAG AK-545 Short 5.45x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/628b9c37a733087d0d7fe84b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629711787af74c3ff577951d-icon.jpg"
   },
   {
     "Ergonomics": 53,
@@ -3882,10 +3866,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 60471,
-    "Value": "629711787af74c3ff577951d_-1728866505",
+    "PriceRUB": 67621,
+    "Value": "629711787af74c3ff577951d_-1673282526",
     "Label": "SAG AK-545 Short 5.45x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/628b9c37a733087d0d7fe84b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629711787af74c3ff577951d-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3901,7 +3885,7 @@
     "PriceRUB": 25572,
     "Value": "58414a052459775a2b6d9f1e_-678479835",
     "Label": "Saiga 12ga ver.10 12/76 semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/576165642459773c7a400233-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a052459775a2b6d9f1e-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3914,10 +3898,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 90280,
-    "Value": "58414a052459775a2b6d9f1e_-1744340781",
+    "PriceRUB": 37636,
+    "Value": "58414a052459775a2b6d9f1e_-647007906",
     "Label": "Saiga 12ga ver.10 12/76 semi-automatic shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/576165642459773c7a400233-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a052459775a2b6d9f1e-icon.jpg"
   },
   {
     "Ergonomics": 35,
@@ -3930,10 +3914,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 22,
     "OfferType": 3,
-    "PriceRUB": 868359,
-    "Value": "5ddbbeac582ed30a6134e577_-210506225",
+    "PriceRUB": 1069349,
+    "Value": "5ddbbeac582ed30a6134e577_744409599",
     "Label": "Saiga 12ga ver.10 12/76 semi-automatic shotgun NERFGUN",
-    "ImageLink": "https://assets.tarkov.dev/576165642459773c7a400233-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ddbbeac582ed30a6134e577-icon.jpg"
   },
   {
     "Ergonomics": 32,
@@ -3949,7 +3933,7 @@
     "PriceRUB": 16198,
     "Value": "5a13df5286f774032f5454a0_1271030313",
     "Label": "Saiga-9 9x19 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59f9cabd86f7743a10721f46-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a13df5286f774032f5454a0-icon.jpg"
   },
   {
     "Ergonomics": 32,
@@ -3962,10 +3946,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 15489,
-    "Value": "5a13df5286f774032f5454a0_-1191699912",
+    "PriceRUB": 28518,
+    "Value": "5a13df5286f774032f5454a0_-771965355",
     "Label": "Saiga-9 9x19 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/59f9cabd86f7743a10721f46-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a13df5286f774032f5454a0-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -3981,7 +3965,7 @@
     "PriceRUB": 22670,
     "Value": "5a327f6386f77479010da870_1331223238",
     "Label": "Serdyukov SR-1MP Gyurza 9x21 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/59f98b4986f7746f546d2cef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a327f6386f77479010da870-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -3994,10 +3978,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20183,
-    "Value": "5a327f6386f77479010da870_-1337283746",
+    "PriceRUB": 27799,
+    "Value": "5a327f6386f77479010da870_-1517519761",
     "Label": "Serdyukov SR-1MP Gyurza 9x21 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/59f98b4986f7746f546d2cef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a327f6386f77479010da870-icon.jpg"
   },
   {
     "Ergonomics": 82,
@@ -4010,10 +3994,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 37985,
-    "Value": "5a327f6386f77479010da870_1136947537",
+    "PriceRUB": 9736,
+    "Value": "5a327f6386f77479010da870_2053576688",
     "Label": "Serdyukov SR-1MP Gyurza 9x21 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/59f98b4986f7746f546d2cef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a327f6386f77479010da870-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -4029,7 +4013,7 @@
     "PriceRUB": 94533,
     "Value": "5fd251a31189a17bcc172662_-1785758715",
     "Label": "SIG MCX .300 Blackout assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5fbcc1d9016cce60e8341ab3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251a31189a17bcc172662-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -4042,10 +4026,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 63428,
-    "Value": "5fd251a31189a17bcc172662_909904434",
+    "PriceRUB": 65574,
+    "Value": "5fd251a31189a17bcc172662_707080667",
     "Label": "SIG MCX .300 Blackout assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5fbcc1d9016cce60e8341ab3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251a31189a17bcc172662-icon.jpg"
   },
   {
     "Ergonomics": 48,
@@ -4058,10 +4042,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 107614,
-    "Value": "5fd251a31189a17bcc172662_-1403158572",
+    "PriceRUB": 77286,
+    "Value": "5fd251a31189a17bcc172662_1298768516",
     "Label": "SIG MCX .300 Blackout assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5fbcc1d9016cce60e8341ab3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251a31189a17bcc172662-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4074,10 +4058,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 51735,
-    "Value": "58dffca786f774083a256ab1_-97886925",
+    "PriceRUB": 54609,
+    "Value": "58dffca786f774083a256ab1_1253967774",
     "Label": "SIG MPX 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/58948c8e86f77409493f7266-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffca786f774083a256ab1-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4090,10 +4074,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 48838,
-    "Value": "58dffca786f774083a256ab1_738995388",
+    "PriceRUB": 47838,
+    "Value": "58dffca786f774083a256ab1_-128929917",
     "Label": "SIG MPX 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/58948c8e86f77409493f7266-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffca786f774083a256ab1-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4106,10 +4090,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 227061,
-    "Value": "5a8ae43686f774377b73cfb3_416319694",
+    "PriceRUB": 251195,
+    "Value": "5a8ae43686f774377b73cfb3_696916815",
     "Label": "SIG MPX 9x19 submachine gun MQB",
-    "ImageLink": "https://assets.tarkov.dev/58948c8e86f77409493f7266-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a8ae43686f774377b73cfb3-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4122,10 +4106,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 67994,
-    "Value": "58dffd4586f77408a27629b2_-312632372",
+    "PriceRUB": 71771,
+    "Value": "58dffd4586f77408a27629b2_454638284",
     "Label": "SIG MPX 9x19 submachine gun Silenced",
-    "ImageLink": "https://assets.tarkov.dev/58948c8e86f77409493f7266-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffd4586f77408a27629b2-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -4138,10 +4122,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 2,
-    "PriceRUB": 17489,
-    "Value": "584149242459775a7726350a_1397889815",
+    "PriceRUB": 18460,
+    "Value": "584149242459775a7726350a_43011492",
     "Label": "SIG P226R 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/56d59856d2720bd8418b456a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149242459775a7726350a-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -4154,10 +4138,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 20587,
-    "Value": "584149242459775a7726350a_802971462",
+    "PriceRUB": 20000,
+    "Value": "584149242459775a7726350a_714094628",
     "Label": "SIG P226R 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/56d59856d2720bd8418b456a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149242459775a7726350a-icon.jpg"
   },
   {
     "Ergonomics": 80,
@@ -4170,10 +4154,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 45943,
-    "Value": "584149242459775a7726350a_-1846465524",
+    "PriceRUB": 67927,
+    "Value": "584149242459775a7726350a_45839926",
     "Label": "SIG P226R 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/56d59856d2720bd8418b456a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584149242459775a7726350a-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4189,7 +4173,7 @@
     "PriceRUB": 33197,
     "Value": "59dcdbb386f77417b03f350d_-1252658724",
     "Label": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version) Default",
-    "ImageLink": "https://assets.tarkov.dev/587e02ff24597743df3deaeb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59dcdbb386f77417b03f350d-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4202,10 +4186,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 34944,
-    "Value": "59dcdbb386f77417b03f350d_-612466499",
+    "PriceRUB": 58731,
+    "Value": "59dcdbb386f77417b03f350d_-1532251649",
     "Label": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version) Default",
-    "ImageLink": "https://assets.tarkov.dev/587e02ff24597743df3deaeb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59dcdbb386f77417b03f350d-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4218,10 +4202,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 55337,
-    "Value": "opsksuas0000000000000001_371318755",
+    "PriceRUB": 61088,
+    "Value": "opsksuas0000000000000001_1459347415",
     "Label": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version) UAS",
-    "ImageLink": "https://assets.tarkov.dev/587e02ff24597743df3deaeb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/opsksuas0000000000000001-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4237,7 +4221,7 @@
     "PriceRUB": 21810,
     "Value": "58dffce486f77409f40f8162_1138295523",
     "Label": "Simonov SKS 7.62x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/574d967124597745970e7c94-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffce486f77409f40f8162-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4250,10 +4234,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 25186,
-    "Value": "58dffce486f77409f40f8162_733535627",
+    "PriceRUB": 24960,
+    "Value": "58dffce486f77409f40f8162_110885932",
     "Label": "Simonov SKS 7.62x39 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/574d967124597745970e7c94-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dffce486f77409f40f8162-icon.jpg"
   },
   {
     "Ergonomics": 40,
@@ -4266,10 +4250,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 53963,
-    "Value": "sksintrafuse000000000001_1693602203",
+    "PriceRUB": 55182,
+    "Value": "sksintrafuse000000000001_-677819236",
     "Label": "Simonov SKS 7.62x39 carbine TAPCO Intrafuse",
-    "ImageLink": "https://assets.tarkov.dev/574d967124597745970e7c94-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/sksintrafuse000000000001-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -4285,7 +4269,7 @@
     "PriceRUB": 45018,
     "Value": "60479c3f420fac5ebc199f86_478220444",
     "Label": "Soyuz-TM STM-9 Gen.2 9x19 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/60339954d62c9b14ed777c06-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60479c3f420fac5ebc199f86-icon.jpg"
   },
   {
     "Ergonomics": 50,
@@ -4298,26 +4282,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 56288,
-    "Value": "60479c3f420fac5ebc199f86_1664669082",
+    "PriceRUB": 36561,
+    "Value": "60479c3f420fac5ebc199f86_1965119891",
     "Label": "Soyuz-TM STM-9 Gen.2 9x19 carbine Default",
-    "ImageLink": "https://assets.tarkov.dev/60339954d62c9b14ed777c06-icon.jpg"
-  },
-  {
-    "Ergonomics": 28,
-    "RecoilForceUp": 252.0,
-    "RecoilAngle": 90,
-    "RecoilDispersion": 17,
-    "Convergence": 1.100000023841858,
-    "AmmoCaliber": "Caliber762x51",
-    "BFirerate": 700,
-    "traderLevel": 3,
-    "requiredPlayerLevel": 23,
-    "OfferType": 2,
-    "PriceRUB": 107024,
-    "Value": "5ac4ad3686f774181345c3da_1424930721",
-    "Label": "Springfield Armory M1A 7.62x51 rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60479c3f420fac5ebc199f86-icon.jpg"
   },
   {
     "Ergonomics": 28,
@@ -4330,10 +4298,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 3,
-    "PriceRUB": 162329,
-    "Value": "5ac4ad3686f774181345c3da_2010481370",
+    "PriceRUB": 72229,
+    "Value": "5ac4ad3686f774181345c3da_-1096765289",
     "Label": "Springfield Armory M1A 7.62x51 rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4ad3686f774181345c3da-icon.jpg"
   },
   {
     "Ergonomics": 28,
@@ -4346,10 +4314,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 37,
     "OfferType": 2,
-    "PriceRUB": 125230,
-    "Value": "5af08bfd86f774223d4528e2_1866077264",
+    "PriceRUB": 132187,
+    "Value": "5af08bfd86f774223d4528e2_1360606839",
     "Label": "Springfield Armory M1A 7.62x51 rifle EBR",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08bfd86f774223d4528e2-icon.jpg"
   },
   {
     "Ergonomics": 28,
@@ -4362,10 +4330,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 251859,
-    "Value": "5af08bfd86f774223d4528e2_1079203972",
+    "PriceRUB": 343819,
+    "Value": "5af08bfd86f774223d4528e2_-2018667231",
     "Label": "Springfield Armory M1A 7.62x51 rifle EBR",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08bfd86f774223d4528e2-icon.jpg"
   },
   {
     "Ergonomics": 28,
@@ -4381,7 +4349,7 @@
     "PriceRUB": 123944,
     "Value": "5af08c4486f774223b094223_1725663244",
     "Label": "Springfield Armory M1A 7.62x51 rifle SASS",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08c4486f774223b094223-icon.jpg"
   },
   {
     "Ergonomics": 28,
@@ -4394,10 +4362,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 30,
     "OfferType": 3,
-    "PriceRUB": 195731,
-    "Value": "5af08c4486f774223b094223_-1142009027",
+    "PriceRUB": 109997,
+    "Value": "5af08c4486f774223b094223_153965519",
     "Label": "Springfield Armory M1A 7.62x51 rifle SASS",
-    "ImageLink": "https://assets.tarkov.dev/5aafa857e5b5b00018480968-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5af08c4486f774223b094223-icon.jpg"
   },
   {
     "Ergonomics": 59,
@@ -4413,7 +4381,7 @@
     "PriceRUB": 53688,
     "Value": "63986a38608a960125446db5_-86063382",
     "Label": "SR-2M \"Veresk\" 9x21 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/62e14904c2699c0ec93adc47-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/63986a38608a960125446db5-icon.jpg"
   },
   {
     "Ergonomics": 59,
@@ -4426,10 +4394,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 50433,
-    "Value": "63986a38608a960125446db5_-1102368937",
+    "PriceRUB": 32908,
+    "Value": "63986a38608a960125446db5_553279540",
     "Label": "SR-2M \"Veresk\" 9x21 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/62e14904c2699c0ec93adc47-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/63986a38608a960125446db5-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4445,7 +4413,7 @@
     "PriceRUB": 15864,
     "Value": "5ac4accf86f774181345c3d7_-886745477",
     "Label": "Stechkin APS 9x18PM machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5a17f98cfcdbcb0980087290-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4accf86f774181345c3d7-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4458,10 +4426,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 13260,
-    "Value": "5ac4accf86f774181345c3d7_12064188",
+    "PriceRUB": 22199,
+    "Value": "5ac4accf86f774181345c3d7_118593201",
     "Label": "Stechkin APS 9x18PM machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5a17f98cfcdbcb0980087290-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4accf86f774181345c3d7-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4474,10 +4442,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 42518,
-    "Value": "5ac4accf86f774181345c3d7_1696173097",
+    "PriceRUB": 34460,
+    "Value": "5ac4accf86f774181345c3d7_-830865192",
     "Label": "Stechkin APS 9x18PM machine pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/5a17f98cfcdbcb0980087290-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4accf86f774181345c3d7-icon.jpg"
   },
   {
     "Ergonomics": 83,
@@ -4490,10 +4458,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 14,
     "OfferType": 2,
-    "PriceRUB": 73505,
-    "Value": "6398636bb483a550805be5e5_298830127",
+    "PriceRUB": 77588,
+    "Value": "6398636bb483a550805be5e5_-2088132474",
     "Label": "Steyr AUG A1 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/62e7c4fba689e8c9c50dfc38-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6398636bb483a550805be5e5-icon.jpg"
   },
   {
     "Ergonomics": 83,
@@ -4506,10 +4474,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 44549,
-    "Value": "6398636bb483a550805be5e5_1336228858",
+    "PriceRUB": 63946,
+    "Value": "6398636bb483a550805be5e5_749488176",
     "Label": "Steyr AUG A1 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/62e7c4fba689e8c9c50dfc38-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6398636bb483a550805be5e5-icon.jpg"
   },
   {
     "Ergonomics": 83,
@@ -4522,10 +4490,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 20,
     "OfferType": 3,
-    "PriceRUB": 57120,
-    "Value": "6398636bb483a550805be5e5_1253837181",
+    "PriceRUB": 71791,
+    "Value": "6398636bb483a550805be5e5_1146797064",
     "Label": "Steyr AUG A1 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/62e7c4fba689e8c9c50dfc38-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6398636bb483a550805be5e5-icon.jpg"
   },
   {
     "Ergonomics": 88,
@@ -4538,10 +4506,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 23,
     "OfferType": 2,
-    "PriceRUB": 88619,
-    "Value": "63986752a28b76105a33c095_-2094410166",
+    "PriceRUB": 93542,
+    "Value": "63986752a28b76105a33c095_1095396687",
     "Label": "Steyr AUG A3 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/63171672192e68c5460cebc5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/63986752a28b76105a33c095-icon.jpg"
   },
   {
     "Ergonomics": 88,
@@ -4554,10 +4522,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 62440,
-    "Value": "63986752a28b76105a33c095_-1212040837",
+    "PriceRUB": 90645,
+    "Value": "63986752a28b76105a33c095_-1491246206",
     "Label": "Steyr AUG A3 5.56x45 assault rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/63171672192e68c5460cebc5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/63986752a28b76105a33c095-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -4573,7 +4541,7 @@
     "PriceRUB": 50090,
     "Value": "58414a16245977599247970a_-1729263329",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/55801eed4bdc2d89578b4588-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a16245977599247970a-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -4586,10 +4554,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 72546,
-    "Value": "58414a16245977599247970a_712459244",
+    "PriceRUB": 139347,
+    "Value": "58414a16245977599247970a_-111772880",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/55801eed4bdc2d89578b4588-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a16245977599247970a-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -4602,10 +4570,10 @@
     "traderLevel": 2,
     "requiredPlayerLevel": 15,
     "OfferType": 3,
-    "PriceRUB": 137982,
-    "Value": "58414a16245977599247970a_-30674875",
+    "PriceRUB": 93148,
+    "Value": "58414a16245977599247970a_-334693738",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/55801eed4bdc2d89578b4588-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a16245977599247970a-icon.jpg"
   },
   {
     "Ergonomics": 24,
@@ -4621,7 +4589,7 @@
     "PriceRUB": 78973,
     "Value": "629766c15c9e3c392f7c2db0_-880000779",
     "Label": "SV-98 7.62x54R bolt-action sniper rifle OV",
-    "ImageLink": "https://assets.tarkov.dev/55801eed4bdc2d89578b4588-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/629766c15c9e3c392f7c2db0-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -4637,7 +4605,7 @@
     "PriceRUB": 93894,
     "Value": "5c98be1e86f7741cc96ffd79_1862585742",
     "Label": "SVDS 7.62x54R sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5c46fbd72e2216398b5a8c9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98be1e86f7741cc96ffd79-icon.jpg"
   },
   {
     "Ergonomics": 26,
@@ -4650,10 +4618,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 97682,
-    "Value": "5c98be1e86f7741cc96ffd79_1869608282",
+    "PriceRUB": 93733,
+    "Value": "5c98be1e86f7741cc96ffd79_1547645680",
     "Label": "SVDS 7.62x54R sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5c46fbd72e2216398b5a8c9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c98be1e86f7741cc96ffd79-icon.jpg"
   },
   {
     "Ergonomics": 14,
@@ -4669,7 +4637,7 @@
     "PriceRUB": 301068,
     "Value": "5fd25119dd870108a754a163_540620276",
     "Label": "SWORD International Mk-18 .338 LM marksman rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc22d7c187fea44d52eda44-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd25119dd870108a754a163-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -4685,7 +4653,7 @@
     "PriceRUB": 89439,
     "Value": "5fd251ee16cac650092f5d02_1056905387",
     "Label": "TDI KRISS Vector Gen.2 .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fb64bc92b1b027b1f50bcf2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251ee16cac650092f5d02-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -4698,10 +4666,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 87175,
-    "Value": "5fd251ee16cac650092f5d02_392312848",
+    "PriceRUB": 47331,
+    "Value": "5fd251ee16cac650092f5d02_-751059661",
     "Label": "TDI KRISS Vector Gen.2 .45 ACP submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fb64bc92b1b027b1f50bcf2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251ee16cac650092f5d02-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -4717,7 +4685,7 @@
     "PriceRUB": 96715,
     "Value": "5fd251c90d9c95034825edb5_803822456",
     "Label": "TDI KRISS Vector Gen.2 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3f2d5900b1d5091531e57-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251c90d9c95034825edb5-icon.jpg"
   },
   {
     "Ergonomics": 65,
@@ -4730,10 +4698,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 181776,
-    "Value": "5fd251c90d9c95034825edb5_949970768",
+    "PriceRUB": 86092,
+    "Value": "5fd251c90d9c95034825edb5_2084837433",
     "Label": "TDI KRISS Vector Gen.2 9x19 submachine gun Default",
-    "ImageLink": "https://assets.tarkov.dev/5fc3f2d5900b1d5091531e57-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd251c90d9c95034825edb5-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -4746,10 +4714,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 51144,
-    "Value": "5f6771214ef1ca4f4e1b8a06_1479486913",
+    "PriceRUB": 187903,
+    "Value": "5f6771214ef1ca4f4e1b8a06_-1825882999",
     "Label": "TOZ KS-23M 23x75mm pump-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5e848cc2988a8701445df1e8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f6771214ef1ca4f4e1b8a06-icon.jpg"
   },
   {
     "Ergonomics": 38,
@@ -4762,10 +4730,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 258329,
-    "Value": "5f6770f839a13e712a1dff54_172011181",
+    "PriceRUB": 185854,
+    "Value": "5f6770f839a13e712a1dff54_-1639245624",
     "Label": "TOZ KS-23M 23x75mm pump-action shotgun Drozd",
-    "ImageLink": "https://assets.tarkov.dev/5e848cc2988a8701445df1e8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f6770f839a13e712a1dff54-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -4781,7 +4749,7 @@
     "PriceRUB": 7080,
     "Value": "5a3a859786f7747e2305e8bf_1833953808",
     "Label": "TOZ-106 20ga bolt-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5a38e6bac4a2826c6e06d79b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a3a859786f7747e2305e8bf-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -4797,7 +4765,7 @@
     "PriceRUB": 8917,
     "Value": "5a3a859786f7747e2305e8bf_2072854478",
     "Label": "TOZ-106 20ga bolt-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5a38e6bac4a2826c6e06d79b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a3a859786f7747e2305e8bf-icon.jpg"
   },
   {
     "Ergonomics": 60,
@@ -4810,10 +4778,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 10000,
-    "Value": "5a3a859786f7747e2305e8bf_1202892359",
+    "PriceRUB": 19998,
+    "Value": "5a3a859786f7747e2305e8bf_459584279",
     "Label": "TOZ-106 20ga bolt-action shotgun Default",
-    "ImageLink": "https://assets.tarkov.dev/5a38e6bac4a2826c6e06d79b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a3a859786f7747e2305e8bf-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4826,10 +4794,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 92000,
-    "Value": "5b44abe986f774283e2e3512_-738077245",
+    "PriceRUB": 180000,
+    "Value": "5b44abe986f774283e2e3512_-1365294204",
     "Label": "TT-33 7.62x25 TT pistol (Golden) Default",
-    "ImageLink": "https://assets.tarkov.dev/5b3b713c5acfc4330140bd8d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b44abe986f774283e2e3512-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4842,10 +4810,10 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 54228,
-    "Value": "5c0e93cb86f77432297fdfc8_-1421908777",
+    "PriceRUB": 36863,
+    "Value": "5c0e93cb86f77432297fdfc8_1725185494",
     "Label": "TT-33 7.62x25 TT pistol Brunner",
-    "ImageLink": "https://assets.tarkov.dev/571a12c42459771f627b58a0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e93cb86f77432297fdfc8-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4861,7 +4829,7 @@
     "PriceRUB": 8194,
     "Value": "58414a2724597759b344da4d_-194812311",
     "Label": "TT-33 7.62x25 TT pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/571a12c42459771f627b58a0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a2724597759b344da4d-icon.jpg"
   },
   {
     "Ergonomics": 70,
@@ -4874,10 +4842,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 14277,
-    "Value": "58414a2724597759b344da4d_-1173373796",
+    "PriceRUB": 60000,
+    "Value": "58414a2724597759b344da4d_1362089842",
     "Label": "TT-33 7.62x25 TT pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/571a12c42459771f627b58a0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a2724597759b344da4d-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -4890,10 +4858,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 169736,
-    "Value": "58414a3f2459775a77263531_-233606732",
+    "PriceRUB": 73794,
+    "Value": "58414a3f2459775a77263531_-960711371",
     "Label": "VSS Vintorez 9x39 special sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57838ad32459774a17445cd2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a3f2459775a77263531-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -4906,10 +4874,10 @@
     "traderLevel": 4,
     "requiredPlayerLevel": 36,
     "OfferType": 3,
-    "PriceRUB": 164543,
-    "Value": "58414a3f2459775a77263531_1291037712",
+    "PriceRUB": 346083,
+    "Value": "58414a3f2459775a77263531_-910984029",
     "Label": "VSS Vintorez 9x39 special sniper rifle Default",
-    "ImageLink": "https://assets.tarkov.dev/57838ad32459774a17445cd2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58414a3f2459775a77263531-icon.jpg"
   },
   {
     "Ergonomics": 43,
@@ -4922,10 +4890,10 @@
     "traderLevel": 3,
     "requiredPlayerLevel": 26,
     "OfferType": 3,
-    "PriceRUB": 137382,
-    "Value": "vssvintorezstripped00001_1264396386",
+    "PriceRUB": 151773,
+    "Value": "vssvintorezstripped00001_1800937241",
     "Label": "VSS Vintorez 9x39 special sniper rifle Stripped",
-    "ImageLink": "https://assets.tarkov.dev/57838ad32459774a17445cd2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/vssvintorezstripped00001-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -4941,7 +4909,7 @@
     "PriceRUB": 13816,
     "Value": "584148a524597759eb357a44_-1085910125",
     "Label": "Yarygin MP-443 \"Grach\" 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/576a581d2459771e7b1bc4f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148a524597759eb357a44-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -4954,10 +4922,10 @@
     "traderLevel": 5,
     "requiredPlayerLevel": 15,
     "OfferType": 4,
-    "PriceRUB": 11864,
-    "Value": "584148a524597759eb357a44_1107891701",
+    "PriceRUB": 15555,
+    "Value": "584148a524597759eb357a44_-2079224581",
     "Label": "Yarygin MP-443 \"Grach\" 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/576a581d2459771e7b1bc4f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148a524597759eb357a44-icon.jpg"
   },
   {
     "Ergonomics": 75,
@@ -4970,9 +4938,9 @@
     "traderLevel": 1,
     "requiredPlayerLevel": 1,
     "OfferType": 3,
-    "PriceRUB": 9964,
-    "Value": "584148a524597759eb357a44_1329880831",
+    "PriceRUB": 10308,
+    "Value": "584148a524597759eb357a44_1438166685",
     "Label": "Yarygin MP-443 \"Grach\" 9x19 pistol Default",
-    "ImageLink": "https://assets.tarkov.dev/576a581d2459771e7b1bc4f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/584148a524597759eb357a44-icon.jpg"
   }
 ]

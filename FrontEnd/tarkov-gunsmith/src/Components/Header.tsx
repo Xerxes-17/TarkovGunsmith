@@ -30,7 +30,7 @@ function BrandExample() {
                             </LinkContainer>
 
                             <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
+                                <Nav.Link>Damage Simulator</Nav.Link>
                             </LinkContainer>
 
                             <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>

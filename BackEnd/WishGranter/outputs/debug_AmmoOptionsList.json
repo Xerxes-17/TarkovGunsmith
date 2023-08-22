@@ -16,7 +16,7 @@
     "PenetrationPower": 30,
     "ArmorDamagePerc": 36,
     "BaseArmorDamage": 10.800000190734863,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "5fbe3ffdf8b6a877a729ea82",
     "Label": ".300 Blackout BCP FMJ",
     "ImageLink": "https://assets.tarkov.dev/5fbe3ffdf8b6a877a729ea82-icon.jpg"
@@ -38,7 +38,7 @@
     "PenetrationPower": 20,
     "ArmorDamagePerc": 25,
     "BaseArmorDamage": 5.0,
-    "TraderLevel": 4,
+    "TraderLevel": 2,
     "Value": "6196364158ef8c428c287d9f",
     "Label": ".300 Blackout V-Max",
     "ImageLink": "https://assets.tarkov.dev/6196364158ef8c428c287d9f-icon.jpg"
@@ -49,7 +49,7 @@
     "PenetrationPower": 14,
     "ArmorDamagePerc": 18,
     "BaseArmorDamage": 2.5199999809265137,
-    "TraderLevel": 3,
+    "TraderLevel": 2,
     "Value": "6196365d58ef8c428c287da1",
     "Label": ".300 Whisper",
     "ImageLink": "https://assets.tarkov.dev/6196365d58ef8c428c287da1-icon.jpg"
@@ -203,7 +203,7 @@
     "PenetrationPower": 13,
     "ArmorDamagePerc": 30,
     "BaseArmorDamage": 3.9000000953674316,
-    "TraderLevel": 2,
+    "TraderLevel": 5,
     "Value": "5efb0fc6aeb21837e749c801",
     "Label": ".45 ACP Hydra-Shok",
     "ImageLink": "https://assets.tarkov.dev/5efb0fc6aeb21837e749c801-icon.jpg"
@@ -236,7 +236,7 @@
     "PenetrationPower": 3,
     "ArmorDamagePerc": 12,
     "BaseArmorDamage": 0.35999998450279236,
-    "TraderLevel": 4,
+    "TraderLevel": 5,
     "Value": "5ea2a8e200685063ec28c05a",
     "Label": ".45 ACP RIP",
     "ImageLink": "https://assets.tarkov.dev/5ea2a8e200685063ec28c05a-icon.jpg"
@@ -247,7 +247,7 @@
     "PenetrationPower": 28,
     "ArmorDamagePerc": 60,
     "BaseArmorDamage": 16.80000114440918,
-    "TraderLevel": 4,
+    "TraderLevel": 3,
     "Value": "5cadf6ddae9215051e1c23b2",
     "Label": "12.7x55mm PS12",
     "ImageLink": "https://assets.tarkov.dev/5cadf6ddae9215051e1c23b2-icon.jpg"
@@ -258,7 +258,7 @@
     "PenetrationPower": 10,
     "ArmorDamagePerc": 22,
     "BaseArmorDamage": 2.200000047683716,
-    "TraderLevel": 3,
+    "TraderLevel": 2,
     "Value": "5cadf6e5ae921500113bb973",
     "Label": "12.7x55mm PS12A",
     "ImageLink": "https://assets.tarkov.dev/5cadf6e5ae921500113bb973-icon.jpg"
@@ -731,7 +731,7 @@
     "PenetrationPower": 13,
     "ArmorDamagePerc": 34,
     "BaseArmorDamage": 4.420000076293945,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "56dff421d2720b5f5a8b4567",
     "Label": "5.45x39mm SP",
     "ImageLink": "https://assets.tarkov.dev/56dff421d2720b5f5a8b4567-icon.jpg"
@@ -797,7 +797,7 @@
     "PenetrationPower": 44,
     "ArmorDamagePerc": 52,
     "BaseArmorDamage": 22.8799991607666,
-    "TraderLevel": 4,
+    "TraderLevel": 6,
     "Value": "54527ac44bdc2d36668b4567",
     "Label": "5.56x45mm M855A1",
     "ImageLink": "https://assets.tarkov.dev/54527ac44bdc2d36668b4567-icon.jpg"
@@ -808,7 +808,7 @@
     "PenetrationPower": 23,
     "ArmorDamagePerc": 34,
     "BaseArmorDamage": 7.820000171661377,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "59e68f6f86f7746c9f75e846",
     "Label": "5.56x45mm M856",
     "ImageLink": "https://assets.tarkov.dev/59e68f6f86f7746c9f75e846-icon.jpg"
@@ -1039,7 +1039,7 @@
     "PenetrationPower": 47,
     "ArmorDamagePerc": 63,
     "BaseArmorDamage": 29.610000610351562,
-    "TraderLevel": 1,
+    "TraderLevel": 6,
     "Value": "59e0d99486f7744a32234762",
     "Label": "7.62x39mm BP gzh",
     "ImageLink": "https://assets.tarkov.dev/59e0d99486f7744a32234762-icon.jpg"
@@ -1204,7 +1204,7 @@
     "PenetrationPower": 42,
     "ArmorDamagePerc": 78,
     "BaseArmorDamage": 32.7599983215332,
-    "TraderLevel": 1,
+    "TraderLevel": 2,
     "Value": "5887431f2459777e1612938f",
     "Label": "7.62x54mm R LPS gzh",
     "ImageLink": "https://assets.tarkov.dev/5887431f2459777e1612938f-icon.jpg"
@@ -1435,7 +1435,7 @@
     "PenetrationPower": 39,
     "ArmorDamagePerc": 55,
     "BaseArmorDamage": 21.450000762939453,
-    "TraderLevel": 1,
+    "TraderLevel": 6,
     "Value": "5efb0da7a29a85116f6ea05f",
     "Label": "9x19mm PBP gzh",
     "ImageLink": "https://assets.tarkov.dev/5efb0da7a29a85116f6ea05f-icon.jpg"
@@ -1567,7 +1567,7 @@
     "PenetrationPower": 46,
     "ArmorDamagePerc": 60,
     "BaseArmorDamage": 27.600000381469727,
-    "TraderLevel": 3,
+    "TraderLevel": 6,
     "Value": "57a0e5022459774d1673f889",
     "Label": "9x39mm SP-6 gs",
     "ImageLink": "https://assets.tarkov.dev/57a0e5022459774d1673f889-icon.jpg"

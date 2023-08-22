@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
 import {
-  BrowserRouter, Route, Routes
+  BrowserRouter, Route, Routes, Navigate 
 } from "react-router-dom";
 import Header from './Components/Header';
 import Home from './Components/Home';
@@ -19,6 +19,7 @@ import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 import MwbBasePage from './Components/MWB/MwbBasePage';
 import { MantineProvider } from '@mantine/core';
+import DsContent from './Components/DamageSimulator/DsContent';
 
 function App() {
 
@@ -33,10 +34,18 @@ function App() {
             <Route path={LINKS.HOME} element={<Home />} />
             <Route path={LINKS.ABOUT} element={<About />} />
             <Route path={LINKS.MODDED_WEAPON_BUILDER} element={<MwbBasePage />} />
-            <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} />
+
+            
+            <Route path={LINKS.ADC} element={<Navigate to={LINKS.DAMAGE_SIMULATOR} />} />
+            <Route path={`${LINKS.ADC}/:id_armor/:id_ammo`} element={<Navigate to={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} />} />
+            <Route path={`${LINKS.ADC}/:id_armor/`} element={<Navigate to={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} />} />
+            <Route path={`${LINKS.ADC}//:id_ammo`} element={<Navigate to={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} />} />
+
+            <Route path={LINKS.DAMAGE_SIMULATOR} element={<DsContent />} />
+            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<DsContent />} />
+            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<DsContent />} />
+            <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<DsContent />} />
+
 
             <Route path={LINKS.DATA_SHEETS_AMMO} element={<DataSheetAmmo />} />
             

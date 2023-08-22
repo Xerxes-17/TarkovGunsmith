@@ -6,8 +6,8 @@ import { requestArmorTestSerires, requestArmorTestSerires_Custom } from "../../C
 import SelectArmor from './SelectArmor';
 import SelectAmmo from './SelectAmmo';
 import FilterRangeSelector from '../Forms/FilterRangeSelector';
-import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from './ArmorData';
-import { filterAmmoOptions, AmmoOption } from './AmmoData';
+import { ArmorOption, ARMOR_CLASSES, ARMOR_TYPES, filterArmorOptions, MATERIALS } from '../../Types/T_Armor';
+import { filterAmmoOptions, AmmoOption } from '../../Types/T_Ammo';
 import { API_URL } from '../../Util/util';
 import html2canvas from 'html2canvas';
 import { copyImageToClipboard } from 'copy-image-clipboard';
@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ComposedChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Flex, Paper, Text } from '@mantine/core';
 import { margin } from '@mui/system';
+import TbsInfoModal from './TbsInfoModal';
 
 export default function ArmorDamageCalculator(props: any) {
     const navigate = useNavigate();
@@ -128,7 +129,7 @@ export default function ArmorDamageCalculator(props: any) {
 
         if (ammoId !== "") {
             requestData(selectedOption.value, ammoId)
-            navigate(`${LINKS.DAMAGE_SIMULATOR}/${selectedOption.value}/${ammoId}`);
+            navigate(`${LINKS.ADC}/${selectedOption.value}/${ammoId}`);
         }
     }
 
@@ -140,7 +141,7 @@ export default function ArmorDamageCalculator(props: any) {
 
         if (armorId !== "") {
             requestData(armorId, selectedOption.value)
-            navigate(`${LINKS.DAMAGE_SIMULATOR}/${armorId}/${selectedOption.value}`);
+            navigate(`${LINKS.ADC}/${armorId}/${selectedOption.value}`);
         }
     }
 
@@ -423,7 +424,7 @@ export default function ArmorDamageCalculator(props: any) {
                         <div className="ms-auto">
                             <Stack direction='horizontal' gap={2}>
                                 <Button variant="secondary" onClick={handleEnableCustomCal}>Change mode to Custom</Button>
-                                {ModalInfo}
+                                <TbsInfoModal/>
                             </Stack>
                         </div>
                     </Stack>
@@ -1095,7 +1096,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.ADC}
                             </Form.Text>
                         </Card.Body>
                     </Card>
@@ -1311,7 +1312,7 @@ export default function ArmorDamageCalculator(props: any) {
                                 </Table>
                             </div>
                             <Form.Text>
-                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.DAMAGE_SIMULATOR}
+                                This chart was generated on: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.ADC}
                             </Form.Text>
 
                         </Card.Body>

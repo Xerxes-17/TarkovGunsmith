@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
-import { AmmoOption } from './AmmoData';
+import { AmmoOption } from '../../Types/T_Ammo';
 
 export default function SelectAmmo(props: any) {
     const [item, setItem] = useState<AmmoOption>();
