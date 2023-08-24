@@ -364,8 +364,8 @@ namespace WishGranter.Statics
                         ReturnedPresets.Add(PresetForReturned);
                     }
                 }
+
             }
-        }
 
             return ReturnedPresets;
         }
