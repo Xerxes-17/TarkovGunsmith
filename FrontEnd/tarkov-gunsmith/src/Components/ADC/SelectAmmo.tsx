@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
 import { AmmoOption } from './AmmoData';
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function SelectAmmo(props: any) {
     const [item, setItem] = useState<AmmoOption>();
@@ -37,7 +38,7 @@ export default function SelectAmmo(props: any) {
                     formatOptionLabel={option => (
                         <Row>
                             <Col style={{ maxWidth: "75px" }}>
-                                <img src={option.imageLink} alt={option.label} />
+                                <ImageWithDefaultFallback src={option.imageLink} alt={option.label} />
                             </Col>
                             <Col>
                                 <span>{option.label}</span>

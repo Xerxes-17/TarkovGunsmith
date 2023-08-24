@@ -304,21 +304,33 @@ namespace WishGranter.Statics
                 }
 
                 PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
-                string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+                BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                if(!hackyProhibit.Any(x=> name.Contains(x)))
+                //using var db = new Monolit();
+                //db.Attach(PresetForReturned);
+                //db.SaveChanges();
+                if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
                 {
-                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
-
-                    //using var db = new Monolit();
-                    //db.Attach(PresetForReturned);
-                    //db.SaveChanges();
-                    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
-                    {
-                        ReturnedPresets.Add(PresetForReturned);
-                        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
-                    }
+                    ReturnedPresets.Add(PresetForReturned);
+                    //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
                 }
+
+
+                //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+
+                //if(!hackyProhibit.Any(x=> name.Contains(x)))
+                //{
+                //    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                //    //using var db = new Monolit();
+                //    //db.Attach(PresetForReturned);
+                //    //db.SaveChanges();
+                //    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
+                //    {
+                //        ReturnedPresets.Add(PresetForReturned);
+                //        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
+                //    }
+                //}
             }
 
             // Let's also process the barter offers, if any.
@@ -352,18 +364,27 @@ namespace WishGranter.Statics
                     }
                 }
                 var offerType = OfferType.Barter;
-                string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
-                if (!hackyProhibit.Any(x => name.Contains(x)))
+                // If the barter wants something that isn't buyable on the flea, we disregard it
+                if (barterTotalCost != -1)
                 {
-                    // If the barter wants something that isn't buyable on the flea, we disregard it
-                    if (barterTotalCost != -1)
-                    {
-                        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
-                        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+                    PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                        ReturnedPresets.Add(PresetForReturned);
-                    }
+                    ReturnedPresets.Add(PresetForReturned);
                 }
+
+                //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+                //if (!hackyProhibit.Any(x => name.Contains(x)))
+                //{
+                //    // If the barter wants something that isn't buyable on the flea, we disregard it
+                //    if (barterTotalCost != -1)
+                //    {
+                //        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                //        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                //        ReturnedPresets.Add(PresetForReturned);
+                //    }
+                //}
 
             }
 

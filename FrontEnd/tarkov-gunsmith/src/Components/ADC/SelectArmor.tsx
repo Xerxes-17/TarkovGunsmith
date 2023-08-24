@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Col, Row, Stack } from 'react-bootstrap';
 import Select from 'react-select'
 import { MaterialType, ArmorOption } from './ArmorData';
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function SelectArmor(props: any) {
 
@@ -39,7 +40,7 @@ export default function SelectArmor(props: any) {
                     formatOptionLabel={option => (
                         <Row>
                             <Col style={{ maxWidth: "75px" }}>
-                                <img src={option.imageLink} alt={option.label} />
+                                <ImageWithDefaultFallback src={option.imageLink} alt={option.label} />
                             </Col>
                             <Col>
                                 <span>{option.label}</span>

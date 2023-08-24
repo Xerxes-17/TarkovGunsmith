@@ -8,6 +8,7 @@ import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
 import { TransmissionWeaponBuildResult, TransmissionAttachedMod, Fitting } from './WeaponData';
 import { FormControlLabel, Radio, Switch } from "@mui/material";
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 enum OfferType {
     None,
@@ -497,7 +498,7 @@ export default function ModdedWeaponBuilder(props: any) {
 
                             <Row className="weapon-stats-box">
                                 <Col>
-                                    <img src={`https://assets.tarkov.dev/${result.BasePreset!.Id.split("_")[0]}-grid-image.jpg`} alt={result.BasePreset!.Weapon!.ShortName} className={"mod_img"} />
+                                    <ImageWithDefaultFallback src={`https://assets.tarkov.dev/${result.BasePreset!.Id.split("_")[0]}-grid-image.webp`} alt={result.BasePreset!.Weapon!.ShortName} className={"mod_img"} />
                                 </Col>
                                 <Col>
                                     <strong> Preset Price<br /> </strong>

@@ -135,7 +135,7 @@ namespace WishGranterProto.ExtensionMethods
 
         public void SetImageLinkWithId(string Id)
         {
-            ImageLink = $"https://assets.tarkov.dev/{Id}-icon.jpg";
+            ImageLink = $"https://assets.tarkov.dev/{Id}-icon.webp";
         }
     }
     public class SelectionArmor : SelectionOption
@@ -255,7 +255,7 @@ namespace WishGranterProto.ExtensionMethods
         public string? ImageLink { get; set; }
         public void SetImageLinkWithId(string Id)
         {
-            ImageLink = $"https://assets.tarkov.dev/{Id}-icon.jpg";
+            ImageLink = $"https://assets.tarkov.dev/{Id}-icon.webp";
         }
     }
 

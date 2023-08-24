@@ -12,6 +12,7 @@ import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
 import { AEC_LS_KEY } from "../../Util/util";
 import { Flex } from "@mantine/core";
+import ImageWithDefaultFallback from "../Common/ImageWithFallBack";
 
 export default function AmmoEffectivenessChartPage(props: any) {
     const [pagination] = useState({
@@ -137,10 +138,10 @@ export default function AmmoEffectivenessChartPage(props: any) {
                     }}
                 >
                     {picturesYesNo === true &&
-                        <img
+                        <ImageWithDefaultFallback
                             alt="avatar"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.Ammo.Id}-icon.jpg`}
+                            src={`https://assets.tarkov.dev/${row.original.Ammo.Id}-icon.webp`}
                             loading="lazy"
                         />
                     }

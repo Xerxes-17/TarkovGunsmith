@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function DataSheetWeapons(props: any) {
     interface WeaponsTableRow {
@@ -60,7 +61,7 @@ export default function DataSheetWeapons(props: any) {
                             gap: '1rem',
                         }}
                     >
-                        <img
+                        <ImageWithDefaultFallback
                             alt="icon"
                             height={40}
                             src={row.original.imageLink}
