@@ -352,16 +352,20 @@ namespace WishGranter.Statics
                     }
                 }
                 var offerType = OfferType.Barter;
-
-                // If the barter wants something that isn't buyable on the flea, we disregard it
-                if (barterTotalCost != -1)
+                string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+                if (!hackyProhibit.Any(x => name.Contains(x)))
                 {
-                    PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
-                    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+                    // If the barter wants something that isn't buyable on the flea, we disregard it
+                    if (barterTotalCost != -1)
+                    {
+                        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                    ReturnedPresets.Add(PresetForReturned);
+                        ReturnedPresets.Add(PresetForReturned);
+                    }
                 }
             }
+        }
 
             return ReturnedPresets;
         }
