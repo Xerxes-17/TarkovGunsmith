@@ -8,7 +8,7 @@
     "TraderLevel": 6,
     "Value": "5fd20ff893a8961fc660a954",
     "Label": ".300 Blackout AP",
-    "ImageLink": "https://assets.tarkov.dev/5fd20ff893a8961fc660a954-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd20ff893a8961fc660a954-icon.webp"
   },
   {
     "Caliber": "Caliber762x35",
@@ -16,10 +16,21 @@
     "PenetrationPower": 30,
     "ArmorDamagePerc": 36,
     "BaseArmorDamage": 10.800000190734863,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "5fbe3ffdf8b6a877a729ea82",
     "Label": ".300 Blackout BCP FMJ",
-    "ImageLink": "https://assets.tarkov.dev/5fbe3ffdf8b6a877a729ea82-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fbe3ffdf8b6a877a729ea82-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x35",
+    "Damage": 58,
+    "PenetrationPower": 43,
+    "ArmorDamagePerc": 57,
+    "BaseArmorDamage": 24.510000228881836,
+    "TraderLevel": 3,
+    "Value": "64b8725c4b75259c590fa899",
+    "Label": ".300 Blackout CBJ",
+    "ImageLink": "https://assets.tarkov.dev/64b8725c4b75259c590fa899-icon.webp"
   },
   {
     "Caliber": "Caliber762x35",
@@ -30,7 +41,7 @@
     "TraderLevel": 3,
     "Value": "619636be6db0f2477964e710",
     "Label": ".300 Blackout M62 Tracer",
-    "ImageLink": "https://assets.tarkov.dev/619636be6db0f2477964e710-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/619636be6db0f2477964e710-icon.webp"
   },
   {
     "Caliber": "Caliber762x35",
@@ -38,10 +49,10 @@
     "PenetrationPower": 20,
     "ArmorDamagePerc": 25,
     "BaseArmorDamage": 5.0,
-    "TraderLevel": 4,
+    "TraderLevel": 2,
     "Value": "6196364158ef8c428c287d9f",
     "Label": ".300 Blackout V-Max",
-    "ImageLink": "https://assets.tarkov.dev/6196364158ef8c428c287d9f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6196364158ef8c428c287d9f-icon.webp"
   },
   {
     "Caliber": "Caliber762x35",
@@ -49,10 +60,10 @@
     "PenetrationPower": 14,
     "ArmorDamagePerc": 18,
     "BaseArmorDamage": 2.5199999809265137,
-    "TraderLevel": 3,
+    "TraderLevel": 2,
     "Value": "6196365d58ef8c428c287da1",
     "Label": ".300 Whisper",
-    "ImageLink": "https://assets.tarkov.dev/6196365d58ef8c428c287da1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6196365d58ef8c428c287da1-icon.webp"
   },
   {
     "Caliber": "Caliber86x70",
@@ -63,7 +74,7 @@
     "TraderLevel": 6,
     "Value": "5fc382a9d724d907e2077dab",
     "Label": ".338 Lapua Magnum AP",
-    "ImageLink": "https://assets.tarkov.dev/5fc382a9d724d907e2077dab-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fc382a9d724d907e2077dab-icon.webp"
   },
   {
     "Caliber": "Caliber86x70",
@@ -74,7 +85,7 @@
     "TraderLevel": 4,
     "Value": "5fc275cf85fd526b824a571a",
     "Label": ".338 Lapua Magnum FMJ",
-    "ImageLink": "https://assets.tarkov.dev/5fc275cf85fd526b824a571a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fc275cf85fd526b824a571a-icon.webp"
   },
   {
     "Caliber": "Caliber86x70",
@@ -85,7 +96,7 @@
     "TraderLevel": 4,
     "Value": "5fc382b6d6fa9c00c571bbc3",
     "Label": ".338 Lapua Magnum TAC-X",
-    "ImageLink": "https://assets.tarkov.dev/5fc382b6d6fa9c00c571bbc3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fc382b6d6fa9c00c571bbc3-icon.webp"
   },
   {
     "Caliber": "Caliber86x70",
@@ -96,7 +107,7 @@
     "TraderLevel": 4,
     "Value": "5fc382c1016cce60e8341b20",
     "Label": ".338 Lapua Magnum UCW",
-    "ImageLink": "https://assets.tarkov.dev/5fc382c1016cce60e8341b20-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fc382c1016cce60e8341b20-icon.webp"
   },
   {
     "Caliber": "Caliber9x33R",
@@ -107,7 +118,7 @@
     "TraderLevel": 2,
     "Value": "62330b3ed4dc74626d570b95",
     "Label": ".357 Magnum FMJ",
-    "ImageLink": "https://assets.tarkov.dev/62330b3ed4dc74626d570b95-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62330b3ed4dc74626d570b95-icon.webp"
   },
   {
     "Caliber": "Caliber9x33R",
@@ -118,7 +129,7 @@
     "TraderLevel": 2,
     "Value": "62330bfadc5883093563729b",
     "Label": ".357 Magnum HP",
-    "ImageLink": "https://assets.tarkov.dev/62330bfadc5883093563729b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62330bfadc5883093563729b-icon.webp"
   },
   {
     "Caliber": "Caliber9x33R",
@@ -129,7 +140,7 @@
     "TraderLevel": 3,
     "Value": "62330c18744e5e31df12f516",
     "Label": ".357 Magnum JHP",
-    "ImageLink": "https://assets.tarkov.dev/62330c18744e5e31df12f516-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62330c18744e5e31df12f516-icon.webp"
   },
   {
     "Caliber": "Caliber9x33R",
@@ -140,7 +151,7 @@
     "TraderLevel": 2,
     "Value": "62330c40bdd19b369e1e53d1",
     "Label": ".357 Magnum SP",
-    "ImageLink": "https://assets.tarkov.dev/62330c40bdd19b369e1e53d1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62330c40bdd19b369e1e53d1-icon.webp"
   },
   {
     "Caliber": "Caliber366TKM",
@@ -151,7 +162,7 @@
     "TraderLevel": 3,
     "Value": "5f0596629e22f464da6bbdd9",
     "Label": ".366 TKM AP-M",
-    "ImageLink": "https://assets.tarkov.dev/5f0596629e22f464da6bbdd9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f0596629e22f464da6bbdd9-icon.webp"
   },
   {
     "Caliber": "Caliber366TKM",
@@ -162,7 +173,7 @@
     "TraderLevel": 1,
     "Value": "59e655cb86f77411dc52a77b",
     "Label": ".366 TKM EKO",
-    "ImageLink": "https://assets.tarkov.dev/59e655cb86f77411dc52a77b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e655cb86f77411dc52a77b-icon.webp"
   },
   {
     "Caliber": "Caliber366TKM",
@@ -173,7 +184,7 @@
     "TraderLevel": 1,
     "Value": "59e6542b86f77411dc52a77a",
     "Label": ".366 TKM FMJ",
-    "ImageLink": "https://assets.tarkov.dev/59e6542b86f77411dc52a77a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6542b86f77411dc52a77a-icon.webp"
   },
   {
     "Caliber": "Caliber366TKM",
@@ -184,7 +195,7 @@
     "TraderLevel": 2,
     "Value": "59e6658b86f77411d949b250",
     "Label": ".366 TKM Geksa",
-    "ImageLink": "https://assets.tarkov.dev/59e6658b86f77411d949b250-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6658b86f77411d949b250-icon.webp"
   },
   {
     "Caliber": "Caliber1143x23ACP",
@@ -195,7 +206,7 @@
     "TraderLevel": 6,
     "Value": "5efb0cabfb3e451d70735af5",
     "Label": ".45 ACP AP",
-    "ImageLink": "https://assets.tarkov.dev/5efb0cabfb3e451d70735af5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0cabfb3e451d70735af5-icon.webp"
   },
   {
     "Caliber": "Caliber1143x23ACP",
@@ -206,7 +217,7 @@
     "TraderLevel": 2,
     "Value": "5efb0fc6aeb21837e749c801",
     "Label": ".45 ACP Hydra-Shok",
-    "ImageLink": "https://assets.tarkov.dev/5efb0fc6aeb21837e749c801-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0fc6aeb21837e749c801-icon.webp"
   },
   {
     "Caliber": "Caliber1143x23ACP",
@@ -217,7 +228,7 @@
     "TraderLevel": 2,
     "Value": "5efb0d4f4bc50b58e81710f3",
     "Label": ".45 ACP Lasermatch FMJ",
-    "ImageLink": "https://assets.tarkov.dev/5efb0d4f4bc50b58e81710f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0d4f4bc50b58e81710f3-icon.webp"
   },
   {
     "Caliber": "Caliber1143x23ACP",
@@ -228,7 +239,7 @@
     "TraderLevel": 1,
     "Value": "5e81f423763d9f754677bf2e",
     "Label": ".45 ACP Match FMJ",
-    "ImageLink": "https://assets.tarkov.dev/5e81f423763d9f754677bf2e-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e81f423763d9f754677bf2e-icon.webp"
   },
   {
     "Caliber": "Caliber1143x23ACP",
@@ -239,7 +250,7 @@
     "TraderLevel": 4,
     "Value": "5ea2a8e200685063ec28c05a",
     "Label": ".45 ACP RIP",
-    "ImageLink": "https://assets.tarkov.dev/5ea2a8e200685063ec28c05a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ea2a8e200685063ec28c05a-icon.webp"
   },
   {
     "Caliber": "Caliber127x55",
@@ -247,10 +258,10 @@
     "PenetrationPower": 28,
     "ArmorDamagePerc": 60,
     "BaseArmorDamage": 16.80000114440918,
-    "TraderLevel": 4,
+    "TraderLevel": 3,
     "Value": "5cadf6ddae9215051e1c23b2",
     "Label": "12.7x55mm PS12",
-    "ImageLink": "https://assets.tarkov.dev/5cadf6ddae9215051e1c23b2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cadf6ddae9215051e1c23b2-icon.webp"
   },
   {
     "Caliber": "Caliber127x55",
@@ -258,10 +269,10 @@
     "PenetrationPower": 10,
     "ArmorDamagePerc": 22,
     "BaseArmorDamage": 2.200000047683716,
-    "TraderLevel": 3,
+    "TraderLevel": 2,
     "Value": "5cadf6e5ae921500113bb973",
     "Label": "12.7x55mm PS12A",
-    "ImageLink": "https://assets.tarkov.dev/5cadf6e5ae921500113bb973-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cadf6e5ae921500113bb973-icon.webp"
   },
   {
     "Caliber": "Caliber127x55",
@@ -272,7 +283,7 @@
     "TraderLevel": 6,
     "Value": "5cadf6eeae921500134b2799",
     "Label": "12.7x55mm PS12B",
-    "ImageLink": "https://assets.tarkov.dev/5cadf6eeae921500134b2799-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cadf6eeae921500134b2799-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -283,7 +294,7 @@
     "TraderLevel": 1,
     "Value": "5d6e6891a4b9361bd473feea",
     "Label": "12/70 \"Poleva-3\" slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6891a4b9361bd473feea-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6891a4b9361bd473feea-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -294,7 +305,7 @@
     "TraderLevel": 2,
     "Value": "5d6e689ca4b9361bc8618956",
     "Label": "12/70 \"Poleva-6u\" slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e689ca4b9361bc8618956-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e689ca4b9361bc8618956-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -305,7 +316,7 @@
     "TraderLevel": 1,
     "Value": "5d6e6772a4b936088465b17c",
     "Label": "12/70 5.25mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6772a4b936088465b17c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6772a4b936088465b17c-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -316,7 +327,7 @@
     "TraderLevel": 1,
     "Value": "5d6e67fba4b9361bc73bc779",
     "Label": "12/70 6.5mm Express buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e67fba4b9361bc73bc779-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e67fba4b9361bc73bc779-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -327,7 +338,7 @@
     "TraderLevel": 1,
     "Value": "560d5e524bdc2d25448b4571",
     "Label": "12/70 7mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/560d5e524bdc2d25448b4571-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/560d5e524bdc2d25448b4571-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -338,7 +349,7 @@
     "TraderLevel": 2,
     "Value": "5d6e6806a4b936088465b17e",
     "Label": "12/70 8.5mm Magnum buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6806a4b936088465b17e-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6806a4b936088465b17e-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -349,7 +360,7 @@
     "TraderLevel": 6,
     "Value": "5d6e68a8a4b9360b6c0d54e2",
     "Label": "12/70 AP-20 armor-piercing slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68a8a4b9360b6c0d54e2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68a8a4b9360b6c0d54e2-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -360,7 +371,7 @@
     "TraderLevel": 3,
     "Value": "5d6e68b3a4b9361bca7e50b5",
     "Label": "12/70 Copper Sabot Premier HP slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68b3a4b9361bca7e50b5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68b3a4b9361bca7e50b5-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -371,7 +382,7 @@
     "TraderLevel": 3,
     "Value": "5d6e68dea4b9361bcc29e659",
     "Label": "12/70 Dual Sabot slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68dea4b9361bcc29e659-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68dea4b9361bcc29e659-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -382,7 +393,7 @@
     "TraderLevel": 3,
     "Value": "5d6e6911a4b9361bd5780d52",
     "Label": "12/70 flechette",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6911a4b9361bd5780d52-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6911a4b9361bd5780d52-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -393,7 +404,7 @@
     "TraderLevel": 2,
     "Value": "5d6e68e6a4b9361c140bcfe0",
     "Label": "12/70 FTX Custom Lite slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68e6a4b9361c140bcfe0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68e6a4b9361c140bcfe0-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -404,7 +415,7 @@
     "TraderLevel": 1,
     "Value": "5d6e6869a4b9361c140bcfde",
     "Label": "12/70 Grizzly 40 slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6869a4b9361c140bcfde-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6869a4b9361c140bcfde-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -415,7 +426,7 @@
     "TraderLevel": 1,
     "Value": "58820d1224597753c90aeb13",
     "Label": "12/70 lead slug",
-    "ImageLink": "https://assets.tarkov.dev/58820d1224597753c90aeb13-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58820d1224597753c90aeb13-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -426,7 +437,18 @@
     "TraderLevel": 3,
     "Value": "5d6e68c4a4b9361b93413f79",
     "Label": "12/70 makeshift .50 BMG slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68c4a4b9361b93413f79-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68c4a4b9361b93413f79-icon.webp"
+  },
+  {
+    "Caliber": "Caliber12g",
+    "Damage": 25,
+    "PenetrationPower": 24,
+    "ArmorDamagePerc": 22,
+    "BaseArmorDamage": 5.279999732971191,
+    "TraderLevel": 5,
+    "Value": "64b8ee384b75259c590fa89b",
+    "Label": "12/70 Piranha",
+    "ImageLink": "https://assets.tarkov.dev/64b8ee384b75259c590fa89b-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -437,7 +459,7 @@
     "TraderLevel": 3,
     "Value": "5c0d591486f7744c505b416f",
     "Label": "12/70 RIP",
-    "ImageLink": "https://assets.tarkov.dev/5c0d591486f7744c505b416f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d591486f7744c505b416f-icon.webp"
   },
   {
     "Caliber": "Caliber12g",
@@ -448,7 +470,7 @@
     "TraderLevel": 4,
     "Value": "5d6e68d1a4b93622fe60e845",
     "Label": "12/70 SuperFormance HP slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e68d1a4b93622fe60e845-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e68d1a4b93622fe60e845-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -459,7 +481,7 @@
     "TraderLevel": 1,
     "Value": "5d6e6a53a4b9361bd473feec",
     "Label": "20/70 \"Poleva-3\" slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6a53a4b9361bd473feec-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6a53a4b9361bd473feec-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -470,7 +492,7 @@
     "TraderLevel": 1,
     "Value": "5d6e6a42a4b9364f07165f52",
     "Label": "20/70 \"Poleva-6u\" slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6a42a4b9364f07165f52-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6a42a4b9364f07165f52-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -481,7 +503,7 @@
     "TraderLevel": 1,
     "Value": "5d6e695fa4b936359b35d852",
     "Label": "20/70 5.6mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e695fa4b936359b35d852-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e695fa4b936359b35d852-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -492,7 +514,7 @@
     "TraderLevel": 2,
     "Value": "5d6e69b9a4b9361bc8618958",
     "Label": "20/70 6.2mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e69b9a4b9361bc8618958-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e69b9a4b9361bc8618958-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -503,7 +525,7 @@
     "TraderLevel": 2,
     "Value": "5d6e69c7a4b9360b6c0d54e4",
     "Label": "20/70 7.3mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5d6e69c7a4b9360b6c0d54e4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e69c7a4b9360b6c0d54e4-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -514,7 +536,7 @@
     "TraderLevel": 1,
     "Value": "5a38ebd9c4a282000d722a5b",
     "Label": "20/70 7.5mm buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5a38ebd9c4a282000d722a5b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a38ebd9c4a282000d722a5b-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -525,7 +547,7 @@
     "TraderLevel": 3,
     "Value": "5d6e6a5fa4b93614ec501745",
     "Label": "20/70 Devastator slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6a5fa4b93614ec501745-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6a5fa4b93614ec501745-icon.webp"
   },
   {
     "Caliber": "Caliber20g",
@@ -536,7 +558,7 @@
     "TraderLevel": 3,
     "Value": "5d6e6a05a4b93618084f58d0",
     "Label": "20/70 Star slug",
-    "ImageLink": "https://assets.tarkov.dev/5d6e6a05a4b93618084f58d0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6e6a05a4b93618084f58d0-icon.webp"
   },
   {
     "Caliber": "Caliber23x75",
@@ -547,7 +569,7 @@
     "TraderLevel": 4,
     "Value": "5e85aa1a988a8701445df1f5",
     "Label": "23x75mm \"Barrikada\" slug",
-    "ImageLink": "https://assets.tarkov.dev/5e85aa1a988a8701445df1f5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e85aa1a988a8701445df1f5-icon.webp"
   },
   {
     "Caliber": "Caliber23x75",
@@ -558,7 +580,7 @@
     "TraderLevel": 3,
     "Value": "5e85a9a6eacf8c039e4e2ac1",
     "Label": "23x75mm \"Shrapnel-10\" buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5e85a9a6eacf8c039e4e2ac1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e85a9a6eacf8c039e4e2ac1-icon.webp"
   },
   {
     "Caliber": "Caliber23x75",
@@ -569,18 +591,18 @@
     "TraderLevel": 3,
     "Value": "5f647f31b6238e5dd066e196",
     "Label": "23x75mm \"Shrapnel-25\" buckshot",
-    "ImageLink": "https://assets.tarkov.dev/5f647f31b6238e5dd066e196-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f647f31b6238e5dd066e196-icon.webp"
   },
   {
     "Caliber": "Caliber46x30",
     "Damage": 65,
     "PenetrationPower": 18,
-    "ArmorDamagePerc": 39,
-    "BaseArmorDamage": 7.0199995040893555,
+    "ArmorDamagePerc": 28,
+    "BaseArmorDamage": 5.039999961853027,
     "TraderLevel": 1,
     "Value": "5ba26812d4351e003201fef1",
     "Label": "4.6x30mm Action SX",
-    "ImageLink": "https://assets.tarkov.dev/5ba26812d4351e003201fef1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ba26812d4351e003201fef1-icon.webp"
   },
   {
     "Caliber": "Caliber46x30",
@@ -591,7 +613,7 @@
     "TraderLevel": 6,
     "Value": "5ba26835d4351e0035628ff5",
     "Label": "4.6x30mm AP SX",
-    "ImageLink": "https://assets.tarkov.dev/5ba26835d4351e0035628ff5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ba26835d4351e0035628ff5-icon.webp"
   },
   {
     "Caliber": "Caliber46x30",
@@ -602,18 +624,29 @@
     "TraderLevel": 3,
     "Value": "5ba2678ad4351e44f824b344",
     "Label": "4.6x30mm FMJ SX",
-    "ImageLink": "https://assets.tarkov.dev/5ba2678ad4351e44f824b344-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ba2678ad4351e44f824b344-icon.webp"
   },
   {
     "Caliber": "Caliber46x30",
-    "Damage": 45,
-    "PenetrationPower": 36,
-    "ArmorDamagePerc": 46,
-    "BaseArmorDamage": 16.559999465942383,
+    "Damage": 46,
+    "PenetrationPower": 32,
+    "ArmorDamagePerc": 37,
+    "BaseArmorDamage": 11.84000015258789,
+    "TraderLevel": 2,
+    "Value": "64b6979341772715af0f9c39",
+    "Label": "4.6x30mm JSP SX",
+    "ImageLink": "https://assets.tarkov.dev/64b6979341772715af0f9c39-icon.webp"
+  },
+  {
+    "Caliber": "Caliber46x30",
+    "Damage": 52,
+    "PenetrationPower": 23,
+    "ArmorDamagePerc": 33,
+    "BaseArmorDamage": 7.590000152587891,
     "TraderLevel": 2,
     "Value": "5ba26844d4351e00334c9475",
     "Label": "4.6x30mm Subsonic SX",
-    "ImageLink": "https://assets.tarkov.dev/5ba26844d4351e00334c9475-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ba26844d4351e00334c9475-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -624,7 +657,7 @@
     "TraderLevel": 6,
     "Value": "61962b617c6c7b169525f168",
     "Label": "5.45x39mm 7N40",
-    "ImageLink": "https://assets.tarkov.dev/61962b617c6c7b169525f168-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/61962b617c6c7b169525f168-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -635,7 +668,7 @@
     "TraderLevel": 2,
     "Value": "56dfef82d2720bbd668b4567",
     "Label": "5.45x39mm BP gs",
-    "ImageLink": "https://assets.tarkov.dev/56dfef82d2720bbd668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dfef82d2720bbd668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -646,7 +679,7 @@
     "TraderLevel": 3,
     "Value": "56dff026d2720bb8668b4567",
     "Label": "5.45x39mm BS gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff026d2720bb8668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff026d2720bb8668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -657,7 +690,7 @@
     "TraderLevel": 2,
     "Value": "56dff061d2720bb5668b4567",
     "Label": "5.45x39mm BT gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff061d2720bb5668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff061d2720bb5668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -668,7 +701,7 @@
     "TraderLevel": 1,
     "Value": "56dff0bed2720bb0668b4567",
     "Label": "5.45x39mm FMJ",
-    "ImageLink": "https://assets.tarkov.dev/56dff0bed2720bb0668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff0bed2720bb0668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -679,7 +712,7 @@
     "TraderLevel": 1,
     "Value": "56dff216d2720bbd668b4568",
     "Label": "5.45x39mm HP",
-    "ImageLink": "https://assets.tarkov.dev/56dff216d2720bbd668b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff216d2720bbd668b4568-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -690,7 +723,7 @@
     "TraderLevel": 2,
     "Value": "56dff2ced2720bb4668b4567",
     "Label": "5.45x39mm PP gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff2ced2720bb4668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff2ced2720bb4668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -701,7 +734,7 @@
     "TraderLevel": 6,
     "Value": "5c0d5e4486f77478390952fe",
     "Label": "5.45x39mm PPBS gs \"Igolnik\"",
-    "ImageLink": "https://assets.tarkov.dev/5c0d5e4486f77478390952fe-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d5e4486f77478390952fe-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -712,7 +745,7 @@
     "TraderLevel": 1,
     "Value": "56dff338d2720bbd668b4569",
     "Label": "5.45x39mm PRS gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff338d2720bbd668b4569-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff338d2720bbd668b4569-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -723,7 +756,7 @@
     "TraderLevel": 1,
     "Value": "56dff3afd2720bba668b4567",
     "Label": "5.45x39mm PS gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff3afd2720bba668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff3afd2720bba668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -731,10 +764,10 @@
     "PenetrationPower": 13,
     "ArmorDamagePerc": 34,
     "BaseArmorDamage": 4.420000076293945,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "56dff421d2720b5f5a8b4567",
     "Label": "5.45x39mm SP",
-    "ImageLink": "https://assets.tarkov.dev/56dff421d2720b5f5a8b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff421d2720b5f5a8b4567-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -745,7 +778,7 @@
     "TraderLevel": 1,
     "Value": "56dff4a2d2720bbd668b456a",
     "Label": "5.45x39mm T gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff4a2d2720bbd668b456a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff4a2d2720bbd668b456a-icon.webp"
   },
   {
     "Caliber": "Caliber545x39",
@@ -756,7 +789,7 @@
     "TraderLevel": 2,
     "Value": "56dff4ecd2720b5f5a8b4568",
     "Label": "5.45x39mm US gs",
-    "ImageLink": "https://assets.tarkov.dev/56dff4ecd2720b5f5a8b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56dff4ecd2720b5f5a8b4568-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -767,7 +800,7 @@
     "TraderLevel": 1,
     "Value": "59e6920f86f77411d82aa167",
     "Label": "5.56x45mm FMJ",
-    "ImageLink": "https://assets.tarkov.dev/59e6920f86f77411d82aa167-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6920f86f77411d82aa167-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -778,7 +811,7 @@
     "TraderLevel": 1,
     "Value": "59e6927d86f77411da468256",
     "Label": "5.56x45mm HP",
-    "ImageLink": "https://assets.tarkov.dev/59e6927d86f77411da468256-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6927d86f77411da468256-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -789,7 +822,7 @@
     "TraderLevel": 2,
     "Value": "54527a984bdc2d4e668b4567",
     "Label": "5.56x45mm M855",
-    "ImageLink": "https://assets.tarkov.dev/54527a984bdc2d4e668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/54527a984bdc2d4e668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -797,10 +830,10 @@
     "PenetrationPower": 44,
     "ArmorDamagePerc": 52,
     "BaseArmorDamage": 22.8799991607666,
-    "TraderLevel": 4,
+    "TraderLevel": 6,
     "Value": "54527ac44bdc2d36668b4567",
     "Label": "5.56x45mm M855A1",
-    "ImageLink": "https://assets.tarkov.dev/54527ac44bdc2d36668b4567-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/54527ac44bdc2d36668b4567-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -808,10 +841,10 @@
     "PenetrationPower": 23,
     "ArmorDamagePerc": 34,
     "BaseArmorDamage": 7.820000171661377,
-    "TraderLevel": 2,
+    "TraderLevel": 1,
     "Value": "59e68f6f86f7746c9f75e846",
     "Label": "5.56x45mm M856",
-    "ImageLink": "https://assets.tarkov.dev/59e68f6f86f7746c9f75e846-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e68f6f86f7746c9f75e846-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -822,7 +855,7 @@
     "TraderLevel": 2,
     "Value": "59e6906286f7746c9f75e847",
     "Label": "5.56x45mm M856A1",
-    "ImageLink": "https://assets.tarkov.dev/59e6906286f7746c9f75e847-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6906286f7746c9f75e847-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -833,7 +866,7 @@
     "TraderLevel": 6,
     "Value": "59e690b686f7746c9f75e848",
     "Label": "5.56x45mm M995",
-    "ImageLink": "https://assets.tarkov.dev/59e690b686f7746c9f75e848-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e690b686f7746c9f75e848-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -844,7 +877,7 @@
     "TraderLevel": 1,
     "Value": "59e6918f86f7746c9f75e849",
     "Label": "5.56x45mm MK 255 Mod 0 (RRLP)",
-    "ImageLink": "https://assets.tarkov.dev/59e6918f86f7746c9f75e849-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e6918f86f7746c9f75e849-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -855,7 +888,7 @@
     "TraderLevel": 3,
     "Value": "60194943740c5d77f6705eea",
     "Label": "5.56x45mm MK 318 Mod 0 (SOST)",
-    "ImageLink": "https://assets.tarkov.dev/60194943740c5d77f6705eea-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60194943740c5d77f6705eea-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -866,7 +899,7 @@
     "TraderLevel": 6,
     "Value": "601949593ae8f707c4608daa",
     "Label": "5.56x45mm SSA AP",
-    "ImageLink": "https://assets.tarkov.dev/601949593ae8f707c4608daa-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/601949593ae8f707c4608daa-icon.webp"
   },
   {
     "Caliber": "Caliber556x45NATO",
@@ -877,18 +910,18 @@
     "TraderLevel": 3,
     "Value": "5c0d5ae286f7741e46554302",
     "Label": "5.56x45mm Warmageddon",
-    "ImageLink": "https://assets.tarkov.dev/5c0d5ae286f7741e46554302-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d5ae286f7741e46554302-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
-    "Damage": 58,
+    "Damage": 53,
     "PenetrationPower": 33,
     "ArmorDamagePerc": 41,
     "BaseArmorDamage": 13.529999732971191,
     "TraderLevel": 3,
     "Value": "5cc80f53e4a949000e1ea4f8",
     "Label": "5.7x28mm L191",
-    "ImageLink": "https://assets.tarkov.dev/5cc80f53e4a949000e1ea4f8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc80f53e4a949000e1ea4f8-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
@@ -899,29 +932,29 @@
     "TraderLevel": 4,
     "Value": "5cc86832d7f00c000d3a6e6c",
     "Label": "5.7x28mm R37.F",
-    "ImageLink": "https://assets.tarkov.dev/5cc86832d7f00c000d3a6e6c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc86832d7f00c000d3a6e6c-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
     "Damage": 81,
     "PenetrationPower": 11,
-    "ArmorDamagePerc": 14,
-    "BaseArmorDamage": 1.5399999618530273,
+    "ArmorDamagePerc": 9,
+    "BaseArmorDamage": 0.9900000095367432,
     "TraderLevel": 3,
     "Value": "5cc86840d7f00c002412c56c",
     "Label": "5.7x28mm R37.X",
-    "ImageLink": "https://assets.tarkov.dev/5cc86840d7f00c002412c56c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc86840d7f00c002412c56c-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
-    "Damage": 54,
-    "PenetrationPower": 35,
+    "Damage": 59,
+    "PenetrationPower": 27,
     "ArmorDamagePerc": 37,
-    "BaseArmorDamage": 12.949999809265137,
+    "BaseArmorDamage": 9.989999771118164,
     "TraderLevel": 4,
     "Value": "5cc80f67e4a949035e43bbba",
     "Label": "5.7x28mm SB193",
-    "ImageLink": "https://assets.tarkov.dev/5cc80f67e4a949035e43bbba-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc80f67e4a949035e43bbba-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
@@ -932,29 +965,29 @@
     "TraderLevel": 6,
     "Value": "5cc80f38e4a949001152b560",
     "Label": "5.7x28mm SS190",
-    "ImageLink": "https://assets.tarkov.dev/5cc80f38e4a949001152b560-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc80f38e4a949001152b560-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
     "Damage": 62,
-    "PenetrationPower": 20,
+    "PenetrationPower": 25,
     "ArmorDamagePerc": 22,
-    "BaseArmorDamage": 4.400000095367432,
+    "BaseArmorDamage": 5.5,
     "TraderLevel": 2,
     "Value": "5cc80f8fe4a949033b0224a2",
     "Label": "5.7x28mm SS197SR",
-    "ImageLink": "https://assets.tarkov.dev/5cc80f8fe4a949033b0224a2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc80f8fe4a949033b0224a2-icon.webp"
   },
   {
     "Caliber": "Caliber57x28",
-    "Damage": 74,
-    "PenetrationPower": 10,
-    "ArmorDamagePerc": 15,
-    "BaseArmorDamage": 1.5,
+    "Damage": 70,
+    "PenetrationPower": 17,
+    "ArmorDamagePerc": 19,
+    "BaseArmorDamage": 3.2300000190734863,
     "TraderLevel": 2,
     "Value": "5cc80f79e4a949033c7343b2",
     "Label": "5.7x28mm SS198LF",
-    "ImageLink": "https://assets.tarkov.dev/5cc80f79e4a949033c7343b2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5cc80f79e4a949033c7343b2-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -965,7 +998,7 @@
     "TraderLevel": 1,
     "Value": "5735fdcd2459776445391d61",
     "Label": "7.62x25mm TT AKBS",
-    "ImageLink": "https://assets.tarkov.dev/5735fdcd2459776445391d61-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5735fdcd2459776445391d61-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -976,7 +1009,7 @@
     "TraderLevel": 1,
     "Value": "5735ff5c245977640e39ba7e",
     "Label": "7.62x25mm TT FMJ43",
-    "ImageLink": "https://assets.tarkov.dev/5735ff5c245977640e39ba7e-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5735ff5c245977640e39ba7e-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -987,7 +1020,7 @@
     "TraderLevel": 1,
     "Value": "573601b42459776410737435",
     "Label": "7.62x25mm TT LRN",
-    "ImageLink": "https://assets.tarkov.dev/573601b42459776410737435-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573601b42459776410737435-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -998,7 +1031,7 @@
     "TraderLevel": 1,
     "Value": "573602322459776445391df1",
     "Label": "7.62x25mm TT LRNPC",
-    "ImageLink": "https://assets.tarkov.dev/573602322459776445391df1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573602322459776445391df1-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -1009,7 +1042,7 @@
     "TraderLevel": 2,
     "Value": "5736026a245977644601dc61",
     "Label": "7.62x25mm TT P gl",
-    "ImageLink": "https://assets.tarkov.dev/5736026a245977644601dc61-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5736026a245977644601dc61-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -1020,7 +1053,7 @@
     "TraderLevel": 2,
     "Value": "573603562459776430731618",
     "Label": "7.62x25mm TT Pst gzh",
-    "ImageLink": "https://assets.tarkov.dev/573603562459776430731618-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573603562459776430731618-icon.webp"
   },
   {
     "Caliber": "Caliber762x25TT",
@@ -1031,7 +1064,7 @@
     "TraderLevel": 2,
     "Value": "573603c924597764442bd9cb",
     "Label": "7.62x25mm TT PT gzh",
-    "ImageLink": "https://assets.tarkov.dev/573603c924597764442bd9cb-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573603c924597764442bd9cb-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
@@ -1039,21 +1072,32 @@
     "PenetrationPower": 47,
     "ArmorDamagePerc": 63,
     "BaseArmorDamage": 29.610000610351562,
-    "TraderLevel": 1,
+    "TraderLevel": 6,
     "Value": "59e0d99486f7744a32234762",
     "Label": "7.62x39mm BP gzh",
-    "ImageLink": "https://assets.tarkov.dev/59e0d99486f7744a32234762-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e0d99486f7744a32234762-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x39",
+    "Damage": 63,
+    "PenetrationPower": 26,
+    "ArmorDamagePerc": 33,
+    "BaseArmorDamage": 8.579999923706055,
+    "TraderLevel": 1,
+    "Value": "64b7af5a8532cf95ee0a0dbd",
+    "Label": "7.62x39mm FMJ",
+    "ImageLink": "https://assets.tarkov.dev/64b7af5a8532cf95ee0a0dbd-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
     "Damage": 87,
     "PenetrationPower": 15,
-    "ArmorDamagePerc": 35,
-    "BaseArmorDamage": 5.25,
+    "ArmorDamagePerc": 20,
+    "BaseArmorDamage": 3.0,
     "TraderLevel": 1,
     "Value": "59e4d3d286f774176a36250a",
     "Label": "7.62x39mm HP",
-    "ImageLink": "https://assets.tarkov.dev/59e4d3d286f774176a36250a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e4d3d286f774176a36250a-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
@@ -1064,7 +1108,18 @@
     "TraderLevel": 6,
     "Value": "601aa3d2b2bcb34913271e6d",
     "Label": "7.62x39mm MAI AP",
-    "ImageLink": "https://assets.tarkov.dev/601aa3d2b2bcb34913271e6d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/601aa3d2b2bcb34913271e6d-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x39",
+    "Damage": 55,
+    "PenetrationPower": 41,
+    "ArmorDamagePerc": 57,
+    "BaseArmorDamage": 23.369998931884766,
+    "TraderLevel": 3,
+    "Value": "64b7af434b75259c590fa893",
+    "Label": "7.62x39mm PP gzh",
+    "ImageLink": "https://assets.tarkov.dev/64b7af434b75259c590fa893-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
@@ -1075,7 +1130,18 @@
     "TraderLevel": 2,
     "Value": "5656d7c34bdc2d9d198b4587",
     "Label": "7.62x39mm PS gzh",
-    "ImageLink": "https://assets.tarkov.dev/5656d7c34bdc2d9d198b4587-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5656d7c34bdc2d9d198b4587-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x39",
+    "Damage": 68,
+    "PenetrationPower": 20,
+    "ArmorDamagePerc": 27,
+    "BaseArmorDamage": 5.400000095367432,
+    "TraderLevel": 1,
+    "Value": "64b7af734b75259c590fa895",
+    "Label": "7.62x39mm SP",
+    "ImageLink": "https://assets.tarkov.dev/64b7af734b75259c590fa895-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
@@ -1086,7 +1152,7 @@
     "TraderLevel": 2,
     "Value": "59e4cf5286f7741778269d8a",
     "Label": "7.62x39mm T-45M1 gzh",
-    "ImageLink": "https://assets.tarkov.dev/59e4cf5286f7741778269d8a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e4cf5286f7741778269d8a-icon.webp"
   },
   {
     "Caliber": "Caliber762x39",
@@ -1097,7 +1163,7 @@
     "TraderLevel": 3,
     "Value": "59e4d24686f7741776641ac7",
     "Label": "7.62x39mm US gzh",
-    "ImageLink": "https://assets.tarkov.dev/59e4d24686f7741776641ac7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e4d24686f7741776641ac7-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1108,7 +1174,7 @@
     "TraderLevel": 2,
     "Value": "5e023e53d4353e3302577c4c",
     "Label": "7.62x51mm BCP FMJ",
-    "ImageLink": "https://assets.tarkov.dev/5e023e53d4353e3302577c4c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023e53d4353e3302577c4c-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1119,7 +1185,7 @@
     "TraderLevel": 6,
     "Value": "5a6086ea4f39f99cd479502f",
     "Label": "7.62x51mm M61",
-    "ImageLink": "https://assets.tarkov.dev/5a6086ea4f39f99cd479502f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a6086ea4f39f99cd479502f-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1130,7 +1196,7 @@
     "TraderLevel": 4,
     "Value": "5a608bf24f39f98ffc77720e",
     "Label": "7.62x51mm M62 Tracer",
-    "ImageLink": "https://assets.tarkov.dev/5a608bf24f39f98ffc77720e-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a608bf24f39f98ffc77720e-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1141,7 +1207,7 @@
     "TraderLevel": 4,
     "Value": "58dd3ad986f77403051cba8f",
     "Label": "7.62x51mm M80",
-    "ImageLink": "https://assets.tarkov.dev/58dd3ad986f77403051cba8f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58dd3ad986f77403051cba8f-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1152,7 +1218,7 @@
     "TraderLevel": 6,
     "Value": "5efb0c1bd79ff02a1f5e68d9",
     "Label": "7.62x51mm M993",
-    "ImageLink": "https://assets.tarkov.dev/5efb0c1bd79ff02a1f5e68d9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0c1bd79ff02a1f5e68d9-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1163,7 +1229,7 @@
     "TraderLevel": 1,
     "Value": "5e023e6e34d52a55c3304f71",
     "Label": "7.62x51mm TCW SP",
-    "ImageLink": "https://assets.tarkov.dev/5e023e6e34d52a55c3304f71-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023e6e34d52a55c3304f71-icon.webp"
   },
   {
     "Caliber": "Caliber762x51",
@@ -1174,7 +1240,7 @@
     "TraderLevel": 4,
     "Value": "5e023e88277cce2b522ff2b1",
     "Label": "7.62x51mm Ultra Nosler",
-    "ImageLink": "https://assets.tarkov.dev/5e023e88277cce2b522ff2b1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023e88277cce2b522ff2b1-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1185,7 +1251,7 @@
     "TraderLevel": 6,
     "Value": "5e023d48186a883be655e551",
     "Label": "7.62x54mm R BS gs",
-    "ImageLink": "https://assets.tarkov.dev/5e023d48186a883be655e551-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023d48186a883be655e551-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1196,7 +1262,29 @@
     "TraderLevel": 4,
     "Value": "5e023d34e8a400319a28ed44",
     "Label": "7.62x54mm R BT gzh",
-    "ImageLink": "https://assets.tarkov.dev/5e023d34e8a400319a28ed44-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023d34e8a400319a28ed44-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x54R",
+    "Damage": 84,
+    "PenetrationPower": 33,
+    "ArmorDamagePerc": 63,
+    "BaseArmorDamage": 20.78999900817871,
+    "TraderLevel": 1,
+    "Value": "64b8f7968532cf95ee0a0dbf",
+    "Label": "7.62x54mm R FMJ",
+    "ImageLink": "https://assets.tarkov.dev/64b8f7968532cf95ee0a0dbf-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x54R",
+    "Damage": 102,
+    "PenetrationPower": 23,
+    "ArmorDamagePerc": 37,
+    "BaseArmorDamage": 8.510000228881836,
+    "TraderLevel": 1,
+    "Value": "64b8f7c241772715af0f9c3d",
+    "Label": "7.62x54mm R HP BT",
+    "ImageLink": "https://assets.tarkov.dev/64b8f7c241772715af0f9c3d-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1204,10 +1292,10 @@
     "PenetrationPower": 42,
     "ArmorDamagePerc": 78,
     "BaseArmorDamage": 32.7599983215332,
-    "TraderLevel": 1,
+    "TraderLevel": 2,
     "Value": "5887431f2459777e1612938f",
     "Label": "7.62x54mm R LPS gzh",
-    "ImageLink": "https://assets.tarkov.dev/5887431f2459777e1612938f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5887431f2459777e1612938f-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1218,7 +1306,7 @@
     "TraderLevel": 3,
     "Value": "59e77a2386f7742ee578960a",
     "Label": "7.62x54mm R PS gzh",
-    "ImageLink": "https://assets.tarkov.dev/59e77a2386f7742ee578960a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e77a2386f7742ee578960a-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1229,7 +1317,18 @@
     "TraderLevel": 6,
     "Value": "560d61e84bdc2da74d8b4571",
     "Label": "7.62x54mm R SNB gzh",
-    "ImageLink": "https://assets.tarkov.dev/560d61e84bdc2da74d8b4571-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/560d61e84bdc2da74d8b4571-icon.webp"
+  },
+  {
+    "Caliber": "Caliber762x54R",
+    "Damage": 92,
+    "PenetrationPower": 27,
+    "ArmorDamagePerc": 56,
+    "BaseArmorDamage": 15.119999885559082,
+    "TraderLevel": 1,
+    "Value": "64b8f7b5389d7ffd620ccba2",
+    "Label": "7.62x54mm R SP BT",
+    "ImageLink": "https://assets.tarkov.dev/64b8f7b5389d7ffd620ccba2-icon.webp"
   },
   {
     "Caliber": "Caliber762x54R",
@@ -1240,7 +1339,7 @@
     "TraderLevel": 2,
     "Value": "5e023cf8186a883be655e54f",
     "Label": "7.62x54mm R T-46M gzh",
-    "ImageLink": "https://assets.tarkov.dev/5e023cf8186a883be655e54f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e023cf8186a883be655e54f-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1251,7 +1350,7 @@
     "TraderLevel": 2,
     "Value": "573718ba2459775a75491131",
     "Label": "9x18mm PM BZhT gzh",
-    "ImageLink": "https://assets.tarkov.dev/573718ba2459775a75491131-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573718ba2459775a75491131-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1262,7 +1361,7 @@
     "TraderLevel": 1,
     "Value": "573719762459775a626ccbc1",
     "Label": "9x18mm PM P gzh",
-    "ImageLink": "https://assets.tarkov.dev/573719762459775a626ccbc1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573719762459775a626ccbc1-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1273,7 +1372,7 @@
     "TraderLevel": 2,
     "Value": "573719df2459775a626ccbc2",
     "Label": "9x18mm PM PBM gzh",
-    "ImageLink": "https://assets.tarkov.dev/573719df2459775a626ccbc2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573719df2459775a626ccbc2-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1284,7 +1383,7 @@
     "TraderLevel": 1,
     "Value": "57371b192459775a9f58a5e0",
     "Label": "9x18mm PM PPe gzh",
-    "ImageLink": "https://assets.tarkov.dev/57371b192459775a9f58a5e0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371b192459775a9f58a5e0-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1295,7 +1394,7 @@
     "TraderLevel": 1,
     "Value": "57371e4124597760ff7b25f1",
     "Label": "9x18mm PM PPT gzh",
-    "ImageLink": "https://assets.tarkov.dev/57371e4124597760ff7b25f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371e4124597760ff7b25f1-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1306,7 +1405,7 @@
     "TraderLevel": 1,
     "Value": "57371eb62459776125652ac1",
     "Label": "9x18mm PM PRS gs",
-    "ImageLink": "https://assets.tarkov.dev/57371eb62459776125652ac1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371eb62459776125652ac1-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1317,7 +1416,7 @@
     "TraderLevel": 1,
     "Value": "57371f2b24597761224311f1",
     "Label": "9x18mm PM PS gs PPO",
-    "ImageLink": "https://assets.tarkov.dev/57371f2b24597761224311f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371f2b24597761224311f1-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1328,7 +1427,7 @@
     "TraderLevel": 1,
     "Value": "57371f8d24597761006c6a81",
     "Label": "9x18mm PM PSO gzh",
-    "ImageLink": "https://assets.tarkov.dev/57371f8d24597761006c6a81-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371f8d24597761006c6a81-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1339,7 +1438,7 @@
     "TraderLevel": 1,
     "Value": "5737201124597760fc4431f1",
     "Label": "9x18mm PM Pst gzh",
-    "ImageLink": "https://assets.tarkov.dev/5737201124597760fc4431f1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5737201124597760fc4431f1-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1350,7 +1449,7 @@
     "TraderLevel": 1,
     "Value": "5737207f24597760ff7b25f2",
     "Label": "9x18mm PM PSV",
-    "ImageLink": "https://assets.tarkov.dev/5737207f24597760ff7b25f2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5737207f24597760ff7b25f2-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1361,7 +1460,7 @@
     "TraderLevel": 2,
     "Value": "573720e02459776143012541",
     "Label": "9x18mm PM RG028 gzh",
-    "ImageLink": "https://assets.tarkov.dev/573720e02459776143012541-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/573720e02459776143012541-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1372,7 +1471,7 @@
     "TraderLevel": 2,
     "Value": "57372140245977611f70ee91",
     "Label": "9x18mm PM SP7 gzh",
-    "ImageLink": "https://assets.tarkov.dev/57372140245977611f70ee91-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57372140245977611f70ee91-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1383,7 +1482,7 @@
     "TraderLevel": 2,
     "Value": "5737218f245977612125ba51",
     "Label": "9x18mm PM SP8 gzh",
-    "ImageLink": "https://assets.tarkov.dev/5737218f245977612125ba51-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5737218f245977612125ba51-icon.webp"
   },
   {
     "Caliber": "Caliber9x18PM",
@@ -1394,7 +1493,7 @@
     "TraderLevel": 2,
     "Value": "57371aab2459775a77142f22",
     "Label": "9x18mm PMM PstM gzh",
-    "ImageLink": "https://assets.tarkov.dev/57371aab2459775a77142f22-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57371aab2459775a77142f22-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1405,7 +1504,18 @@
     "TraderLevel": 3,
     "Value": "5c925fa22e221601da359b7b",
     "Label": "9x19mm AP 6.3",
-    "ImageLink": "https://assets.tarkov.dev/5c925fa22e221601da359b7b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c925fa22e221601da359b7b-icon.webp"
+  },
+  {
+    "Caliber": "Caliber9x19PARA",
+    "Damage": 56,
+    "PenetrationPower": 18,
+    "ArmorDamagePerc": 35,
+    "BaseArmorDamage": 6.299999713897705,
+    "TraderLevel": 1,
+    "Value": "64b7bbb74b75259c590fa897",
+    "Label": "9x19mm FMJ M882",
+    "ImageLink": "https://assets.tarkov.dev/64b7bbb74b75259c590fa897-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1416,7 +1526,7 @@
     "TraderLevel": 1,
     "Value": "5c3df7d588a4501f290594e5",
     "Label": "9x19mm Green Tracer",
-    "ImageLink": "https://assets.tarkov.dev/5c3df7d588a4501f290594e5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c3df7d588a4501f290594e5-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1427,7 +1537,7 @@
     "TraderLevel": 4,
     "Value": "5a3c16fe86f77452b62de32a",
     "Label": "9x19mm Luger CCI",
-    "ImageLink": "https://assets.tarkov.dev/5a3c16fe86f77452b62de32a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a3c16fe86f77452b62de32a-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1435,10 +1545,10 @@
     "PenetrationPower": 39,
     "ArmorDamagePerc": 55,
     "BaseArmorDamage": 21.450000762939453,
-    "TraderLevel": 1,
+    "TraderLevel": 6,
     "Value": "5efb0da7a29a85116f6ea05f",
     "Label": "9x19mm PBP gzh",
-    "ImageLink": "https://assets.tarkov.dev/5efb0da7a29a85116f6ea05f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0da7a29a85116f6ea05f-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1449,7 +1559,7 @@
     "TraderLevel": 1,
     "Value": "58864a4f2459770fcc257101",
     "Label": "9x19mm PSO gzh",
-    "ImageLink": "https://assets.tarkov.dev/58864a4f2459770fcc257101-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/58864a4f2459770fcc257101-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1460,7 +1570,7 @@
     "TraderLevel": 2,
     "Value": "56d59d3ad2720bdb418b4577",
     "Label": "9x19mm Pst gzh",
-    "ImageLink": "https://assets.tarkov.dev/56d59d3ad2720bdb418b4577-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/56d59d3ad2720bdb418b4577-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1471,7 +1581,7 @@
     "TraderLevel": 3,
     "Value": "5efb0e16aeb21837e749c7ff",
     "Label": "9x19mm QuakeMaker",
-    "ImageLink": "https://assets.tarkov.dev/5efb0e16aeb21837e749c7ff-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5efb0e16aeb21837e749c7ff-icon.webp"
   },
   {
     "Caliber": "Caliber9x19PARA",
@@ -1482,7 +1592,7 @@
     "TraderLevel": 4,
     "Value": "5c0d56a986f774449d5de529",
     "Label": "9x19mm RIP",
-    "ImageLink": "https://assets.tarkov.dev/5c0d56a986f774449d5de529-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d56a986f774449d5de529-icon.webp"
   },
   {
     "Caliber": "Caliber9x21",
@@ -1493,7 +1603,7 @@
     "TraderLevel": 6,
     "Value": "5a26ac0ec4a28200741e1e18",
     "Label": "9x21mm BT gzh",
-    "ImageLink": "https://assets.tarkov.dev/5a26ac0ec4a28200741e1e18-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a26ac0ec4a28200741e1e18-icon.webp"
   },
   {
     "Caliber": "Caliber9x21",
@@ -1504,7 +1614,7 @@
     "TraderLevel": 1,
     "Value": "5a26abfac4a28232980eabff",
     "Label": "9x21mm P gzh",
-    "ImageLink": "https://assets.tarkov.dev/5a26abfac4a28232980eabff-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a26abfac4a28232980eabff-icon.webp"
   },
   {
     "Caliber": "Caliber9x21",
@@ -1515,7 +1625,7 @@
     "TraderLevel": 2,
     "Value": "5a26ac06c4a282000c5a90a8",
     "Label": "9x21mm PE gzh",
-    "ImageLink": "https://assets.tarkov.dev/5a26ac06c4a282000c5a90a8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a26ac06c4a282000c5a90a8-icon.webp"
   },
   {
     "Caliber": "Caliber9x21",
@@ -1526,7 +1636,7 @@
     "TraderLevel": 3,
     "Value": "5a269f97c4a282000b151807",
     "Label": "9x21mm PS gzh",
-    "ImageLink": "https://assets.tarkov.dev/5a269f97c4a282000b151807-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a269f97c4a282000b151807-icon.webp"
   },
   {
     "Caliber": "Caliber9x39",
@@ -1537,7 +1647,7 @@
     "TraderLevel": 4,
     "Value": "5c0d688c86f77413ae3407b2",
     "Label": "9x39mm BP gs",
-    "ImageLink": "https://assets.tarkov.dev/5c0d688c86f77413ae3407b2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d688c86f77413ae3407b2-icon.webp"
   },
   {
     "Caliber": "Caliber9x39",
@@ -1548,7 +1658,7 @@
     "TraderLevel": 6,
     "Value": "61962d879bb3d20b0946d385",
     "Label": "9x39mm PAB-9 gs",
-    "ImageLink": "https://assets.tarkov.dev/61962d879bb3d20b0946d385-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/61962d879bb3d20b0946d385-icon.webp"
   },
   {
     "Caliber": "Caliber9x39",
@@ -1559,7 +1669,7 @@
     "TraderLevel": 2,
     "Value": "57a0dfb82459774d3078b56c",
     "Label": "9x39mm SP-5 gs",
-    "ImageLink": "https://assets.tarkov.dev/57a0dfb82459774d3078b56c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57a0dfb82459774d3078b56c-icon.webp"
   },
   {
     "Caliber": "Caliber9x39",
@@ -1567,10 +1677,10 @@
     "PenetrationPower": 46,
     "ArmorDamagePerc": 60,
     "BaseArmorDamage": 27.600000381469727,
-    "TraderLevel": 3,
+    "TraderLevel": 6,
     "Value": "57a0e5022459774d1673f889",
     "Label": "9x39mm SP-6 gs",
-    "ImageLink": "https://assets.tarkov.dev/57a0e5022459774d1673f889-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/57a0e5022459774d1673f889-icon.webp"
   },
   {
     "Caliber": "Caliber9x39",
@@ -1581,6 +1691,6 @@
     "TraderLevel": 3,
     "Value": "5c0d668f86f7747ccb7f13b2",
     "Label": "9x39mm SPP gs",
-    "ImageLink": "https://assets.tarkov.dev/5c0d668f86f7747ccb7f13b2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d668f86f7747ccb7f13b2-icon.webp"
   }
 ]

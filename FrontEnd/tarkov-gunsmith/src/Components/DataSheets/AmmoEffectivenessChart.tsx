@@ -6,6 +6,7 @@ import { Accordion, Button, Card, Col, OverlayTrigger, ToggleButton, ToggleButto
 import { LINKS } from '../../Util/links';
 import { Link } from 'react-router-dom';
 import { requestAmmoAuthorityData } from '../../Context/Requests';
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 
 export default function SimplifiedAmmoRatingsTable(props: any) {
@@ -329,10 +330,10 @@ export default function SimplifiedAmmoRatingsTable(props: any) {
                             }}
                         >
                             {picturesYesNo === true &&
-                                <img
+                                <ImageWithDefaultFallback
                                     alt="avatar"
                                     height={40}
-                                    src={`https://assets.tarkov.dev/${row.original.details.id}-icon.jpg`}
+                                    src={`https://assets.tarkov.dev/${row.original.details.id}-icon.webp`}
                                     loading="lazy"
                                 />
                             }

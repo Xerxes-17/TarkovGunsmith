@@ -11,6 +11,7 @@ import SelectAmmo from '../ADC/SelectAmmo';
 import { effectivenessDataRow } from "./DataSheetTypes";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LINKS } from "../../Util/links";
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function DataSheetEffectivenessAmmo(props: any) {
     const navigate = useNavigate();
@@ -84,10 +85,10 @@ export default function DataSheetEffectivenessAmmo(props: any) {
                             gap: '1rem',
                         }}
                     >
-                        <img
+                        <ImageWithDefaultFallback
                             alt="avatar"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.armorId}-icon.jpg`}
+                            src={`https://assets.tarkov.dev/${row.original.armorId}-icon.webp`}
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}

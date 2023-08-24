@@ -34,7 +34,7 @@ namespace WishGranter.Statics
             //var path = Environment.GetFolderPath(folder);
             //DbPath = System.IO.Path.Join(path, DB_NAME);
 
-            //! For Prod
+            //!For Prod
             var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
             DbPath = Path.Combine(baseFolder, DB_NAME);
         }

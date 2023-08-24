@@ -8,7 +8,7 @@
     "Type": "ChestRig",
     "Value": "544a5caa4bdc2d1a388b4568",
     "Label": "Crye Precision AVS plate carrier",
-    "ImageLink": "https://assets.tarkov.dev/544a5caa4bdc2d1a388b4568-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/544a5caa4bdc2d1a388b4568-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -19,7 +19,7 @@
     "Type": "ArmorVest",
     "Value": "545cdb794bdc2d3a198b456a",
     "Label": "6B43 6A Zabralo-Sh body armor",
-    "ImageLink": "https://assets.tarkov.dev/545cdb794bdc2d3a198b456a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/545cdb794bdc2d3a198b456a-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -30,7 +30,7 @@
     "Type": "Helmet",
     "Value": "5645bc214bdc2d363b8b4571",
     "Label": "FORT Kiver-M bulletproof helmet",
-    "ImageLink": "https://assets.tarkov.dev/5645bc214bdc2d363b8b4571-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5645bc214bdc2d363b8b4571-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -41,7 +41,7 @@
     "Type": "ArmorVest",
     "Value": "5648a7494bdc2d9d488b4583",
     "Label": "PACA Soft Armor",
-    "ImageLink": "https://assets.tarkov.dev/5648a7494bdc2d9d488b4583-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5648a7494bdc2d9d488b4583-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -52,7 +52,7 @@
     "Type": "ArmorVest",
     "Value": "59e7635f86f7742cbf2c1095",
     "Label": "BNTI Module-3M body armor",
-    "ImageLink": "https://assets.tarkov.dev/59e7635f86f7742cbf2c1095-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e7635f86f7742cbf2c1095-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -63,7 +63,7 @@
     "Type": "Helmet",
     "Value": "59e7711e86f7746cae05fbe1",
     "Label": "Kolpak-1S riot helmet",
-    "ImageLink": "https://assets.tarkov.dev/59e7711e86f7746cae05fbe1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59e7711e86f7746cae05fbe1-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -74,18 +74,18 @@
     "Type": "Helmet",
     "Value": "59ef13ca86f77445fd0e2483",
     "Label": "Jack-o'-lantern tactical pumpkin helmet",
-    "ImageLink": "https://assets.tarkov.dev/59ef13ca86f77445fd0e2483-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/59ef13ca86f77445fd0e2483-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 40,
     "ArmorMaterial": 4,
     "EffectiveDurability": 80,
-    "TraderLevel": -1,
+    "TraderLevel": 3,
     "Type": "Helmet",
     "Value": "5a154d5cfcdbcb001a3b00da",
     "Label": "Ops-Core FAST MT Super High Cut helmet (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5a154d5cfcdbcb001a3b00da-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a154d5cfcdbcb001a3b00da-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -96,7 +96,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5a16b672fcdbcb001912fa83",
     "Label": "Ops-Core FAST Visor",
-    "ImageLink": "https://assets.tarkov.dev/5a16b672fcdbcb001912fa83-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a16b672fcdbcb001912fa83-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -107,7 +107,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5a16b7e1fcdbcb00165aa6c9",
     "Label": "Ops-Core FAST multi-hit ballistic face shield",
-    "ImageLink": "https://assets.tarkov.dev/5a16b7e1fcdbcb00165aa6c9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a16b7e1fcdbcb00165aa6c9-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -118,7 +118,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5a16ba61fcdbcb098008728a",
     "Label": "Ops-Core FAST Gunsight Mandible",
-    "ImageLink": "https://assets.tarkov.dev/5a16ba61fcdbcb098008728a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a16ba61fcdbcb098008728a-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -129,7 +129,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5a16badafcdbcb001865f72d",
     "Label": "Ops-Core FAST Side Armor",
-    "ImageLink": "https://assets.tarkov.dev/5a16badafcdbcb001865f72d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a16badafcdbcb001865f72d-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -140,7 +140,7 @@
     "Type": "Helmet",
     "Value": "5a7c4850e899ef00150be885",
     "Label": "6B47 Ratnik-BSh helmet",
-    "ImageLink": "https://assets.tarkov.dev/5a7c4850e899ef00150be885-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5a7c4850e899ef00150be885-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -151,7 +151,7 @@
     "Type": "Helmet",
     "Value": "5aa7cfc0e5b5b00015693143",
     "Label": "6B47 Ratnik-BSh helmet (Digital Flora cover)",
-    "ImageLink": "https://assets.tarkov.dev/5aa7cfc0e5b5b00015693143-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7cfc0e5b5b00015693143-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -162,7 +162,7 @@
     "Type": "Helmet",
     "Value": "5aa7d03ae5b5b00016327db5",
     "Label": "UNTAR helmet",
-    "ImageLink": "https://assets.tarkov.dev/5aa7d03ae5b5b00016327db5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7d03ae5b5b00016327db5-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -173,7 +173,7 @@
     "Type": "Helmet",
     "Value": "5aa7d193e5b5b000171d063f",
     "Label": "SSSh-94 SFERA-S helmet",
-    "ImageLink": "https://assets.tarkov.dev/5aa7d193e5b5b000171d063f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7d193e5b5b000171d063f-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -184,7 +184,7 @@
     "Type": "Helmet",
     "Value": "5aa7e276e5b5b000171d0647",
     "Label": "Altyn bulletproof helmet",
-    "ImageLink": "https://assets.tarkov.dev/5aa7e276e5b5b000171d0647-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7e276e5b5b000171d0647-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -195,7 +195,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5aa7e373e5b5b000137b76f0",
     "Label": "Altyn face shield",
-    "ImageLink": "https://assets.tarkov.dev/5aa7e373e5b5b000137b76f0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7e373e5b5b000137b76f0-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -206,18 +206,18 @@
     "Type": "ArmoredEquipment",
     "Value": "5aa7e3abe5b5b000171d064d",
     "Label": "ZSh-1-2M face shield",
-    "ImageLink": "https://assets.tarkov.dev/5aa7e3abe5b5b000171d064d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7e3abe5b5b000171d064d-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 35,
     "ArmorMaterial": 4,
     "EffectiveDurability": 70,
-    "TraderLevel": -1,
+    "TraderLevel": 2,
     "Type": "Helmet",
     "Value": "5aa7e454e5b5b0214e506fa2",
     "Label": "ZSh-1-2M helmet",
-    "ImageLink": "https://assets.tarkov.dev/5aa7e454e5b5b0214e506fa2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7e454e5b5b0214e506fa2-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -228,7 +228,7 @@
     "Type": "Helmet",
     "Value": "5aa7e4a4e5b5b000137b76f2",
     "Label": "ZSh-1-2M helmet (Black cover)",
-    "ImageLink": "https://assets.tarkov.dev/5aa7e4a4e5b5b000137b76f2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5aa7e4a4e5b5b000137b76f2-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -238,8 +238,8 @@
     "TraderLevel": 3,
     "Type": "ChestRig",
     "Value": "5ab8dced86f774646209ec87",
-    "Label": "ANA Tactical M2 armored rig",
-    "ImageLink": "https://assets.tarkov.dev/5ab8dced86f774646209ec87-icon.jpg"
+    "Label": "ANA Tactical M2 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5ab8dced86f774646209ec87-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -250,7 +250,7 @@
     "Type": "ArmorVest",
     "Value": "5ab8e4ed86f7742d8e50c7fa",
     "Label": "MF-UNTAR body armor",
-    "ImageLink": "https://assets.tarkov.dev/5ab8e4ed86f7742d8e50c7fa-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ab8e4ed86f7742d8e50c7fa-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -261,7 +261,7 @@
     "Type": "ArmorVest",
     "Value": "5ab8e79e86f7742d8b372e78",
     "Label": "BNTI Gzhel-K body armor",
-    "ImageLink": "https://assets.tarkov.dev/5ab8e79e86f7742d8b372e78-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ab8e79e86f7742d8b372e78-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -272,18 +272,18 @@
     "Type": "ArmoredEquipment",
     "Value": "5ac4c50d5acfc40019262e87",
     "Label": "Kolpak-1S face shield",
-    "ImageLink": "https://assets.tarkov.dev/5ac4c50d5acfc40019262e87-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac4c50d5acfc40019262e87-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 40,
     "ArmorMaterial": 4,
     "EffectiveDurability": 80,
-    "TraderLevel": -1,
+    "TraderLevel": 3,
     "Type": "Helmet",
     "Value": "5ac8d6885acfc400180ae7b0",
     "Label": "Ops-Core FAST MT Super High Cut helmet (Tan)",
-    "ImageLink": "https://assets.tarkov.dev/5ac8d6885acfc400180ae7b0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ac8d6885acfc400180ae7b0-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -294,7 +294,7 @@
     "Type": "Helmet",
     "Value": "5b40e1525acfc4771e1c6611",
     "Label": "HighCom Striker ULACH IIIA helmet (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5b40e1525acfc4771e1c6611-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b40e1525acfc4771e1c6611-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -305,7 +305,7 @@
     "Type": "Helmet",
     "Value": "5b40e2bc5acfc40016388216",
     "Label": "HighCom Striker ULACH IIIA helmet (Desert Tan)",
-    "ImageLink": "https://assets.tarkov.dev/5b40e2bc5acfc40016388216-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b40e2bc5acfc40016388216-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -316,18 +316,18 @@
     "Type": "Helmet",
     "Value": "5b40e3f35acfc40016388218",
     "Label": "HighCom Striker ACHHC IIIA helmet (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5b40e3f35acfc40016388218-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b40e3f35acfc40016388218-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 30,
     "ArmorMaterial": 4,
     "EffectiveDurability": 60,
-    "TraderLevel": -1,
+    "TraderLevel": 3,
     "Type": "Helmet",
     "Value": "5b40e4035acfc47a87740943",
-    "Label": "HighCom Striker ACHHC IIIA helmet (Olive)",
-    "ImageLink": "https://assets.tarkov.dev/5b40e4035acfc47a87740943-icon.jpg"
+    "Label": "HighCom Striker ACHHC IIIA helmet (Olive Drab)",
+    "ImageLink": "https://assets.tarkov.dev/5b40e4035acfc47a87740943-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -338,7 +338,7 @@
     "Type": "Helmet",
     "Value": "5b4329f05acfc47a86086aa1",
     "Label": "DevTac Ronin ballistic helmet",
-    "ImageLink": "https://assets.tarkov.dev/5b4329f05acfc47a86086aa1-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b4329f05acfc47a86086aa1-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -349,7 +349,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5b432b2f5acfc4771e1c6622",
     "Label": "Shattered lightweight armored mask",
-    "ImageLink": "https://assets.tarkov.dev/5b432b2f5acfc4771e1c6622-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b432b2f5acfc4771e1c6622-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -360,7 +360,7 @@
     "Type": "Helmet",
     "Value": "5b432d215acfc4771e1c6624",
     "Label": "LShZ light helmet",
-    "ImageLink": "https://assets.tarkov.dev/5b432d215acfc4771e1c6624-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b432d215acfc4771e1c6624-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -371,7 +371,7 @@
     "Type": "ChestRig",
     "Value": "5b44cad286f77402a54ae7e5",
     "Label": "5.11 Tactical TacTec plate carrier",
-    "ImageLink": "https://assets.tarkov.dev/5b44cad286f77402a54ae7e5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b44cad286f77402a54ae7e5-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -381,8 +381,8 @@
     "TraderLevel": 4,
     "Type": "ArmorVest",
     "Value": "5b44cd8b86f774503d30cba2",
-    "Label": "IOTV Gen4 body armor (full protection)",
-    "ImageLink": "https://assets.tarkov.dev/5b44cd8b86f774503d30cba2-icon.jpg"
+    "Label": "IOTV Gen4 body armor (Full Protection Kit)",
+    "ImageLink": "https://assets.tarkov.dev/5b44cd8b86f774503d30cba2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -392,8 +392,8 @@
     "TraderLevel": -1,
     "Type": "ArmorVest",
     "Value": "5b44cf1486f77431723e3d05",
-    "Label": "IOTV Gen4 body armor (assault kit)",
-    "ImageLink": "https://assets.tarkov.dev/5b44cf1486f77431723e3d05-icon.jpg"
+    "Label": "IOTV Gen4 body armor (Assault Kit)",
+    "ImageLink": "https://assets.tarkov.dev/5b44cf1486f77431723e3d05-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -403,8 +403,8 @@
     "TraderLevel": 3,
     "Type": "ArmorVest",
     "Value": "5b44d0de86f774503d30cba8",
-    "Label": "IOTV Gen4 body armor (high mobility kit)",
-    "ImageLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
+    "Label": "IOTV Gen4 body armor (High Mobility Kit)",
+    "ImageLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -415,7 +415,7 @@
     "Type": "ArmorVest",
     "Value": "5b44d22286f774172b0c9de8",
     "Label": "BNTI Kirasa-N body armor",
-    "ImageLink": "https://assets.tarkov.dev/5b44d22286f774172b0c9de8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b44d22286f774172b0c9de8-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -426,7 +426,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5b46238386f7741a693bcf9c",
     "Label": "Kiver-M face shield",
-    "ImageLink": "https://assets.tarkov.dev/5b46238386f7741a693bcf9c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5b46238386f7741a693bcf9c-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -437,7 +437,7 @@
     "Type": "Helmet",
     "Value": "5c06c6a80db834001b735491",
     "Label": "SSh-68 steel helmet",
-    "ImageLink": "https://assets.tarkov.dev/5c06c6a80db834001b735491-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c06c6a80db834001b735491-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -448,7 +448,7 @@
     "Type": "Helmet",
     "Value": "5c08f87c0db8340019124324",
     "Label": "ShPM Firefighter helmet",
-    "ImageLink": "https://assets.tarkov.dev/5c08f87c0db8340019124324-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c08f87c0db8340019124324-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -459,7 +459,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5c0919b50db834001b7ce3b9",
     "Label": "Maska-1SCh face shield (Olive Drab)",
-    "ImageLink": "https://assets.tarkov.dev/5c0919b50db834001b7ce3b9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0919b50db834001b7ce3b9-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -470,7 +470,7 @@
     "Type": "Helmet",
     "Value": "5c091a4e0db834001d5addc8",
     "Label": "Maska-1SCh bulletproof helmet (Olive Drab)",
-    "ImageLink": "https://assets.tarkov.dev/5c091a4e0db834001d5addc8-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c091a4e0db834001d5addc8-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -481,7 +481,7 @@
     "Type": "Helmet",
     "Value": "5c0d2727d174af02a012cf58",
     "Label": "PSh-97 DJETA riot helmet",
-    "ImageLink": "https://assets.tarkov.dev/5c0d2727d174af02a012cf58-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0d2727d174af02a012cf58-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -492,7 +492,7 @@
     "Type": "ChestRig",
     "Value": "5c0e3eb886f7742015526062",
     "Label": "6B5-16 Zh-86 Uley armored rig",
-    "ImageLink": "https://assets.tarkov.dev/5c0e3eb886f7742015526062-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e3eb886f7742015526062-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -503,7 +503,7 @@
     "Type": "ChestRig",
     "Value": "5c0e446786f7742013381639",
     "Label": "6B5-15 Zh-86 Uley armored rig",
-    "ImageLink": "https://assets.tarkov.dev/5c0e446786f7742013381639-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e446786f7742013381639-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -514,7 +514,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e51be86f774598e797894",
     "Label": "6B13 assault armor (Flora)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e51be86f774598e797894-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e51be86f774598e797894-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -525,7 +525,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e53c886f7747fa54205c7",
     "Label": "6B13 assault armor (Digital Flora)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e53c886f7747fa54205c7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e53c886f7747fa54205c7-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -536,7 +536,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e541586f7747fa54205c9",
     "Label": "6B13 M modified assault armor (Tan)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e541586f7747fa54205c9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e541586f7747fa54205c9-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -547,7 +547,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e57ba86f7747fa141986d",
     "Label": "6B23-2 body armor (Mountain Flora)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e57ba86f7747fa141986d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e57ba86f7747fa141986d-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -558,7 +558,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e5bab86f77461f55ed1f3",
     "Label": "6B23-1 body armor (Digital Flora)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e5bab86f77461f55ed1f3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e5bab86f77461f55ed1f3-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -569,7 +569,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e5edb86f77461f55ed1f7",
     "Label": "BNTI Zhuk-3 body armor (Press)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e5edb86f77461f55ed1f7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e5edb86f77461f55ed1f7-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -580,7 +580,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e625a86f7742d77340f62",
     "Label": "BNTI Zhuk-6a body armor",
-    "ImageLink": "https://assets.tarkov.dev/5c0e625a86f7742d77340f62-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e625a86f7742d77340f62-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -591,7 +591,7 @@
     "Type": "ArmorVest",
     "Value": "5c0e655586f774045612eeb2",
     "Label": "HighCom Trooper TFO body armor (Multicam)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -602,7 +602,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5c0e66e2d174af02a96252f4",
     "Label": "Ops-Core SLAAP armor helmet plate (Tan)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e66e2d174af02a96252f4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e66e2d174af02a96252f4-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -612,8 +612,8 @@
     "TraderLevel": 3,
     "Type": "ChestRig",
     "Value": "5c0e722886f7740458316a57",
-    "Label": "ANA Tactical M1 armored rig",
-    "ImageLink": "https://assets.tarkov.dev/5c0e722886f7740458316a57-icon.jpg"
+    "Label": "ANA Tactical M1 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5c0e722886f7740458316a57-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -623,8 +623,8 @@
     "TraderLevel": 3,
     "Type": "ChestRig",
     "Value": "5c0e746986f7741453628fe5",
-    "Label": "WARTECH TV-110 plate carrier rig",
-    "ImageLink": "https://assets.tarkov.dev/5c0e746986f7741453628fe5-icon.jpg"
+    "Label": "WARTECH TV-110 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5c0e746986f7741453628fe5-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -635,7 +635,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5c0e842486f77443a74d2976",
     "Label": "Maska-1SCh face shield (Killa)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e842486f77443a74d2976-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e842486f77443a74d2976-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -646,7 +646,7 @@
     "Type": "Helmet",
     "Value": "5c0e874186f7745dc7616606",
     "Label": "Maska-1SCh bulletproof helmet (Killa)",
-    "ImageLink": "https://assets.tarkov.dev/5c0e874186f7745dc7616606-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c0e874186f7745dc7616606-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -657,18 +657,18 @@
     "Type": "ArmoredEquipment",
     "Value": "5c178a942e22164bef5ceca3",
     "Label": "Crye Precision AirFrame Chops",
-    "ImageLink": "https://assets.tarkov.dev/5c178a942e22164bef5ceca3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c178a942e22164bef5ceca3-icon.webp"
   },
   {
     "ArmorClass": 3,
     "MaxDurability": 27,
     "ArmorMaterial": 0,
     "EffectiveDurability": 45,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "ArmoredEquipment",
     "Value": "5c1793902e221602b21d3de2",
     "Label": "Crye Precision AirFrame Ears",
-    "ImageLink": "https://assets.tarkov.dev/5c1793902e221602b21d3de2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c1793902e221602b21d3de2-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -679,7 +679,7 @@
     "Type": "Helmet",
     "Value": "5c17a7ed2e2216152142459c",
     "Label": "Crye Precision AirFrame helmet (Tan)",
-    "ImageLink": "https://assets.tarkov.dev/5c17a7ed2e2216152142459c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5c17a7ed2e2216152142459c-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -690,7 +690,7 @@
     "Type": "Helmet",
     "Value": "5ca20ee186f774799474abc2",
     "Label": "Vulkan-5 (LShZ-5) bulletproof helmet",
-    "ImageLink": "https://assets.tarkov.dev/5ca20ee186f774799474abc2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ca20ee186f774799474abc2-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -701,7 +701,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5ca2113f86f7740b2547e1d2",
     "Label": "Vulkan-5 face shield",
-    "ImageLink": "https://assets.tarkov.dev/5ca2113f86f7740b2547e1d2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ca2113f86f7740b2547e1d2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -712,7 +712,7 @@
     "Type": "ArmorVest",
     "Value": "5ca2151486f774244a3b8d30",
     "Label": "FORT Redut-M body armor",
-    "ImageLink": "https://assets.tarkov.dev/5ca2151486f774244a3b8d30-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ca2151486f774244a3b8d30-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -723,7 +723,7 @@
     "Type": "ArmorVest",
     "Value": "5ca21c6986f77479963115a7",
     "Label": "FORT Redut-T5 body armor",
-    "ImageLink": "https://assets.tarkov.dev/5ca21c6986f77479963115a7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ca21c6986f77479963115a7-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -734,7 +734,7 @@
     "Type": "ChestRig",
     "Value": "5d5d646386f7742797261fd9",
     "Label": "6B3TM-01M armored rig",
-    "ImageLink": "https://assets.tarkov.dev/5d5d646386f7742797261fd9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d5d646386f7742797261fd9-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -745,7 +745,7 @@
     "Type": "ChestRig",
     "Value": "5d5d87f786f77427997cfaef",
     "Label": "Ars Arma A18 Skanda plate carrier",
-    "ImageLink": "https://assets.tarkov.dev/5d5d87f786f77427997cfaef-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d5d87f786f77427997cfaef-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -756,7 +756,7 @@
     "Type": "Helmet",
     "Value": "5d5e7d28a4b936645d161203",
     "Label": "MSA ACH TC-2001 MICH Series helmet",
-    "ImageLink": "https://assets.tarkov.dev/5d5e7d28a4b936645d161203-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d5e7d28a4b936645d161203-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -767,7 +767,7 @@
     "Type": "Helmet",
     "Value": "5d5e9c74a4b9364855191c40",
     "Label": "MSA ACH TC-2002 MICH Series helmet",
-    "ImageLink": "https://assets.tarkov.dev/5d5e9c74a4b9364855191c40-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d5e9c74a4b9364855191c40-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -778,7 +778,7 @@
     "Type": "Helmet",
     "Value": "5d6d3716a4b9361bc8618872",
     "Label": "BNTI LShZ-2DTM helmet",
-    "ImageLink": "https://assets.tarkov.dev/5d6d3716a4b9361bc8618872-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6d3716a4b9361bc8618872-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -789,7 +789,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5d6d3829a4b9361bc8618943",
     "Label": "LShZ-2DTM face shield",
-    "ImageLink": "https://assets.tarkov.dev/5d6d3829a4b9361bc8618943-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6d3829a4b9361bc8618943-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -800,7 +800,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5d6d3be5a4b9361bc73bc763",
     "Label": "LShZ-2DTM aventail",
-    "ImageLink": "https://assets.tarkov.dev/5d6d3be5a4b9361bc73bc763-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5d6d3be5a4b9361bc73bc763-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -811,7 +811,7 @@
     "Type": "ArmorVest",
     "Value": "5df8a2ca86f7740bfe6df777",
     "Label": "6B2 body armor (Flora)",
-    "ImageLink": "https://assets.tarkov.dev/5df8a2ca86f7740bfe6df777-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5df8a2ca86f7740bfe6df777-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -822,51 +822,51 @@
     "Type": "Helmet",
     "Value": "5df8a58286f77412631087ed",
     "Label": "TSh-4M-L soft tank crew helmet",
-    "ImageLink": "https://assets.tarkov.dev/5df8a58286f77412631087ed-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5df8a58286f77412631087ed-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 45,
     "ArmorMaterial": 4,
     "EffectiveDurability": 90,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "Helmet",
     "Value": "5e00c1ad86f774747333222c",
     "Label": "Team Wendy EXFIL Ballistic Helmet (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5e00c1ad86f774747333222c-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e00c1ad86f774747333222c-icon.webp"
   },
   {
     "ArmorClass": 3,
     "MaxDurability": 45,
     "ArmorMaterial": 5,
     "EffectiveDurability": 56,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "ArmoredEquipment",
     "Value": "5e00cdd986f7747473332240",
     "Label": "Team Wendy EXFIL Ballistic face shield (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5e00cdd986f7747473332240-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e00cdd986f7747473332240-icon.webp"
   },
   {
     "ArmorClass": 3,
     "MaxDurability": 30,
     "ArmorMaterial": 0,
     "EffectiveDurability": 50,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "ArmoredEquipment",
     "Value": "5e00cfa786f77469dc6e5685",
     "Label": "Team Wendy EXFIL Ear Covers (Black)",
-    "ImageLink": "https://assets.tarkov.dev/5e00cfa786f77469dc6e5685-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e00cfa786f77469dc6e5685-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 45,
     "ArmorMaterial": 4,
     "EffectiveDurability": 90,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "Helmet",
     "Value": "5e01ef6886f77445f643baa4",
     "Label": "Team Wendy EXFIL Ballistic Helmet (Coyote Brown)",
-    "ImageLink": "https://assets.tarkov.dev/5e01ef6886f77445f643baa4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e01ef6886f77445f643baa4-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -877,18 +877,18 @@
     "Type": "ArmoredEquipment",
     "Value": "5e01f31d86f77465cf261343",
     "Label": "Team Wendy EXFIL Ear Covers (Coyote Brown)",
-    "ImageLink": "https://assets.tarkov.dev/5e01f31d86f77465cf261343-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e01f31d86f77465cf261343-icon.webp"
   },
   {
     "ArmorClass": 3,
     "MaxDurability": 45,
     "ArmorMaterial": 5,
     "EffectiveDurability": 56,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "ArmoredEquipment",
     "Value": "5e01f37686f774773c6f6c15",
     "Label": "Team Wendy EXFIL Ballistic face shield (Coyote Brown)",
-    "ImageLink": "https://assets.tarkov.dev/5e01f37686f774773c6f6c15-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e01f37686f774773c6f6c15-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -899,7 +899,7 @@
     "Type": "ArmorVest",
     "Value": "5e4abb5086f77406975c9342",
     "Label": "LBT-6094A Slick Plate Carrier",
-    "ImageLink": "https://assets.tarkov.dev/5e4abb5086f77406975c9342-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e4abb5086f77406975c9342-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -909,8 +909,8 @@
     "TraderLevel": 4,
     "Type": "ChestRig",
     "Value": "5e4ac41886f77406a511c9a8",
-    "Label": "Ars Arma CPC MOD.2 plate carrier",
-    "ImageLink": "https://assets.tarkov.dev/5e4ac41886f77406a511c9a8-icon.jpg"
+    "Label": "Ars Arma CPC MOD.1 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/5e4ac41886f77406a511c9a8-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -921,7 +921,7 @@
     "Type": "Helmet",
     "Value": "5e4bfc1586f774264f7582d3",
     "Label": "MSA Gallet TC 800 High Cut combat helmet",
-    "ImageLink": "https://assets.tarkov.dev/5e4bfc1586f774264f7582d3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e4bfc1586f774264f7582d3-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -932,7 +932,7 @@
     "Type": "ArmorVest",
     "Value": "5e9dacf986f774054d6b89f4",
     "Label": "FORT Defender-2 body armor",
-    "ImageLink": "https://assets.tarkov.dev/5e9dacf986f774054d6b89f4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5e9dacf986f774054d6b89f4-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -943,7 +943,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5ea058e01dbce517f324b3e2",
     "Label": "Tac-Kek Heavy Trooper mask for Ops-Core-type helmets",
-    "ImageLink": "https://assets.tarkov.dev/5ea058e01dbce517f324b3e2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ea058e01dbce517f324b3e2-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -953,8 +953,8 @@
     "TraderLevel": -1,
     "Type": "Helmet",
     "Value": "5ea05cf85ad9772e6624305d",
-    "Label": "Tac-Kek FAST MT helmet (replica)",
-    "ImageLink": "https://assets.tarkov.dev/5ea05cf85ad9772e6624305d-icon.jpg"
+    "Label": "Tac-Kek FAST MT helmet (Replica)",
+    "ImageLink": "https://assets.tarkov.dev/5ea05cf85ad9772e6624305d-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -965,7 +965,7 @@
     "Type": "Helmet",
     "Value": "5ea17ca01412a1425304d1c0",
     "Label": "Diamond Age Bastion helmet",
-    "ImageLink": "https://assets.tarkov.dev/5ea17ca01412a1425304d1c0-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ea17ca01412a1425304d1c0-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -976,7 +976,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5ea18c84ecf1982c7712d9a2",
     "Label": "Diamond Age Bastion helmet armor plate",
-    "ImageLink": "https://assets.tarkov.dev/5ea18c84ecf1982c7712d9a2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5ea18c84ecf1982c7712d9a2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -987,7 +987,7 @@
     "Type": "ArmorVest",
     "Value": "5f5f41476bdad616ad46d631",
     "Label": "NPP KlASS Korund-VM body armor",
-    "ImageLink": "https://assets.tarkov.dev/5f5f41476bdad616ad46d631-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f5f41476bdad616ad46d631-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -998,7 +998,7 @@
     "Type": "Helmet",
     "Value": "5f60b34a41e30a4ab12a6947",
     "Label": "Galvion Caiman Hybrid helmet",
-    "ImageLink": "https://assets.tarkov.dev/5f60b34a41e30a4ab12a6947-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60b34a41e30a4ab12a6947-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1009,18 +1009,18 @@
     "Type": "ArmoredEquipment",
     "Value": "5f60b85bbdb8e27dee3dc985",
     "Label": "Galvion Caiman Hybrid Ballistic Applique",
-    "ImageLink": "https://assets.tarkov.dev/5f60b85bbdb8e27dee3dc985-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60b85bbdb8e27dee3dc985-icon.webp"
   },
   {
     "ArmorClass": 2,
     "MaxDurability": 30,
     "ArmorMaterial": 5,
     "EffectiveDurability": 37,
-    "TraderLevel": -1,
+    "TraderLevel": 3,
     "Type": "ArmoredEquipment",
     "Value": "5f60bf4558eff926626a60f2",
     "Label": "Galvion Caiman Fixed Arm Visor",
-    "ImageLink": "https://assets.tarkov.dev/5f60bf4558eff926626a60f2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60bf4558eff926626a60f2-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -1031,7 +1031,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5f60c076f2bcbb675b00dac2",
     "Label": "Galvion Caiman Hybrid Ballistic Mandible Guard",
-    "ImageLink": "https://assets.tarkov.dev/5f60c076f2bcbb675b00dac2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60c076f2bcbb675b00dac2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1042,7 +1042,7 @@
     "Type": "Helmet",
     "Value": "5f60c74e3b85f6263c145586",
     "Label": "Rys-T bulletproof helmet",
-    "ImageLink": "https://assets.tarkov.dev/5f60c74e3b85f6263c145586-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60c74e3b85f6263c145586-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1053,7 +1053,7 @@
     "Type": "ArmoredEquipment",
     "Value": "5f60c85b58eff926626a60f7",
     "Label": "Rys-T face shield",
-    "ImageLink": "https://assets.tarkov.dev/5f60c85b58eff926626a60f7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5f60c85b58eff926626a60f7-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1064,7 +1064,7 @@
     "Type": "ArmorVest",
     "Value": "5fd4c474dd870108a754b241",
     "Label": "5.11 Tactical Hexgrid plate carrier",
-    "ImageLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -1075,7 +1075,7 @@
     "Type": "ArmoredEquipment",
     "Value": "603409c80ca681766b6a0fb2",
     "Label": "NPP KlASS Condor glasses",
-    "ImageLink": "https://assets.tarkov.dev/603409c80ca681766b6a0fb2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/603409c80ca681766b6a0fb2-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1086,7 +1086,7 @@
     "Type": "ArmorVest",
     "Value": "6038b4b292ec1c3103795a0b",
     "Label": "LBT-6094A Slick Plate Carrier (Tan)",
-    "ImageLink": "https://assets.tarkov.dev/6038b4b292ec1c3103795a0b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/6038b4b292ec1c3103795a0b-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1096,8 +1096,8 @@
     "TraderLevel": -1,
     "Type": "ArmorVest",
     "Value": "6038b4ca92ec1c3103795a0d",
-    "Label": "LBT-6094A Slick Plate Carrier (Olive)",
-    "ImageLink": "https://assets.tarkov.dev/6038b4ca92ec1c3103795a0d-icon.jpg"
+    "Label": "LBT-6094A Slick Plate Carrier (Olive Drab)",
+    "ImageLink": "https://assets.tarkov.dev/6038b4ca92ec1c3103795a0d-icon.webp"
   },
   {
     "ArmorClass": 2,
@@ -1108,18 +1108,18 @@
     "Type": "ArmorVest",
     "Value": "607f20859ee58b18e41ecd90",
     "Label": "PACA Soft Armor (Rivals Edition)",
-    "ImageLink": "https://assets.tarkov.dev/607f20859ee58b18e41ecd90-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/607f20859ee58b18e41ecd90-icon.webp"
   },
   {
     "ArmorClass": 4,
     "MaxDurability": 35,
     "ArmorMaterial": 4,
     "EffectiveDurability": 70,
-    "TraderLevel": -1,
+    "TraderLevel": 3,
     "Type": "ArmorVest",
     "Value": "609e8540d5c319764c2bc2e9",
     "Label": "NFM THOR Concealable Reinforced Vest body armor",
-    "ImageLink": "https://assets.tarkov.dev/609e8540d5c319764c2bc2e9-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/609e8540d5c319764c2bc2e9-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1129,8 +1129,8 @@
     "TraderLevel": -1,
     "Type": "ChestRig",
     "Value": "609e860ebd219504d8507525",
-    "Label": "Crye Precision AVS MBAV (Tagilla Edition)",
-    "ImageLink": "https://assets.tarkov.dev/609e860ebd219504d8507525-icon.jpg"
+    "Label": "Crye Precision AVS plate carrier (Tagilla Edition)",
+    "ImageLink": "https://assets.tarkov.dev/609e860ebd219504d8507525-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1141,18 +1141,18 @@
     "Type": "ArmorVest",
     "Value": "60a283193cb70855c43a381d",
     "Label": "NFM THOR Integrated Carrier body armor",
-    "ImageLink": "https://assets.tarkov.dev/60a283193cb70855c43a381d-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60a283193cb70855c43a381d-icon.webp"
   },
   {
     "ArmorClass": 5,
     "MaxDurability": 55,
     "ArmorMaterial": 4,
     "EffectiveDurability": 110,
-    "TraderLevel": -1,
+    "TraderLevel": 4,
     "Type": "ChestRig",
     "Value": "60a3c68c37ea821725773ef5",
     "Label": "CQC Osprey MK4A plate carrier (Protection, MTP)",
-    "ImageLink": "https://assets.tarkov.dev/60a3c68c37ea821725773ef5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60a3c68c37ea821725773ef5-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1163,7 +1163,7 @@
     "Type": "ChestRig",
     "Value": "60a3c70cde5f453f634816a3",
     "Label": "CQC Osprey MK4A plate carrier (Assault, MTP)",
-    "ImageLink": "https://assets.tarkov.dev/60a3c70cde5f453f634816a3-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60a3c70cde5f453f634816a3-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1174,7 +1174,7 @@
     "Type": "ArmoredEquipment",
     "Value": "60a7ad2a2198820d95707a2e",
     "Label": "Tagilla's welding mask \"UBEY\"",
-    "ImageLink": "https://assets.tarkov.dev/60a7ad2a2198820d95707a2e-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60a7ad2a2198820d95707a2e-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1185,7 +1185,7 @@
     "Type": "ArmoredEquipment",
     "Value": "60a7ad3a0c5cb24b0134664a",
     "Label": "Tagilla's welding mask \"Gorilla\"",
-    "ImageLink": "https://assets.tarkov.dev/60a7ad3a0c5cb24b0134664a-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60a7ad3a0c5cb24b0134664a-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -1196,7 +1196,7 @@
     "Type": "Helmet",
     "Value": "60bf74184a63fc79b60c57f6",
     "Label": "Bomber beanie",
-    "ImageLink": "https://assets.tarkov.dev/60bf74184a63fc79b60c57f6-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/60bf74184a63fc79b60c57f6-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1207,7 +1207,7 @@
     "Type": "ChestRig",
     "Value": "61bc85697113f767765c7fe7",
     "Label": "Eagle Industries MMAC plate carrier (Ranger Green)",
-    "ImageLink": "https://assets.tarkov.dev/61bc85697113f767765c7fe7-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/61bc85697113f767765c7fe7-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -1218,7 +1218,7 @@
     "Type": "Helmet",
     "Value": "61bca7cda0eae612383adf57",
     "Label": "NFM HJELM helmet",
-    "ImageLink": "https://assets.tarkov.dev/61bca7cda0eae612383adf57-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/61bca7cda0eae612383adf57-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1228,8 +1228,8 @@
     "TraderLevel": 3,
     "Type": "ChestRig",
     "Value": "61bcc89aef0f505f0c6cd0fc",
-    "Label": "FirstSpear Strandhogg plate carrier rig (Ranger Green)",
-    "ImageLink": "https://assets.tarkov.dev/61bcc89aef0f505f0c6cd0fc-icon.jpg"
+    "Label": "FirstSpear Strandhogg plate carrier (Ranger Green)",
+    "ImageLink": "https://assets.tarkov.dev/61bcc89aef0f505f0c6cd0fc-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1240,7 +1240,7 @@
     "Type": "ChestRig",
     "Value": "628b9784bcf6e2659e09b8a2",
     "Label": "S&S Precision PlateFrame plate carrier (Goons Edition)",
-    "ImageLink": "https://assets.tarkov.dev/628b9784bcf6e2659e09b8a2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/628b9784bcf6e2659e09b8a2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1251,7 +1251,7 @@
     "Type": "ChestRig",
     "Value": "628b9c7d45122232a872358f",
     "Label": "Crye Precision CPC plate carrier (Goons Edition)",
-    "ImageLink": "https://assets.tarkov.dev/628b9c7d45122232a872358f-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/628b9c7d45122232a872358f-icon.webp"
   },
   {
     "ArmorClass": 6,
@@ -1262,7 +1262,7 @@
     "Type": "ChestRig",
     "Value": "628cd624459354321c4b7fa2",
     "Label": "Tasmanian Tiger SK plate carrier (Multicam Black)",
-    "ImageLink": "https://assets.tarkov.dev/628cd624459354321c4b7fa2-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/628cd624459354321c4b7fa2-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1273,7 +1273,7 @@
     "Type": "ChestRig",
     "Value": "628d0618d1ba6e4fa07ce5a4",
     "Label": "NPP KlASS Bagariy armored rig",
-    "ImageLink": "https://assets.tarkov.dev/628d0618d1ba6e4fa07ce5a4-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/628d0618d1ba6e4fa07ce5a4-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1284,7 +1284,7 @@
     "Type": "ChestRig",
     "Value": "628dc750b910320f4c27a732",
     "Label": "ECLiPSE RBAV-AF plate carrier (Ranger Green)",
-    "ImageLink": "https://assets.tarkov.dev/628dc750b910320f4c27a732-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/628dc750b910320f4c27a732-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -1295,7 +1295,7 @@
     "Type": "ArmoredEquipment",
     "Value": "62963c18dbc8ab5f0d382d0b",
     "Label": "Death Knight mask",
-    "ImageLink": "https://assets.tarkov.dev/62963c18dbc8ab5f0d382d0b-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62963c18dbc8ab5f0d382d0b-icon.webp"
   },
   {
     "ArmorClass": 3,
@@ -1306,7 +1306,7 @@
     "Type": "ArmorVest",
     "Value": "62a09d79de7ac81993580530",
     "Label": "DRD body armor",
-    "ImageLink": "https://assets.tarkov.dev/62a09d79de7ac81993580530-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62a09d79de7ac81993580530-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -1317,7 +1317,7 @@
     "Type": "ArmoredEquipment",
     "Value": "62a09e08de7ac81993580532",
     "Label": "Glorious E lightweight armored mask",
-    "ImageLink": "https://assets.tarkov.dev/62a09e08de7ac81993580532-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62a09e08de7ac81993580532-icon.webp"
   },
   {
     "ArmorClass": 1,
@@ -1328,7 +1328,7 @@
     "Type": "ArmoredEquipment",
     "Value": "62a61c988ec41a51b34758d5",
     "Label": "Oakley SI Batwolf glasses",
-    "ImageLink": "https://assets.tarkov.dev/62a61c988ec41a51b34758d5-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/62a61c988ec41a51b34758d5-icon.webp"
   },
   {
     "ArmorClass": 5,
@@ -1339,7 +1339,7 @@
     "Type": "ArmorVest",
     "Value": "63737f448b28897f2802b874",
     "Label": "Hexatac HPC Plate Carrier (Multicam Black)",
-    "ImageLink": "https://assets.tarkov.dev/63737f448b28897f2802b874-icon.jpg"
+    "ImageLink": "https://assets.tarkov.dev/63737f448b28897f2802b874-icon.webp"
   },
   {
     "ArmorClass": 4,
@@ -1349,7 +1349,62 @@
     "TraderLevel": 3,
     "Type": "ChestRig",
     "Value": "639343fce101f4caa40a4ef3",
-    "Label": "Shellback Tactical Banshee plate carrier (A-Tacs AU)",
-    "ImageLink": "https://assets.tarkov.dev/639343fce101f4caa40a4ef3-icon.jpg"
+    "Label": "Shellback Tactical Banshee plate carrier (A-TACS AU)",
+    "ImageLink": "https://assets.tarkov.dev/639343fce101f4caa40a4ef3-icon.webp"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 65,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 144,
+    "TraderLevel": -1,
+    "Type": "ChestRig",
+    "Value": "64a536392d2c4e6e970f4121",
+    "Label": "WARTECH TV-115 plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/64a536392d2c4e6e970f4121-icon.webp"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 70,
+    "ArmorMaterial": 7,
+    "EffectiveDurability": 155,
+    "TraderLevel": -1,
+    "Type": "ChestRig",
+    "Value": "64a5366719bab53bd203bf33",
+    "Label": "Eagle Allied Industries MBSS plate carrier",
+    "ImageLink": "https://assets.tarkov.dev/64a5366719bab53bd203bf33-icon.webp"
+  },
+  {
+    "ArmorClass": 4,
+    "MaxDurability": 60,
+    "ArmorMaterial": 3,
+    "EffectiveDurability": 75,
+    "TraderLevel": 2,
+    "Type": "ArmorVest",
+    "Value": "64abd93857958b4249003418",
+    "Label": "Interceptor OTV body armor (UCP)",
+    "ImageLink": "https://assets.tarkov.dev/64abd93857958b4249003418-icon.webp"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 80,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 114,
+    "TraderLevel": 1,
+    "Type": "ArmorVest",
+    "Value": "64be79c487d1510151095552",
+    "Label": "NPP KlASS Kora-Kulon body armor",
+    "ImageLink": "https://assets.tarkov.dev/64be79c487d1510151095552-icon.webp"
+  },
+  {
+    "ArmorClass": 3,
+    "MaxDurability": 80,
+    "ArmorMaterial": 2,
+    "EffectiveDurability": 114,
+    "TraderLevel": 1,
+    "Type": "ArmorVest",
+    "Value": "64be79e2bf8412471d0d9bcc",
+    "Label": "NPP KlASS Kora-Kulon body armor (Digital Flora)",
+    "ImageLink": "https://assets.tarkov.dev/64be79e2bf8412471d0d9bcc-icon.webp"
   }
 ]

@@ -1,4 +1,5 @@
 import { Col, Row } from "react-bootstrap";
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function Mod(props: any) {
     let rowClassString = "modRowEven";
@@ -26,7 +27,7 @@ export default function Mod(props: any) {
     return (
         <Row className={rowClassString}>
             <Col sm={4}>
-                <img src={`https://assets.tarkov.dev/${props.item.WeaponMod.Id}-grid-image.webp`} alt={props.item.WeaponMod.ShortName} className={"mod_img"} />
+                <ImageWithDefaultFallback src={`https://assets.tarkov.dev/${props.item.WeaponMod.Id}-grid-image.webp`} alt={props.item.WeaponMod.ShortName} className={"mod_img"} />
             </Col>
             <Col className="mod-text-centered">
                 {props.item.WeaponMod.Name}

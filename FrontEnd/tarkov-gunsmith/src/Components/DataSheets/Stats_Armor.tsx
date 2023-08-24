@@ -7,6 +7,7 @@ import { convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";
+import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 export default function DataSheetArmor(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
@@ -54,10 +55,10 @@ export default function DataSheetArmor(props: any) {
                             gap: '1rem',
                         }}
                     >
-                        <img
+                        <ImageWithDefaultFallback
                             alt="avatar"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.jpg`}
+                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
