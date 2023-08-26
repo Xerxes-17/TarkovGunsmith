@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Stack, Modal, Card, Spinner, ToggleButtonGroup, ToggleButton, Alert, Container } from "react-bootstrap";
 import Select from 'react-select'
-import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, Label, YAxis, Legend, Line, Bar, Tooltip } from "recharts";
 import { requestWeaponBuild, requestWeaponDataCurve } from "../../Context/Requests";
 import { API_URL } from "../../Util/util";
 import FilterRangeSelector from "../Forms/FilterRangeSelector";
 import Mod from "./Mod";
-import { TransmissionWeaponBuildResult, TransmissionAttachedMod, Fitting } from './WeaponData';
-import { FormControlLabel, Radio, Switch } from "@mui/material";
+import { Fitting } from './WeaponData';
 import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 
 enum OfferType {

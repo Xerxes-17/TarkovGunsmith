@@ -30,13 +30,13 @@ namespace WishGranter.Statics
         public Monolit()
         {
             //! For Dev
-            //var folder = Environment.SpecialFolder.LocalApplicationData;
-            //var path = Environment.GetFolderPath(folder);
-            //DbPath = System.IO.Path.Join(path, DB_NAME);
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = System.IO.Path.Join(path, DB_NAME);
 
             //!For Prod
-            var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
-            DbPath = Path.Combine(baseFolder, DB_NAME);
+            //var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+            //DbPath = Path.Combine(baseFolder, DB_NAME);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -104,9 +104,9 @@ async Task startAPIAsync()
         options.AddPolicy(name: MyAllowSpecificOrigins,
                           builder =>
                           {
-                              builder.WithOrigins(
-                                  "*"
-                                  );
+                              builder.AllowAnyOrigin();
+                              builder.AllowAnyHeader();
+                              builder.AllowAnyMethod();
                           });
     });
     builder.Services.AddHealthChecks();
@@ -153,13 +153,29 @@ async Task startAPIAsync()
     app.MapPut("/UpdateAmmoRatingsInAEC", () => API_AEC.UpdateRatingsAEC(MyActivitySource));
     app.MapGet("/GetTimestampAEC", () => API_AEC.GetTimestampAEC());
 
-    app.MapGet("/GetArmorVsArmmo/{armorId}", (string armorId) => API_AEC.GetArmorVsArmmo(MyActivitySource, armorId));
+    app.MapGet("/GetArmorVsAmmo/{armorId}", (string armorId) => API_AEC.GetArmorVsArmmo(MyActivitySource, armorId));
     app.MapGet("/GetAmmoVsArmor/{ammoId}", (string ammoId) => API_AEC.GetAmmoVsArmor(MyActivitySource, ammoId));
 
     //! ******* Gunsmith *******
-    app.MapGet("/getSingleWeaponBuild/{playerLevel}/{priority}/{muzzleMode}/{presetID}/{flea}",
-        (int playerLevel, string priority, string muzzleMode, string presetID, bool flea)
-        => API_Gunsmith.GetSingleWeaponBuild(MyActivitySource, presetID, priority, muzzleMode, playerLevel, flea));
+    app.MapPost("/getSingleWeaponBuild",
+        async context =>
+        {
+            using var reader = new StreamReader(context.Request.Body);
+            var json = await reader.ReadToEndAsync();
+            var requestData = JsonSerializer.Deserialize<WeaponBuildRequest>(json);
+            var result = API_Gunsmith.GetSingleWeaponBuild(
+            MyActivitySource,
+            requestData.PresetId,
+            requestData.Priority,
+            requestData.MuzzleMode,
+            requestData.PlayerLevel,
+            requestData.Flea,
+            requestData.ExcludedIds);
+
+            context.Response.StatusCode = StatusCodes.Status200OK;
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+        });
 
     app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{flea}",
         (string presetID, string mode, string muzzleMode, bool flea) 

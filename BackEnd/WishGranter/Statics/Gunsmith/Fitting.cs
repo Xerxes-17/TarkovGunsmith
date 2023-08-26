@@ -174,7 +174,7 @@ namespace WishGranter.Statics
             WeaponId = basePreset.WeaponId;
             BasePresetId = basePreset.Id;
             BasePreset = basePreset;
-            GunsmithParameters = GunsmithParameters.GetGunsmithParametersFromDB(gunsmithParameters, db);
+            GunsmithParameters = gunsmithParameters;
             GunsmithParametersId = GunsmithParameters.Id;
 
 
@@ -345,7 +345,7 @@ namespace WishGranter.Statics
             {
                 for (int i = preset.PurchaseOffer.ReqPlayerLevel; i <= 40; i++)
                 {
-                    var param = new GunsmithParameters(FittingPriority.Ergonomics, MuzzleType.Any, i, false);
+                    var param = new GunsmithParameters(FittingPriority.Ergonomics, MuzzleType.Any, i, false, new List<string>());
 
                     Fitting newFit = new(preset, param, db);
                     newFittings.Add(newFit);

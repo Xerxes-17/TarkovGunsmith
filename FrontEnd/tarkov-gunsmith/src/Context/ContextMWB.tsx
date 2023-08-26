@@ -1,123 +1,11 @@
 import React, { createContext, useState, useMemo, useEffect, useCallback } from 'react';
 import { requestWeaponBuild } from './Requests';
 import { API_URL } from '../Util/util';
-import { PurchaseOffer } from '../Components/AEC/AEC_Interfaces';
-import { PostAddTwoTone } from '@mui/icons-material';
+import { OfferType } from '../Components/AEC/AEC_Interfaces';
+import { WeaponOption, CurveDataPoint, fitPriority, MuzzleType, RowSelection } from '../Components/MWB/types';
+import { Fitting } from '../Components/MWB/WeaponData';
 
-enum OfferType {
-    None,
-    Sell,
-    Cash,
-    Barter,
-    Flea
-}
 
-enum fitPriority {
-    MetaRecoil = "MetaRecoil",
-    Recoil = "Recoil",
-    MetaErgonomics = "MetaErgonomics",
-    Ergonomics = "Ergonomics"
-}
-
-enum MuzzleType {
-    Loud = "Loud",
-    Quiet = "Quiet",
-    Any = "Any"
-}
-
-export type TransmissionWeaponBuildResult = {
-    AttachedModsFLat: TransmissionAttachedMod[],
-    BaseErgo: number,
-    BaseRecoil: number,
-    Convergence: number,
-    Details: string,
-    FinalErgo: number,
-    FinalRecoil: number,
-    Id: string,
-    RateOfFire: number,
-    RecoilDispersion: number,
-    SelectedPatron: SelectedPatron,
-    ShortName: string,
-    Valid: boolean,
-
-    PresetPrice: number,
-    SellBackValue: number,
-    PurchasedModsCost: number,
-    FinalCost: number
-}
-
-export type SelectedPatron = {
-    ArmorDamagePerc: number,
-    Damage: number,
-    FragChance: number,
-    Id: string,
-    Penetration: number,
-    ShortName: string
-}
-
-export type TransmissionAttachedMod = {
-    Ergo: number,
-    Id: string,
-    RecoilMod: number,
-    ShortName: string,
-    PriceRUB: number
-}
-
-interface WeaponOption {
-    ergonomics: number;
-    recoilForceUp: number;
-    recoilAngle: number;
-    recoilDispersion: number;
-    convergence: number;
-    ammoCaliber: string;
-    bFirerate: number;
-    traderLevel: number;
-    requiredPlayerLevel: number;
-    value: string;
-    readonly label: string;
-    readonly imageLink: string;
-    offerType: number;
-    priceRUB: number;
-}
-
-interface BasePreset {
-    Name: string;
-    Id: string;
-    WeaponId: string;
-    Ergonomics: number;
-    Recoil_Vertical: number;
-    Weight: number;
-    Weapon?: any;
-    PurchaseOffer?: any;
-    WeaponMods: any[];
-}
-
-export type Fitting = {
-    Id: number;
-    BasePresetId: string;
-    BasePreset?: BasePreset;
-    Ergonomics: number;
-    Recoil_Vertical: number;
-    Weight: number;
-    TotalRubleCost: number;
-    PurchasedModsCost: number;
-    PresetModsRefund: number;
-    IsValid: boolean;
-    ValidityString: string;
-    PurchasedModsHashId: string;
-    PurchasedMods?: any;
-    PurchasedAmmo?: any;
-}
-
-interface CurveDataPoint {
-    level: number,
-    recoil: number,
-    ergo: number,
-    price: number,
-    penetration: number,
-    damage: number,
-    invalid: Boolean
-};
 
 type MwbStateStructure = {
     searchValue: string;
@@ -164,12 +52,23 @@ type MwbStateStructure = {
     handleFPChange: (val: any) => void;
     handlePOTChange: (val: any) => void;
     filterStockWeaponOptions: (playerLevel: number) => WeaponOption[];
-    handleSubmit: (e: any) => void;
+    handleSubmit: () => void;
     handlePlayerLevelChange: (input: number) => void;
     updateTraderLevels: (playerLevel: number) => void;
     handleWeaponSelectionChange: (selectedOption: any) => void;
     handleClose: () => void;
     handleShow: () => void;
+    excludedMods: any[];
+    setExcludedMods: React.Dispatch<React.SetStateAction<any[]>>;
+    pagination: any;
+    picturesYesNo: boolean;
+    setPicturesYesNo: React.Dispatch<React.SetStateAction<boolean>>;
+    rowSelectionAttached:RowSelection;
+    setRowSelectionAttached :React.Dispatch<React.SetStateAction<RowSelection>>;
+    rowSelectionExcluded:RowSelection;
+    setRowSelectionExcluded:React.Dispatch<React.SetStateAction<RowSelection>>;
+    handleRemoveFromExcludedMods: () => void
+    handleAddToExcludedMods: () => void
 };
 
 const MwbStateStructure_Default: MwbStateStructure = {
@@ -219,6 +118,17 @@ const MwbStateStructure_Default: MwbStateStructure = {
     handleWeaponSelectionChange: () => { },
     handleClose: () => { },
     handleShow: () => { },
+    excludedMods: [],
+    setExcludedMods: () => { },
+    pagination: {},
+    picturesYesNo: false,
+    setPicturesYesNo: () => { },
+    rowSelectionAttached:{},
+    setRowSelectionAttached :() => { },
+    rowSelectionExcluded:{},
+    setRowSelectionExcluded:() => { },
+    handleRemoveFromExcludedMods: () => { },
+    handleAddToExcludedMods: () => { },
 };
 
 // Create a new context
@@ -244,12 +154,20 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
     const [fittingCurve, setFittingCurve] = useState<CurveDataPoint[]>();
     const [waitingForCurve, setWaitingForCurve] = useState(false);
     const [show, setShow] = useState(false);
+    const [excludedMods, setExcludedMods] = useState<any[]>([]);
+    const [picturesYesNo, setPicturesYesNo] = useState(false);
 
     const [praporLevel, setPraporLevel] = useState(1);
     const [skierLevel, setSkierLevel] = useState(1);
     const [mechanicLevel, setMechanicLevel] = useState(1);
     const [peacekeeperLevel, setPeacekeeperLevel] = useState(1);
     const [jaegerLevel, setJaegerLevel] = useState(1);
+
+    //store pagination state in your own state
+    const [pagination] = useState({
+        pageIndex: 0,
+        pageSize: 50, //customize the default page size
+    });
 
     function updateTraderLevels(playerLevel: number) {
         let prapor = 1;
@@ -325,46 +243,30 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
         [setPlayerLevel, PurchaseOfferTypes, setPurchaseOfferTypes]
     );
 
-
-
     const handleSubmit = useCallback(
-        (e: any) => {
-            e.preventDefault();
+        () => {
             //console.log(chosenGun)
             const parsed = fitPriority[FittingPriority];
+            //console.log(excludedMods);
 
             const requestDetails = {
-                level: playerLevel,
-                priority: parsed,
-                muzzleMode: MuzzleType[MuzzleModeToggle],
-                presetId: chosenGun,
-                flea: checkedFlea,
+                PlayerLevel: playerLevel,
+                Priority: parsed,
+                MuzzleMode: MuzzleType[MuzzleModeToggle],
+                PresetId: chosenGun,
+                Flea: checkedFlea,
+                ExcludedIds: excludedMods.map((entry) => entry.WeaponMod.Id)
             };
-            //console.log(requestDetails)
+            // console.log('requestDetails',requestDetails)
             requestWeaponBuild(requestDetails)
                 .then((response) => {
-                    setResult(response);
+                    const parsed = JSON.parse(response)
+                    // console.log("parsed", parsed)
+                    setResult(parsed);
                 })
                 .catch((error) => {
                     alert(`The error was: ${error}`);
                 });
-
-                
-            // const curveRequestDetails = {
-            //     presetID: chosenGun.value,
-            //     mode: FittingPriority,
-            //     muzzleMode: MuzzleModeToggle,
-            //     purchaseType: chosenGun.offerType
-            // }
-            // setWaitingForCurve(true);
-            // requestWeaponDataCurve(curveRequestDetails).then(response => {
-            //     setWaitingForCurve(false);
-            //     setFittingCurve(response);
-            //     // // console.log(response);
-            // }).catch(error => {
-            //     alert(`The error was: ${error}`);
-            //     setWaitingForCurve(false);
-            // });
         },
         [
             playerLevel,
@@ -372,6 +274,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
             MuzzleModeToggle,
             chosenGun,
             checkedFlea,
+            excludedMods,
             setResult,
         ]
     );
@@ -433,10 +336,25 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
     }, [playerLevel])
 
 
+    useEffect(() => {
+        // handleSubmit()
+        console.log("excludedMods", excludedMods)
+    }, [excludedMods,handleSubmit])
+
+
+    // useEffect(() => {
+    //     setExcludedMods([])
+    // }, [result?.BasePreset])
+
+
+    const [rowSelectionAttached, setRowSelectionAttached] = useState<RowSelection>({});
+    const [rowSelectionExcluded, setRowSelectionExcluded] = useState<RowSelection>({});
 
     // State variables...
     const MwbContextState: MwbStateStructure = useMemo(
         () => ({
+            rowSelectionAttached, setRowSelectionAttached,
+            rowSelectionExcluded, setRowSelectionExcluded,
             searchValue,
             setSearchValue,
             playerLevel,
@@ -483,8 +401,48 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
             handleWeaponSelectionChange,
             handleClose,
             handleShow,
+            excludedMods, setExcludedMods, pagination, picturesYesNo, setPicturesYesNo, 
+
+            handleRemoveFromExcludedMods() {
+                console.log(rowSelectionExcluded);
+        
+                if (excludedMods !== undefined) {
+                    console.log(excludedMods);
+        
+                    const selectedIds = Object.keys(rowSelectionExcluded).filter((id) => rowSelectionExcluded[id]);
+        
+                    const updatedExcludedMods = excludedMods.filter((entry) => !selectedIds.includes(entry.WeaponMod.Id));
+        
+                    console.log(updatedExcludedMods);
+                    setExcludedMods(updatedExcludedMods);
+                    setRowSelectionExcluded({})
+                }
+            },
+            handleAddToExcludedMods() {
+                console.log(rowSelectionAttached);
+              
+                if (result !== undefined) {
+                  console.log(result.PurchasedMods.List);
+                  const list = result.PurchasedMods.List as any[];
+              
+                  const selected = list.filter((entry) =>
+                    rowSelectionAttached.hasOwnProperty(entry.WeaponMod.Id) && rowSelectionAttached[entry.WeaponMod.Id]
+                  );
+        
+                  console.log(selected);
+                  const prev = excludedMods;
+                  const newList = [...prev!, ...selected];
+              
+                  // Concatenate selected entries with the current excludedMods array
+                  setExcludedMods(newList);
+                  setRowSelectionAttached({})
+                }
+              }
+
         }),
         [
+            rowSelectionAttached, setRowSelectionAttached,
+            rowSelectionExcluded, setRowSelectionExcluded,
             searchValue,
             playerLevel,
             WeaponOptions,
@@ -505,7 +463,8 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
             show,
             filterStockWeaponOptions,
             handleSubmit,
-            handlePlayerLevelChange
+            handlePlayerLevelChange,
+            excludedMods, setExcludedMods, pagination, picturesYesNo, setPicturesYesNo
         ]
     );
 
