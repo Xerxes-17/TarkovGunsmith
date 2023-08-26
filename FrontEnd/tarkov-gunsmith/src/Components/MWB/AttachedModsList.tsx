@@ -21,7 +21,6 @@ export default function AttachedModsList() {
         rowSelectionAttached,
         setRowSelectionAttached,
         handleAddToExcludedMods,
-        handleSubmit
     } = useContext(MwbContext);
 
     const costToolTipElement = useCallback((rowOriginal: any) => {
@@ -210,7 +209,6 @@ export default function AttachedModsList() {
                                 <Button variant="light" onClick={
                                     () => {
                                         handleAddToExcludedMods();
-                                        handleSubmit()
                                     }}>Add to exclusions & Rebuild</Button>
                             </div>
                         </>

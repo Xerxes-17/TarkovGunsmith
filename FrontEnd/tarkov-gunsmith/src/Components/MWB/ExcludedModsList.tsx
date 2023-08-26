@@ -19,8 +19,9 @@ export default function ExcludedModsList() {
         result,
         excludedMods,
         pagination,
-        picturesYesNo, 
-        handleRemoveFromExcludedMods
+        picturesYesNo,
+        handleRemoveFromExcludedMods,
+        handleSubmit
     } = useContext(MwbContext);
 
     const [showExcluded, setShowExcluded] = useState("");
@@ -32,7 +33,6 @@ export default function ExcludedModsList() {
             setShowExcluded("none")
         }
     }
-
 
     const costToolTipElement = useCallback((rowOriginal: any) => {
         var included = false;

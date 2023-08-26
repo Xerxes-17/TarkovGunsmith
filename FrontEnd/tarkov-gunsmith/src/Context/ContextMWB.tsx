@@ -52,7 +52,7 @@ type MwbStateStructure = {
     handleFPChange: (val: any) => void;
     handlePOTChange: (val: any) => void;
     filterStockWeaponOptions: (playerLevel: number) => WeaponOption[];
-    handleSubmit: () => void;
+    handleSubmit: (paramExcludedIds?: any[]) => void;
     handlePlayerLevelChange: (input: number) => void;
     updateTraderLevels: (playerLevel: number) => void;
     handleWeaponSelectionChange: (selectedOption: any) => void;
@@ -112,7 +112,7 @@ const MwbStateStructure_Default: MwbStateStructure = {
     handleFPChange: () => { },
     handlePOTChange: () => { },
     filterStockWeaponOptions: () => [],
-    handleSubmit: () => { },
+    handleSubmit: (paramExcludedIds?: any[]) => { },
     handlePlayerLevelChange: () => { },
     updateTraderLevels: () => { },
     handleWeaponSelectionChange: () => { },
@@ -244,7 +244,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
     );
 
     const handleSubmit = useCallback(
-        () => {
+        (paramExcludedIds?: any[]) => {
             //console.log(chosenGun)
             const parsed = fitPriority[FittingPriority];
             //console.log(excludedMods);
@@ -255,7 +255,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
                 MuzzleMode: MuzzleType[MuzzleModeToggle],
                 PresetId: chosenGun,
                 Flea: checkedFlea,
-                ExcludedIds: excludedMods.map((entry) => entry.WeaponMod.Id)
+                ExcludedIds: paramExcludedIds !== undefined ? paramExcludedIds: excludedMods.map((entry) => entry.WeaponMod.Id)
             };
             // console.log('requestDetails',requestDetails)
             requestWeaponBuild(requestDetails)
@@ -416,6 +416,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
                     console.log(updatedExcludedMods);
                     setExcludedMods(updatedExcludedMods);
                     setRowSelectionExcluded({})
+                    handleSubmit(updatedExcludedMods.map((entry) => entry.WeaponMod.Id));
                 }
             },
             handleAddToExcludedMods() {
@@ -436,6 +437,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
                   // Concatenate selected entries with the current excludedMods array
                   setExcludedMods(newList);
                   setRowSelectionAttached({})
+                  handleSubmit(newList.map((entry) => entry.WeaponMod.Id));
                 }
               }
 

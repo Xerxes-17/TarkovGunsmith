@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { MwbContext } from '../../Context/ContextMWB';
 import { Box, Card, Divider, Grid, Group, Image } from '@mantine/core';
 import MainStatsLine from './MainStatsLine';
-import MarketInfoCard from './MarketInfoCard';
+import AmmoInfoCard from './AmmoInfoCard';
 import AttachedModsList from './AttachedModsList';
 import ExcludedModsList from './ExcludedModsList';
-import AmmoInfoCard from './MarketInfoCard';
+import MarketInfoCard from './MarketInfoCard';
 
 export default function ResultCard() {
     const {
