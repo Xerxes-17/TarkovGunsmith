@@ -80,7 +80,7 @@ namespace WishGranterTests
         public void Test_GetBestAmmo()
         {
             var preset = ModsWeaponsPresets.BasePresets[0];
-            var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 15, true);
+            var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 15, true, new List<string>());
             PurchasedAmmo.GetBestPurchasedAmmo(preset, param);
         }
     }
@@ -136,7 +136,8 @@ namespace WishGranterTests
         {
             Monolit.CreateGunsmithDBStuff();
         }
-
+        
+        //! Use this one to rebuild DB
         [TestMethod]
         public void Test_Monolit_CreateMonolitFromScratch()
         {
