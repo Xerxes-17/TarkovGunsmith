@@ -127,6 +127,7 @@ async Task startAPIAsync()
 
     app.UseCors(MyAllowSpecificOrigins);
 
+
     //! ******* Basics *******
     app.MapHealthChecks("/health");
     app.MapGet("/", () => "Hello World! I use Swagger btw.");
