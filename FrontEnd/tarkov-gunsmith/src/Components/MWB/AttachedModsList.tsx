@@ -215,16 +215,17 @@ export default function AttachedModsList() {
                     )}
                     positionToolbarAlertBanner="none"
                     enableToolbarInternalActions={false}
+                    enableColumnActions={false}
+
 
                     enableSelectAll={false}
                     enableGlobalFilter={false}
                     enableFilters={false}
-                    enableHiding={false}
                     enableFullScreenToggle={false}
                     enableDensityToggle={false}
                     enableTableHead
                     enableBottomToolbar={false}
-                    enableColumnActions={false}
+                    positionExpandColumn={"first"}
                     enableStickyHeader
                     muiTableContainerProps={{ sx: { maxHeight: '60vh' } }}
                     enableRowSelection
@@ -235,6 +236,7 @@ export default function AttachedModsList() {
                         density: "compact",
                         pagination: pagination,
                         columnOrder: [
+                            'mrt-row-expand',
                             'name',
                             'ergonomics',
                             'recoil',

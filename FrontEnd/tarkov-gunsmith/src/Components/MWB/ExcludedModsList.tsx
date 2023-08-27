@@ -21,7 +21,6 @@ export default function ExcludedModsList() {
         pagination,
         picturesYesNo,
         handleRemoveFromExcludedMods,
-        handleSubmit
     } = useContext(MwbContext);
 
     const [showExcluded, setShowExcluded] = useState("");
@@ -238,6 +237,7 @@ export default function ExcludedModsList() {
                     density: "compact",
                     pagination: pagination,
                     columnOrder: [
+                        'mrt-row-expand',
                         'name',
                         'ergonomics',
                         'recoil',
