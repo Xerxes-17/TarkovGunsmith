@@ -6,11 +6,21 @@ using WishGranterProto.ExtensionMethods;
 
 namespace WishGranter.API_Methods
 {
+    public class WeaponBuildRequest
+    {
+        public int PlayerLevel { get; set; }
+        public string Priority { get; set; }
+        public string MuzzleMode { get; set; }
+        public string PresetId { get; set; }
+        public bool Flea { get; set; }
+        public string[] ExcludedIds { get; set; }
+    }
+
     public static class API_Gunsmith
     {
         //TODO make this actually use the Fittings DB context and draw from there. Set it up so that it checkes for a saved option and if null produces and saves it.
         //todo This will let me skip past the "big DB update issue" for the moment.
-        public static string GetSingleWeaponBuild(ActivitySource myActivitySource, string presetID, string priority, string muzzleMode, int playerLevel, bool fleaMarket)
+        public static string GetSingleWeaponBuild(ActivitySource myActivitySource, string presetID, string priority, string muzzleMode, int playerLevel, bool fleaMarket, string[] excludedIds)
         {
             Monolit db = new();
 
@@ -18,7 +28,8 @@ namespace WishGranter.API_Methods
                 (FittingPriority)Enum.Parse(typeof(FittingPriority), priority),
                 (MuzzleType)Enum.Parse(typeof(MuzzleType), muzzleMode),
                 playerLevel,
-                fleaMarket
+                fleaMarket,
+                excludedIds.ToList()
                 );
 
             BasePreset basePreset = ModsWeaponsPresets.BasePresets.FirstOrDefault(x=>x.Id == presetID);
@@ -30,15 +41,21 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("playerLevel", playerLevel);
             myActivity?.SetTag("weaponName", basePreset.Weapon.Name);
             myActivity?.SetTag("fleaMarket", fleaMarket);
+            myActivity?.SetTag("excludedIds", excludedIds);
             Console.WriteLine($"Request to Gunsmith for single weapon: [{presetID}, {priority}, {muzzleMode}, {playerLevel} ({fleaMarket})]");
 
             GunsmithParameters fromDbParameters = GunsmithParameters.GetGunsmithParametersFromDB(parameters, db);
-            Fitting theFitting = db.Fittings.FirstOrDefault(fitting => fitting.BasePresetId == presetID && fromDbParameters.Id == fitting.GunsmithParametersId);
+            Fitting theFitting = new Fitting();
 
-            if(theFitting == null)
+            if (excludedIds.Length > 0)
             {
-                theFitting = new Fitting(basePreset, fromDbParameters, db);
-                //todo Add the save it to the DB
+                theFitting = new Fitting(basePreset, parameters, db);
+            }
+            else
+            {
+                theFitting = db.Fittings.FirstOrDefault(fitting =>
+                    fitting.BasePresetId == presetID && fromDbParameters.Id == fitting.GunsmithParametersId)
+                    ?? new Fitting(basePreset, fromDbParameters, db);
             }
 
             myActivity?.SetTag("valid", theFitting.IsValid);

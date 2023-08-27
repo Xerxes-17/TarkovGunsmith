@@ -45,3 +45,19 @@ export function sumCostOfModsInFE(presetMods:any[], purchasedMods: any[]): numbe
 
     return total;
 }
+
+export function currencyStringToSymbol(str: string) {
+    if (str.includes("USD"))
+        return "$"
+    else if (str.includes("EUR"))
+        return "€"
+    else if (str.includes("RUB"))
+        return "₽"
+    else
+        return ""
+}
+
+// Helper function to get the enum key based on its numerical value
+export function getEnumKeyByValue(enumObj: any, enumValue: number): string | undefined {
+    return Object.keys(enumObj).find((key) => enumObj[key] === enumValue);
+}

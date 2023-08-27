@@ -8,7 +8,6 @@ import Header from './Components/Header';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
-import ModdedWeaponBuilder from './Components/MWB/ModdedWeaponBuilder';
 import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
 import { LINKS } from './Util/links';
 import DataSheetAmmo from './Components/DataSheets/Stats_Ammo';

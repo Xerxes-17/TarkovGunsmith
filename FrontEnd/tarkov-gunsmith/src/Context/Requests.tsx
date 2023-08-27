@@ -33,7 +33,7 @@ export async function requestWeaponBuild(requestDetails: any) {
     let response = null;
 
     try {
-        response = await axios.get(API_URL + `/getSingleWeaponBuild/${requestDetails.level}/${requestDetails.priority}/${requestDetails.muzzleMode}/${requestDetails.presetId}/${requestDetails.flea}`);
+        response = await axios.post(API_URL + `/getSingleWeaponBuild`, requestDetails);
     } catch (error) {
         throw error;
     }
@@ -45,7 +45,7 @@ export async function requestWeaponDataCurve(requestDetails: any) {
     let response = null;
     ///GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{purchaseType}
     try {
-        response = await axios.get(API_URL + `/GetWeaponStatsCurve/${requestDetails.presetID}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.purchaseType}`);
+        response = await axios.post(API_URL + `/GetWeaponStatsCurve/${requestDetails.presetID}/${requestDetails.mode}/${requestDetails.muzzleMode}/${requestDetails.purchaseType}`);
     } catch (error) {
         throw error;
     }
@@ -56,7 +56,7 @@ export async function requestWeaponDataCurve(requestDetails: any) {
 export async function requestArmorVsAmmo(armorId: string) {
     let response = null;
     try {
-        response = await axios.get(API_URL + `/GetArmorVsArmmo/${armorId}`);
+        response = await axios.get(API_URL + `/GetArmorVsAmmo/${armorId}`);
     } catch (error) {
         throw error;
     }

@@ -10,7 +10,7 @@ namespace WishGranter.Statics
         public MuzzleType muzzleType { get; init; }
         public int playerLevel { get; init; }
         public bool fleaMarket { get; init; }
-        public List<string>? exclusionList { get; init; } = null;
+        public List<string> exclusionList { get; init; }
 
         public GunsmithParameters() { }
 
@@ -19,7 +19,7 @@ namespace WishGranter.Statics
         MuzzleType muzzleType,
         int playerLevel,
         bool fleaMarket,
-        List<string>? exclusionList = null)
+        List<string> exclusionList)
         {
             this.priority = priority;
             this.muzzleType = muzzleType;
@@ -30,6 +30,7 @@ namespace WishGranter.Statics
 
         public static GunsmithParameters GetGunsmithParametersFromDB(GunsmithParameters gunsmithParameters, Monolit db)
         {
+            Console.WriteLine(gunsmithParameters);
             var get = db.GunsmithParameters.Single(x =>
             x.priority == gunsmithParameters.priority &&
             x.muzzleType == gunsmithParameters.muzzleType &&
@@ -58,8 +59,8 @@ namespace WishGranter.Statics
                         if (check == false)
                         {
                             //var newDB_Preset = new BasePreset(item.Name, item.Id, item.Weapon, item.PurchaseOffer, item.WeaponMods);
-                            db.Add(new GunsmithParameters(priority, muzzleType, i, true));
-                            db.Add(new GunsmithParameters(priority, muzzleType, i, false));
+                            db.Add(new GunsmithParameters(priority, muzzleType, i, true, new List<string>()));
+                            db.Add(new GunsmithParameters(priority, muzzleType, i, false, new List<string>()));
 
                             count += 2;
                         }
