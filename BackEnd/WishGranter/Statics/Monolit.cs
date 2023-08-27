@@ -56,7 +56,6 @@ namespace WishGranter.Statics
             modelBuilder.ApplyConfiguration(new BallisticDetailsEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BallisticRatingEntityTypeConfiguration());
 
-
             modelBuilder.ApplyConfiguration(new WeaponEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BasePresetEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GunsmithParametersEntityConfiguration());
