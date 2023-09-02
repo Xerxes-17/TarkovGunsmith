@@ -356,7 +356,7 @@ namespace WishGranter.Statics
                 case "5c46fbd72e2216398b5a8c9c":
                     inputList = EnhancedLogic_SVDS(inputList, priority);
                     break;
-                case string id when inputWeapon.Name.Contains("Kalashnikov"):
+                case string id when inputWeapon.Name.Contains("Kalashnikov") && !inputWeapon.Name.Contains("AK-12"):
                     inputList = EnhancedLogic_Kalashnikovs_GasTubes_Handguards_DustCovers(inputList, priority);
                     break;
                 default:
