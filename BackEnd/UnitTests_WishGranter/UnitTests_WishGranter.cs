@@ -16,6 +16,21 @@ using System.Text.Json;
 
 namespace WishGranterTests
 {
+
+    [TestClass]
+    public class GunsmithProblemsTesting
+    {
+        [TestMethod]
+        public void Test_SomeMath()
+        {
+            Monolit db = new();
+
+            BasePreset basePreset = ModsWeaponsPresets.BasePresets.FirstOrDefault(x => x.Id.Equals("59dcdbb386f77417b03f350d_-1252658724"));
+            var ParamSettings = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 20, false, new List<string>());
+            Gunsmith.FitWeapon(basePreset, ParamSettings);
+        }
+    }
+
     [TestClass]
     public class FittingThingTests
     {

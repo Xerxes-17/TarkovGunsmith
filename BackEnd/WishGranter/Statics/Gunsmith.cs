@@ -138,7 +138,8 @@ namespace WishGranter.Statics
                     if(candidates.Count == 1)
                     {
                         var item = candidates[0];
-                        SimpleFitting(item, InputMods, mode);
+                        item = (WeaponMod) SimpleFitting(item, InputMods, mode); //! Kind of dangerous, but since a weapon CI is only ever the first thing and doesn't se this, it should be fine
+                        //* Important to actually save the result and use it ya dickhead!
                         slot.ContainedItem = item;
                     }
                     // The other situation is to have more than one. We no longer need to consider blockers as they are all handled by EnhancedLogic proparation methods.
