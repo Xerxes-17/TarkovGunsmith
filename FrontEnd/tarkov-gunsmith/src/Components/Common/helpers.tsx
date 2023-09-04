@@ -1,5 +1,9 @@
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
+import { MRT_Cell } from "material-react-table";
+import { AmmoTableRow } from "./Types/AmmoTypes";
+import { Tooltip, Group } from "@mantine/core";
+import { ReactNode } from "react";
  
  export const handleImageDownload = async (targetId:string) => {
     const element: any = document.getElementById(targetId),
@@ -60,4 +64,26 @@ export function currencyStringToSymbol(str: string) {
 // Helper function to get the enum key based on its numerical value
 export function getEnumKeyByValue(enumObj: any, enumValue: number): string | undefined {
     return Object.keys(enumObj).find((key) => enumObj[key] === enumValue);
+}
+
+export function AggregatedCellMedMaxMeanMin(cell:MRT_Cell<AmmoTableRow>){
+    return (
+        <Group>
+            <Tooltip label="Max">
+                <div>
+                    ∨: {cell.getValue<Array<number>>()?.[1].toFixed(0)}
+                </div>
+            </Tooltip>
+            <Tooltip label={<>Average <br />Median: {cell.getValue<Array<number>>()?.[0].toFixed(0)}</>}>
+                <div>
+                    x̄: {cell.getValue<Array<number>>()?.[2].toFixed(0)}
+                </div>
+            </Tooltip>
+            <Tooltip label="Min">
+                <div>
+                    ∧: {cell.getValue<Array<number>>()?.[3].toFixed(0)}
+                </div>
+            </Tooltip>
+        </Group>
+    )
 }
