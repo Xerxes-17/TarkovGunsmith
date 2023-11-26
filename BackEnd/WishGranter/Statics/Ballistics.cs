@@ -79,7 +79,7 @@ namespace WishGranter.Statics
             List<BallisticHit> hits = new ();
 
             float currentDurabilityDamageTotal = 0;
-            float startingDurability = parameters.MaxDurability * parameters.StartingDurabilityPerc / 100;
+            float startingDurability = parameters.MaxDurability * (parameters.StartingDurabilityPerc / 100);
 
             // probability setup
             Dictionary<int, float> currentHpProbabilities = new() { [8500] = 1 };
@@ -95,7 +95,7 @@ namespace WishGranter.Statics
             int hitNumber = 1;
             float CumulativeChanceOfKillMemory = 0;
 
-            while (CumulativeChanceOfKillMemory < 99.9)
+            while (CumulativeChanceOfKillMemory < 99.99999999)
             {
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
@@ -105,7 +105,7 @@ namespace WishGranter.Statics
                     currentDurability = 0;
                 }
 
-                float armorDurabilityPercentage = (currentDurability / startingDurability) * 100;
+                float armorDurabilityPercentage = (currentDurability / parameters.MaxDurability) * 100;
                 float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, armorDurabilityPercentage);
 
                 // Calc Potential damages:
@@ -242,9 +242,9 @@ namespace WishGranter.Statics
         }
 
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
-        private static double CalculateFactor_A(double armorDurability, int armorClass)
+        private static double CalculateFactor_A(double armorDurabilityPerc, int armorClass)
         {
-            return (121 - 5000 / (45 + (armorDurability * 2))) * armorClass * 0.1;
+            return (121 - 5000 / (45 + (armorDurabilityPerc * 2))) * armorClass * 0.1;
         }
 
         // This function provides the effective durability of an armor item for a given max durability and armor material.
