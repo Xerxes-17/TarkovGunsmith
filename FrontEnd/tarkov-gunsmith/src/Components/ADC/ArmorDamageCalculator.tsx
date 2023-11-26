@@ -1049,6 +1049,7 @@ export default function ArmorDamageCalculator(props: any) {
                                     </thead>
                                     <tbody>
                                         {result.ballisticTest.hits.map((item: BallisticHit, i: number) => {
+                                            const armorObj = ArmorOptions.find(xArmor => xArmor.value === result.ballisticTest.armorId)
                                             return (
                                                 <tr>
                                                     <td>{i + 1}</td>
@@ -1056,13 +1057,13 @@ export default function ArmorDamageCalculator(props: any) {
                                                         {item.durabilityBeforeHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
                                                     </td>
                                                     <td>
-                                                        {((item.durabilityBeforeHit / result.ballisticTest.hits[0].durabilityBeforeHit) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                                                        {((item.durabilityBeforeHit / armorObj!.maxDurability) * 100).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
                                                     </td>
                                                     <td>
                                                         {item.durabilityDamageTotalAfterHit.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
                                                     </td>
                                                     <td>
-                                                        {i === 0 && (item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 })}
+                                                        {i === 0 && (item.penetrationChance * 100).toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 }) + "%"}
                                                         {i > 0 && statDelta(result.ballisticTest.hits[i].penetrationChance * 100, result.ballisticTest.hits[i - 1].penetrationChance * 100, "%")}
                                                     </td>
 
