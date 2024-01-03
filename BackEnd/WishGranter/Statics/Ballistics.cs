@@ -11,6 +11,56 @@ namespace WishGranter.Statics
         Thorax,
         Head
     }
+    public record class MultiLayerBallisticHit
+    {
+        public int? TestId { get; set; }
+        public int HitNum { get; set; }
+
+        // Plate
+        public double PenetrationChance_Plate { get; set; }
+        public double DurabilityBeforeHit_Plate { get; set; }
+        public double DurabilityDamageTotalAfterHit_Plate { get; set; }
+
+        // Soft
+        public double PenetrationPower_PostPlate { get; set; }
+        public double Damage_PostPlate { get; set; }
+        public double PenetrationChance_Soft { get; set; }
+        public double DurabilityBeforeHit_Soft { get; set; }
+        public double DurabilityDamageTotalAfterHit_Soft { get; set; }
+
+        // Damage
+        public double BluntDamage { get; set; }
+        public double PenetrationDamage { get; set; }
+
+        // Hitpoints and COK
+        public double AverageRemainingHitPoints { get; set; }
+        public float CumulativeChanceOfKill { get; set; }
+        public float SpecificChanceOfKill { get; set; }
+
+        //todo add the SQL entity stuff
+    }
+
+    public record struct MultiLayerSimulationParameters
+    {
+        public TargetZone TargetZone { get; init; }
+
+        public int PlateArmorClass { get; init; }
+        public float PlateMaxDurability { get; init; }
+        public float PlateStartingDurabilityPerc { get; init; }
+        public float PlateBluntThroughput { get; init; }
+        public ArmorMaterial PlateArmorMaterial { get; init; }
+
+        public int SoftArmorClass { get; init; }
+        public float SoftMaxDurability { get; init; }
+        public float SoftStartingDurabilityPerc { get; init; }
+        public float SoftBluntThroughput { get; init; }
+        public ArmorMaterial SoftArmorMaterial { get; init; }
+
+        public float Penetration { get; init; }
+        public float Damage { get; init; }
+        public int ArmorDamagePerc { get; init; }
+    }
+
     // This is used purely for passing in the details of a calculation to the engine.
     public record struct SimulationParameters
     {
@@ -65,6 +115,45 @@ namespace WishGranter.Statics
                 }
             }
 
+            return nextProbabilities;
+        }
+
+        public static Dictionary<int, float> NightShade_CalculateNextHpProbabilities_MultiLayer(Dictionary<int, float> currentHpProbabilities, double softBlockDamage, double softPenDamage, float softPenChance, float platePenChance)
+        {
+            const int FACTOR = 100; // double to fixed multiplication factor
+
+            int blockDamageFixed = (int)(softBlockDamage * FACTOR);
+            int penDamageFixed = (int)(softPenDamage * FACTOR);
+
+            var nextProbabilities = new Dictionary<int, float>();
+
+            var softBlockChance = 1 - softPenChance;
+
+            foreach (var item in currentHpProbabilities)
+            {
+                var hp = item.Key;
+                var probability = item.Value;
+
+                // If the plate no-sells the hit entirely
+                if (platePenChance != 1)
+                {
+                    nextProbabilities[item.Key] = nextProbabilities.GetValueOrDefault(item.Key, 0) + item.Value * (1 - platePenChance);
+                }
+
+                // If the plate gets penned, but the soft blocks
+                if (platePenChance != 0)
+                {
+                    var nextBlockHp = Math.Max(hp - blockDamageFixed, 0);
+                    nextProbabilities[nextBlockHp] = nextProbabilities.GetValueOrDefault(nextBlockHp, 0) + (probability * softBlockChance * platePenChance);
+                }
+
+                // If the plate and soft both get penned
+                if (platePenChance != 0 && softPenChance != 0)
+                {
+                    var nextPenHp = Math.Max(hp - penDamageFixed, 0);
+                    nextProbabilities[nextPenHp] = nextProbabilities.GetValueOrDefault(nextPenHp, 0) + (probability * softPenChance * platePenChance);
+                }
+            }
             return nextProbabilities;
         }
 
@@ -240,6 +329,411 @@ namespace WishGranter.Statics
 
             return new CustomSimulationResult { SimulationParameters = parameters, Hits = theHits, ProbableKillShot = index };
         }
+        public static List<MultiLayerBallisticHit> MultiLayerSimulation_EngineV2(MultiLayerSimulationParameters parameters)
+        {
+            float PlateStartingDurability = parameters.PlateMaxDurability * (parameters.PlateStartingDurabilityPerc / 100);
+            float SoftStartingDurability = parameters.SoftMaxDurability * (parameters.SoftStartingDurabilityPerc / 100);
+
+            float PlateCurrentDurabilityDamageTotal = 0;
+            float SoftCurrentDurabilityDamageTotal = 0;
+
+            float PlateCurrentDurability = PlateStartingDurability;
+            float SoftCurrentDurability = SoftStartingDurability;
+
+            // probability setup
+            Dictionary<int, float> currentHpProbabilities = new() { [8500] = 1 };
+            Dictionary<int, float> previousHpProbabilities = new() { [8500] = 1 };
+
+            double HitPoints = 85;
+            if (parameters.TargetZone == TargetZone.Head)
+            {
+                HitPoints = 35;
+                currentHpProbabilities = new() { [3500] = 1 };
+            }
+
+            int hitNumber = 1;
+            float CumulativeChanceOfKillMemory = 0;
+            List<MultiLayerBallisticHit> hits = new();
+
+            while (CumulativeChanceOfKillMemory < 99.99)
+            {
+                var durabilityBeforeHit_Plate = PlateCurrentDurability;
+                var durabilityBeforeHit_Soft = SoftCurrentDurability;
+
+                var currentBulletDamage = parameters.Damage;
+                var currentBulletPenetration = parameters.Penetration;
+
+                float platePenetrationChance = 0;
+                float postPlatePenetration = parameters.Penetration;
+                float postPlateDamage = parameters.Damage;
+
+                float shotBluntSoft = 0;
+                float shotPenetratingSoft = 0;
+                float softPenetrationChance = 0;
+
+                if (PlateCurrentDurability > 0)
+                {
+                    float plateArmorDurabilityPercentage = (PlateCurrentDurability / parameters.PlateMaxDurability) * 100;
+                    platePenetrationChance = (float)PenetrationChance(parameters.PlateArmorClass, currentBulletPenetration, plateArmorDurabilityPercentage);
+
+                    float expectedPlateDurabilityDamage = (float)GetExpectedArmorDamage(parameters.PlateArmorClass, parameters.PlateArmorMaterial, currentBulletPenetration, parameters.ArmorDamagePerc, plateArmorDurabilityPercentage);
+                    float plateReductionFactor = (float)CalculateReductionFactor(currentBulletPenetration, plateArmorDurabilityPercentage, parameters.PlateArmorClass);
+
+                    float shotPenetratingPlate = (float)PenetrationDamage(plateArmorDurabilityPercentage, parameters.PlateArmorClass, currentBulletDamage, currentBulletPenetration);
+
+                    //! plates seem to have 0 blunt damage
+                    //float shotBlockedOnPlate = (float)BluntDamage(plateArmorDurabilityPercentage, parameters.PlateArmorClass, parameters.PlateBluntThroughput, currentBulletDamage, currentBulletPenetration);
+
+                    //PlateCurrentDurability -= expectedPlateDurabilityDamage;
+                    PlateCurrentDurability = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurability - expectedPlateDurabilityDamage : 0;
+
+                    PlateCurrentDurabilityDamageTotal = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurabilityDamageTotal + expectedPlateDurabilityDamage : PlateStartingDurability;
+
+                    currentBulletDamage = (shotPenetratingPlate * plateReductionFactor); //! So a plate will get zero blunt damage on a block
+                    currentBulletPenetration = (currentBulletPenetration * plateReductionFactor); //! If the shot is blocked, it is a zero, and you can't multiply that
+
+                    postPlatePenetration = currentBulletPenetration;
+                    postPlateDamage = currentBulletDamage;
+                }
+                else
+                {
+                    platePenetrationChance = 1;
+                }
+                //if(platePenetrationChance < .01f)
+                //{
+                //    // If there is less than a 1 in a 1000 chance to pen the plate, we will discard any "quantumn damage" the soft will accure 
+                //    softPenetrationChance = 0;
+                //}
+                //else if(platePenetrationChance >= .01f && SoftCurrentDurability > 0)
+                if (SoftCurrentDurability > 0)
+                {
+                    float softDurabilityPercentage = (SoftCurrentDurability / parameters.SoftMaxDurability) * 100;
+                    softPenetrationChance = (float)PenetrationChance(parameters.SoftArmorClass, currentBulletPenetration, softDurabilityPercentage);
+
+                    float expectedSoftDurabilityDamage = (float)GetExpectedArmorDamage(parameters.SoftArmorClass, parameters.SoftArmorMaterial, currentBulletPenetration, parameters.ArmorDamagePerc, softDurabilityPercentage);
+
+                    expectedSoftDurabilityDamage *= platePenetrationChance;
+
+                    float softReductionFactor = (float)CalculateReductionFactor(currentBulletPenetration, softDurabilityPercentage, parameters.SoftArmorClass);
+
+                    shotBluntSoft = (float)BluntDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.SoftBluntThroughput, currentBulletDamage, currentBulletPenetration);
+                    //shotBluntSoft = currentBulletDamage * parameters.SoftBluntThroughput;
+                    shotPenetratingSoft = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, currentBulletDamage, currentBulletPenetration);
+
+                    if (expectedSoftDurabilityDamage < .01f)
+                    {
+                        expectedSoftDurabilityDamage = 0;
+                        shotBluntSoft = 0;
+                        shotPenetratingSoft = 0;
+                    }
+
+                    SoftCurrentDurability = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurability - expectedSoftDurabilityDamage : 0;
+                    SoftCurrentDurabilityDamageTotal = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurabilityDamageTotal + expectedSoftDurabilityDamage : SoftStartingDurability;
+                }
+                else
+                {
+                    softPenetrationChance = 1;
+                    shotPenetratingSoft = currentBulletDamage;
+                }
+
+                // Calc Average Damage and apply it to HP pool
+                // Question: will you need to calculate a 4 set or a 2 set? as we now have 4 branching possibilities instead of 2
+                var averageDamage = platePenetrationChance * ((shotBluntSoft * (1 - softPenetrationChance)) + (shotPenetratingSoft * softPenetrationChance));
+                //var AverageDamage = (shotBlunt * (1 - penetrationChance)) + (shotPenetrating * penetrationChance);
+
+                HitPoints -= averageDamage;
+
+                currentHpProbabilities = NightShade_CalculateNextHpProbabilities_MultiLayer(currentHpProbabilities, shotBluntSoft, shotPenetratingSoft, softPenetrationChance, platePenetrationChance);
+
+                float thisCumulativeChanceOfKill = 0;
+                float thisSpecificChanceOfKill = 0;
+                // Update the hit to have the correct chances
+                if (currentHpProbabilities.ContainsKey(0))
+                {
+                    thisCumulativeChanceOfKill = currentHpProbabilities[0] * 100;
+                    CumulativeChanceOfKillMemory = thisCumulativeChanceOfKill;
+                    if (previousHpProbabilities.ContainsKey(0))
+                    {
+                        thisSpecificChanceOfKill = (currentHpProbabilities[0] - previousHpProbabilities[0]) * 100;
+                    }
+                    else
+                    {
+                        thisSpecificChanceOfKill = currentHpProbabilities[0] * 100;
+                    }
+                }
+
+                MultiLayerBallisticHit thisHit = new MultiLayerBallisticHit
+                {
+                    HitNum = hitNumber,
+
+                    PenetrationChance_Plate = platePenetrationChance,
+                    DurabilityBeforeHit_Plate = durabilityBeforeHit_Plate,
+                    DurabilityDamageTotalAfterHit_Plate = PlateCurrentDurabilityDamageTotal,
+
+                    PenetrationPower_PostPlate = postPlatePenetration,
+                    Damage_PostPlate = postPlateDamage,
+
+                    PenetrationChance_Soft = softPenetrationChance,
+                    DurabilityBeforeHit_Soft = durabilityBeforeHit_Soft,
+                    DurabilityDamageTotalAfterHit_Soft = SoftCurrentDurabilityDamageTotal,
+
+                    BluntDamage = shotBluntSoft,
+                    PenetrationDamage = shotPenetratingSoft,
+
+                    AverageRemainingHitPoints = HitPoints,
+                    CumulativeChanceOfKill = thisCumulativeChanceOfKill,
+                    SpecificChanceOfKill = thisSpecificChanceOfKill
+                };
+
+                hits.Add(thisHit);
+
+                previousHpProbabilities = currentHpProbabilities.DeepClone();
+                hitNumber++;
+            }
+
+            return hits;
+        }
+
+        public static List<BallisticHit> MultiLayerSimulation_Engine(MultiLayerSimulationParameters parameters)
+        {
+
+            // Plate Stop: -plateDurability(stop)
+
+            //? need to track the reduction of penetration and damage through the plate
+            // Plate Pen, Soft Stop: [-plateDurability(pen), -bulletDamage(plate), -bulletPenetration(plate)], [-softDurability(stop), -playerHealth(blunt)] 
+
+            //? need to track the reduction of penetration and damage through the plate + soft
+            // Plate Pen, Soft Pen: [-plateDurability(pen), -bulletDamage(plate), -bulletPenetration(plate)], [-softDurability(stop), -bulletDamage(soft), -bulletPenetration(soft)], -playerHealth(pen)
+
+            List<BallisticHit> hits = new();
+
+            float PlateStartingDurability = parameters.PlateMaxDurability * (parameters.PlateStartingDurabilityPerc / 100);
+            float SoftStartingDurability = parameters.SoftMaxDurability * (parameters.SoftStartingDurabilityPerc / 100);
+
+            float PlateCurrentDurabilityDamageTotal = 0;
+            float SoftCurrentDurabilityDamageTotal = 0;
+
+            float PlateCurrentDurability = PlateStartingDurability;
+            float SoftCurrentDurability = SoftStartingDurability;
+
+            // probability setup
+            Dictionary<int, float> currentHpProbabilities = new() { [8500] = 1 };
+            Dictionary<int, float> previousHpProbabilities = new() { [8500] = 1 };
+
+            double HitPoints = 85;
+            if (parameters.TargetZone == TargetZone.Head)
+            {
+                HitPoints = 35;
+                currentHpProbabilities = new() { [3500] = 1 };
+            }
+
+            int hitNumber = 1;
+            float CumulativeChanceOfKillMemory = 0;
+
+            Console.WriteLine($"Penetration: {parameters.Penetration}");
+            Console.WriteLine($"Damage: {parameters.Damage}\n");
+
+            //while (CumulativeChanceOfKillMemory < 99.99999999)
+            while (hitNumber < 20)
+            {
+                //todo restructure with guard clauses
+
+                //! no armor remaining
+                if(PlateCurrentDurability == 0 && SoftCurrentDurability == 0)
+                {
+                    //currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, parameters.Damage, parameters.Damage, 100); //todo check if 100 or 1
+
+                    //// Update the hit to have the correct chances
+                    //if (currentHpProbabilities.ContainsKey(0))
+                    //{
+                    //    var CumulativeChanceOfKill = currentHpProbabilities[0] * 100;
+
+                    //    CumulativeChanceOfKillMemory = CumulativeChanceOfKill;
+
+
+
+                    //    if (previousHpProbabilities.ContainsKey(0))
+                    //    {
+                    //        var SpecificChanceOfKill = (currentHpProbabilities[0] - previousHpProbabilities[0]) * 100;
+                    //    }
+                    //    else
+                    //    {
+                    //        var SpecificChanceOfKill = currentHpProbabilities[0] * 100;
+                    //    }
+                    //}
+
+
+                    //previousHpProbabilities = currentHpProbabilities.DeepClone();
+                    Console.WriteLine($"Hit: {hitNumber}");
+                    Console.WriteLine("No more armor\n");
+                    hitNumber++;
+                    continue;
+                }
+
+                //! only soft armor remaining
+                if(PlateCurrentDurability == 0 && SoftCurrentDurability > 0)
+                {
+                    float softDurabilityPercentage = (SoftCurrentDurability / parameters.PlateMaxDurability) * 100;
+                    float softPenetrationChance = (float)PenetrationChance(parameters.SoftArmorClass, parameters.Penetration, softDurabilityPercentage);
+
+                    float expectedSoftDurabilityDamage = (float)GetExpectedArmorDamage(parameters.SoftArmorClass, parameters.SoftArmorMaterial, parameters.Penetration, parameters.ArmorDamagePerc, softDurabilityPercentage);
+
+                    // Calc Potential damages:
+                    //! Remember no need for the reduction factor, as these methods already do it
+                    float shotBlunt = (float)BluntDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.SoftBluntThroughput, parameters.Damage, parameters.Penetration);
+                    float shotPenetrating = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.Damage, parameters.Penetration);
+                    var AverageDamage = (shotBlunt * (1 - softPenetrationChance)) + (shotPenetrating * softPenetrationChance);
+
+                    SoftCurrentDurability = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurability - expectedSoftDurabilityDamage : 0;
+
+                    Console.WriteLine($"\nHit: {hitNumber} on Soft");
+                    Console.WriteLine($"Plate Dura: {PlateCurrentDurability}");
+                    Console.WriteLine($"Soft Dura: {SoftCurrentDurability}");
+                    Console.WriteLine($"expectedSoftDurabilityDamage: {expectedSoftDurabilityDamage}");
+                    Console.WriteLine($"postSoft_DamagePenetrating: {shotPenetrating}");
+                    Console.WriteLine($"postSoft_DamageBlunt: {shotBlunt}");
+
+                    hitNumber++;
+                    continue;
+                }
+
+                //! plate + soft armor remaining
+                if (PlateCurrentDurability > 0)
+                {
+                    Console.WriteLine($"\nHit: {hitNumber} on Plate");
+                    Console.WriteLine($"Plate Dura: {PlateCurrentDurability}");
+                    Console.WriteLine($"Soft Dura: {SoftCurrentDurability}");
+
+                    float plateArmorDurabilityPercentage = (PlateCurrentDurability / parameters.PlateMaxDurability) * 100;
+                    float platePenetrationChance = (float)PenetrationChance(parameters.PlateArmorClass, parameters.Penetration, plateArmorDurabilityPercentage);
+
+                    float expectedPlateDurabilityDamage = (float)GetExpectedArmorDamage(parameters.PlateArmorClass, parameters.PlateArmorMaterial, parameters.Penetration, parameters.ArmorDamagePerc, plateArmorDurabilityPercentage);
+                    Console.WriteLine($"expectedPlateDurabilityDamage: {expectedPlateDurabilityDamage}");
+
+                    float plateReductionFactor = (float)CalculateReductionFactor(parameters.Penetration, plateArmorDurabilityPercentage, parameters.PlateArmorClass);
+
+                    PlateCurrentDurability = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurability - expectedPlateDurabilityDamage : 0;
+
+                    Console.WriteLine($"platePenetrationChance: {platePenetrationChance*100}%");
+
+                    if (platePenetrationChance > 0.01 && SoftCurrentDurability > 0)
+                    {
+                        float postPlatePenetrationPower = parameters.Penetration * plateReductionFactor;
+                        float postPlateDamage = parameters.Damage * plateReductionFactor;
+
+                        Console.WriteLine($"postPlatePenetrationPower: {postPlatePenetrationPower}");
+                        Console.WriteLine($"postPlateDamage: {postPlateDamage}");
+
+                        float softDurabilityPercentage = (SoftCurrentDurability / parameters.PlateMaxDurability) * 100;
+                        float softPenetrationChance = (float)PenetrationChance(parameters.SoftArmorClass, postPlatePenetrationPower, softDurabilityPercentage);
+
+                        float expectedSoftDurabilityDamage = (float)GetExpectedArmorDamage(parameters.SoftArmorClass, parameters.SoftArmorMaterial, postPlatePenetrationPower, parameters.ArmorDamagePerc, softDurabilityPercentage);
+                        Console.WriteLine($"expectedSoftDurabilityDamage: {expectedSoftDurabilityDamage}");
+
+                        // Calc Potential damages:
+                        //! Remember no need for the reduction factor, as these methods already do it
+                        float shotBlunt = (float)BluntDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.SoftBluntThroughput, postPlateDamage, postPlatePenetrationPower);
+
+                        float shotPenetrating = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, postPlateDamage, postPlatePenetrationPower);
+                        var AverageDamage = (shotBlunt * (1 - softPenetrationChance)) + (shotPenetrating * softPenetrationChance);
+
+                        Console.WriteLine($"postPlate_softPenetrationChance: {softPenetrationChance*100}%");
+                        Console.WriteLine($"postPlateAndSoft_DamagePenetrating: {shotPenetrating}");
+                        Console.WriteLine($"postPlateAndSoft_DamageBlunt: {shotBlunt}");
+
+                        if(platePenetrationChance > 0.01)
+                        {
+                            SoftCurrentDurability = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurability - expectedSoftDurabilityDamage : 0;
+                        }
+
+                        
+                    }
+
+
+
+
+                    hitNumber++;
+                    continue;
+                }
+                //if(PlateCurrentDurability > 0)
+                //{
+                //    float plateArmorDurabilityPercentage = (PlateCurrentDurability / parameters.PlateMaxDurability) * 100;
+                //    float platePenetrationChance = (float)PenetrationChance(parameters.PlateArmorClass, parameters.Penetration, plateArmorDurabilityPercentage);
+
+                //    float expectedPlateDurabilityDamage = (float) GetExpectedArmorDamage(parameters.PlateArmorClass, parameters.PlateArmorMaterial, parameters.Penetration, parameters.ArmorDamagePerc, plateArmorDurabilityPercentage);
+
+                //    float plateReductionFactor = (float) CalculateReductionFactor(parameters.Penetration, plateArmorDurabilityPercentage, parameters.PlateArmorClass);
+
+                //    if (platePenetrationChance > 0.1 && SoftCurrentDurability > 0)
+                //    {
+                //        float postPlatePenetrationPower = parameters.Penetration * plateReductionFactor;
+                //        float postPlateDamage = parameters.Damage * plateReductionFactor ;
+
+                //        float softDurabilityPercentage = (SoftCurrentDurability / parameters.PlateMaxDurability) * 100;
+                //        float softPenetrationChance = (float)PenetrationChance(parameters.SoftArmorClass, postPlatePenetrationPower, softDurabilityPercentage);
+
+                //        float expectedSoftDurabilityDamage = (float)GetExpectedArmorDamage(parameters.SoftArmorClass, parameters.SoftArmorMaterial, postPlatePenetrationPower, parameters.ArmorDamagePerc, softDurabilityPercentage);
+
+                //        // Calc Potential damages:
+                //        //! Remember no need for the reduction factor, as these methods already do it
+                //        float shotBlunt = (float)BluntDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.SoftBluntThroughput, postPlateDamage, postPlatePenetrationPower);
+                //        float shotPenetrating = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, postPlateDamage, postPlatePenetrationPower);
+                //        var AverageDamage = (shotBlunt * (1 - softPenetrationChance)) + (shotPenetrating * softPenetrationChance);
+
+
+
+                //        MultiLayerBallisticHit mLBH = new();
+
+                //        mLBH.HitNum = hitNumber;
+                //        mLBH.PenetrationChance_Plate = platePenetrationChance;
+                //        mLBH.DurabilityBeforeHit_Plate = PlateCurrentDurability;
+                //        mLBH.DurabilityDamageTotalAfterHit_Plate = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurability - expectedPlateDurabilityDamage : 0;
+
+                //        mLBH.PenetrationPower_PostPlate = postPlatePenetrationPower;
+                //        mLBH.Damage_PostPlate = postPlateDamage;
+                //        mLBH.PenetrationChance_Soft = softPenetrationChance;
+                //        mLBH.DurabilityBeforeHit_Soft = SoftCurrentDurability;
+                //        mLBH.DurabilityDamageTotalAfterHit_Soft = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurability - expectedSoftDurabilityDamage : 0;
+
+                //        mLBH.BluntDamage = shotBlunt;
+                //        mLBH.PenetrationDamage = shotPenetrating;
+                //        //todo HP and CoK stuff
+
+                //        Console.WriteLine(mLBH.ToString());
+                //        hitNumber++;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine();
+                //        hitNumber++;
+                //    }
+
+                //}
+                hitNumber++;
+                Console.WriteLine("Out of bounds?");
+            }
+
+
+            // bullet vs plate
+
+
+
+            // bullet vs soft
+
+            return hits;
+        }
+
+        
+
+        //helper function for getting that reduction multiplier as used for damage and penetration, aka "damage mitigation"
+        public static double CalculateReductionFactor(double penetrationPower, double armorDurabilityPerc, int armorClass)
+        {
+            float factor_A = (float) CalculateFactor_A(armorDurabilityPerc, armorClass);
+
+            float reductionMultiplier = (float) Math.Clamp(penetrationPower / ((factor_A + 12f)), 0.6f, 1f);
+
+            return reductionMultiplier;
+        }
 
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
         private static double CalculateFactor_A(double armorDurabilityPerc, int armorClass)
@@ -260,21 +754,21 @@ namespace WishGranter.Statics
             double armor_destructability = -1;
 
             if (armor_material == ArmorMaterial.Aramid)
-                armor_destructability = .25;
+                armor_destructability = 0.1875;
             else if (armor_material == ArmorMaterial.UHMWPE)
-                armor_destructability = .45;
+                armor_destructability = 0.3375;
             else if (armor_material == ArmorMaterial.Combined)
-                armor_destructability = .5;
+                armor_destructability = 0.375;
             else if (armor_material == ArmorMaterial.Titan)
-                armor_destructability = .55;
+                armor_destructability = 0.4125;
             else if (armor_material == ArmorMaterial.Aluminium)
-                armor_destructability = .6;
+                armor_destructability = 0.45;
             else if (armor_material == ArmorMaterial.ArmoredSteel)
-                armor_destructability = .7;
+                armor_destructability = 0.525;
             else if (armor_material == ArmorMaterial.Ceramic)
-                armor_destructability = .8;
+                armor_destructability = .55;
             else if (armor_material == ArmorMaterial.Glass)
-                armor_destructability = .8;
+                armor_destructability = .6;
 
             return armor_destructability;
         }
@@ -306,10 +800,14 @@ namespace WishGranter.Statics
             double armor_destructability = GetDestructabilityFromMaterial(armor_material);
             double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
 
-            double A_Factor = CalculateFactor_A(armorDurability, armor_class);
+            //double A_Factor = CalculateFactor_A(armorDurability, armor_class);
 
             //! 1.1 max is shown in test result of 5.45 BT vs Usec Trooper. .6 min is shown in rest results of 5.45 T vs a Korund and a Slick plate.
-            double result = bullet_penetration * armorDamagePercentage_dbl * armor_destructability * Math.Clamp(bullet_penetration / A_Factor, .6d, 1.1d);
+            double result = 
+                bullet_penetration *
+                armorDamagePercentage_dbl *
+                Math.Clamp(bullet_penetration / armor_class * 10, .6d, 1.1d) *
+                armor_destructability;
 
             //! CZTL's minimum dura damage as per buckshot vs a slick plate
             result = Math.Max(result, 1);
@@ -322,10 +820,14 @@ namespace WishGranter.Statics
             double armor_destructability = GetDestructabilityFromMaterial(armor_material);
             double armorDamagePercentage_dbl = bullet_armorDamagePercentage / 100d;
 
-            double A_Factor = CalculateFactor_A(armorDurability, armor_class);
+            //double A_Factor = CalculateFactor_A(armorDurability, armor_class);
 
             //! .9 max is shown in test result of ignolnik vs PACA, Zhuk-3, etc. .5 min is shown in rest results of 5.45 T vs pretty much everything lmao.
-            double result = bullet_penetration * armorDamagePercentage_dbl * armor_destructability * Math.Clamp(bullet_penetration / A_Factor, .5d, .9d);
+            double result = 
+                bullet_penetration * 
+                armorDamagePercentage_dbl *
+                Math.Clamp(bullet_penetration / armor_class * 10, .5d, .9d) *
+                armor_destructability;
 
             //! CZTL's minimum dura damage as per buckshot vs a slick plate
             result = Math.Max(result, 1);
@@ -336,6 +838,7 @@ namespace WishGranter.Statics
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
+
             double probabilityOfPenetration =  PenetrationChance(armor_class, (float) bullet_penetration, (float) armorDurability);
 
             return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
@@ -354,7 +857,10 @@ namespace WishGranter.Statics
 
             double medianResult = median(0.2, 1 - (0.03 * (factor_a - bulletPenetration)), 1);
 
-            double finalResult = medianResult * bluntThroughput * bulletDamage;
+            double finalResult =
+                bluntThroughput *
+                medianResult *
+                bulletDamage;
 
             return finalResult;
         }
@@ -371,7 +877,10 @@ namespace WishGranter.Statics
             var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
 
             double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
-            double finalResult = medianResult * bulletDamage;
+
+            double finalResult =
+                medianResult *
+                bulletDamage;
 
             return finalResult;
         }
