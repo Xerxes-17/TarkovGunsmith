@@ -384,12 +384,11 @@ namespace WishGranter.Statics
                     //! plates seem to have 0 blunt damage
                     //float shotBlockedOnPlate = (float)BluntDamage(plateArmorDurabilityPercentage, parameters.PlateArmorClass, parameters.PlateBluntThroughput, currentBulletDamage, currentBulletPenetration);
 
-                    //PlateCurrentDurability -= expectedPlateDurabilityDamage;
                     PlateCurrentDurability = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurability - expectedPlateDurabilityDamage : 0;
 
                     PlateCurrentDurabilityDamageTotal = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurabilityDamageTotal + expectedPlateDurabilityDamage : PlateStartingDurability;
 
-                    currentBulletDamage = (shotPenetratingPlate * plateReductionFactor); //! So a plate will get zero blunt damage on a block
+                    currentBulletDamage = (shotPenetratingPlate); //! So a plate will get zero blunt damage on a block
                     currentBulletPenetration = (currentBulletPenetration * plateReductionFactor); //! If the shot is blocked, it is a zero, and you can't multiply that
 
                     postPlatePenetration = currentBulletPenetration;
@@ -399,12 +398,6 @@ namespace WishGranter.Statics
                 {
                     platePenetrationChance = 1;
                 }
-                //if(platePenetrationChance < .01f)
-                //{
-                //    // If there is less than a 1 in a 1000 chance to pen the plate, we will discard any "quantumn damage" the soft will accure 
-                //    softPenetrationChance = 0;
-                //}
-                //else if(platePenetrationChance >= .01f && SoftCurrentDurability > 0)
                 if (SoftCurrentDurability > 0)
                 {
                     float softDurabilityPercentage = (SoftCurrentDurability / parameters.SoftMaxDurability) * 100;
