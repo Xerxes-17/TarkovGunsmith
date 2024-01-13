@@ -410,7 +410,6 @@ namespace WishGranter.Statics
                     float softReductionFactor = (float)CalculateReductionFactor(currentBulletPenetration, softDurabilityPercentage, parameters.SoftArmorClass);
 
                     shotBluntSoft = (float)BluntDamage(softDurabilityPercentage, parameters.SoftArmorClass, parameters.SoftBluntThroughput, currentBulletDamage, currentBulletPenetration);
-                    //shotBluntSoft = currentBulletDamage * parameters.SoftBluntThroughput;
                     shotPenetratingSoft = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, currentBulletDamage, currentBulletPenetration);
 
                     if (expectedSoftDurabilityDamage < .01f)
@@ -729,7 +728,7 @@ namespace WishGranter.Statics
         }
 
         // Helper for calculating FactorA which is used in a bunch of ballistic calculations
-        private static double CalculateFactor_A(double armorDurabilityPerc, int armorClass)
+        public static double CalculateFactor_A(double armorDurabilityPerc, int armorClass)
         {
             return (121 - 5000 / (45 + (armorDurabilityPerc * 2))) * armorClass * 0.1;
         }
