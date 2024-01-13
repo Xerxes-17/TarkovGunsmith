@@ -370,7 +370,7 @@ export default function DataSheetWeapons(props: any) {
                     initialState={{
                         density: 'compact',
                         columnVisibility: {
-                            caliber: false,
+                            caliber: true,
                             rateOfFire: true,
                             baseErgonomics: false,
                             baseRecoil: false,
