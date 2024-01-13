@@ -147,13 +147,12 @@ export default function DataSheetWeapons(props: any) {
 
     async function getDataFromApi_TarkovDev() {
         const fetched = await fetchDataFromApi_TarkovDev();
-        console.log("fetched", fetched);
         if (fetched === null) {
             console.error("Something went wrong fetching ammo data from api.tarkov.dev")
             return null;
         }
+        
         const transformed = fetched.map(item => transformDevTarkovWeaponToWeaponsTableRow(item));
-        console.log("transformed", transformed);
 
         return transformed;
     }
