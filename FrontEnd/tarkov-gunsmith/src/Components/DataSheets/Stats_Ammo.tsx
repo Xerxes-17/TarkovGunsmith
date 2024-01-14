@@ -139,11 +139,11 @@ export default function DataSheetAmmo(props: any) {
     };
 
     async function getTableData() {
-        const response_WishGranterApi = await getDataFromApi_WishGranter();
-        if(response_WishGranterApi !== null){
-            setAmmoTableData(response_WishGranterApi);
-            return;
-        }
+        // const response_WishGranterApi = await getDataFromApi_WishGranter();
+        // if(response_WishGranterApi !== null){
+        //     setAmmoTableData(response_WishGranterApi);
+        //     return;
+        // }
 
         const response_ApiTarkovDev = await getDataFromApi_TarkovDev()
         if(response_ApiTarkovDev !== null){
