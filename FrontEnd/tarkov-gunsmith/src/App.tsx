@@ -32,23 +32,23 @@ function App() {
             <Route path={LINKS.HOME} element={<Home />} />
             <Route path={LINKS.ABOUT} element={<About />} />
             <Route path={LINKS.MODDED_WEAPON_BUILDER} element={<MwbBasePage />} />
-            <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
+            {/* <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
             <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
             <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} />
+            <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} /> */}
 
             <Route path={LINKS.DATA_SHEETS_AMMO} element={<DataSheetAmmo />} />
             
-            <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} />
+            {/* <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} /> */}
             <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
 
-            <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
+            {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${LINKS.ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
 
             <Route path={LINKS.AMMO_VS_ARMOR} element={<DataSheetEffectivenessAmmo />} />
             <Route path={`${LINKS.AMMO_VS_ARMOR}/:id_ammo`} element={<DataSheetEffectivenessAmmo />} />
 
-            <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessChartPage/>} />
+            <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessChartPage/>} /> */}
 
             {/* Page not found */}
             <Route path='*' element={<PageNotFound />} />
