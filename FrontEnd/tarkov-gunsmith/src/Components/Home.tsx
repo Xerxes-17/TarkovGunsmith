@@ -12,6 +12,27 @@ export default function Home(props: any) {
             <Col>
                 <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                     <Card.Header as="h5">
+                        14/01/2024
+                    </Card.Header>
+                    <Card.Body>
+                        <Card.Text>
+                            Hilarious, the last time I updated this blog part was on the 14th, 9 months ago. Anyway, new patch, new year, new bugs and issues for the site!<br /><br />
+
+                            Sorry that it took me a while to get the site up and running again, but IRL was eating up a lot of my time and the new armor plate system has a lot of issues and I got a bit fixated on trying to work them out instead of get TG up and running again.<br /><br />
+                        
+                            You may notice that a few parts of the site are now disabled. This is intentional while I update them, but that could be a while. In particular the new armor system is rather buggy in my opinion, and I don't see much point in working out a simulation on a system with "mistakes" especially when those mistakes will be a pain to mimic and eventually will be patched out.<br /><br />
+
+                            Hop on the discord if you have any questions or suggestions, or would like to see me work my way through things. <br /><br />
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>),
+
+        (<Row className="row gy-2 mb-2">
+            <Col>
+                <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+                    <Card.Header as="h5">
                         14/04/2023
                     </Card.Header>
                     <Card.Body>
@@ -373,12 +394,15 @@ export default function Home(props: any) {
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                             <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link>
+                                <Nav.Link disabled>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
                             <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} alt="A damaged armor vest" />
                             <Card.Body>
+                            <Card.Text>
+                                    This feature is currently disabled and being worked on.
+                                </Card.Text>
                                 <Card.Text>
                                     Another area of somewhat arcane knowledge for the player base is
                                     how armor and characters take damage on hits from various bullets. After much testing
@@ -401,7 +425,7 @@ export default function Home(props: any) {
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                             <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
-                                <Nav.Link>
+                                <Nav.Link disabled>
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
