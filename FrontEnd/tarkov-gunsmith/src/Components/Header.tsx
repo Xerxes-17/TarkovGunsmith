@@ -52,11 +52,23 @@ function BrandExample() {
                                     </LinkContainer>
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            
+
                             <NavDropdown title="Stats Tables" id="stats-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_WEAPONS}>
+                                        <Nav.Link>Weapons</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_AMMO}>
                                         <Nav.Link>Ammo</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_PLATES_INSERTS}>
+                                        <Nav.Link>Plates & Inserts</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
@@ -66,11 +78,7 @@ function BrandExample() {
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
-                                <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_WEAPONS}>
-                                        <Nav.Link>Weapons</Nav.Link>
-                                    </LinkContainer>
-                                </NavDropdown.Item>
+
                             </NavDropdown>
 
                             <LinkContainer to={LINKS.ABOUT}>

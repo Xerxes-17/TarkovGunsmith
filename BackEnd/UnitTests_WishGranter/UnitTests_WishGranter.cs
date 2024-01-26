@@ -21,6 +21,52 @@ namespace WishGranterTests
     public class ArmorPlateTests
     {
         [TestMethod]
+        public void Test_CreateArmorToPlateMap()
+        {
+            var result = ArmorModule.CreateArmorToPlateMap(ArmorModule.GetDefaultUsedByPairs());
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+        [TestMethod]
+        public void Test_CreatePlateToArmorMap()
+        {
+            var result = ArmorModule.CreatePlateToArmorMap(ArmorModule.GetDefaultUsedByPairs());
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+
+            foreach(var item in result)
+            {
+                var plateName = StaticRatStash.DB.GetItem(item.Key).Name;
+                Console.WriteLine($"{plateName} is used in:");
+                foreach (var value in item.Value)
+                {
+                    var armorName = StaticRatStash.DB.GetItem(value).Name;
+                    Console.WriteLine($"  {armorName}");
+                }
+                Console.WriteLine("");
+            }
+        }
+        [TestMethod]
+        public void Test_GetDefaultUsedByPairs()
+        {
+            var result = ArmorModule.GetDefaultUsedByPairs();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void Test_GetPlatesAndInsertsFromRatStash()
+        {
+            var result = ArmorModule.GetArmorModulesFromRatStash();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
         public void Test_NewTypes()
         {
             List<Type> plateAndInsertTypes = new List<Type>()
@@ -94,6 +140,16 @@ namespace WishGranterTests
             Console.WriteLine($"OnlyArmor count: {armorPlates_OnlyArmorColliders.Count}");
             Console.WriteLine($"OnlyMixed count: {armorPlates_OnlyMixedColliders.Count}");
             Console.WriteLine($"NoColliders count: {armorPlates_NoColliders.Count}");
+
+            var inserts_OnlyPlateColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count == 0).ToList();
+            var inserts_OnlyArmorColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count > 0).ToList();
+            var inserts_OnlyMixedColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count > 0).ToList();
+            var inserts_NoColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count == 0).ToList();
+
+            Console.WriteLine($"OnlyPlates count: {inserts_OnlyPlateColliders.Count}");
+            Console.WriteLine($"OnlyArmor count: {inserts_OnlyArmorColliders.Count}");
+            Console.WriteLine($"OnlyMixed count: {inserts_OnlyMixedColliders.Count}");
+            Console.WriteLine($"NoColliders count: {inserts_NoColliders.Count}");
 
             var armorPlates_NotOnlyPlate = armorPlates.Where(x => !armorPlates.Contains(x)).ToList();
 

@@ -14,9 +14,14 @@ namespace WishGranter.API_Methods
         private static List<SelectionAmmo> AmmoOptionsList = WriteAmmoOptionsList();
         private static List<SelectionWeapon> WeaponOptionsList = WriteWeaponOptionsList();
 
-        private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
-        private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
         private static List<WeaponTableRow> WeaponsDataSheet = WriteWeaponsDataSheet();
+        private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
+
+
+        private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet(); 
+        private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
+        
+        
         
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
@@ -34,21 +39,32 @@ namespace WishGranter.API_Methods
             return AmmoOptionsList;
         }
 
-        public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
-        {
-            using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
-            return ArmorDataSheet;
-        }
-        public static List<AmmoTableRow> GetAmmoDataSheet(ActivitySource myActivitySource)
-        {
-            using var myActivity = myActivitySource.StartActivity("Request for AmmoDataSheet");
-            return AmmoDataSheet;
-        }
+
         public static List<WeaponTableRow> GetWeaponsDataSheet(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for WeaponsDataSheet");
             return WeaponsDataSheet;
         }
+
+        public static List<AmmoTableRow> GetAmmoDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for AmmoDataSheet");
+            return AmmoDataSheet;
+        }
+
+        public static List<ArmorModule> GetArmorModulesDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for ArmorModulesData");
+            return ArmorModulesDataSheet;
+        }
+
+        public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
+            return ArmorDataSheet;
+        }
+
+
 
         public static List<SelectionArmor> WriteArmorOptionsList()
         {
@@ -198,6 +214,10 @@ namespace WishGranter.API_Methods
 
         }
 
+        public static List<ArmorModule> WriteArmorModulesDataSheet()
+        {
+            return ArmorModules.armorModules;
+        }
         public static List<ArmorTableRow> WriteArmorDataSheet()
         {
             Monolit db = new();
