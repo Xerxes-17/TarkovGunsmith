@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box } from '@mui/material';
-import { ArmorCollider, ArmorPlateCollider, ArmorType, convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
+import { ArmorCollider, armorMaterialFilterOptions, ArmorPlateCollider, ArmorPlateZones, ArmorType, ArmorZones, convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col, Row } from 'react-bootstrap';
@@ -25,28 +25,90 @@ export function DataSheetArmorModules(props: any) {
         armorMaterial: MaterialType
         weight: number
 
+        ricochetParams: string
+
         usedInNames: string[]
+        compatibleWith: string[]
 
         armorPlateColliders: ArmorPlateCollider[]
         armorColliders: ArmorCollider[]
     }
 
-    const [TableData, setTableData] = useState<ArmorModule[]>([]);
+    interface ArmorModuleTableRow {
+        id: string
+        category: string
+        armorType: ArmorType
+        name: string
+
+        armorClass: number
+        bluntThroughput: number
+        maxDurability: number
+        maxEffectiveDurability: number
+        armorMaterial: string
+        weight: number
+
+        ricochetParams: string
+
+        usedInNames: string
+        compatibleWith: string
+
+        hitZones: string[]
+    }
+
+    const [TableData, setTableData] = useState<ArmorModuleTableRow[]>([]);
 
     const fetchData = async () => {
-        const response = await fetch(API_URL + '/GetArmorModulesData');
-        setTableData(await response.json())
-    }
+        try {
+            const response = await fetch(API_URL + '/GetArmorModulesData');
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const data: ArmorModule[] = await response.json();
+    
+            const rows: ArmorModuleTableRow[] = data.map(row => ({
+                id: row.id,
+                category: row.category,
+                armorType: row.armorType,
+                name: row.name,
+                armorClass: row.armorClass,
+                bluntThroughput: row.bluntThroughput,
+                maxDurability: row.maxDurability,
+                maxEffectiveDurability: row.maxEffectiveDurability,
+                armorMaterial: convertEnumValToArmorString(row.armorMaterial),
+                weight: row.weight,
+                ricochetParams: row.ricochetParams,
+                usedInNames: row.usedInNames.join(","),
+                compatibleWith: row.compatibleWith.join(","),
+                hitZones: createHitZoneValues(row),
+            }));
+    
+            setTableData(rows);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     // This useEffect will update the ArmorOptions with the result from the async API call
     useEffect(() => {
         fetchData();
     }, [])
 
-    function namesDisplay(row: ArmorModule) {
+    function namesDisplay(input: string) {
         return (
             <>
-                {row.usedInNames.map((name) => {
+                {input.split(",").map((name) => {
                     return <>{name}<br /></>
+                })}
+            </>
+        )
+    }
+
+    function hitZonesDisplay(row: ArmorModuleTableRow) {
+        return (
+            <>
+                {row.hitZones.map((zone) => {
+                    return <>{zone}<br /></>
                 })}
             </>
         )
@@ -65,9 +127,8 @@ export function DataSheetArmorModules(props: any) {
     function armorPlateCollidersDisplay(row: ArmorModule) {
         return (
             <>
-                {row.armorPlateColliders.length > 0 ? <>Plates:<br/></> : <></>}
                 {row.armorPlateColliders.map((enumVal) => {
-                    return <>&nbsp;&nbsp;{ArmorPlateCollider[enumVal]}<br /></>
+                    return <>&nbsp;&nbsp;{ArmorPlateZones[enumVal]}<br /></>
                 })}
             </>
         )
@@ -76,19 +137,18 @@ export function DataSheetArmorModules(props: any) {
     function armorCollidersDisplay(row: ArmorModule) {
         return (
             <>
-                {row.armorColliders.length > 0 ? <>Body:<br/></> : <></>}
                 {row.armorColliders.map((enumVal) => {
-                    return <>&nbsp;&nbsp;{ArmorCollider[enumVal]}<br /></>
+                    return <>&nbsp;&nbsp;{ArmorZones[enumVal]}<br /></>
                 })}
             </>
         )
     }
 
     function plateCollidersToStrings(colliders: ArmorPlateCollider[]){
-        return colliders.map((val) => ArmorPlateCollider[val])
+        return colliders.map((val) => ArmorPlateZones[val])
     }
     function armorCollidersToStrings(colliders: ArmorCollider[]){
-        return colliders.map((val) => ArmorCollider[val])
+        return colliders.map((val) => ArmorZones[val])
     }
 
     function createHitZoneValues(row: ArmorModule){
@@ -98,7 +158,7 @@ export function DataSheetArmorModules(props: any) {
     }
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-    const columns = useMemo<MRT_ColumnDef<ArmorModule>[]>(
+    const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
         () => [
             {
                 accessorFn: (row) => ArmorType[row.armorType],
@@ -167,11 +227,9 @@ export function DataSheetArmorModules(props: any) {
             },
             {
                 accessorKey: 'armorMaterial',
-                header: 'material',
+                header: 'Material',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                Cell: ({ cell }) => (
-                    <span>{(convertEnumValToArmorString(cell.getValue<number>()))} </span>
-                )
+                filterVariant: "text",
             },
             {
                 accessorKey: 'weight',
@@ -179,20 +237,35 @@ export function DataSheetArmorModules(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
             },
             {
-                // accessorKey: 'usedInNames',
+                accessorKey: 'ricochetParams',
+                header: 'Ricochet Params',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+            },
+            {
                 accessorKey: 'usedInNames',
-                // accessorFn: row => namesDisplay(row),
                 id: 'usedInNames',
                 header: 'Default used by',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                Cell: ({ cell }) => (namesDisplay(cell.row.original))
+                filterVariant: "text",
+                filterFn: "contains",
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.usedInNames))
             },
             {
-                id: 'armorColliders',
-                accessorFn: (row) => createHitZoneValues(row),
+                accessorKey: 'compatibleWith',
+                id: 'compatibleWith',
+                header: 'Compatible with',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                filterVariant: "text",
+                filterFn: "contains",
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.compatibleWith))
+            },
+            {
+                accessorKey: 'hitZones',
                 header: 'Hit Zones',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                Cell: ({ cell }) => (combinedCollidersDisplay(cell.row.original))
+                filterVariant: "text",
+                filterFn: "contains",
+                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original))
             },
         ],
         [],
@@ -249,15 +322,12 @@ export function DataSheetArmorModules(props: any) {
                     enableDensityToggle={false}
                     initialState={{
                         density: 'compact',
-                        columnVisibility: {
-                            AmmoRec: false,
-                            heavyBleedDelta: false,
-                            lightBleedDelta: false,
-                            tracer: false,
-                            price: false,
-                            traderLevel: false
-                        },
                         pagination: pagination,
+
+                        columnVisibility: {
+                            compatibleWith: false,
+                            ricochetParams: false
+                        },
 
                         grouping: ['category'], //an array of columns to group by by default (can be multiple)
                         expanded: true, //expand all groups by default

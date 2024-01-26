@@ -38,11 +38,68 @@ namespace WishGranter.Statics
         public List<string> UsedInNames { get; set;} = new();
 
         [Required]
+        public List<string> CompatibleWith { get; set; } = new();
+
+        [Required]
+        public string RicochetParams { get; set; } = "";
+
+        [Required]
         public List<ArmorPlateCollider> ArmorPlateColliders { get; set; } = new();
 
         [Required]
         public List<ArmorCollider> ArmorColliders { get; set; } = new();
+        
 
+        //todo This logic is probably wrong and needs fixing
+        public static Dictionary<string, List<string>> GetItemsPlatesAreCompatibleWith()
+        {
+            Dictionary<string, List<string>> platesToAllowed = new();
+            var ArmoredEquipments = StaticRatStash.DB.GetItems().Where(x => x is ArmoredEquipment).Cast<ArmoredEquipment>().ToList();
+            var ArmoredChestRigs = StaticRatStash.DB.GetItems().Where(x => x is ChestRig).Cast<ChestRig>().ToList();
+
+            foreach (var armor in ArmoredEquipments)
+            {
+                foreach (var slot in armor.Slots)
+                {
+                    foreach (var allowedId in slot.Filters[0].Whitelist)
+                    {
+                        if (!platesToAllowed.ContainsKey(allowedId))
+                        {
+                            platesToAllowed[allowedId] = new List<string>();
+                            platesToAllowed[allowedId].Add(armor.Name);
+                        }
+                        else
+                        {
+                            if(!platesToAllowed[allowedId].Contains(armor.Name))
+                                platesToAllowed[allowedId].Add(armor.Name);
+
+                        }
+                    }
+                }
+            }
+
+            foreach (var rig in ArmoredChestRigs)
+            {
+                foreach (var slot in rig.Slots)
+                {
+                    foreach (var allowedId in slot.Filters[0].Whitelist)
+                    {
+                        if (!platesToAllowed.ContainsKey(allowedId))
+                        {
+                            platesToAllowed[allowedId] = new List<string>();
+                            platesToAllowed[allowedId].Add(rig.Name);
+                        }
+                        else
+                        {
+                            if (!platesToAllowed[allowedId].Contains(rig.Name))
+                                platesToAllowed[allowedId].Add(rig.Name);
+                        }
+                    }
+                }
+            }
+
+            return platesToAllowed;
+        }
 
         public static List<(string armorId, string plateId)> GetDefaultUsedByPairs()
         {
@@ -110,6 +167,7 @@ namespace WishGranter.Statics
         {
             var IdPairs = GetDefaultUsedByPairs();
             var PlateToArmorMap = CreatePlateToArmorMap(IdPairs);
+            var platesCompatibleDict = GetItemsPlatesAreCompatibleWith();
 
             List<ArmorModule> armorPlateOrInserts = new List<ArmorModule>();
 
@@ -142,6 +200,10 @@ namespace WishGranter.Statics
                     var names = GetNamesFromIds(ids);
                     item.UsedInNames = names;
                 }
+                if (platesCompatibleDict.ContainsKey(plate.Id))
+                    item.CompatibleWith = platesCompatibleDict[plate.Id];
+
+                item.RicochetParams = $"x:{plate.RicochetParams.X}, y:{plate.RicochetParams.Y}, z:{plate.RicochetParams.Z}";
 
                 item.ArmorPlateColliders = plate.ArmorPlateColliders;
                 item.ArmorColliders = plate.ArmorColliders;
@@ -171,6 +233,10 @@ namespace WishGranter.Statics
                     var names = GetNamesFromIds(ids);
                     item.UsedInNames = names;
                 }
+                if(platesCompatibleDict.ContainsKey(insert.Id))
+                    item.CompatibleWith = platesCompatibleDict[insert.Id];
+
+                item.RicochetParams = $"x:{insert.RicochetParams.X}, y:{insert.RicochetParams.Y}, z:{insert.RicochetParams.Z}";
 
                 item.ArmorPlateColliders = insert.ArmorPlateColliders;
                 item.ArmorColliders = insert.ArmorColliders;

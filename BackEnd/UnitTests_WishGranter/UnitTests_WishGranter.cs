@@ -21,6 +21,13 @@ namespace WishGranterTests
     public class ArmorPlateTests
     {
         [TestMethod]
+        public void Test_GetItemsPlatesAreCompatibleWith()
+        {
+            var result = ArmorModule.GetItemsPlatesAreCompatibleWith();
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+        [TestMethod]
         public void Test_CreateArmorToPlateMap()
         {
             var result = ArmorModule.CreateArmorToPlateMap(ArmorModule.GetDefaultUsedByPairs());
