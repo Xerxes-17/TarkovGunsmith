@@ -294,7 +294,7 @@ export function DataSheetArmorModules(props: any) {
                         </Card.Header>
                         <Card.Body>
                             <>
-                                This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible.
+                                This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. You shouldn't need the hidden ones though.
                                 <br /><br />
                                 <h5>Plates</h5>
                                 Plates are armor items which can be inserted or removed to slots on a plate carrier. They will do zero blunt damage on a block despite the stats they might have.
@@ -302,6 +302,7 @@ export function DataSheetArmorModules(props: any) {
                                 <h5>Inserts</h5>
                                 Inserts cannot be added or removed from armor and are built in to the vest, helmet or rig. This armor will behave in the same way that armor did in the past and will deal blunt damage on a block. They have no weight, as the parent armor item will account for them.
                                 <br /><br />
+                                Please note that not all "armor things" are here. For example face masks are like the old system and won't show up here.
                             </>
                         </Card.Body>
                     </Card>

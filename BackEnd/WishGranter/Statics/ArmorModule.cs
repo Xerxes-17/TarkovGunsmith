@@ -241,7 +241,8 @@ namespace WishGranter.Statics
                 item.ArmorPlateColliders = insert.ArmorPlateColliders;
                 item.ArmorColliders = insert.ArmorColliders;
 
-                armorPlateOrInserts.Add(item);
+                if (item.CompatibleWith != null && item.CompatibleWith.Count() > 0)
+                    armorPlateOrInserts.Add(item);
             }
 
             return armorPlateOrInserts;
