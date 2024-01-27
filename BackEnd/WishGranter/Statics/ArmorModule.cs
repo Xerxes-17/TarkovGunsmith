@@ -41,7 +41,7 @@ namespace WishGranter.Statics
         public List<string> CompatibleWith { get; set; } = new();
 
         [Required]
-        public string RicochetParams { get; set; } = "";
+        public RicochetParams RicochetParams { get; set; } = new();
 
         [Required]
         public List<ArmorPlateCollider> ArmorPlateColliders { get; set; } = new();
@@ -203,7 +203,7 @@ namespace WishGranter.Statics
                 if (platesCompatibleDict.ContainsKey(plate.Id))
                     item.CompatibleWith = platesCompatibleDict[plate.Id];
 
-                item.RicochetParams = $"x:{plate.RicochetParams.X}, y:{plate.RicochetParams.Y}, z:{plate.RicochetParams.Z}";
+                item.RicochetParams = plate.RicochetParams;
 
                 item.ArmorPlateColliders = plate.ArmorPlateColliders;
                 item.ArmorColliders = plate.ArmorColliders;
@@ -236,7 +236,7 @@ namespace WishGranter.Statics
                 if(platesCompatibleDict.ContainsKey(insert.Id))
                     item.CompatibleWith = platesCompatibleDict[insert.Id];
 
-                item.RicochetParams = $"x:{insert.RicochetParams.X}, y:{insert.RicochetParams.Y}, z:{insert.RicochetParams.Z}";
+                item.RicochetParams = insert.RicochetParams;
 
                 item.ArmorPlateColliders = insert.ArmorPlateColliders;
                 item.ArmorColliders = insert.ArmorColliders;

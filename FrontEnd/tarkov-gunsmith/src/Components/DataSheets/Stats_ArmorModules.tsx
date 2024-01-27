@@ -3,7 +3,7 @@ import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScrip
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box } from '@mui/material';
-import { ArmorCollider, armorMaterialFilterOptions, ArmorPlateCollider, ArmorPlateZones, ArmorType, ArmorZones, convertEnumValToArmorString, MaterialType } from '../ADC/ArmorData';
+import { ArmorCollider, armorMaterialFilterOptions, ArmorPlateCollider, ArmorPlateZones, ArmorType, ArmorZones, convertEnumValToArmorString, MATERIALS, MaterialType } from '../ADC/ArmorData';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col, Row } from 'react-bootstrap';
@@ -25,13 +25,19 @@ export function DataSheetArmorModules(props: any) {
         armorMaterial: MaterialType
         weight: number
 
-        ricochetParams: string
+        ricochetParams: RicochetParams
 
         usedInNames: string[]
         compatibleWith: string[]
 
         armorPlateColliders: ArmorPlateCollider[]
         armorColliders: ArmorCollider[]
+    }
+
+    interface RicochetParams {
+        x: number
+        y: number
+        z: number
     }
 
     interface ArmorModuleTableRow {
@@ -47,7 +53,7 @@ export function DataSheetArmorModules(props: any) {
         armorMaterial: string
         weight: number
 
-        ricochetParams: string
+        ricochetParams: RicochetParams
 
         usedInNames: string
         compatibleWith: string
@@ -229,7 +235,8 @@ export function DataSheetArmorModules(props: any) {
                 accessorKey: 'armorMaterial',
                 header: 'Material',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                filterVariant: "text",
+                filterVariant: "multi-select",
+                filterSelectOptions: MATERIALS
             },
             {
                 accessorKey: 'weight',
@@ -237,8 +244,18 @@ export function DataSheetArmorModules(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
             },
             {
-                accessorKey: 'ricochetParams',
-                header: 'Ricochet Params',
+                accessorKey: 'ricochetParams.x',
+                header: 'Max Ricochet Chance',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+            },
+            {
+                accessorKey: 'ricochetParams.y',
+                header: 'Min Ricochet Chance',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+            },
+            {
+                accessorKey: 'ricochetParams.z',
+                header: 'Min Ricochet Angle',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
             },
             {
@@ -302,6 +319,10 @@ export function DataSheetArmorModules(props: any) {
                                 <h5>Inserts</h5>
                                 Inserts cannot be added or removed from armor and are built in to the vest, helmet or rig. This armor will behave in the same way that armor did in the past and will deal blunt damage on a block. They have no weight, as the parent armor item will account for them.
                                 <br /><br />
+                                <h5>Ricochet Chance??</h5>
+                                A bit of math here. If something has 0 for Max Ricochet Chance, It can't do it at all. Then if the normalized hit angle between 0 and 90 from perpendicular of the surface is higher than Min Ricochet Angle, it is interpolated between MRA and 90°,<br />
+                                with Min Ricochet Angle == Min Ricochet Chance and 90° == Max Ricochet Chance. So in short you want Max and Min Chances to be high and for the Min Angle to be low.
+                                <br /><br />
                                 Please note that not all "armor things" are here. For example face masks are like the old system and won't show up here.
                             </>
                         </Card.Body>
@@ -314,6 +335,8 @@ export function DataSheetArmorModules(props: any) {
 
                     enableRowSelection={false}//enable some features
                     enableSelectAll={false}
+                    enableColumnFilters
+                    enableColumnFilterModes
 
                     enableColumnOrdering
                     enableGrouping
