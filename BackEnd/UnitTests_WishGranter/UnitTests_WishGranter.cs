@@ -28,6 +28,206 @@ namespace WishGranterTests
     }
 
     [TestClass]
+    public class ArmorPlateTests
+    {
+        [TestMethod]
+        public void Test_GetItemsPlatesAreCompatibleWith()
+        {
+            var result = ArmorModule.GetItemsPlatesAreCompatibleWith();
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+        [TestMethod]
+        public void Test_CreateArmorToPlateMap()
+        {
+            var result = ArmorModule.CreateArmorToPlateMap(ArmorModule.GetDefaultUsedByPairs());
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+        [TestMethod]
+        public void Test_CreatePlateToArmorMap()
+        {
+            var result = ArmorModule.CreatePlateToArmorMap(ArmorModule.GetDefaultUsedByPairs());
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+
+            foreach(var item in result)
+            {
+                var plateName = StaticRatStash.DB.GetItem(item.Key).Name;
+                Console.WriteLine($"{plateName} is used in:");
+                foreach (var value in item.Value)
+                {
+                    var armorName = StaticRatStash.DB.GetItem(value).Name;
+                    Console.WriteLine($"  {armorName}");
+                }
+                Console.WriteLine("");
+            }
+        }
+        [TestMethod]
+        public void Test_GetDefaultUsedByPairs()
+        {
+            var result = ArmorModule.GetDefaultUsedByPairs();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void Test_GetPlatesAndInsertsFromRatStash()
+        {
+            var result = ArmorModule.GetArmorModulesFromRatStash();
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void Test_NewTypes()
+        {
+            List<Type> plateAndInsertTypes = new List<Type>()
+                {
+                    typeof(ArmorPlate), typeof(BuiltInInserts)
+                };
+
+            var ArmoredEquipments = StaticRatStash.DB.GetItems().Where(x => x is ArmoredEquipment).Cast<ArmoredEquipment>().ToList();
+            var ArmoredChestRigs = StaticRatStash.DB.GetItems().Where(x => x is ChestRig).Cast<ChestRig>().ToList();
+
+            HashSet<string> usedPlatesAndInserts = new HashSet<string>();
+
+            foreach(var armor in ArmoredEquipments)
+            {
+                foreach(var slot in armor.Slots)
+                {
+                    foreach(var id in slot.Filters[0].Whitelist)
+                        if(plateAndInsertTypes.Contains(StaticRatStash.DB.GetItem(id).GetType()))
+                        {
+                            usedPlatesAndInserts.Add(id);
+                        }
+                }
+            }
+
+            foreach(var rig in ArmoredChestRigs)
+            {
+                foreach(var slot in rig.Slots)
+                {
+                    foreach (var id in slot.Filters[0].Whitelist)
+                        if (plateAndInsertTypes.Contains(StaticRatStash.DB.GetItem(id).GetType()))
+                        {
+                            usedPlatesAndInserts.Add(id);
+                        }
+                }
+            }
+            Console.WriteLine($"Count of usedPlatesAndInserts: {usedPlatesAndInserts.Count}");
+            var distinctPlatesAndInserts = usedPlatesAndInserts.Distinct().ToList();
+            Console.WriteLine($"Count of distinctPlatesAndInserts: {distinctPlatesAndInserts.Count}");
+
+            
+
+            var armorPlates = StaticRatStash.DB.GetItems(x=> x.GetType() == typeof(ArmorPlate)).Cast<ArmorPlate>().ToList();
+            var builtInInserts = StaticRatStash.DB.GetItems(x => x is BuiltInInserts).Cast<BuiltInInserts>().ToList();
+
+            armorPlates.Sort((x, y) => y.ArmorClass - x.ArmorClass);
+            builtInInserts.Sort((x, y) => y.ArmorClass - x.ArmorClass);
+
+            Console.WriteLine($"Count of plates: {armorPlates.Count()}");
+            Console.WriteLine($"Count of inserts: {builtInInserts.Count()}");
+
+            HashSet<string> plateAndInsertIds = new HashSet<string>();
+
+            var plateIds = armorPlates.Select(x => x.Id).ToList();
+            var InsertIds = builtInInserts.Select(x => x.Id).ToList();
+            plateAndInsertIds.UnionWith(plateIds);
+            plateAndInsertIds.UnionWith(InsertIds);
+            Console.WriteLine($"Count of plateAndInsertIds: {plateAndInsertIds.Count}");
+
+            var wtf = plateAndInsertIds.Except(usedPlatesAndInserts);
+            Console.WriteLine($"Count of wtf: {wtf.Count()}");
+
+            var unusedThings = wtf.Select(x=> StaticRatStash.DB.GetItem(x)).ToList();
+
+
+            var armorPlates_OnlyPlateColliders = armorPlates.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count == 0).ToList();
+            var armorPlates_OnlyArmorColliders = armorPlates.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count > 0).ToList();
+            var armorPlates_OnlyMixedColliders = armorPlates.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count > 0).ToList();
+            var armorPlates_NoColliders = armorPlates.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count == 0).ToList();
+
+            Console.WriteLine($"OnlyPlates count: {armorPlates_OnlyPlateColliders.Count}");
+            Console.WriteLine($"OnlyArmor count: {armorPlates_OnlyArmorColliders.Count}");
+            Console.WriteLine($"OnlyMixed count: {armorPlates_OnlyMixedColliders.Count}");
+            Console.WriteLine($"NoColliders count: {armorPlates_NoColliders.Count}");
+
+            var inserts_OnlyPlateColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count == 0).ToList();
+            var inserts_OnlyArmorColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count > 0).ToList();
+            var inserts_OnlyMixedColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count > 0 && x.ArmorColliders.Count > 0).ToList();
+            var inserts_NoColliders = builtInInserts.Where(x => x.ArmorPlateColliders.Count == 0 && x.ArmorColliders.Count == 0).ToList();
+
+            Console.WriteLine($"OnlyPlates count: {inserts_OnlyPlateColliders.Count}");
+            Console.WriteLine($"OnlyArmor count: {inserts_OnlyArmorColliders.Count}");
+            Console.WriteLine($"OnlyMixed count: {inserts_OnlyMixedColliders.Count}");
+            Console.WriteLine($"NoColliders count: {inserts_NoColliders.Count}");
+
+            var armorPlates_NotOnlyPlate = armorPlates.Where(x => !armorPlates.Contains(x)).ToList();
+
+            var beefLead = armorPlates_OnlyPlateColliders.Where(x => x.RicochetParams.X == 0).ToList();
+            var beefLead2 = armorPlates_OnlyPlateColliders.Where(x => x.RicochetParams.X != 0).ToList();
+
+            var plates_Rico_X_0 = beefLead.Select(x=> (x.Name, x.ArmorMaterial)).ToList();
+
+            var plates_Rico_X_not0 = beefLead2.Select(x => ( x.Name, x.ArmorMaterial )).ToList();
+
+            var lightPlates = armorPlates_OnlyPlateColliders.Where(x => x.ArmorType == ArmorType.Light).ToList();
+            var heavyPlates = armorPlates_OnlyPlateColliders.Where(x => x.ArmorType == ArmorType.Heavy).ToList();
+
+            var lightPlates_meterial = lightPlates.Select(x => (x.Name, x.ArmorMaterial)).ToList();
+            var heavyPlates_material = heavyPlates.Select(x => (x.Name, x.ArmorMaterial)).ToList();
+
+            //foreach (var item in builtInInserts)
+            //{
+            //    Console.WriteLine(item.Name);
+            //    Console.WriteLine(item.Id);
+            //    Console.WriteLine(item.ArmorClass);
+            //    Console.WriteLine(item.Durability);
+            //    Console.WriteLine(item.ArmorMaterial);
+            //    Console.WriteLine(item.ArmorType);
+            //    Console.WriteLine(item.BluntThroughput);
+            //    Console.WriteLine("ArmorColliders:");
+            //    foreach (var armorCollider in item.ArmorColliders)
+            //    {
+            //        Console.WriteLine($"  {armorCollider}");
+            //    }
+            //    Console.WriteLine("ArmorPlateColliders:");
+            //    foreach (var armorPlateCollider in item.ArmorPlateColliders)
+            //    {
+            //        Console.WriteLine($"  {armorPlateCollider}");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+
+
+
+
+
+        }
+    }
+
+    [TestClass]
+    public class RatsStashTests
+    {
+        [TestMethod]
+        public void Test_SomeMath()
+        {
+            var result = StaticRatStash.DB.GetItems().Where(x => x is ArmoredEquipment).Cast<ArmoredEquipment>().ToList();
+            var ArmoredChestRigs = StaticRatStash.DB.GetItems().Where(x => x is ChestRig).Cast<ChestRig>().ToList();
+            var plates = StaticRatStash.DB.GetItems().Where(x => x is ArmorPlate).ToList();
+            Console.WriteLine(result.Count);
+
+        }
+    }
+
+    [TestClass]
     public class GunsmithProblemsTesting
     {
         [TestMethod]
@@ -126,15 +326,15 @@ namespace WishGranterTests
         {
             SimulationParameters parameters = new SimulationParameters
             {
-                ArmorClass = 4,
+                ArmorClass = 2,
                 MaxDurability = 38,
                 StartingDurabilityPerc = 100,
-                BluntThroughput = .156f,
+                BluntThroughput = .22f,
                 ArmorMaterial = ArmorMaterial.Aramid,
-                TargetZone = TargetZone.Head,
-                Penetration = 47.593f,
-                Damage = 37.715f,
-                ArmorDamagePerc = 58
+                TargetZone = TargetZone.Thorax,
+                Penetration = 15f,
+                Damage = 87,
+                ArmorDamagePerc = 20
             };
 
             var result = Ballistics.SimulateHitSeries_Engine(parameters);
@@ -448,6 +648,15 @@ namespace WishGranterTests
         {
             int result = StaticRatStash.DB.GetItems().Count();
             Console.WriteLine($"Ratstash.Count: {result}");
+        }
+
+        [TestMethod]
+        public void Test_StaticArmors_parseTest()
+        {
+            var ChestRigs = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(ChestRig)).ToList();
+            var vests = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(Armor)).ToList();
+
+            Console.WriteLine($"ChestRigs.Count: {ChestRigs.Count}");
         }
 
         [TestMethod]

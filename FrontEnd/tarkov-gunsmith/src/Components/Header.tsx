@@ -30,30 +30,36 @@ function BrandExample() {
                             </LinkContainer>
 
                             <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
+                                <Nav.Link disabled>Terminal Ballistics Simulator</Nav.Link>
                             </LinkContainer>
 
                             <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
-                                        <Nav.Link>Ammo Effectiveness</Nav.Link>
+                                        <Nav.Link disabled>Ammo Effectiveness</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.AMMO_VS_ARMOR}>
-                                        <Nav.Link>Ammo vs Armor</Nav.Link>
+                                        <Nav.Link disabled>Ammo vs Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.ARMOR_VS_AMMO}>
-                                        <Nav.Link>Armor vs Ammo</Nav.Link>
+                                        <Nav.Link disabled>Armor vs Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            
+
                             <NavDropdown title="Stats Tables" id="stats-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_WEAPONS}>
+                                        <Nav.Link>Weapons</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_AMMO}>
                                         <Nav.Link>Ammo</Nav.Link>
@@ -61,16 +67,18 @@ function BrandExample() {
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
-                                        <Nav.Link>Armor</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_PLATES_INSERTS}>
+                                        <Nav.Link>Plates & Inserts</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_WEAPONS}>
-                                        <Nav.Link>Weapons</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
+                                        <Nav.Link disabled>Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
+
+
                             </NavDropdown>
 
                             <LinkContainer to={LINKS.ABOUT}>
