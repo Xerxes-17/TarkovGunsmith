@@ -42,6 +42,7 @@ function App() {
 
             <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
             <Route path={LINKS.DATA_SHEETS_AMMO} element={<DataSheetAmmo />} />
+            <Route path={LINKS.DATA_SHEETS_AMMO_new} element={<AmmoTableContent />} />
             
             <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />
             {/* <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} /> */}
