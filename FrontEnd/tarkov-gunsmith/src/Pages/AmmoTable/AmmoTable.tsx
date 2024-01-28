@@ -123,7 +123,7 @@ export default function AmmoTableMRT() {
                 aggregationFn: 'mean',
                 AggregatedCell: ({ cell }) =>
                     <div>
-                        Average: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
                 filterVariant: "range"
             },
@@ -135,7 +135,7 @@ export default function AmmoTableMRT() {
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
-                            Average: <strong>{
+                            Mean: <strong>{
                                 cell
                                     .getValue<Array<number>>()?.[1]
                                     .toFixed(0)
@@ -158,7 +158,7 @@ export default function AmmoTableMRT() {
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
-                            Average: <strong>{cell.getValue<number>().toFixed(0)}%</strong>
+                            Mean: <strong>{cell.getValue<number>().toFixed(0)}%</strong>
                         </div>
                     )
                 },
@@ -175,7 +175,7 @@ export default function AmmoTableMRT() {
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
-                            Average: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                            Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                         </div>
                     )
                 },
@@ -237,7 +237,7 @@ export default function AmmoTableMRT() {
                 aggregationFn: 'mean',
                 AggregatedCell: ({ cell }) =>
                     <div>
-                        Average: <strong>{cell.getValue<number>().toFixed(0)} m/s</strong>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)} m/s</strong>
                     </div>,
                 filterVariant: "range",
                 Cell: ({ renderedCellValue }) => (
