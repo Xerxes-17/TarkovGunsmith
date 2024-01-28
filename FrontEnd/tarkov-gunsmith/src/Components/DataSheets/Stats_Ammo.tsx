@@ -17,7 +17,7 @@ interface AmmoTableRow {
     lightBleedDelta: number
     heavyBleedDelta: number
     fragChance: number
-    InitialSpeed: number
+    initialSpeed: number
     AmmoRec: number
     tracer: boolean
     price: number
@@ -48,7 +48,9 @@ interface ApiResponse {
         items: DevTarkovAmmoItem[];
     };
 }
-
+/**
+ * @deprecated This is the old MaterialRT version, use AmmoTableMRT instead
+ */
 export default function DataSheetAmmo(props: any) {
     const [AmmoTableData, setAmmoTableData] = useState<AmmoTableRow[]>([]);
 
@@ -106,7 +108,7 @@ export default function DataSheetAmmo(props: any) {
             lightBleedDelta: properties ? properties.lightBleedModifier : -1,
             heavyBleedDelta: properties ? properties.heavyBleedModifier : -1,
             fragChance: properties ? properties.fragmentationChance : -1,
-            InitialSpeed: properties ? properties.initialSpeed : -1,
+            initialSpeed: properties ? properties.initialSpeed : -1,
             AmmoRec: properties ? properties.recoilModifier : -1,
             tracer: properties ? properties.tracer : false, 
             price: -1, 

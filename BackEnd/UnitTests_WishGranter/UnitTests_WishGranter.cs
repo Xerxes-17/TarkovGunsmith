@@ -16,6 +16,16 @@ using System.Text.Json;
 
 namespace WishGranterTests
 {
+    [TestClass]
+    public class BallisticSystemTest
+    {
+        [TestMethod]
+        public void Test_PenetrationChance()
+        {
+            var result = Ballistics.PenetrationChance(6, 44, 100);
+            Console.WriteLine($"Penetration Chance: {result}");
+        }
+    }
 
     [TestClass]
     public class ArmorPlateTests

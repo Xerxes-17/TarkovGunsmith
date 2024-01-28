@@ -263,6 +263,7 @@ namespace WishGranter.API_Methods
 
                 row.Id = item.Id;
                 row.Name = item.Name;
+                row.ShortName = item.ShortName;
 
 
                 var marketData = Market.GetEarliestCheapestTraderPurchaseOffer(item.Id);
