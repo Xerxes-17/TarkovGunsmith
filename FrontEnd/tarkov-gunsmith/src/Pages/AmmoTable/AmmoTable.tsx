@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useState, useEffect } from "react"
-import { API_URL } from "../../Util/util"
 
 import { useMemo } from 'react';
 import {
@@ -11,13 +10,13 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, mapAmmoCaliberToLabel } from "../../Components/Common/Types/AmmoTypes";
+import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
+import { getAmmoDataFromApi_TarkovDev } from "../../Components/Common/Api/AmmoAPiCalls";
 
-export default function AmmoTableContent() {
-
+export default function AmmoTableMRT() {
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
 
     // Handler to toggle 'caliber' in the manualGrouping array
@@ -34,35 +33,42 @@ export default function AmmoTableContent() {
     };
 
     const initialData: AmmoTableRow[] = [];
-    const [filterValues, setFilterValues] = useState<string[]>([]);
-    const [unfilteredData, setUnfilteredData] = useState<AmmoTableRow[]>(initialData);
-    const [data, setData] = useState<AmmoTableRow[]>(initialData);
-    const [pix, pixHandlers] = useDisclosure(false);
+
+    function filterNonBulletsOut(input: AmmoTableRow[]){
+        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
+        return result
+    }
+
+    const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
+    const [pix, pixHandlers] = useDisclosure(true);
     const [filters, filtersHandlers] = useDisclosure(false);
 
-    useEffect(() => {
 
-        const temp = unfilteredData.filter(x => filterValues.includes(x.caliber));
-        if (filterValues.length === 0) {
-            setData(unfilteredData);
+
+    async function getTableData() {
+        // const response_WishGranterApi = await getDataFromApi_WishGranter();
+        // if(response_WishGranterApi !== null){
+        //     setAmmoTableData(response_WishGranterApi);
+        //     return;
+        // }
+
+        const response_ApiTarkovDev = await getAmmoDataFromApi_TarkovDev()
+        if(response_ApiTarkovDev !== null){
+            setTableData(filterNonBulletsOut(response_ApiTarkovDev));
+            return;
         }
-        else {
-            setData(temp);
-        }
-    }, [unfilteredData, filterValues])
 
-
-    const ammos = async () => {
-        const response = await fetch(API_URL + '/GetAmmoDataSheetData');
-        setUnfilteredData(await response.json())
+        console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
     }
-    // This useEffect will update the ArmorOptions with the result from the async API call
+
     useEffect(() => {
-        ammos();
+        getTableData();
     }, [])
 
 
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
+
+    console.log("tableData", tableData)
 
     const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [
@@ -87,7 +93,7 @@ export default function AmmoTableContent() {
                             size={'md'}
                             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
                             style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                        // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
+                            // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
                         >
                             TG
                         </Avatar>
@@ -100,7 +106,7 @@ export default function AmmoTableContent() {
             },
             {
                 id: "caliber",
-                accessorFn: (row) => `${mapAmmoCaliberToLabel(row.caliber)}`,
+                accessorFn: (row) => `${mapAmmoCaliberFullNameToLabel(row.caliber)}`,
                 size: 8,
                 accessorKey: 'caliber',
                 header: 'Caliber',
@@ -117,7 +123,7 @@ export default function AmmoTableContent() {
                 aggregationFn: 'mean',
                 AggregatedCell: ({ cell }) =>
                     <div>
-                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                        Average: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
                 filterVariant: "range"
             },
@@ -129,7 +135,7 @@ export default function AmmoTableContent() {
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
-                            Mean: <strong>{
+                            Average: <strong>{
                                 cell
                                     .getValue<Array<number>>()?.[1]
                                     .toFixed(0)
@@ -213,7 +219,7 @@ export default function AmmoTableContent() {
                 size: 55,
             },
             {
-                accessorKey: 'ammoRec',
+                accessorKey: 'AmmoRec',
                 header: 'Recoil Modifier',
                 size: 110,
                 Cell: ({ cell }) => (
@@ -246,23 +252,23 @@ export default function AmmoTableContent() {
                     <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
                 ),
             },
-            {
-                accessorKey: 'price',
-                header: 'Price',
-                size: 120,
-            },
-            {
-                accessorKey: 'traderLevel',
-                header: 'Trader Level',
-                size: 120,
-            },
+            // {
+            //     accessorKey: 'price',
+            //     header: 'Price',
+            //     size: 120,
+            // },
+            // {
+            //     accessorKey: 'traderLevel',
+            //     header: 'Trader Level',
+            //     size: 120,
+            // },
         ],
         [pix, manualGrouping],
     );
 
     const table = useMantineReactTable({
         columns,
-        data: data,
+        data: tableData,
         positionGlobalFilter: "none",
         enableStickyHeader: true,
         enableGlobalFilter: true,
@@ -308,7 +314,8 @@ export default function AmmoTableContent() {
             columnPinning: {
                 left: ['mrt-row-expand', 'name']
                 // left: ['mrt-row-expand']
-            }
+            },
+            sorting: [{ id: 'penetrationPower', desc: true }],
         },
         state: {
             grouping: manualGrouping,

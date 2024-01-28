@@ -67,12 +67,6 @@ function BrandExample() {
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_AMMO_new}>
-                                        <Nav.Link>new Ammo</Nav.Link>
-                                    </LinkContainer>
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_PLATES_INSERTS}>
                                         <Nav.Link>Plates & Inserts</Nav.Link>
                                     </LinkContainer>

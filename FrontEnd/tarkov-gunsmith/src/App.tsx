@@ -18,7 +18,7 @@ import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 import MwbBasePage from './Components/MWB/MwbBasePage';
 import { MantineProvider } from '@mantine/core';
-import AmmoTableContent from './Pages/AmmoTable/AmmoTable';
+import AmmoTableMRT from './Pages/AmmoTable/AmmoTable';
 import WeaponTableContent from './Pages/WeaponTable/WeaponTable';
 import { DataSheetArmorModules } from './Components/DataSheets/Stats_ArmorModules';
 
@@ -41,8 +41,7 @@ function App() {
             <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} /> */}
 
             <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
-            <Route path={LINKS.DATA_SHEETS_AMMO} element={<DataSheetAmmo />} />
-            <Route path={LINKS.DATA_SHEETS_AMMO_new} element={<AmmoTableContent />} />
+            <Route path={LINKS.DATA_SHEETS_AMMO} element={<AmmoTableMRT />} />
             
             <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />
             {/* <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} /> */}
