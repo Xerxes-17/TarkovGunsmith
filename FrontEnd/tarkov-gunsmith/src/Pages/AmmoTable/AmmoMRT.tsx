@@ -14,36 +14,16 @@ import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../.
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoAPiCalls";
+import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoApiCalls";
 
-export default function AmmoTableMRT() {
+export default function AmmoMRT() {
+    const initialData: AmmoTableRow[] = [];
+    const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
 
-    // Handler to toggle 'caliber' in the manualGrouping array
-    const handleToggleCaliber = () => {
-        if (manualGrouping.includes('caliber')) {
-            // 'caliber' is already in the array, so we remove it
-            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
-            setVisibility({ caliber: true })
-        } else {
-            // 'caliber' is not in the array, so we add it
-            setManualGrouping([...manualGrouping, 'caliber']);
-            setVisibility({ caliber: false })
-        }
-    };
-
-    const initialData: AmmoTableRow[] = [];
-
-    function filterNonBulletsOut(input: AmmoTableRow[]){
-        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
-        return result
-    }
-
-    const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
     const [pix, pixHandlers] = useDisclosure(true);
     const [filters, filtersHandlers] = useDisclosure(false);
-
-
+    const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
 
     async function getTableData() {
         // const response_WishGranterApi = await getDataFromApi_WishGranter();
@@ -66,9 +46,23 @@ export default function AmmoTableMRT() {
     }, [])
 
 
-    const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
+    function filterNonBulletsOut(input: AmmoTableRow[]){
+        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
+        return result
+    }
 
-    console.log("tableData", tableData)
+    // Handler to toggle 'caliber' in the manualGrouping array
+    const handleToggleCaliber = () => {
+        if (manualGrouping.includes('caliber')) {
+            // 'caliber' is already in the array, so we remove it
+            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
+            setVisibility({ caliber: true })
+        } else {
+            // 'caliber' is not in the array, so we add it
+            setManualGrouping([...manualGrouping, 'caliber']);
+            setVisibility({ caliber: false })
+        }
+    };
 
     const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [
