@@ -41,6 +41,7 @@ function App() {
             <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} /> */}
 
             <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<DataSheetWeapons />} />
+            <Route path={LINKS.DATA_SHEETS_WEAPONS_new} element={<WeaponTableContent />} />
             <Route path={LINKS.DATA_SHEETS_AMMO} element={<AmmoTableMRT />} />
             
             <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />

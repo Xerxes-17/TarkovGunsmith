@@ -14,7 +14,7 @@ import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../.
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { getAmmoDataFromApi_TarkovDev } from "../../Components/Common/Api/AmmoAPiCalls";
+import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoAPiCalls";
 
 export default function AmmoTableMRT() {
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
