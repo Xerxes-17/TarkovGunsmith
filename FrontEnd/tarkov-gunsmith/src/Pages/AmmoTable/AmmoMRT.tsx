@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
 import { useState, useEffect } from "react"
-import { API_URL } from "../../Util/util"
 
 import { useMemo } from 'react';
 import {
@@ -11,55 +10,66 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, mapAmmoCaliberToLabel } from "../../Components/Common/Types/AmmoTypes";
+import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { WeaponsTableRow } from "../../Components/Common/Types/WeaponTypes";
-
-export default function WeaponTableContent() {
-    const [tableData, setTableData] = useState<WeaponsTableRow[]>([]);
+import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoApiCalls";
 
 
+export default function AmmoMRT() {
+    const initialData: AmmoTableRow[] = [];
+    const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
 
-    const [filterValues, setFilterValues] = useState<string[]>([]);
-    const [unfilteredData, setUnfilteredData] = useState<WeaponsTableRow[]>([]);
-    const [data, setData] = useState<AmmoTableRow[]>([]);
-
-    const [pix, pixHandlers] = useDisclosure(false);
+    const [pix, pixHandlers] = useDisclosure(true);
     const [filters, filtersHandlers] = useDisclosure(false);
-
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
 
+    async function getTableData() {
+        // const response_WishGranterApi = await getDataFromApi_WishGranter();
+        // if(response_WishGranterApi !== null){
+        //     setAmmoTableData(response_WishGranterApi);
+        //     return;
+        // }
 
-    const dataApiCall = async () => {
-        const response = await fetch(API_URL + '/GetWeaponDataSheetData');
-        // console.log(response)
-        setTableData(await response.json())
+        const response_ApiTarkovDev = await getAmmoDataFromApi_TarkovDev()
+        if(response_ApiTarkovDev !== null){
+            setTableData(filterNonBulletsOut(response_ApiTarkovDev));
+            return;
+        }
+
+        console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
     }
-    // This useEffect will update the ArmorOptions with the result from the async API call
+
     useEffect(() => {
-        dataApiCall();
+        getTableData();
     }, [])
 
-    useEffect(() => {
 
-        const temp = unfilteredData.filter(x => filterValues.includes(x.caliber));
-        if (filterValues.length === 0) {
-            setTableData(unfilteredData);
+    function filterNonBulletsOut(input: AmmoTableRow[]){
+        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
+        return result
+    }
+
+    // Handler to toggle 'caliber' in the manualGrouping array
+    const handleToggleCaliber = () => {
+        if (manualGrouping.includes('caliber')) {
+            // 'caliber' is already in the array, so we remove it
+            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
+            setVisibility({ caliber: true })
+        } else {
+            // 'caliber' is not in the array, so we add it
+            setManualGrouping([...manualGrouping, 'caliber']);
+            setVisibility({ caliber: false })
         }
-        else {
-            setTableData(temp);
-        }
-    }, [unfilteredData, filterValues])
+    };
 
-
-    const columns = useMemo<MRT_ColumnDef<WeaponsTableRow>[]>(
+    const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [
             {
                 id: 'name',
-                accessorKey: 'name',
+                accessorKey: 'shortName',
                 header: 'Name',
                 size: 8,
                 Header: ({ column, header }) => (
@@ -76,9 +86,9 @@ export default function WeaponTableContent() {
                         <Avatar
                             alt="avatar"
                             size={'md'}
-                            src={row.original.imageLink}
+                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
                             style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                        // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
+                            // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
                         >
                             TG
                         </Avatar>
@@ -91,131 +101,168 @@ export default function WeaponTableContent() {
             },
             {
                 id: "caliber",
-                accessorKey: "caliber",
-                header: "Caliber"
-
-            },
-            {
-                id: "rateOfFire",
-                accessorKey: "rateOfFire",
-                header: "Rate of Fire",
-                size: 75,
-                aggregationFn: 'median',
-                AggregatedCell: ({ cell }) =>
-                    <div>
-                        Median: <strong>{cell.getValue<number>().toFixed(0)}</strong>
-                    </div>,
-            },
-            {
-                id: "defaultErgonomics",
-                accessorKey: "defaultErgonomics",
-                header: "Default Ergonomics",
-                size: 75,
-                aggregationFn: 'mean',
-                AggregatedCell: ({ cell }) =>
-                    <div>
-                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
-                    </div>,
+                accessorFn: (row) => `${mapAmmoCaliberFullNameToLabel(row.caliber)}`,
+                size: 8,
+                accessorKey: 'caliber',
+                header: 'Caliber',
+                filterVariant: "multi-select",
                 Cell: ({ renderedCellValue }) => (
-                    <span>{renderedCellValue?.toLocaleString('en-us')}</span>
+                    <span>{renderedCellValue}</span>
                 ),
             },
+
             {
-                id: "defaultRecoil",
-                accessorKey: "defaultRecoil",
-                header: "Default Recoil",
-                size: 75,
+                accessorKey: 'damage',
+                header: 'Damage',
+                size: 120,
                 aggregationFn: 'mean',
                 AggregatedCell: ({ cell }) =>
                     <div>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
+                filterVariant: "range"
+            },
+            {
+                accessorKey: 'penetrationPower',
+                header: 'Penetration',
+                aggregationFn: ['max', 'mean',],
+                size: 120,
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            Mean: <strong>{
+                                cell
+                                    .getValue<Array<number>>()?.[1]
+                                    .toFixed(0)
+                            }
+                            </strong>
+                        </div>
+                    )
+                },
+
+                filterVariant: "range"
+            },
+            {
+                accessorKey: 'armorDamagePerc',
+                header: 'Armor Damage%',
+                size: 130,
                 Cell: ({ cell }) => (
-                    <span>{cell.getValue<number>().toFixed(0)}</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()} %</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            Mean: <strong>{cell.getValue<number>().toFixed(0)}%</strong>
+                        </div>
+                    )
+                },
+                filterVariant: "range"
+            },
+            {
+                accessorKey: 'baseArmorDamage',
+                header: 'Derived Armor Damage',
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()} </span>
+                ),
+                size: 130,
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                        </div>
+                    )
+                },
+                filterVariant: "range"
+            },
+            {
+                accessorKey: 'lightBleedDelta',
+                header: 'Light Bleed Bonus',
+
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>() > 0 ? (
+                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
+                        ) : <span>-</span>}
+                    </>
+                ),
+                size: 80,
+            },
+            {
+                accessorKey: 'heavyBleedDelta',
+                header: 'Heavy Bleed Bonus',
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>() > 0 ? (
+                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
+                        ) : <span>-</span>}
+                    </>
+                ),
+                size: 85,
+            },
+            {
+                accessorKey: 'fragChance',
+                header: 'Frag',
+                Cell: ({ cell, row }) => (
+                    <>
+                        {cell.getValue<number>() > 0 && row.original.penetrationPower > 19 ? (
+                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
+                        ) : <span>-</span>}
+                    </>
+                ),
+                size: 55,
+            },
+            {
+                accessorKey: 'AmmoRec',
+                header: 'Recoil Modifier',
+                size: 110,
+                Cell: ({ cell }) => (
+                    <>
+                        {cell.getValue<number>() !== 0 ? (
+                            <span>{cell.getValue<number>()}</span>
+                        ) : <span>-</span>}
+                    </>
                 ),
             },
-            // {
-            //     id: "baseErgonomics",
-            //     accessorKey: "baseErgonomics",
-            //     header: "Base Ergonomics",
-            //     size: 75,
-            // },
-            // {
-            //     id: "baseRecoil",
-            //     accessorKey: "baseRecoil",
-            //     header: "Base Recoil",
-            //     size: 75,
-            // },
             {
-                id: "recoilDispersion",
-                accessorKey: "recoilDispersion",
-                header: "Recoil Dispersion",
-                size: 75,
-                aggregationFn: 'median',
-                AggregatedCell: ({ cell }) =>
-                    <div>
-                        Median: <strong>{cell.getValue<number>().toFixed(0)}</strong>
-                    </div>,
-            },
-            {
-                id: "convergence",
-                accessorKey: "convergence",
-                header: "Convergence",
-                size: 75,
-                aggregationFn: 'median',
-                AggregatedCell: ({ cell }) =>
-                    <div>
-                        Median: <strong>{cell.getValue<number>().toFixed(2)}</strong>
-                    </div>,
-                Cell: ({ renderedCellValue }) => (
-                    <span>{renderedCellValue?.toLocaleString('en-us')}</span>
-                ),
-            },
-            {
-                id: "recoilAngle",
-                accessorKey: "recoilAngle",
-                header: "Recoil Angle",
-                size: 75,
-            },
-            {
-                id: "cameraRecoil",
-                accessorKey: "cameraRecoil",
-                header: "Camera Recoil",
-                size: 75,
+                accessorKey: 'initialSpeed',
+                header: 'Initial Speed',
+                size: 140,
                 aggregationFn: 'mean',
                 AggregatedCell: ({ cell }) =>
                     <div>
-                        Mean: <strong>{cell.getValue<number>().toFixed(2)}</strong>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)} m/s</strong>
                     </div>,
+                filterVariant: "range",
                 Cell: ({ renderedCellValue }) => (
-                    <span>{renderedCellValue?.toLocaleString('en-us')}</span>
+                    <span>{renderedCellValue} m/s</span>
                 ),
             },
-
             {
-                id: "price",
-                accessorKey: "price",
-                header: "Price",
-                size: 75,
+                accessorKey: 'tracer',
+                header: 'Tracer?',
+                size: 120,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
+                ),
             },
-            {
-                id: "traderLevel",
-                accessorKey: "traderLevel",
-                header: "Trader Level",
-                size: 75,
-            },
-            {
-                id: "fleaPrice",
-                accessorKey: "fleaPrice",
-                header: "Flea Market Price",
-                size: 75,
-            },
+            // {
+            //     accessorKey: 'price',
+            //     header: 'Price',
+            //     size: 120,
+            // },
+            // {
+            //     accessorKey: 'traderLevel',
+            //     header: 'Trader Level',
+            //     size: 120,
+            // },
         ],
         [pix, manualGrouping],
     );
 
     const table = useMantineReactTable({
-        columns: columns,
+        columns,
         data: tableData,
         positionGlobalFilter: "none",
         enableStickyHeader: true,
@@ -230,14 +277,14 @@ export default function WeaponTableContent() {
         enableSorting: true,
 
         enableColumnActions: false,
-        enableColumnDragging: true,
+        enableColumnDragging: false,
         enableFacetedValues: true,
         enableGrouping: true,
         enablePinning: true,
 
         // enableTopToolbar: false,
         enableDensityToggle: false,
-        positionToolbarAlertBanner: "top",
+        positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
         // enableColumnResizing: true,
@@ -249,8 +296,9 @@ export default function WeaponTableContent() {
         initialState: {
             expanded: true,
             columnVisibility: {
-                // caliber: true,
-
+                caliber: true,
+                tracer: false,
+                price: false,
             },
             density: "xs",
 
@@ -261,12 +309,13 @@ export default function WeaponTableContent() {
             columnPinning: {
                 left: ['mrt-row-expand', 'name']
                 // left: ['mrt-row-expand']
-            }
+            },
+            sorting: [{ id: 'penetrationPower', desc: true }],
         },
         state: {
-            // grouping: manualGrouping,
+            grouping: manualGrouping,
             showGlobalFilter: true,
-            // columnVisibility: visibility,
+            columnVisibility: visibility,
             showColumnFilters: filters,
         },
         mantineTableHeadProps: {
@@ -313,25 +362,23 @@ export default function WeaponTableContent() {
         renderTopToolbarCustomActions: ({ table }) => (
             <Flex
                 gap="md"
-                justify={{ sm: 'center' }}
-                align="flex-start"
+                justify="flex-start"
+                align="center"
                 direction="row"
                 wrap="wrap"
             >
                 <MRT_GlobalFilterTextInput table={table} />
                 <Flex
                     gap="md"
-                    justify={{ sm: 'center' }}
-
-                    align="flex-start"
+                    justify="flex-start"
+                    align="center"
                     direction="row"
                     wrap="wrap"
-
                 >
                     <Text fw={700}>Toggles</Text>
-                    {/* <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button> */}
-                    <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
-                    <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+                    <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+                    <Button size={'xs'} compact variant={pix? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    <Button size={'xs'} compact variant={filters? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
                 </Flex>
 
                 {/* <MultiSelect

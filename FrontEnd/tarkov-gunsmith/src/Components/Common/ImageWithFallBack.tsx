@@ -6,6 +6,7 @@ interface ImageWithDefaultFallbackProps {
     height? : number;
     loading? : "eager" | "lazy" | undefined;
     className?: string;
+    hidden?: boolean
   }
 
 export default function ImageWithDefaultFallback( props:ImageWithDefaultFallbackProps ) {
@@ -15,5 +16,5 @@ export default function ImageWithDefaultFallback( props:ImageWithDefaultFallback
     setImageSrc(process.env.PUBLIC_URL + '/TG_ImageFallback.png');
   };
 
-  return <img src={imageSrc} onError={handleImageError} alt={props.alt} height={props.height} loading={props.loading} />;
+  return <img src={imageSrc} hidden={props.hidden} onError={handleImageError} alt={props.alt} height={props.height} loading={props.loading} />;
 }

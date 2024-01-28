@@ -10,14 +10,63 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
 
-import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
+import { Box, Button, Flex, Text, Avatar, MultiSelect } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { getAmmoDataFromApi_TarkovDev } from "../../Components/Common/Api/AmmoAPiCalls";
+import { WeaponsTableRow } from "../../Components/Common/Types/WeaponTypes";
+import { getDataFromApi_TarkovDev } from "../../Api/WeaponApiCalls";
+import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
+import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
 
-export default function AmmoTableMRT() {
+export function WeaponMRT() {
+    const initialData: WeaponsTableRow[] = [];
+    const [unfilteredData, setUnfilteredData] = useState<WeaponsTableRow[]>(initialData);
+    const [tableData, setTableData] = useState<WeaponsTableRow[]>(initialData);
+
+    const [filterValues, setFilterValues] = useState<string[]>([]);
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
+
+    const [pix, pixHandlers] = useDisclosure(false);
+    const [filters, filtersHandlers] = useDisclosure(false);
+    const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
+
+    async function getTableData() {
+        // const response_WishGranterApi = await getDataFromApi_WishGranter();
+        // if(response_WishGranterApi !== null){
+        //     setWeaponTableData(response_WishGranterApi);
+        //     return;
+        // }
+
+        const response_ApiTarkovDev = await getDataFromApi_TarkovDev()
+        if (response_ApiTarkovDev !== null) {
+            setTableData(filterNonBulletsOut(response_ApiTarkovDev));
+            setUnfilteredData(filterNonBulletsOut(response_ApiTarkovDev));
+            return;
+        }
+
+        console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
+    }
+
+    // This useEffect will update the ArmorOptions with the result from the async API call
+    useEffect(() => {
+        getTableData();
+    }, [])
+
+    useEffect(() => {
+
+        const temp = unfilteredData.filter(x => filterValues.includes(x.caliber));
+        if (filterValues.length === 0) {
+            setTableData(unfilteredData);
+        }
+        else {
+            setTableData(temp);
+        }
+    }, [unfilteredData, filterValues])
+
+    function filterNonBulletsOut(input: WeaponsTableRow[]) {
+        const result = input.filter(x => !unwantedAmmos.includes(x.caliber))
+        return result
+    }
 
     // Handler to toggle 'caliber' in the manualGrouping array
     const handleToggleCaliber = () => {
@@ -32,54 +81,14 @@ export default function AmmoTableMRT() {
         }
     };
 
-    const initialData: AmmoTableRow[] = [];
-
-    function filterNonBulletsOut(input: AmmoTableRow[]){
-        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
-        return result
-    }
-
-    const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
-    const [pix, pixHandlers] = useDisclosure(true);
-    const [filters, filtersHandlers] = useDisclosure(false);
-
-
-
-    async function getTableData() {
-        // const response_WishGranterApi = await getDataFromApi_WishGranter();
-        // if(response_WishGranterApi !== null){
-        //     setAmmoTableData(response_WishGranterApi);
-        //     return;
-        // }
-
-        const response_ApiTarkovDev = await getAmmoDataFromApi_TarkovDev()
-        if(response_ApiTarkovDev !== null){
-            setTableData(filterNonBulletsOut(response_ApiTarkovDev));
-            return;
-        }
-
-        console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
-    }
-
-    useEffect(() => {
-        getTableData();
-    }, [])
-
-
-    const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
-
-    console.log("tableData", tableData)
-
-    const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
+    const columns = useMemo<MRT_ColumnDef<WeaponsTableRow>[]>(
         () => [
             {
-                id: 'name',
-                accessorKey: 'shortName',
+                accessorKey: 'name', //simple recommended way to define a column
                 header: 'Name',
-                size: 8,
-                Header: ({ column, header }) => (
-                    <div style={{ width: "100%" }}>Name</div>),
+                enableSorting: true,
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
+
                 Cell: ({ renderedCellValue, row }) => (
                     <Box
                         sx={{
@@ -91,18 +100,16 @@ export default function AmmoTableMRT() {
                         <Avatar
                             alt="avatar"
                             size={'md'}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
+                            src={row.original.imageLink}
                             style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                            // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
+                        // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
                         >
                             TG
                         </Avatar>
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                         <span>{renderedCellValue}</span>
                     </Box>
-                    // <span>{renderedCellValue}</span>
                 ),
-
             },
             {
                 id: "caliber",
@@ -115,159 +122,142 @@ export default function AmmoTableMRT() {
                     <span>{renderedCellValue}</span>
                 ),
             },
-
             {
-                accessorKey: 'damage',
-                header: 'Damage',
-                size: 120,
+                accessorKey: 'rateOfFire',
+                header: 'RoF',
+                size: 50,
                 aggregationFn: 'mean',
-                AggregatedCell: ({ cell }) =>
-                    <div>
+                AggregatedCell: ({ cell }) => (
+                    <>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
-                    </div>,
-                filterVariant: "range"
+                    </>
+                ),
             },
             {
-                accessorKey: 'penetrationPower',
-                header: 'Penetration',
-                aggregationFn: ['max', 'mean',],
+                accessorKey: 'defaultErgonomics',
+                header: 'Ergonomics (default)',
+                size: 80,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
+                ),
+            },
+            {
+                accessorKey: 'defaultRecoil',
+                header: 'Vertical Recoil (default)',
+                size: 100,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
+                ),
+            },
+
+            {
+                accessorKey: 'recoilDispersion',
+                header: 'Horizontal Recoil (Recoil Dispersion)',
                 size: 120,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
+                ),
+            },
+            {
+                accessorKey: 'recoilAngle',
+                header: 'Recoil Angle',
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: "median",
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
-                            Mean: <strong>{
+                            Median: <strong>{
                                 cell
-                                    .getValue<Array<number>>()?.[1]
+                                    .getValue<Number>()
                                     .toFixed(0)
                             }
                             </strong>
                         </div>
                     )
                 },
-
-                filterVariant: "range"
             },
             {
-                accessorKey: 'armorDamagePerc',
-                header: 'Armor Damage%',
-                size: 130,
+                accessorKey: 'deviationCurve',
+                header: 'Deviation Curve',
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString()} %</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
                 aggregationFn: 'mean',
-                AggregatedCell: ({ cell }) => {
-                    return (
-                        <div>
-                            Mean: <strong>{cell.getValue<number>().toFixed(0)}%</strong>
-                        </div>
-                    )
-                },
-                filterVariant: "range"
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(2)}</strong>
+                    </>
+                ),
             },
             {
-                accessorKey: 'baseArmorDamage',
-                header: 'Derived Armor Damage',
+                accessorKey: 'deviationMax',
+                header: 'Deviation Max',
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString()} </span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
-                size: 130,
                 aggregationFn: 'mean',
-                AggregatedCell: ({ cell }) => {
-                    return (
-                        <div>
-                            Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
-                        </div>
-                    )
-                },
-                filterVariant: "range"
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
+                ),
             },
             {
-                accessorKey: 'lightBleedDelta',
-                header: 'Light Bleed Bonus',
-
+                accessorKey: 'baseErgonomics',
+                header: 'Ergonomics (base)',
+                size: 100, //small column
+                muiTableHeadCellProps: { sx: { color: 'white' } },
                 Cell: ({ cell }) => (
-                    <>
-                        {cell.getValue<number>() > 0 ? (
-                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
-                        ) : <span>-</span>}
-                    </>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
-                size: 80,
-            },
-            {
-                accessorKey: 'heavyBleedDelta',
-                header: 'Heavy Bleed Bonus',
-                Cell: ({ cell }) => (
-                    <>
-                        {cell.getValue<number>() > 0 ? (
-                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
-                        ) : <span>-</span>}
-                    </>
-                ),
-                size: 85,
-            },
-            {
-                accessorKey: 'fragChance',
-                header: 'Frag',
-                Cell: ({ cell, row }) => (
-                    <>
-                        {cell.getValue<number>() > 0 && row.original.penetrationPower > 19 ? (
-                            <span>{(cell.getValue<number>() * 100).toLocaleString()} %</span>
-                        ) : <span>-</span>}
-                    </>
-                ),
-                size: 55,
-            },
-            {
-                accessorKey: 'AmmoRec',
-                header: 'Recoil Modifier',
-                size: 110,
-                Cell: ({ cell }) => (
-                    <>
-                        {cell.getValue<number>() !== 0 ? (
-                            <span>{cell.getValue<number>()}</span>
-                        ) : <span>-</span>}
-                    </>
-                ),
-            },
-            {
-                accessorKey: 'initialSpeed',
-                header: 'Initial Speed',
-                size: 140,
                 aggregationFn: 'mean',
-                AggregatedCell: ({ cell }) =>
-                    <div>
-                        Mean: <strong>{cell.getValue<number>().toFixed(0)} m/s</strong>
-                    </div>,
-                filterVariant: "range",
-                Cell: ({ renderedCellValue }) => (
-                    <span>{renderedCellValue} m/s</span>
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
                 ),
             },
             {
-                accessorKey: 'tracer',
-                header: 'Tracer?',
-                size: 120,
+                accessorKey: 'baseRecoil',
+                header: 'Vertical Recoil (base)',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 100, //small column
                 Cell: ({ cell }) => (
-                    <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                aggregationFn: 'mean',
+                AggregatedCell: ({ cell }) => (
+                    <>
+                        Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                    </>
                 ),
             },
-            // {
-            //     accessorKey: 'price',
-            //     header: 'Price',
-            //     size: 120,
-            // },
-            // {
-            //     accessorKey: 'traderLevel',
-            //     header: 'Trader Level',
-            //     size: 120,
-            // },
         ],
         [pix, manualGrouping],
     );
 
     const table = useMantineReactTable({
-        columns,
+        columns: columns,
         data: tableData,
         positionGlobalFilter: "none",
         enableStickyHeader: true,
@@ -289,7 +279,7 @@ export default function AmmoTableMRT() {
 
         // enableTopToolbar: false,
         enableDensityToggle: false,
-        positionToolbarAlertBanner: "top",
+        positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
         // enableColumnResizing: true,
@@ -301,21 +291,19 @@ export default function AmmoTableMRT() {
         initialState: {
             expanded: true,
             columnVisibility: {
-                caliber: true,
-                tracer: false,
-                price: false,
+                caliber: false,
+
             },
             density: "xs",
 
             pagination: {
                 pageIndex: 0, pageSize: 200
-            }
-            ,
+            },
             columnPinning: {
                 left: ['mrt-row-expand', 'name']
                 // left: ['mrt-row-expand']
             },
-            sorting: [{ id: 'penetrationPower', desc: true }],
+            sorting: [{ id: 'defaultErgonomics', desc: true }, { id: 'defaultRecoil', desc: false }, { id: 'recoilDispersion', desc: false }],
         },
         state: {
             grouping: manualGrouping,
@@ -325,7 +313,7 @@ export default function AmmoTableMRT() {
         },
         mantineTableHeadProps: {
             sx: {
-                tableLayout: 'fixed',
+                // tableLayout: 'fixed',
             },
         },
         mantineTopToolbarProps: {
@@ -367,37 +355,37 @@ export default function AmmoTableMRT() {
         renderTopToolbarCustomActions: ({ table }) => (
             <Flex
                 gap="md"
-                justify={{ sm: 'center' }}
-                align="flex-start"
+                justify="flex-start"
+                align="center"
                 direction="row"
                 wrap="wrap"
             >
                 <MRT_GlobalFilterTextInput table={table} />
                 <Flex
                     gap="md"
-                    justify={{ sm: 'center' }}
-                    
-                    align="flex-start"
+                    justify="flex-start"
+                    align="center"
                     direction="row"
                     wrap="wrap"
-                    
                 >
                     <Text fw={700}>Toggles</Text>
-                    <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
-                    <Button size={'xs'} compact variant={pix? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
-                    <Button size={'xs'} compact variant={filters? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+                    <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+                    <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
                 </Flex>
 
-                {/* <MultiSelect
-                    placeholder="Filter by up to 6 choices"
-                    data={ammoCaliberArray}
+                <MultiSelect
+                    placeholder="Filter by up to 6 calibers"
+                    data={Object.entries(ammoCaliberFullNameMap).map(
+                        ([value, label]) => ({ value: value, label: label })
+                      )}
                     miw={250}
                     maw={400}
                     maxSelectedValues={6}
                     withinPortal={true}
                     value={filterValues}
                     onChange={setFilterValues}
-                /> */}
+                />
             </Flex>
 
         ),
@@ -413,21 +401,20 @@ export default function AmmoTableMRT() {
                                     <MRT_ExpandButton row={row} table={table} />
                                 </>
                             ) : (
-                                <Avatar
-                                    alt="avatar"
-                                    size={'md'}
-                                    src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                                    style={{ display: pix ? "block" : "none" }}
+                                <ImageWithDefaultFallback
+                                    alt="icon"
+                                    height={40}
+                                    src={row.original.imageLink}
+                                    loading="lazy"
                                     hidden={!pix}
-                                >
-                                    TG
-                                </Avatar>
+                                />
                             )}
                         </Box>
                     );
                 },
             },
         },
+
         renderToolbarInternalActions: ({ table }) => (
             <>
                 {/* <MRT_TablePagination table={table} /> */}
