@@ -283,7 +283,7 @@ export default function AmmoMRT() {
 
         // enableTopToolbar: false,
         enableDensityToggle: false,
-        positionToolbarAlertBanner: "top",
+        positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
         // enableColumnResizing: true,
@@ -361,20 +361,18 @@ export default function AmmoMRT() {
         renderTopToolbarCustomActions: ({ table }) => (
             <Flex
                 gap="md"
-                justify={{ sm: 'center' }}
-                align="flex-start"
+                justify="flex-start"
+                align="center"
                 direction="row"
                 wrap="wrap"
             >
                 <MRT_GlobalFilterTextInput table={table} />
                 <Flex
                     gap="md"
-                    justify={{ sm: 'center' }}
-                    
-                    align="flex-start"
+                    justify="flex-start"
+                    align="center"
                     direction="row"
                     wrap="wrap"
-                    
                 >
                     <Text fw={700}>Toggles</Text>
                     <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>

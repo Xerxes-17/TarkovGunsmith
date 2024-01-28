@@ -87,8 +87,6 @@ export function WeaponMRT() {
                 accessorKey: 'name', //simple recommended way to define a column
                 header: 'Name',
                 enableSorting: true,
-                Header: ({ column, header }) => (
-                    <div style={{ width: "100%" }}>Name</div>),
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
 
                 Cell: ({ renderedCellValue, row }) => (
@@ -281,7 +279,7 @@ export function WeaponMRT() {
 
         // enableTopToolbar: false,
         enableDensityToggle: false,
-        positionToolbarAlertBanner: "top",
+        positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
         // enableColumnResizing: true,
@@ -369,7 +367,6 @@ export function WeaponMRT() {
                     align="center"
                     direction="row"
                     wrap="wrap"
-
                 >
                     <Text fw={700}>Toggles</Text>
                     <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
