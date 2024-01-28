@@ -305,6 +305,7 @@ export function WeaponMRT() {
                 left: ['mrt-row-expand', 'name']
                 // left: ['mrt-row-expand']
             },
+            sorting: [{ id: 'defaultErgonomics', desc: true }, { id: 'defaultRecoil', desc: false }, { id: 'recoilDispersion', desc: false }],
         },
         state: {
             grouping: manualGrouping,
