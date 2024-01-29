@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import { copyImageToClipboard } from "copy-image-clipboard";
 import { MRT_Cell } from "material-react-table";
-import { AmmoTableRow } from "./Types/AmmoTypes";
+import { AmmoTableRow } from "../../Types/AmmoTypes";
 import { Tooltip, Group } from "@mantine/core";
 import { ReactNode } from "react";
  

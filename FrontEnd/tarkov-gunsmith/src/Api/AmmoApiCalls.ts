@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { AmmoTableRow, ApiResponse, DevTarkovAmmoItem } from "../Components/Common/Types/AmmoTypes";
+import { AmmoTableRow, ApiResponse, DevTarkovAmmoItem } from "../Types/AmmoTypes";
 
 export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null> {
     try {

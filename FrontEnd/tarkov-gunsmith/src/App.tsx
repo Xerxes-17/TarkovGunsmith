@@ -21,6 +21,7 @@ import { MantineProvider } from '@mantine/core';
 import AmmoMRT from './Pages/AmmoTable/AmmoMRT';
 import { WeaponMRT } from './Pages/WeaponTable/WeaponMRT';
 import { DataSheetArmorModules } from './Components/DataSheets/Stats_ArmorModules';
+import { HelmetsMRT } from './Pages/HelmetTable/HelmetsMRT';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path={LINKS.DATA_SHEETS_AMMO} element={<AmmoMRT />} />
             
             <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />
+            <Route path={LINKS.DATA_SHEETS_HELMETS} element={<HelmetsMRT />} />
             {/* <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} /> */}
             
 

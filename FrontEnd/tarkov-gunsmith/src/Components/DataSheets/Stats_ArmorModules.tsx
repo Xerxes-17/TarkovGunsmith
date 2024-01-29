@@ -8,58 +8,12 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col, Row } from 'react-bootstrap';
 import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
+import { ArmorModuleTableRow, ArmorModule } from '../../Types/ArmorTypes';
 
 export function DataSheetArmorModules(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
-    interface ArmorModule {
-        id: string
-        category: string
-        armorType: ArmorType
-        name: string
 
-        armorClass: number
-        bluntThroughput: number
-        maxDurability: number
-        maxEffectiveDurability: number
-        armorMaterial: MaterialType
-        weight: number
-
-        ricochetParams: RicochetParams
-
-        usedInNames: string[]
-        compatibleWith: string[]
-
-        armorPlateColliders: ArmorPlateCollider[]
-        armorColliders: ArmorCollider[]
-    }
-
-    interface RicochetParams {
-        x: number
-        y: number
-        z: number
-    }
-
-    interface ArmorModuleTableRow {
-        id: string
-        category: string
-        armorType: ArmorType
-        name: string
-
-        armorClass: number
-        bluntThroughput: number
-        maxDurability: number
-        maxEffectiveDurability: number
-        armorMaterial: string
-        weight: number
-
-        ricochetParams: RicochetParams
-
-        usedInNames: string
-        compatibleWith: string
-
-        hitZones: string[]
-    }
 
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>([]);
 

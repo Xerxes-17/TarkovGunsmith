@@ -71,6 +71,11 @@ function BrandExample() {
                                         <Nav.Link>Plates & Inserts</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_HELMETS}>
+                                        <Nav.Link>Helmets</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
