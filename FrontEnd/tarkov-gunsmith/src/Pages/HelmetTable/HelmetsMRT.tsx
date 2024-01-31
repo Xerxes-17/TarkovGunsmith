@@ -166,8 +166,9 @@ export function HelmetsMRT() {
                 accessorFn: (row) => convertEnumValToArmorString(row.armorMaterial),
                 header: "Armor Material",
                 size: 80,
-                filterVariant: "multi-select",
-                filterSelectOptions: MATERIALS
+                filterVariant:"text"
+                // filterVariant: "multi-select",
+                // filterSelectOptions: MATERIALS
             },
             {
                 id: "ricochetX",
