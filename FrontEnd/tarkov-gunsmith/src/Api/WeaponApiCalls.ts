@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { DevTarkovWeaponItem, WeaponsTableRow } from "../Components/Common/Types/WeaponTypes";
+import { DevTarkovWeaponItem, WeaponsTableRow } from "../Types/WeaponTypes";
 
 interface ApiResponse {
   data: {

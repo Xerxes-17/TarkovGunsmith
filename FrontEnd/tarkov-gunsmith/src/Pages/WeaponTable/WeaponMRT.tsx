@@ -13,9 +13,9 @@ import {
 
 import { Box, Button, Flex, Text, Avatar, MultiSelect } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { WeaponsTableRow } from "../../Components/Common/Types/WeaponTypes";
+import { WeaponsTableRow } from "../../Types/WeaponTypes";
 import { getDataFromApi_TarkovDev } from "../../Api/WeaponApiCalls";
-import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
+import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
 import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
 
 export function WeaponMRT() {

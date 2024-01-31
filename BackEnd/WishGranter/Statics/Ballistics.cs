@@ -372,9 +372,29 @@ namespace WishGranter.Statics
 
             double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
             double finalResult = medianResult * bulletDamage;
+            //Console.WriteLine($"postPenetration penetrationPower: {medianResult * bulletPenetration} for AC{armorClass} vs P {bulletPenetration}");
 
             return finalResult;
         }
+        public static (double bulletDamage, double bulletPenetration) PenetrationDamage2(double armorDurabilityPercentage, int armorClass, double bulletDamage, double bulletPenetration, int layer)
+        {
+            double median(double a, double b, double c)
+            {
+                double[] arr = new double[] { a, b, c };
+                Array.Sort(arr);
+                return arr[1];
+            }
+
+            var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
+
+            double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
+            double finalResult = medianResult * bulletDamage;
+
+            Console.WriteLine($"{layer}, {bulletPenetration}, {bulletDamage}, {medianResult * bulletPenetration}, {finalResult}, {PenetrationChance(armorClass, (float)bulletPenetration, (float) armorDurabilityPercentage)}");
+
+            return (finalResult, medianResult * bulletPenetration);
+        }
+
         public static int GetLegMetaHTK(Ammo ammo)
         {
             /* In this function we will find the STK of the ammo vs legs. For this we need to consider the bullet damage, the fragmentation chance and from those two the average damage.

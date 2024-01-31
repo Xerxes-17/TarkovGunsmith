@@ -8,71 +8,27 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col, Row } from 'react-bootstrap';
 import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
+import { ArmorModuleTableRow, ArmorModule } from '../../Types/ArmorTypes';
+import { Avatar } from '@mantine/core';
+import { heavyShield, lightShield, shield } from '../Common/tgIcons';
 
 export function DataSheetArmorModules(props: any) {
     // If using TypeScript, define the shape of your data (optional, but recommended)
     // strongly typed if you are using TypeScript (optional, but recommended)
-    interface ArmorModule {
-        id: string
-        category: string
-        armorType: ArmorType
-        name: string
 
-        armorClass: number
-        bluntThroughput: number
-        maxDurability: number
-        maxEffectiveDurability: number
-        armorMaterial: MaterialType
-        weight: number
-
-        ricochetParams: RicochetParams
-
-        usedInNames: string[]
-        compatibleWith: string[]
-
-        armorPlateColliders: ArmorPlateCollider[]
-        armorColliders: ArmorCollider[]
-    }
-
-    interface RicochetParams {
-        x: number
-        y: number
-        z: number
-    }
-
-    interface ArmorModuleTableRow {
-        id: string
-        category: string
-        armorType: ArmorType
-        name: string
-
-        armorClass: number
-        bluntThroughput: number
-        maxDurability: number
-        maxEffectiveDurability: number
-        armorMaterial: string
-        weight: number
-
-        ricochetParams: RicochetParams
-
-        usedInNames: string
-        compatibleWith: string
-
-        hitZones: string[]
-    }
 
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>([]);
 
     const fetchData = async () => {
         try {
             const response = await fetch(API_URL + '/GetArmorModulesData');
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-    
+
             const data: ArmorModule[] = await response.json();
-    
+
             const rows: ArmorModuleTableRow[] = data.map(row => ({
                 id: row.id,
                 category: row.category,
@@ -89,7 +45,7 @@ export function DataSheetArmorModules(props: any) {
                 compatibleWith: row.compatibleWith.join(","),
                 hitZones: createHitZoneValues(row),
             }));
-    
+
             setTableData(rows);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -150,17 +106,17 @@ export function DataSheetArmorModules(props: any) {
         )
     }
 
-    function plateCollidersToStrings(colliders: ArmorPlateCollider[]){
+    function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {
         return colliders.map((val) => ArmorPlateZones[val])
     }
-    function armorCollidersToStrings(colliders: ArmorCollider[]){
+    function armorCollidersToStrings(colliders: ArmorCollider[]) {
         return colliders.map((val) => ArmorZones[val])
     }
 
-    function createHitZoneValues(row: ArmorModule){
+    function createHitZoneValues(row: ArmorModule) {
         const plates = plateCollidersToStrings(row.armorPlateColliders);
         const body = armorCollidersToStrings(row.armorColliders);
-        return [...plates,...body]
+        return [...plates, ...body]
     }
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
@@ -191,15 +147,17 @@ export function DataSheetArmorModules(props: any) {
                             gap: '1rem',
                         }}
                     >
-                        <ImageWithDefaultFallback
+                        <Avatar
                             alt="avatar"
-                            height={40}
+                            size={'md'}
                             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            loading="lazy"
-                        />
-                        {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
+                        >
+                            {row.original.armorType === ArmorType.Light && lightShield}
+                            {row.original.armorType === ArmorType.Heavy && heavyShield}
+                        </Avatar>
                         <span>{renderedCellValue}</span>
                     </Box>
+                    // <span>{renderedCellValue}</span>
                 ),
             },
             {

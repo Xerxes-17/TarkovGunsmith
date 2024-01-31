@@ -10,7 +10,7 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Components/Common/Types/AmmoTypes';
+import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
@@ -97,7 +97,6 @@ export default function AmmoMRT() {
                     </Box>
                     // <span>{renderedCellValue}</span>
                 ),
-
             },
             {
                 id: "caliber",
