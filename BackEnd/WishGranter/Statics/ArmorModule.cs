@@ -50,7 +50,6 @@ namespace WishGranter.Statics
         public List<ArmorCollider> ArmorColliders { get; set; } = new();
         
 
-        //todo This logic is probably wrong and needs fixing
         public static Dictionary<string, List<string>> GetItemsPlatesAreCompatibleWith()
         {
             Dictionary<string, List<string>> platesToAllowed = new();

@@ -17,8 +17,44 @@ using System.Text.Json;
 namespace WishGranterTests
 {
     [TestClass]
+    public class ArmorsTest
+    {
+        [TestMethod]
+        public void Test_ConvertHelmetsToArmorTableRows()
+        {
+            var result = Armors.ConvertHelmetsToArmorTableRows();
+
+            Console.WriteLine(result.Count);
+        }
+
+        [TestMethod]
+        public void Test_GetAssembledHelmets()
+        {
+            var result = Armors.GetAssembledHelmets();
+
+            Console.WriteLine(result.Count);
+        }
+    }
+
+    [TestClass]
     public class BallisticSystemTest
     {
+        [TestMethod]
+        public void Test_PenetrationDamage2()
+        {
+            Console.WriteLine($"vs AC4");
+
+            Console.WriteLine($"Layer, Penetration, Damage, PostPenetration, PostDamage, PenChance");
+
+            for(int i = 0; i <= 30; i++)
+            {
+                var result = Ballistics.PenetrationDamage2(100, 4, 100, 25+i, 1);
+                //var result2 = Ballistics.PenetrationDamage2(100, 3, result.bulletDamage, result.bulletPenetration, 2);
+            }
+            
+
+        }
+
         [TestMethod]
         public void Test_PenetrationChance()
         {

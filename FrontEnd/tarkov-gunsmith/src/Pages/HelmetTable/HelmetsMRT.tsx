@@ -5,74 +5,21 @@ import {
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
-    MRT_ExpandButton
+    MRT_ExpandButton,
+    MRT_AggregationFns,
+    MRT_Row
 } from 'mantine-react-table';
 import { Box, Button, Flex, Text, Avatar, Title } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { HelmetTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
-import { ArmorCollider, MATERIALS, MaterialType } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings } from '../../Types/ArmorTypes';
-
+import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
+import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
+import { armorCollidersToStrings, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
+import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
+import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
 
 export function HelmetsMRT() {
-    const initialData: HelmetTableRow[] = [
-        {
-            id: "example",
-            name: "example 6B47 superrr",
-            imageLink: "example",
-            weight: 4.20,
-            ergonomics: 0,
-            turnSpeed: 0,
-            primaryArmor: {
-                type: "Heavy",
-                armorClass: 3,
-                bluntThroughput: 0.238,
-                totalMaxDurability: 45,
-                totalMaxEffectiveDurability: 420,
-                armorMaterial: "Aluminium",
-                ricochetParams: {
-                    x: 0.9,
-                    y: 0.4,
-                    z: 75
-                },
-                armorColliders: armorCollidersToStrings([
-                    ArmorCollider.ParietalHead,
-                    ArmorCollider.BackHead,
-                    ArmorCollider.Ears
-                ]),
-            },
-            subRows: [
-                {
-                    id: "example",
-                    name: "example 6B47 subbb",
-                    imageLink: "example",
-                    weight: 4.20,
-                    ergonomics: 0,
-                    turnSpeed: 0,
-                    primaryArmor: {
-                        type: "Heavy",
-                        armorClass: 3,
-                        bluntThroughput: 0.238,
-                        totalMaxDurability: 45,
-                        totalMaxEffectiveDurability: 420,
-                        armorMaterial: "Aluminium",
-                        ricochetParams: {
-                            x: 0.9,
-                            y: 0.4,
-                            z: 75
-                        },
-                        armorColliders: armorCollidersToStrings([
-                            ArmorCollider.HeadCommon,
-                            ArmorCollider.Eyes,
-                            ArmorCollider.Jaw
-                        ]),
-                    },
-                    subRows: []
-                }
-            ]
-        }
-    ];
-    const [tableData, setTableData] = useState<HelmetTableRow[]>(initialData);
+    const initialData: NewArmorTableRow[] = [];
+    const [tableData, setTableData] = useState<NewArmorTableRow[]>(initialData);
     const [pix, pixHandlers] = useDisclosure(true);
     const [manualGrouping, setManualGrouping] = useState<string[]>([]);
 
@@ -92,7 +39,23 @@ export function HelmetsMRT() {
         }
     };
 
-    const columns = useMemo<MRT_ColumnDef<HelmetTableRow>[]>(
+    async function getTableData() {
+        const response_ApiTarkovDev = await getHelmetsDataFromApi_WishGranter()
+        if (response_ApiTarkovDev !== null) {
+            setTableData(response_ApiTarkovDev);
+            return;
+        }
+
+        console.error("Error: Both WishGranter failed to respond (correctly).")
+    }
+
+    useEffect(() => {
+        getTableData();
+    }, [])
+
+
+
+    const columns = useMemo<MRT_ColumnDef<NewArmorTableRow>[]>(
         () => [
             {
                 id: 'name',
@@ -113,12 +76,12 @@ export function HelmetsMRT() {
                             alt="avatar"
                             size={'md'}
                             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                        // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
+                            // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
+                            hidden={!pix}
                         >
-                            TG
+                            {row.original.type === "Light" && lightShield}
+                            {row.original.type === "Heavy" && heavyShield}
                         </Avatar>
-                        {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                         <span>{renderedCellValue}</span>
                     </Box>
                     // <span>{renderedCellValue}</span>
@@ -126,7 +89,7 @@ export function HelmetsMRT() {
             },
             {
                 id: "type",
-                accessorKey: "primaryArmor.type",
+                accessorKey: "type",
                 header: "Type",
                 size: 80,
             },
@@ -134,6 +97,9 @@ export function HelmetsMRT() {
                 accessorKey: "weight",
                 header: "Weight",
                 size: 80,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toFixed(2)}</span>
+                ),
             },
             {
                 accessorKey: "ergonomics",
@@ -147,43 +113,57 @@ export function HelmetsMRT() {
             },
             {
                 id: "armorClass",
-                accessorKey: "primaryArmor.armorClass",
+                accessorKey: "armorClass",
                 header: "Armor Class",
                 size: 80,
             },
             {
                 id: "bluntThroughput",
-                accessorKey: "primaryArmor.bluntThroughput",
+                accessorKey: "bluntThroughput",
                 header: "Blunt Throughput",
                 size: 80,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toFixed(3)}</span>
+                ),
             },
             {
-                id: "sectionDurability",
-                accessorFn: (row) => row.primaryArmor.totalMaxDurability / row.primaryArmor.armorColliders.length,
-                header: "Section Durability",
+                id: "default",
+                accessorKey: "isDefault",
+                header: "Default",
+                size: 80,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
+                ),
+            },
+            {
+                id: "durability",
+                accessorKey: "durability",
+                header: "Durability",
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                        </div>
+                    )
+                },
                 size: 80,
             },
             {
-                id: "sectionEffectiveDurability",
-                accessorFn: (row) => row.primaryArmor.totalMaxEffectiveDurability / row.primaryArmor.armorColliders.length,
-                header: "Section Effective Durability",
+                id: "effectiveDurability",
+                accessorKey: "effectiveDurability",
+                header: "Effective Durability",
                 size: 80,
-            },
-            {
-                id: "totalDurability",
-                accessorKey: "primaryArmor.totalMaxDurability",
-                header: "Max Durability",
-                size: 80,
-            },
-            {
-                id: "totalEffectiveDurability",
-                accessorKey: "primaryArmor.totalMaxEffectiveDurability",
-                header: "Max Effective Durability",
-                size: 80,
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                        </div>
+                    )
+                },
             },
             {
                 id: "armorMaterial",
-                accessorKey: "primaryArmor.armorMaterial",
+                accessorFn: (row) => convertEnumValToArmorString(row.armorMaterial),
                 header: "Armor Material",
                 size: 80,
                 filterVariant: "multi-select",
@@ -191,29 +171,29 @@ export function HelmetsMRT() {
             },
             {
                 id: "ricochetX",
-                accessorKey: "primaryArmor.ricochetParams.x",
+                accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
             },
             {
                 id: "ricochetY",
-                accessorKey: "primaryArmor.ricochetParams.y",
+                accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
             },
             {
                 id: "ricochetZ",
-                accessorKey: "primaryArmor.ricochetParams.z",
+                accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
             },
             {
                 id: "armorZones",
-                accessorFn: (row) => row.primaryArmor.armorColliders.join(", "),
+                accessorFn: (row) => joinArmorCollidersAsZones(row.armorColliders),
                 header: "Armor Zones",
                 size: 80,
             },
-        ], []
+        ], [pix]
     );
 
     const table = useMantineReactTable({
@@ -278,7 +258,6 @@ export function HelmetsMRT() {
             rowsPerPageOptions: ["10", "25", "50", "75", "100", "150", "200"],
         },
         initialState: {
-            expanded: true,
             columnVisibility: {
                 caliber: true,
                 tracer: false,
@@ -360,7 +339,7 @@ export function HelmetsMRT() {
                     wrap="wrap"
                 >
                     <Text fw={700}>Toggles</Text>
-                    <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+                    {/* <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button> */}
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
                     <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
                 </Flex>

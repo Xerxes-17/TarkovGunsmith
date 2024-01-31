@@ -18,8 +18,9 @@ namespace WishGranter.API_Methods
         private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
 
 
-        private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet(); 
+        private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet();
         private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
+        private static List<NewArmorTableRow> NewHelmets = WriteHelmetsDataSheet();
         
         
         
@@ -62,6 +63,12 @@ namespace WishGranter.API_Methods
         {
             using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
             return ArmorDataSheet;
+        }
+
+        public static List<NewArmorTableRow> GetHelmetsDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for HelmetDataSheet");
+            return NewHelmets;
         }
 
 
@@ -217,6 +224,10 @@ namespace WishGranter.API_Methods
         public static List<ArmorModule> WriteArmorModulesDataSheet()
         {
             return ArmorModules.armorModules;
+        }
+        public static List<NewArmorTableRow> WriteHelmetsDataSheet()
+        {
+            return Armors.ConvertHelmetsToArmorTableRows();
         }
         public static List<ArmorTableRow> WriteArmorDataSheet()
         {

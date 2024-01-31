@@ -59,3 +59,21 @@ export function armorCollidersToStrings(colliders: ArmorCollider[]){
 export function createHitZoneValues(zones: ArmorCollider[]){
     return armorCollidersToStrings(zones);
 }
+
+export function joinArmorCollidersAsZones(armorColliders: ArmorCollider[]) {
+    const zones = armorColliders.map((enumVal) => {
+        return ArmorZones[enumVal]
+    })
+
+    return zones.join(", ");
+}
+
+export function armorCollidersDisplay(armorColliders: ArmorZones[]) {
+    return (
+        <>
+            {armorColliders.map((enumVal) => {
+                return <>{ArmorZones[enumVal]}<br /></>
+            })}
+        </>
+    )
+}
