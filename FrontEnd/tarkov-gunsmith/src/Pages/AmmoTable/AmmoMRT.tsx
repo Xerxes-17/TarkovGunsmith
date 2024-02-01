@@ -119,7 +119,16 @@ export default function AmmoMRT() {
                     <div>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
-                filterVariant: "range"
+                filterVariant: "range",
+                Cell: ({cell, row}) => {
+                    if(row.original.projectileCount > 1){
+                        return (
+                            <>{row.original.projectileCount} x {cell.getValue<number>().toFixed(0)} ({row.original.projectileCount*cell.getValue<number>()})</> 
+                        )
+                    }
+                    return <>{cell.getValue<number>().toFixed(0)}</>
+                    
+                }
             },
             {
                 accessorKey: 'penetrationPower',
@@ -133,6 +142,26 @@ export default function AmmoMRT() {
                                 cell
                                     .getValue<Array<number>>()?.[1]
                                     .toFixed(0)
+                            }
+                            </strong>
+                        </div>
+                    )
+                },
+
+                filterVariant: "range"
+            },
+            {
+                accessorKey: 'penetrationPowerDeviation',
+                header: 'Penetration Power Deviation',
+                aggregationFn: ['max', 'mean',],
+                size: 120,
+                AggregatedCell: ({ cell }) => {
+                    return (
+                        <div>
+                            Mean: <strong>{
+                                cell
+                                    .getValue<Array<number>>()?.[1]
+                                    .toFixed(2)
                             }
                             </strong>
                         </div>

@@ -13,6 +13,7 @@ export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] 
                     shortName
                     properties {
                         ... on ItemPropertiesAmmo {
+                            penetrationPowerDeviation
                             penetrationPower
                             damage
                             caliber
@@ -50,8 +51,10 @@ export function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): A
         name: item.name,
         shortName: item.shortName,
         caliber: properties ? properties.caliber : "",
+        projectileCount: properties ? properties.projectileCount : 1,
         damage: properties ? properties.damage : -1,
         penetrationPower: properties ? properties.penetrationPower : -1,
+        penetrationPowerDeviation: properties? properties.penetrationPowerDeviation : -1,
         armorDamagePerc: properties ? properties.armorDamage : -1,
         baseArmorDamage: properties ? properties.penetrationPower * properties.armorDamage/100: -1,
         lightBleedDelta: properties ? properties.lightBleedModifier : -1,

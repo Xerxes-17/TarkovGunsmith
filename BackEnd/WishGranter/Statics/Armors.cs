@@ -136,13 +136,16 @@ namespace WishGranter
                         .SelectMany(x => x.Filters[0].ArmorColliders)
                         .ToArray();
 
+                var totalDura = foo.Select(x=>x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                var totalEffectiveDura = foo.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+
                 if (temp != null)
                 {
                     mainRow.ArmorMaterial = temp.ArmorMaterial;
                     mainRow.ArmorClass = temp.ArmorClass;
                     mainRow.BluntThroughput = temp.BluntThroughput;
-                    mainRow.Durability = temp.Durability * countOfDefaults;
-                    mainRow.EffectiveDurability = Ballistics.GetEffectiveDurability(temp.Durability, temp.ArmorMaterial) * countOfDefaults;
+                    mainRow.Durability = totalDura;
+                    mainRow.EffectiveDurability = totalEffectiveDura;
                     mainRow.RicochetParams = temp.RicochetParams;
                     mainRow.ArmorColliders = armorColliders;
                 }

@@ -78,8 +78,10 @@ export interface AmmoTableRow {
   name: string;
   shortName: string;
   caliber: string;
+  projectileCount: number;
   damage: number;
   penetrationPower: number;
+  penetrationPowerDeviation: number;
   armorDamagePerc: number;
   baseArmorDamage: number;
   lightBleedDelta: number;
@@ -98,6 +100,7 @@ export interface DevTarkovAmmoItem {
   shortName: string;
   properties: {
     penetrationPower: number;
+    penetrationPowerDeviation: number;
     damage: number;
     caliber: string;
     armorDamage: number;
