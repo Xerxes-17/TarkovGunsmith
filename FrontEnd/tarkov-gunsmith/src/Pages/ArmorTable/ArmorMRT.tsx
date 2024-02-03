@@ -9,40 +9,31 @@ import {
     MRT_AggregationFns,
     MRT_Row
 } from 'mantine-react-table';
-import { Box, Button, Flex, Text, Avatar, Title } from '@mantine/core'
+import { Box, Button, Flex, Text, Avatar, Title, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
 import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
-import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
-import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
+import { armorCollidersToStrings, createHitZoneValues_ArmorTableRow, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
+import { getArmorStatsDataFromApi_WishGranter, getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
+import { lightShield, heavyShield, noneShield } from '../../Components/Common/tgIcons';
+import { ArmorZonesTableCell } from '../../Components/Common/ArmorZonesTableCell';
+import { ReplacePlateButton } from '../../Components/Common/ReplacePlateButton';
 
-export function HelmetsMRT() {
+export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
     const [tableData, setTableData] = useState<NewArmorTableRow[]>(initialData);
     const [pix, pixHandlers] = useDisclosure(true);
+    const [expandedArmorZones, expandedArmorZonesHandlers] = useDisclosure(true);
     const [manualGrouping, setManualGrouping] = useState<string[]>([]);
 
     const [filters, filtersHandlers] = useDisclosure(false);
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
 
-    // Handler to toggle 'caliber' in the manualGrouping array
-    const handleToggleCaliber = () => {
-        if (manualGrouping.includes('caliber')) {
-            // 'caliber' is already in the array, so we remove it
-            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
-            setVisibility({ caliber: true })
-        } else {
-            // 'caliber' is not in the array, so we add it
-            setManualGrouping([...manualGrouping, 'caliber']);
-            setVisibility({ caliber: false })
-        }
-    };
-
     async function getTableData() {
-        const response_ApiTarkovDev = await getHelmetsDataFromApi_WishGranter()
-        if (response_ApiTarkovDev !== null) {
-            setTableData(response_ApiTarkovDev);
+        const response_ApiWishGranter = await getArmorStatsDataFromApi_WishGranter()
+        
+        if (response_ApiWishGranter !== null) {
+            setTableData(response_ApiWishGranter);
             return;
         }
 
@@ -64,28 +55,38 @@ export function HelmetsMRT() {
                 size: 8,
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
-                Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
-                        <Avatar
-                            alt="avatar"
-                            size={'md'}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                            hidden={!pix}
+                Cell: ({ renderedCellValue, row }) => {
+
+                    return (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '1rem',
+                            }}
                         >
-                            {row.original.type === "Light" && lightShield}
-                            {row.original.type === "Heavy" && heavyShield}
-                        </Avatar>
-                        <span>{renderedCellValue}</span>
-                    </Box>
-                    // <span>{renderedCellValue}</span>
-                ),
+                            <Avatar
+                                alt="avatar"
+                                size={'md'}
+                                src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
+                                // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
+                                hidden={!pix}
+                            >
+                                {row.original.type === "Light" && lightShield}
+                                {row.original.type === "Heavy" && heavyShield}
+                                {row.original.type === "None" && noneShield}
+
+                            </Avatar>
+                            <>
+                                {renderedCellValue}
+                                {/* {row.original?.compatibleInSlotIds?.length > 1 && (
+                                    <ReplacePlateButton compatibleInSlotIds={row.original?.compatibleInSlotIds}/>
+                                )} */}
+                            </>
+                        </Box>
+                        // <span>{renderedCellValue}</span>
+                    )
+                }
             },
             {
                 id: "type",
@@ -129,7 +130,7 @@ export function HelmetsMRT() {
             {
                 id: "default",
                 accessorKey: "isDefault",
-                header: "Default",
+                header: "Built In",
                 size: 80,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
@@ -166,7 +167,7 @@ export function HelmetsMRT() {
                 accessorFn: (row) => convertEnumValToArmorString(row.armorMaterial),
                 header: "Armor Material",
                 size: 80,
-                filterVariant:"text"
+                filterVariant: "text"
                 // filterVariant: "multi-select",
                 // filterSelectOptions: MATERIALS
             },
@@ -190,11 +191,20 @@ export function HelmetsMRT() {
             },
             {
                 id: "armorZones",
-                accessorFn: (row) => joinArmorCollidersAsZones(row.armorColliders),
+                accessorFn: (row) => createHitZoneValues_ArmorTableRow(row),
                 header: "Armor Zones",
                 size: 80,
+                Cell: ({ row, cell }) => {
+                    if (expandedArmorZones === true && row.getParentRow() === undefined) {
+                        return ArmorZonesTableCell(cell.getValue<string[]>());
+                    }
+                    else {
+                        const temp = createHitZoneValues_ArmorTableRow(row.original);
+                        return temp.map((zone) => (<>{zone}<br /></>))
+                    }
+                }
             },
-        ], [pix]
+        ], [pix, expandedArmorZones]
     );
 
     const table = useMantineReactTable({
@@ -247,6 +257,8 @@ export function HelmetsMRT() {
         enableGrouping: true,
         enablePinning: true,
 
+
+
         // enableTopToolbar: false,
         enableDensityToggle: false,
         positionToolbarAlertBanner: "bottom",
@@ -282,6 +294,18 @@ export function HelmetsMRT() {
             columnVisibility: visibility,
             showColumnFilters: filters,
         },
+
+        mantineTableBodyCellProps: ({
+            cell,
+            row
+        }) => ({
+            sx: {
+                backgroundColor: row.getParentRow() !== undefined ? 'rgba(30, 30, 30, 1)' : undefined,
+                // backgroundColor: cell.getValue<number>() > 40 ? 'rgba(22, 184, 44, 0.5)' : undefined,
+                // fontWeight: cell.column.id === 'age' && cell.getValue<number>() > 40 ? 'bold' : 'normal'
+            }
+        }),
+
         mantineTableHeadProps: {
             sx: {
                 tableLayout: 'fixed',
@@ -343,6 +367,7 @@ export function HelmetsMRT() {
                     {/* <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button> */}
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
                     <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+                    <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones': 'Hide Zones' }</Button>
                 </Flex>
 
                 {/* <MultiSelect

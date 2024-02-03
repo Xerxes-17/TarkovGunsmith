@@ -1,4 +1,5 @@
 import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorPlateZones, ArmorZones } from "../Components/ADC/ArmorData"
+import { NewArmorTableRow } from "./HelmetTypes"
 
 export interface ArmorModule {
     id: string
@@ -58,6 +59,12 @@ export function armorCollidersToStrings(colliders: ArmorCollider[]){
 
 export function createHitZoneValues(zones: ArmorCollider[]){
     return armorCollidersToStrings(zones);
+}
+
+export function createHitZoneValues_ArmorTableRow(row: NewArmorTableRow) {
+    const plates = plateCollidersToStrings(row.armorPlateColliders);
+    const body = armorCollidersToStrings(row.armorColliders);
+    return [...plates, ...body]
 }
 
 export function joinArmorCollidersAsZones(armorColliders: ArmorCollider[]) {

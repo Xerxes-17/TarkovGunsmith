@@ -34,6 +34,22 @@ namespace WishGranterTests
 
             Console.WriteLine(result.Count);
         }
+
+        [TestMethod]
+        public void Test_GetAssembledArmorsAndRigs()
+        {
+            var result = Armors.GetAssembledArmorsAndRigs();
+
+            Console.WriteLine(result.Count);
+        }
+
+        [TestMethod]
+        public void Test_ConvertAssembledArmorsAndRigsToTableRows()
+        {
+            var result = Armors.ConvertAssembledArmorsAndRigsToTableRows();
+
+            Console.WriteLine(result.Count);
+        }
     }
 
     [TestClass]

@@ -12,3 +12,13 @@ export async function getHelmetsDataFromApi_WishGranter(): Promise<NewArmorTable
         return null;
     }
 };
+
+export async function getArmorStatsDataFromApi_WishGranter(): Promise<NewArmorTableRow[] | null> {
+    try {
+        const response: AxiosResponse<NewArmorTableRow[]> = await axios.get(`${API_URL}/GetGetNewArmorStatSheetData`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching helmets data:', error);
+        return null;
+    }
+};

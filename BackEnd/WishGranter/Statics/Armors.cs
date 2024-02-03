@@ -15,7 +15,7 @@ namespace WishGranter
         public double SpeedPenalty { get; set; }
         public double TurnSpeed { get; set; }
 
-        public bool IsDefault { get; set; }
+        public bool IsDefault { get; set; } // Means integral for the helmet, builtIn with vests and rigs
 
         public int ArmorClass { get; set; }
         public double BluntThroughput { get; set; }
@@ -24,6 +24,8 @@ namespace WishGranter
         public ArmorMaterial ArmorMaterial { get; set; } = ArmorMaterial.Glass;
         public RicochetParams RicochetParams { get; set; } = new RicochetParams();
         public ArmorCollider[] ArmorColliders { get; set; } = new ArmorCollider[0];
+        public ArmorPlateCollider[] ArmorPlateColliders { get; set; } = new ArmorPlateCollider[0];
+        public List<string> CompatibleInSlotIds { get; set; } = new();
 
         public List<NewArmorTableRow> SubRows { get; set; } = new();
     }
@@ -40,6 +42,8 @@ namespace WishGranter
         };
 
         public static List<Item> Cleaned { get; } = ConstructCleanedList();
+
+        public static List<NewArmorTableRow> AssembledArmorsAndRigsAsRows { get; } = ConvertAssembledArmorsAndRigsToTableRows();
 
         private static List<Item> ConstructCleanedList()
         {
@@ -67,38 +71,22 @@ namespace WishGranter
         {
             var helmets = StaticRatStash.DB.GetItems(x => typeof(Headwear) == x.GetType() && x.Name.Contains("helmet")).Cast<ArmoredEquipment>().ToList();
 
-            var allArmoredEquipment = StaticRatStash.DB.GetItems(x => typeof(ArmoredEquipment) == x.GetType()).Cast<ArmoredEquipment>().Where(x=>x.ArmorClass > 0).ToList();
+            var allArmoredEquipment = StaticRatStash.DB.GetItems(x => typeof(ArmoredEquipment) == x.GetType()).Cast<ArmoredEquipment>().Where(x => x.ArmorClass > 0).ToList();
 
             foreach (var helmet in helmets)
             {
-                Console.WriteLine(helmet.Name);
-                foreach(var slot in helmet.Slots)
+                foreach (var slot in helmet.Slots)
                 {
-                    if(slot.Filters[0].PlateId != "")
+                    if (slot.Filters[0].PlateId != "")
                     {
                         var defaultItem = StaticRatStash.DB.GetItem(slot.Filters[0].PlateId);
 
-                        if(defaultItem != null)
+                        if (defaultItem != null)
                         {
-                            Console.WriteLine($"  {defaultItem.Name}");
                             slot.ContainedItem = defaultItem;
                         }
                     }
-                    //else
-                    //{
-                    //    var intersect = slot.Filters[0].Whitelist.Intersect(allArmoredEquipment.Select(x=>x.Id)).ToList();
-
-                    //    if (intersect.Count() > 0)
-                    //    {
-                    //        foreach(var item in intersect)
-                    //        {
-                    //            var ratItem = StaticRatStash.DB.GetItem(item);
-                    //            Console.WriteLine($" -{ratItem.Name}");
-                    //        }
-                    //    }
-                    //}
                 }
-                Console.WriteLine();
             }
 
             return helmets;
@@ -119,24 +107,24 @@ namespace WishGranter
                 mainRow.Id = assembledHelm.Id;
                 mainRow.Type = assembledHelm.ArmorType.ToString();
                 mainRow.Name = assembledHelm.Name;
-                
+
                 mainRow.Weight = assembledHelm.Weight;
                 mainRow.Ergonomics = assembledHelm.WeaponErgonomicPenalty;
                 mainRow.SpeedPenalty = assembledHelm.SpeedPenaltyPercent;
                 mainRow.TurnSpeed = assembledHelm.MousePenalty;
                 mainRow.IsDefault = true;
 
-                var foo = assembledHelm.Slots.Where(x=>x.Filters[0].ArmorColliders.Count > 0).ToList();
+                var foo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count > 0).ToList();
                 var notFoo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count == 0).ToList();
 
                 var temp = (ArmoredEquipment)StaticRatStash.DB.GetItem(foo[0].ContainedItem.Id);
-                int countOfDefaults = assembledHelm.Slots.Where(x=>x.ContainedItem != null).Count();
+                int countOfDefaults = assembledHelm.Slots.Where(x => x.ContainedItem != null).Count();
                 var armorColliders = assembledHelm.Slots
                         .Where(x => x.ContainedItem != null)
                         .SelectMany(x => x.Filters[0].ArmorColliders)
                         .ToArray();
 
-                var totalDura = foo.Select(x=>x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                var totalDura = foo.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
                 var totalEffectiveDura = foo.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
 
                 if (temp != null)
@@ -150,14 +138,14 @@ namespace WishGranter
                     mainRow.ArmorColliders = armorColliders;
                 }
 
-                foreach(var bar in foo)
+                foreach (var bar in foo)
                 {
-                    var subTemp = (ArmoredEquipment) bar.ContainedItem;
+                    var subTemp = (ArmoredEquipment)bar.ContainedItem;
                     NewArmorTableRow subRow = new NewArmorTableRow();
                     subRow.Id = subTemp.Id;
                     subRow.Type = subTemp.ArmorType.ToString();
                     subRow.Name = subTemp.Name;
-                    
+
                     subRow.Weight = subTemp.Weight;
                     subRow.Ergonomics = subTemp.WeaponErgonomicPenalty;
                     subRow.SpeedPenalty = subTemp.SpeedPenaltyPercent;
@@ -175,7 +163,7 @@ namespace WishGranter
                     mainRow.SubRows.Add(subRow);
                 }
 
-                foreach(var notBar in notFoo)
+                foreach (var notBar in notFoo)
                 {
                     var intersect = notBar.Filters[0].Whitelist.Intersect(allArmoredEquipment.Select(x => x.Id)).ToList();
 
@@ -183,7 +171,7 @@ namespace WishGranter
                     {
                         foreach (var item in intersect)
                         {
-                            var ratItem = (ArmoredEquipment) StaticRatStash.DB.GetItem(item);
+                            var ratItem = (ArmoredEquipment)StaticRatStash.DB.GetItem(item);
                             NewArmorTableRow subRow = new NewArmorTableRow();
                             subRow.Id = ratItem.Id;
                             subRow.Type = ratItem.ArmorType.ToString();
@@ -211,6 +199,328 @@ namespace WishGranter
                 result.Add(mainRow);
             }
 
+
+            return result;
+        }
+
+
+        public static List<Item> GetAssembledArmorsAndRigs()
+        {
+            var vests = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(Armor)).Cast<ArmoredEquipment>().Cast<Item>().ToList();
+            var ArmoredChestRigs = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(ChestRig) && (x.Name.Contains("armored") || (x.Name.Contains("plate carrier")))).Cast<ChestRig>().Cast<Item>().ToList();
+
+            var result = vests
+                .Union(ArmoredChestRigs)
+                .Cast<CompoundItem>()
+                .ToList();
+
+            result.RemoveAll(x => x.Id == "58ac60eb86f77401897560ff");
+            result.RemoveAll(x => x.Id == "59e8936686f77467ce798647"); // Dev balaclava
+
+            foreach (var item in result)
+            {
+                //Console.WriteLine($"{item.Name}");
+                foreach (var slot in item.Slots)
+                {
+                    if (slot.Filters[0].PlateId != "")
+                    {
+                        var defaultItem = StaticRatStash.DB.GetItem(slot.Filters[0].PlateId);
+
+                        if (defaultItem != null)
+                        {
+                            slot.ContainedItem = defaultItem;
+                            //Console.WriteLine($"  {defaultItem.Name}");
+                        }
+                    }
+                }
+                //Console.WriteLine($"");
+            }
+
+            //Debug Print
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine($"{item.Name}, {item.Id} ");
+            //}
+
+            return result.Cast<Item>().ToList();
+        }
+
+        public static List<NewArmorTableRow> ConvertAssembledArmorsAndRigsToTableRows()
+        {
+            List<NewArmorTableRow> result = new List<NewArmorTableRow>();
+            var assembled = GetAssembledArmorsAndRigs();
+
+            var vests = assembled.Where(x => x.GetType() == typeof(Armor)).Cast<Armor>();
+
+            var rigs = assembled.Where(x => x.GetType() == typeof(ChestRig)).Cast<ChestRig>();
+
+            foreach (var armor in vests)
+            {
+                NewArmorTableRow mainRow = new NewArmorTableRow();
+                mainRow.Id = armor.Id;
+                mainRow.Type = armor.ArmorType.ToString();
+                mainRow.Name = armor.Name;
+
+                mainRow.IsDefault = true;
+
+                var armorColliderSlots = armor.Slots.Where(x => x.Filters[0].ArmorColliders.Count > 0).ToList();
+                var armorPlateSlots = armor.Slots.Where(x => x.Filters[0].ArmorPlateColliders.Count > 0).ToList();
+
+                var armorColliders = armor.Slots
+                        .Where(x => x.ContainedItem != null)
+                        .SelectMany(x => x.Filters[0].ArmorColliders)
+                        .ToArray();
+                var armorPlateColliders = armor.Slots
+                        .Where(x => x.ContainedItem != null)
+                        .SelectMany(x => x.Filters[0].ArmorPlateColliders)
+                        .ToArray();
+
+                var totalDuraArmor = armorColliderSlots.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                var totalEffectiveDuraArmor = armorColliderSlots.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                var totalDuraPlates = 0;
+                var totalEffectiveDuraPlates = 0;
+                if (armorPlateSlots.Count > 0)
+                {
+                    totalDuraPlates = armorPlateSlots.Where(x => x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraPlates = armorPlateSlots.Where(x => x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                }
+                
+
+                if (totalDuraArmor == 0)
+                {
+                    totalDuraArmor = armorPlateSlots.Where(x=> x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraArmor = armorColliderSlots.Where(x => x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                    totalDuraPlates = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraPlates = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                }
+
+                ArmoredEquipment sampleSoftArmor = new();
+                
+                if(armorColliderSlots.Count > 0)
+                {
+                    sampleSoftArmor = (ArmoredEquipment)StaticRatStash.DB.GetItem(armorColliderSlots[0].ContainedItem.Id);
+                }
+                else
+                {
+                    sampleSoftArmor = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().FirstOrDefault();
+                }
+
+                var defaultPlates = armorPlateSlots.Where(x => !x.Required && x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>();
+
+                var plateWeight = defaultPlates.Sum(item => item.Weight);
+                mainRow.Weight = armor.Weight + plateWeight;
+
+                var plateErgo = defaultPlates.Sum(item => item.WeaponErgonomicPenalty);
+                mainRow.Ergonomics = armor.WeaponErgonomicPenalty + plateErgo;
+
+                var plateSpeed = defaultPlates.Sum(item => item.SpeedPenaltyPercent);
+                mainRow.SpeedPenalty = armor.SpeedPenaltyPercent + plateSpeed;
+
+                var plateTurn = defaultPlates.Sum(item => item.MousePenalty);
+                mainRow.TurnSpeed = armor.MousePenalty + plateTurn;
+
+
+                if (sampleSoftArmor != null)
+                {
+                    mainRow.ArmorMaterial = sampleSoftArmor.ArmorMaterial;
+                    mainRow.ArmorClass = sampleSoftArmor.ArmorClass;
+                    mainRow.BluntThroughput = sampleSoftArmor.BluntThroughput;
+                    mainRow.Durability = totalDuraArmor + totalDuraPlates;
+                    mainRow.EffectiveDurability = totalEffectiveDuraArmor + totalEffectiveDuraPlates;
+                    mainRow.RicochetParams = sampleSoftArmor.RicochetParams;
+                    mainRow.ArmorColliders = armorColliders;
+                    mainRow.ArmorPlateColliders = armorPlateColliders;
+                }
+
+                foreach(var slot in armorColliderSlots)
+                {
+                    var subTemp = (ArmoredEquipment)slot.ContainedItem;
+                    NewArmorTableRow subRow = new NewArmorTableRow();
+                    subRow.Id = subTemp.Id;
+                    subRow.Type = subTemp.ArmorType.ToString();
+                    subRow.Name = subTemp.Name;
+
+                    subRow.Weight = subTemp.Weight;
+                    subRow.Ergonomics = subTemp.WeaponErgonomicPenalty;
+                    subRow.SpeedPenalty = subTemp.SpeedPenaltyPercent;
+                    subRow.TurnSpeed = subTemp.MousePenalty;
+                    subRow.IsDefault = slot.Required;
+
+                    subRow.ArmorMaterial = subTemp.ArmorMaterial;
+                    subRow.ArmorClass = subTemp.ArmorClass;
+                    subRow.BluntThroughput = subTemp.BluntThroughput;
+                    subRow.Durability = subTemp.Durability;
+                    subRow.EffectiveDurability = Ballistics.GetEffectiveDurability(subTemp.Durability, subTemp.ArmorMaterial);
+                    subRow.RicochetParams = subTemp.RicochetParams;
+                    subRow.ArmorColliders = subTemp.ArmorColliders.ToArray();
+
+                    mainRow.SubRows.Add(subRow);
+                }
+                foreach(var slot in armorPlateSlots)
+                {
+                    if(slot.ContainedItem != null)
+                    {
+                        var subTemp = (ArmoredEquipment)slot.ContainedItem;
+                        NewArmorTableRow subRow = new NewArmorTableRow();
+                        subRow.Id = subTemp.Id;
+                        subRow.Type = subTemp.ArmorType.ToString();
+                        subRow.Name = subTemp.Name;
+
+                        subRow.Weight = subTemp.Weight;
+                        subRow.Ergonomics = subTemp.WeaponErgonomicPenalty;
+                        subRow.SpeedPenalty = subTemp.SpeedPenaltyPercent;
+                        subRow.TurnSpeed = subTemp.MousePenalty;
+                        subRow.IsDefault = slot.Required;
+
+                        subRow.ArmorMaterial = subTemp.ArmorMaterial;
+                        subRow.ArmorClass = subTemp.ArmorClass;
+                        subRow.BluntThroughput = subTemp.BluntThroughput;
+                        subRow.Durability = subTemp.Durability;
+                        subRow.EffectiveDurability = Ballistics.GetEffectiveDurability(subTemp.Durability, subTemp.ArmorMaterial);
+                        subRow.RicochetParams = subTemp.RicochetParams;
+                        subRow.ArmorPlateColliders = subTemp.ArmorPlateColliders.ToArray();
+                        subRow.CompatibleInSlotIds = slot.Filters[0].Whitelist;
+
+                        mainRow.SubRows.Add(subRow);
+                    }
+                }
+
+                result.Add(mainRow);
+            }
+
+            foreach (var armor in rigs)
+            {
+                NewArmorTableRow mainRow = new NewArmorTableRow();
+                mainRow.Id = armor.Id;
+                mainRow.Type = armor.ArmorType.ToString();
+                mainRow.Name = armor.Name;
+
+                mainRow.IsDefault = true;
+
+                var armorColliderSlots = armor.Slots.Where(x => x.Filters[0].ArmorColliders.Count > 0).ToList();
+                var armorPlateSlots = armor.Slots.Where(x => x.Filters[0].ArmorPlateColliders.Count > 0).ToList();
+
+                var armorColliders = armor.Slots
+                        .Where(x => x.ContainedItem != null)
+                        .SelectMany(x => x.Filters[0].ArmorColliders)
+                        .ToArray();
+                var armorPlateColliders = armor.Slots
+                        .Where(x => x.ContainedItem != null)
+                        .SelectMany(x => x.Filters[0].ArmorPlateColliders)
+                        .ToArray();
+
+                var totalDuraArmor = armorColliderSlots.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                var totalEffectiveDuraArmor = armorColliderSlots.Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                var totalDuraPlates = 0;
+                var totalEffectiveDuraPlates = 0;
+                if (armorPlateSlots.Count > 0)
+                {
+                    totalDuraPlates = armorPlateSlots.Where(x => x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraPlates = armorPlateSlots.Where(x => x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                }
+
+
+                if (totalDuraArmor == 0)
+                {
+                    totalDuraArmor = armorPlateSlots.Where(x => x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraArmor = armorColliderSlots.Where(x => x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                    totalDuraPlates = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => item.Durability);
+                    totalEffectiveDuraPlates = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().Sum(item => Ballistics.GetEffectiveDurability(item.Durability, item.ArmorMaterial));
+                }
+
+                ArmoredEquipment sampleSoftArmor = new();
+
+                if (armorColliderSlots.Count > 0)
+                {
+                    sampleSoftArmor = (ArmoredEquipment)StaticRatStash.DB.GetItem(armorColliderSlots[0].ContainedItem.Id);
+                }
+                else
+                {
+                    sampleSoftArmor = armorPlateSlots.Where(x => !x.Required).Select(x => x.ContainedItem).Cast<ArmoredEquipment>().FirstOrDefault();
+                }
+
+                var defaultPlates = armorPlateSlots.Where(x => !x.Required && x.ContainedItem != null).Select(x => x.ContainedItem).Cast<ArmoredEquipment>();
+
+                var plateWeight = defaultPlates.Sum(item => item.Weight);
+                mainRow.Weight = armor.Weight + plateWeight;
+
+                var plateErgo = defaultPlates.Sum(item => item.WeaponErgonomicPenalty);
+                mainRow.Ergonomics = armor.WeaponErgonomicPenalty + plateErgo;
+
+                var plateSpeed = defaultPlates.Sum(item => item.SpeedPenaltyPercent);
+                mainRow.SpeedPenalty = armor.SpeedPenaltyPercent + plateSpeed;
+
+                var plateTurn = defaultPlates.Sum(item => item.MousePenalty);
+                mainRow.TurnSpeed = armor.MousePenalty + plateTurn;
+
+
+                if (sampleSoftArmor != null)
+                {
+                    mainRow.ArmorMaterial = sampleSoftArmor.ArmorMaterial;
+                    mainRow.ArmorClass = sampleSoftArmor.ArmorClass;
+                    mainRow.BluntThroughput = sampleSoftArmor.BluntThroughput;
+                    mainRow.Durability = totalDuraArmor + totalDuraPlates;
+                    mainRow.EffectiveDurability = totalEffectiveDuraArmor + totalEffectiveDuraPlates;
+                    mainRow.RicochetParams = sampleSoftArmor.RicochetParams;
+                    mainRow.ArmorColliders = armorColliders;
+                    mainRow.ArmorPlateColliders = armorPlateColliders;
+                }
+
+                foreach (var slot in armorColliderSlots)
+                {
+                    var subTemp = (ArmoredEquipment)slot.ContainedItem;
+                    NewArmorTableRow subRow = new NewArmorTableRow();
+                    subRow.Id = subTemp.Id;
+                    subRow.Type = subTemp.ArmorType.ToString();
+                    subRow.Name = subTemp.Name;
+
+                    subRow.Weight = subTemp.Weight;
+                    subRow.Ergonomics = subTemp.WeaponErgonomicPenalty;
+                    subRow.SpeedPenalty = subTemp.SpeedPenaltyPercent;
+                    subRow.TurnSpeed = subTemp.MousePenalty;
+                    subRow.IsDefault = slot.Required;
+
+                    subRow.ArmorMaterial = subTemp.ArmorMaterial;
+                    subRow.ArmorClass = subTemp.ArmorClass;
+                    subRow.BluntThroughput = subTemp.BluntThroughput;
+                    subRow.Durability = subTemp.Durability;
+                    subRow.EffectiveDurability = Ballistics.GetEffectiveDurability(subTemp.Durability, subTemp.ArmorMaterial);
+                    subRow.RicochetParams = subTemp.RicochetParams;
+                    subRow.ArmorColliders = subTemp.ArmorColliders.ToArray();
+
+                    mainRow.SubRows.Add(subRow);
+                }
+                foreach (var slot in armorPlateSlots)
+                {
+                    if (slot.ContainedItem != null)
+                    {
+                        var subTemp = (ArmoredEquipment)slot.ContainedItem;
+                        NewArmorTableRow subRow = new NewArmorTableRow();
+                        subRow.Id = subTemp.Id;
+                        subRow.Type = subTemp.ArmorType.ToString();
+                        subRow.Name = subTemp.Name;
+
+                        subRow.Weight = subTemp.Weight;
+                        subRow.Ergonomics = subTemp.WeaponErgonomicPenalty;
+                        subRow.SpeedPenalty = subTemp.SpeedPenaltyPercent;
+                        subRow.TurnSpeed = subTemp.MousePenalty;
+                        subRow.IsDefault = slot.Required;
+
+                        subRow.ArmorMaterial = subTemp.ArmorMaterial;
+                        subRow.ArmorClass = subTemp.ArmorClass;
+                        subRow.BluntThroughput = subTemp.BluntThroughput;
+                        subRow.Durability = subTemp.Durability;
+                        subRow.EffectiveDurability = Ballistics.GetEffectiveDurability(subTemp.Durability, subTemp.ArmorMaterial);
+                        subRow.RicochetParams = subTemp.RicochetParams;
+                        subRow.ArmorPlateColliders = subTemp.ArmorPlateColliders.ToArray();
+                        subRow.CompatibleInSlotIds = slot.Filters[0].Whitelist;
+
+                        mainRow.SubRows.Add(subRow);
+                    }
+                }
+
+                result.Add(mainRow);
+            }
 
             return result;
         }
