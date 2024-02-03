@@ -21,9 +21,8 @@ namespace WishGranter.API_Methods
         private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet();
         private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
         private static List<NewArmorTableRow> NewHelmets = WriteHelmetsDataSheet();
-        
-        
-        
+        private static List<NewArmorTableRow> NewArmorStatsSheet = WriteNewArmorStatsSheet();
+
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
@@ -70,8 +69,11 @@ namespace WishGranter.API_Methods
             using var myActivity = myActivitySource.StartActivity("Request for HelmetDataSheet");
             return NewHelmets;
         }
-
-
+        public static List<NewArmorTableRow> GetNewArmorStatSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for NewArmorStatsSheet");
+            return NewArmorStatsSheet;
+        }
 
         public static List<SelectionArmor> WriteArmorOptionsList()
         {
@@ -229,6 +231,12 @@ namespace WishGranter.API_Methods
         {
             return Armors.ConvertHelmetsToArmorTableRows();
         }
+
+        public static List<NewArmorTableRow> WriteNewArmorStatsSheet()
+        {
+            return Armors.AssembledArmorsAndRigsAsRows;
+        }
+
         public static List<ArmorTableRow> WriteArmorDataSheet()
         {
             Monolit db = new();

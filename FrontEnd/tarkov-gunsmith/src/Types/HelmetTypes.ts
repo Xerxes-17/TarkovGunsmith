@@ -1,4 +1,4 @@
-import { ArmorCollider, MaterialType } from "../Components/ADC/ArmorData";
+import { ArmorCollider, ArmorPlateCollider, MaterialType } from "../Components/ADC/ArmorData";
 import { ArmorModule, RicochetParams } from "./ArmorTypes";
 
 export interface NewArmorTableRow {
@@ -21,6 +21,9 @@ export interface NewArmorTableRow {
   armorMaterial: MaterialType;
   ricochetParams: RicochetParams;
   armorColliders: ArmorCollider[];
+  armorPlateColliders: ArmorPlateCollider[];
+
+  compatibleInSlotIds: string[];
 
   subRows: NewArmorTableRow[];
 }

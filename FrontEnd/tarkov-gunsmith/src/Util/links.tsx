@@ -8,7 +8,6 @@ export const LINKS = {
     DATA_SHEETS: "/datasheets",
     DATA_SHEETS_WEAPONS: `${DATA_SHEETS}/weapons`,
     DATA_SHEETS_AMMO: `${DATA_SHEETS}/ammo`,
-    DATA_SHEETS_WEAPONS_new: `${DATA_SHEETS}/weapons_new`,
     DATA_SHEETS_PLATES_INSERTS: `${DATA_SHEETS}/plates_inserts`,
     DATA_SHEETS_HELMETS: `${DATA_SHEETS}/helmets`,
     DATA_SHEETS_ARMOR: `${DATA_SHEETS}/armor`,

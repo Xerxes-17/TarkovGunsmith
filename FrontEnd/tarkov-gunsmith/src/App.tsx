@@ -22,6 +22,7 @@ import AmmoMRT from './Pages/AmmoTable/AmmoMRT';
 import { WeaponMRT } from './Pages/WeaponTable/WeaponMRT';
 import { DataSheetArmorModules } from './Components/DataSheets/Stats_ArmorModules';
 import { HelmetsMRT } from './Pages/HelmetTable/HelmetsMRT';
+import { ArmorMRT } from './Pages/ArmorTable/ArmorMRT';
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
             
             <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />
             <Route path={LINKS.DATA_SHEETS_HELMETS} element={<HelmetsMRT />} />
-            {/* <Route path={LINKS.DATA_SHEETS_ARMOR} element={<DataSheetArmor />} /> */}
+            <Route path={LINKS.DATA_SHEETS_ARMOR} element={<ArmorMRT />} />
             
 
             {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />

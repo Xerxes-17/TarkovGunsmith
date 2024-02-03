@@ -79,7 +79,7 @@ function BrandExample() {
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
-                                        <Nav.Link disabled>Armor</Nav.Link>
+                                        <Nav.Link >Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
