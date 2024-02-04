@@ -178,7 +178,7 @@ export function ArmorModulesMRT(){
             },
             {
                 accessorKey: 'maxEffectiveDurability',
-                header: 'eff. Durability',
+                header: 'Effective Durability',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 size: 10, //small column
                 Cell: ({ cell }) => (
