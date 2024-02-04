@@ -457,9 +457,5 @@ export default function AmmoMRT() {
         ),
     });
 
-    return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
-    );
+    return (<MantineReactTable table={table} />);
 }

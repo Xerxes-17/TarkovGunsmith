@@ -27,6 +27,7 @@ import { RicochetAngleCell } from '../../Components/Common/TableCells/RicochetAn
 import { DirectPercentageCell } from '../../Components/Common/TableCells/DirectPercentageCell';
 import { BluntDamageCell } from '../../Components/Common/TableCells/BluntDamageCell';
 import { armorCollidersToStrings } from '../../Components/Common/Helpers/ArmorHelpers';
+import { NameAndAvatarCell } from '../../Components/Common/TableCells/NameAndAvatarCell';
 
 export function HelmetsMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -62,28 +63,7 @@ export function HelmetsMRT() {
                 size: 8,
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
-                Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
-                        <Avatar
-                            alt="avatar"
-                            size={'md'}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                            hidden={!pix}
-                        >
-                            {row.original.type === "Light" && lightShield}
-                            {row.original.type === "Heavy" && heavyShield}
-                        </Avatar>
-                        <span>{renderedCellValue}</span>
-                    </Box>
-                    // <span>{renderedCellValue}</span>
-                ),
+                Cell: ({ renderedCellValue, row }) => NameAndAvatarCell(renderedCellValue, row, pix)
             },
             {
                 id: "type",
@@ -94,7 +74,7 @@ export function HelmetsMRT() {
             },
             {
                 accessorKey: "weight",
-                header: "Weight",
+                header: "Weight (kg)",
                 size: 80,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(2)}</span>
@@ -411,9 +391,5 @@ export function HelmetsMRT() {
         ),
     });
 
-    return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
-    );
+    return (<MantineReactTable table={table}/>);
 }

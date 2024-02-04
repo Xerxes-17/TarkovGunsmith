@@ -26,6 +26,10 @@ import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/A
 import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
 import { createHitZoneValues_ArmorTableRow } from '../../Components/Common/Helpers/ArmorHelpers';
 import { ArmorBluntDamageCell } from '../../Components/Common/TableCells/ArmorBluntDamageCell';
+import { RicochetAngleCell } from '../../Components/Common/TableCells/RicochetAngleCell';
+import { RicochetChanceCell } from '../../Components/Common/TableCells/RicochetChanceCells';
+import { DirectPercentageCell } from '../../Components/Common/TableCells/DirectPercentageCell';
+import { NameAndAvatarCell } from '../../Components/Common/TableCells/NameAndAvatarCell';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -39,7 +43,7 @@ export function ArmorMRT() {
 
     async function getTableData() {
         const response_ApiWishGranter = await getArmorStatsDataFromApi_WishGranter()
-        
+
         if (response_ApiWishGranter !== null) {
             setTableData(response_ApiWishGranter);
             return;
@@ -61,38 +65,7 @@ export function ArmorMRT() {
                 size: 8,
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
-                Cell: ({ renderedCellValue, row }) => {
-
-                    return (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '1rem',
-                            }}
-                        >
-                            <Avatar
-                                alt="avatar"
-                                size={'md'}
-                                src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                                // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                                hidden={!pix}
-                            >
-                                {row.original.type === "Light" && lightShield}
-                                {row.original.type === "Heavy" && heavyShield}
-                                {row.original.type === "None" && noneShield}
-
-                            </Avatar>
-                            <>
-                                {renderedCellValue}
-                                {/* {row.original?.compatibleInSlotIds?.length > 1 && (
-                                    <ReplacePlateButton compatibleInSlotIds={row.original?.compatibleInSlotIds}/>
-                                )} */}
-                            </>
-                        </Box>
-                        // <span>{renderedCellValue}</span>
-                    )
-                }
+                Cell: ({ renderedCellValue, row }) => NameAndAvatarCell(renderedCellValue, row, pix)
             },
             {
                 id: "type",
@@ -118,6 +91,7 @@ export function ArmorMRT() {
                 accessorKey: "turnSpeed",
                 header: "Turn Speed",
                 size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
             },
             {
                 id: "armorClass",
@@ -183,21 +157,24 @@ export function ArmorMRT() {
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
-                Header: MaxRicochetColHeader()
+                Header: MaxRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
-                Header: MinRicochetColHeader()
+                Header: MinRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
-                Header: MinAngleRicochetColHeader()
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetAngleCell(cell, row.original.ricochetParams)
             },
             {
                 id: "armorZones",
@@ -224,7 +201,7 @@ export function ArmorMRT() {
 
         enableExpanding: true,
         filterFromLeafRows: true,
-        
+
         positionGlobalFilter: "none",
         enableStickyHeader: true,
         enableGlobalFilter: true,
@@ -349,7 +326,7 @@ export function ArmorMRT() {
                     {/* <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button> */}
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
                     <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
-                    <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones': 'Hide Zones' }</Button>
+                    <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones' : 'Hide Zones'}</Button>
                 </Flex>
             </Flex>
 
@@ -390,8 +367,6 @@ export function ArmorMRT() {
     });
 
     return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
+        <MantineReactTable table={table} />
     );
 }
