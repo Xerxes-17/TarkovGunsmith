@@ -65,10 +65,10 @@ export function OldBsHeaderNavbar() {
                                         <Nav.Link>Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-
+                                
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR_MODULES}>
-                                        <Nav.Link>Armor Modules (Plates/Inserts)</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
+                                        <Nav.Link >Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
 
@@ -79,8 +79,8 @@ export function OldBsHeaderNavbar() {
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
-                                        <Nav.Link >Armor</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR_MODULES}>
+                                        <Nav.Link>Armor Modules (Plates/Inserts)</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
                             </NavDropdown>

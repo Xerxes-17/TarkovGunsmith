@@ -1,4 +1,5 @@
 import { ArmorModule } from "../../../Types/ArmorTypes";
+import { NewArmorTableRow } from "../../../Types/HelmetTypes";
 import { ArmorPlateCollider, ArmorPlateZones, ArmorCollider, ArmorZones } from "../../ADC/ArmorData";
 
 export function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {
@@ -9,6 +10,12 @@ export function armorCollidersToStrings(colliders: ArmorCollider[]) {
 }
 
 export function createHitZoneValues(row: ArmorModule) {
+    const plates = plateCollidersToStrings(row.armorPlateColliders);
+    const body = armorCollidersToStrings(row.armorColliders);
+    return [...plates, ...body]
+}
+
+export function createHitZoneValues_ArmorTableRow(row: NewArmorTableRow) {
     const plates = plateCollidersToStrings(row.armorPlateColliders);
     const body = armorCollidersToStrings(row.armorColliders);
     return [...plates, ...body]

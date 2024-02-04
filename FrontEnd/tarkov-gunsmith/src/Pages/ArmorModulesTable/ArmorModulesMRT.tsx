@@ -17,6 +17,9 @@ import { MinAngleRicochetColHeader } from "../../Components/Common/TextWithToolT
 import { MinRicochetColHeader } from "../../Components/Common/TextWithToolTips/MinRicochetColHeader";
 import { createHitZoneValues } from "../../Components/Common/Helpers/ArmorHelpers";
 import { HitZonesWTT } from "../../Components/Common/TextWithToolTips/HitZonesWTT";
+import { RicochetAngleCell } from "../../Components/Common/TableCells/RicochetAngleCell";
+import { RicochetChanceCell } from "../../Components/Common/TableCells/RicochetChanceCells";
+import { BluntDamageCell } from "../../Components/Common/TableCells/BluntDamageCell";
 
 
 export function ArmorModulesMRT(){
@@ -164,9 +167,7 @@ export function ArmorModulesMRT(){
                 accessorKey: 'bluntThroughput',
                 header: 'Blunt Throughput',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
-                ),
+                Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),
                 Header: BluntThroughputWithToolTip()
             },
             {
@@ -201,19 +202,22 @@ export function ArmorModulesMRT(){
                 accessorKey: 'ricochetParams.x',
                 header: 'Max Ricochet Chance',
                 size: 80,
-                Header: MaxRicochetColHeader()
+                Header: MaxRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 accessorKey: 'ricochetParams.y',
                 header: 'Min Ricochet Chance',
                 size: 80,
-                Header: MinRicochetColHeader()
+                Header: MinRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 accessorKey: 'ricochetParams.z',
                 header: 'Min Ricochet Angle',
                 size: 80,
-                Header: MinAngleRicochetColHeader()
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams)
             },
             {
                 accessorKey: 'usedInNames',

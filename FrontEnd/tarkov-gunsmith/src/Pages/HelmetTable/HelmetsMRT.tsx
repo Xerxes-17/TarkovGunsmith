@@ -11,9 +11,9 @@ import {
 } from 'mantine-react-table';
 import { Box, Button, Flex, Text, Avatar, Title } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
-import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
+import { NewArmorTableRow } from '../../Types/HelmetTypes';
+import { convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
+import { joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
 import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
@@ -22,6 +22,11 @@ import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/M
 import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
 import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
 import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
+import { RicochetChanceCell } from '../../Components/Common/TableCells/RicochetChanceCells';
+import { RicochetAngleCell } from '../../Components/Common/TableCells/RicochetAngleCell';
+import { DirectPercentageCell } from '../../Components/Common/TableCells/DirectPercentageCell';
+import { BluntDamageCell } from '../../Components/Common/TableCells/BluntDamageCell';
+import { armorCollidersToStrings } from '../../Components/Common/Helpers/ArmorHelpers';
 
 export function HelmetsMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -31,19 +36,6 @@ export function HelmetsMRT() {
 
     const [filters, filtersHandlers] = useDisclosure(false);
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
-
-    // Handler to toggle 'caliber' in the manualGrouping array
-    const handleToggleCaliber = () => {
-        if (manualGrouping.includes('caliber')) {
-            // 'caliber' is already in the array, so we remove it
-            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
-            setVisibility({ caliber: true })
-        } else {
-            // 'caliber' is not in the array, so we add it
-            setManualGrouping([...manualGrouping, 'caliber']);
-            setVisibility({ caliber: false })
-        }
-    };
 
     async function getTableData() {
         const response_ApiTarkovDev = await getHelmetsDataFromApi_WishGranter()
@@ -117,6 +109,7 @@ export function HelmetsMRT() {
                 accessorKey: "turnSpeed",
                 header: "Turn Speed",
                 size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
             },
             {
                 id: "armorClass",
@@ -129,9 +122,7 @@ export function HelmetsMRT() {
                 accessorKey: "bluntThroughput",
                 header: "Blunt Throughput",
                 size: 80,
-                Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toFixed(3)}</span>
-                ),
+                Cell: ({ cell, row }) => BluntDamageCell(cell, armorCollidersToStrings(row.original.armorColliders)),
                 Header: BluntThroughputWithToolTip()
             },
             {
@@ -183,21 +174,24 @@ export function HelmetsMRT() {
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
-                Header: MaxRicochetColHeader()
+                Header: MaxRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
-                Header: MinRicochetColHeader()
+                Header: MinRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
-                Header: MinAngleRicochetColHeader()
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams)
             },
             {
                 id: "armorZones",

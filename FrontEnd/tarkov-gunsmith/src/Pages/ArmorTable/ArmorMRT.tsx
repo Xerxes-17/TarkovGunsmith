@@ -13,7 +13,6 @@ import { Box, Button, Flex, Text, Avatar, Title, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
 import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings, createHitZoneValues_ArmorTableRow, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getArmorStatsDataFromApi_WishGranter, getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { lightShield, heavyShield, noneShield } from '../../Components/Common/tgIcons';
 import { ArmorZonesTableCell } from '../../Components/Common/ArmorZonesTableCell';
@@ -25,6 +24,8 @@ import { ArmorMaterialWithToolTip } from '../../Components/Common/TextWithToolTi
 import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
 import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
 import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
+import { createHitZoneValues_ArmorTableRow } from '../../Components/Common/Helpers/ArmorHelpers';
+import { ArmorBluntDamageCell } from '../../Components/Common/TableCells/ArmorBluntDamageCell';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -129,9 +130,7 @@ export function ArmorMRT() {
                 accessorKey: "bluntThroughput",
                 header: "Blunt Throughput",
                 size: 80,
-                Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toFixed(3)}</span>
-                ),
+                Cell: ({ cell, row }) => ArmorBluntDamageCell(cell, row),
                 Header: BluntThroughputWithToolTip()
             },
             {

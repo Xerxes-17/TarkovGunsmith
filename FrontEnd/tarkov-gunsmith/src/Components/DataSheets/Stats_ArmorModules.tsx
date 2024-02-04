@@ -225,8 +225,7 @@ export function DataSheetArmorModules(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 filterVariant: "text",
                 filterFn: "contains",
-                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
-                Header: HitZonesWTT()
+                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original))
             },
         ],
         [],

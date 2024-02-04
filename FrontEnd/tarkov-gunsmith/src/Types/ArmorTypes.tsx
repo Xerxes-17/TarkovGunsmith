@@ -50,23 +50,6 @@ export interface ArmorModuleTableRow {
     hitZones: string[]
 }
 
-export function plateCollidersToStrings(colliders: ArmorPlateCollider[]){
-    return colliders.map((val) => ArmorPlateZones[val])
-}
-export function armorCollidersToStrings(colliders: ArmorCollider[]){
-    return colliders.map((val) => ArmorZones[val])
-}
-
-export function createHitZoneValues(zones: ArmorCollider[]){
-    return armorCollidersToStrings(zones);
-}
-
-export function createHitZoneValues_ArmorTableRow(row: NewArmorTableRow) {
-    const plates = plateCollidersToStrings(row.armorPlateColliders);
-    const body = armorCollidersToStrings(row.armorColliders);
-    return [...plates, ...body]
-}
-
 export function joinArmorCollidersAsZones(armorColliders: ArmorCollider[]) {
     const zones = armorColliders.map((enumVal) => {
         return ArmorZones[enumVal]
