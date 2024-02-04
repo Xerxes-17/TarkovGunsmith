@@ -13,11 +13,23 @@ import { Box, Button, Flex, Text, Avatar, Title, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
 import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings, createHitZoneValues_ArmorTableRow, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getArmorStatsDataFromApi_WishGranter, getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { lightShield, heavyShield, noneShield } from '../../Components/Common/tgIcons';
 import { ArmorZonesTableCell } from '../../Components/Common/ArmorZonesTableCell';
 import { ReplacePlateButton } from '../../Components/Common/ReplacePlateButton';
+import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';
+import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
+import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
+import { ArmorMaterialWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorMaterialWithToolTip';
+import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
+import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
+import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
+import { createHitZoneValues_ArmorTableRow } from '../../Components/Common/Helpers/ArmorHelpers';
+import { ArmorBluntDamageCell } from '../../Components/Common/TableCells/ArmorBluntDamageCell';
+import { RicochetAngleCell } from '../../Components/Common/TableCells/RicochetAngleCell';
+import { RicochetChanceCell } from '../../Components/Common/TableCells/RicochetChanceCells';
+import { DirectPercentageCell } from '../../Components/Common/TableCells/DirectPercentageCell';
+import { NameAndAvatarCell } from '../../Components/Common/TableCells/NameAndAvatarCell';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -31,7 +43,7 @@ export function ArmorMRT() {
 
     async function getTableData() {
         const response_ApiWishGranter = await getArmorStatsDataFromApi_WishGranter()
-        
+
         if (response_ApiWishGranter !== null) {
             setTableData(response_ApiWishGranter);
             return;
@@ -44,8 +56,6 @@ export function ArmorMRT() {
         getTableData();
     }, [])
 
-
-
     const columns = useMemo<MRT_ColumnDef<NewArmorTableRow>[]>(
         () => [
             {
@@ -55,48 +65,18 @@ export function ArmorMRT() {
                 size: 8,
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
-                Cell: ({ renderedCellValue, row }) => {
-
-                    return (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '1rem',
-                            }}
-                        >
-                            <Avatar
-                                alt="avatar"
-                                size={'md'}
-                                src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                                // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                                hidden={!pix}
-                            >
-                                {row.original.type === "Light" && lightShield}
-                                {row.original.type === "Heavy" && heavyShield}
-                                {row.original.type === "None" && noneShield}
-
-                            </Avatar>
-                            <>
-                                {renderedCellValue}
-                                {/* {row.original?.compatibleInSlotIds?.length > 1 && (
-                                    <ReplacePlateButton compatibleInSlotIds={row.original?.compatibleInSlotIds}/>
-                                )} */}
-                            </>
-                        </Box>
-                        // <span>{renderedCellValue}</span>
-                    )
-                }
+                Cell: ({ renderedCellValue, row }) => NameAndAvatarCell(renderedCellValue, row, pix)
             },
             {
                 id: "type",
                 accessorKey: "type",
                 header: "Type",
                 size: 80,
+                Header: ArmorTypeWithToolTip()
             },
             {
                 accessorKey: "weight",
-                header: "Weight",
+                header: "Weight (kg)",
                 size: 80,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(2)}</span>
@@ -111,6 +91,7 @@ export function ArmorMRT() {
                 accessorKey: "turnSpeed",
                 header: "Turn Speed",
                 size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
             },
             {
                 id: "armorClass",
@@ -123,9 +104,8 @@ export function ArmorMRT() {
                 accessorKey: "bluntThroughput",
                 header: "Blunt Throughput",
                 size: 80,
-                Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toFixed(3)}</span>
-                ),
+                Cell: ({ cell, row }) => ArmorBluntDamageCell(cell, row),
+                Header: BluntThroughputWithToolTip()
             },
             {
                 id: "default",
@@ -167,27 +147,34 @@ export function ArmorMRT() {
                 accessorFn: (row) => convertEnumValToArmorString(row.armorMaterial),
                 header: "Armor Material",
                 size: 80,
-                filterVariant: "text"
+                filterVariant: "text",
                 // filterVariant: "multi-select",
                 // filterSelectOptions: MATERIALS
+                Header: ArmorMaterialWithToolTip()
             },
             {
                 id: "ricochetX",
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
+                Header: MaxRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
+                Header: MinRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetAngleCell(cell, row.original.ricochetParams)
             },
             {
                 id: "armorZones",
@@ -202,7 +189,8 @@ export function ArmorMRT() {
                         const temp = createHitZoneValues_ArmorTableRow(row.original);
                         return temp.map((zone) => (<>{zone}<br /></>))
                     }
-                }
+                },
+                Header: HitZonesWTT()
             },
         ], [pix, expandedArmorZones]
     );
@@ -213,31 +201,6 @@ export function ArmorMRT() {
 
         enableExpanding: true,
         filterFromLeafRows: true,
-
-        // renderDetailPanel: ({ row }) => (
-        //     <Box
-        //         sx={{
-        //             display: 'flex',
-        //             justifyContent: 'flex-start',
-        //             alignItems: 'center',
-        //             gap: '16px',
-        //             padding: '16px',
-        //         }}
-        //     >
-        //         <Avatar
-        //             alt="avatar"
-        //             size={'md'}
-        //             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-        //         // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
-        //         >
-        //             TG
-        //         </Avatar>
-        //         <Box sx={{ textAlign: 'center' }}>
-        //             <Title>Ligma Balls:</Title>
-        //             <Text>&quot;{row.original.name}&quot;</Text>
-        //         </Box>
-        //     </Box>
-        // ),
 
         positionGlobalFilter: "none",
         enableStickyHeader: true,
@@ -257,14 +220,10 @@ export function ArmorMRT() {
         enableGrouping: true,
         enablePinning: true,
 
-
-
-        // enableTopToolbar: false,
         enableDensityToggle: false,
         positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
-        // enableColumnResizing: true,
         columnFilterDisplayMode: "subheader",
         positionPagination: "bottom",
         mantinePaginationProps: {
@@ -367,19 +326,8 @@ export function ArmorMRT() {
                     {/* <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button> */}
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
                     <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
-                    <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones': 'Hide Zones' }</Button>
+                    <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones' : 'Hide Zones'}</Button>
                 </Flex>
-
-                {/* <MultiSelect
-                    placeholder="Filter by up to 6 choices"
-                    data={ammoCaliberArray}
-                    miw={250}
-                    maw={400}
-                    maxSelectedValues={6}
-                    withinPortal={true}
-                    value={filterValues}
-                    onChange={setFilterValues}
-                /> */}
             </Flex>
 
         ),
@@ -419,8 +367,6 @@ export function ArmorMRT() {
     });
 
     return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
+        <MantineReactTable table={table} />
     );
 }

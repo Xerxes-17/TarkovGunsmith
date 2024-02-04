@@ -11,9 +11,9 @@ body {
   position: relative;
   margin: 0;
   min-height: 100vh;
-  padding-top: 56px;
-  padding-bottom: 1.5rem;
-  box-sizing: inherit;
+  // padding-top: 56px;
+  // padding-bottom: 1.5rem;
+  box-sizing: border-box;
 
   background-image: linear-gradient(#495b66, #353536);
   background-position: center;
@@ -30,12 +30,6 @@ footer {
   left: 0;
   text-align: center;
   position: absolute;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .main-app-container {
@@ -179,12 +173,12 @@ footer {
   width: -webkit-fill-available;
  }
 
-@media screen and (max-width: 768px) {
-  .main-app-container {
-    // margin-top: 54px;
-    margin-bottom: 54px;
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .main-app-container {
+//     // margin-top: 54px;
+//     margin-bottom: 54px;
+//   }
+// }
 
 // https://stackoverflow.com/a/46117607
 .html2canvas-container { width: 3000px !important; height: 3000px !important; }
@@ -311,5 +305,60 @@ ul.my-custom-pagination.dark {
   }
   .MWBresultCardTitle{
     margin-left: 10px;
+  }
+}
+
+
+.myBalllsss {
+  max-height: 30vh;
+}
+
+@media (min-width: 768px) {
+  .myBalllsss {
+    max-height: 67vh;
+  }
+}
+
+// @media (max-width: 767px) {
+//   .table-container {
+//     max-height: /* your max-height for smaller screens */;
+//   }
+// }
+$footer-3-lines: 557px;
+$footer-2-lines: 540px;
+$header-2-lines: 560px;
+$table-footer-1-lines: 723px;
+$table-header-1-lines: 891px;
+$footer-1-lines: 1002px;
+
+// Base view (for mobiles)
+// 3 lines of footer
+.tgMainTableInAppShell {
+  max-height: calc(100vh - 385px);
+}
+// 2 lines of footer
+@media screen and (min-width: $footer-2-lines) {
+  .tgMainTableInAppShell {
+    max-height: calc(100vh - 365px);
+  }
+}
+@media screen and (min-width: $header-2-lines) {
+  .tgMainTableInAppShell {
+    max-height: calc(100vh - 325px);
+  }
+}
+@media screen and (min-width: $table-footer-1-lines) {
+  .tgMainTableInAppShell {
+    max-height: calc(100vh - 280px);
+  }
+}
+@media screen and (min-width: $table-header-1-lines) {
+  .tgMainTableInAppShell {
+    max-height: calc(100vh - 235px);
+  }
+}
+@media screen and (min-width: $footer-1-lines) {
+  .tgMainTableInAppShell {
+    max-height: calc(100vh - 215px);
   }
 }

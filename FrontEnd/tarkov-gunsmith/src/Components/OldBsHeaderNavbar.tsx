@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { LINKS } from '../Util/links';
 
-function BrandExample() {
+export function OldBsHeaderNavbar() {
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
@@ -65,12 +65,13 @@ function BrandExample() {
                                         <Nav.Link>Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-
+                                
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_PLATES_INSERTS}>
-                                        <Nav.Link>Plates & Inserts</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
+                                        <Nav.Link >Armor</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
+
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_HELMETS}>
                                         <Nav.Link>Helmets</Nav.Link>
@@ -78,12 +79,10 @@ function BrandExample() {
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Item>
-                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
-                                        <Nav.Link >Armor</Nav.Link>
+                                    <LinkContainer to={LINKS.DATA_SHEETS_ARMOR_MODULES}>
+                                        <Nav.Link>Armor Modules (Plates/Inserts)</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-
-
                             </NavDropdown>
 
                             <LinkContainer to={LINKS.ABOUT}>
@@ -96,5 +95,3 @@ function BrandExample() {
         </>
     );
 }
-
-export default BrandExample;

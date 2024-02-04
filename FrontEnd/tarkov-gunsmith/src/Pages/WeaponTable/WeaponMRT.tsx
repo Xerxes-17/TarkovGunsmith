@@ -8,15 +8,17 @@ import {
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
-    MRT_ExpandButton
+    MRT_ExpandButton,
+    MRT_TableOptions
 } from 'mantine-react-table';
 
-import { Box, Button, Flex, Text, Avatar, MultiSelect } from '@mantine/core'
+import { Box, Button, Flex, Text, Avatar, MultiSelect} from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { WeaponsTableRow } from "../../Types/WeaponTypes";
 import { getDataFromApi_TarkovDev } from "../../Api/WeaponApiCalls";
 import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
 import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
+import { useTgTable } from "../../Components/Common/use-tg-table";
 
 export function WeaponMRT() {
     const initialData: WeaponsTableRow[] = [];
@@ -88,7 +90,7 @@ export function WeaponMRT() {
                 header: 'Name',
                 enableSorting: true,
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
-
+                size: 80,
                 Cell: ({ renderedCellValue, row }) => (
                     <Box
                         sx={{
@@ -256,52 +258,20 @@ export function WeaponMRT() {
         [pix, manualGrouping],
     );
 
-    const table = useMantineReactTable({
-        columns: columns,
+    const table = useTgTable({
+        columns,
         data: tableData,
-        positionGlobalFilter: "none",
-        enableStickyHeader: true,
-        enableGlobalFilter: true,
-        enableColumnFilterModes: true,
-
-        enableColumnOrdering: true,
-        enableColumnFilters: true,
-
-        enableToolbarInternalActions: true,
-        enableHiding: false,
-        enableSorting: true,
-
-        enableColumnActions: false,
-        enableColumnDragging: false,
-        enableFacetedValues: true,
-        enableGrouping: true,
-        enablePinning: true,
-
-        // enableTopToolbar: false,
-        enableDensityToggle: false,
-        positionToolbarAlertBanner: "bottom",
-
-        enableRowSelection: false,
-        // enableColumnResizing: true,
-        columnFilterDisplayMode: "subheader",
-        positionPagination: "bottom",
-        mantinePaginationProps: {
-            rowsPerPageOptions: ["10", "25", "50", "75", "100", "150", "200"],
-        },
         initialState: {
             expanded: true,
             columnVisibility: {
                 caliber: false,
-
             },
             density: "xs",
-
             pagination: {
                 pageIndex: 0, pageSize: 200
             },
             columnPinning: {
                 left: ['mrt-row-expand', 'name']
-                // left: ['mrt-row-expand']
             },
             sorting: [{ id: 'defaultErgonomics', desc: true }, { id: 'defaultRecoil', desc: false }, { id: 'recoilDispersion', desc: false }],
         },
@@ -313,7 +283,7 @@ export function WeaponMRT() {
         },
         mantineTableHeadProps: {
             sx: {
-                // tableLayout: 'fixed',
+                tableLayout: 'fixed',
             },
         },
         mantineTopToolbarProps: {
@@ -414,18 +384,21 @@ export function WeaponMRT() {
                 },
             },
         },
-
+        
         renderToolbarInternalActions: ({ table }) => (
             <>
                 {/* <MRT_TablePagination table={table} /> */}
                 <MRT_ToggleFullScreenButton table={table} />
             </>
         ),
-    });
+        mantineTableContainerProps: { 
+            // sx: 
+            // { maxHeight: '500px' },
+            className: "tgMainTableInAppShell"
+        },
+    })
 
     return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
+        <MantineReactTable table={table}/>
     );
 }

@@ -11,11 +11,23 @@ import {
 } from 'mantine-react-table';
 import { Box, Button, Flex, Text, Avatar, Title } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
-import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { armorCollidersToStrings, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
+import { NewArmorTableRow } from '../../Types/HelmetTypes';
+import { convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
+import { joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
+import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
+import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
+import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';
+import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
+import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
+import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
+import { RicochetChanceCell } from '../../Components/Common/TableCells/RicochetChanceCells';
+import { RicochetAngleCell } from '../../Components/Common/TableCells/RicochetAngleCell';
+import { DirectPercentageCell } from '../../Components/Common/TableCells/DirectPercentageCell';
+import { BluntDamageCell } from '../../Components/Common/TableCells/BluntDamageCell';
+import { armorCollidersToStrings } from '../../Components/Common/Helpers/ArmorHelpers';
+import { NameAndAvatarCell } from '../../Components/Common/TableCells/NameAndAvatarCell';
 
 export function HelmetsMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -25,19 +37,6 @@ export function HelmetsMRT() {
 
     const [filters, filtersHandlers] = useDisclosure(false);
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
-
-    // Handler to toggle 'caliber' in the manualGrouping array
-    const handleToggleCaliber = () => {
-        if (manualGrouping.includes('caliber')) {
-            // 'caliber' is already in the array, so we remove it
-            setManualGrouping(manualGrouping.filter(item => item !== 'caliber'));
-            setVisibility({ caliber: true })
-        } else {
-            // 'caliber' is not in the array, so we add it
-            setManualGrouping([...manualGrouping, 'caliber']);
-            setVisibility({ caliber: false })
-        }
-    };
 
     async function getTableData() {
         const response_ApiTarkovDev = await getHelmetsDataFromApi_WishGranter()
@@ -64,38 +63,18 @@ export function HelmetsMRT() {
                 size: 8,
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
-                Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
-                        <Avatar
-                            alt="avatar"
-                            size={'md'}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            // style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                            hidden={!pix}
-                        >
-                            {row.original.type === "Light" && lightShield}
-                            {row.original.type === "Heavy" && heavyShield}
-                        </Avatar>
-                        <span>{renderedCellValue}</span>
-                    </Box>
-                    // <span>{renderedCellValue}</span>
-                ),
+                Cell: ({ renderedCellValue, row }) => NameAndAvatarCell(renderedCellValue, row, pix)
             },
             {
                 id: "type",
                 accessorKey: "type",
                 header: "Type",
                 size: 80,
+                Header: ArmorTypeWithToolTip()
             },
             {
                 accessorKey: "weight",
-                header: "Weight",
+                header: "Weight (kg)",
                 size: 80,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(2)}</span>
@@ -110,6 +89,7 @@ export function HelmetsMRT() {
                 accessorKey: "turnSpeed",
                 header: "Turn Speed",
                 size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
             },
             {
                 id: "armorClass",
@@ -122,9 +102,8 @@ export function HelmetsMRT() {
                 accessorKey: "bluntThroughput",
                 header: "Blunt Throughput",
                 size: 80,
-                Cell: ({ cell }) => (
-                    <span>{(cell.getValue<number>()).toFixed(3)}</span>
-                ),
+                Cell: ({ cell, row }) => BluntDamageCell(cell, armorCollidersToStrings(row.original.armorColliders)),
+                Header: BluntThroughputWithToolTip()
             },
             {
                 id: "default",
@@ -175,24 +154,31 @@ export function HelmetsMRT() {
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
+                Header: MaxRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
+                Header: MinRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams)
             },
             {
                 id: "armorZones",
                 accessorFn: (row) => joinArmorCollidersAsZones(row.armorColliders),
                 header: "Armor Zones",
                 size: 80,
+                Header: HitZonesWTT()
             },
         ], [pix]
     );
@@ -282,6 +268,18 @@ export function HelmetsMRT() {
             columnVisibility: visibility,
             showColumnFilters: filters,
         },
+
+        mantineTableBodyCellProps: ({
+            cell,
+            row
+        }) => ({
+            sx: {
+                backgroundColor: row.getParentRow() !== undefined ? 'rgba(30, 30, 30, 1)' : undefined,
+                // backgroundColor: cell.getValue<number>() > 40 ? 'rgba(22, 184, 44, 0.5)' : undefined,
+                // fontWeight: cell.column.id === 'age' && cell.getValue<number>() > 40 ? 'bold' : 'normal'
+            }
+        }),
+
         mantineTableHeadProps: {
             sx: {
                 tableLayout: 'fixed',
@@ -393,9 +391,5 @@ export function HelmetsMRT() {
         ),
     });
 
-    return (
-        <Box w={"100%"} p={10} pb={50}>
-            <MantineReactTable table={table} />
-        </Box>
-    );
+    return (<MantineReactTable table={table}/>);
 }
