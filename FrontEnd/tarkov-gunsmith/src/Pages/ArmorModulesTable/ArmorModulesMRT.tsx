@@ -9,6 +9,14 @@ import { useTgTable } from "../../Components/Common/use-tg-table";
 import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
 import { ammoCaliberFullNameMap } from "../../Types/AmmoTypes";
 import { useDisclosure } from "@mantine/hooks";
+import { ArmorTypeWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip";
+import { BluntThroughputWithToolTip } from "../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip";
+import { ArmorMaterialWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorMaterialWithToolTip";
+import { MaxRicochetColHeader } from "../../Components/Common/TextWithToolTips/MaxRicochetColHeader";
+import { MinAngleRicochetColHeader } from "../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader";
+import { MinRicochetColHeader } from "../../Components/Common/TextWithToolTips/MinRicochetColHeader";
+import { createHitZoneValues } from "../../Components/Common/Helpers/ArmorHelpers";
+import { HitZonesWTT } from "../../Components/Common/TextWithToolTips/HitZonesWTT";
 
 
 export function ArmorModulesMRT(){
@@ -103,19 +111,6 @@ export function ArmorModulesMRT(){
         )
     }
 
-    function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {
-        return colliders.map((val) => ArmorPlateZones[val])
-    }
-    function armorCollidersToStrings(colliders: ArmorCollider[]) {
-        return colliders.map((val) => ArmorZones[val])
-    }
-
-    function createHitZoneValues(row: ArmorModule) {
-        const plates = plateCollidersToStrings(row.armorPlateColliders);
-        const body = armorCollidersToStrings(row.armorColliders);
-        return [...plates, ...body]
-    }
-
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
         () => [
@@ -124,6 +119,7 @@ export function ArmorModulesMRT(){
                 id: 'armorType',
                 header: 'Type',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
+                Header: ArmorTypeWithToolTip()
             },
             {
                 accessorKey: 'category',
@@ -171,6 +167,7 @@ export function ArmorModulesMRT(){
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
+                Header: BluntThroughputWithToolTip()
             },
             {
                 accessorKey: 'maxDurability',
@@ -192,7 +189,8 @@ export function ArmorModulesMRT(){
                 header: 'Material',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 filterVariant: "multi-select",
-                filterSelectOptions: MATERIALS
+                filterSelectOptions: MATERIALS,
+                Header: ArmorMaterialWithToolTip()
             },
             {
                 accessorKey: 'weight',
@@ -203,16 +201,19 @@ export function ArmorModulesMRT(){
                 accessorKey: 'ricochetParams.x',
                 header: 'Max Ricochet Chance',
                 size: 80,
+                Header: MaxRicochetColHeader()
             },
             {
                 accessorKey: 'ricochetParams.y',
                 header: 'Min Ricochet Chance',
                 size: 80,
+                Header: MinRicochetColHeader()
             },
             {
                 accessorKey: 'ricochetParams.z',
                 header: 'Min Ricochet Angle',
                 size: 80,
+                Header: MinAngleRicochetColHeader()
             },
             {
                 accessorKey: 'usedInNames',
@@ -238,7 +239,8 @@ export function ArmorModulesMRT(){
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 filterVariant: "text",
                 filterFn: "contains",
-                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original))
+                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
+                Header: HitZonesWTT()
             },
         ],
         [],
@@ -329,7 +331,6 @@ export function ArmorModulesMRT(){
             </Flex>
 
         ),
-        
         
         renderToolbarInternalActions: ({ table }) => (
             <>

@@ -11,6 +11,8 @@ import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 import { ArmorModuleTableRow, ArmorModule } from '../../Types/ArmorTypes';
 import { Avatar } from '@mantine/core';
 import { heavyShield, lightShield, shield } from '../Common/tgIcons';
+import { createHitZoneValues } from '../Common/Helpers/ArmorHelpers';
+import { HitZonesWTT } from '../Common/TextWithToolTips/HitZonesWTT';
 
 export function DataSheetArmorModules(props: any) {
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>([]);
@@ -100,19 +102,6 @@ export function DataSheetArmorModules(props: any) {
                 })}
             </>
         )
-    }
-
-    function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {
-        return colliders.map((val) => ArmorPlateZones[val])
-    }
-    function armorCollidersToStrings(colliders: ArmorCollider[]) {
-        return colliders.map((val) => ArmorZones[val])
-    }
-
-    function createHitZoneValues(row: ArmorModule) {
-        const plates = plateCollidersToStrings(row.armorPlateColliders);
-        const body = armorCollidersToStrings(row.armorColliders);
-        return [...plates, ...body]
     }
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
@@ -236,7 +225,8 @@ export function DataSheetArmorModules(props: any) {
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 filterVariant: "text",
                 filterFn: "contains",
-                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original))
+                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
+                Header: HitZonesWTT()
             },
         ],
         [],

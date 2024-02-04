@@ -18,6 +18,13 @@ import { getArmorStatsDataFromApi_WishGranter, getHelmetsDataFromApi_WishGranter
 import { lightShield, heavyShield, noneShield } from '../../Components/Common/tgIcons';
 import { ArmorZonesTableCell } from '../../Components/Common/ArmorZonesTableCell';
 import { ReplacePlateButton } from '../../Components/Common/ReplacePlateButton';
+import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';
+import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
+import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
+import { ArmorMaterialWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorMaterialWithToolTip';
+import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
+import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
+import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -43,8 +50,6 @@ export function ArmorMRT() {
     useEffect(() => {
         getTableData();
     }, [])
-
-
 
     const columns = useMemo<MRT_ColumnDef<NewArmorTableRow>[]>(
         () => [
@@ -93,10 +98,11 @@ export function ArmorMRT() {
                 accessorKey: "type",
                 header: "Type",
                 size: 80,
+                Header: ArmorTypeWithToolTip()
             },
             {
                 accessorKey: "weight",
-                header: "Weight",
+                header: "Weight (kg)",
                 size: 80,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(2)}</span>
@@ -126,6 +132,7 @@ export function ArmorMRT() {
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(3)}</span>
                 ),
+                Header: BluntThroughputWithToolTip()
             },
             {
                 id: "default",
@@ -167,27 +174,31 @@ export function ArmorMRT() {
                 accessorFn: (row) => convertEnumValToArmorString(row.armorMaterial),
                 header: "Armor Material",
                 size: 80,
-                filterVariant: "text"
+                filterVariant: "text",
                 // filterVariant: "multi-select",
                 // filterSelectOptions: MATERIALS
+                Header: ArmorMaterialWithToolTip()
             },
             {
                 id: "ricochetX",
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
+                Header: MaxRicochetColHeader()
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
+                Header: MinRicochetColHeader()
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
+                Header: MinAngleRicochetColHeader()
             },
             {
                 id: "armorZones",
@@ -202,7 +213,8 @@ export function ArmorMRT() {
                         const temp = createHitZoneValues_ArmorTableRow(row.original);
                         return temp.map((zone) => (<>{zone}<br /></>))
                     }
-                }
+                },
+                Header: HitZonesWTT()
             },
         ], [pix, expandedArmorZones]
     );
@@ -213,32 +225,7 @@ export function ArmorMRT() {
 
         enableExpanding: true,
         filterFromLeafRows: true,
-
-        // renderDetailPanel: ({ row }) => (
-        //     <Box
-        //         sx={{
-        //             display: 'flex',
-        //             justifyContent: 'flex-start',
-        //             alignItems: 'center',
-        //             gap: '16px',
-        //             padding: '16px',
-        //         }}
-        //     >
-        //         <Avatar
-        //             alt="avatar"
-        //             size={'md'}
-        //             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-        //         // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
-        //         >
-        //             TG
-        //         </Avatar>
-        //         <Box sx={{ textAlign: 'center' }}>
-        //             <Title>Ligma Balls:</Title>
-        //             <Text>&quot;{row.original.name}&quot;</Text>
-        //         </Box>
-        //     </Box>
-        // ),
-
+        
         positionGlobalFilter: "none",
         enableStickyHeader: true,
         enableGlobalFilter: true,

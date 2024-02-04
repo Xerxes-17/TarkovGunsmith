@@ -47,7 +47,7 @@ function App() {
               <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<WeaponMRT />} />
               <Route path={LINKS.DATA_SHEETS_AMMO} element={<AmmoMRT />} />
 
-              <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<DataSheetArmorModules />} />
+              <Route path={LINKS.DATA_SHEETS_PLATES_INSERTS} element={<ArmorModulesMRT />} />
               <Route path={LINKS.DATA_SHEETS_ARMOR_MODULES} element={<ArmorModulesMRT />} />
               <Route path={LINKS.DATA_SHEETS_HELMETS} element={<HelmetsMRT />} />
               <Route path={LINKS.DATA_SHEETS_ARMOR} element={<ArmorMRT />} />

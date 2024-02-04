@@ -16,6 +16,12 @@ import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmo
 import { armorCollidersToStrings, joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
+import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
+import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
+import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';
+import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
+import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
+import { HitZonesWTT } from '../../Components/Common/TextWithToolTips/HitZonesWTT';
 
 export function HelmetsMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -92,6 +98,7 @@ export function HelmetsMRT() {
                 accessorKey: "type",
                 header: "Type",
                 size: 80,
+                Header: ArmorTypeWithToolTip()
             },
             {
                 accessorKey: "weight",
@@ -125,6 +132,7 @@ export function HelmetsMRT() {
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toFixed(3)}</span>
                 ),
+                Header: BluntThroughputWithToolTip()
             },
             {
                 id: "default",
@@ -175,24 +183,28 @@ export function HelmetsMRT() {
                 accessorKey: "ricochetParams.x",
                 header: "Max Ricochet Chance",
                 size: 80,
+                Header: MaxRicochetColHeader()
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
                 header: "Min Ricochet Chance",
                 size: 80,
+                Header: MinRicochetColHeader()
             },
             {
                 id: "ricochetZ",
                 accessorKey: "ricochetParams.z",
                 header: "Min Ricochet Angle",
                 size: 80,
+                Header: MinAngleRicochetColHeader()
             },
             {
                 id: "armorZones",
                 accessorFn: (row) => joinArmorCollidersAsZones(row.armorColliders),
                 header: "Armor Zones",
                 size: 80,
+                Header: HitZonesWTT()
             },
         ], [pix]
     );
@@ -282,6 +294,18 @@ export function HelmetsMRT() {
             columnVisibility: visibility,
             showColumnFilters: filters,
         },
+
+        mantineTableBodyCellProps: ({
+            cell,
+            row
+        }) => ({
+            sx: {
+                backgroundColor: row.getParentRow() !== undefined ? 'rgba(30, 30, 30, 1)' : undefined,
+                // backgroundColor: cell.getValue<number>() > 40 ? 'rgba(22, 184, 44, 0.5)' : undefined,
+                // fontWeight: cell.column.id === 'age' && cell.getValue<number>() > 40 ? 'bold' : 'normal'
+            }
+        }),
+
         mantineTableHeadProps: {
             sx: {
                 tableLayout: 'fixed',
