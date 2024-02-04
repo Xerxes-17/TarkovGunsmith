@@ -257,14 +257,10 @@ export function ArmorMRT() {
         enableGrouping: true,
         enablePinning: true,
 
-
-
-        // enableTopToolbar: false,
         enableDensityToggle: false,
         positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
-        // enableColumnResizing: true,
         columnFilterDisplayMode: "subheader",
         positionPagination: "bottom",
         mantinePaginationProps: {
@@ -369,17 +365,6 @@ export function ArmorMRT() {
                     <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
                     <Button size={'xs'} compact variant={expandedArmorZones ? 'light' : 'filled'} onClick={() => expandedArmorZonesHandlers.toggle()} >{expandedArmorZones ? 'Show Zones': 'Hide Zones' }</Button>
                 </Flex>
-
-                {/* <MultiSelect
-                    placeholder="Filter by up to 6 choices"
-                    data={ammoCaliberArray}
-                    miw={250}
-                    maw={400}
-                    maxSelectedValues={6}
-                    withinPortal={true}
-                    value={filterValues}
-                    onChange={setFilterValues}
-                /> */}
             </Flex>
 
         ),

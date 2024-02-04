@@ -1,19 +1,20 @@
-import MaterialReactTable from 'material-react-table';
-import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScript (optional, but recommended)
-import { useEffect, useMemo, useState } from 'react';
-import { API_URL } from '../../Util/util';
-import { Box } from '@mui/material';
-import { ArmorCollider, armorMaterialFilterOptions, ArmorPlateCollider, ArmorPlateZones, ArmorType, ArmorZones, convertEnumValToArmorString, MATERIALS, MaterialType } from '../ADC/ArmorData';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Card, Col, Row } from 'react-bootstrap';
-import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
-import { ArmorModuleTableRow, ArmorModule } from '../../Types/ArmorTypes';
-import { Avatar } from '@mantine/core';
-import { heavyShield, lightShield, shield } from '../Common/tgIcons';
+import { Box, Avatar, Button, Flex, MultiSelect, Text } from "@mantine/core";
+import { useEffect, useMemo, useState } from "react";
+import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorPlateCollider, ArmorCollider, ArmorType, MATERIALS } from "../../Components/ADC/ArmorData";
+import { lightShield, heavyShield, noneShield } from "../../Components/Common/tgIcons";
+import { ArmorModule, ArmorModuleTableRow } from "../../Types/ArmorTypes";
+import { API_URL } from "../../Util/util";
+import {MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
+import { useTgTable } from "../../Components/Common/use-tg-table";
+import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
+import { ammoCaliberFullNameMap } from "../../Types/AmmoTypes";
+import { useDisclosure } from "@mantine/hooks";
 
-export function DataSheetArmorModules(props: any) {
-    const [TableData, setTableData] = useState<ArmorModuleTableRow[]>([]);
+
+export function ArmorModulesMRT(){
+    const initialData: ArmorModuleTableRow[] = [];
+    const [TableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
+    const [filters, filtersHandlers] = useDisclosure(false);
 
     const fetchData = async () => {
         try {
@@ -150,6 +151,7 @@ export function DataSheetArmorModules(props: any) {
                         >
                             {row.original.armorType === ArmorType.Light && lightShield}
                             {row.original.armorType === ArmorType.Heavy && heavyShield}
+                            {row.original.armorType === ArmorType.None && noneShield}
                         </Avatar>
                         <span>{renderedCellValue}</span>
                     </Box>
@@ -200,17 +202,17 @@ export function DataSheetArmorModules(props: any) {
             {
                 accessorKey: 'ricochetParams.x',
                 header: 'Max Ricochet Chance',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 80,
             },
             {
                 accessorKey: 'ricochetParams.y',
                 header: 'Min Ricochet Chance',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 80,
             },
             {
                 accessorKey: 'ricochetParams.z',
                 header: 'Min Ricochet Angle',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 80,
             },
             {
                 accessorKey: 'usedInNames',
@@ -242,89 +244,107 @@ export function DataSheetArmorModules(props: any) {
         [],
     );
 
-    //store pagination state in your own state
-    const [pagination] = useState({
-        pageIndex: 0,
-        pageSize: 200, //customize the default page size
-    });
-
-    const darkTheme = createTheme({
-        palette: {
-            mode: 'dark',
+    const table = useTgTable({
+        columns,
+        data: TableData,
+        initialState: {
+            density: 'xs',
+            pagination: {
+                pageIndex: 0, pageSize: 200
+            },
+            columnVisibility: {
+                compatibleWith: false,
+                ricochetParams: false
+            },
+            grouping: ['category'],
+            expanded: true,
+            sorting: [{ id: 'category', desc: true }, { id: 'armorClass', desc: true }, { id: 'name', desc: false }],
         },
-    });
+
+        state: {
+            showGlobalFilter: true,
+            showColumnFilters: filters,
+        },
+
+
+        mantineTableHeadProps: {
+            sx: {
+                tableLayout: 'fixed',
+            },
+        },
+        mantineTopToolbarProps: {
+            sx: {
+                verticalAlign: "bottom"
+            }
+        },
+
+        mantineTableHeadCellProps: {
+            style: {
+                verticalAlign: "bottom"
+            },
+            sx: {
+                // '& .mantine-Paper-root': {
+                //     verticalAlign: "bottom",
+                // },
+                // ! Did these two to get the actions group ahead of the label
+                // '& .mantine-TableHeadCell-Content': {
+                //     display: 'flex',
+                //     flexDirection:"column-reverse",
+                //     whiteSpace: "normal"
+                // },
+                // '& .mantine-TableHeadCell-Content-Actions': {
+                //     alignSelf:"flex-start",
+                // },
+
+                '& .mantine-TableHeadCell-Content-Wrapper': {
+                    width: "100%",
+                    whiteSpace: "normal"
+                },
+                '& .mantine-TableHeadCell-Content-Labels': {
+                    // justifyContent: 'space-between',
+                    display: 'flex',
+                    flexWrap: 'wrap'
+                },
+            },
+        },
+        renderTopToolbarCustomActions: ({ table }) => (
+            <Flex
+                gap="md"
+                justify="flex-start"
+                align="center"
+                direction="row"
+                wrap="wrap"
+            >
+                <MRT_GlobalFilterTextInput table={table} />
+                <Flex
+                    gap="md"
+                    justify="flex-start"
+                    align="center"
+                    direction="row"
+                    wrap="wrap"
+                >
+                    <Text fw={700}>Toggles</Text>
+                    <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+                </Flex>
+            </Flex>
+
+        ),
+        
+        
+        renderToolbarInternalActions: ({ table }) => (
+            <>
+                {/* <MRT_TablePagination table={table} /> */}
+                <MRT_ToggleFullScreenButton table={table} />
+            </>
+        ),
+        mantineTableContainerProps: { 
+            // sx: 
+            // { maxHeight: '500px' },
+            className: "tgMainTableInAppShell"
+        },
+    })
 
     return (
-        <>
-            <ThemeProvider theme={darkTheme}>
-                <CssBaseline />
-                <Col xxl>
-                    <Card bg="dark" border="secondary" text="light" className="xxl">
-                        <Card.Header as="h2" >
-                            Plates and Inserts
-                        </Card.Header>
-                        <Card.Body>
-                            <>
-                                This table starts with a few columns hidden by default. Press "Show/Hide Columns" on the right to change what is visible. You shouldn't need the hidden ones though.
-                                <br /><br />
-                                <h5>Plates</h5>
-                                Plates are armor items which can be inserted or removed to slots on a plate carrier. They will do zero blunt damage on a block despite the stats they might have.
-                                <br /><br />
-                                <h5>Inserts</h5>
-                                Inserts cannot be added or removed from armor and are built in to the vest, helmet or rig. This armor will behave in the same way that armor did in the past and will deal blunt damage on a block. They have no weight, as the parent armor item will account for them.
-                                <br /><br />
-                                <h5>Ricochet Chance??</h5>
-                                A bit of math here. If something has 0 for Max Ricochet Chance, It can't do it at all. Then if the normalized hit angle between 0 and 90 from perpendicular of the surface is higher than Min Ricochet Angle, it is interpolated between MRA and 90°,<br />
-                                with Min Ricochet Angle == Min Ricochet Chance and 90° == Max Ricochet Chance. So in short you want Max and Min Chances to be high and for the Min Angle to be low.
-                                <br /><br />
-                                Please note that not all "armor things" are here. For example face masks are like the old system and won't show up here.
-                            </>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <MaterialReactTable
-                    columns={columns}
-                    data={TableData}
-                    // layoutMode='grid'
-
-                    enableRowSelection={false}//enable some features
-                    enableSelectAll={false}
-                    enableColumnFilters
-                    enableColumnFilterModes
-
-                    enableColumnOrdering
-                    enableGrouping
-                    enablePinning
-                    enableMultiSort={true}
-                    enableGlobalFilter={true} //turn off a feature
-                    enableDensityToggle={false}
-                    initialState={{
-                        density: 'compact',
-                        pagination: pagination,
-
-                        columnVisibility: {
-                            compatibleWith: false,
-                            ricochetParams: false
-                        },
-
-                        grouping: ['category'], //an array of columns to group by by default (can be multiple)
-                        expanded: true, //expand all groups by default
-                        sorting: [{ id: 'category', desc: true }, { id: 'armorClass', desc: true }, { id: 'name', desc: false }], //sort by state by default
-                    }} //hide AmmoRec column by default
-
-                    defaultColumn={{
-                        minSize: 20, //allow columns to get smaller than default
-                        maxSize: 75, //allow columns to get larger than default
-                        size: 20, //make columns wider by default
-                    }}
-                    enableStickyHeader
-
-                    sortDescFirst
-                    muiTablePaginationProps={{
-                        rowsPerPageOptions: [10, 25, 50, 75, 100, 150, 200],
-                    }}
-                />
-            </ThemeProvider>
-        </>
+        <MantineReactTable table={table}/>
     )
 }
