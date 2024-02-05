@@ -14,5 +14,7 @@ export const LINKS = {
     DATA_SHEETS_ARMOR_MODULES: `${DATA_SHEETS}/armor_modules`,
     ARMOR_VS_AMMO: `${DATA_SHEETS}/armor_vs_ammo`,
     AMMO_VS_ARMOR: `${DATA_SHEETS}/ammo_vs_armor`,
-    AMMO_EFFECTIVENESS_CHART: `${DATA_SHEETS}/ammo_effectiveness`
+    AMMO_EFFECTIVENESS_CHART: `${DATA_SHEETS}/ammo_effectiveness`,
+
+    BALLISTICS_SIMULATOR: `${DATA_SHEETS}/ballistics_simulator`
 }

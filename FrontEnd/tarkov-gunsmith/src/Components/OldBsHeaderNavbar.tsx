@@ -30,8 +30,15 @@ export function OldBsHeaderNavbar() {
                             </LinkContainer>
 
                             <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link disabled>Terminal Ballistics Simulator</Nav.Link>
+                                <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
                             </LinkContainer>
+                            <NavDropdown title="Ballistics Simulators" id="data-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
+                                        <Nav.Link >Penetration and Damage</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+                            </NavDropdown>
 
                             <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>

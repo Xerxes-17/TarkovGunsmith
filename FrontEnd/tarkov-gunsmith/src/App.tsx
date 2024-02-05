@@ -25,6 +25,7 @@ import { HelmetsMRT } from './Pages/HelmetTable/HelmetsMRT';
 import { ArmorMRT } from './Pages/ArmorTable/ArmorMRT';
 import { TgAppShell } from './Components/Common/TgAppShell';
 import { ArmorModulesMRT } from './Pages/ArmorModulesTable/ArmorModulesMRT';
+import { BallisticsSimulator } from './Pages/BallisticsSimulator.tsx/BallisticsSimulator';
 
 function App() {
 
@@ -39,10 +40,10 @@ function App() {
               <Route path={LINKS.HOME} element={<Home />} />
               <Route path={LINKS.ABOUT} element={<About />} />
               <Route path={LINKS.MODDED_WEAPON_BUILDER} element={<MwbBasePage />} />
-              {/* <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
-            <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} /> */}
+              <Route path={LINKS.DAMAGE_SIMULATOR} element={<ArmorDamageCalculator />} />
+              <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/:id_ammo`} element={<ArmorDamageCalculator />} />
+              <Route path={`${LINKS.DAMAGE_SIMULATOR}/:id_armor/`} element={<ArmorDamageCalculator />} />
+              <Route path={`${LINKS.DAMAGE_SIMULATOR}//:id_ammo`} element={<ArmorDamageCalculator />} />
 
               <Route path={LINKS.DATA_SHEETS_WEAPONS} element={<WeaponMRT />} />
               <Route path={LINKS.DATA_SHEETS_AMMO} element={<AmmoMRT />} />
@@ -51,6 +52,8 @@ function App() {
               <Route path={LINKS.DATA_SHEETS_ARMOR_MODULES} element={<ArmorModulesMRT />} />
               <Route path={LINKS.DATA_SHEETS_HELMETS} element={<HelmetsMRT />} />
               <Route path={LINKS.DATA_SHEETS_ARMOR} element={<ArmorMRT />} />
+
+              <Route path={LINKS.BALLISTICS_SIMULATOR} element={<BallisticsSimulator />} />
 
 
               {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
