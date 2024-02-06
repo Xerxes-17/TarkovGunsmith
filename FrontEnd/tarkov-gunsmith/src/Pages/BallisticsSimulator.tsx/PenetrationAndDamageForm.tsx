@@ -1,7 +1,8 @@
-import { Button, NumberInput, Paper, Select, TextInput, Text, Slider, Group, Grid, Stack, Divider, Flex } from "@mantine/core";
+import { Button, NumberInput, Paper, Select, TextInput, Text, Slider, Group, Grid, Stack, Divider, Flex, SimpleGrid, Input, Tooltip, Menu, ScrollArea } from "@mantine/core";
 import { BallisticSimulatorFormProvider, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorMaterialDestructibility, ArmorMaterialDestructibilitySelect } from "../../Api/ArmorApiCalls";
 import { forwardRef } from "react";
+import { IconAlertCircle, IconBrandTwitter } from "@tabler/icons-react";
 
 
 export function PenetrationAndDamageForm() {
@@ -143,6 +144,7 @@ export function PenetrationAndDamageForm() {
                                 </div>
                                 <div>
                                     <NumberInput
+                                        inputWrapperOrder={['label', 'error', 'input', 'description']}
                                         label="Armor Damage Percentage"
                                         aria-label="Armor Damage Percentage"
                                         parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -160,44 +162,60 @@ export function PenetrationAndDamageForm() {
                                         stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
                                         {...form.getInputProps('armorDamagePercentage')}
 
-                                    />
-                                    <Slider
-                                        label={null}
-                                        precision={2}
-                                        min={1}
-                                        max={100}
-                                        step={1}
-                                        {...form.getInputProps('armorDamagePercentage')}
+                                        rightSectionWidth={100}
+                                        placeholder="Your twitter"
+                                        rightSection={
+                                            <Tooltip label="Comparison value" position="top-end" withArrow>
+                                                <div>
+                                                    <Divider orientation="vertical" />
+                                                    <Text size="sm">50%</Text>
+                                                </div>
+                                            </Tooltip>
+                                        }
+                                        description={
+                                            <>
+                                                <Slider
+                                                    label={null}
+                                                    precision={2}
+                                                    min={1}
+                                                    max={100}
+                                                    step={1}
+                                                    {...form.getInputProps('armorDamagePercentage')}
 
+                                                />
+                                                <Text size="sm">
+                                                    Eff. Durability Dmg: <b>{(form.values.penetration * form.values.armorDamagePercentage / 100).toFixed(2)}</b>
+                                                </Text>
+                                            </>
+                                        }
                                     />
-                                    <Text mt="sm" size="sm">
-                                        Effective Durability Damage: <br /> <b>{(form.values.penetration * form.values.armorDamagePercentage / 100).toFixed(2)}</b>
-                                    </Text>
+
+
                                 </div>
                             </Stack>
-                                <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: "flex-end" }}>
-                                    <NumberInput
-                                        label="Hit Points"
-                                        precision={2}
-                                        max={265}
-                                        min={35}
-                                        step={1}
-                                        stepHoldDelay={500}
-                                        {...form.getInputProps('hitPointsPool')}
-                                    />
-                                    <Slider
-                                        label={null}
-                                        marks={[
-                                            { value: 35, label: 'Head' },
-                                            { value: 85, label: 'Thorax' },
-                                          ]}
-                                        precision={2}
-                                        max={150}
-                                        min={1}
-                                        step={1}
-                                        {...form.getInputProps('hitPointsPool')}
-                                    />
-                                </div>
+                            <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: "flex-end" }}>
+                                <NumberInput
+                                    label="Hit Points"
+                                    precision={2}
+                                    max={265}
+                                    min={35}
+                                    step={1}
+                                    stepHoldDelay={500}
+                                    {...form.getInputProps('hitPointsPool')}
+                                />
+                                <Slider
+                                    label={null}
+                                    marks={[
+                                        { value: 35, label: 'Head' },
+                                        { value: 85, label: 'Thorax' },
+                                    ]}
+                                    precision={2}
+                                    max={150}
+                                    min={1}
+                                    step={1}
+                                    {...form.getInputProps('hitPointsPool')}
+                                />
+                            </div>
                         </Paper>
                     </Grid.Col>
                     <Grid.Col span={12} xs={3}>
@@ -247,13 +265,28 @@ export function PenetrationAndDamageForm() {
                                         {...form.getInputProps('bluntDamageThroughput')}
                                     />
                                 </div>
-
                                 <div>
                                     <NumberInput
+                                        inputWrapperOrder={['label', 'error', 'input', 'description']}
                                         label={
                                             <Text size="sm">
-                                                Durability - <b>{((form.values.durability / form.values.maxDurability) * 100).toFixed(2)}%</b>
+                                                Durability: <b>{((form.values.durability / form.values.maxDurability) * 100).toFixed(2)}%</b>
                                             </Text>
+                                        }
+                                        description={
+                                            <>
+                                                <Slider
+                                                    label={null}
+                                                    precision={2}
+                                                    max={form.values.maxDurability}
+                                                    min={0}
+                                                    step={1}
+                                                    {...form.getInputProps('durability')}
+                                                />
+                                                <Text size="sm">
+                                                    Effective Durability: <b>{(form.values.durability / mockMaterials.find(x => x.label === form.values.armorMaterial)!.destructibility).toFixed(2)} </b>
+                                                </Text>
+                                            </>
                                         }
                                         precision={2}
                                         max={form.values.maxDurability}
@@ -261,14 +294,7 @@ export function PenetrationAndDamageForm() {
                                         step={1}
                                         {...form.getInputProps('durability')}
                                     />
-                                    <Slider
-                                        label={null}
-                                        precision={2}
-                                        max={form.values.maxDurability}
-                                        min={0}
-                                        step={1}
-                                        {...form.getInputProps('durability')}
-                                    />
+
 
                                 </div>
                                 <div >
@@ -320,18 +346,25 @@ export function PenetrationAndDamageForm() {
                                         }}
                                     />
                                 </div>
-                                <Text size="sm">
-                                    Effective Durability: &nbsp;&nbsp;<b>{(form.values.durability / mockMaterials.find(x => x.label === form.values.armorMaterial)!.destructibility).toFixed(2)}</b>
 
-                                </Text>
                                 <Select
+                                    inputWrapperOrder={['label', 'error', 'input', 'description']}
                                     label="Armor Material"
+                                    description={
+                                        <Text size="sm">
+                                            Destructibility: <b>{mockMaterials.find(x => x.label === form.values.armorMaterial)!.destructibility} </b>
+                                        </Text>
+                                    }
                                     placeholder="Pick one"
                                     dropdownPosition="flip"
                                     itemComponent={SelectItem}
                                     data={mockMaterials}
                                     {...form.getInputProps('armorMaterial')}
                                 />
+                                
+                                
+
+
                             </Stack>
                         </Paper>
                     </Grid.Col>
@@ -359,16 +392,37 @@ export function PenetrationAndDamageForm() {
                     </Grid.Col>
                 </Grid>
 
-
-
-
-
-
-
-
-
                 <Group position="right" mt="md">
-                    <Button type="submit">Submit</Button>
+                    <Menu shadow="md" width={200}>
+                        <Menu.Target>
+                            <Button variant="outline">Toggle menu</Button>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                            <ScrollArea.Autosize mah={150}>
+                                <Menu.Label>Application</Menu.Label>
+                                <Menu.Item>Settings</Menu.Item>
+                                <Menu.Item>Messages</Menu.Item>
+                                <Menu.Item>Settings</Menu.Item>
+                                <Menu.Item>Messages</Menu.Item>
+                                <Menu.Item>Settings</Menu.Item>
+                                <Menu.Item>Messages</Menu.Item>
+                                <Menu.Item>Settings</Menu.Item>
+                                <Menu.Item>Messages</Menu.Item>
+                            </ScrollArea.Autosize>
+
+                        </Menu.Dropdown>
+                    </Menu>
+                    <Select
+
+                        clearable
+                        placeholder="Compare with:"
+                        dropdownPosition="flip"
+                        itemComponent={SelectItem}
+                        data={mockMaterials}
+                    />
+                    <Button type="submit">Multi Shot</Button>
+                    <Button type="submit">Single Shot</Button>
                 </Group>
             </form>
         </BallisticSimulatorFormProvider>
