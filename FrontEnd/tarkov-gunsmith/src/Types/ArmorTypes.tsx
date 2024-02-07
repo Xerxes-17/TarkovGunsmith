@@ -1,3 +1,4 @@
+import { ArmorMaterialDestructibilitySelect } from "../Api/ArmorApiCalls"
 import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorPlateZones, ArmorZones } from "../Components/ADC/ArmorData"
 import { NewArmorTableRow } from "./HelmetTypes"
 
@@ -67,3 +68,54 @@ export function armorCollidersDisplay(armorColliders: ArmorZones[]) {
         </>
     )
 }
+
+export const mockMaterials: ArmorMaterialDestructibilitySelect[] = [
+    {
+        value: "UHMW Polyethylene",
+        label: "UHMW Polyethylene",
+        destructibility: 0.3375,
+        explosionDestructibility: 0.3
+    },
+    {
+        value: "Aramid",
+        label: "Aramid",
+        destructibility: 0.1875,
+        explosionDestructibility: 0.15
+    },
+    {
+        value: "Combined materials",
+        label: "Combined materials",
+        destructibility: 0.375,
+        explosionDestructibility: 0.2
+    },
+    {
+        value: "Titan",
+        label: "Titan",
+        destructibility: 0.4125,
+        explosionDestructibility: 0.375
+    },
+    {
+        value: "Aluminum",
+        label: "Aluminum",
+        destructibility: 0.45,
+        explosionDestructibility: 0.45
+    },
+    {
+        value: "Armor steel",
+        label: "Armor steel",
+        destructibility: 0.525,
+        explosionDestructibility: 0.45
+    },
+    {
+        value: "Ceramic",
+        label: "Ceramic",
+        destructibility: 0.6,
+        explosionDestructibility: 0.525
+    },
+    {
+        value: "Glass",
+        label: "Glass",
+        destructibility: 0.6,
+        explosionDestructibility: 0.6
+    }
+]

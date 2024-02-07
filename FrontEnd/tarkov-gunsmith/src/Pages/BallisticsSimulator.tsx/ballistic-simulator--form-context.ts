@@ -2,7 +2,7 @@
 import { createFormContext } from '@mantine/form';
 import { ArmorMaterialDestructibilitySelect } from '../../Api/ArmorApiCalls';
 
-interface BallisticSimulatorFormValues {
+export interface BallisticSimulatorFormValues {
   penetration: number;
   damage: number;
   armorDamagePercentage: number;
