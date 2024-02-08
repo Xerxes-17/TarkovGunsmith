@@ -463,7 +463,7 @@ namespace WishGranter.Statics
                 );
             var mitigatedDamage = bsp.damage - penetrationDamage;
             var bluntDamage = BluntDamage(armorDurabilityPercent, bsp.armorClass, bsp.bluntDamageThroughput/100, bsp.damage, bsp.penetration);
-            var averageDamage = (penetrationDamage * penetrationChance) + (bluntDamage * 1 - penetrationChance);
+            var averageDamage = (penetrationDamage * penetrationChance) + (bluntDamage * (1 - penetrationChance));
 
             var penetrationArmorDamage = DamageToArmorPenetration(bsp.armorClass, bsp.armorMaterial, bsp.penetration, bsp.armorDamagePerc, armorDurabilityPercent);
             var blockArmorDamage = DamageToArmorBlock(bsp.armorClass, bsp.armorMaterial, bsp.penetration, bsp.armorDamagePerc, armorDurabilityPercent);

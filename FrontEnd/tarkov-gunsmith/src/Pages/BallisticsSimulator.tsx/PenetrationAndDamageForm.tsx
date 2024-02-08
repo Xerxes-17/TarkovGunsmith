@@ -1,25 +1,12 @@
-import { Button, Paper, Text, Group, Grid, Stack, Divider, Title, LoadingOverlay, Box, Table } from "@mantine/core";
+import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
-import { TargetUI } from "./TargetUI";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
-
-interface DamageStatistics {
-    PenetrationChance: number;
-    PenetrationDamage: number;
-    MitigatedDamage: number;
-    BluntdDamage: number;
-    AverageDamage: number;
-    PenetrationArmorDamage: number;
-    BlockArmorDamage: number;
-    AverageArmorDamage: number;
-    PostHitArmorDurability: number;
-}
 
 export function PenetrationAndDamageForm() {
     const form = useBallisticSimulatorForm({
