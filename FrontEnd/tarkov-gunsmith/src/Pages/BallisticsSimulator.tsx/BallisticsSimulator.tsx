@@ -1,11 +1,10 @@
-import { ActionIcon, Button, CloseButton, Container, Divider, Grid, Group, HoverCard, Paper, ScrollArea, Space, Tabs, Text, Title, Tooltip, rem } from "@mantine/core"
+import { ActionIcon, Button , Container, Divider, Group, HoverCard, Paper, ScrollArea, Tabs, Text, Title } from "@mantine/core"
 import { PenetrationAndDamageForm } from "./PenetrationAndDamageForm"
-import { IconCopy, IconDownload, IconGraph, IconMessageCircle, IconPhoto, IconPlus, IconSettings, IconTrash } from "@tabler/icons-react"
-import { ArmorMaterialDestructibilitySelect } from "../../Api/ArmorApiCalls"
+import { IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useState } from "react";
 import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
 import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
-import { LINKS } from "../../Util/links";
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 
 const PRINT_ID = "printMe";
 
@@ -16,6 +15,11 @@ const PRINT_ID = "printMe";
 export function BallisticsSimulator() {
     const [tabTitles, setTabTitles] = useState<string[]>(["Sim1"]);
     const [activeTab, setActiveTab] = useState<string | null>("Sim1");
+
+    const mobileView = useMediaQuery('(max-width: 576px)');
+    const { height, width } = useViewportSize();
+    
+    console.log(mobileView)
 
     function addNewTab() {
         const newTabTitle = `Sim${tabTitles.length + 1}`
@@ -97,7 +101,7 @@ export function BallisticsSimulator() {
                     </Tabs.List>
                     <ScrollArea.Autosize
 
-                        // mah={450} // sets the max size before the scroll area appears, will need top play with it more
+                        mah={ mobileView ?  height-360 : "100%" } // sets the max size before the scroll area appears, will need top play with it more
                         mx="auto"
                         type="scroll"
                         offsetScrollbars
@@ -106,9 +110,6 @@ export function BallisticsSimulator() {
                             {tabPanels}
                         </Paper>
                     </ScrollArea.Autosize>
-
-
-
                 </Tabs>
 
             </Paper>
