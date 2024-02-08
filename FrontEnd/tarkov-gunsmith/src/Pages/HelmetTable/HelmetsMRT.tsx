@@ -81,6 +81,12 @@ export function HelmetsMRT() {
                 ),
             },
             {
+                accessorKey:"speedPenalty",
+                header: "Movement Speed Penalty",
+                size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
+            },
+            {
                 accessorKey: "ergonomics",
                 header: "Ergonomics",
                 size: 80,

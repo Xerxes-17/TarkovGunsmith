@@ -3,8 +3,11 @@ import { PenetrationAndDamageForm } from "./PenetrationAndDamageForm"
 import { IconCopy, IconDownload, IconGraph, IconMessageCircle, IconPhoto, IconPlus, IconSettings, IconTrash } from "@tabler/icons-react"
 import { ArmorMaterialDestructibilitySelect } from "../../Api/ArmorApiCalls"
 import { useState } from "react";
+import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
+import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
+import { LINKS } from "../../Util/links";
 
-
+const PRINT_ID = "printMe";
 
 /**
  * Let's make this one simple to start with, just a means of calling WishGranter for it to calculate a given penetration chance, the blunt damage, and so on.
@@ -73,27 +76,18 @@ export function BallisticsSimulator() {
     return (
         <Container>
             <br />
-            <Paper shadow="sm" p="md">
+            <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
                     <Title order={2}>Ballsitic Simulator</Title>
                     <Group ml={"auto"}>
-                        <Tooltip label="Download simulation as image" transitionProps={{ transition: 'slide-up', duration: 300 }}>
-                            <Button variant="outline" leftIcon={<IconDownload size="1.2rem" />}>
-                                Download
-                            </Button>
-                        </Tooltip>
-                        <Tooltip label="Copy simulation as image to clipboard" transitionProps={{ transition: 'slide-up', duration: 300 }}>
-                            <Button variant="outline"  leftIcon={<IconCopy size="1.2rem" />}>
-                                Copy
-                            </Button>
-                        </Tooltip>
+                        <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
+                        <CopyElementImageButton targetElementId={PRINT_ID} />
                     </Group>
                 </Group>
 
-
                 <Divider my="sm" />
-                <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab}>
-                    <Tabs.List>
+                <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab} >
+                    <Tabs.List data-html2canvas-ignore>
                         {tabs}
                         <Tabs.Tab value="new" aria-label="Add new simulation" onClick={() => addNewTab()}>
                             <ActionIcon variant="transparent">
@@ -102,12 +96,15 @@ export function BallisticsSimulator() {
                         </Tabs.Tab>
                     </Tabs.List>
                     <ScrollArea.Autosize
+
                         // mah={450} // sets the max size before the scroll area appears, will need top play with it more
                         mx="auto"
                         type="scroll"
                         offsetScrollbars
                     >
-                        {tabPanels}
+                        <Paper id={PRINT_ID}>
+                            {tabPanels}
+                        </Paper>
                     </ScrollArea.Autosize>
 
 

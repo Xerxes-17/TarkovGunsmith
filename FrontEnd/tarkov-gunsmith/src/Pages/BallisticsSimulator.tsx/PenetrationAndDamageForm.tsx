@@ -7,6 +7,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
+import { LINKS } from "../../Util/links";
 
 interface DamageStatistics {
     PenetrationChance: number;
@@ -65,20 +66,20 @@ export function PenetrationAndDamageForm() {
     // );
 
     const elements = [
-        { name: 'Penetration Chance', Value: result?.PenetrationChance.toFixed(2) ?? "-" },
-        { name: 'Penetration Damage', Value: result?.PenetrationDamage.toFixed(2) ?? "-"  },
-        { name: 'Mitigated Damage', Value: result?.MitigatedDamage.toFixed(2) ?? "-"  },
-        { name: 'Blunt Damage', Value: result?.BluntdDamage.toFixed(2) ?? "-"  },
-        { name: 'Average Damage', Value: result?.AverageDamage.toFixed(2) ?? "-"  },
+        { name: 'Penetration Chance', Value: result ? (result?.PenetrationChance*100).toFixed(2) : "-" },
+        { name: 'Penetration Damage', Value: result?.PenetrationDamage.toFixed(2) ?? "-" },
+        { name: 'Mitigated Damage', Value: result?.MitigatedDamage.toFixed(2) ?? "-" },
+        { name: 'Blunt Damage', Value: result?.BluntdDamage.toFixed(2) ?? "-" },
+        { name: 'Average Damage', Value: result?.AverageDamage.toFixed(2) ?? "-" },
         { name: 'Penetration Armor Damage', Value: result?.PenetrationArmorDamage.toFixed(2) ?? "-" },
         { name: 'Block Armor Damage', Value: result?.BlockArmorDamage.toFixed(2) ?? "-" },
-        { name: 'Average Armor Damage', Value: result?.AverageArmorDamage.toFixed(2) ?? "-"  },
-        { name: 'Post-hit Armor Durability', Value: result?.PostHitArmorDurability.toFixed(2) ?? "-"  },
+        { name: 'Average Armor Damage', Value: result?.AverageArmorDamage.toFixed(2) ?? "-" },
+        { name: 'Post-hit Armor Durability', Value: result?.PostHitArmorDurability.toFixed(2) ?? "-" },
     ];
 
     const rows = elements.map((element) => (
         <tr key={element.name}>
-            <td>{element.Value}</td>
+            <td>{element.Value}{element.name === "Penetration Chance" && result && (<> %</>)}</td>
             <td>{element.name}</td>
         </tr>
     ));
@@ -98,9 +99,9 @@ export function PenetrationAndDamageForm() {
         }
 
         requestSingleShotBallisticSim(requestDetails).then(response => {
-            console.log("response",response)
+            console.log("response", response)
             setResult(response)
-        }).catch(error =>{
+        }).catch(error => {
             alert(`The error was: ${error}`);
         });
         close()
@@ -112,7 +113,9 @@ export function PenetrationAndDamageForm() {
                 console.log(values);
                 handleSubmit(values);
             })}>
-
+                    {result !== undefined && (
+                        <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
+                    )}
                 <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
                     <Grid.Col span={12} xs={3} mih={"100%"}>
                         <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -161,7 +164,8 @@ export function PenetrationAndDamageForm() {
                 </Grid>
 
                 <Group position="right" mt="md">
-                {/* //todo compare with other sim */}
+
+                    {/* //todo compare with other sim */}
                     {/* <Menu shadow="md" width={200}>
                         <Menu.Target>
                             <Button variant="outline">Toggle menu</Button>
@@ -191,7 +195,7 @@ export function PenetrationAndDamageForm() {
                         data={mockMaterials}
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
-                    <Button type="submit">Single Shot</Button>
+                    <Button type="submit" data-html2canvas-ignore >Single Shot</Button>
                 </Group>
             </form>
         </BallisticSimulatorFormProvider>
