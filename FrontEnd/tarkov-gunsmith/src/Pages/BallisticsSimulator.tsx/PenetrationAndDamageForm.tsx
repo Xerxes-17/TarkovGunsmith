@@ -26,6 +26,7 @@ export function PenetrationAndDamageForm() {
     });
 
     const [result, setResult] = useState<BallisticSimResponse>();
+    const [hasResult, setHasResult] = useState<boolean>(false);
 
     const [visible, { toggle, open, close }] = useDisclosure(false);
 
@@ -87,6 +88,7 @@ export function PenetrationAndDamageForm() {
 
         requestSingleShotBallisticSim(requestDetails).then(response => {
             setResult(response)
+            setHasResult(true);
             form.resetDirty();
         }).catch(error => {
             alert(`The error was: ${error}`);
@@ -123,7 +125,7 @@ export function PenetrationAndDamageForm() {
                             <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
 
                             <Box pos="relative">
-                                {form.isDirty() && <Overlay color="#000" opacity={0.60} center />}
+                                {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
                                 <Table highlightOnHover withColumnBorders verticalSpacing="xs">
                                     <thead>
                                         <tr>
@@ -134,7 +136,7 @@ export function PenetrationAndDamageForm() {
                                     <tbody>{rows}</tbody>
                                 </Table>
                             </Box>
-                            {form.isDirty() && (<Text>Input changed, results will not match.</Text>)}
+                            {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
 
                             {/* <Stack>
                                 <Divider mt={4} mb={0} label={(<Title order={6}>Damage</Title>)} />
@@ -190,7 +192,7 @@ export function PenetrationAndDamageForm() {
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
                     <Button type="submit" data-html2canvas-ignore >
-                        {!form.isDirty() ? <>Single Shot</> : <>Refresh Result</>}
+                        { result === undefined ? <>Single Shot</> : form.isDirty()  ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>
                 </Group>
             </form>
