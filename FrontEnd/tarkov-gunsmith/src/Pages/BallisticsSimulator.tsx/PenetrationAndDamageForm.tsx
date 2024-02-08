@@ -1,4 +1,4 @@
-import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table } from "@mantine/core";
+import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
@@ -53,7 +53,7 @@ export function PenetrationAndDamageForm() {
     // );
 
     const elements = [
-        { name: 'Penetration Chance', Value: result ? (result?.PenetrationChance*100).toFixed(2) : "-" },
+        { name: 'Penetration Chance', Value: result ? (result?.PenetrationChance * 100).toFixed(2) : "-" },
         { name: 'Penetration Damage', Value: result?.PenetrationDamage.toFixed(2) ?? "-" },
         { name: 'Mitigated Damage', Value: result?.MitigatedDamage.toFixed(2) ?? "-" },
         { name: 'Blunt Damage', Value: result?.BluntdDamage.toFixed(2) ?? "-" },
@@ -86,8 +86,8 @@ export function PenetrationAndDamageForm() {
         }
 
         requestSingleShotBallisticSim(requestDetails).then(response => {
-            console.log("response", response)
             setResult(response)
+            form.resetDirty();
         }).catch(error => {
             alert(`The error was: ${error}`);
         });
@@ -100,9 +100,9 @@ export function PenetrationAndDamageForm() {
                 console.log(values);
                 handleSubmit(values);
             })}>
-                    {result !== undefined && (
-                        <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
-                    )}
+                {result !== undefined && (
+                    <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
+                )}
                 <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
                     <Grid.Col span={12} xs={3} mih={"100%"}>
                         <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -119,16 +119,23 @@ export function PenetrationAndDamageForm() {
                     <Grid.Col span={12} xs={6}>
                         <Box pos="relative" h={"100%"}>
                             <LoadingOverlay visible={visible} overlayBlur={2} />
+
                             <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
-                            <Table highlightOnHover withColumnBorders verticalSpacing="xs">
-                                <thead>
-                                    <tr>
-                                        <th>Value</th>
-                                        <th>Statistic</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{rows}</tbody>
-                            </Table>
+
+                            <Box pos="relative">
+                                {form.isDirty() && <Overlay color="#000" opacity={0.60} center />}
+                                <Table highlightOnHover withColumnBorders verticalSpacing="xs">
+                                    <thead>
+                                        <tr>
+                                            <th>Value</th>
+                                            <th>Statistic</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{rows}</tbody>
+                                </Table>
+                            </Box>
+                            {form.isDirty() && (<Text>Input changed, results will not match.</Text>)}
+
                             {/* <Stack>
                                 <Divider mt={4} mb={0} label={(<Title order={6}>Damage</Title>)} />
                                 <Text>Penetration Chance</Text>
@@ -182,7 +189,9 @@ export function PenetrationAndDamageForm() {
                         data={mockMaterials}
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
-                    <Button type="submit" data-html2canvas-ignore >Single Shot</Button>
+                    <Button type="submit" data-html2canvas-ignore >
+                        {!form.isDirty() ? <>Single Shot</> : <>Refresh Result</>}
+                    </Button>
                 </Group>
             </form>
         </BallisticSimulatorFormProvider>
