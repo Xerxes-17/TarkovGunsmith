@@ -82,12 +82,7 @@ export function ArmorMRT() {
                     <span>{(cell.getValue<number>()).toFixed(2)}</span>
                 ),
             },
-            {
-                accessorKey:"speedPenalty",
-                header: "Movement Speed Penalty",
-                size: 80,
-                Cell: ({ cell }) => DirectPercentageCell(cell)
-            },
+
             {
                 accessorKey: "ergonomics",
                 header: "Ergonomics",
@@ -96,6 +91,12 @@ export function ArmorMRT() {
             {
                 accessorKey: "turnSpeed",
                 header: "Turn Speed",
+                size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
+            },
+            {
+                accessorKey:"speedPenalty",
+                header: "Movement Speed Penalty",
                 size: 80,
                 Cell: ({ cell }) => DirectPercentageCell(cell)
             },
