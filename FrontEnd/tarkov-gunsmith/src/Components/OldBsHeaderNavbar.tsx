@@ -29,11 +29,24 @@ export function OldBsHeaderNavbar() {
                                 <Nav.Link>Modded Weapon Builder</Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link disabled>Terminal Ballistics Simulator</Nav.Link>
+                            {/* <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
+                                <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
+                            </LinkContainer> */}
+
+                            <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
+                                        <Nav.Link >Ballistics Simulator</Nav.Link>
                             </LinkContainer>
 
-                            <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>
+
+                            {/* <NavDropdown title="Ballistics Simulators" id="data-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
+                                        <Nav.Link >Penetration and Damage</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+                            </NavDropdown> */}
+
+                            {/* <NavDropdown title="Data Tables" id="data-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
                                         <Nav.Link disabled>Ammo Effectiveness</Nav.Link>
@@ -51,7 +64,7 @@ export function OldBsHeaderNavbar() {
                                         <Nav.Link disabled>Armor vs Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
 
                             <NavDropdown title="Stats Tables" id="stats-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>

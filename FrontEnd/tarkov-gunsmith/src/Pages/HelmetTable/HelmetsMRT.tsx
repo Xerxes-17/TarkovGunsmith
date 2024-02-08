@@ -92,6 +92,12 @@ export function HelmetsMRT() {
                 Cell: ({ cell }) => DirectPercentageCell(cell)
             },
             {
+                accessorKey:"speedPenalty",
+                header: "Movement Speed Penalty",
+                size: 80,
+                Cell: ({ cell }) => DirectPercentageCell(cell)
+            },
+            {
                 id: "armorClass",
                 accessorKey: "armorClass",
                 header: "Armor Class",

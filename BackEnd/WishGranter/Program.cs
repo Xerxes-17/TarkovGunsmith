@@ -74,9 +74,7 @@ using var tracerProvider = Sdk.CreateTracerProviderBuilder()
     .AddHoneycomb(options)
     .Build();
 
-
 await startAPIAsync();
-
 
 async Task startAPIAsync()
 {
@@ -114,7 +112,7 @@ async Task startAPIAsync()
     builder.Services.AddLogging();
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v2", new OpenApiInfo { Title = "Tarkov-Gunsmith", Description = "Mod your guns, test your armor/ammo", Version = "v2" });
+        c.SwaggerDoc("v3", new OpenApiInfo { Title = "Tarkov-Gunsmith", Description = "Mod your guns, test your armor/ammo", Version = "v3" });
     });
 
     var app = builder.Build();
@@ -122,7 +120,7 @@ async Task startAPIAsync()
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v2/swagger.json", "Tarkov-Gunsmith API V2");
+        c.SwaggerEndpoint("/swagger/v3/swagger.json", "Tarkov-Gunsmith API V3");
     });
 
     app.UseCors(MyAllowSpecificOrigins);
@@ -154,6 +152,21 @@ async Task startAPIAsync()
     app.MapGet("/CalculateArmorVsBulletSeries_Custom/{ac}/{material}/{maxDurability}/{startingDurabilityPerc}/{bluntThroughput}/{penetration}/{armorDamagePerc}/{damage}/{targetZone}",
         (int ac, float maxDurability, float startingDurabilityPerc, float bluntThroughput, string material, int penetration, int armorDamagePerc, int damage, string targetZone) =>
         API_TBS.CalculateArmorVsBulletSeries_Custom(MyActivitySource, ac, maxDurability, startingDurabilityPerc, bluntThroughput, material, penetration, armorDamagePerc, damage, targetZone));
+
+
+    //! ******* Ballistic Simulator *******
+    app.MapPost("/GetSingleShotBallisticSimulation",
+        async context =>
+        {
+            using var reader = new StreamReader(context.Request.Body);
+            var json = await reader.ReadToEndAsync();
+            var requestData = JsonSerializer.Deserialize<BallisticSimParameters>(json);
+            var result = API_BallisticSimulator.SingleShotSimulation(MyActivitySource, requestData);
+
+            context.Response.StatusCode = StatusCodes.Status200OK;
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+        });
 
     //! ******* AEC *******
     app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();

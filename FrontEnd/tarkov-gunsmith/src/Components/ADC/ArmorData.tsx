@@ -150,7 +150,7 @@ export interface ArmorOption {
 }
 
 
-function convertArmorStringToEnumVal(armorString: string): number {
+export function convertArmorStringToEnumVal(armorString: string): number {
     if (armorString === "Aluminium")
         return 0;
     else if (armorString === "Aramid")
