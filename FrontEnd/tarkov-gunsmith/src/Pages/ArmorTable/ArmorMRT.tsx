@@ -4,19 +4,13 @@ import {
     useMantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
-    MRT_ToggleFullScreenButton,
-    MRT_ExpandButton,
-    MRT_AggregationFns,
-    MRT_Row
-} from 'mantine-react-table';
-import { Box, Button, Flex, Text, Avatar, Title, Group } from '@mantine/core'
+    MRT_ToggleFullScreenButton} from 'mantine-react-table';
+import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { HelmetTableRow, NewArmorTableRow, PrimaryArmor, SecondaryArmorTableRow } from '../../Types/HelmetTypes';
-import { ArmorCollider, ArmorType, MATERIALS, MaterialType, convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
-import { getArmorStatsDataFromApi_WishGranter, getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
-import { lightShield, heavyShield, noneShield } from '../../Components/Common/tgIcons';
+import { NewArmorTableRow } from '../../Types/HelmetTypes';
+import { convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
+import { getArmorStatsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
 import { ArmorZonesTableCell } from '../../Components/Common/ArmorZonesTableCell';
-import { ReplacePlateButton } from '../../Components/Common/ReplacePlateButton';
 import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';
 import { MinRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinRicochetColHeader';
 import { MinAngleRicochetColHeader } from '../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader';
@@ -63,7 +57,7 @@ export function ArmorMRT() {
                 accessorKey: 'name',
                 header: 'Name',
                 size: 8,
-                Header: ({ column, header }) => (
+                Header: () => (
                     <div style={{ width: "100%" }}>Name</div>),
                 Cell: ({ renderedCellValue, row }) => NameAndAvatarCell(renderedCellValue, row, pix)
             },
@@ -262,7 +256,6 @@ export function ArmorMRT() {
         },
 
         mantineTableBodyCellProps: ({
-            cell,
             row
         }) => ({
             sx: {
