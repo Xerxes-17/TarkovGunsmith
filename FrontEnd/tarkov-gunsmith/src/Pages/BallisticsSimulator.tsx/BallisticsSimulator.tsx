@@ -82,7 +82,7 @@ export function BallisticsSimulator() {
             <Space h={5}/>
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
-                    <Title order={2}>Ballsitic Simulator</Title>
+                    <Title order={2}>Ballistic Simulator</Title>
                     <Group ml={"auto"}>
                         <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
                         <CopyElementImageButton targetElementId={PRINT_ID} />
