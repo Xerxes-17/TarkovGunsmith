@@ -19,7 +19,7 @@ export function BallisticsSimulator() {
     const mobileView = useMediaQuery('(max-width: 576px)');
     const { height, width } = useViewportSize();
     
-    console.log(mobileView)
+    // console.log(mobileView)
 
     function addNewTab() {
         const newTabTitle = `Sim${tabTitles.length + 1}`
@@ -78,7 +78,7 @@ export function BallisticsSimulator() {
     ))
 
     return (
-        <Container>
+        <Container size={"xl"}>
             <Space h={5}/>
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>

@@ -31,13 +31,17 @@ namespace WishGranter.API_Methods
         public float PenetrationChance { get; init; }
         public float PenetrationDamage { get; init; }
         public float MitigatedDamage { get; init; }
-        public float BluntdDamage { get; init; }
+        public float BluntDamage { get; init; }
         public float AverageDamage { get; init; }
 
         public float PenetrationArmorDamage { get; init; }
         public float BlockArmorDamage { get; init; }
         public float AverageArmorDamage { get; init; }
         public float PostHitArmorDurability { get; init; }
+
+        public float ReductionFactor { get; init; }
+        public float PostArmorPenetration { get; init; }
+
     };
 
     public class API_BallisticSimulator

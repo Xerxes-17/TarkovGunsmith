@@ -71,8 +71,8 @@ export function armorCollidersDisplay(armorColliders: ArmorZones[]) {
 
 export const mockMaterials: ArmorMaterialDestructibilitySelect[] = [
     {
-        value: "UHMW Polyethylene",
-        label: "UHMW Polyethylene",
+        value: "UHMWPE",
+        label: "UHMWPE",
         destructibility: 0.3375,
         explosionDestructibility: 0.3
     },

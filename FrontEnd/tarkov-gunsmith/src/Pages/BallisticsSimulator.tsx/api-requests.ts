@@ -2,11 +2,8 @@ import axios from "axios";
 import { API_URL } from "../../Util/util";
 import { MaterialType } from "../../Components/ADC/ArmorData";
 
-export interface BallisticSimParameters {
-    penetration: number;
-    damage: number;
-    armorDamagePerc: number;
-    hitPoints: number;
+
+export interface ArmorLayer{
     armorClass: number;
     bluntDamageThroughput: number;
     durability: number;
@@ -14,16 +11,26 @@ export interface BallisticSimParameters {
     armorMaterial: MaterialType;
 }
 
+export interface BallisticSimParameters {
+    penetration: number;
+    damage: number;
+    armorDamagePerc: number;
+    hitPoints: number;
+    armorLayers: ArmorLayer[];
+}
+
 export interface BallisticSimResponse {
     PenetrationChance: number;
     PenetrationDamage: number;
     MitigatedDamage: number;
-    BluntdDamage: number;
+    BluntDamage: number;
     AverageDamage: number;
     PenetrationArmorDamage: number;
     BlockArmorDamage: number;
     AverageArmorDamage: number;
     PostHitArmorDurability: number;
+    ReductionFactor: number;
+    PostArmorPenetration: number;
 }
 
 export async function requestSingleShotBallisticSim(requestDetails: BallisticSimParameters) {

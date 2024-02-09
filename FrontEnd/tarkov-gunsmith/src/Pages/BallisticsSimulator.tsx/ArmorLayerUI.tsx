@@ -1,24 +1,42 @@
-import { Divider,  Stack, Title } from "@mantine/core";
+import { Divider, Group, Stack, Title } from "@mantine/core";
 import { DurabilityAndMaxPair } from "../../Components/Common/Inputs/DurabilityAndMaxPair";
 import { NumberAndSlider } from "../../Components/Common/Inputs/NumberAndSlider";
 import { NumberAndSliderPercentage } from "../../Components/Common/Inputs/NumberAndSliderPercentage";
 import { ArmorMaterialSelect } from "../../Components/Common/Inputs/SelectArmorMaterial";
+import { FormArmorLayer, useBallisticSimulatorForm, useBallisticSimulatorFormContext } from "./ballistic-simulator--form-context";
+import { AddArmorLayerButton } from "../../Components/Common/Inputs/AddArmorLayerButton";
+import { RemoveArmorLayerButton } from "../../Components/Common/Inputs/RemoveArmorLayerButton";
 
+interface ArmorLayerUiProps {
+    index: number
+}
 
-export function ArmorLayerUI() {
+export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
+    const form = useBallisticSimulatorFormContext();
     return (
         <>
-            <Divider my="xs" label={(<Title order={4}>Armor Layer</Title>)} />
+            <Divider my="xs" label={(<Title order={4}>Armor Layer {index + 1}</Title>)} />
             <Stack>
-                <NumberAndSlider label={"Armor Class"} property={"armorClass"} precision={2} max={6} min={1} step={1} />
+                <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
                 <NumberAndSliderPercentage
                     label={"Blunt Damage Throughput"}
-                    property={"bluntDamageThroughput"}
+                    property={`armorLayers.${index}.bluntDamageThroughput`}
                     precision={2}
                     step={1}
                 />
-                <DurabilityAndMaxPair />
-                <ArmorMaterialSelect />
+                <DurabilityAndMaxPair index={index} />
+                <ArmorMaterialSelect armorLayersIndex={index} />
+                {index + 1 === form.values.armorLayers.length && (
+                    <Group grow>
+                        {form.values.armorLayers.length > 1 && (
+                            <RemoveArmorLayerButton index={index} />
+                        )}
+                        {form.values.armorLayers.length < 3 && (
+                            <AddArmorLayerButton index={index} />
+                        )}
+                        
+                    </Group>
+                )}
             </Stack>
         </>
     )
