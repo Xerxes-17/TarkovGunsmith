@@ -39,7 +39,7 @@ namespace WishGranter.Statics
             //    Console.WriteLine($"{weapon.Name}, {weapon.Id}");
             //}
 
-            result = PatchWeaponStatsFromAPI(result);
+            //result = PatchWeaponStatsFromAPI(result);
 
             return result;
         }

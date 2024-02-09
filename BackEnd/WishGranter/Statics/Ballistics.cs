@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Force.DeepCloner;
+using WishGranter.API_Methods;
 
 namespace WishGranter.Statics
 {
@@ -165,7 +166,7 @@ namespace WishGranter.Statics
         //? Might be an idea to add a "Hit Zero" in each series which is the details at the start of the simulation?
         public static List<BallisticHit> SimulateHitSeries_Engine(SimulationParameters parameters)
         {
-            List<BallisticHit> hits = new ();
+            List<BallisticHit> hits = new();
 
             float currentDurabilityDamageTotal = 0;
             float startingDurability = parameters.MaxDurability * (parameters.StartingDurabilityPerc / 100);
@@ -189,24 +190,24 @@ namespace WishGranter.Statics
                 // Get the current durability and pen chance
                 float currentDurability = startingDurability - currentDurabilityDamageTotal;
 
-                if(currentDurability < 0)
+                if (currentDurability < 0)
                 {
                     currentDurability = 0;
                 }
 
                 float armorDurabilityPercentage = (currentDurability / parameters.MaxDurability) * 100;
-                float penetrationChance = (float) PenetrationChance(parameters.ArmorClass, parameters.Penetration, armorDurabilityPercentage);
+                float penetrationChance = (float)PenetrationChance(parameters.ArmorClass, parameters.Penetration, armorDurabilityPercentage);
 
                 // Calc Potential damages:
-                float shotBlunt = (float) BluntDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
-                float shotPenetrating = (float) PenetrationDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.Damage, parameters.Penetration);
+                float shotBlunt = (float)BluntDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.BluntThroughput, parameters.Damage, parameters.Penetration);
+                float shotPenetrating = (float)PenetrationDamage(armorDurabilityPercentage, parameters.ArmorClass, parameters.Damage, parameters.Penetration);
 
                 // Calc Average Damage and apply it to HP pool
                 var AverageDamage = (shotBlunt * (1 - penetrationChance)) + (shotPenetrating * penetrationChance);
-               
+
                 if (currentDurability <= 0)
                 {
-                     //! Exception for when the armor is at zero durability
+                    //! Exception for when the armor is at zero durability
                     HitPoints = HitPoints - parameters.Damage;
                 }
                 else
@@ -764,6 +765,14 @@ namespace WishGranter.Statics
 
             return armor_destructability;
         }
+
+        /// <summary>
+        /// Provides the likelyhood of a penetration. armorDurabilityPerc is a num between 100 and 0. Returns a float.
+        /// </summary>
+        /// <param name="armorClass"></param>
+        /// <param name="bulletPen"></param>
+        /// <param name="armorDurabilityPerc">A number between 0 and 100 </param>
+        /// <returns></returns>
         public static double PenetrationChance(int armorClass, float bulletPen, float armorDurabilityPerc)
         {
             /**  
@@ -830,8 +839,8 @@ namespace WishGranter.Statics
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
-
-            double probabilityOfPenetration =  PenetrationChance(armor_class, (float) bullet_penetration, (float) armorDurability);
+          
+            double probabilityOfPenetration = PenetrationChance(armor_class, (float)bullet_penetration, (float)armorDurability);
 
             return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
         }
@@ -869,13 +878,30 @@ namespace WishGranter.Statics
             var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
 
             double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
-
-            double finalResult =
-                medianResult *
-                bulletDamage;
+            double finalResult = medianResult * bulletDamage;
+            //Console.WriteLine($"postPenetration penetrationPower: {medianResult * bulletPenetration} for AC{armorClass} vs P {bulletPenetration}");
 
             return finalResult;
         }
+        public static (double bulletDamage, double bulletPenetration) PenetrationDamage2(double armorDurabilityPercentage, int armorClass, double bulletDamage, double bulletPenetration, int layer)
+        {
+            double median(double a, double b, double c)
+            {
+                double[] arr = new double[] { a, b, c };
+                Array.Sort(arr);
+                return arr[1];
+            }
+
+            var factor_a = CalculateFactor_A(armorDurabilityPercentage, armorClass);
+
+            double medianResult = median(0.6, bulletPenetration / (factor_a + 12), 1);
+            double finalResult = medianResult * bulletDamage;
+
+            Console.WriteLine($"{layer}, {bulletPenetration}, {bulletDamage}, {medianResult * bulletPenetration}, {finalResult}, {PenetrationChance(armorClass, (float)bulletPenetration, (float)armorDurabilityPercentage)}");
+
+            return (finalResult, medianResult * bulletPenetration);
+        }
+
         public static int GetLegMetaHTK(Ammo ammo)
         {
             /* In this function we will find the STK of the ammo vs legs. For this we need to consider the bullet damage, the fragmentation chance and from those two the average damage.
@@ -909,7 +935,7 @@ namespace WishGranter.Statics
             health_pool = health_pool - (remainderFromLegs * .7);
 
             var math = health_pool / (average_damage * .7);
-            int shots = (int)Math.Ceiling((decimal) math);
+            int shots = (int)Math.Ceiling((decimal)math);
 
             shots = shots + legPoolShots;
 
@@ -917,9 +943,64 @@ namespace WishGranter.Statics
         }
         public static int GetLegMetaHTK(string ammoId)
         {
-            Ammo ammo = (Ammo) Ammos.Cleaned.FirstOrDefault(x=>x.Id == ammoId);
+            Ammo ammo = (Ammo)Ammos.Cleaned.FirstOrDefault(x => x.Id == ammoId);
 
             return GetLegMetaHTK(ammo);
+        }
+
+
+        public static List<BallisticSimResult> CalculateSingleShot(BallisticSimParameters bsp)
+        {
+
+            ArmorLayer[] layers = bsp.armorLayers;
+            List<BallisticSimResult> results = new();
+
+            float currentPenetration = bsp.penetration;
+            float currentDamage = bsp.damage;
+
+            foreach(var layer in layers)
+            {
+                float armorDurabilityPercent = layer.durability / layer.maxDurability * 100;
+                var penetrationChance = PenetrationChance(layer.armorClass, currentPenetration, armorDurabilityPercent);
+
+                var penetrationDamage = PenetrationDamage(
+                    armorDurabilityPercent,
+                    layer.armorClass,
+                    currentDamage,
+                    bsp.penetration
+                    );
+
+                var mitigatedDamage = currentDamage - penetrationDamage;
+
+                var bluntDamage = BluntDamage(armorDurabilityPercent, layer.armorClass, layer.bluntDamageThroughput / 100, currentDamage, currentPenetration);
+                var averageDamage = (penetrationDamage * penetrationChance) + (bluntDamage * (1 - penetrationChance));
+
+
+                var penetrationArmorDamage = DamageToArmorPenetration(layer.armorClass, layer.armorMaterial, currentPenetration, bsp.armorDamagePerc, armorDurabilityPercent);
+                var blockArmorDamage = DamageToArmorBlock(layer.armorClass, layer.armorMaterial, currentPenetration, bsp.armorDamagePerc, armorDurabilityPercent);
+
+                var averageArmorDamage = (penetrationArmorDamage * penetrationChance) + (blockArmorDamage * (1 - penetrationChance));
+
+                var PostHitArmorDurability = layer.durability - averageArmorDamage;
+
+                BallisticSimResult layerResult = new BallisticSimResult
+                {
+                    PenetrationChance = (float)penetrationChance,
+                    PenetrationDamage = (float)penetrationDamage,
+                    MitigatedDamage = (float)mitigatedDamage,
+                    BluntdDamage = (float)bluntDamage,
+                    AverageDamage = (float)averageDamage,
+                    PenetrationArmorDamage = (float)penetrationArmorDamage,
+                    BlockArmorDamage = (float)blockArmorDamage,
+                    AverageArmorDamage = (float)averageArmorDamage,
+                    PostHitArmorDurability = (float)PostHitArmorDurability
+                };
+
+                results.Add(layerResult);
+            }
+
+
+            return results;
         }
     }
 }

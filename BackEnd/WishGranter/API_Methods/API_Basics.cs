@@ -14,10 +14,15 @@ namespace WishGranter.API_Methods
         private static List<SelectionAmmo> AmmoOptionsList = WriteAmmoOptionsList();
         private static List<SelectionWeapon> WeaponOptionsList = WriteWeaponOptionsList();
 
-        private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
-        private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
         private static List<WeaponTableRow> WeaponsDataSheet = WriteWeaponsDataSheet();
-        
+        private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
+
+
+        private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet();
+        private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
+        private static List<NewArmorTableRow> NewHelmets = WriteHelmetsDataSheet();
+        private static List<NewArmorTableRow> NewArmorStatsSheet = WriteNewArmorStatsSheet();
+
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
@@ -34,20 +39,40 @@ namespace WishGranter.API_Methods
             return AmmoOptionsList;
         }
 
-        public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
+
+        public static List<WeaponTableRow> GetWeaponsDataSheet(ActivitySource myActivitySource)
         {
-            using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
-            return ArmorDataSheet;
+            using var myActivity = myActivitySource.StartActivity("Request for WeaponsDataSheet");
+            return WeaponsDataSheet;
         }
+
         public static List<AmmoTableRow> GetAmmoDataSheet(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for AmmoDataSheet");
             return AmmoDataSheet;
         }
-        public static List<WeaponTableRow> GetWeaponsDataSheet(ActivitySource myActivitySource)
+
+        public static List<ArmorModule> GetArmorModulesDataSheet(ActivitySource myActivitySource)
         {
-            using var myActivity = myActivitySource.StartActivity("Request for WeaponsDataSheet");
-            return WeaponsDataSheet;
+            using var myActivity = myActivitySource.StartActivity("Request for ArmorModulesData");
+            return ArmorModulesDataSheet;
+        }
+
+        public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
+            return ArmorDataSheet;
+        }
+
+        public static List<NewArmorTableRow> GetHelmetsDataSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for HelmetDataSheet");
+            return NewHelmets;
+        }
+        public static List<NewArmorTableRow> GetNewArmorStatSheet(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for NewArmorStatsSheet");
+            return NewArmorStatsSheet;
         }
 
         public static List<SelectionArmor> WriteArmorOptionsList()
@@ -198,6 +223,20 @@ namespace WishGranter.API_Methods
 
         }
 
+        public static List<ArmorModule> WriteArmorModulesDataSheet()
+        {
+            return ArmorModules.armorModules;
+        }
+        public static List<NewArmorTableRow> WriteHelmetsDataSheet()
+        {
+            return Armors.ConvertHelmetsToArmorTableRows();
+        }
+
+        public static List<NewArmorTableRow> WriteNewArmorStatsSheet()
+        {
+            return Armors.AssembledArmorsAndRigsAsRows;
+        }
+
         public static List<ArmorTableRow> WriteArmorDataSheet()
         {
             Monolit db = new();
@@ -243,6 +282,7 @@ namespace WishGranter.API_Methods
 
                 row.Id = item.Id;
                 row.Name = item.Name;
+                row.ShortName = item.ShortName;
 
 
                 var marketData = Market.GetEarliestCheapestTraderPurchaseOffer(item.Id);

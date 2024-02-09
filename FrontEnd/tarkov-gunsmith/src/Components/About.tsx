@@ -13,7 +13,7 @@ export default function About(props: any) {
                     <Card.Body>
                         <h4>Front End</h4>
                         <p>
-                            The frontend of this website was made using functional React, TypeScript and <a href="https://react-bootstrap.github.io/">React-Bootstrap</a>.
+                            The frontend of this website was made using functional React, TypeScript and originally <a href="https://react-bootstrap.github.io/">React-Bootstrap</a>, but now it's mostly using <a href="https://v6.mantine.dev/">Mantine v6</a>.
                         </p>
                         <p>
                             There are no accounts,

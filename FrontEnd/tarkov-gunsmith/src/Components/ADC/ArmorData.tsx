@@ -26,6 +26,117 @@ export enum MaterialType {
     "UHMWPE"
 }
 
+export const armorMaterialFilterOptions: {text: string, value: number}[] =
+ [
+    {text: convertEnumValToArmorString(0), value: 0},
+    {text: convertEnumValToArmorString(1), value: 1},
+    {text: convertEnumValToArmorString(2), value: 2},
+    {text: convertEnumValToArmorString(3), value: 3},
+    {text: convertEnumValToArmorString(4), value: 4},
+    {text: convertEnumValToArmorString(5), value: 5},
+    {text: convertEnumValToArmorString(6), value: 6},
+    {text: convertEnumValToArmorString(7), value: 7},
+]
+
+
+export enum ArmorType {
+    None,
+    Light,
+    Heavy,
+}
+
+export enum ArmorCollider {
+    BackHead,
+    Ears,
+    Eyes,
+    HeadCommon,
+    Jaw,
+    LeftCalf,
+    LeftForearm,
+    LeftSideChestDown,
+    LeftSideChestUp,
+    LeftThigh,
+    LeftUpperArm,
+    NeckBack,
+    NeckFront,
+    ParietalHead,
+    Pelvis,
+    PelvisBack,
+    RibcageLow,
+    RibcageUp,
+    RightCalf,
+    RightForearm,
+    RightSideChestDown,
+    RightSideChestUp,
+    RightThigh,
+    RightUpperArm,
+    SpineDown,
+    SpineTop
+}
+
+export enum ArmorZones {
+    Nape = ArmorCollider.BackHead,
+    Ears = ArmorCollider.Ears,
+    Eyes = ArmorCollider.Eyes,
+    Face = ArmorCollider.HeadCommon,
+    Jaws = ArmorCollider.Jaw,
+    LeftCalf = ArmorCollider.LeftCalf,
+    LeftForearm = ArmorCollider.LeftForearm,
+    LeftSide = ArmorCollider.LeftSideChestDown,
+    LeftArmpit = ArmorCollider.LeftSideChestUp,
+    LeftThigh = ArmorCollider.LeftThigh,
+    LeftShoulder = ArmorCollider.LeftUpperArm,
+    Neck = ArmorCollider.NeckBack,
+    Throat = ArmorCollider.NeckFront,
+    HeadTop = ArmorCollider.ParietalHead,
+    Groin = ArmorCollider.Pelvis,
+    Buttocks = ArmorCollider.PelvisBack,
+    Stomach = ArmorCollider.RibcageLow,
+    Thorax = ArmorCollider.RibcageUp,
+    RightCalf = ArmorCollider.RightCalf,
+    RightForearm = ArmorCollider.RightForearm,
+    RightSide = ArmorCollider.RightSideChestDown,
+    RightArmpit = ArmorCollider.RightSideChestUp,
+    RightThigh = ArmorCollider.RightThigh,
+    RightShoulder = ArmorCollider.RightUpperArm,
+    LowerBack = ArmorCollider.SpineDown,
+    UpperBack = ArmorCollider.SpineTop
+}
+
+export enum ArmorPlateCollider {
+    // NATO
+    Plate_Granit_SAPI_chest,
+    Plate_Granit_SAPI_back,
+    Plate_Granit_SSAPI_side_left_high,
+    Plate_Granit_SSAPI_side_left_low,
+    Plate_Granit_SSAPI_side_right_high,
+    Plate_Granit_SSAPI_side_right_low,
+    // RU
+    Plate_Korund_chest,
+    Plate_6B13_back,
+    Plate_Korund_side_left_high,
+    Plate_Korund_side_left_low,
+    Plate_Korund_side_right_high,
+    Plate_Korund_side_right_low
+}
+
+export enum ArmorPlateZones
+{
+    "SAPI front",
+    "SAPI back",
+    "SAPI left high",
+    "SAPI left low",
+    "SAPI right high",
+    "SAPI right low",
+
+    "Korund chest",
+    "6B13 back",
+    "Korund left high",
+    "Korund left low",
+    "Korund right high",
+    "Korund right low",
+}
+
 export interface ArmorOption {
     armorClass: number;
     maxDurability: number;
@@ -38,7 +149,8 @@ export interface ArmorOption {
     type: string;
 }
 
-function convertArmorStringToEnumVal(armorString: string): number {
+
+export function convertArmorStringToEnumVal(armorString: string): number {
     if (armorString === "Aluminium")
         return 0;
     else if (armorString === "Aramid")
@@ -81,12 +193,13 @@ export function convertEnumValToArmorString(enumVal: number): string {
 }
 
 // // Gonna need to add a type field to the ArmorOption
-export function filterArmorOptions(armorType:string[], armorClasses: number[], armorMaterials: string[], unfilteredOptions: ArmorOption[]): ArmorOption[] {
+export function filterArmorOptions(armorType: string[], armorClasses: number[], armorMaterials: string[], unfilteredOptions: ArmorOption[]): ArmorOption[] {
     let materialsFilter: number[] = [];
 
-    armorMaterials.forEach(function(item){
+    armorMaterials.forEach(function (item) {
         materialsFilter.push(convertArmorStringToEnumVal(item)
-    )});
+        )
+    });
 
     const result = unfilteredOptions.filter(item =>
         armorType.includes(item.type) &&

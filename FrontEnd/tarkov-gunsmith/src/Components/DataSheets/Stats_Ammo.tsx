@@ -1,44 +1,165 @@
 import MaterialReactTable from 'material-react-table';
-import type { MRT_ColumnDef } from 'material-react-table'; // If using TypeScript (optional, but recommended)
+import type { MRT_ColumnDef } from 'material-react-table';
 import { useEffect, useMemo, useState } from 'react';
 import { API_URL } from '../../Util/util';
 import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Card, Col } from 'react-bootstrap';
-export default function DataSheetAmmo(props: any) {
-    // If using TypeScript, define the shape of your data (optional, but recommended)
-    // strongly typed if you are using TypeScript (optional, but recommended)
-    interface AmmoTableRow {
-        id: string
-        name: string
-        caliber: string
-        damage: number
-        penetrationPower: number
-        armorDamagePerc: number
-        baseArmorDamage: number
-        lightBleedDelta: number
-        heavyBleedDelta: number
-        fragChance: number
-        InitialSpeed: number
-        AmmoRec: number
-        tracer: boolean
-        price: number
-        traderLevel: number
-    }
+import axios, { AxiosResponse } from 'axios';
 
+interface AmmoTableRow {
+    id: string
+    name: string
+    caliber: string
+    damage: number
+    penetrationPower: number
+    armorDamagePerc: number
+    baseArmorDamage: number
+    lightBleedDelta: number
+    heavyBleedDelta: number
+    fragChance: number
+    initialSpeed: number
+    AmmoRec: number
+    tracer: boolean
+    price: number
+    traderLevel: number
+}
+
+interface DevTarkovAmmoItem {
+    id: string;
+    name: string;
+    properties: {
+        penetrationPower: number;
+        damage: number;
+        caliber: string;
+        armorDamage: number;
+        projectileCount: number;
+        recoilModifier: number;
+        heavyBleedModifier: number;
+        lightBleedModifier: number;
+        accuracyModifier: number;
+        initialSpeed: number;
+        fragmentationChance: number;
+        tracer: boolean;
+    } | null;
+}
+
+interface ApiResponse {
+    data: {
+        items: DevTarkovAmmoItem[];
+    };
+}
+/**
+ * @deprecated This is the old MaterialRT version, use AmmoTableMRT instead
+ */
+export default function DataSheetAmmo(props: any) {
     const [AmmoTableData, setAmmoTableData] = useState<AmmoTableRow[]>([]);
 
-    const ammos = async () => {
-        const response = await fetch(API_URL + '/GetAmmoDataSheetData');
-        setAmmoTableData(await response.json())
+
+    async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null> {
+        try {
+            const response: AxiosResponse<ApiResponse> = await axios.post("https://api.tarkov.dev/graphql", {
+                query: `
+                {
+                    items(types: [ammo]) {
+                        id
+                        name
+                        properties {
+                            ... on ItemPropertiesAmmo {
+                                penetrationPower
+                                damage
+                                caliber
+                                armorDamage
+                                projectileCount
+                                recoilModifier
+                                heavyBleedModifier
+                                lightBleedModifier
+                                accuracyModifier
+                                initialSpeed
+                                fragmentationChance
+                                tracer
+                            }
+                        }
+                    }
+                }`
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+            });
+            return response.data.data.items;
+        } catch (error) {
+            console.error("Error in fetching from api.tarkov.dev:", error);
+            return null;
+        }
     }
-    // This useEffect will update the ArmorOptions with the result from the async API call
+
+    function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): AmmoTableRow {
+        const properties = item.properties;
+    
+        return {
+            id: item.id,
+            name: item.name,
+            caliber: properties ? properties.caliber : "",
+            damage: properties ? properties.damage : -1,
+            penetrationPower: properties ? properties.penetrationPower : -1,
+            armorDamagePerc: properties ? properties.armorDamage : -1,
+            baseArmorDamage: properties ? properties.penetrationPower * properties.armorDamage/100: -1,
+            lightBleedDelta: properties ? properties.lightBleedModifier : -1,
+            heavyBleedDelta: properties ? properties.heavyBleedModifier : -1,
+            fragChance: properties ? properties.fragmentationChance : -1,
+            initialSpeed: properties ? properties.initialSpeed : -1,
+            AmmoRec: properties ? properties.recoilModifier : -1,
+            tracer: properties ? properties.tracer : false, 
+            price: -1, 
+            traderLevel: -1,
+        };
+    }
+
+    async function getDataFromApi_TarkovDev(){
+        const fetched = await fetchDataFromApi_TarkovDev();
+
+        if(fetched === null){
+            console.error("Something went wrong fetching ammo data from api.tarkov.dev")
+            return null;
+        }
+        const transformed = fetched.map(item => transformTarkovDevItemToAmmoTableRow(item));
+
+        const filtered = transformed.filter(row => row.caliber !== undefined && row.caliber !=="");
+
+        return filtered;
+    }
+
+    async function getDataFromApi_WishGranter(): Promise<AmmoTableRow[] | null> {
+        try {
+            const response: AxiosResponse<AmmoTableRow[]> = await axios.get(`${API_URL}/GetAmmoDataSheetData`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching ammo data:', error);
+            return null;
+        }
+    };
+
+    async function getTableData() {
+        // const response_WishGranterApi = await getDataFromApi_WishGranter();
+        // if(response_WishGranterApi !== null){
+        //     setAmmoTableData(response_WishGranterApi);
+        //     return;
+        // }
+
+        const response_ApiTarkovDev = await getDataFromApi_TarkovDev()
+        if(response_ApiTarkovDev !== null){
+            setAmmoTableData(response_ApiTarkovDev);
+            return;
+        }
+
+        console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
+    }
+
     useEffect(() => {
-        ammos();
+        getTableData();
     }, [])
 
-
-
-    //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [
             {
@@ -58,7 +179,7 @@ export default function DataSheetAmmo(props: any) {
                         <img
                             alt="avatar"
                             height={40}
-                            src={`https://assets.tarkov.dev/${row.original.id}-icon.jpg`}
+                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
                             loading="lazy"
                         />
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}

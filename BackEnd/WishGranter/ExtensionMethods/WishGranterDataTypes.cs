@@ -209,6 +209,7 @@ namespace WishGranterProto.ExtensionMethods
     {
         public string Id { get; set; } = "default";
         public string Name { get; set; } = "default";
+        public string ShortName { get; set; } = "default";
         public int Price { get; set; } = 0;
         public int TraderLevel { get; set; } = -1;
         public string Caliber { get; set; } = "";
