@@ -17,6 +17,566 @@ using System.Text.Json;
 namespace WishGranterTests
 {
     [TestClass]
+    public class NewBallisticsTesting
+    {
+        [TestMethod]
+        public void Test_ReductionFactor()
+        {
+            var result1 = Ballistics.CalculateReductionFactor(31, 100, 3);
+            Console.WriteLine("Hoping for .75: " + result1);
+            var result2 = Ballistics.CalculateReductionFactor(35, 100, 4);
+            Console.WriteLine("Hoping for .66: " + result2);
+        }
+
+        [TestMethod]
+        public void Test_CalculateFactor_A_1()
+        {
+            void PrintResultsToCSV(double[,] results, string filePath)
+            {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        for (int i = 0; i < results.GetLength(0); i++)
+                        {
+                            // Write each row to the CSV file
+                            for (int j = 0; j < results.GetLength(1); j++)
+                            {
+                                sw.Write(results[i, j]);
+                                if (j < results.GetLength(1) - 1)
+                                    sw.Write(",");
+                            }
+                            sw.WriteLine();
+                        }
+                    }
+
+                    Console.WriteLine("File created successfully at: " + filePath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error writing to file: " + ex.Message);
+                }
+            }
+
+
+            int ACs = 6;
+            int duraMax = 100;
+
+            double[,] resultsArray = new double[ACs, duraMax];
+
+            for (int i = 1; i < ACs; i++)
+            {
+                for(int j = 1; j <= duraMax; j++)
+                {
+                    var result = Ballistics.CalculateFactor_A(j, i);
+
+                    resultsArray[i, j-1] = result;
+                }
+            }
+
+            // Print the results to a CSV file
+            PrintResultsToCSV(resultsArray, "D:\\DocumentsLibrary\\Desktop\\output_factorA.csv");
+
+        }
+
+        [TestMethod]
+        public void Test_CalculateReductionFactor_BP()
+        {
+            void PrintResultsToCSV(double[,] results, string filePath)
+            {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(filePath))
+                    {
+                        for (int i = 0; i < results.GetLength(0); i++)
+                        {
+                            // Write each row to the CSV file
+                            for (int j = 0; j < results.GetLength(1); j++)
+                            {
+                                sw.Write(results[i, j]);
+                                if (j < results.GetLength(1) - 1)
+                                    sw.Write(",");
+                            }
+                            sw.WriteLine();
+                        }
+                    }
+
+                    Console.WriteLine("File created successfully at: " + filePath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error writing to file: " + ex.Message);
+                }
+            }
+
+            int ACs = 6;
+            int duraMax = 100;
+
+            double[,] resultsArray = new double[ACs, duraMax];
+
+            for (int i = 1; i < ACs; i++)
+            {
+                for (int j = 1; j <= duraMax; j++)
+                {
+                    var result = Ballistics.CalculateReductionFactor(28, j, i);
+
+                    resultsArray[i, j - 1] = result;
+                }
+            }
+            PrintResultsToCSV(resultsArray, "D:\\DocumentsLibrary\\Desktop\\output_reductionFactor.csv");
+        }
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_Trooper_BP()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 40,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = 0.26f,
+                PlateArmorMaterial = ArmorMaterial.UHMWPE,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 50,
+                SoftStartingDurabilityPerc = 76,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 BP
+                Penetration = 45,
+                Damage = 46,
+                ArmorDamagePerc = 46,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                //Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                //Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                //Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                //Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_AnaM1_545_BP()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 45,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 40,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 BP
+                Penetration = 45,
+                Damage = 46,
+                ArmorDamagePerc = 46,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_AnaM1_545_PS()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 45,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 40,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 PS
+                Penetration = 28,
+                Damage = 53,
+                ArmorDamagePerc = 40,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                //Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                //Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_AnaM1_762_39_PS()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 45,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 40,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //7.62x39 PS
+                Penetration = 35,
+                Damage = 57,
+                ArmorDamagePerc = 52,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                //Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                //Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_6B13_FMJ()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 50,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 34,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 FMJ
+                Penetration = 24,
+                Damage = 55,
+                ArmorDamagePerc = 38,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                //Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                //Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                //Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                //Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_6B13_PP()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 50,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 34,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 PS
+                Penetration = 34,
+                Damage = 50,
+                ArmorDamagePerc = 42,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_6B13_PS()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 50,
+                PlateStartingDurabilityPerc = 100,
+                PlateBluntThroughput = .18f,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 34,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 PS
+                Penetration = 28,
+                Damage = 53,
+                ArmorDamagePerc = 40,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach(var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+        [TestMethod]
+        public void Test_MultiLayerSimulation_EngineV2_6B13_BP()
+        {
+            MultiLayerSimulationParameters multiLayerSimulationParameters = new MultiLayerSimulationParameters
+            {
+                TargetZone = TargetZone.Thorax,
+
+                PlateArmorClass = 4,
+                PlateMaxDurability = 50,
+                PlateBluntThroughput = .18f,
+                PlateStartingDurabilityPerc = 100,
+                PlateArmorMaterial = ArmorMaterial.ArmoredSteel,
+
+                SoftArmorClass = 2,
+                SoftMaxDurability = 34,
+                SoftStartingDurabilityPerc = 100,
+                SoftBluntThroughput = .33f,
+                SoftArmorMaterial = ArmorMaterial.Aramid,
+
+                //5.45 BP
+                Penetration = 45,
+                Damage = 46,
+                ArmorDamagePerc = 46,
+            };
+
+            var result = Ballistics.MultiLayerSimulation_EngineV2(multiLayerSimulationParameters);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine("");
+                Console.WriteLine($"HitNum: {item.HitNum}");
+
+                Console.WriteLine($"PenetrationChance_Plate : {item.PenetrationChance_Plate}");
+                //Console.WriteLine($"DurabilityBeforeHit_Plate: {item.DurabilityBeforeHit_Plate}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Plate : {item.DurabilityDamageTotalAfterHit_Plate}");
+
+                //Console.WriteLine($"PenetrationPower_PostPlate: {item.PenetrationPower_PostPlate }");
+                //Console.WriteLine($"Damage_PostPlate: {item.Damage_PostPlate }");
+
+                Console.WriteLine($"PenetrationChance_Soft: {item.PenetrationChance_Soft}");
+                //Console.WriteLine($"DurabilityBeforeHit_Soft: {item.DurabilityBeforeHit_Soft}");
+                //Console.WriteLine($"DurabilityDamageTotalAfterHit_Soft: {item.DurabilityDamageTotalAfterHit_Soft}");
+
+                Console.WriteLine($"BluntDamage: {item.BluntDamage }");
+                Console.WriteLine($"PenetrationDamage: {item.PenetrationDamage }");
+
+                Console.WriteLine($"AverageRemainingHitPoints: {item.AverageRemainingHitPoints}");
+                Console.WriteLine($"CumulativeChanceOfKill: {item.CumulativeChanceOfKill}");
+                Console.WriteLine($"SpecificChanceOfKill: {item.SpecificChanceOfKill}");
+            }
+        }
+
+
+        [TestMethod]
+        public void Test_NewCalcReductionMult()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                var result = Ballistics.CalculateReductionFactor(30+i, 100, 4);
+                Console.WriteLine($"pen: {30 + i}, dura: 100%, ac: 4, reductionFactor: {result}");
+            }
+        }
+
+
+        [TestMethod]
+        public void Test_NewBlunt2()
+        {
+            //Testing damage of 9x18mm PM P vs Steel C
+            var result = Ballistics.BluntDamage(100, 3, .2, 50, 5);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_NewBlunt()
+        {
+            //Testing damage of 7mm buck pellet vs nerc armor aramid of 6B13
+            var result = Ballistics.BluntDamage(100, 3, .33, 38, 3);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_SomeMath()
+        {
+            Monolit db = new();
+            var armor = db.ArmorItems.FirstOrDefault(y => y.Id.Equals("5ca21c6986f77479963115a7"));
+            var ammo = db.BallisticDetails.FirstOrDefault(x => x.AmmoId.Equals("601aa3d2b2bcb34913271e6d") && x.Distance == 10);
+
+            var result = Ballistics.SimulateHitSeries_Presets(armor, 100, ammo);
+            Console.WriteLine(result);
+        }
+    }
+  
     public class ArmorsTest
     {
         [TestMethod]
@@ -278,6 +838,7 @@ namespace WishGranterTests
 
         }
     }
+
 
     [TestClass]
     public class GunsmithProblemsTesting
