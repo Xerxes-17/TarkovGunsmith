@@ -450,38 +450,59 @@ namespace WishGranter.Statics
             return GetLegMetaHTK(ammo);
         }
 
-        public static BallisticSimResult CalculateSingleShot(BallisticSimParameters bsp)
+
+        public static List<BallisticSimResult> CalculateSingleShot(BallisticSimParameters bsp)
         {
-            float armorDurabilityPercent = bsp.durability / bsp.maxDurability * 100;
 
-            var penetrationChance = PenetrationChance(bsp.armorClass, bsp.penetration, armorDurabilityPercent);
-            var penetrationDamage = PenetrationDamage(
-                armorDurabilityPercent,
-                bsp.armorClass,
-                bsp.damage,
-                bsp.penetration
-                );
-            var mitigatedDamage = bsp.damage - penetrationDamage;
-            var bluntDamage = BluntDamage(armorDurabilityPercent, bsp.armorClass, bsp.bluntDamageThroughput/100, bsp.damage, bsp.penetration);
-            var averageDamage = (penetrationDamage * penetrationChance) + (bluntDamage * (1 - penetrationChance));
+            ArmorLayer[] layers = bsp.armorLayers;
+            List<BallisticSimResult> results = new();
 
-            var penetrationArmorDamage = DamageToArmorPenetration(bsp.armorClass, bsp.armorMaterial, bsp.penetration, bsp.armorDamagePerc, armorDurabilityPercent);
-            var blockArmorDamage = DamageToArmorBlock(bsp.armorClass, bsp.armorMaterial, bsp.penetration, bsp.armorDamagePerc, armorDurabilityPercent);
-            var averageArmorDamage = (penetrationArmorDamage * penetrationChance) + (blockArmorDamage * (1 - penetrationChance));
-            var PostHitArmorDurability = bsp.durability - averageArmorDamage;
+            float currentPenetration = bsp.penetration;
+            float currentDamage = bsp.damage;
 
-            return new BallisticSimResult
+            foreach(var layer in layers)
             {
-                PenetrationChance = (float)penetrationChance,
-                PenetrationDamage = (float)penetrationDamage,
-                MitigatedDamage = (float)mitigatedDamage,
-                BluntdDamage = (float)bluntDamage,
-                AverageDamage = (float)averageDamage,
-                PenetrationArmorDamage = (float)penetrationArmorDamage,
-                BlockArmorDamage = (float)blockArmorDamage,
-                AverageArmorDamage = (float)averageArmorDamage,
-                PostHitArmorDurability = (float)PostHitArmorDurability
-            };
+                float armorDurabilityPercent = layer.durability / layer.maxDurability * 100;
+                var penetrationChance = PenetrationChance(layer.armorClass, currentPenetration, armorDurabilityPercent);
+
+                var penetrationDamage = PenetrationDamage(
+                    armorDurabilityPercent,
+                    layer.armorClass,
+                    currentDamage,
+                    bsp.penetration
+                    );
+
+                var mitigatedDamage = currentDamage - penetrationDamage;
+
+                var bluntDamage = BluntDamage(armorDurabilityPercent, layer.armorClass, layer.bluntDamageThroughput / 100, currentDamage, currentPenetration);
+                var averageDamage = (penetrationDamage * penetrationChance) + (bluntDamage * (1 - penetrationChance));
+
+
+                var penetrationArmorDamage = DamageToArmorPenetration(layer.armorClass, layer.armorMaterial, currentPenetration, bsp.armorDamagePerc, armorDurabilityPercent);
+                var blockArmorDamage = DamageToArmorBlock(layer.armorClass, layer.armorMaterial, currentPenetration, bsp.armorDamagePerc, armorDurabilityPercent);
+
+                var averageArmorDamage = (penetrationArmorDamage * penetrationChance) + (blockArmorDamage * (1 - penetrationChance));
+
+                var PostHitArmorDurability = layer.durability - averageArmorDamage;
+
+                BallisticSimResult layerResult = new BallisticSimResult
+                {
+                    PenetrationChance = (float)penetrationChance,
+                    PenetrationDamage = (float)penetrationDamage,
+                    MitigatedDamage = (float)mitigatedDamage,
+                    BluntdDamage = (float)bluntDamage,
+                    AverageDamage = (float)averageDamage,
+                    PenetrationArmorDamage = (float)penetrationArmorDamage,
+                    BlockArmorDamage = (float)blockArmorDamage,
+                    AverageArmorDamage = (float)averageArmorDamage,
+                    PostHitArmorDurability = (float)PostHitArmorDurability
+                };
+
+                results.Add(layerResult);
+            }
+
+
+            return results;
         }
     }
 }

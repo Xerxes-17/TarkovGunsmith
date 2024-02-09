@@ -4,6 +4,16 @@ using WishGranter.Statics;
 
 namespace WishGranter.API_Methods
 {
+
+    public record struct ArmorLayer
+    {
+        public int armorClass { get; init; }
+        public float bluntDamageThroughput { get; init; }
+        public float durability { get; init; }
+        public float maxDurability { get; init; }
+        public ArmorMaterial armorMaterial { get; init; }
+    };
+
     public record struct BallisticSimParameters
     {
         public float penetration { get; init; }
@@ -12,11 +22,7 @@ namespace WishGranter.API_Methods
 
         public int hitPoints { get; init; }
 
-        public int armorClass { get; init; }
-        public float bluntDamageThroughput { get; init; }
-        public float durability { get; init; }
-        public float maxDurability { get; init; }
-        public ArmorMaterial armorMaterial { get; init; }
+        public ArmorLayer[] armorLayers { get; init; }
 
     };
 
@@ -36,7 +42,7 @@ namespace WishGranter.API_Methods
 
     public class API_BallisticSimulator
     {
-        public static BallisticSimResult SingleShotSimulation(ActivitySource myActivitySource, BallisticSimParameters simParams)
+        public static List<BallisticSimResult> SingleShotSimulation(ActivitySource myActivitySource, BallisticSimParameters simParams)
         {
             using var myActivity = myActivitySource.StartActivity("Request for BallisticSim");
             myActivity?.SetTag("penetration", simParams.penetration);
@@ -44,12 +50,12 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("armorDamagePerc", simParams.armorDamagePerc);
             myActivity?.SetTag("HitPoints", simParams.hitPoints);
 
-            myActivity?.SetTag("ArmorClass", simParams.armorClass);
-            myActivity?.SetTag("BluntDamageThroughput", simParams.bluntDamageThroughput);
-            myActivity?.SetTag("Durability", simParams.durability);
-            myActivity?.SetTag("MaxDurability", simParams.maxDurability);
-            myActivity?.SetTag("material", simParams.armorMaterial);
-
+            myActivity?.SetTag("ArmorLayers", simParams.armorLayers.Length);
+            myActivity?.SetTag("ArmorClass", simParams.armorLayers[0].armorClass);
+            myActivity?.SetTag("BluntDamageThroughput", simParams.armorLayers[0].bluntDamageThroughput);
+            myActivity?.SetTag("Durability", simParams.armorLayers[0].durability);
+            myActivity?.SetTag("MaxDurability", simParams.armorLayers[0].maxDurability);
+            myActivity?.SetTag("material", simParams.armorLayers[0].armorMaterial);
 
             return Ballistics.CalculateSingleShot(simParams);
         }

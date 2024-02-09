@@ -23,7 +23,7 @@ interface DownloadElementImageButtonProps {
 
 export function DownloadElementImageButton({targetElementId, fileName}: DownloadElementImageButtonProps) {
     return (
-        <Tooltip label="Download simulation as image" transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
+        <Tooltip label="Download simulation as image" position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
             <Button variant="outline" leftIcon={<IconDownload size="1.2rem" />} onClick={() => handleImageDownload(targetElementId, fileName)} data-html2canvas-ignore>
                 Download
             </Button>
