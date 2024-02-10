@@ -7,6 +7,7 @@ import { NumberLabelAndSliderPercentage } from "../../Components/Common/Inputs/N
 import { useBallisticSimulatorFormContext } from "./ballistic-simulator--form-context";
 import { DrawerButton } from "../../Components/Common/Inputs/DrawerButton";
 import { IconSearch, IconShieldPlus } from "@tabler/icons-react";
+import { ArmorDamagePercentageWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorDamagePercentage";
 
 const MAX_PENETRATION = 90;
 const MAX_DAMAGE = 265;
@@ -31,7 +32,7 @@ export function ProjectileUI() {
                 <NumberAndSlider label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
                 <NumberAndSlider label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />
                 <NumberLabelAndSliderPercentage
-                    label={"Armor Damage Percentage"}
+                    label={<ArmorDamagePercentageWithToolTip/>}
                     description={effectiveDurabilityDamageDes}
                     property={"armorDamagePercentage"}
                     precision={2}

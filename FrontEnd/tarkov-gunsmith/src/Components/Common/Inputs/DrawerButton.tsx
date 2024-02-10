@@ -6,7 +6,7 @@ import { SearchSelectArmorTable } from '../Tables/SearchSelectArmorTable';
 
 
 export interface DrawerButtonProps {
-    buttonLabel: string
+    buttonLabel: string | ReactNode
     leftIcon?: ReactNode
     ammorOrArmor: "ammo" | "armor"
     armorIndex?: number
@@ -44,7 +44,7 @@ export function DrawerButton({ buttonLabel, leftIcon, ammorOrArmor, armorIndex }
 
     return (
         <>
-            <Drawer.Root opened={opened} onClose={close} zIndex={2001} size={ammorOrArmor === "ammo" ? "lg" : "xl"}>
+            <Drawer.Root opened={opened} onClose={close} zIndex={2001} size={ammorOrArmor === "ammo" ? "lg" : "1300px"}>
                 <Drawer.Overlay zIndex={1000} />
                 <Drawer.Content>
                     {ammorOrArmor === "ammo" && (

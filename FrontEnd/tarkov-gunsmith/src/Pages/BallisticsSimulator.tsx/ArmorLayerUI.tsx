@@ -8,6 +8,7 @@ import { AddArmorLayerButton } from "../../Components/Common/Inputs/AddArmorLaye
 import { RemoveArmorLayerButton } from "../../Components/Common/Inputs/RemoveArmorLayerButton";
 import { DrawerButton } from "../../Components/Common/Inputs/DrawerButton";
 import { IconSearch } from "@tabler/icons-react";
+import { BluntThroughputWithToolTip } from "../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip";
 
 interface ArmorLayerUiProps {
     index: number
@@ -28,7 +29,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
             <Stack>
                 <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
                 <NumberAndSliderPercentage
-                    label={"Blunt Damage Throughput"}
+                    label={<BluntThroughputWithToolTip/>}
                     property={`armorLayers.${index}.bluntDamageThroughput`}
                     precision={2}
                     step={1}
