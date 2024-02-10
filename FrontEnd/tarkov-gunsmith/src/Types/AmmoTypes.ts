@@ -120,3 +120,8 @@ export interface ApiResponse {
     items: DevTarkovAmmoItem[];
   };
 }
+
+export function filterNonBulletsOut(input: AmmoTableRow[]){
+  const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
+  return result
+}

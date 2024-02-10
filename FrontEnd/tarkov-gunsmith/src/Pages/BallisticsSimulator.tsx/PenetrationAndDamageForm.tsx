@@ -126,7 +126,7 @@ export function PenetrationAndDamageForm() {
             if (!transposedDictionary[fieldName]) {
                 transposedDictionary[fieldName] = [];
             }
-            if(fieldName === "Penetration Chance"){
+            if (fieldName === "Penetration Chance") {
                 transposedDictionary[fieldName].push(`${(value * 100).toFixed(2)} %`);
             } else {
                 transposedDictionary[fieldName].push(value.toFixed(2));
@@ -138,19 +138,28 @@ export function PenetrationAndDamageForm() {
     // console.log("transposedDictionary", transposedDictionary)
     // console.log("transposedArray", transposedArray);
 
-    // const elements = [
-    //     { name: 'Penetration Chance', Value: result ? (result?.PenetrationChance * 100).toFixed(2) : "-" },
-    //     { name: 'Penetration Damage', Value: result?.PenetrationDamage.toFixed(2) ?? "-" },
-    //     { name: 'Mitigated Damage', Value: result?.MitigatedDamage.toFixed(2) ?? "-" },
-    //     { name: 'Blunt Damage', Value: result?.BluntdDamage.toFixed(2) ?? "-" },
-    //     { name: 'Average Damage', Value: result?.AverageDamage.toFixed(2) ?? "-" },
-    //     { name: 'Penetration Armor Damage', Value: result?.PenetrationArmorDamage.toFixed(2) ?? "-" },
-    //     { name: 'Block Armor Damage', Value: result?.BlockArmorDamage.toFixed(2) ?? "-" },
-    //     { name: 'Average Armor Damage', Value: result?.AverageArmorDamage.toFixed(2) ?? "-" },
-    //     { name: 'Post-hit Armor Durability', Value: result?.PostHitArmorDurability.toFixed(2) ?? "-" },
-    //     { name: 'Reduction Factor', Value: result?.ReductionFactor.toFixed(2) ?? "-" },
-    //     { name: 'Post Armor Penetration', Value: result?.PostArmorPenetration.toFixed(2) ?? "-" },
-    // ];
+    const elements = [
+        { name: 'Penetration Chance', Value: "-" },
+        { name: 'Penetration Damage', Value: "-" },
+        { name: 'Mitigated Damage', Value: "-" },
+        { name: 'Blunt Damage', Value: "-" },
+        { name: 'Average Damage', Value: "-" },
+        { name: 'Penetration Armor Damage', Value: "-" },
+        { name: 'Block Armor Damage', Value: "-" },
+        { name: 'Average Armor Damage', Value: "-" },
+        { name: 'Post-hit Armor Durability', Value: "-" },
+        { name: 'Reduction Factor', Value: "-" },
+        { name: 'Post Armor Penetration', Value: "-" },
+    ];
+
+    const initialRows = elements.map(row =>
+    (
+        <tr key={row.name}>
+            <td>{row.Value}</td>
+            <td>{row.name}</td>
+        </tr>
+    )
+    )
 
     const rows = Object.keys(transposedDictionary).map((key) => (
         <tr key={key}>
@@ -202,8 +211,8 @@ export function PenetrationAndDamageForm() {
                 <Grid columns={24} gutter={20} grow>
                     <Grid.Col span={24} xs={4} mih={"100%"}>
                         {/* <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> */}
-                            <ProjectileUI />
-                            {/* <TargetUI /> */}
+                        <ProjectileUI />
+                        {/* <TargetUI /> */}
                         {/* </Paper> */}
                     </Grid.Col>
 
@@ -211,7 +220,7 @@ export function PenetrationAndDamageForm() {
                         form.values.armorLayers.map((_, index) => {
                             return (
                                 <Grid.Col span={24} xs={4}>
-                                    <ArmorLayerUI index={index}/>
+                                    <ArmorLayerUI index={index} />
                                 </Grid.Col>
                             )
                         })
@@ -229,11 +238,17 @@ export function PenetrationAndDamageForm() {
                                 <Table highlightOnHover withColumnBorders verticalSpacing="xs">
                                     <thead>
                                         <tr>
-                                            {thElements.map(th => {return th})}
+                                            {thElements.map(th => { return th })}
+                                            {result.length < 1 && (
+                                                <th>Value</th>
+                                            )}
                                             <th>Statistic</th>
                                         </tr>
                                     </thead>
                                     <tbody>{rows}</tbody>
+                                    {result.length < 1 && (
+                                        <tbody>{initialRows}</tbody>
+                                    )}
                                 </Table>
                             </Box>
                             {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
