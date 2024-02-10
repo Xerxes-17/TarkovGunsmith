@@ -5,6 +5,7 @@ import { useState } from "react";
 import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
 import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
+import { BallisticSimulatorTitle } from "../../Components/Common/TextWithToolTips/BallisticSimulatorTitle";
 
 const PRINT_ID = "printMe";
 
@@ -82,7 +83,7 @@ export function BallisticsSimulator() {
             <Space h={5}/>
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
-                    <Title order={2}>Ballistic Simulator</Title>
+                    <BallisticSimulatorTitle/>
                     <Group ml={"auto"}>
                         <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
                         <CopyElementImageButton targetElementId={PRINT_ID} />
