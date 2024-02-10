@@ -307,7 +307,7 @@ export function PenetrationAndDamageForm() {
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
                     <Button type="submit" data-html2canvas-ignore  disabled={result !== undefined && !form.isDirty()}>
-                        {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
+                        {result.length > 0 ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>
                 </Group>
             </form>
