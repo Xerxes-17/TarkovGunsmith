@@ -22,6 +22,26 @@ import { RicochetChanceCell } from "../../Components/Common/TableCells/RicochetC
 import { BluntDamageCell } from "../../Components/Common/TableCells/BluntDamageCell";
 
 
+export function namesDisplay(input: string) {
+    return (
+        <>
+            {input.split(",").map((name) => {
+                return <>{name}<br /></>
+            })}
+        </>
+    )
+}
+
+export function hitZonesDisplay(row: ArmorModuleTableRow) {
+    return (
+        <>
+            {row.hitZones.map((zone) => {
+                return <>{zone}<br /></>
+            })}
+        </>
+    )
+}
+
 export function ArmorModulesMRT(){
     const initialData: ArmorModuleTableRow[] = [];
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
@@ -64,25 +84,7 @@ export function ArmorModulesMRT(){
         fetchData();
     }, [])
 
-    function namesDisplay(input: string) {
-        return (
-            <>
-                {input.split(",").map((name) => {
-                    return <>{name}<br /></>
-                })}
-            </>
-        )
-    }
 
-    function hitZonesDisplay(row: ArmorModuleTableRow) {
-        return (
-            <>
-                {row.hitZones.map((zone) => {
-                    return <>{zone}<br /></>
-                })}
-            </>
-        )
-    }
 
     function combinedCollidersDisplay(row: ArmorModule) {
         return (

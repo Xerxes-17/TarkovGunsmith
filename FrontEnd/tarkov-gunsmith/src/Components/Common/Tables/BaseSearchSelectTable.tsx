@@ -36,7 +36,7 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
             showRowsPerPage: false,
             // rowsPerPageOptions: ["10", "12", "15", "17", "20"],
         },
-        
+        globalFilterFn: 'includesString',
 
         defaultColumn:{
             // minSize: 20, //allow columns to get smaller than default

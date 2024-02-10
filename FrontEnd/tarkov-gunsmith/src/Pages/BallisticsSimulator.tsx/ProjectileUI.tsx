@@ -11,6 +11,8 @@ import { IconSearch, IconShieldPlus } from "@tabler/icons-react";
 const MAX_PENETRATION = 90;
 const MAX_DAMAGE = 265;
 
+const searchIcon = <IconSearch size="1.2rem" />
+
 export function ProjectileUI() {
     const form = useBallisticSimulatorFormContext();
 
@@ -20,11 +22,11 @@ export function ProjectileUI() {
         </Text>
     )
 
-    const searchIcon = <IconSearch size="1.2rem" />
+    
     
     return (
         <>
-            <Divider my="xs" label={(<Group><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"}/></Group>)} />
+            <Divider my="xs" label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="ammo"/></Group>)} />
             <Stack>
                 <NumberAndSlider label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
                 <NumberAndSlider label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />

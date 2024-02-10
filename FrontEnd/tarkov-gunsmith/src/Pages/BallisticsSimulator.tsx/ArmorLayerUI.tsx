@@ -6,16 +6,25 @@ import { ArmorMaterialSelect } from "../../Components/Common/Inputs/SelectArmorM
 import { FormArmorLayer, useBallisticSimulatorForm, useBallisticSimulatorFormContext } from "./ballistic-simulator--form-context";
 import { AddArmorLayerButton } from "../../Components/Common/Inputs/AddArmorLayerButton";
 import { RemoveArmorLayerButton } from "../../Components/Common/Inputs/RemoveArmorLayerButton";
+import { DrawerButton } from "../../Components/Common/Inputs/DrawerButton";
+import { IconSearch } from "@tabler/icons-react";
 
 interface ArmorLayerUiProps {
     index: number
 }
 
+const searchIcon = <IconSearch size="1.2rem" />
+
 export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
     const form = useBallisticSimulatorFormContext();
+
     return (
         <>
-            <Divider my="xs" label={(<Title order={4}>Armor Layer {index + 1}</Title>)} />
+            <Divider my="xs" label={(
+                <Group spacing={8} >
+                    <Title order={4}>Armor Layer {index + 1}</Title>
+                    <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="armor" armorIndex={index}/>
+                </Group>)} />
             <Stack>
                 <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
                 <NumberAndSliderPercentage
@@ -34,7 +43,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                         {form.values.armorLayers.length < 3 && (
                             <AddArmorLayerButton index={index} />
                         )}
-                        
+
                     </Group>
                 )}
             </Stack>
