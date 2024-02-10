@@ -204,8 +204,8 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
         },
 
     })
-    console.log("height:", height)
-    console.log("height > 800:", height > 800)
-    console.log("calculatedTableHeight", tableHeight)
+    // console.log("height:", height)
+    // console.log("height > 800:", height > 800)
+    // console.log("calculatedTableHeight", tableHeight)
     return (<MantineReactTable table={table} />);
 }
