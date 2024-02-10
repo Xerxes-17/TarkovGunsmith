@@ -4,6 +4,7 @@ import { useBallisticSimulatorFormContext } from
 
 import { forwardRef } from "react";
 import { mockMaterials } from "../../../Types/ArmorTypes";
+import { ArmorMaterialWithToolTip } from "../TextWithToolTips/ArmorMaterialWithToolTip";
 
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
     image: string;
@@ -29,23 +30,27 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
 
 const sortedMockMats = mockMaterials.sort((a,b) => a.destructibility - b.destructibility)
 
-export function ArmorMaterialSelect() {
+interface ArmorLayerUiProps{
+    armorLayersIndex: number
+}
+
+export function ArmorMaterialSelect({armorLayersIndex}:ArmorLayerUiProps) {
     const form = useBallisticSimulatorFormContext();
 
     return (
         <Select
             inputWrapperOrder={['label', 'error', 'input', 'description']}
-            label="Armor Material"
+            label={<ArmorMaterialWithToolTip/>}
             description={
                 <Text size="sm">
-                    Destructibility: <b>{mockMaterials.find(x => x.label === form.values.armorMaterial)!.destructibility} </b>
+                    Destructibility: <b>{mockMaterials.find(x => x.label === form.values.armorLayers[armorLayersIndex].armorMaterial)!.destructibility} </b>
                 </Text>
             }
             placeholder="Pick one"
             dropdownPosition="flip"
             itemComponent={SelectItem}
             data={sortedMockMats}
-            {...form.getInputProps('armorMaterial')}
+            {...form.getInputProps(`armorLayers.${armorLayersIndex}.armorMaterial`)}
         />
     )
 }

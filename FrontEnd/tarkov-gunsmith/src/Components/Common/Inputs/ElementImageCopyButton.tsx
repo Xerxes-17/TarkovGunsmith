@@ -21,7 +21,7 @@ interface DownloadElementImageButtonProps {
 
 export function CopyElementImageButton({targetElementId}: DownloadElementImageButtonProps) {
     return (
-        <Tooltip label="Copy simulation as image to clipboard" transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
+        <Tooltip label="Copy simulation as image to clipboard" position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
             <Button variant="outline" leftIcon={<IconCopy size="1.2rem" />} onClick={() => handleCopyImage(targetElementId)} data-html2canvas-ignore>
                 Copy
             </Button>

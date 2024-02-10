@@ -8,6 +8,10 @@ import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisti
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
 
+function camelCaseToWords(str: string) {
+    return str.replace(/([A-Z])/g, ' $1').trim();
+}
+
 export function PenetrationAndDamageForm() {
     const form = useBallisticSimulatorForm({
         initialValues: {
@@ -17,15 +21,17 @@ export function PenetrationAndDamageForm() {
 
             hitPointsPool: 85,
 
-            armorClass: 4,
-            durability: 44,
-            maxDurability: 44,
-            armorMaterial: "Ceramic",
-            bluntDamageThroughput: 28,
+            armorLayers: [{
+                armorClass: 4,
+                durability: 44,
+                maxDurability: 44,
+                armorMaterial: "Ceramic",
+                bluntDamageThroughput: 28,
+            }]
         }
     });
 
-    const [result, setResult] = useState<BallisticSimResponse>();
+    const [result, setResult] = useState<BallisticSimResponse[]>([]);
     const [hasResult, setHasResult] = useState<boolean>(false);
 
     const [visible, { toggle, open, close }] = useDisclosure(false);
@@ -53,22 +59,114 @@ export function PenetrationAndDamageForm() {
     //     )
     // );
 
+    // const elementsArray = result.map(result => {
+    //     return [{
+    //         name: 'Penetration Chance',
+    //         Value: `${(result.PenetrationChance * 100).toFixed(2)} %`
+    //     }, {
+    //         name: 'Penetration Damage',
+    //         Value: result.PenetrationDamage.toFixed(2)
+    //     }, {
+    //         name: 'Mitigated Damage',
+    //         Value: result.MitigatedDamage.toFixed(2)
+    //     }, {
+    //         name: 'Blunt Damage',
+    //         Value: result.BluntDamage.toFixed(2)
+    //     }, {
+    //         name: 'Average Damage',
+    //         Value: result.AverageDamage.toFixed(2)
+    //     }, {
+    //         name: 'Penetration Armor Damage',
+    //         Value: result.PenetrationArmorDamage.toFixed(2)
+    //     }, {
+    //         name: 'Block Armor Damage',
+    //         Value: result.BlockArmorDamage.toFixed(2)
+    //     }, {
+    //         name: 'Average Armor Damage',
+    //         Value: result.AverageArmorDamage.toFixed(2)
+    //     }, {
+    //         name: 'Post-hit Armor Durability',
+    //         Value: result.PostHitArmorDurability.toFixed(2)
+    //     }, {
+    //         name: 'Reduction Factor',
+    //         Value: result.ReductionFactor.toFixed(2)
+    //     }, {
+    //         name: 'Post Armor Penetration',
+    //         Value: result.PostArmorPenetration.toFixed(2)
+    //     }]});
+    const layers = result?.length ?? 1;
+
+    const thElements: any[] = [];
+
+    for (let i = 1; i <= layers; i++) {
+        thElements.push(<th>Layer {i}</th>);
+    }
+
+    const valuesArray = result.map(result => {
+        return [
+            `${(result.PenetrationChance * 100).toFixed(2)} %`,
+            result.PenetrationDamage.toFixed(2),
+            result.MitigatedDamage.toFixed(2),
+            result.BluntDamage.toFixed(2),
+            result.AverageDamage.toFixed(2),
+            result.PenetrationArmorDamage.toFixed(2),
+            result.BlockArmorDamage.toFixed(2),
+            result.AverageArmorDamage.toFixed(2),
+            result.PostHitArmorDurability.toFixed(2),
+            result.ReductionFactor.toFixed(2),
+            result.PostArmorPenetration.toFixed(2)
+        ];
+    });
+
+    const transposedDictionary: Record<string, string[]> = {};
+
+    result.forEach(item => {
+        Object.entries(item).forEach(([key, value]) => {
+            const fieldName = camelCaseToWords(key); // Convert camelCase key to words separated by spaces
+            if (!transposedDictionary[fieldName]) {
+                transposedDictionary[fieldName] = [];
+            }
+            if (fieldName === "Penetration Chance") {
+                transposedDictionary[fieldName].push(`${(value * 100).toFixed(2)} %`);
+            } else {
+                transposedDictionary[fieldName].push(value.toFixed(2));
+            }
+        });
+    });
+
+    // console.log("result", result)
+    // console.log("transposedDictionary", transposedDictionary)
+    // console.log("transposedArray", transposedArray);
+
     const elements = [
-        { name: 'Penetration Chance', Value: result ? (result?.PenetrationChance * 100).toFixed(2) : "-" },
-        { name: 'Penetration Damage', Value: result?.PenetrationDamage.toFixed(2) ?? "-" },
-        { name: 'Mitigated Damage', Value: result?.MitigatedDamage.toFixed(2) ?? "-" },
-        { name: 'Blunt Damage', Value: result?.BluntdDamage.toFixed(2) ?? "-" },
-        { name: 'Average Damage', Value: result?.AverageDamage.toFixed(2) ?? "-" },
-        { name: 'Penetration Armor Damage', Value: result?.PenetrationArmorDamage.toFixed(2) ?? "-" },
-        { name: 'Block Armor Damage', Value: result?.BlockArmorDamage.toFixed(2) ?? "-" },
-        { name: 'Average Armor Damage', Value: result?.AverageArmorDamage.toFixed(2) ?? "-" },
-        { name: 'Post-hit Armor Durability', Value: result?.PostHitArmorDurability.toFixed(2) ?? "-" },
+        { name: 'Penetration Chance', Value: "-" },
+        { name: 'Penetration Damage', Value: "-" },
+        { name: 'Mitigated Damage', Value: "-" },
+        { name: 'Blunt Damage', Value: "-" },
+        { name: 'Average Damage', Value: "-" },
+        { name: 'Penetration Armor Damage', Value: "-" },
+        { name: 'Block Armor Damage', Value: "-" },
+        { name: 'Average Armor Damage', Value: "-" },
+        { name: 'Post-hit Armor Durability', Value: "-" },
+        { name: 'Reduction Factor', Value: "-" },
+        { name: 'Post Armor Penetration', Value: "-" },
     ];
 
-    const rows = elements.map((element) => (
-        <tr key={element.name}>
-            <td>{element.Value}{element.name === "Penetration Chance" && result && (<> %</>)}</td>
-            <td>{element.name}</td>
+    const initialRows = elements.map(row =>
+    (
+        <tr key={row.name}>
+            <td>{row.Value}</td>
+            <td>{row.name}</td>
+        </tr>
+    )
+    )
+
+    const rows = Object.keys(transposedDictionary).map((key) => (
+        <tr key={key}>
+            {transposedDictionary[key].map(value => {
+                return <td>{value}</td>
+            })}
+            <td>{key}</td>
         </tr>
     ));
 
@@ -79,11 +177,16 @@ export function PenetrationAndDamageForm() {
             damage: values.damage,
             armorDamagePerc: values.armorDamagePercentage,
             hitPoints: values.hitPointsPool,
-            armorClass: values.armorClass,
-            bluntDamageThroughput: values.bluntDamageThroughput,
-            durability: values.durability,
-            maxDurability: values.maxDurability,
-            armorMaterial: convertArmorStringToEnumVal(values.armorMaterial)
+
+            armorLayers: values.armorLayers.map(layer => {
+                return {
+                    armorClass: layer.armorClass,
+                    bluntDamageThroughput: layer.bluntDamageThroughput,
+                    durability: layer.durability,
+                    maxDurability: layer.maxDurability,
+                    armorMaterial: convertArmorStringToEnumVal(layer.armorMaterial)
+                }
+            })
         }
 
         requestSingleShotBallisticSim(requestDetails).then(response => {
@@ -99,26 +202,32 @@ export function PenetrationAndDamageForm() {
     return (
         <BallisticSimulatorFormProvider form={form}>
             <form onSubmit={form.onSubmit((values) => {
-                console.log(values);
+                // console.log(values);
                 handleSubmit(values);
             })}>
-                {result !== undefined && (
+                {result.length > 0 && (
                     <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
                 )}
-                <Grid gutter={5} gutterXs="md" gutterMd="xl" gutterXl={50}>
-                    <Grid.Col span={12} xs={3} mih={"100%"}>
-                        <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                            <ProjectileUI />
-                            {/* <TargetUI /> */}
-                        </Paper>
+                <Grid columns={24} gutter={20} grow>
+                    <Grid.Col span={24} xs={4} mih={"100%"}>
+                        {/* <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> */}
+                        <ProjectileUI />
+                        {/* <TargetUI /> */}
+                        {/* </Paper> */}
                     </Grid.Col>
 
+                    {
+                        form.values.armorLayers.map((_, index) => {
+                            return (
+                                <Grid.Col span={24} xs={4}>
+                                    <ArmorLayerUI index={index} />
+                                </Grid.Col>
+                            )
+                        })
+                    }
 
-                    <Grid.Col span={12} xs={3}>
-                        <ArmorLayerUI />
-                    </Grid.Col>
 
-                    <Grid.Col span={12} xs={6}>
+                    <Grid.Col span={24} xs={8}>
                         <Box pos="relative" h={"100%"}>
                             <LoadingOverlay visible={visible} overlayBlur={2} />
 
@@ -129,11 +238,17 @@ export function PenetrationAndDamageForm() {
                                 <Table highlightOnHover withColumnBorders verticalSpacing="xs">
                                     <thead>
                                         <tr>
-                                            <th>Value</th>
+                                            {thElements.map(th => { return th })}
+                                            {result.length < 1 && (
+                                                <th>Value</th>
+                                            )}
                                             <th>Statistic</th>
                                         </tr>
                                     </thead>
                                     <tbody>{rows}</tbody>
+                                    {result.length < 1 && (
+                                        <tbody>{initialRows}</tbody>
+                                    )}
                                 </Table>
                             </Box>
                             {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
@@ -191,8 +306,8 @@ export function PenetrationAndDamageForm() {
                         data={mockMaterials}
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
-                    <Button type="submit" data-html2canvas-ignore >
-                        { result === undefined ? <>Single Shot</> : form.isDirty()  ? <>Refresh Result</> : <>Single Shot</>}
+                    <Button type="submit" data-html2canvas-ignore  disabled={result !== undefined && !form.isDirty()}>
+                        {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>
                 </Group>
             </form>

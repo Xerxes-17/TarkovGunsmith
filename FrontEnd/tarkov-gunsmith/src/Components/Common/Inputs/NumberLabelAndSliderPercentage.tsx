@@ -4,7 +4,7 @@ import { useBallisticSimulatorFormContext } from
 import { ReactNode } from "react";
 
 interface NumberDescAndSliderPercentageProps {
-    label: string,
+    label: string | ReactNode,
     description: ReactNode,
     property: string;
     precision: number;
@@ -19,7 +19,7 @@ export function NumberLabelAndSliderPercentage(props: NumberDescAndSliderPercent
         <NumberInput
             inputWrapperOrder={['label', 'error', 'input', 'description']}
             label={label}
-            aria-label={label}
+            aria-label={typeof label === "string" ? label : "An input"}
             parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
             formatter={(value) =>
                 !Number.isNaN(parseFloat(value))

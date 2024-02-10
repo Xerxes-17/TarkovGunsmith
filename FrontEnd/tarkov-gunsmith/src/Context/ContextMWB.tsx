@@ -338,7 +338,7 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
 
     useEffect(() => {
         // handleSubmit()
-        console.log("excludedMods", excludedMods)
+        // console.log("excludedMods", excludedMods)
     }, [excludedMods,handleSubmit])
 
 
@@ -404,33 +404,33 @@ export const MwbContextProvider = ({ children }: MwbContextProviderProps) => {
             excludedMods, setExcludedMods, pagination, picturesYesNo, setPicturesYesNo, 
 
             handleRemoveFromExcludedMods() {
-                console.log(rowSelectionExcluded);
+                // console.log(rowSelectionExcluded);
         
                 if (excludedMods !== undefined) {
-                    console.log(excludedMods);
+                    // console.log(excludedMods);
         
                     const selectedIds = Object.keys(rowSelectionExcluded).filter((id) => rowSelectionExcluded[id]);
         
                     const updatedExcludedMods = excludedMods.filter((entry) => !selectedIds.includes(entry.WeaponMod.Id));
         
-                    console.log(updatedExcludedMods);
+                    // console.log(updatedExcludedMods);
                     setExcludedMods(updatedExcludedMods);
                     setRowSelectionExcluded({})
                     handleSubmit(updatedExcludedMods.map((entry) => entry.WeaponMod.Id));
                 }
             },
             handleAddToExcludedMods() {
-                console.log(rowSelectionAttached);
+                // console.log(rowSelectionAttached);
               
                 if (result !== undefined) {
-                  console.log(result.PurchasedMods.List);
+                //   console.log(result.PurchasedMods.List);
                   const list = result.PurchasedMods.List as any[];
               
                   const selected = list.filter((entry) =>
                     rowSelectionAttached.hasOwnProperty(entry.WeaponMod.Id) && rowSelectionAttached[entry.WeaponMod.Id]
                   );
         
-                  console.log(selected);
+                //   console.log(selected);
                   const prev = excludedMods;
                   const newList = [...prev!, ...selected];
               

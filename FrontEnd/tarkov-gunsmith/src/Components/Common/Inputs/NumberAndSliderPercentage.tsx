@@ -1,9 +1,10 @@
 import { NumberInput, Slider} from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
     "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { ReactNode } from "react";
 
 interface NumberAndSliderPercentageProps {
-    label: string,
+    label: string | ReactNode,
     property: string;
     precision: number;
     step: number;

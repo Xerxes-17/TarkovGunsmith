@@ -2,6 +2,15 @@
 import { createFormContext } from '@mantine/form';
 import { ArmorMaterialDestructibilitySelect } from '../../Api/ArmorApiCalls';
 
+export interface FormArmorLayer{
+  armorClass: number;
+  bluntDamageThroughput: number;
+  durability: number;
+  maxDurability: number;
+  armorMaterial: string;
+}
+
+
 export interface BallisticSimulatorFormValues {
   penetration: number;
   damage: number;
@@ -9,11 +18,7 @@ export interface BallisticSimulatorFormValues {
 
   hitPointsPool: number;
 
-  armorClass: number;
-  durability: number;
-  maxDurability: number;
-  armorMaterial: string;
-  bluntDamageThroughput: number;
+  armorLayers: FormArmorLayer[];
 }
 
 // You can give context variables any name

@@ -4,18 +4,13 @@ import {
     useMantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
-    MRT_ToggleFullScreenButton,
-    MRT_ExpandButton,
-    MRT_AggregationFns,
-    MRT_Row
-} from 'mantine-react-table';
-import { Box, Button, Flex, Text, Avatar, Title } from '@mantine/core'
+    MRT_ToggleFullScreenButton} from 'mantine-react-table';
+import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { NewArmorTableRow } from '../../Types/HelmetTypes';
 import { convertEnumValToArmorString } from '../../Components/ADC/ArmorData';
 import { joinArmorCollidersAsZones } from '../../Types/ArmorTypes';
 import { getHelmetsDataFromApi_WishGranter } from '../../Api/ArmorApiCalls';
-import { lightShield, heavyShield } from '../../Components/Common/tgIcons';
 import { ArmorTypeWithToolTip } from '../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip';
 import { BluntThroughputWithToolTip } from '../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip';
 import { MaxRicochetColHeader } from '../../Components/Common/TextWithToolTips/MaxRicochetColHeader';

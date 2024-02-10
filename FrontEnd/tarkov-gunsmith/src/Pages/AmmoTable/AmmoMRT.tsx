@@ -10,7 +10,7 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
 
 import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
@@ -47,10 +47,7 @@ export default function AmmoMRT() {
     }, [])
 
 
-    function filterNonBulletsOut(input: AmmoTableRow[]){
-        const result = input.filter(x=>!unwantedAmmos.includes(x.caliber))
-        return result
-    }
+
 
     // Handler to toggle 'caliber' in the manualGrouping array
     const handleToggleCaliber = () => {

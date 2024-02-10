@@ -8,8 +8,8 @@
           "ergonomics": 48,
           "recoilAngle": 90,
           "recoilVertical": 119,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -18,9 +18,9 @@
         "properties": {
           "ergonomics": 85,
           "recoilAngle": 85,
-          "recoilVertical": 480,
-          "recoilDispersion": 20,
-          "convergence": 5
+          "recoilVertical": 380,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -29,9 +29,9 @@
         "properties": {
           "ergonomics": 40,
           "recoilAngle": 90,
-          "recoilVertical": 442,
-          "recoilDispersion": 15,
-          "convergence": 1.3
+          "recoilVertical": 397,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -42,7 +42,7 @@
           "recoilAngle": 90,
           "recoilVertical": 250,
           "recoilDispersion": 10,
-          "convergence": 1.2
+          "convergence": null
         }
       },
       {
@@ -51,9 +51,9 @@
         "properties": {
           "ergonomics": 44,
           "recoilAngle": 90,
-          "recoilVertical": 311,
-          "recoilDispersion": 35,
-          "convergence": 1.2
+          "recoilVertical": 279,
+          "recoilDispersion": 23,
+          "convergence": null
         }
       },
       {
@@ -62,9 +62,9 @@
         "properties": {
           "ergonomics": 31,
           "recoilAngle": 90,
-          "recoilVertical": 119,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilVertical": 120,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -74,8 +74,8 @@
           "ergonomics": 80,
           "recoilAngle": 85,
           "recoilVertical": 383,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -84,9 +84,9 @@
         "properties": {
           "ergonomics": 43,
           "recoilAngle": 90,
-          "recoilVertical": 387,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilVertical": 348,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -95,9 +95,9 @@
         "properties": {
           "ergonomics": 80,
           "recoilAngle": 85,
-          "recoilVertical": 455,
-          "recoilDispersion": 20,
-          "convergence": 5
+          "recoilVertical": 380,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -108,18 +108,18 @@
           "recoilAngle": 90,
           "recoilVertical": 553,
           "recoilDispersion": 10,
-          "convergence": 5
+          "convergence": null
         }
       },
       {
         "id": "574d967124597745970e7c94",
-        "name": "Simonov SKS 7.62x39 carbine",
+        "name": "TOZ Simonov SKS 7.62x39 carbine",
         "properties": {
           "ergonomics": 40,
           "recoilAngle": 90,
           "recoilVertical": 155,
           "recoilDispersion": 10,
-          "convergence": 1.3
+          "convergence": null
         }
       },
       {
@@ -128,9 +128,9 @@
         "properties": {
           "ergonomics": 35,
           "recoilAngle": 90,
-          "recoilVertical": 332,
-          "recoilDispersion": 25,
-          "convergence": 1.5
+          "recoilVertical": 298,
+          "recoilDispersion": 15,
+          "convergence": null
         }
       },
       {
@@ -140,8 +140,8 @@
           "ergonomics": 75,
           "recoilAngle": 85,
           "recoilVertical": 425,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -152,7 +152,7 @@
           "recoilAngle": 90,
           "recoilVertical": 80,
           "recoilDispersion": 12,
-          "convergence": 1.5
+          "convergence": null
         }
       },
       {
@@ -161,9 +161,9 @@
         "properties": {
           "ergonomics": 80,
           "recoilAngle": 85,
-          "recoilVertical": 480,
-          "recoilDispersion": 20,
-          "convergence": 5
+          "recoilVertical": 380,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -173,8 +173,8 @@
           "ergonomics": 46,
           "recoilAngle": 90,
           "recoilVertical": 80,
-          "recoilDispersion": 20,
-          "convergence": 1.7
+          "recoilDispersion": 13,
+          "convergence": null
         }
       },
       {
@@ -184,8 +184,8 @@
           "ergonomics": 65,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 15,
-          "convergence": 2.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -194,9 +194,9 @@
         "properties": {
           "ergonomics": 44,
           "recoilAngle": 90,
-          "recoilVertical": 103,
-          "recoilDispersion": 19,
-          "convergence": 1.7
+          "recoilVertical": 102,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -206,8 +206,8 @@
           "ergonomics": 65,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 15,
-          "convergence": 2.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -217,8 +217,8 @@
           "ergonomics": 65,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 5,
-          "convergence": 2.7
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -228,8 +228,8 @@
           "ergonomics": 44,
           "recoilAngle": 90,
           "recoilVertical": 102,
-          "recoilDispersion": 16,
-          "convergence": 1.7
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -239,19 +239,19 @@
           "ergonomics": 44,
           "recoilAngle": 90,
           "recoilVertical": 102,
-          "recoilDispersion": 14,
-          "convergence": 1.7
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
         "id": "587e02ff24597743df3deaeb",
-        "name": "Simonov OP-SKS 7.62x39 carbine (Hunting Rifle Version)",
+        "name": "Molot Arms Simonov OP-SKS 7.62x39 carbine",
         "properties": {
           "ergonomics": 40,
           "recoilAngle": 90,
           "recoilVertical": 155,
-          "recoilDispersion": 15,
-          "convergence": 1.3
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -262,7 +262,7 @@
           "recoilAngle": 90,
           "recoilVertical": 111,
           "recoilDispersion": 10,
-          "convergence": 1.6
+          "convergence": null
         }
       },
       {
@@ -272,8 +272,8 @@
           "ergonomics": 40,
           "recoilAngle": 90,
           "recoilVertical": 51,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -283,8 +283,8 @@
           "ergonomics": 50,
           "recoilAngle": 90,
           "recoilVertical": 56,
-          "recoilDispersion": 13,
-          "convergence": 2
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -294,8 +294,8 @@
           "ergonomics": 35,
           "recoilAngle": 90,
           "recoilVertical": 58,
-          "recoilDispersion": 12,
-          "convergence": 1.5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -305,30 +305,30 @@
           "ergonomics": 26,
           "recoilAngle": 85,
           "recoilVertical": 161,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
         "id": "59e6152586f77473dc057aa1",
-        "name": "Molot VPO-136 \"Vepr-KM\" 7.62x39 carbine",
+        "name": "Molot Arms VPO-136 \"Vepr-KM\" 7.62x39 carbine",
         "properties": {
           "ergonomics": 30,
           "recoilAngle": 85,
-          "recoilVertical": 160,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilVertical": 162,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
         "id": "59e6687d86f77411d949b251",
-        "name": "Molot VPO-209 .366 TKM carbine",
+        "name": "Molot Arms VPO-209 .366 TKM carbine",
         "properties": {
           "ergonomics": 30,
           "recoilAngle": 90,
-          "recoilVertical": 247,
-          "recoilDispersion": 25,
-          "convergence": 1.4
+          "recoilVertical": 170,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -338,8 +338,8 @@
           "ergonomics": 82,
           "recoilAngle": 85,
           "recoilVertical": 442,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -349,8 +349,8 @@
           "ergonomics": 32,
           "recoilAngle": 90,
           "recoilVertical": 42,
-          "recoilDispersion": 15,
-          "convergence": 1
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -360,8 +360,8 @@
           "ergonomics": 24,
           "recoilAngle": 85,
           "recoilVertical": 162,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -370,9 +370,9 @@
         "properties": {
           "ergonomics": 26,
           "recoilAngle": 85,
-          "recoilVertical": 160,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilVertical": 162,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -381,9 +381,9 @@
         "properties": {
           "ergonomics": 70,
           "recoilAngle": 85,
-          "recoilVertical": 387,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilVertical": 328,
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -392,9 +392,9 @@
         "properties": {
           "ergonomics": 50,
           "recoilAngle": 90,
-          "recoilVertical": 209,
-          "recoilDispersion": 17,
-          "convergence": 1.6
+          "recoilVertical": 153,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -404,8 +404,8 @@
           "ergonomics": 60,
           "recoilAngle": 90,
           "recoilVertical": 663,
-          "recoilDispersion": 30,
-          "convergence": 1.3
+          "recoilDispersion": 20,
+          "convergence": null
         }
       },
       {
@@ -414,9 +414,9 @@
         "properties": {
           "ergonomics": 45,
           "recoilAngle": 90,
-          "recoilVertical": 442,
-          "recoilDispersion": 15,
-          "convergence": 1.8
+          "recoilVertical": 397,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -426,8 +426,8 @@
           "ergonomics": 90,
           "recoilAngle": 85,
           "recoilVertical": 311,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -436,9 +436,9 @@
         "properties": {
           "ergonomics": 28,
           "recoilAngle": 90,
-          "recoilVertical": 252,
-          "recoilDispersion": 17,
-          "convergence": 1.1
+          "recoilVertical": 214,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -447,9 +447,9 @@
         "properties": {
           "ergonomics": 32,
           "recoilAngle": 90,
-          "recoilVertical": 119,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilVertical": 120,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -459,8 +459,8 @@
           "ergonomics": 24,
           "recoilAngle": 85,
           "recoilVertical": 162,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -469,9 +469,9 @@
         "properties": {
           "ergonomics": 80,
           "recoilAngle": 85,
-          "recoilVertical": 387,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilVertical": 328,
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -481,8 +481,8 @@
           "ergonomics": 33,
           "recoilAngle": 90,
           "recoilVertical": 118,
-          "recoilDispersion": 15,
-          "convergence": 1.65
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -492,8 +492,8 @@
           "ergonomics": 35,
           "recoilAngle": 100,
           "recoilVertical": 107,
-          "recoilDispersion": 11,
-          "convergence": 1.7
+          "recoilDispersion": 7,
+          "convergence": null
         }
       },
       {
@@ -503,8 +503,8 @@
           "ergonomics": 38,
           "recoilAngle": 100,
           "recoilVertical": 109,
-          "recoilDispersion": 11,
-          "convergence": 1.7
+          "recoilDispersion": 7,
+          "convergence": null
         }
       },
       {
@@ -514,8 +514,8 @@
           "ergonomics": 35,
           "recoilAngle": 90,
           "recoilVertical": 151,
-          "recoilDispersion": 13,
-          "convergence": 1.3
+          "recoilDispersion": 9,
+          "convergence": null
         }
       },
       {
@@ -525,8 +525,8 @@
           "ergonomics": 38,
           "recoilAngle": 90,
           "recoilVertical": 154,
-          "recoilDispersion": 14,
-          "convergence": 1.3
+          "recoilDispersion": 9,
+          "convergence": null
         }
       },
       {
@@ -536,8 +536,8 @@
           "ergonomics": 38,
           "recoilAngle": 90,
           "recoilVertical": 136,
-          "recoilDispersion": 12,
-          "convergence": 1.6
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -548,7 +548,7 @@
           "recoilAngle": 90,
           "recoilVertical": 288,
           "recoilDispersion": 10,
-          "convergence": 0.8
+          "convergence": null
         }
       },
       {
@@ -557,9 +557,9 @@
         "properties": {
           "ergonomics": 39,
           "recoilAngle": 90,
-          "recoilVertical": 250,
-          "recoilDispersion": 21,
-          "convergence": 1.2
+          "recoilVertical": 147,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -569,8 +569,8 @@
           "ergonomics": 90,
           "recoilAngle": 85,
           "recoilVertical": 306,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -581,7 +581,7 @@
           "recoilAngle": 90,
           "recoilVertical": 553,
           "recoilDispersion": 10,
-          "convergence": 5
+          "convergence": null
         }
       },
       {
@@ -591,8 +591,8 @@
           "ergonomics": 65,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 18,
-          "convergence": 2.1
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -602,8 +602,8 @@
           "ergonomics": 51,
           "recoilAngle": 90,
           "recoilVertical": 125,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -613,8 +613,8 @@
           "ergonomics": 65,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 17,
-          "convergence": 2.1
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -624,8 +624,8 @@
           "ergonomics": 45,
           "recoilAngle": 90,
           "recoilVertical": 112,
-          "recoilDispersion": 25,
-          "convergence": 1.7
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -635,8 +635,8 @@
           "ergonomics": 30,
           "recoilAngle": 90,
           "recoilVertical": 120,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -646,8 +646,8 @@
           "ergonomics": 31,
           "recoilAngle": 90,
           "recoilVertical": 120,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -658,7 +658,7 @@
           "recoilAngle": 90,
           "recoilVertical": 288,
           "recoilDispersion": 10,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -669,7 +669,7 @@
           "recoilAngle": 90,
           "recoilVertical": 199,
           "recoilDispersion": 10,
-          "convergence": 1.5
+          "convergence": null
         }
       },
       {
@@ -679,8 +679,8 @@
           "ergonomics": 48,
           "recoilAngle": 90,
           "recoilVertical": 120,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -690,8 +690,8 @@
           "ergonomics": 26,
           "recoilAngle": 90,
           "recoilVertical": 216,
-          "recoilDispersion": 17,
-          "convergence": 1.1
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -701,19 +701,19 @@
           "ergonomics": 72,
           "recoilAngle": 90,
           "recoilVertical": 74,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
         "id": "5c501a4d2e221602b412b540",
-        "name": "Molot VPO-101 \"Vepr-Hunter\" 7.62x51 carbine",
+        "name": "Molot Arms VPO-101 \"Vepr-Hunter\" 7.62x51 carbine",
         "properties": {
           "ergonomics": 29,
           "recoilAngle": 85,
-          "recoilVertical": 510,
-          "recoilDispersion": 25,
-          "convergence": 1.5
+          "recoilVertical": 150,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -723,8 +723,8 @@
           "ergonomics": 70,
           "recoilAngle": 85,
           "recoilVertical": 404,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -734,8 +734,8 @@
           "ergonomics": 55,
           "recoilAngle": 90,
           "recoilVertical": 128,
-          "recoilDispersion": 15,
-          "convergence": 1.2
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -744,9 +744,9 @@
         "properties": {
           "ergonomics": 60,
           "recoilAngle": 90,
-          "recoilVertical": 46,
-          "recoilDispersion": 23,
-          "convergence": 2.5
+          "recoilVertical": 54,
+          "recoilDispersion": 15,
+          "convergence": null
         }
       },
       {
@@ -756,8 +756,8 @@
           "ergonomics": 55,
           "recoilAngle": 90,
           "recoilVertical": 57,
-          "recoilDispersion": 15,
-          "convergence": 1.7
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -767,8 +767,8 @@
           "ergonomics": 86,
           "recoilAngle": 90,
           "recoilVertical": 281,
-          "recoilDispersion": 13,
-          "convergence": 7
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -778,8 +778,8 @@
           "ergonomics": 50,
           "recoilAngle": 90,
           "recoilVertical": 113,
-          "recoilDispersion": 15,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -790,7 +790,7 @@
           "recoilAngle": 90,
           "recoilVertical": 281,
           "recoilDispersion": 13,
-          "convergence": 7
+          "convergence": null
         }
       },
       {
@@ -799,20 +799,20 @@
         "properties": {
           "ergonomics": 72,
           "recoilAngle": 90,
-          "recoilVertical": 126,
-          "recoilDispersion": 15,
-          "convergence": 1.3
+          "recoilVertical": 101,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
         "id": "5de652c31b7e3716273428be",
-        "name": "Molot VPO-215 \"Gornostay\" .366 TKM bolt-action rifle",
+        "name": "Molot Arms VPO-215 \"Gornostay\" .366 TKM bolt-action rifle",
         "properties": {
           "ergonomics": 41,
           "recoilAngle": 90,
           "recoilVertical": 200,
           "recoilDispersion": 10,
-          "convergence": 1.9
+          "convergence": null
         }
       },
       {
@@ -822,8 +822,8 @@
           "ergonomics": 75,
           "recoilAngle": 95,
           "recoilVertical": 51,
-          "recoilDispersion": 15,
-          "convergence": 2.2
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -834,7 +834,7 @@
           "recoilAngle": 90,
           "recoilVertical": 141,
           "recoilDispersion": 10,
-          "convergence": 1.3
+          "convergence": null
         }
       },
       {
@@ -843,9 +843,9 @@
         "properties": {
           "ergonomics": 47,
           "recoilAngle": 90,
-          "recoilVertical": 217,
-          "recoilDispersion": 17,
-          "convergence": 1.5
+          "recoilVertical": 155,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -855,8 +855,8 @@
           "ergonomics": 75,
           "recoilAngle": 95,
           "recoilVertical": 54,
-          "recoilDispersion": 15,
-          "convergence": 2.2
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -866,8 +866,8 @@
           "ergonomics": 75,
           "recoilAngle": 80,
           "recoilVertical": 451,
-          "recoilDispersion": 15,
-          "convergence": 5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -878,7 +878,7 @@
           "recoilAngle": 90,
           "recoilVertical": 230,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -887,9 +887,9 @@
         "properties": {
           "ergonomics": 38,
           "recoilAngle": 90,
-          "recoilVertical": 519,
-          "recoilDispersion": 15,
-          "convergence": 1.1
+          "recoilVertical": 467,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -898,9 +898,9 @@
         "properties": {
           "ergonomics": 48,
           "recoilAngle": 95,
-          "recoilVertical": 468,
-          "recoilDispersion": 15,
-          "convergence": 1.7
+          "recoilVertical": 421,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -908,10 +908,10 @@
         "name": "PPSh-41 7.62x25 submachine gun",
         "properties": {
           "ergonomics": 16,
-          "recoilAngle": 110,
-          "recoilVertical": 59,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilAngle": 90,
+          "recoilVertical": 89,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -921,8 +921,8 @@
           "ergonomics": 48,
           "recoilAngle": 90,
           "recoilVertical": 148,
-          "recoilDispersion": 17,
-          "convergence": 1.7
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -932,8 +932,8 @@
           "ergonomics": 78,
           "recoilAngle": 70,
           "recoilVertical": 438,
-          "recoilDispersion": 14,
-          "convergence": 6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -942,9 +942,9 @@
         "properties": {
           "ergonomics": 65,
           "recoilAngle": 80,
-          "recoilVertical": 47,
-          "recoilDispersion": 35,
-          "convergence": 3.4
+          "recoilVertical": 59,
+          "recoilDispersion": 22,
+          "convergence": null
         }
       },
       {
@@ -954,8 +954,8 @@
           "ergonomics": 48,
           "recoilAngle": 90,
           "recoilVertical": 127,
-          "recoilDispersion": 15,
-          "convergence": 1.5
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -965,8 +965,8 @@
           "ergonomics": 14,
           "recoilAngle": 90,
           "recoilVertical": 536,
-          "recoilDispersion": 17,
-          "convergence": 0.8
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -976,8 +976,8 @@
           "ergonomics": 62,
           "recoilAngle": 90,
           "recoilVertical": 72,
-          "recoilDispersion": 29,
-          "convergence": 2.8
+          "recoilDispersion": 18,
+          "convergence": null
         }
       },
       {
@@ -986,9 +986,9 @@
         "properties": {
           "ergonomics": 65,
           "recoilAngle": 85,
-          "recoilVertical": 37,
-          "recoilDispersion": 30,
-          "convergence": 3.4
+          "recoilVertical": 48,
+          "recoilDispersion": 20,
+          "convergence": null
         }
       },
       {
@@ -999,7 +999,7 @@
           "recoilAngle": 90,
           "recoilVertical": 289,
           "recoilDispersion": 8,
-          "convergence": 5.5
+          "convergence": null
         }
       },
       {
@@ -1009,8 +1009,8 @@
           "ergonomics": 50,
           "recoilAngle": 90,
           "recoilVertical": 45,
-          "recoilDispersion": 5,
-          "convergence": 2.5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -1020,8 +1020,8 @@
           "ergonomics": 42,
           "recoilAngle": 90,
           "recoilVertical": 160,
-          "recoilDispersion": 17,
-          "convergence": 1.7
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -1030,9 +1030,9 @@
         "properties": {
           "ergonomics": 48,
           "recoilAngle": 90,
-          "recoilVertical": 379,
-          "recoilDispersion": 15,
-          "convergence": 1.4
+          "recoilVertical": 341,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1042,8 +1042,8 @@
           "ergonomics": 50,
           "recoilAngle": 90,
           "recoilVertical": 442,
-          "recoilDispersion": 20,
-          "convergence": 1.4
+          "recoilDispersion": 13,
+          "convergence": null
         }
       },
       {
@@ -1052,9 +1052,9 @@
         "properties": {
           "ergonomics": 45,
           "recoilAngle": 90,
-          "recoilVertical": 206,
-          "recoilDispersion": 19,
-          "convergence": 1.2
+          "recoilVertical": 164,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -1063,9 +1063,9 @@
         "properties": {
           "ergonomics": 48,
           "recoilAngle": 90,
-          "recoilVertical": 204,
-          "recoilDispersion": 17,
-          "convergence": 1.2
+          "recoilVertical": 146,
+          "recoilDispersion": 11,
+          "convergence": null
         }
       },
       {
@@ -1074,9 +1074,9 @@
         "properties": {
           "ergonomics": 45,
           "recoilAngle": 90,
-          "recoilVertical": 206,
-          "recoilDispersion": 19,
-          "convergence": 1.2
+          "recoilVertical": 164,
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -1087,7 +1087,7 @@
           "recoilAngle": 90,
           "recoilVertical": 122,
           "recoilDispersion": 10,
-          "convergence": 1.5
+          "convergence": null
         }
       },
       {
@@ -1098,7 +1098,7 @@
           "recoilAngle": 90,
           "recoilVertical": 122,
           "recoilDispersion": 10,
-          "convergence": 1.5
+          "convergence": null
         }
       },
       {
@@ -1108,8 +1108,8 @@
           "ergonomics": 82,
           "recoilAngle": 90,
           "recoilVertical": 410,
-          "recoilDispersion": 13,
-          "convergence": 6
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -1120,7 +1120,7 @@
           "recoilAngle": 80,
           "recoilVertical": 383,
           "recoilDispersion": 10,
-          "convergence": 5.8
+          "convergence": null
         }
       },
       {
@@ -1129,9 +1129,9 @@
         "properties": {
           "ergonomics": 44,
           "recoilAngle": 90,
-          "recoilVertical": 328,
-          "recoilDispersion": 35,
-          "convergence": 1.2
+          "recoilVertical": 295,
+          "recoilDispersion": 22,
+          "convergence": null
         }
       },
       {
@@ -1142,7 +1142,7 @@
           "recoilAngle": 90,
           "recoilVertical": 170,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -1153,7 +1153,7 @@
           "recoilAngle": 90,
           "recoilVertical": 170,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -1164,7 +1164,7 @@
           "recoilAngle": 90,
           "recoilVertical": 170,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -1175,7 +1175,7 @@
           "recoilAngle": 90,
           "recoilVertical": 170,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -1185,8 +1185,8 @@
           "ergonomics": 60,
           "recoilAngle": 90,
           "recoilVertical": 107,
-          "recoilDispersion": 10,
-          "convergence": 1.45
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -1197,7 +1197,7 @@
           "recoilAngle": 90,
           "recoilVertical": 170,
           "recoilDispersion": 35,
-          "convergence": 1
+          "convergence": null
         }
       },
       {
@@ -1208,7 +1208,7 @@
           "recoilAngle": 85,
           "recoilVertical": 306,
           "recoilDispersion": 10,
-          "convergence": 6.9
+          "convergence": null
         }
       },
       {
@@ -1217,9 +1217,9 @@
         "properties": {
           "ergonomics": 42,
           "recoilAngle": 90,
-          "recoilVertical": 374,
-          "recoilDispersion": 15,
-          "convergence": 1.9
+          "recoilVertical": 336,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1230,7 +1230,7 @@
           "recoilAngle": 90,
           "recoilVertical": 238,
           "recoilDispersion": 20,
-          "convergence": 1.1
+          "convergence": null
         }
       },
       {
@@ -1241,7 +1241,7 @@
           "recoilAngle": 90,
           "recoilVertical": 468,
           "recoilDispersion": 10,
-          "convergence": 0.9
+          "convergence": null
         }
       },
       {
@@ -1251,8 +1251,8 @@
           "ergonomics": 41,
           "recoilAngle": 90,
           "recoilVertical": 152,
-          "recoilDispersion": 15,
-          "convergence": 1.3
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1262,8 +1262,8 @@
           "ergonomics": 50,
           "recoilAngle": 90,
           "recoilVertical": 91,
-          "recoilDispersion": 15,
-          "convergence": 1.65
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1273,8 +1273,8 @@
           "ergonomics": 53,
           "recoilAngle": 90,
           "recoilVertical": 93,
-          "recoilDispersion": 15,
-          "convergence": 1.7
+          "recoilDispersion": 12,
+          "convergence": null
         }
       },
       {
@@ -1284,8 +1284,8 @@
           "ergonomics": 59,
           "recoilAngle": 90,
           "recoilVertical": 54,
-          "recoilDispersion": 13,
-          "convergence": 2.1
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1295,8 +1295,8 @@
           "ergonomics": 83,
           "recoilAngle": 90,
           "recoilVertical": 52,
-          "recoilDispersion": 20,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1306,8 +1306,8 @@
           "ergonomics": 93,
           "recoilAngle": 90,
           "recoilVertical": 302,
-          "recoilDispersion": 13,
-          "convergence": 5
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -1317,8 +1317,8 @@
           "ergonomics": 88,
           "recoilAngle": 90,
           "recoilVertical": 50,
-          "recoilDispersion": 17,
-          "convergence": 1.6
+          "recoilDispersion": 10,
+          "convergence": null
         }
       },
       {
@@ -1328,8 +1328,8 @@
           "ergonomics": 40,
           "recoilAngle": 90,
           "recoilVertical": 493,
-          "recoilDispersion": 25,
-          "convergence": 0.7
+          "recoilDispersion": 16,
+          "convergence": null
         }
       },
       {
@@ -1339,8 +1339,8 @@
           "ergonomics": 20,
           "recoilAngle": 90,
           "recoilVertical": 175,
-          "recoilDispersion": 20,
-          "convergence": 1.25
+          "recoilDispersion": 15,
+          "convergence": null
         }
       },
       {
@@ -1350,8 +1350,30 @@
           "ergonomics": 20,
           "recoilAngle": 90,
           "recoilVertical": 175,
-          "recoilDispersion": 20,
-          "convergence": 1.25
+          "recoilDispersion": 15,
+          "convergence": null
+        }
+      },
+      {
+        "id": "644674a13d52156624001fbc",
+        "name": "KBP 9A-91 9x39 compact assault rifle",
+        "properties": {
+          "ergonomics": 50,
+          "recoilAngle": 90,
+          "recoilVertical": 115,
+          "recoilDispersion": 14,
+          "convergence": null
+        }
+      },
+      {
+        "id": "645e0c6b3b381ede770e1cc9",
+        "name": "KBP VSK-94 9x39 rifle",
+        "properties": {
+          "ergonomics": 50,
+          "recoilAngle": 90,
+          "recoilVertical": 115,
+          "recoilDispersion": 14,
+          "convergence": null
         }
       },
       {
@@ -1360,9 +1382,9 @@
         "properties": {
           "ergonomics": 35,
           "recoilAngle": 90,
-          "recoilVertical": 210,
-          "recoilDispersion": 25,
-          "convergence": 1.15
+          "recoilVertical": 138,
+          "recoilDispersion": 16,
+          "convergence": null
         }
       },
       {
@@ -1371,9 +1393,9 @@
         "properties": {
           "ergonomics": 50,
           "recoilAngle": 90,
-          "recoilVertical": 311,
-          "recoilDispersion": 35,
-          "convergence": 1.2
+          "recoilVertical": 279,
+          "recoilDispersion": 23,
+          "convergence": null
         }
       },
       {
@@ -1383,8 +1405,8 @@
           "ergonomics": 36,
           "recoilAngle": 90,
           "recoilVertical": 100,
-          "recoilDispersion": 12,
-          "convergence": 1.65
+          "recoilDispersion": 8,
+          "convergence": null
         }
       },
       {
@@ -1393,9 +1415,42 @@
         "properties": {
           "ergonomics": 35,
           "recoilAngle": 90,
-          "recoilVertical": 210,
-          "recoilDispersion": 25,
-          "convergence": 1.15
+          "recoilVertical": 138,
+          "recoilDispersion": 16,
+          "convergence": null
+        }
+      },
+      {
+        "id": "6513ef33e06849f06c0957ca",
+        "name": "Degtyarev RPD 7.62x39 machine gun",
+        "properties": {
+          "ergonomics": 35,
+          "recoilAngle": 90,
+          "recoilVertical": 107,
+          "recoilDispersion": 10,
+          "convergence": null
+        }
+      },
+      {
+        "id": "65268d8ecb944ff1e90ea385",
+        "name": "Degtyarev RPDN 7.62x39 machine gun",
+        "properties": {
+          "ergonomics": 36,
+          "recoilAngle": 90,
+          "recoilVertical": 107,
+          "recoilDispersion": 10,
+          "convergence": null
+        }
+      },
+      {
+        "id": "65290f395ae2ae97b80fdf2d",
+        "name": "SIG MCX SPEAR 6.8x51 assault rifle",
+        "properties": {
+          "ergonomics": 46,
+          "recoilAngle": 90,
+          "recoilVertical": 130,
+          "recoilDispersion": 10,
+          "convergence": null
         }
       }
     ]

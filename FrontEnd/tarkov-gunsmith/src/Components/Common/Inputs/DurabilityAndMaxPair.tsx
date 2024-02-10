@@ -3,7 +3,12 @@ import { useBallisticSimulatorFormContext } from
     "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
 import { mockMaterials } from "../../../Types/ArmorTypes";
 
-export function DurabilityAndMaxPair() {
+
+interface DurabilityAndMaxPairProps{
+    index: number
+}
+
+export function DurabilityAndMaxPair({index}: DurabilityAndMaxPairProps) {
     const form = useBallisticSimulatorFormContext();
 
     return (
@@ -13,7 +18,7 @@ export function DurabilityAndMaxPair() {
                     inputWrapperOrder={['label', 'error', 'input', 'description']}
                     label={
                         <Text size="sm">
-                            Durability: <b>{((form.values.durability / form.values.maxDurability) * 100).toFixed(2)}%</b>
+                            Durability: <b>{((form.values.armorLayers[index].durability / form.values.armorLayers[index].maxDurability) * 100).toFixed(2)}%</b>
                         </Text>
                     }
                     description={
@@ -21,21 +26,21 @@ export function DurabilityAndMaxPair() {
                             <Slider
                                 label={null}
                                 precision={2}
-                                max={form.values.maxDurability}
+                                max={form.values.armorLayers[index].maxDurability}
                                 min={0}
                                 step={1}
-                                {...form.getInputProps('durability')}
+                                {...form.getInputProps(`armorLayers.${index}.durability`)}
                             />
                             <Text size="sm">
-                                Effective Durability: <b>{(form.values.durability / mockMaterials.find(x => x.label === form.values.armorMaterial)!.destructibility).toFixed(2)} </b>
+                                Effective Durability: <b>{(form.values.armorLayers[index].durability / mockMaterials.find(x => x.label === form.values.armorLayers[index].armorMaterial)!.destructibility).toFixed(2)} </b>
                             </Text>
                         </>
                     }
                     precision={2}
-                    max={form.values.maxDurability}
+                    max={form.values.armorLayers[index].maxDurability}
                     min={0}
                     step={1}
-                    {...form.getInputProps('durability')}
+                    {...form.getInputProps(`armorLayers.${index}.durability`)}
                 />
 
 
@@ -48,16 +53,18 @@ export function DurabilityAndMaxPair() {
                     max={90}
                     min={6}
                     step={1}
-                    {...form.getInputProps('maxDurability')}
+                    {...form.getInputProps(`armorLayers.${index}.maxDurability`)}
                     onChange={(value) => {
                         if (value) {
-                            if (form.values.durability > value) {
-                                form.setValues({ durability: value })
+                            if (form.values.armorLayers[index].durability > value) {
+                                form.setFieldValue(`armorLayers.${index}.durability`, value)
+                                // form.setValues( armorLayers[${index}]durability: value )
                             }
-                            else if (form.values.durability === form.values.maxDurability) {
-                                form.setValues({ durability: value })
+                            else if (form.values.armorLayers[index].durability === form.values.armorLayers[index].maxDurability) {
+                                form.setFieldValue(`armorLayers.${index}.durability`, value)
+                                // form.setValues({ armorLayers[0].durability: value })
                             }
-                            form.setFieldValue("maxDurability", value);
+                            form.setFieldValue(`armorLayers.${index}.maxDurability`, value);
                         }
                     }}
                 />
@@ -67,24 +74,26 @@ export function DurabilityAndMaxPair() {
                     max={90}
                     min={6}
                     step={1}
-                    {...form.getInputProps('maxDurability')}
+                    {...form.getInputProps(`armorLayers.${index}.maxDurability`)}
                     onChange={(maxDura) => {
                         if (maxDura) {
-                            if (form.values.durability > maxDura) {
-                                form.setValues({ durability: maxDura })
+                            if (form.values.armorLayers[index].durability > maxDura) {
+                                // form.setValues({ durability: maxDura })
+                                form.setFieldValue(`armorLayers.${index}.durability`, maxDura)
                             }
-                            else if (form.values.durability === form.values.maxDurability) {
-                                form.setValues({ durability: maxDura })
+                            else if (form.values.armorLayers[index].durability === form.values.armorLayers[index].maxDurability) {
+                                // form.setValues({ durability: maxDura })
+                                form.setFieldValue(`armorLayers.${index}.durability`, maxDura)
                             }
-                            form.setFieldValue("maxDurability", maxDura);
+                            form.setFieldValue(`armorLayers.${index}.maxDurability`, maxDura);
                         }
                     }}
                     onChangeEnd={(value) => {
                         if (value) {
-                            if (form.values.durability > value) {
-                                form.setValues({ durability: value })
+                            if (form.values.armorLayers[index].durability > value) {
+                                form.setFieldValue(`armorLayers.${index}.durability`, value)
                             }
-                            form.setFieldValue("maxDurability", value);
+                            form.setFieldValue(`armorLayers.${index}.maxDurability`, value);
                         }
                     }}
                 />
