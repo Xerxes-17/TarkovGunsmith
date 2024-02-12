@@ -1,18 +1,25 @@
-import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay } from "@mantine/core";
+import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
+import { BallisticSimulatorSingleShotGraph, ChartModes } from '../../Components/Common/Graphs/BallisticSimulatorSingleShotGraph';
+import { ReductionFactorWTT } from "../../Components/Common/TextWithToolTips/ReductionFactorWTT";
 
 function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
 }
 
-export function PenetrationAndDamageForm() {
+interface PenAndDamFormProps {
+    layerCountCb: Dispatch<SetStateAction<number>>;
+}
+
+
+export function PenetrationAndDamageForm({layerCountCb}:PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
         initialValues: {
             penetration: 28,
@@ -33,8 +40,24 @@ export function PenetrationAndDamageForm() {
 
     const [result, setResult] = useState<BallisticSimResponse[]>([]);
     const [hasResult, setHasResult] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [visible, { toggle, open, close }] = useDisclosure(false);
+    const [chartMode, setChartMode] = useState<ChartModes>('bar');
+
+    const layerCount = form.values.armorLayers.length;
+    layerCountCb(layerCount);
+
+    const layerSize = () => {
+        if(layerCount === 1){
+            return 6
+        }
+        else if(layerCount === 2){
+            return 4
+        }
+        else{
+            return 3
+        }
+    }
 
     //todo compare with other sim
     // interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -113,7 +136,7 @@ export function PenetrationAndDamageForm() {
             result.BlockArmorDamage.toFixed(2),
             result.AverageArmorDamage.toFixed(2),
             result.PostHitArmorDurability.toFixed(2),
-            result.ReductionFactor.toFixed(2),
+            `${(result.ReductionFactor * 100).toFixed(2)} %`,
             result.PostArmorPenetration.toFixed(2)
         ];
     });
@@ -127,8 +150,12 @@ export function PenetrationAndDamageForm() {
                 transposedDictionary[fieldName] = [];
             }
             if (fieldName === "Penetration Chance") {
-                transposedDictionary[fieldName].push(`${(value * 100).toFixed(2)} %`);
-            } else {
+                transposedDictionary[fieldName].push(`${(value * 100).toFixed(1)} %`);
+            }
+            else if (fieldName === "Reduction Factor") {
+                transposedDictionary[fieldName].push(`${(value * 100).toFixed(1)} %`);
+            }
+            else {
                 transposedDictionary[fieldName].push(value.toFixed(2));
             }
         });
@@ -139,22 +166,22 @@ export function PenetrationAndDamageForm() {
     // console.log("transposedArray", transposedArray);
 
     const elements = [
-        { name: 'Penetration Chance', Value: "-" },
-        { name: 'Penetration Damage', Value: "-" },
-        { name: 'Mitigated Damage', Value: "-" },
-        { name: 'Blunt Damage', Value: "-" },
-        { name: 'Average Damage', Value: "-" },
-        { name: 'Penetration Armor Damage', Value: "-" },
-        { name: 'Block Armor Damage', Value: "-" },
-        { name: 'Average Armor Damage', Value: "-" },
-        { name: 'Post-hit Armor Durability', Value: "-" },
-        { name: 'Reduction Factor', Value: "-" },
-        { name: 'Post Armor Penetration', Value: "-" },
+        { name: 'Penetration Chance', Value: "-", Id: 'Penetration Chance' },
+        { name: 'Penetration Damage', Value: "-", Id: 'Penetration Damage' },
+        { name: 'Mitigated Damage', Value: "-", Id: 'Mitigated Damage' },
+        { name: 'Blunt Damage', Value: "-", Id: 'Blunt Damage' },
+        { name: 'Average Damage', Value: "-", Id: 'Average Damage' },
+        { name: 'Penetration Armor Damage', Value: "-", Id: 'Penetration Armor Damage' },
+        { name: 'Block Armor Damage', Value: "-", Id: 'Block Armor Damage' },
+        { name: 'Average Armor Damage', Value: "-", Id: 'Average Armor Damage' },
+        { name: 'Post-hit Armor Durability', Value: "-", Id: 'Post-hit Armor Durability' },
+        { name: <ReductionFactorWTT />, Value: "-", Id: 'Reduction Factor' },
+        { name: 'Post Armor Penetration', Value: "-", Id: 'Post Armor Penetration' },
     ];
 
     const initialRows = elements.map(row =>
     (
-        <tr key={row.name}>
+        <tr key={row.Id}>
             <td>{row.Value}</td>
             <td>{row.name}</td>
         </tr>
@@ -171,7 +198,7 @@ export function PenetrationAndDamageForm() {
     ));
 
     function handleSubmit(values: BallisticSimulatorFormValues) {
-        open();
+        setIsLoading(true);
         const requestDetails: BallisticSimParameters = {
             penetration: values.penetration,
             damage: values.damage,
@@ -196,44 +223,41 @@ export function PenetrationAndDamageForm() {
         }).catch(error => {
             alert(`The error was: ${error}`);
         });
-        close()
+        setIsLoading(false);
     }
 
     return (
         <BallisticSimulatorFormProvider form={form}>
             <form onSubmit={form.onSubmit((values) => {
                 // console.log(values);
+                setIsLoading(true);
                 handleSubmit(values);
             })}>
                 {result.length > 0 && (
                     <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
                 )}
-                <Grid columns={24} gutter={20} grow>
-                    <Grid.Col span={24} xs={4} mih={"100%"}>
+                <Grid columns={24} gutter={20} m={0} >
+                    <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()} mih={"100%"}>
                         {/* <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> */}
                         <ProjectileUI />
                         {/* <TargetUI /> */}
                         {/* </Paper> */}
                     </Grid.Col>
 
-                    {
-                        form.values.armorLayers.map((_, index) => {
-                            return (
-                                <Grid.Col span={24} xs={4}>
-                                    <ArmorLayerUI index={index} />
-                                </Grid.Col>
-                            )
-                        })
-                    }
-
-
-                    <Grid.Col span={24} xs={8}>
+                    {form.values.armorLayers.map((_, index) => {
+                        return (
+                            <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()}>
+                                <ArmorLayerUI index={index} />
+                            </Grid.Col>
+                        )
+                    })}
+                    {/* Results */}
+                    <Grid.Col span={24} xs={24} sm={12} md={8} xl={6}>
+                        {/* <Grid.Col span="content"> */}
                         <Box pos="relative" h={"100%"}>
-                            <LoadingOverlay visible={visible} overlayBlur={2} />
-
                             <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
-
                             <Box pos="relative">
+                                <LoadingOverlay visible={isLoading} overlayBlur={2} />
                                 {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
                                 <Table highlightOnHover withColumnBorders verticalSpacing="xs">
                                     <thead>
@@ -252,27 +276,39 @@ export function PenetrationAndDamageForm() {
                                 </Table>
                             </Box>
                             {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
-
-                            {/* <Stack>
-                                <Divider mt={4} mb={0} label={(<Title order={6}>Damage</Title>)} />
-                                <Text>Penetration Chance</Text>
-                                <Text>Penetration Damage</Text>
-                                <Text>Mitigated Damage</Text>
-                                <Text>Blunt Damage</Text>
-                                <Text>Average Damage</Text>
-                            </Stack>
-                            <Stack>
-                                <Divider mt={4} mb={0} label={(<Title order={6}>Armor</Title>)} />
-                                <Text>Penetration Armor Damage</Text>
-                                <Text>Block Armor Damage</Text>
-                                <Text>Average Armor Damage</Text>
-                                <Text>Post-hit Armor Durability</Text>
-                            </Stack> */}
                         </Box>
 
+                    </Grid.Col>
+                    {/* Charts */}
+                    <Grid.Col span={24} xs={24} sm={12} lg={12} xl={6} >
+                        {result.length > 0 && (
+                            <Box pos="relative">
+                                <Divider label={(
+                                    <Group spacing={8} >
+                                        <Title order={4}>Graph</Title>
+                                        <SegmentedControl
+                                            value={chartMode}
+                                            onChange={value => {
+                                                if (value === 'line' || value === 'bar')
+                                                    setChartMode(value)
+                                            }}
+                                            data={[
+                                                { label: 'Bar', value: 'bar' },
+                                                { label: 'Line', value: 'line' },
+                                            ]}
+                                        />
+                                    </Group>
 
+                                )} />
+                                <Box pos="relative">
+                                    {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                    <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
+                                </Box>
+                            </Box>
+                        )}
                     </Grid.Col>
                 </Grid>
+
 
                 <Group position="right" mt="md">
 
@@ -306,7 +342,7 @@ export function PenetrationAndDamageForm() {
                         data={mockMaterials}
                     /> */}
                     {/* <Button onClick={toggle} >Multi Shot</Button> */}
-                    <Button type="submit" data-html2canvas-ignore  disabled={result.length > 0 && !form.isDirty()}>
+                    <Button type="submit" data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
                         {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>
                 </Group>

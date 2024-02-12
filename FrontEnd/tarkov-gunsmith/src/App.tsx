@@ -29,9 +29,40 @@ import { BallisticsSimulator } from './Pages/BallisticsSimulator.tsx/BallisticsS
 
 function App() {
 
+  const theme = {
+
+  }
+
   return (
     <>
-      <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: 'dark',
+          breakpoints: {
+            xs: '30em', // 480
+            sm: '48em', // 766
+            md: '64em', // 1024
+            lg: '74em', // 1184
+            xl: '1730px',
+          },
+          components: {
+            Container: {
+              defaultProps: {
+                sizes: {
+                  xs: 540,
+                  sm: 720,
+                  md: 960,
+                  lg: 1140,
+                  xl: 1320,
+                  xxl: 1780
+                },
+              },
+            },
+          },
+        }
+        }>
         <BrowserRouter>
           <TgAppShell>
             {/* <Header /> */}
