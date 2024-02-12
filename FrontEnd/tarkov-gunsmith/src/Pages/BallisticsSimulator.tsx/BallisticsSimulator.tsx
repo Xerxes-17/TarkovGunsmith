@@ -79,7 +79,7 @@ export function BallisticsSimulator() {
     ))
 
     return (
-        <Container size={"xl"}>
+        <Container size="auto" fluid>
             <Space h={5}/>
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
