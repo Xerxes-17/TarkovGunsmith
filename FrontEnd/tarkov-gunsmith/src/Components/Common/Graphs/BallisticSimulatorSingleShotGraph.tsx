@@ -12,19 +12,13 @@ export interface BallisticSimulatorSingleShotGraphProps {
 
 export function BallisticSimulatorSingleShotGraph({ chartData, mode }: BallisticSimulatorSingleShotGraphProps) {
     return (
-        <Grid>
-            <Grid.Col span={12}>
-                {(mode === "line") && (
-                    <Box>
-                        <BsSsLineChart chartData={chartData} mode={mode} />
-                    </Box>
-                )}
-                {(mode === "bar") && (
-                    <Box >
-                        <BsSsBarChart chartData={chartData} mode={mode} />
-                    </Box>
-                )}
-            </Grid.Col>
-        </Grid>
+        <>
+            {(mode === "line") && (
+                <BsSsLineChart chartData={chartData} mode={mode} />
+            )}
+            {(mode === "bar") && (
+                <BsSsBarChart chartData={chartData} mode={mode} />
+            )}
+        </>
     )
 }

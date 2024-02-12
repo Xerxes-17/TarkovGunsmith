@@ -6,21 +6,24 @@ import { BallisticSimulatorSingleShotGraphProps } from "../BallisticSimulatorSin
 export function BsSsBarChart({ chartData, mode }: BallisticSimulatorSingleShotGraphProps) {
 
     return (
-        <ResponsiveContainer minHeight={300} >
+        <ResponsiveContainer minHeight={400} >
             <BarChart
-                width={500}
-                height={300}
                 data={chartData}
                 margin={{
                     top: 5,
-                    right: 30,
-                    left: 20,
+                    right: 0,
+                    left: 0,
                     bottom: 5,
                 }}
                 style={{ paddingTop: 25 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis
+                    type="category"
+                    tickFormatter={(value)=>{
+                        return value + 1
+                    }}
+                />
                 <YAxis
                     yAxisId="left"
                     orientation="left"
@@ -38,7 +41,10 @@ export function BsSsBarChart({ chartData, mode }: BallisticSimulatorSingleShotGr
                     contentStyle={{ backgroundColor: "#1A1B1E" }}
                     label={{}}
                 />
-                <Legend />
+                <Legend
+                    layout='horizontal'
+                    verticalAlign="top"
+                />
                 <Bar
                     name="Penetration Chance"
                     yAxisId="left"

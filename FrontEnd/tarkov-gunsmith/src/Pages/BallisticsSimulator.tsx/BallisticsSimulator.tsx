@@ -6,6 +6,7 @@ import { DownloadElementImageButton } from "../../Components/Common/Inputs/Eleme
 import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { BallisticSimulatorTitle } from "../../Components/Common/TextWithToolTips/BallisticSimulatorTitle";
+import { log } from "console";
 
 const PRINT_ID = "printMe";
 
@@ -19,6 +20,21 @@ export function BallisticsSimulator() {
 
     const mobileView = useMediaQuery('(max-width: 576px)');
     const { height, width } = useViewportSize();
+
+    const [countOfLayers, setCountOfLayers] = useState<number>(1);
+    console.log(countOfLayers)
+
+    const containerSize = () => {
+        if(countOfLayers === 1){
+            return "lg"
+        }
+        else if(countOfLayers === 2){
+            return "xl"
+        }
+        else{
+            return "xxl"
+        }
+    }
     
     // console.log(mobileView)
 
@@ -74,12 +90,12 @@ export function BallisticsSimulator() {
 
     const tabPanels = tabTitles.map((title) => (
         <Tabs.Panel value={title} pl="xs">
-            <PenetrationAndDamageForm />
+            <PenetrationAndDamageForm layerCountCb={setCountOfLayers} />
         </Tabs.Panel>
     ))
 
     return (
-        <Container size="auto" fluid>
+        <Container size={containerSize()}>
             <Space h={5}/>
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
@@ -101,9 +117,7 @@ export function BallisticsSimulator() {
                         </Tabs.Tab>
                     </Tabs.List>
                     <ScrollArea.Autosize
-
                         mah={ mobileView ?  height-345 : "100%" } // sets the max size before the scroll area appears, will need top play with it more
-                        mx="auto"
                         type="scroll"
                         offsetScrollbars
                     >

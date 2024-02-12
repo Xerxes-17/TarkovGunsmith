@@ -7,22 +7,23 @@ export function BsSsLineChart({ chartData }: BallisticSimulatorSingleShotGraphPr
 
 
     return (
-        <ResponsiveContainer minHeight={350} >
+        <ResponsiveContainer minHeight={400} >
         <ComposedChart
             data={chartData}
             margin={{
-                top: 0,
-                right: -10,
-                left: 10,
-                bottom: 25,
+                top: 5,
+                right: 0,
+                left: 0,
+                bottom: 5,
             }}
-            style={{ paddingTop: 25 }}
         >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-                dataKey="hitNum"
-                // label={{ value: 'Layer ', position: 'bottom', offset: 0 }}
-            />
+                    type="category"
+                    tickFormatter={(value)=>{
+                        return value + 1
+                    }}
+                />
             <YAxis
                 yAxisId="left"
                 orientation="left"

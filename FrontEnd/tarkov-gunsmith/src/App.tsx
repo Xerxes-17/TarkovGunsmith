@@ -41,11 +41,25 @@ function App() {
         theme={{
           colorScheme: 'dark',
           breakpoints: {
-            xs: '30em',
-            sm: '48em',
-            md: '64em',
-            lg: '74em',
+            xs: '30em', // 480
+            sm: '48em', // 766
+            md: '64em', // 1024
+            lg: '74em', // 1184
             xl: '1730px',
+          },
+          components: {
+            Container: {
+              defaultProps: {
+                sizes: {
+                  xs: 540,
+                  sm: 720,
+                  md: 960,
+                  lg: 1140,
+                  xl: 1320,
+                  xxl: 1780
+                },
+              },
+            },
           },
         }
         }>

@@ -3,7 +3,7 @@ import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallis
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
 import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
@@ -14,7 +14,12 @@ function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
 }
 
-export function PenetrationAndDamageForm() {
+interface PenAndDamFormProps {
+    layerCountCb: Dispatch<SetStateAction<number>>;
+}
+
+
+export function PenetrationAndDamageForm({layerCountCb}:PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
         initialValues: {
             penetration: 28,
@@ -38,6 +43,21 @@ export function PenetrationAndDamageForm() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [chartMode, setChartMode] = useState<ChartModes>('bar');
+
+    const layerCount = form.values.armorLayers.length;
+    layerCountCb(layerCount);
+
+    const layerSize = () => {
+        if(layerCount === 1){
+            return 6
+        }
+        else if(layerCount === 2){
+            return 4
+        }
+        else{
+            return 3
+        }
+    }
 
     //todo compare with other sim
     // interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -216,30 +236,28 @@ export function PenetrationAndDamageForm() {
                 {result.length > 0 && (
                     <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
                 )}
-                <Grid columns={24} gutter={20}>
-                    <Grid.Col span={24} xs={6} md={4} mih={"100%"}>
+                <Grid columns={24} gutter={20} m={0} >
+                    <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()} mih={"100%"}>
                         {/* <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> */}
                         <ProjectileUI />
                         {/* <TargetUI /> */}
                         {/* </Paper> */}
                     </Grid.Col>
 
-                    {
-                        form.values.armorLayers.map((_, index) => {
-                            return (
-                                <Grid.Col span={24} xs={6} md={4}>
-                                    <ArmorLayerUI index={index} />
-                                </Grid.Col>
-                            )
-                        })
-                    }
+                    {form.values.armorLayers.map((_, index) => {
+                        return (
+                            <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()}>
+                                <ArmorLayerUI index={index} />
+                            </Grid.Col>
+                        )
+                    })}
                     {/* Results */}
-                    <Grid.Col span={24} xs={24} sm={12} md={8} xl={8}>
-                    {/* <Grid.Col span="content"> */}
+                    <Grid.Col span={24} xs={24} sm={12} md={8} xl={6}>
+                        {/* <Grid.Col span="content"> */}
                         <Box pos="relative" h={"100%"}>
                             <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
                             <Box pos="relative">
-                            <LoadingOverlay visible={isLoading} overlayBlur={2} />
+                                <LoadingOverlay visible={isLoading} overlayBlur={2} />
                                 {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
                                 <Table highlightOnHover withColumnBorders verticalSpacing="xs">
                                     <thead>
@@ -262,7 +280,7 @@ export function PenetrationAndDamageForm() {
 
                     </Grid.Col>
                     {/* Charts */}
-                    <Grid.Col span={24} xs={24} sm={12} lg={12} xl={12}>
+                    <Grid.Col span={24} xs={24} sm={12} lg={12} xl={6} >
                         {result.length > 0 && (
                             <Box pos="relative">
                                 <Divider label={(
@@ -277,14 +295,15 @@ export function PenetrationAndDamageForm() {
                                             data={[
                                                 { label: 'Bar', value: 'bar' },
                                                 { label: 'Line', value: 'line' },
-                                                
                                             ]}
                                         />
                                     </Group>
 
                                 )} />
-                                {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
-                                <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
+                                <Box pos="relative">
+                                    {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                    <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
+                                </Box>
                             </Box>
                         )}
                     </Grid.Col>
