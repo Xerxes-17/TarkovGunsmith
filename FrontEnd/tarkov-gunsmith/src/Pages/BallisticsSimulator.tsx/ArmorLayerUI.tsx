@@ -1,4 +1,4 @@
-import { Divider, Group, Stack, Title } from "@mantine/core";
+import { Divider, Group, Stack, TextInput, Title } from "@mantine/core";
 import { DurabilityAndMaxPair } from "../../Components/Common/Inputs/DurabilityAndMaxPair";
 import { NumberAndSlider } from "../../Components/Common/Inputs/NumberAndSlider";
 import { NumberAndSliderPercentage } from "../../Components/Common/Inputs/NumberAndSliderPercentage";
@@ -24,12 +24,12 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
             <Divider my="xs" label={(
                 <Group spacing={8} >
                     <Title order={4}>Armor Layer {index + 1}</Title>
-                    <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="armor" armorIndex={index}/>
+                    <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="armor" armorIndex={index} />
                 </Group>)} />
             <Stack>
                 <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
                 <NumberAndSliderPercentage
-                    label={<BluntThroughputWithToolTip/>}
+                    label={<BluntThroughputWithToolTip />}
                     property={`armorLayers.${index}.bluntDamageThroughput`}
                     precision={2}
                     step={1}

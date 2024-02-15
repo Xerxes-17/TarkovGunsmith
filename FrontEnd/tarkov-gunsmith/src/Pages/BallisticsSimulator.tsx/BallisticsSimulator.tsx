@@ -1,6 +1,6 @@
-import { ActionIcon, Button , Container, Divider, Group, HoverCard, Paper, ScrollArea, Space, Tabs, Text, Title } from "@mantine/core"
+import { ActionIcon, Button, Container, Divider, Group, HoverCard, Paper, Popover, ScrollArea, Space, Tabs, Text, TextInput, Title, Tooltip } from "@mantine/core"
 import { PenetrationAndDamageForm } from "./PenetrationAndDamageForm"
-import { IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
+import { IconEdit, IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useState } from "react";
 import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
 import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
@@ -15,6 +15,7 @@ const PRINT_ID = "printMe";
  * 
  */
 export function BallisticsSimulator() {
+    const [newTabTitle, setNewTabTitle] = useState('');
     const [tabTitles, setTabTitles] = useState<string[]>(["Sim1"]);
     const [activeTab, setActiveTab] = useState<string | null>("Sim1");
 
@@ -25,17 +26,17 @@ export function BallisticsSimulator() {
     console.log(countOfLayers)
 
     const containerSize = () => {
-        if(countOfLayers === 1){
+        if (countOfLayers === 1) {
             return "lg"
         }
-        else if(countOfLayers === 2){
+        else if (countOfLayers === 2) {
             return "xl"
         }
-        else{
+        else {
             return "xxl"
         }
     }
-    
+
     // console.log(mobileView)
 
     function addNewTab() {
@@ -61,6 +62,22 @@ export function BallisticsSimulator() {
         }
 
     }
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNewTabTitle(event.target.value);
+    };
+
+    function editTabTitle(title: string, newTitle: string) {
+        const index = tabTitles.findIndex(x => x === title);
+        if (index === -1) {
+            return
+        }
+        const updatedTabTitles = [...tabTitles];
+        updatedTabTitles[index] = newTitle;
+        setTabTitles(updatedTabTitles);
+        if(activeTab === title){
+            setActiveTab(newTitle);
+        }
+    }
 
     const tabs = tabTitles.map((title) => (
         <HoverCard shadow="md" openDelay={250}>
@@ -71,7 +88,27 @@ export function BallisticsSimulator() {
             </HoverCard.Target>
             {tabTitles.length > 1 && (
                 <HoverCard.Dropdown>
-                    <Group>
+                    <Group spacing={"xs"}>
+                        <Popover width={300} trapFocus position="bottom" withArrow shadow="md">
+                            <Popover.Target>
+                                <Tooltip label={"Edit tab name"}>
+                                    <ActionIcon aria-label="Edit simulation tab name" >
+                                        <IconEdit size="1.125rem" />
+                                    </ActionIcon>
+                                </Tooltip>
+
+                            </Popover.Target>
+                            <Popover.Dropdown sx={(theme) => ({ background: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white })}>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    editTabTitle(title, newTabTitle);
+                                }}>
+                                    <TextInput label="New name - enter to save" placeholder="Name" size="xs" defaultValue={title} onChange={handleChange} />
+                                </form>
+
+                            </Popover.Dropdown>
+                        </Popover>
+
                         {title !== activeTab && false && (
                             <Button compact color="green">
                                 Compare
@@ -96,10 +133,10 @@ export function BallisticsSimulator() {
 
     return (
         <Container size={containerSize()}>
-            <Space h={5}/>
+            <Space h={5} />
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
-                    <BallisticSimulatorTitle/>
+                    <BallisticSimulatorTitle />
                     <Group ml={"auto"}>
                         <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
                         <CopyElementImageButton targetElementId={PRINT_ID} />
@@ -117,7 +154,7 @@ export function BallisticsSimulator() {
                         </Tabs.Tab>
                     </Tabs.List>
                     <ScrollArea.Autosize
-                        mah={ mobileView ?  height-345 : "100%" } // sets the max size before the scroll area appears, will need top play with it more
+                        mah={mobileView ? height - 345 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
                         type="scroll"
                         offsetScrollbars
                     >

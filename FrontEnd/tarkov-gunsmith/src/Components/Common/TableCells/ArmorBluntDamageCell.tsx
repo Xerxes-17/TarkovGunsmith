@@ -17,7 +17,7 @@ export function ArmorBluntDamageCell<T extends {}>(cell: MRT_Cell<T>, row: MRT_R
                 </HoverCard.Target>
                 <HoverCard.Dropdown >
                     <Text fw={400} style={{ whiteSpace: "normal" }}>
-                        As of patch 14.0.0, plates don't have blunt damage.
+                        As of patch 14.0.0, plate collider armor doesn't have blunt damage.
                     </Text>
                 </HoverCard.Dropdown>
             </HoverCard>
