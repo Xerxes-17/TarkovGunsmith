@@ -1,5 +1,6 @@
 import {MRT_TableOptions, MRT_TablePagination, MRT_ToggleFullScreenButton, useMantineReactTable} from 'mantine-react-table';
 import { RowSelection } from '../../MWB/types';
+import { FocusTrap} from '@mantine/core';
 
 export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
     const {initialState, state, ...options } = tableOptions;
@@ -54,6 +55,9 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
                 verticalAlign: "bottom"
             }
         },
+        // mantineSearchTextInputProps:{
+        //     "data-autofocus" : true, //seems we can't have this for now
+        // },
 
         mantineTableHeadCellProps: {
             style: {
