@@ -6,5 +6,5 @@ export function RicochetChanceCell<T extends {}>(cell: MRT_Cell<T>, rowRicochetP
     if(rowRicochetParams.x === 0){
         return (<>-</>)
     }
-    return (<>{cell.getValue<number>()*100} %</>)
+    return (<>{cell.getValue<number>()} %</>)
 }

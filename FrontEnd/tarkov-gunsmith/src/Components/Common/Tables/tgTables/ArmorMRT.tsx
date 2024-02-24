@@ -175,6 +175,7 @@ export function ArmorMRT() {
                     header: "Max Ricochet Chance",
                     size: 80,
                     Header: MaxRicochetColHeader(),
+                    accessorFn: (originalRow) => originalRow.ricochetParams.x*100,
                     Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                     ...tgNumColOptions
                 },
@@ -184,6 +185,7 @@ export function ArmorMRT() {
                     header: "Min Ricochet Chance",
                     size: 80,
                     Header: MinRicochetColHeader(),
+                    accessorFn: (originalRow) => originalRow.ricochetParams.y*100,
                     Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                     ...tgNumColOptions
                 },

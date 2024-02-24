@@ -163,6 +163,7 @@ export function HelmetsMRT() {
             {
                 id: "ricochetX",
                 accessorKey: "ricochetParams.x",
+                accessorFn: (originalRow) => originalRow.ricochetParams.x*100,
                 header: "Max Ricochet Chance",
                 size: 80,
                 Header: MaxRicochetColHeader(),
@@ -172,6 +173,7 @@ export function HelmetsMRT() {
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
+                accessorFn: (originalRow) => originalRow.ricochetParams.y*100,
                 header: "Min Ricochet Chance",
                 size: 80,
                 Header: MinRicochetColHeader(),
