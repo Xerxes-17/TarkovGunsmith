@@ -25,7 +25,7 @@ export function ProjectileUI() {
 
     return (
         <>
-            <Divider my="xs" label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="ammo"/></Group>)} />
+            <Divider my="xs" label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="ammo"/></Group>)} />
             <Stack spacing={4}>
                 <NumberAndSlider label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
                 <NumberAndSlider label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />

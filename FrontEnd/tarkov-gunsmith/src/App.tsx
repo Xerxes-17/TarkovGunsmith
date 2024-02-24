@@ -8,19 +8,11 @@ import {
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
-import ArmorDamageCalculator from './Components/ADC/ArmorDamageCalculator';
 import { LINKS } from './Util/links';
-import DataSheetAmmo from './Components/DataSheets/Stats_Ammo';
-import DataSheetArmor from './Components/DataSheets/Stats_Armor';
-import DataSheetWeapons from './Components/DataSheets/Stats_Weapons';
-import DataSheetEffectivenessArmor from './Components/DataSheets/ArmorVsAmmo';
-import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
-import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 import MwbBasePage from './Components/MWB/MwbBasePage';
 import { MantineProvider } from '@mantine/core';
 import AmmoMRT from './Components/Common/Tables/tgTables/AmmoMRT';
 import { WeaponMRT } from './Components/Common/Tables/tgTables/WeaponMRT';
-import { DataSheetArmorModules } from './Components/DataSheets/Stats_ArmorModules';
 import { HelmetsMRT } from './Components/Common/Tables/tgTables/HelmetsMRT';
 import { ArmorMRT } from './Components/Common/Tables/tgTables/ArmorMRT';
 import { TgAppShell } from './Components/Common/TgAppShell';
@@ -28,11 +20,6 @@ import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModule
 import { BallisticsSimulator } from './Pages/BallisticsSimulator.tsx/BallisticsSimulator';
 
 function App() {
-
-  const theme = {
-
-  }
-
   return (
     <>
       <MantineProvider

@@ -24,7 +24,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
             <Divider my="xs" label={(
                 <Group spacing={8} >
                     <Title order={4}>Armor Layer {index + 1}</Title>
-                    <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="armor" armorIndex={index} />
+                    <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="armor" armorIndex={index} />
                 </Group>)} />
             <Stack spacing={4}>
                 <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />

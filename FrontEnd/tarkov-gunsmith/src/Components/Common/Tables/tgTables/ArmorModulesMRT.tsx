@@ -1,4 +1,4 @@
-import { Box, Avatar, Button, Flex, Text } from "@mantine/core";
+import { Box, Avatar, Flex } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MATERIALS } from "../../../ADC/ArmorData";
 import { lightShield, heavyShield, noneShield } from "../../tgIcons";
@@ -6,7 +6,7 @@ import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
 import { API_URL } from "../../../../Util/util";
 import {MRT_ColumnDef,  MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
-import { useDisclosure, useFocusTrap } from "@mantine/hooks";
+import { useFocusTrap } from "@mantine/hooks";
 import { ArmorTypeWithToolTip } from "../../TextWithToolTips/ArmorTypeWithToolTip";
 import { BluntThroughputWithToolTip } from "../../TextWithToolTips/BluntThroughputWithToolTip";
 import { ArmorMaterialWithToolTip } from "../../TextWithToolTips/ArmorMaterialWithToolTip";
@@ -329,7 +329,6 @@ export function ArmorModulesMRT(){
             >
                 <MRT_GlobalFilterTextInput table={table} data-autofocus/>
             </Flex>
-
         ),
         
         renderToolbarInternalActions: ({ table }) => (

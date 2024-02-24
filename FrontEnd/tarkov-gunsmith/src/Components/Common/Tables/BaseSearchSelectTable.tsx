@@ -1,26 +1,25 @@
-import { MRT_TableOptions, MRT_TablePagination, MRT_ToggleFullScreenButton, useMantineReactTable, MRT_GlobalFilterTextInput } from 'mantine-react-table';
-import { RowSelection } from '../../MWB/types';
-import { FocusTrap } from '@mantine/core';
+import { MRT_TableOptions, useMantineReactTable } from 'mantine-react-table';
 
 export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
     const { initialState, state, ...options } = tableOptions;
 
     const table = useMantineReactTable<T>({
-        positionGlobalFilter: "left",
-        enableStickyHeader: true,
         enableGlobalFilter: true,
-        enableColumnFilterModes: true,
+        positionGlobalFilter: "left",
 
-        layoutMode: "semantic",
-
-        enableColumnOrdering: true,
-        enableColumnFilters: true,
+        enableStickyHeader: true,
 
         enableToolbarInternalActions: true,
         enableHiding: false,
         enableSorting: true,
         enableMultiSort: true,
+        
+        layoutMode: "semantic",
 
+        enableColumnOrdering: true,
+        enableColumnFilters: true,
+
+        enableColumnFilterModes: true,
         enableColumnActions: false,
         enableColumnDragging: false,
         enableFacetedValues: true,

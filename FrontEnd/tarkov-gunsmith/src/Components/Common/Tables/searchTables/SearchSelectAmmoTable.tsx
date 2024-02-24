@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../../../Types/AmmoTypes";
 import { getAmmoDataFromApi_TarkovDev } from "../../../../Api/AmmoApiCalls";
 import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
-import { Avatar, Group, Tooltip, Text, CloseButton, Center } from '@mantine/core';
-import { useDisclosure, useViewportSize } from "@mantine/hooks";
+import { Avatar, Group, Tooltip, Text, CloseButton } from '@mantine/core';
+import { useViewportSize } from "@mantine/hooks";
 import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
 import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
 
@@ -212,20 +212,9 @@ export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTablePr
         renderToolbarInternalActions: ({ table }) => (
             <Group position="center">
                 <CloseButton onClick={CloseDrawerCb} title="Close" size="lg" iconSize={20} />
-                {/* <MRT_TablePagination table={table} /> */}
-                {/* <MRT_ToggleFullScreenButton table={table} /> */}
             </Group>
         ),
-
-
-        // mantineTableBodyProps: (row) => (
-        //     {
-        //         height:"600px"
-        //     }
-        // )
     })
-    // console.log("height:", height)
-    // console.log("height > 800:", height > 800)
-    // console.log("calculatedTableHeight", tableHeight)
+
     return (<MantineReactTable table={table} />);
 }

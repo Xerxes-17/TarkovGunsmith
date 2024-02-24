@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
-import { Avatar, Group, Box, CloseButton } from "@mantine/core";
-import { useDisclosure, useViewportSize } from "@mantine/hooks";
+import { Avatar, Group, CloseButton } from "@mantine/core";
+import { useViewportSize } from "@mantine/hooks";
 import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
 import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
 import { API_URL } from "../../../../Util/util";
@@ -208,14 +208,9 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
         renderToolbarInternalActions: ({ table }) => (
             <Group position="center">
                 <CloseButton onClick={CloseDrawerCb} title="Close" size="lg" iconSize={20} />
-                {/* <MRT_TablePagination table={table} /> */}
-                {/* <MRT_ToggleFullScreenButton table={table} /> */}
             </Group>
         ),
 
     })
-    // console.log("height:", height)
-    // console.log("height > 800:", height > 800)
-    // console.log("calculatedTableHeight", tableHeight)
     return (<MantineReactTable table={table} />);
 }

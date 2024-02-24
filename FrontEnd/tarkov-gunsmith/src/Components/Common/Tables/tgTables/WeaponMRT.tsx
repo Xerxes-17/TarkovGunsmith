@@ -4,19 +4,16 @@ import { useState, useEffect } from "react"
 import { useMemo } from 'react';
 import {
     MantineReactTable,
-    useMantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
-    MRT_ExpandButton,
-    MRT_TableOptions
-} from 'mantine-react-table';
+    MRT_ExpandButton} from 'mantine-react-table';
 
 import { Box, Button, Flex, Text, Avatar, MultiSelect, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { WeaponsTableRow } from "../../../../Types/WeaponTypes";
 import { getDataFromApi_TarkovDev } from "../../../../Api/WeaponApiCalls";
-import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../../../Types/AmmoTypes';
+import { ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../../../Types/AmmoTypes';
 import ImageWithDefaultFallback from "../../ImageWithFallBack";
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
 

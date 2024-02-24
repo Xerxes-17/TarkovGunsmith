@@ -8,13 +8,11 @@ import { SearchSelectArmorTable } from '../Tables/searchTables/SearchSelectArmor
 export interface DrawerButtonProps {
     buttonLabel: string | ReactNode
     leftIcon?: ReactNode
-    ammorOrArmor: "ammo" | "armor"
+    ammoOrArmor: "ammo" | "armor"
     armorIndex?: number
 }
 
-
-
-export function DrawerButton({ buttonLabel, leftIcon, ammorOrArmor, armorIndex }: DrawerButtonProps) {
+export function DrawerButton({ leftIcon, ammoOrArmor, armorIndex }: DrawerButtonProps) {
     const [opened, { open, close }] = useDisclosure(false);
 
     const ammoContent = (
@@ -23,8 +21,7 @@ export function DrawerButton({ buttonLabel, leftIcon, ammorOrArmor, armorIndex }
                 <Drawer.Title><Title order={4}>Search Projectile - Click to select</Title></Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-
-                <SearchSelectAmmoTable CloseDrawerCb={close}/>
+                <SearchSelectAmmoTable CloseDrawerCb={close} />
             </Drawer.Body>
         </>
     )
@@ -42,13 +39,13 @@ export function DrawerButton({ buttonLabel, leftIcon, ammorOrArmor, armorIndex }
 
     return (
         <>
-            <Drawer.Root opened={opened} onClose={close} size={ammorOrArmor === "ammo" ? "lg" : "1300px"}>
+            <Drawer.Root opened={opened} onClose={close} size={ammoOrArmor === "ammo" ? "lg" : "1300px"}>
                 <Drawer.Overlay />
                 <Drawer.Content>
-                    {ammorOrArmor === "ammo" && (
+                    {ammoOrArmor === "ammo" && (
                         ammoContent
                     )}
-                    {ammorOrArmor === "armor" && (
+                    {ammoOrArmor === "armor" && (
                         armorContent
                     )}
                 </Drawer.Content>
