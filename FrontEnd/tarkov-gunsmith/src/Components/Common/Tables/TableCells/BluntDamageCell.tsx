@@ -7,7 +7,7 @@ export function BluntDamageCell<T extends {}>(cell: MRT_Cell<T>, rowHitZones: st
             <HoverCard shadow="md">
                 <HoverCard.Target>
                     <Text size="sm">
-                        {(cell.getValue<number>() * 100).toFixed(2)} %
+                        {(cell.getValue<number>()).toFixed(1)} %
                     </Text>
                 </HoverCard.Target>
                 <HoverCard.Dropdown >
@@ -18,5 +18,5 @@ export function BluntDamageCell<T extends {}>(cell: MRT_Cell<T>, rowHitZones: st
             </HoverCard>
             )
     }
-    return (<>{(cell.getValue<number>() * 100).toFixed(2)} %</>)
+    return (<>{(cell.getValue<number>()).toFixed(1)} %</>)
 }

@@ -166,6 +166,7 @@ export function ArmorModulesMRT(){
             },
             {
                 accessorKey: 'bluntThroughput',
+                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
                 header: 'Blunt Throughput',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),

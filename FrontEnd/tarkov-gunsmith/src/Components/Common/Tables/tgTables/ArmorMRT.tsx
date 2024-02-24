@@ -115,6 +115,7 @@ export function ArmorMRT() {
                 {
                     id: "bluntThroughput",
                     accessorKey: "bluntThroughput",
+                    accessorFn: (originalRow) => originalRow.bluntThroughput*100,
                     header: "Blunt Throughput",
                     size: 80,
                     Cell: ({ cell, row }) => ArmorBluntDamageCell(cell, row),
