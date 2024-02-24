@@ -4,17 +4,17 @@ import { useState, useEffect } from "react"
 import { useMemo } from 'react';
 import {
     MantineReactTable,
-    useMantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from '../../../../Types/AmmoTypes';
 
-import { Box, Button, Flex, Text, Avatar } from '@mantine/core'
+import { Box, Button, Flex, Text, Avatar, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoApiCalls";
+import { getAmmoDataFromApi_TarkovDev } from "../../../../Api/AmmoApiCalls";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
 
 
 export default function AmmoMRT() {
@@ -23,7 +23,7 @@ export default function AmmoMRT() {
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
 
     const [pix, pixHandlers] = useDisclosure(true);
-    const [filters, filtersHandlers] = useDisclosure(false);
+    // const [filters, filtersHandlers] = useDisclosure(false);
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
 
     async function getTableData() {
@@ -34,7 +34,7 @@ export default function AmmoMRT() {
         // }
 
         const response_ApiTarkovDev = await getAmmoDataFromApi_TarkovDev()
-        if(response_ApiTarkovDev !== null){
+        if (response_ApiTarkovDev !== null) {
             setTableData(filterNonBulletsOut(response_ApiTarkovDev));
             return;
         }
@@ -73,38 +73,30 @@ export default function AmmoMRT() {
                     <div style={{ width: "100%" }}>Name</div>),
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
                 Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
+                    <Group align="center">
                         <Avatar
                             alt="avatar"
                             size={'md'}
                             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
                             style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                            // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
                         >
                             TG
                         </Avatar>
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                         <span>{renderedCellValue}</span>
-                    </Box>
-                    // <span>{renderedCellValue}</span>
+                    </Group>
                 ),
+                ...tgNameColOptions
             },
             {
                 id: "caliber",
                 accessorFn: (row) => `${mapAmmoCaliberFullNameToLabel(row.caliber)}`,
-                size: 8,
                 accessorKey: 'caliber',
                 header: 'Caliber',
-                filterVariant: "multi-select",
                 Cell: ({ renderedCellValue }) => (
                     <span>{renderedCellValue}</span>
                 ),
+                ...tgMultiSelectColOptions
             },
 
             {
@@ -116,16 +108,16 @@ export default function AmmoMRT() {
                     <div>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
-                filterVariant: "range",
-                Cell: ({cell, row}) => {
-                    if(row.original.projectileCount > 1){
+                Cell: ({ cell, row }) => {
+                    if (row.original.projectileCount > 1) {
                         return (
-                            <>{row.original.projectileCount} x {cell.getValue<number>().toFixed(0)} ({row.original.projectileCount*cell.getValue<number>()})</> 
+                            <>{row.original.projectileCount} x {cell.getValue<number>().toFixed(0)} ({row.original.projectileCount * cell.getValue<number>()})</>
                         )
                     }
                     return <>{cell.getValue<number>().toFixed(0)}</>
-                    
-                }
+
+                },
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'penetrationPower',
@@ -144,8 +136,7 @@ export default function AmmoMRT() {
                         </div>
                     )
                 },
-
-                filterVariant: "range"
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'penetrationPowerDeviation',
@@ -164,8 +155,7 @@ export default function AmmoMRT() {
                         </div>
                     )
                 },
-
-                filterVariant: "range"
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'armorDamagePerc',
@@ -182,7 +172,7 @@ export default function AmmoMRT() {
                         </div>
                     )
                 },
-                filterVariant: "range"
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'baseArmorDamage',
@@ -199,12 +189,11 @@ export default function AmmoMRT() {
                         </div>
                     )
                 },
-                filterVariant: "range"
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'lightBleedDelta',
                 header: 'Light Bleed Bonus',
-
                 Cell: ({ cell }) => (
                     <>
                         {cell.getValue<number>() > 0 ? (
@@ -213,6 +202,7 @@ export default function AmmoMRT() {
                     </>
                 ),
                 size: 80,
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'heavyBleedDelta',
@@ -225,6 +215,7 @@ export default function AmmoMRT() {
                     </>
                 ),
                 size: 85,
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'fragChance',
@@ -237,6 +228,7 @@ export default function AmmoMRT() {
                     </>
                 ),
                 size: 55,
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'AmmoRec',
@@ -249,6 +241,7 @@ export default function AmmoMRT() {
                         ) : <span>-</span>}
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'initialSpeed',
@@ -259,10 +252,10 @@ export default function AmmoMRT() {
                     <div>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)} m/s</strong>
                     </div>,
-                filterVariant: "range",
                 Cell: ({ renderedCellValue }) => (
                     <span>{renderedCellValue} m/s</span>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'tracer',
@@ -271,50 +264,182 @@ export default function AmmoMRT() {
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<boolean>()).toLocaleString()}</span>
                 ),
+                ...tgNumColOptions
             },
-            // {
-            //     accessorKey: 'price',
-            //     header: 'Price',
-            //     size: 120,
-            // },
-            // {
-            //     accessorKey: 'traderLevel',
-            //     header: 'Trader Level',
-            //     size: 120,
-            // },
         ],
         [pix, manualGrouping],
     );
 
-    const table = useMantineReactTable({
+    // const table = useMantineReactTable({
+    //     columns,
+    //     data: tableData,
+    //     positionGlobalFilter: "none",
+    //     enableStickyHeader: true,
+    //     enableGlobalFilter: true,
+    //     enableColumnFilterModes: true,
+
+    //     enableColumnOrdering: true,
+    //     enableColumnFilters: true,
+
+    //     enableToolbarInternalActions: true,
+    //     enableHiding: false,
+    //     enableSorting: true,
+
+    //     enableColumnActions: false,
+    //     enableColumnDragging: false,
+    //     enableFacetedValues: true,
+    //     enableGrouping: true,
+    //     enablePinning: true,
+    //     columnFilterDisplayMode:"popover",
+
+    //     // enableTopToolbar: false,
+    //     enableDensityToggle: false,
+    //     positionToolbarAlertBanner: "bottom",
+
+    //     enableRowSelection: false,
+    //     // enableColumnResizing: true,
+    //     mantinePaginationProps: {
+    //         rowsPerPageOptions: ["10", "25", "50", "75", "100", "150", "200"],
+    //     },
+    //     initialState: {
+    //         expanded: true,
+    //         columnVisibility: {
+    //             caliber: true,
+    //             tracer: false,
+    //             price: false,
+    //         },
+    //         density: "xs",
+
+    //         pagination: {
+    //             pageIndex: 0, pageSize: 200
+    //         }
+    //         ,
+    //         columnPinning: {
+    //             left: ['mrt-row-expand', 'name']
+    //             // left: ['mrt-row-expand']
+    //         },
+    //         sorting: [{ id: 'penetrationPower', desc: true }],
+    //     },
+    //     state: {
+    //         grouping: manualGrouping,
+    //         showGlobalFilter: true,
+    //         columnVisibility: visibility,
+    //         showColumnFilters: filters,
+    //     },
+    //     mantineTableHeadProps: {
+    //         sx: {
+    //             tableLayout: 'fixed',
+    //         },
+    //     },
+    //     mantineTopToolbarProps: {
+    //         sx: {
+    //             verticalAlign: "bottom"
+    //         }
+    //     },
+
+    //     mantineTableHeadCellProps: {
+    //         style: {
+    //             verticalAlign: "bottom"
+    //         },
+    //         sx: {
+    //             // '& .mantine-Paper-root': {
+    //             //     verticalAlign: "bottom",
+    //             // },
+    //             // ! Did these two to get the actions group ahead of the label
+    //             // '& .mantine-TableHeadCell-Content': {
+    //             //     display: 'flex',
+    //             //     flexDirection:"column-reverse",
+    //             //     whiteSpace: "normal"
+    //             // },
+    //             // '& .mantine-TableHeadCell-Content-Actions': {
+    //             //     alignSelf:"flex-start",
+    //             // },
+
+    //             '& .mantine-TableHeadCell-Content-Wrapper': {
+    //                 width: "100%",
+    //                 whiteSpace: "normal"
+    //             },
+    //             '& .mantine-TableHeadCell-Content-Labels': {
+    //                 // justifyContent: 'space-between',
+    //                 display: 'flex',
+    //                 flexWrap: 'wrap'
+    //             },
+    //         },
+    //     },
+    //     //todo make this  have a multi-select for calibers
+    //     renderTopToolbarCustomActions: ({ table }) => (
+    //         <Flex
+    //             gap="md"
+    //             justify="flex-start"
+    //             align="center"
+    //             direction="row"
+    //             wrap="wrap"
+    //         >
+    //             <MRT_GlobalFilterTextInput table={table} />
+    //             <Flex
+    //                 gap="md"
+    //                 justify="flex-start"
+    //                 align="center"
+    //                 direction="row"
+    //                 wrap="wrap"
+    //             >
+    //                 <Text fw={700}>Toggles</Text>
+    //                 <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+    //                 <Button size={'xs'} compact variant={pix? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+    //                 <Button size={'xs'} compact variant={filters? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+    //             </Flex>
+
+    //             {/* <MultiSelect
+    //                 placeholder="Filter by up to 6 choices"
+    //                 data={ammoCaliberArray}
+    //                 miw={250}
+    //                 maw={400}
+    //                 maxSelectedValues={6}
+    //                 withinPortal={true}
+    //                 value={filterValues}
+    //                 onChange={setFilterValues}
+    //             /> */}
+    //         </Flex>
+
+    //     ),
+    //     displayColumnDefOptions: {
+    //         "mrt-row-expand": {
+    //             Cell: ({ cell, row, table }) => {
+    //                 const isAggregated = cell.getIsAggregated();
+
+    //                 return (
+    //                     <Box>
+    //                         {isAggregated ? (
+    //                             <>
+    //                                 <MRT_ExpandButton row={row} table={table} />
+    //                             </>
+    //                         ) : (
+    //                             <Avatar
+    //                                 alt="avatar"
+    //                                 size={'md'}
+    //                                 src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
+    //                                 style={{ display: pix ? "block" : "none" }}
+    //                                 hidden={!pix}
+    //                             >
+    //                                 TG
+    //                             </Avatar>
+    //                         )}
+    //                     </Box>
+    //                 );
+    //             },
+    //         },
+    //     },
+    //     renderToolbarInternalActions: ({ table }) => (
+    //         <>
+    //             {/* <MRT_TablePagination table={table} /> */}
+    //             <MRT_ToggleFullScreenButton table={table} />
+    //         </>
+    //     ),
+    // });
+
+    const table = useTgTable({
         columns,
         data: tableData,
-        positionGlobalFilter: "none",
-        enableStickyHeader: true,
-        enableGlobalFilter: true,
-        enableColumnFilterModes: true,
-
-        enableColumnOrdering: true,
-        enableColumnFilters: true,
-
-        enableToolbarInternalActions: true,
-        enableHiding: false,
-        enableSorting: true,
-
-        enableColumnActions: false,
-        enableColumnDragging: false,
-        enableFacetedValues: true,
-        enableGrouping: true,
-        enablePinning: true,
-
-        // enableTopToolbar: false,
-        enableDensityToggle: false,
-        positionToolbarAlertBanner: "bottom",
-
-        enableRowSelection: false,
-        // enableColumnResizing: true,
-        columnFilterDisplayMode: "subheader",
-        positionPagination: "bottom",
         mantinePaginationProps: {
             rowsPerPageOptions: ["10", "25", "50", "75", "100", "150", "200"],
         },
@@ -341,7 +466,7 @@ export default function AmmoMRT() {
             grouping: manualGrouping,
             showGlobalFilter: true,
             columnVisibility: visibility,
-            showColumnFilters: filters,
+            // showColumnFilters: filters,
         },
         mantineTableHeadProps: {
             sx: {
@@ -401,9 +526,9 @@ export default function AmmoMRT() {
                     wrap="wrap"
                 >
                     <Text fw={700}>Toggles</Text>
-                    <Button size={'xs'} compact variant={ manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
-                    <Button size={'xs'} compact variant={pix? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
-                    <Button size={'xs'} compact variant={filters? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
+                    <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+                    <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    {/* <Button size={'xs'} compact variant={filters? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button> */}
                 </Flex>
 
                 {/* <MultiSelect
@@ -452,7 +577,7 @@ export default function AmmoMRT() {
                 <MRT_ToggleFullScreenButton table={table} />
             </>
         ),
-    });
+    })
 
     return (<MantineReactTable table={table} />);
 }

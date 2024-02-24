@@ -24,7 +24,7 @@ export function TgAppShell(props: any) {
                 </Footer>
             }
             header={
-                <OldBsHeaderNavbar />
+                <OldBsHeaderNavbar  />
             }
         >
             <Box 

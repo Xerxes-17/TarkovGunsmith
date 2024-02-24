@@ -1,6 +1,6 @@
 import { MRT_Cell, MRT_Row } from "mantine-react-table";
-import { NewArmorTableRow } from '../../../Types/HelmetTypes';
-import { createHitZoneValues_ArmorTableRow } from "../Helpers/ArmorHelpers";
+import { NewArmorTableRow } from '../../../../Types/HelmetTypes';
+import { createHitZoneValues_ArmorTableRow } from "../../Helpers/ArmorHelpers";
 import { HoverCard, Text } from "@mantine/core";
 
 export function ArmorBluntDamageCell<T extends {}>(cell: MRT_Cell<T>, row: MRT_Row<NewArmorTableRow>) {

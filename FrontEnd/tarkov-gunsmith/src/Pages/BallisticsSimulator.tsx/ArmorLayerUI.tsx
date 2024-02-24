@@ -26,7 +26,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                     <Title order={4}>Armor Layer {index + 1}</Title>
                     <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammorOrArmor="armor" armorIndex={index} />
                 </Group>)} />
-            <Stack>
+            <Stack spacing={4}>
                 <NumberAndSlider label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
                 <NumberAndSliderPercentage
                     label={<BluntThroughputWithToolTip />}

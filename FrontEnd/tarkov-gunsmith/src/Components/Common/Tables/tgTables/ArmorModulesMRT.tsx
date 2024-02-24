@@ -1,25 +1,23 @@
-import { Box, Avatar, Button, Flex, MultiSelect, Text } from "@mantine/core";
+import { Box, Avatar, Button, Flex, Text } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
-import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorPlateCollider, ArmorCollider, ArmorType, MATERIALS } from "../../Components/ADC/ArmorData";
-import { lightShield, heavyShield, noneShield } from "../../Components/Common/tgIcons";
-import { ArmorModule, ArmorModuleTableRow } from "../../Types/ArmorTypes";
-import { API_URL } from "../../Util/util";
-import {MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
-import { useTgTable } from "../../Components/Common/use-tg-table";
-import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
-import { ammoCaliberFullNameMap } from "../../Types/AmmoTypes";
-import { useDisclosure } from "@mantine/hooks";
-import { ArmorTypeWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorTypeWithToolTip";
-import { BluntThroughputWithToolTip } from "../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip";
-import { ArmorMaterialWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorMaterialWithToolTip";
-import { MaxRicochetColHeader } from "../../Components/Common/TextWithToolTips/MaxRicochetColHeader";
-import { MinAngleRicochetColHeader } from "../../Components/Common/TextWithToolTips/MinAngleRicochetColHeader";
-import { MinRicochetColHeader } from "../../Components/Common/TextWithToolTips/MinRicochetColHeader";
-import { createHitZoneValues } from "../../Components/Common/Helpers/ArmorHelpers";
-import { HitZonesWTT } from "../../Components/Common/TextWithToolTips/HitZonesWTT";
-import { RicochetAngleCell } from "../../Components/Common/TableCells/RicochetAngleCell";
-import { RicochetChanceCell } from "../../Components/Common/TableCells/RicochetChanceCells";
-import { BluntDamageCell } from "../../Components/Common/TableCells/BluntDamageCell";
+import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MATERIALS } from "../../../ADC/ArmorData";
+import { lightShield, heavyShield, noneShield } from "../../tgIcons";
+import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
+import { API_URL } from "../../../../Util/util";
+import {MRT_ColumnDef,  MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
+import { useDisclosure, useFocusTrap } from "@mantine/hooks";
+import { ArmorTypeWithToolTip } from "../../TextWithToolTips/ArmorTypeWithToolTip";
+import { BluntThroughputWithToolTip } from "../../TextWithToolTips/BluntThroughputWithToolTip";
+import { ArmorMaterialWithToolTip } from "../../TextWithToolTips/ArmorMaterialWithToolTip";
+import { MaxRicochetColHeader } from "../../TextWithToolTips/MaxRicochetColHeader";
+import { MinAngleRicochetColHeader } from "../../TextWithToolTips/MinAngleRicochetColHeader";
+import { MinRicochetColHeader } from "../../TextWithToolTips/MinRicochetColHeader";
+import { createHitZoneValues } from "../../Helpers/ArmorHelpers";
+import { HitZonesWTT } from "../../TextWithToolTips/HitZonesWTT";
+import { RicochetAngleCell } from "../TableCells/RicochetAngleCell";
+import { RicochetChanceCell } from "../TableCells/RicochetChanceCells";
+import { BluntDamageCell } from "../TableCells/BluntDamageCell";
 
 
 export function namesDisplay(input: string) {
@@ -45,7 +43,7 @@ export function hitZonesDisplay(row: ArmorModuleTableRow) {
 export function ArmorModulesMRT(){
     const initialData: ArmorModuleTableRow[] = [];
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
-    const [filters, filtersHandlers] = useDisclosure(false);
+    const focusTrapRef = useFocusTrap();
 
     const fetchData = async () => {
         try {
@@ -118,24 +116,24 @@ export function ArmorModulesMRT(){
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
+        
         () => [
             {
                 accessorFn: (row) => ArmorType[row.armorType],
                 id: 'armorType',
                 header: 'Type',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
-                Header: ArmorTypeWithToolTip()
+                Header: ArmorTypeWithToolTip(),
+                ...tgMultiSelectColOptions
             },
             {
                 accessorKey: 'category',
                 header: 'Category',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
+                ...tgMultiSelectColOptions
             },
             {
-                accessorKey: 'name', //simple recommended way to define a column
+                accessorKey: 'name',
                 header: 'Name',
-                muiTableHeadCellProps: { sx: { color: 'white' } }, //custom props
-                size: 50, //small column
+                size: 50,
                 enableSorting: true,
                 Cell: ({ renderedCellValue, row }) => (
                     <Box
@@ -156,97 +154,101 @@ export function ArmorModulesMRT(){
                         </Avatar>
                         <span>{renderedCellValue}</span>
                     </Box>
-                    // <span>{renderedCellValue}</span>
                 ),
+                ...tgNameColOptions
             },
             {
                 accessorKey: 'armorClass',
                 header: 'Armor Class',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                size: 50, //small column
+                size: 50, 
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'bluntThroughput',
                 header: 'Blunt Throughput',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),
-                Header: BluntThroughputWithToolTip()
+                Header: BluntThroughputWithToolTip(),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'maxDurability',
                 header: 'Durability',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                size: 50, //small column
+                size: 50, 
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'maxEffectiveDurability',
                 header: 'Effective Durability',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                size: 10, //small column
+                size: 10,
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toLocaleString()}</span>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'armorMaterial',
                 header: 'Material',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                filterVariant: "multi-select",
                 filterSelectOptions: MATERIALS,
-                Header: ArmorMaterialWithToolTip()
+                Header: ArmorMaterialWithToolTip(),
+                ...tgMultiSelectColOptions
             },
             {
                 accessorKey: 'weight',
                 header: 'Weight (kg)',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'ricochetParams.x',
                 header: 'Max Ricochet Chance',
                 size: 80,
                 Header: MaxRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'ricochetParams.y',
                 header: 'Min Ricochet Chance',
                 size: 80,
                 Header: MinRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams)
+                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'ricochetParams.z',
                 header: 'Min Ricochet Angle',
                 size: 80,
                 Header: MinAngleRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams)
+                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'usedInNames',
                 id: 'usedInNames',
                 header: 'Default used by',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
-                filterVariant: "text",
-                filterFn: "contains",
-                Cell: ({ cell }) => (namesDisplay(cell.row.original.usedInNames))
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.usedInNames)),
+                ...tgNameColOptions
             },
             {
                 accessorKey: 'compatibleWith',
                 id: 'compatibleWith',
                 header: 'Compatible with',
-                muiTableHeadCellProps: { sx: { color: 'white' } },
-                filterVariant: "text",
-                filterFn: "contains",
-                Cell: ({ cell }) => (namesDisplay(cell.row.original.compatibleWith))
+
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.compatibleWith)),
+                ...tgNameColOptions
             },
             {
                 accessorKey: 'hitZones',
                 header: 'Hit Zones',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                filterVariant: "text",
-                filterFn: "contains",
                 Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
-                Header: HitZonesWTT()
+                Header: HitZonesWTT(),
+                ...tgNameColOptions
             },
         ],
         [],
@@ -264,6 +266,9 @@ export function ArmorModulesMRT(){
                 compatibleWith: false,
                 ricochetParams: false
             },
+            columnPinning: {
+                left: ['mrt-row-expand']
+            },
             grouping: ['category'],
             expanded: true,
             sorting: [{ id: 'category', desc: true }, { id: 'armorClass', desc: true }, { id: 'name', desc: false }],
@@ -271,9 +276,7 @@ export function ArmorModulesMRT(){
 
         state: {
             showGlobalFilter: true,
-            showColumnFilters: filters,
         },
-
 
         mantineTableHeadProps: {
             sx: {
@@ -322,18 +325,9 @@ export function ArmorModulesMRT(){
                 align="center"
                 direction="row"
                 wrap="wrap"
+                ref={focusTrapRef}
             >
-                <MRT_GlobalFilterTextInput table={table} />
-                <Flex
-                    gap="md"
-                    justify="flex-start"
-                    align="center"
-                    direction="row"
-                    wrap="wrap"
-                >
-                    <Text fw={700}>Toggles</Text>
-                    <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
-                </Flex>
+                <MRT_GlobalFilterTextInput table={table} data-autofocus/>
             </Flex>
 
         ),
@@ -343,12 +337,7 @@ export function ArmorModulesMRT(){
                 {/* <MRT_TablePagination table={table} /> */}
                 <MRT_ToggleFullScreenButton table={table} />
             </>
-        ),
-        mantineTableContainerProps: { 
-            // sx: 
-            // { maxHeight: '500px' },
-            className: "tgMainTableInAppShell"
-        },
+        )
     })
 
     return (

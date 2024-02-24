@@ -1,9 +1,9 @@
-import {MRT_TableOptions, MRT_TablePagination, MRT_ToggleFullScreenButton, useMantineReactTable} from 'mantine-react-table';
+import { MRT_TableOptions, MRT_TablePagination, MRT_ToggleFullScreenButton, useMantineReactTable, MRT_GlobalFilterTextInput } from 'mantine-react-table';
 import { RowSelection } from '../../MWB/types';
-import { FocusTrap} from '@mantine/core';
+import { FocusTrap } from '@mantine/core';
 
 export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
-    const {initialState, state, ...options } = tableOptions;
+    const { initialState, state, ...options } = tableOptions;
 
     const table = useMantineReactTable<T>({
         positionGlobalFilter: "left",
@@ -31,7 +31,7 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
         positionToolbarAlertBanner: "bottom",
 
         enableRowSelection: false,
-        columnFilterDisplayMode: "subheader",
+        columnFilterDisplayMode: "popover",
         positionPagination: "bottom",
         mantinePaginationProps: {
             showRowsPerPage: false,
@@ -39,7 +39,7 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
         },
         globalFilterFn: 'includesString',
 
-        defaultColumn:{
+        defaultColumn: {
             // minSize: 20, //allow columns to get smaller than default
             // maxSize: 75, //allow columns to get larger than default
             size: 60, //make columns wider by default
@@ -58,15 +58,17 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
         // mantineSearchTextInputProps:{
         //     "data-autofocus" : true, //seems we can't have this for now
         // },
-
         mantineTableHeadCellProps: {
             style: {
-                verticalAlign: "bottom"
+                verticalAlign: "bottom",
+                zIndex: "auto"
             },
             sx: {
                 '& .mantine-Paper-root': {
                     verticalAlign: "bottom",
                 },
+                position: "relative",
+                zIndex: 3500,
                 // // ! Did these two to get the actions group ahead of the label
                 // '& .mantine-TableHeadCell-Content': {
                 //     display: 'flex',
@@ -88,20 +90,17 @@ export const useBaseSearchSelectTable = <T extends {}>(tableOptions: MRT_TableOp
                 },
             },
         },
-
-        renderToolbarInternalActions: ({ table }) => (
-            <>
-                {/* <MRT_TablePagination table={table} /> */}
-                {/* <MRT_ToggleFullScreenButton table={table} /> */}
-            </>
-        ),
-
         initialState: {
             ...initialState
         },
         state: {
             showGlobalFilter: true,
             ...state
+        },
+        mantineTableBodyCellProps:{
+            sx:{
+                cursor:"pointer"
+            }
         },
 
         ...options

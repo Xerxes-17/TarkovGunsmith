@@ -8,7 +8,7 @@ import { LINKS } from '../Util/links';
 export function OldBsHeaderNavbar() {
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{zIndex:20}}>
                 <Container >
                     <LinkContainer to={LINKS.HOME}>
                         <Navbar.Brand>

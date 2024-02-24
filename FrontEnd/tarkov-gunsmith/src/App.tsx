@@ -18,13 +18,13 @@ import DataSheetEffectivenessAmmo from './Components/DataSheets/AmmoVsArmor';
 import AmmoEffectivenessChartPage from './Components/AEC/NewAEC';
 import MwbBasePage from './Components/MWB/MwbBasePage';
 import { MantineProvider } from '@mantine/core';
-import AmmoMRT from './Pages/AmmoTable/AmmoMRT';
-import { WeaponMRT } from './Pages/WeaponTable/WeaponMRT';
+import AmmoMRT from './Components/Common/Tables/tgTables/AmmoMRT';
+import { WeaponMRT } from './Components/Common/Tables/tgTables/WeaponMRT';
 import { DataSheetArmorModules } from './Components/DataSheets/Stats_ArmorModules';
-import { HelmetsMRT } from './Pages/HelmetTable/HelmetsMRT';
-import { ArmorMRT } from './Pages/ArmorTable/ArmorMRT';
+import { HelmetsMRT } from './Components/Common/Tables/tgTables/HelmetsMRT';
+import { ArmorMRT } from './Components/Common/Tables/tgTables/ArmorMRT';
 import { TgAppShell } from './Components/Common/TgAppShell';
-import { ArmorModulesMRT } from './Pages/ArmorModulesTable/ArmorModulesMRT';
+import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModulesMRT';
 import { BallisticsSimulator } from './Pages/BallisticsSimulator.tsx/BallisticsSimulator';
 
 function App() {
