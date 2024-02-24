@@ -1,5 +1,22 @@
 
-import {MRT_TableOptions, useMantineReactTable} from 'mantine-react-table';
+import { MRT_TableOptions, useMantineReactTable} from 'mantine-react-table';
+
+export const tgNumColOptions = {
+    columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
+    filterFn: "greaterThanOrEqualTo",
+}
+
+export const tgNameColOptions = {
+    filterVariant: "text" as "text", 
+    filterFn:"contains",
+    columnFilterModeOptions: [],
+}
+
+export const tgMultiSelectColOptions = {
+    filterVariant: "multi-select" as "multi-select",
+    filterFn:"arrIncludesSome",
+    columnFilterModeOptions: [],
+}
 
 export const useTgTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
     const {initialState, state, ...options } = tableOptions;
@@ -14,6 +31,7 @@ export const useTgTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
 
         enableColumnOrdering: true,
         enableColumnFilters: true,
+        columnFilterDisplayMode:"popover",
 
         enableToolbarInternalActions: true,
         enableHiding: false,
@@ -30,7 +48,6 @@ export const useTgTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
         positionToolbarAlertBanner: "none",
 
         enableRowSelection: false,
-        columnFilterDisplayMode: "subheader",
         positionPagination: "bottom",
         mantinePaginationProps: {
             rowsPerPageOptions: ["10", "25", "50", "75", "100", "150", "200"],
@@ -48,9 +65,16 @@ export const useTgTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
         state: {
             ...state
         },
+        mantineTableContainerProps: { 
+            // sx: 
+            // { maxHeight: '500px' },
+            className: "tgMainTableInAppShell"
+        },
 
         ...options
     });
 
     return table;
 }
+
+

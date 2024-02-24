@@ -7,6 +7,7 @@ namespace WishGranter
     {
         public string Id { get; set; } = "";
         public string Type { get; set; } = ""; // Use an enum if "Heavy" and "Light" are fixed values
+        public string Category { get; set; } = ""; // If it is a plate, insert or attachment.
         public string Name { get; set; } = "";
         public string ImageLink { get; set; } = "";
 
@@ -116,6 +117,8 @@ namespace WishGranter
 
                 var foo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count > 0).ToList();
                 var notFoo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count == 0).ToList();
+
+                var isLocked = foo[0].Filters[0].Locked; //todo use this
 
                 var temp = (ArmoredEquipment)StaticRatStash.DB.GetItem(foo[0].ContainedItem.Id);
                 int countOfDefaults = assembledHelm.Slots.Where(x => x.ContainedItem != null).Count();

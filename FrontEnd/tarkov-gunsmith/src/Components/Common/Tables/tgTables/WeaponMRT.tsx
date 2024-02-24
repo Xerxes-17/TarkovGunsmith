@@ -4,21 +4,18 @@ import { useState, useEffect } from "react"
 import { useMemo } from 'react';
 import {
     MantineReactTable,
-    useMantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
-    MRT_ExpandButton,
-    MRT_TableOptions
-} from 'mantine-react-table';
+    MRT_ExpandButton} from 'mantine-react-table';
 
-import { Box, Button, Flex, Text, Avatar, MultiSelect} from '@mantine/core'
+import { Box, Button, Flex, Text, Avatar, MultiSelect, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { WeaponsTableRow } from "../../Types/WeaponTypes";
-import { getDataFromApi_TarkovDev } from "../../Api/WeaponApiCalls";
-import { ammoCaliberArray, ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../Types/AmmoTypes';
-import ImageWithDefaultFallback from "../../Components/Common/ImageWithFallBack";
-import { useTgTable } from "../../Components/Common/use-tg-table";
+import { WeaponsTableRow } from "../../../../Types/WeaponTypes";
+import { getDataFromApi_TarkovDev } from "../../../../Api/WeaponApiCalls";
+import { ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../../../Types/AmmoTypes';
+import ImageWithDefaultFallback from "../../ImageWithFallBack";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
 
 export function WeaponMRT() {
     const initialData: WeaponsTableRow[] = [];
@@ -29,7 +26,6 @@ export function WeaponMRT() {
     const [manualGrouping, setManualGrouping] = useState<string[]>(['caliber']);
 
     const [pix, pixHandlers] = useDisclosure(false);
-    const [filters, filtersHandlers] = useDisclosure(false);
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
 
     async function getTableData() {
@@ -92,13 +88,7 @@ export function WeaponMRT() {
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
                 size: 80,
                 Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
+                    <Group align="center">
                         <Avatar
                             alt="avatar"
                             size={'md'}
@@ -110,8 +100,9 @@ export function WeaponMRT() {
                         </Avatar>
                         {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
                         <span>{renderedCellValue}</span>
-                    </Box>
+                    </Group>
                 ),
+                ...tgNameColOptions
             },
             {
                 id: "caliber",
@@ -119,10 +110,10 @@ export function WeaponMRT() {
                 size: 8,
                 accessorKey: 'caliber',
                 header: 'Caliber',
-                filterVariant: "multi-select",
                 Cell: ({ renderedCellValue }) => (
                     <span>{renderedCellValue}</span>
                 ),
+                ...tgMultiSelectColOptions
             },
             {
                 accessorKey: 'rateOfFire',
@@ -134,6 +125,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'defaultErgonomics',
@@ -148,6 +140,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'defaultRecoil',
@@ -162,6 +155,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
 
             {
@@ -177,6 +171,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'recoilAngle',
@@ -197,6 +192,7 @@ export function WeaponMRT() {
                         </div>
                     )
                 },
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'deviationCurve',
@@ -210,6 +206,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(2)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'deviationMax',
@@ -223,6 +220,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'baseErgonomics',
@@ -238,6 +236,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
             {
                 accessorKey: 'baseRecoil',
@@ -253,6 +252,7 @@ export function WeaponMRT() {
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </>
                 ),
+                ...tgNumColOptions
             },
         ],
         [pix, manualGrouping],
@@ -271,7 +271,7 @@ export function WeaponMRT() {
                 pageIndex: 0, pageSize: 200
             },
             columnPinning: {
-                left: ['mrt-row-expand', 'name']
+                left: ['mrt-row-expand']
             },
             sorting: [{ id: 'defaultErgonomics', desc: true }, { id: 'defaultRecoil', desc: false }, { id: 'recoilDispersion', desc: false }],
         },
@@ -279,7 +279,6 @@ export function WeaponMRT() {
             grouping: manualGrouping,
             showGlobalFilter: true,
             columnVisibility: visibility,
-            showColumnFilters: filters,
         },
         mantineTableHeadProps: {
             sx: {
@@ -341,14 +340,13 @@ export function WeaponMRT() {
                     <Text fw={700}>Toggles</Text>
                     <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
-                    <Button size={'xs'} compact variant={filters ? 'filled' : 'light'} onClick={() => filtersHandlers.toggle()} >Filters</Button>
                 </Flex>
 
                 <MultiSelect
                     placeholder="Filter by up to 6 calibers"
                     data={Object.entries(ammoCaliberFullNameMap).map(
                         ([value, label]) => ({ value: value, label: label })
-                      )}
+                    )}
                     miw={250}
                     maw={400}
                     maxSelectedValues={6}
@@ -384,14 +382,14 @@ export function WeaponMRT() {
                 },
             },
         },
-        
+
         renderToolbarInternalActions: ({ table }) => (
             <>
                 {/* <MRT_TablePagination table={table} /> */}
                 <MRT_ToggleFullScreenButton table={table} />
             </>
         ),
-        mantineTableContainerProps: { 
+        mantineTableContainerProps: {
             // sx: 
             // { maxHeight: '500px' },
             className: "tgMainTableInAppShell"
@@ -399,6 +397,6 @@ export function WeaponMRT() {
     })
 
     return (
-        <MantineReactTable table={table}/>
+        <MantineReactTable table={table} />
     );
 }

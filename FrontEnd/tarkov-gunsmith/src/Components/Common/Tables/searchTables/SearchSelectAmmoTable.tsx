@@ -1,27 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
-import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../../Types/AmmoTypes";
-import { getAmmoDataFromApi_TarkovDev } from "../../../Api/AmmoApiCalls";
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../../../Types/AmmoTypes";
+import { getAmmoDataFromApi_TarkovDev } from "../../../../Api/AmmoApiCalls";
 import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
-import { Avatar, Group, Tooltip, Text } from "@mantine/core";
-import { useDisclosure, useViewportSize } from "@mantine/hooks";
-import { useBaseSearchSelectTable } from "./BaseSearchSelectTable";
-import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { Avatar, Group, Tooltip, Text, CloseButton } from '@mantine/core';
+import { useViewportSize } from "@mantine/hooks";
+import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
+import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
 
-interface SearchSelectAmmoTableProps{
+interface SearchSelectAmmoTableProps {
     CloseDrawerCb: () => void
 }
 
 
-export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProps) {
+export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTableProps) {
     const form = useBallisticSimulatorFormContext();
 
     const { height } = useViewportSize();
 
     function calculatedTableHeight() {
-        if(height < 800){
+        if (height < 800) {
             return height - 200;
         }
-        else{
+        else {
             return height - 200;
         }
     }
@@ -29,8 +29,6 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
 
     const initialData: AmmoTableRow[] = [];
     const [tableData, setTableData] = useState<AmmoTableRow[]>(initialData);
-
-    const [pix, pixHandlers] = useDisclosure(true);
 
     async function getTableData() {
         // const response_WishGranterApi = await getDataFromApi_WishGranter();
@@ -72,16 +70,17 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                 size: 140,
                 minSize: 140,
                 maxSize: 140,
+                filterFn: "contains",
+                columnFilterModeOptions: [],
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
                 Cell: ({ renderedCellValue, row }) => (
-                    <Group>
+                    <Group align="center">
                         <Avatar
                             alt="avatar"
                             size={'sm'}
                             src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
-                            style={{ display: pix ? "block" : "none" }}
                         // hidden={!pix && manualGrouping.some(x=>x === 'caliber')}
                         >
                             TG
@@ -99,6 +98,8 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                 accessorKey: 'caliber',
                 header: 'Caliber',
                 filterVariant: "multi-select",
+                filterFn: "arrIncludesSome",
+                columnFilterModeOptions: [],
                 Cell: ({ renderedCellValue }) => (
                     <span>{renderedCellValue}</span>
                 ),
@@ -112,7 +113,8 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                     <div>
                         Mean: <strong>{cell.getValue<number>().toFixed(0)}</strong>
                     </div>,
-                filterVariant: "range",
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
                 Cell: ({ cell, row }) => {
                     if (row.original.projectileCount > 1) {
                         return (
@@ -135,6 +137,8 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                 header: 'Penetration',
                 aggregationFn: ['max', 'mean',],
                 // size: 80,
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
                 AggregatedCell: ({ cell }) => {
                     return (
                         <div>
@@ -147,13 +151,13 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                         </div>
                     )
                 },
-
-                filterVariant: "range"
             },
             {
                 accessorKey: 'armorDamagePerc',
                 header: 'Armor Damage%',
                 // size: 80,
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
                 Cell: ({ cell }) => (
                     <span>{(cell.getValue<number>()).toLocaleString()} %</span>
                 ),
@@ -165,10 +169,9 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                         </div>
                     )
                 },
-                filterVariant: "range"
             },
         ],
-        [pix],
+        [],
     );
 
     const table = useBaseSearchSelectTable({
@@ -201,19 +204,17 @@ export function SearchSelectAmmoTable({CloseDrawerCb}: SearchSelectAmmoTableProp
                 }
             }
         ),
-        mantineTableContainerProps:{
-            sx:{
-                height: tableHeight
+        mantineTableContainerProps: {
+            sx: {
+                height: tableHeight,
             }
         },
-        // mantineTableBodyProps: (row) => (
-        //     {
-        //         height:"600px"
-        //     }
-        // )
+        renderToolbarInternalActions: ({ table }) => (
+            <Group position="center">
+                <CloseButton onClick={CloseDrawerCb} title="Close" size="lg" iconSize={20} />
+            </Group>
+        ),
     })
-    // console.log("height:", height)
-    // console.log("height > 800:", height > 800)
-    // console.log("calculatedTableHeight", tableHeight)
+
     return (<MantineReactTable table={table} />);
 }

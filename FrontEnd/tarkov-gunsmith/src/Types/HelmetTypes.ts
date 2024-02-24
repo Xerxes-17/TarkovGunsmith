@@ -1,5 +1,5 @@
 import { ArmorCollider, ArmorPlateCollider, MaterialType } from "../Components/ADC/ArmorData";
-import { ArmorModule, RicochetParams } from "./ArmorTypes";
+import { RicochetParams } from "./ArmorTypes";
 
 export interface NewArmorTableRow {
   id: string;
@@ -12,7 +12,9 @@ export interface NewArmorTableRow {
   speedPenalty: number;
   turnSpeed: number;
 
+  isLocked: boolean;
   isDefault: boolean;
+  // isIncluded: boolean; // To flag if a non-isLocked item is included in the main row summary stats.
 
   armorClass: number;
   bluntThroughput: number;
@@ -26,57 +28,4 @@ export interface NewArmorTableRow {
   compatibleInSlotIds: string[];
 
   subRows: NewArmorTableRow[];
-}
-
-export interface PrimaryArmor {
-  type: "Heavy" | "Light";
-  armorClass: number;
-  bluntThroughput: number;
-  totalMaxDurability: number;
-  totalMaxEffectiveDurability: number;
-  armorMaterial: MaterialType;
-  ricochetParams: RicochetParams;
-  armorColliders: ArmorCollider[];
-}
-
-export interface Helmet {
-  id: string;
-  name: string;
-  imageLink: string;
-
-  weight: number;
-  ergonomics: number;
-  turnSpeed: number;
-
-  primaryArmor: PrimaryArmor;
-  secondaryArmor: ArmorModule[];
-}
-
-export interface PrimaryArmorTableRow {
-  type: "Heavy" | "Light";
-  armorClass: number;
-  bluntThroughput: number;
-  totalMaxDurability: number;
-  totalMaxEffectiveDurability: number;
-  armorMaterial: string;
-  ricochetParams: RicochetParams;
-  armorColliders: string[];
-}
-
-export interface SecondaryArmorTableRow {
-  armorColliders: string[];
-  armorModules: ArmorModule[];
-}
-
-export interface HelmetTableRow {
-  id: string;
-  name: string;
-  imageLink: string;
-
-  weight: number;
-  ergonomics: number;
-  turnSpeed: number;
-
-  primaryArmor: PrimaryArmorTableRow;
-  subRows: HelmetTableRow[];
 }

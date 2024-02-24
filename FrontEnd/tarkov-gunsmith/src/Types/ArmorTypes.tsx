@@ -1,6 +1,5 @@
 import { ArmorMaterialDestructibilitySelect } from "../Api/ArmorApiCalls"
-import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorPlateZones, ArmorZones } from "../Components/ADC/ArmorData"
-import { NewArmorTableRow } from "./HelmetTypes"
+import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorZones } from "../Components/ADC/ArmorData"
 
 export interface ArmorModule {
     id: string
@@ -83,8 +82,8 @@ export const mockMaterials: ArmorMaterialDestructibilitySelect[] = [
         explosionDestructibility: 0.15
     },
     {
-        value: "Combined materials",
-        label: "Combined materials",
+        value: "Combined",
+        label: "Combined",
         destructibility: 0.375,
         explosionDestructibility: 0.2
     },

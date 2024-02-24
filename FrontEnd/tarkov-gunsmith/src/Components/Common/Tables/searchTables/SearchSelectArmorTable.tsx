@@ -1,38 +1,37 @@
 import { useEffect, useMemo, useState } from "react";
-import { AmmoTableRow, mapAmmoCaliberFullNameToLabel } from "../../../Types/AmmoTypes";
 
 import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
-import { Avatar, Group, Tooltip, Text, Box } from "@mantine/core";
-import { useDisclosure, useViewportSize } from "@mantine/hooks";
-import { useBaseSearchSelectTable } from "./BaseSearchSelectTable";
-import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
-import { API_URL } from "../../../Util/util";
-import { ArmorModule, ArmorModuleTableRow } from "../../../Types/ArmorTypes";
-import { createHitZoneValues } from "../Helpers/ArmorHelpers";
-import { ArmorType, MATERIALS, convertEnumValToArmorString } from "../../ADC/ArmorData";
-import { lightShield, heavyShield, noneShield } from "../tgIcons";
+import { Avatar, Group, CloseButton } from "@mantine/core";
+import { useViewportSize } from "@mantine/hooks";
+import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
+import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { API_URL } from "../../../../Util/util";
+import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
+import { createHitZoneValues } from "../../Helpers/ArmorHelpers";
+import { ArmorType, MATERIALS, convertEnumValToArmorString } from "../../../ADC/ArmorData";
+import { lightShield, heavyShield, noneShield } from "../../tgIcons";
 import { BluntDamageCell } from "../TableCells/BluntDamageCell";
-import { BluntThroughputWithToolTip } from "../TextWithToolTips/BluntThroughputWithToolTip";
-import { ArmorMaterialWithToolTip } from "../TextWithToolTips/ArmorMaterialWithToolTip";
-import { HitZonesWTT } from "../TextWithToolTips/HitZonesWTT";
-import { hitZonesDisplay, namesDisplay } from "../../../Pages/ArmorModulesTable/ArmorModulesMRT";
+import { BluntThroughputWithToolTip } from "../../TextWithToolTips/BluntThroughputWithToolTip";
+import { ArmorMaterialWithToolTip } from "../../TextWithToolTips/ArmorMaterialWithToolTip";
+import { HitZonesWTT } from "../../TextWithToolTips/HitZonesWTT";
+import { hitZonesDisplay, namesDisplay } from "../tgTables/ArmorModulesMRT";
 
-interface SearchSelectArmorTableProps{
+interface SearchSelectArmorTableProps {
     CloseDrawerCb: () => void,
     layerIndex: number
 }
 
 
-export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelectArmorTableProps) {
+export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSelectArmorTableProps) {
     const form = useBallisticSimulatorFormContext();
 
     const { height } = useViewportSize();
 
     function calculatedTableHeight() {
-        if(height < 800){
+        if (height < 800) {
             return height - 200;
         }
-        else{
+        else {
             return height - 200;
         }
     }
@@ -40,8 +39,6 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
 
     const initialData: ArmorModuleTableRow[] = [];
     const [tableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
-
-    const [pix, pixHandlers] = useDisclosure(true);
 
     const getTableData = async () => {
         try {
@@ -70,7 +67,7 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 hitZones: createHitZoneValues(row),
             }));
 
-            const filteredRows = rows.filter(x=> x.category === "Insert")
+            const filteredRows = rows.filter(x => x.category === "Insert")
 
             setTableData(filteredRows);
         } catch (error) {
@@ -80,7 +77,7 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
 
     function handleRowSelect(rowOriginal: ArmorModuleTableRow) {
         form.setFieldValue(`armorLayers.${layerIndex}.armorClass`, rowOriginal.armorClass);
-        form.setFieldValue(`armorLayers.${layerIndex}.bluntDamageThroughput`, rowOriginal.bluntThroughput*100);
+        form.setFieldValue(`armorLayers.${layerIndex}.bluntDamageThroughput`, rowOriginal.bluntThroughput * 100);
 
         form.setFieldValue(`armorLayers.${layerIndex}.durability`, rowOriginal.maxDurability);
         form.setFieldValue(`armorLayers.${layerIndex}.maxDurability`, rowOriginal.maxDurability);
@@ -101,14 +98,10 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 header: 'Name',
                 size: 50, //small column
                 enableSorting: true,
+                filterFn: "contains",
+                columnFilterModeOptions: [],
                 Cell: ({ renderedCellValue, row }) => (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                        }}
-                    >
+                    <Group>
                         <Avatar
                             alt={`${ArmorType[row.original.armorType]}`}
                             size={'sm'}
@@ -119,7 +112,7 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                             {row.original.armorType === ArmorType.None && noneShield}
                         </Avatar>
                         <span>{renderedCellValue}</span>
-                    </Box>
+                    </Group>
                 ),
             },
             {
@@ -128,16 +121,21 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 header: 'Default used by',
                 filterVariant: "text",
                 filterFn: "contains",
+                columnFilterModeOptions: [],
                 Cell: ({ cell }) => (namesDisplay(cell.row.original.usedInNames))
             },
             {
                 accessorKey: 'armorClass',
                 header: 'Armor Class',
                 size: 50, //small column
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
             },
             {
                 accessorKey: 'bluntThroughput',
                 header: 'Blunt Throughput',
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
                 Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),
                 Header: BluntThroughputWithToolTip()
             },
@@ -145,11 +143,15 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 accessorKey: 'maxDurability',
                 header: 'Durability',
                 size: 50, //small column
+                filterFn: "greaterThanOrEqualTo",
+                columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
             },
             {
                 accessorKey: 'armorMaterial',
                 header: 'Material',
                 filterVariant: "multi-select",
+                filterFn: "arrIncludesSome",
+                columnFilterModeOptions: [],
                 filterSelectOptions: MATERIALS,
                 Header: ArmorMaterialWithToolTip()
             },
@@ -160,6 +162,7 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 header: 'Hit Zones',
                 filterVariant: "text",
                 filterFn: "contains",
+                columnFilterModeOptions: [],
                 Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
                 Header: HitZonesWTT()
             },
@@ -197,15 +200,17 @@ export function SearchSelectArmorTable({CloseDrawerCb, layerIndex}: SearchSelect
                 }
             }
         ),
-        mantineTableContainerProps:{
-            sx:{
+        mantineTableContainerProps: {
+            sx: {
                 height: tableHeight
             }
         },
+        renderToolbarInternalActions: ({ table }) => (
+            <Group position="center">
+                <CloseButton onClick={CloseDrawerCb} title="Close" size="lg" iconSize={20} />
+            </Group>
+        ),
 
     })
-    // console.log("height:", height)
-    // console.log("height > 800:", height > 800)
-    // console.log("calculatedTableHeight", tableHeight)
     return (<MantineReactTable table={table} />);
 }

@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
-import { BallisticSimulatorSingleShotGraph, ChartModes } from '../../Components/Common/Graphs/BallisticSimulatorSingleShotGraph';
+import { BallisticSimulatorSingleShotGraph, ChartModes } from '../../Components/Common/Graphs/Charts/BallisticSimulatorSingleShotGraph';
 import { ReductionFactorWTT } from "../../Components/Common/TextWithToolTips/ReductionFactorWTT";
 
 function camelCaseToWords(str: string) {
@@ -19,7 +19,7 @@ interface PenAndDamFormProps {
 }
 
 
-export function PenetrationAndDamageForm({layerCountCb}:PenAndDamFormProps) {
+export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
         initialValues: {
             penetration: 28,
@@ -48,13 +48,13 @@ export function PenetrationAndDamageForm({layerCountCb}:PenAndDamFormProps) {
     layerCountCb(layerCount);
 
     const layerSize = () => {
-        if(layerCount === 1){
+        if (layerCount === 1) {
             return 6
         }
-        else if(layerCount === 2){
+        else if (layerCount === 2) {
             return 4
         }
-        else{
+        else {
             return 3
         }
     }
@@ -286,17 +286,20 @@ export function PenetrationAndDamageForm({layerCountCb}:PenAndDamFormProps) {
                                 <Divider label={(
                                     <Group spacing={8} >
                                         <Title order={4}>Graph</Title>
-                                        <SegmentedControl
-                                            value={chartMode}
-                                            onChange={value => {
-                                                if (value === 'line' || value === 'bar')
-                                                    setChartMode(value)
-                                            }}
-                                            data={[
-                                                { label: 'Bar', value: 'bar' },
-                                                { label: 'Line', value: 'line' },
-                                            ]}
-                                        />
+                                        {result.length > 1 && (
+                                            <SegmentedControl
+                                                value={chartMode}
+                                                onChange={value => {
+                                                    if (value === 'line' || value === 'bar')
+                                                        setChartMode(value)
+                                                }}
+                                                data={[
+                                                    { label: 'Bar', value: 'bar' },
+                                                    { label: 'Line', value: 'line' },
+                                                ]}
+                                            />
+                                        )}
+
                                     </Group>
 
                                 )} />

@@ -1,6 +1,6 @@
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip } from "recharts";
 import { BallisticSimResponse } from "../../../../Pages/BallisticsSimulator.tsx/api-requests";
-import { BallisticSimulatorSingleShotGraphProps } from "../BallisticSimulatorSingleShotGraph";
+import { BallisticSimulatorSingleShotGraphProps } from "./BallisticSimulatorSingleShotGraph";
 
 
 export function BsSsBarChart({ chartData, mode }: BallisticSimulatorSingleShotGraphProps) {
