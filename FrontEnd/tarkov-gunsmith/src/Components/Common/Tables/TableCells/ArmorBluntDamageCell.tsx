@@ -12,7 +12,7 @@ export function ArmorBluntDamageCell<T extends {}>(cell: MRT_Cell<T>, row: MRT_R
             <HoverCard shadow="md">
                 <HoverCard.Target>
                     <Text size="sm">
-                        {(cell.getValue<number>() * 100).toFixed(2)} %
+                        {(cell.getValue<number>()).toFixed(2)} %
                     </Text>
                 </HoverCard.Target>
                 <HoverCard.Dropdown >
@@ -23,5 +23,5 @@ export function ArmorBluntDamageCell<T extends {}>(cell: MRT_Cell<T>, row: MRT_R
             </HoverCard>
         )
     }
-    return (<>{(cell.getValue<number>() * 100).toFixed(2)} %</>)
+    return (<>{(cell.getValue<number>()).toFixed(2)} %</>)
 }

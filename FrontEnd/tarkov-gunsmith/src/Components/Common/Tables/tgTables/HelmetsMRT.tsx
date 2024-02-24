@@ -108,6 +108,7 @@ export function HelmetsMRT() {
             {
                 id: "bluntThroughput",
                 accessorKey: "bluntThroughput",
+                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
                 header: "Blunt Throughput",
                 size: 80,
                 Cell: ({ cell, row }) => BluntDamageCell(cell, armorCollidersToStrings(row.original.armorColliders)),
