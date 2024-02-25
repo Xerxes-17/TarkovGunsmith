@@ -1,6 +1,6 @@
 import { NumberInput, Slider } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
 interface NumberAndSliderProps {
     label: string,

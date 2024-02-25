@@ -1,5 +1,5 @@
 import { Box, Grid, Paper } from "@mantine/core";
-import { BallisticSimResponse } from "../../../../Pages/BallisticsSimulator.tsx/api-requests";
+import { BallisticSimResponse } from "../../../../Pages/BallisticsSimulator/api-requests";
 import { BsSsBarChart } from "./BsSsBarChart";
 import { BsSsLineChart } from "./BsSsLineChart";
 

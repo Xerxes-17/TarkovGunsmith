@@ -1,6 +1,6 @@
 import { Group, Select, Text } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
 import { forwardRef } from "react";
 import { mockMaterials } from "../../../Types/ArmorTypes";

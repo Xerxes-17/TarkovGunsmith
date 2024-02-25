@@ -1,6 +1,6 @@
 import { NumberInput, Slider, Text } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 import { mockMaterials } from "../../../Types/ArmorTypes";
 
 

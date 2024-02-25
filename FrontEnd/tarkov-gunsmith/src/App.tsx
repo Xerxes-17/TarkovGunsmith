@@ -17,7 +17,7 @@ import { HelmetsMRT } from './Components/Common/Tables/tgTables/HelmetsMRT';
 import { ArmorMRT } from './Components/Common/Tables/tgTables/ArmorMRT';
 import { TgAppShell } from './Components/Common/TgAppShell';
 import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModulesMRT';
-import { BallisticsSimulator } from './Pages/BallisticsSimulator.tsx/BallisticsSimulator';
+import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimulator';
 
 function App() {
   return (
