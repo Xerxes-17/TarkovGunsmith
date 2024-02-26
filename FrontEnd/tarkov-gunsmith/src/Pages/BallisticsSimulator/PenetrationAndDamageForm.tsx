@@ -1,4 +1,4 @@
-import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl } from "@mantine/core";
+import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
@@ -9,6 +9,8 @@ import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
 import { BallisticSimulatorSingleShotGraph, ChartModes } from '../../Components/Common/Graphs/Charts/BallisticSimulatorSingleShotGraph';
 import { ReductionFactorWTT } from "../../Components/Common/TextWithToolTips/ReductionFactorWTT";
+import { RemoveArmorLayerButton } from "../../Components/Common/Inputs/RemoveArmorLayerButton";
+import { AddArmorLayerButton } from "../../Components/Common/Inputs/AddArmorLayerButton";
 
 function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
@@ -233,118 +235,90 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                 setIsLoading(true);
                 handleSubmit(values);
             })}>
-                {result.length > 0 && (
-                    <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
-                )}
-                <Grid columns={24} gutter={20} m={0} >
-                    <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()} mih={"100%"}>
-                        {/* <Paper style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> */}
-                        <ProjectileUI />
-                        {/* <TargetUI /> */}
-                        {/* </Paper> */}
-                    </Grid.Col>
 
+                <Stack spacing={2}>
+                    <ProjectileUI />
                     {form.values.armorLayers.map((_, index) => {
                         return (
-                            <Grid.Col span={24} xs={12} sm={6} md={4} lg={4} xl={layerSize()}>
-                                <ArmorLayerUI index={index} />
-                            </Grid.Col>
+                            <ArmorLayerUI index={index} />
                         )
                     })}
-                    {/* Results */}
-                    <Grid.Col span={24} xs={24} sm={12} md={8} xl={6}>
-                        {/* <Grid.Col span="content"> */}
-                        <Box pos="relative" h={"100%"}>
-                            <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
-                            <Box pos="relative">
-                                <LoadingOverlay visible={isLoading} overlayBlur={2} />
-                                {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
-                                <Table highlightOnHover withColumnBorders verticalSpacing="xs">
-                                    <thead>
-                                        <tr>
-                                            {thElements.map(th => { return th })}
-                                            {result.length < 1 && (
-                                                <th>Value</th>
-                                            )}
-                                            <th>Statistic</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>{rows}</tbody>
-                                    {result.length < 1 && (
-                                        <tbody>{initialRows}</tbody>
-                                    )}
-                                </Table>
-                            </Box>
-                            {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
-                        </Box>
-
-                    </Grid.Col>
-                    {/* Charts */}
-                    <Grid.Col span={24} xs={24} sm={12} lg={12} xl={6} >
-                        {result.length > 0 && (
-                            <Box pos="relative">
-                                <Divider label={(
-                                    <Group spacing={8} >
-                                        <Title order={4}>Graph</Title>
-                                        {result.length > 1 && (
-                                            <SegmentedControl
-                                                value={chartMode}
-                                                onChange={value => {
-                                                    if (value === 'line' || value === 'bar')
-                                                        setChartMode(value)
-                                                }}
-                                                data={[
-                                                    { label: 'Bar', value: 'bar' },
-                                                    { label: 'Line', value: 'line' },
-                                                ]}
-                                            />
-                                        )}
-
-                                    </Group>
-
-                                )} />
-                                <Box pos="relative">
-                                    {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
-                                    <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
-                                </Box>
-                            </Box>
+                    <Group>
+                        {form.values.armorLayers.length > 1 && (
+                            <RemoveArmorLayerButton index={form.values.armorLayers.length-1} />
                         )}
-                    </Grid.Col>
-                </Grid>
+                        {form.values.armorLayers.length < 3 && (
+                            <AddArmorLayerButton index={form.values.armorLayers.length-1} />
+                        )}
 
+                    </Group>
+                    <Grid gutter="xs">
+                        {/* Results */}
+                        <Grid.Col span={12} md={6}>
+                            <Box pos="relative" h={"100%"}>
+                                <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
+                                <Box pos="relative">
+                                    <LoadingOverlay visible={isLoading} overlayBlur={2} />
+                                    {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                    <Table highlightOnHover withColumnBorders verticalSpacing="5px">
+                                        <thead>
+                                            <tr>
+                                                {thElements.map(th => { return th })}
+                                                {result.length < 1 && (
+                                                    <th>Value</th>
+                                                )}
+                                                <th>Statistic</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{rows}</tbody>
+                                        {result.length < 1 && (
+                                            <tbody>{initialRows}</tbody>
+                                        )}
+                                    </Table>
+                                </Box>
+                                {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
+                            </Box>
+                        </Grid.Col>
+                        {/* Charts */}
+                        <Grid.Col span={12} md={6}>
+                            {result.length > 0 && (
+                                <Box pos="relative">
+                                    <Divider label={(
+                                        <Group spacing={8} >
+                                            <Title order={4}>Graph</Title>
+                                            {result.length > 1 && (
+                                                <SegmentedControl
+                                                    value={chartMode}
+                                                    onChange={value => {
+                                                        if (value === 'line' || value === 'bar')
+                                                            setChartMode(value)
+                                                    }}
+                                                    data={[
+                                                        { label: 'Bar', value: 'bar' },
+                                                        { label: 'Line', value: 'line' },
+                                                    ]}
+                                                />
+                                            )}
+
+                                        </Group>
+
+                                    )} />
+                                    <Box pos="relative">
+                                        {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                        <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
+                                    </Box>
+                                </Box>
+                            )}
+                        </Grid.Col>
+                    </Grid>
+
+                </Stack>
 
                 <Group position="right" mt="md">
+                    {result.length > 0 && (
+                        <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
+                    )}
 
-                    {/* //todo compare with other sim */}
-                    {/* <Menu shadow="md" width={200}>
-                        <Menu.Target>
-                            <Button variant="outline">Toggle menu</Button>
-                        </Menu.Target>
-
-                        <Menu.Dropdown>
-                            <ScrollArea.Autosize mah={150}>
-                                <Menu.Label>Application</Menu.Label>
-                                <Menu.Item>Settings</Menu.Item>
-                                <Menu.Item>Messages</Menu.Item>
-                                <Menu.Item>Settings</Menu.Item>
-                                <Menu.Item>Messages</Menu.Item>
-                                <Menu.Item>Settings</Menu.Item>
-                                <Menu.Item>Messages</Menu.Item>
-                                <Menu.Item>Settings</Menu.Item>
-                                <Menu.Item>Messages</Menu.Item>
-                            </ScrollArea.Autosize>
-
-                        </Menu.Dropdown>
-                    </Menu>
-                    <Select
-
-                        clearable
-                        placeholder="Compare with:"
-                        dropdownPosition="flip"
-                        itemComponent={SelectItem}
-                        data={mockMaterials}
-                    /> */}
-                    {/* <Button onClick={toggle} >Multi Shot</Button> */}
                     <Button type="submit" data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
                         {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>

@@ -1,4 +1,4 @@
-import { NumberInput, Slider } from "@mantine/core";
+import { Box, NumberInput, Slider } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
     "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
@@ -13,16 +13,17 @@ interface NumberAndSliderProps {
         value: number;
         label?: React.ReactNode;
     }[]
+    w?: number | string
 }
 
 export function NumberAndSlider(props: NumberAndSliderProps) {
-    const { label, property, precision, max, min, step, marks} = props;
+    const { label, property, precision, max, min, step, marks, w} = props;
     const form = useBallisticSimulatorFormContext();
 
     const marksPadding = marks ? 11.5 : 0
 
     return (
-        <div>
+        <Box w={w} >
             <NumberInput
                 label={label}
                 precision={precision}
@@ -42,6 +43,6 @@ export function NumberAndSlider(props: NumberAndSliderProps) {
                 {...form.getInputProps(property)}
                 marks={marks}
             />
-        </div>
+        </Box>
     )
 }

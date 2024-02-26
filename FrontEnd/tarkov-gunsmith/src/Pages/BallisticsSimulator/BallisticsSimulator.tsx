@@ -132,7 +132,7 @@ export function BallisticsSimulator() {
     ))
 
     return (
-        <Container size={containerSize()}>
+        <Container size={"xl"} px={0} mt={-3}>
             <Space h={5} />
             <Paper shadow="sm" p="md" id={PRINT_ID} >
                 <Group>
@@ -143,7 +143,7 @@ export function BallisticsSimulator() {
                     </Group>
                 </Group>
 
-                <Divider my="sm" />
+                <Divider my={5} />
                 <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab} >
                     <Tabs.List data-html2canvas-ignore>
                         {tabs}

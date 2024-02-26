@@ -133,6 +133,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
             },
             {
                 accessorKey: 'bluntThroughput',
+                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
                 header: 'Blunt Throughput',
                 filterFn: "greaterThanOrEqualTo",
                 columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],

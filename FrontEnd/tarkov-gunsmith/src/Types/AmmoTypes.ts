@@ -7,7 +7,7 @@ export const ammoCaliberFullNameMap: Record<string, string> = {
   "Caliber545x39": "5.45x39mm",
   "Caliber556x45NATO": "5.56x45mm NATO",
   "Caliber762x35": "7.62x35mm",
-  "Caliber366TKM": "9x39mm",
+  "Caliber366TKM": ".366 TKM",
   "Caliber9x39": "9x39mm",
   "Caliber46x30": "4.6x30mm",
   "Caliber9x21": "9x21mm",
