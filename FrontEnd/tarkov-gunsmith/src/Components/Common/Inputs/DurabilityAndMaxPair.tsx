@@ -1,51 +1,53 @@
-import { NumberInput, Slider, Text } from "@mantine/core";
-import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { Box, NumberInput, Slider, Text } from "@mantine/core";
 import { mockMaterials } from "../../../Types/ArmorTypes";
+import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
 
-interface DurabilityAndMaxPairProps{
+interface DurabilityAndMaxPairProps {
     index: number
+    wDura?:number | string
+    wMaxDura?:number | string
 }
 
-export function DurabilityAndMaxPair({index}: DurabilityAndMaxPairProps) {
+export function DurabilityAndMaxPair({ index, wDura, wMaxDura }: DurabilityAndMaxPairProps) {
     const form = useBallisticSimulatorFormContext();
 
     return (
         <>
-            <div>
-                <NumberInput
-                    inputWrapperOrder={['label', 'error', 'input', 'description']}
-                    label={
+            <NumberInput
+                inputWrapperOrder={['label', 'error', 'input', 'description']}
+                label={
+                    <Text size="sm">
+                        Durability: <b>{((form.values.armorLayers[index].durability / form.values.armorLayers[index].maxDurability) * 100).toFixed(2)}%</b>
+                    </Text>
+                }
+                description={
+                    <>
+                        <Slider
+                            label={null}
+                            precision={2}
+                            max={form.values.armorLayers[index].maxDurability}
+                            min={0}
+                            step={1}
+                            {...form.getInputProps(`armorLayers.${index}.durability`)}
+                        />
                         <Text size="sm">
-                            Durability: <b>{((form.values.armorLayers[index].durability / form.values.armorLayers[index].maxDurability) * 100).toFixed(2)}%</b>
+                            Effective Durability: <b>{(form.values.armorLayers[index].durability / mockMaterials.find(x => x.label === form.values.armorLayers[index].armorMaterial)!.destructibility).toFixed(2)} </b>
                         </Text>
-                    }
-                    description={
-                        <>
-                            <Slider
-                                label={null}
-                                precision={2}
-                                max={form.values.armorLayers[index].maxDurability}
-                                min={0}
-                                step={1}
-                                {...form.getInputProps(`armorLayers.${index}.durability`)}
-                            />
-                            <Text size="sm">
-                                Effective Durability: <b>{(form.values.armorLayers[index].durability / mockMaterials.find(x => x.label === form.values.armorLayers[index].armorMaterial)!.destructibility).toFixed(2)} </b>
-                            </Text>
-                        </>
-                    }
-                    precision={2}
-                    max={form.values.armorLayers[index].maxDurability}
-                    min={0}
-                    step={1}
-                    {...form.getInputProps(`armorLayers.${index}.durability`)}
-                />
-
-
-            </div>
-            <div >
+                    </>
+                }
+                precision={2}
+                max={form.values.armorLayers[index].maxDurability}
+                min={0}
+                step={1}
+                {...form.getInputProps(`armorLayers.${index}.durability`)}
+                styles={() => ({
+                    wrapper: {
+                      marginBottom: 0,
+                    },
+                  })}
+            />
+            <Box w={wMaxDura}>
                 <NumberInput
                     label="Max Durability"
                     type="number"
@@ -97,7 +99,7 @@ export function DurabilityAndMaxPair({index}: DurabilityAndMaxPairProps) {
                         }
                     }}
                 />
-            </div>
+            </Box>
         </>
     )
 }

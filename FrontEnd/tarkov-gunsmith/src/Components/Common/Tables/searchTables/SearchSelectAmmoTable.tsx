@@ -5,7 +5,7 @@ import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
 import { Avatar, Group, Tooltip, Text, CloseButton } from '@mantine/core';
 import { useViewportSize } from "@mantine/hooks";
 import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
-import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
 interface SearchSelectAmmoTableProps {
     CloseDrawerCb: () => void
@@ -46,6 +46,10 @@ export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTablePr
         console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
     }
 
+    useEffect(() => {
+        getTableData();
+    }, [])
+
     function handleRowSelect(rowOriginal: AmmoTableRow) {
         form.setValues(
             {
@@ -56,10 +60,6 @@ export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTablePr
         )
         CloseDrawerCb();
     }
-
-    useEffect(() => {
-        getTableData();
-    }, [])
 
     const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [

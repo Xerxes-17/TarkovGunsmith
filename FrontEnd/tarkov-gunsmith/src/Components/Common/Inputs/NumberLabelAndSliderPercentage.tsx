@@ -1,7 +1,8 @@
 import { NumberInput, Slider} from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 import { ReactNode } from "react";
+import { margin } from '@mui/system';
 
 interface NumberDescAndSliderPercentageProps {
     label: string | ReactNode,
@@ -34,6 +35,11 @@ export function NumberLabelAndSliderPercentage(props: NumberDescAndSliderPercent
             stepHoldDelay={500}
             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
             {...form.getInputProps(property)}
+            styles={() => ({
+                wrapper: {
+                  marginBottom: 0,
+                },
+              })}
 
             //todo - sim comparisons
             // rightSectionWidth={100}

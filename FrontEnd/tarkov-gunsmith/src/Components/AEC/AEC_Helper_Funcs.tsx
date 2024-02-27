@@ -568,6 +568,7 @@ export function RenameCaliber(input: string) {
 
         case "Caliber23x75":
             return "23x75mm"
+            
         case "Caliber40x46":
             return "40x46mm"
 

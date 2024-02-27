@@ -1,6 +1,6 @@
 import { Group, Select, Text } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 
 import { forwardRef } from "react";
 import { mockMaterials } from "../../../Types/ArmorTypes";
@@ -28,19 +28,21 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
     )
 );
 
-const sortedMockMats = mockMaterials.sort((a,b) => a.destructibility - b.destructibility)
+const sortedMockMats = mockMaterials.sort((a, b) => a.destructibility - b.destructibility)
 
-interface ArmorLayerUiProps{
+interface ArmorLayerUiProps {
     armorLayersIndex: number
+    w?: number | string;
 }
 
-export function ArmorMaterialSelect({armorLayersIndex}:ArmorLayerUiProps) {
+export function ArmorMaterialSelect({ armorLayersIndex, w }: ArmorLayerUiProps) {
     const form = useBallisticSimulatorFormContext();
 
     return (
         <Select
+            w={w}
             inputWrapperOrder={['label', 'error', 'input', 'description']}
-            label={<ArmorMaterialWithToolTip/>}
+            label={<ArmorMaterialWithToolTip />}
             description={
                 <Text size="sm">
                     Destructibility: <b>{mockMaterials.find(x => x.label === form.values.armorLayers[armorLayersIndex].armorMaterial)!.destructibility} </b>
@@ -51,6 +53,11 @@ export function ArmorMaterialSelect({armorLayersIndex}:ArmorLayerUiProps) {
             itemComponent={SelectItem}
             data={sortedMockMats}
             {...form.getInputProps(`armorLayers.${armorLayersIndex}.armorMaterial`)}
+            styles={() => ({
+                wrapper: {
+                    marginBottom: 0,
+                },
+            })}
         />
     )
 }

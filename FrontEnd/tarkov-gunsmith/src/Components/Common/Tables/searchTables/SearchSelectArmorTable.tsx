@@ -4,7 +4,7 @@ import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
 import { Avatar, Group, CloseButton } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
-import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator.tsx/ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
 import { API_URL } from "../../../../Util/util";
 import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
 import { createHitZoneValues } from "../../Helpers/ArmorHelpers";
@@ -133,6 +133,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
             },
             {
                 accessorKey: 'bluntThroughput',
+                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
                 header: 'Blunt Throughput',
                 filterFn: "greaterThanOrEqualTo",
                 columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
