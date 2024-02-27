@@ -2,7 +2,7 @@
 import { MRT_TableOptions, useMantineReactTable} from 'mantine-react-table';
 
 export const tgNumColOptions = {
-    columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
+    columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo', 'equals'],
     filterFn: "greaterThanOrEqualTo",
 }
 

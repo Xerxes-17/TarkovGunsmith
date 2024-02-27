@@ -1,8 +1,7 @@
-import { Button, Paper, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
+import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
-import { useDisclosure } from "@mantine/hooks";
 import { Dispatch, SetStateAction, useState } from "react";
 import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
@@ -19,7 +18,6 @@ function camelCaseToWords(str: string) {
 interface PenAndDamFormProps {
     layerCountCb: Dispatch<SetStateAction<number>>;
 }
-
 
 export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
@@ -49,18 +47,6 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
     const layerCount = form.values.armorLayers.length;
     layerCountCb(layerCount);
 
-    const layerSize = () => {
-        if (layerCount === 1) {
-            return 6
-        }
-        else if (layerCount === 2) {
-            return 4
-        }
-        else {
-            return 3
-        }
-    }
-
     //todo compare with other sim
     // interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
     //     image: string;
@@ -84,41 +70,6 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
     //     )
     // );
 
-    // const elementsArray = result.map(result => {
-    //     return [{
-    //         name: 'Penetration Chance',
-    //         Value: `${(result.PenetrationChance * 100).toFixed(2)} %`
-    //     }, {
-    //         name: 'Penetration Damage',
-    //         Value: result.PenetrationDamage.toFixed(2)
-    //     }, {
-    //         name: 'Mitigated Damage',
-    //         Value: result.MitigatedDamage.toFixed(2)
-    //     }, {
-    //         name: 'Blunt Damage',
-    //         Value: result.BluntDamage.toFixed(2)
-    //     }, {
-    //         name: 'Average Damage',
-    //         Value: result.AverageDamage.toFixed(2)
-    //     }, {
-    //         name: 'Penetration Armor Damage',
-    //         Value: result.PenetrationArmorDamage.toFixed(2)
-    //     }, {
-    //         name: 'Block Armor Damage',
-    //         Value: result.BlockArmorDamage.toFixed(2)
-    //     }, {
-    //         name: 'Average Armor Damage',
-    //         Value: result.AverageArmorDamage.toFixed(2)
-    //     }, {
-    //         name: 'Post-hit Armor Durability',
-    //         Value: result.PostHitArmorDurability.toFixed(2)
-    //     }, {
-    //         name: 'Reduction Factor',
-    //         Value: result.ReductionFactor.toFixed(2)
-    //     }, {
-    //         name: 'Post Armor Penetration',
-    //         Value: result.PostArmorPenetration.toFixed(2)
-    //     }]});
     const layers = result?.length ?? 1;
 
     const thElements: any[] = [];
@@ -127,27 +78,11 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
         thElements.push(<th>Layer {i}</th>);
     }
 
-    const valuesArray = result.map(result => {
-        return [
-            `${(result.PenetrationChance * 100).toFixed(2)} %`,
-            result.PenetrationDamage.toFixed(2),
-            result.MitigatedDamage.toFixed(2),
-            result.BluntDamage.toFixed(2),
-            result.AverageDamage.toFixed(2),
-            result.PenetrationArmorDamage.toFixed(2),
-            result.BlockArmorDamage.toFixed(2),
-            result.AverageArmorDamage.toFixed(2),
-            result.PostHitArmorDurability.toFixed(2),
-            `${(result.ReductionFactor * 100).toFixed(2)} %`,
-            result.PostArmorPenetration.toFixed(2)
-        ];
-    });
-
     const transposedDictionary: Record<string, string[]> = {};
 
     result.forEach(item => {
         Object.entries(item).forEach(([key, value]) => {
-            const fieldName = camelCaseToWords(key); // Convert camelCase key to words separated by spaces
+            const fieldName = camelCaseToWords(key);
             if (!transposedDictionary[fieldName]) {
                 transposedDictionary[fieldName] = [];
             }
@@ -163,9 +98,6 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
         });
     });
 
-    // console.log("result", result)
-    // console.log("transposedDictionary", transposedDictionary)
-    // console.log("transposedArray", transposedArray);
 
     const elements = [
         { name: 'Penetration Chance', Value: "-", Id: 'Penetration Chance' },
@@ -228,6 +160,20 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
         setIsLoading(false);
     }
 
+    function onClickIterate() {
+        for (let index = 0; index < result.length; index++) {
+            const element = result[index];
+            form.setFieldValue(`armorLayers.${index}.durability`, element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0)
+        }
+        const values = form.getTransformedValues();
+        
+        for (let index = 0; index < values.armorLayers.length; index++) {
+            const element = result[index];
+            values.armorLayers[index].durability = element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0;
+        }
+        handleSubmit(values);
+    }
+
     return (
         <BallisticSimulatorFormProvider form={form}>
             <form onSubmit={form.onSubmit((values) => {
@@ -245,10 +191,10 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                     })}
                     <Group>
                         {form.values.armorLayers.length > 1 && (
-                            <RemoveArmorLayerButton index={form.values.armorLayers.length-1} />
+                            <RemoveArmorLayerButton index={form.values.armorLayers.length - 1} />
                         )}
                         {form.values.armorLayers.length < 3 && (
-                            <AddArmorLayerButton index={form.values.armorLayers.length-1} />
+                            <AddArmorLayerButton index={form.values.armorLayers.length - 1} />
                         )}
 
                     </Group>
@@ -318,6 +264,13 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                     {result.length > 0 && (
                         <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
                     )}
+
+                    {result.length > 0 && !form.isDirty() && (
+                        <Button  onClick={onClickIterate} variant="outline" data-html2canvas-ignore>
+                            Iterate
+                        </Button>
+                    )}
+
 
                     <Button type="submit" data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
                         {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}

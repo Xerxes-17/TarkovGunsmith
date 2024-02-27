@@ -46,6 +46,10 @@ export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTablePr
         console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
     }
 
+    useEffect(() => {
+        getTableData();
+    }, [])
+
     function handleRowSelect(rowOriginal: AmmoTableRow) {
         form.setValues(
             {
@@ -56,10 +60,6 @@ export function SearchSelectAmmoTable({ CloseDrawerCb }: SearchSelectAmmoTablePr
         )
         CloseDrawerCb();
     }
-
-    useEffect(() => {
-        getTableData();
-    }, [])
 
     const columns = useMemo<MRT_ColumnDef<AmmoTableRow>[]>(
         () => [

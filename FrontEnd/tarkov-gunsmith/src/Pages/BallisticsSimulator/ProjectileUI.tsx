@@ -44,7 +44,6 @@ export function ProjectileUI() {
     }, [])
 
     const matched = ammoData.find(x => x.penetrationPower === form.values.penetration && x.damage === form.values.damage && x.armorDamagePerc === form.values.armorDamagePercentage)
-    console.log(matched)
     const matchedString = matched ? `${mapAmmoCaliberFullNameToLabel(matched?.caliber)} ${matched?.shortName}` : 'Custom/No match'
     return (
         <>
@@ -76,7 +75,10 @@ export function ProjectileUI() {
                         { maxWidth: 500, cols: 1, spacing: 'xs' },
                     ]}
                 >
-                    <Divider mt={"24.69px"} label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="ammo" /></Group>)} />
+                    <Stack spacing={2}>
+                        <Divider mt={6} label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="ammo" /></Group>)} />
+                        <Text>{matchedString}</Text>
+                    </Stack>
                     <NumberAndSlider w={"100%"} label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
                     <NumberAndSlider w={"100%"} label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />
                     <NumberLabelAndSliderPercentage
