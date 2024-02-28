@@ -60,9 +60,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                 hitZones: createHitZoneValues(row),
             }));
 
-            const filteredRows = rows.filter(x => x.category === "Insert")
-
-            setArmorData(filteredRows);
+            setArmorData(rows);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -91,7 +89,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                             </Group>)} />
                         {matched ? (
                             <>
-                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.usedInNames}</Text>
+                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.category === "Plate" ? matched.name :  matched.usedInNames}</Text>
                                 <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.hitZones.join(", ")}</Text>
                             </>
                         ) : (

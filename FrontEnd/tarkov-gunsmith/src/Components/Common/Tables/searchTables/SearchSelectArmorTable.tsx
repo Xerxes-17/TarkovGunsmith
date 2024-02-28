@@ -67,9 +67,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
                 hitZones: createHitZoneValues(row),
             }));
 
-            const filteredRows = rows.filter(x => x.category === "Insert")
-
-            setTableData(filteredRows);
+            setTableData(rows);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
