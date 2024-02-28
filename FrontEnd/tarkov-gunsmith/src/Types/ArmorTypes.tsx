@@ -100,8 +100,8 @@ export const mockMaterials: ArmorMaterialDestructibilitySelect[] = [
         explosionDestructibility: 0.45
     },
     {
-        value: "Armor steel",
-        label: "Armor steel",
+        value: "Steel",
+        label: "Steel",
         destructibility: 0.525,
         explosionDestructibility: 0.45
     },
