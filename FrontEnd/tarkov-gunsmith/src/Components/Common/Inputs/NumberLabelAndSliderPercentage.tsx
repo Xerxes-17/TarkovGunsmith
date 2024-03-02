@@ -1,6 +1,6 @@
 import { NumberInput, Slider} from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 import { ReactNode } from "react";
 import { margin } from '@mui/system';
 

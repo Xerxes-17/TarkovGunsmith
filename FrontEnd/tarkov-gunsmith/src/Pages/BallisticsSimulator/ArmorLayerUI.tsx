@@ -1,9 +1,9 @@
-import { Box, Divider, Group, SimpleGrid, Title, Text, Stack } from "@mantine/core";
+import { Box, Divider, Group, SimpleGrid, Title, Text, Stack, Checkbox } from "@mantine/core";
 import { DurabilityAndMaxPair } from "../../Components/Common/Inputs/DurabilityAndMaxPair";
 import { NumberAndSlider } from "../../Components/Common/Inputs/NumberAndSlider";
 import { NumberAndSliderPercentage } from "../../Components/Common/Inputs/NumberAndSliderPercentage";
 import { ArmorMaterialSelect } from "../../Components/Common/Inputs/SelectArmorMaterial";
-import { useBallisticSimulatorFormContext } from "./ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
 import { DrawerButton } from "../../Components/Common/Inputs/DrawerButton";
 import { IconSearch } from "@tabler/icons-react";
 import { BluntThroughputWithToolTip } from "../../Components/Common/TextWithToolTips/BluntThroughputWithToolTip";
@@ -74,7 +74,8 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
         x.armorClass === form.values.armorLayers[index].armorClass &&
         x.bluntThroughput === form.values.armorLayers[index].bluntDamageThroughput / 100 &&
         x.maxDurability === form.values.armorLayers[index].maxDurability &&
-        x.armorMaterial === form.values.armorLayers[index].armorMaterial
+        x.armorMaterial === form.values.armorLayers[index].armorMaterial &&
+        ( x.category === "Plate" ? form.values.armorLayers[index].isPlate === true : form.values.armorLayers[index].isPlate === false )
     )
 
     return (
@@ -104,10 +105,12 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                         property={`armorLayers.${index}.bluntDamageThroughput`}
                         precision={2}
                         step={1}
+                        description={<Checkbox label="Plate?" {...form.getInputProps(`armorLayers.${index}.isPlate`, { type: 'checkbox' })}/>}
                     />
                     { }
                     <DurabilityAndMaxPair wMaxDura={125} index={index} />
                     <ArmorMaterialSelect w={140} armorLayersIndex={index} />
+                    
                     {/* {index + 1 === form.values.armorLayers.length && (
                         <Group grow mt={"24.69px"}>
                             {form.values.armorLayers.length > 1 && (
@@ -153,6 +156,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                         property={`armorLayers.${index}.bluntDamageThroughput`}
                         precision={2}
                         step={1}
+                        description={<Checkbox label="Plate?" {...form.getInputProps(`armorLayers.${index}.isPlate`, { type: 'checkbox' })}/>}
                     />
                     {addSpacer && (
                         <>
