@@ -7,6 +7,7 @@ namespace WishGranter.API_Methods
 
     public record struct ArmorLayer
     {
+        public bool isPlate { get; set; }
         public int armorClass { get; init; }
         public float bluntDamageThroughput { get; init; }
         public float durability { get; init; }
@@ -55,11 +56,16 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("HitPoints", simParams.hitPoints);
 
             myActivity?.SetTag("ArmorLayers", simParams.armorLayers.Length);
-            myActivity?.SetTag("ArmorClass", simParams.armorLayers[0].armorClass);
-            myActivity?.SetTag("BluntDamageThroughput", simParams.armorLayers[0].bluntDamageThroughput);
-            myActivity?.SetTag("Durability", simParams.armorLayers[0].durability);
-            myActivity?.SetTag("MaxDurability", simParams.armorLayers[0].maxDurability);
-            myActivity?.SetTag("material", simParams.armorLayers[0].armorMaterial);
+            for(int i = 0; i < simParams.armorLayers.Length; i++)
+            {
+                myActivity?.SetTag($"isPlate.{i}", simParams.armorLayers[i].isPlate);
+                myActivity?.SetTag($"ArmorClass.{i}", simParams.armorLayers[i].armorClass);
+                myActivity?.SetTag($"BluntDamageThroughput.{i}", simParams.armorLayers[i].bluntDamageThroughput);
+                myActivity?.SetTag($"Durability.{i}", simParams.armorLayers[i].durability);
+                myActivity?.SetTag($"MaxDurability.{i}", simParams.armorLayers[i].maxDurability);
+                myActivity?.SetTag($"material.{i}", simParams.armorLayers[i].armorMaterial);
+            }
+            
 
             return Ballistics.CalculateSingleShot(simParams);
         }

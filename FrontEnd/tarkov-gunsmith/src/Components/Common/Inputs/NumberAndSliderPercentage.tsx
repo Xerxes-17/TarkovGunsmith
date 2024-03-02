@@ -1,10 +1,11 @@
-import { Box, NumberInput, Slider} from "@mantine/core";
+import { Box, Input, NumberInput, Slider } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
+    "../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 import { ReactNode } from "react";
 
 interface NumberAndSliderPercentageProps {
     label: string | ReactNode,
+    description?: string | ReactNode,
     property: string;
     precision: number;
     step: number;
@@ -12,7 +13,7 @@ interface NumberAndSliderPercentageProps {
 }
 
 export function NumberAndSliderPercentage(props: NumberAndSliderPercentageProps) {
-    const { label, property, precision, step, w } = props;
+    const { label, description, property, precision, step, w } = props;
     const form = useBallisticSimulatorFormContext();
 
     return (
@@ -40,6 +41,9 @@ export function NumberAndSliderPercentage(props: NumberAndSliderPercentageProps)
                 step={step}
                 {...form.getInputProps(property)}
             />
+            {description && (
+                <Input.Description>{description}</Input.Description>
+            )}
         </Box>
     )
 }

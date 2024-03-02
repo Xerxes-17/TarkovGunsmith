@@ -1,5 +1,5 @@
 import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
-import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator--form-context";
+import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator-form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -29,6 +29,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
             hitPointsPool: 85,
 
             armorLayers: [{
+                isPlate: false,
                 armorClass: 4,
                 durability: 44,
                 maxDurability: 44,
@@ -141,6 +142,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
 
             armorLayers: values.armorLayers.map(layer => {
                 return {
+                    isPlate: layer.isPlate,
                     armorClass: layer.armorClass,
                     bluntDamageThroughput: layer.bluntDamageThroughput,
                     durability: layer.durability,
@@ -166,7 +168,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
             form.setFieldValue(`armorLayers.${index}.durability`, element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0)
         }
         const values = form.getTransformedValues();
-        
+
         for (let index = 0; index < values.armorLayers.length; index++) {
             const element = result[index];
             values.armorLayers[index].durability = element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0;
@@ -181,7 +183,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                 setIsLoading(true);
                 handleSubmit(values);
             })}>
-
+                <LoadingOverlay visible={isLoading} overlayBlur={2} />
                 <Stack spacing={2}>
                     <ProjectileUI />
                     {form.values.armorLayers.map((_, index) => {
@@ -204,7 +206,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                             <Box pos="relative" h={"100%"}>
                                 <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
                                 <Box pos="relative">
-                                    <LoadingOverlay visible={isLoading} overlayBlur={2} />
+
                                     {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
                                     <Table highlightOnHover withColumnBorders verticalSpacing="5px">
                                         <thead>
@@ -266,12 +268,11 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                     )}
 
                     {result.length > 0 && !form.isDirty() && (
-                        <Button  onClick={onClickIterate} variant="outline" data-html2canvas-ignore>
+                        <Button onClick={onClickIterate} variant="outline" data-html2canvas-ignore>
                             Iterate
                         </Button>
                     )}
-
-
+                    
                     <Button type="submit" data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
                         {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
                     </Button>

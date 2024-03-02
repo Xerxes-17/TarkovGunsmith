@@ -4,6 +4,7 @@ import { MaterialType } from "../../Components/ADC/ArmorData";
 
 
 export interface ArmorLayer{
+    isPlate: boolean;
     armorClass: number;
     bluntDamageThroughput: number;
     durability: number;

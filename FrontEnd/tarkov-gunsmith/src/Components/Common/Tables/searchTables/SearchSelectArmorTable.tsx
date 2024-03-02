@@ -4,7 +4,7 @@ import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
 import { Avatar, Group, CloseButton } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
-import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 import { API_URL } from "../../../../Util/util";
 import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
 import { createHitZoneValues } from "../../Helpers/ArmorHelpers";
@@ -74,6 +74,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
     };
 
     function handleRowSelect(rowOriginal: ArmorModuleTableRow) {
+        form.setFieldValue(`armorLayers.${layerIndex}.isPlate`, rowOriginal.category === "Plate" ? true : false);
         form.setFieldValue(`armorLayers.${layerIndex}.armorClass`, rowOriginal.armorClass);
         form.setFieldValue(`armorLayers.${layerIndex}.bluntDamageThroughput`, rowOriginal.bluntThroughput * 100);
 

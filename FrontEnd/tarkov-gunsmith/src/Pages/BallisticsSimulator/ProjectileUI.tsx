@@ -1,7 +1,7 @@
 import { Divider, Stack, Title, Text, Group, SimpleGrid } from "@mantine/core";
 import { NumberAndSlider } from "../../Components/Common/Inputs/NumberAndSlider";
 import { NumberLabelAndSliderPercentage } from "../../Components/Common/Inputs/NumberLabelAndSliderPercentage";
-import { useBallisticSimulatorFormContext } from "./ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
 import { DrawerButton } from "../../Components/Common/Inputs/DrawerButton";
 import { IconSearch, IconShieldPlus } from "@tabler/icons-react";
 import { ArmorDamagePercentageWithToolTip } from "../../Components/Common/TextWithToolTips/ArmorDamagePercentage";

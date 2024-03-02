@@ -1,6 +1,6 @@
 import { Box, NumberInput, Slider, Text } from "@mantine/core";
 import { mockMaterials } from "../../../Types/ArmorTypes";
-import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator/ballistic-simulator--form-context";
+import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 
 
 interface DurabilityAndMaxPairProps {

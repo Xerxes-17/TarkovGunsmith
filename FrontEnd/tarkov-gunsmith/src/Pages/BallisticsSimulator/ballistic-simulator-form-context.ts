@@ -3,6 +3,7 @@ import { createFormContext } from '@mantine/form';
 import { ArmorMaterialDestructibilitySelect } from '../../Api/ArmorApiCalls';
 
 export interface FormArmorLayer{
+  isPlate: boolean;
   armorClass: number;
   bluntDamageThroughput: number;
   durability: number;
