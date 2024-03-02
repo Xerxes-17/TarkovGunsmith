@@ -7,7 +7,8 @@ import {
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
     MRT_ToggleFullScreenButton,
-    MRT_ExpandButton} from 'mantine-react-table';
+    MRT_ExpandButton
+} from 'mantine-react-table';
 
 import { Box, Button, Flex, Text, Avatar, MultiSelect, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
@@ -16,6 +17,7 @@ import { getDataFromApi_TarkovDev } from "../../../../Api/WeaponApiCalls";
 import { ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../../../Types/AmmoTypes';
 import ImageWithDefaultFallback from "../../ImageWithFallBack";
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
+import { SEO } from "../../../../Util/SEO";
 
 export function WeaponMRT() {
     const initialData: WeaponsTableRow[] = [];
@@ -397,6 +399,9 @@ export function WeaponMRT() {
     })
 
     return (
-        <MantineReactTable table={table} />
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/weapons" title={'Weapons : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
     );
 }

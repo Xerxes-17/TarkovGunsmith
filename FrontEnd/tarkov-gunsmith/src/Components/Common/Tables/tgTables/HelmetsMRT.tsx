@@ -3,7 +3,8 @@ import {
     MantineReactTable,
     type MRT_ColumnDef,
     MRT_GlobalFilterTextInput,
-    MRT_ToggleFullScreenButton} from 'mantine-react-table';
+    MRT_ToggleFullScreenButton
+} from 'mantine-react-table';
 import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { NewArmorTableRow } from '../../../../Types/HelmetTypes';
@@ -24,6 +25,7 @@ import { armorCollidersToStrings } from '../../Helpers/ArmorHelpers';
 import { NameAndAvatarCell } from '../TableCells/NameAndAvatarCell';
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../use-tg-table';
 import { ArmorMaterialWithToolTip } from '../../TextWithToolTips/ArmorMaterialWithToolTip';
+import { SEO } from '../../../../Util/SEO';
 
 export function HelmetsMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -92,7 +94,7 @@ export function HelmetsMRT() {
                 ...tgNumColOptions
             },
             {
-                accessorKey:"speedPenalty",
+                accessorKey: "speedPenalty",
                 header: "Movement Speed Penalty",
                 size: 80,
                 Cell: ({ cell }) => DirectPercentageCell(cell),
@@ -108,7 +110,7 @@ export function HelmetsMRT() {
             {
                 id: "bluntThroughput",
                 accessorKey: "bluntThroughput",
-                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
+                accessorFn: (originalRow) => originalRow.bluntThroughput * 100,
                 header: "Blunt Throughput",
                 size: 80,
                 Cell: ({ cell, row }) => BluntDamageCell(cell, armorCollidersToStrings(row.original.armorColliders)),
@@ -164,21 +166,21 @@ export function HelmetsMRT() {
             {
                 id: "ricochetX",
                 accessorKey: "ricochetParams.x",
-                accessorFn: (originalRow) => originalRow.ricochetParams.x*100,
+                accessorFn: (originalRow) => originalRow.ricochetParams.x * 100,
                 header: "Max Ricochet Chance",
                 size: 80,
                 Header: MaxRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
                 id: "ricochetY",
                 accessorKey: "ricochetParams.y",
-                accessorFn: (originalRow) => originalRow.ricochetParams.y*100,
+                accessorFn: (originalRow) => originalRow.ricochetParams.y * 100,
                 header: "Min Ricochet Chance",
                 size: 80,
                 Header: MinRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
@@ -187,7 +189,7 @@ export function HelmetsMRT() {
                 header: "Min Ricochet Angle",
                 size: 80,
                 Header: MinAngleRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams),
+                Cell: ({ cell, row }) => RicochetAngleCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
@@ -561,5 +563,10 @@ export function HelmetsMRT() {
 
     })
 
-    return (<MantineReactTable table={table}/>);
+    return (
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/helmets" title={'Helmets : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
+    );
 }

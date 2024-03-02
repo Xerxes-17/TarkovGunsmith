@@ -15,6 +15,7 @@ import { Box, Button, Flex, Text, Avatar, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
 import { getAmmoDataFromApi_TarkovDev } from "../../../../Api/AmmoApiCalls";
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
+import { SEO } from "../../../../Util/SEO";
 
 
 export default function AmmoMRT() {
@@ -579,5 +580,10 @@ export default function AmmoMRT() {
         ),
     })
 
-    return (<MantineReactTable table={table} />);
+    return (
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/ammo" title={'Ammo : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
+    );
 }

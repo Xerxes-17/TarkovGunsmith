@@ -26,6 +26,7 @@ import { RicochetChanceCell } from '../TableCells/RicochetChanceCells';
 import { DirectPercentageCell } from '../TableCells/DirectPercentageCell';
 import { NameAndAvatarCell } from '../TableCells/NameAndAvatarCell';
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../use-tg-table';
+import { SEO } from '../../../../Util/SEO';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -52,7 +53,7 @@ export function ArmorMRT() {
         getTableData();
     }, [])
 
-    
+
 
     const columns = useMemo<MRT_ColumnDef<NewArmorTableRow>[]>(
         () => {
@@ -84,7 +85,7 @@ export function ArmorMRT() {
                     ),
                     ...tgNumColOptions
                 },
-    
+
                 {
                     accessorKey: "ergonomics",
                     header: "Ergonomics",
@@ -115,7 +116,7 @@ export function ArmorMRT() {
                 {
                     id: "bluntThroughput",
                     accessorKey: "bluntThroughput",
-                    accessorFn: (originalRow) => originalRow.bluntThroughput*100,
+                    accessorFn: (originalRow) => originalRow.bluntThroughput * 100,
                     header: "Blunt Throughput",
                     size: 80,
                     Cell: ({ cell, row }) => ArmorBluntDamageCell(cell, row),
@@ -176,7 +177,7 @@ export function ArmorMRT() {
                     header: "Max Ricochet Chance",
                     size: 80,
                     Header: MaxRicochetColHeader(),
-                    accessorFn: (originalRow) => originalRow.ricochetParams.x*100,
+                    accessorFn: (originalRow) => originalRow.ricochetParams.x * 100,
                     Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                     ...tgNumColOptions
                 },
@@ -186,7 +187,7 @@ export function ArmorMRT() {
                     header: "Min Ricochet Chance",
                     size: 80,
                     Header: MinRicochetColHeader(),
-                    accessorFn: (originalRow) => originalRow.ricochetParams.y*100,
+                    accessorFn: (originalRow) => originalRow.ricochetParams.y * 100,
                     Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                     ...tgNumColOptions
                 },
@@ -217,7 +218,7 @@ export function ArmorMRT() {
                     ...tgNameColOptions
                 },
             ]
-        } , [pix, expandedArmorZones]
+        }, [pix, expandedArmorZones]
     );
 
     // const table = useMantineReactTable({
@@ -537,6 +538,9 @@ export function ArmorMRT() {
     })
 
     return (
-        <MantineReactTable table={table} />
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/armor" title={'Armor : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
     );
 }
