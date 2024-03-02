@@ -22,8 +22,6 @@ export function BallisticSimulatorTitle() {
                 <HoverCard.Dropdown>
                     <Text fw={400}>
                         Simulate how well a bullet performs vs armor.
-                        <br /><br />
-                        <strong>Please note</strong> this isn't accurate with Armor Plates because lmao, BSG keeps fucking up their implementation, so best use it for checking non-plate armor interactions.
                     </Text>
                 </HoverCard.Dropdown>
             </HoverCard>
