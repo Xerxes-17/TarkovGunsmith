@@ -4,7 +4,7 @@ import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MA
 import { lightShield, heavyShield, noneShield } from "../../tgIcons";
 import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
 import { API_URL } from "../../../../Util/util";
-import {MRT_ColumnDef,  MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
+import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../use-tg-table";
 import { useFocusTrap } from "@mantine/hooks";
 import { ArmorTypeWithToolTip } from "../../TextWithToolTips/ArmorTypeWithToolTip";
@@ -18,6 +18,7 @@ import { HitZonesWTT } from "../../TextWithToolTips/HitZonesWTT";
 import { RicochetAngleCell } from "../TableCells/RicochetAngleCell";
 import { RicochetChanceCell } from "../TableCells/RicochetChanceCells";
 import { BluntDamageCell } from "../TableCells/BluntDamageCell";
+import { SEO } from "../../../../Util/SEO";
 
 
 export function namesDisplay(input: string) {
@@ -40,7 +41,7 @@ export function hitZonesDisplay(row: ArmorModuleTableRow) {
     )
 }
 
-export function ArmorModulesMRT(){
+export function ArmorModulesMRT() {
     const initialData: ArmorModuleTableRow[] = [];
     const [TableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
     const focusTrapRef = useFocusTrap();
@@ -116,7 +117,7 @@ export function ArmorModulesMRT(){
 
     //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
     const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
-        
+
         () => [
             {
                 accessorFn: (row) => ArmorType[row.armorType],
@@ -161,12 +162,12 @@ export function ArmorModulesMRT(){
                 accessorKey: 'armorClass',
                 header: 'Armor Class',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                size: 50, 
+                size: 50,
                 ...tgNumColOptions
             },
             {
                 accessorKey: 'bluntThroughput',
-                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
+                accessorFn: (originalRow) => originalRow.bluntThroughput * 100,
                 header: 'Blunt Throughput',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
                 Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),
@@ -177,7 +178,7 @@ export function ArmorModulesMRT(){
                 accessorKey: 'maxDurability',
                 header: 'Durability',
                 muiTableHeadCellProps: { sx: { color: 'white' } },
-                size: 50, 
+                size: 50,
                 ...tgNumColOptions
             },
             {
@@ -209,8 +210,8 @@ export function ArmorModulesMRT(){
                 header: 'Max Ricochet Chance',
                 size: 80,
                 Header: MaxRicochetColHeader(),
-                accessorFn: (originalRow) => originalRow.ricochetParams.x*100,
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                accessorFn: (originalRow) => originalRow.ricochetParams.x * 100,
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
@@ -218,8 +219,8 @@ export function ArmorModulesMRT(){
                 header: 'Min Ricochet Chance',
                 size: 80,
                 Header: MinRicochetColHeader(),
-                accessorFn: (originalRow) => originalRow.ricochetParams.y*100,
-                Cell: ({cell, row}) => RicochetChanceCell(cell, row.original.ricochetParams),
+                accessorFn: (originalRow) => originalRow.ricochetParams.y * 100,
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
@@ -227,7 +228,7 @@ export function ArmorModulesMRT(){
                 header: 'Min Ricochet Angle',
                 size: 80,
                 Header: MinAngleRicochetColHeader(),
-                Cell: ({cell, row}) => RicochetAngleCell(cell, row.original.ricochetParams),
+                Cell: ({ cell, row }) => RicochetAngleCell(cell, row.original.ricochetParams),
                 ...tgNumColOptions
             },
             {
@@ -330,10 +331,10 @@ export function ArmorModulesMRT(){
                 wrap="wrap"
                 ref={focusTrapRef}
             >
-                <MRT_GlobalFilterTextInput table={table} data-autofocus/>
+                <MRT_GlobalFilterTextInput table={table} data-autofocus />
             </Flex>
         ),
-        
+
         renderToolbarInternalActions: ({ table }) => (
             <>
                 {/* <MRT_TablePagination table={table} /> */}
@@ -343,6 +344,9 @@ export function ArmorModulesMRT(){
     })
 
     return (
-        <MantineReactTable table={table}/>
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/armor_modules" title={'Armor Modules : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
     )
 }

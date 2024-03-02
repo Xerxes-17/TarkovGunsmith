@@ -6,7 +6,8 @@ import { DownloadElementImageButton } from "../../Components/Common/Inputs/Eleme
 import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { BallisticSimulatorTitle } from "../../Components/Common/TextWithToolTips/BallisticSimulatorTitle";
-import { log } from "console";
+import { Helmet } from "react-helmet-async";
+import { SEO } from "../../Util/SEO";
 
 const PRINT_ID = "printMe";
 
@@ -74,7 +75,7 @@ export function BallisticsSimulator() {
         const updatedTabTitles = [...tabTitles];
         updatedTabTitles[index] = newTitle;
         setTabTitles(updatedTabTitles);
-        if(activeTab === title){
+        if (activeTab === title) {
             setActiveTab(newTitle);
         }
     }
@@ -132,40 +133,44 @@ export function BallisticsSimulator() {
     ))
 
     return (
-        <Container size={"xl"} px={0} mt={-3}>
-            <Space h={5} />
-            <Paper shadow="sm" p="md" id={PRINT_ID} >
-                <Group>
-                    <BallisticSimulatorTitle />
-                    <Group ml={"auto"}>
-                        <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
-                        <CopyElementImageButton targetElementId={PRINT_ID} />
+        <>
+            <SEO url="https://tarkovgunsmith.com/ballistics_simulator" title={'Ballistics Simulator : Tarkov Gunsmith'}/>
+            <Container size={"xl"} px={0} mt={-3}>
+                <Space h={5} />
+                <Paper shadow="sm" p="md" id={PRINT_ID} >
+                    <Group>
+                        <BallisticSimulatorTitle />
+                        <Group ml={"auto"}>
+                            <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
+                            <CopyElementImageButton targetElementId={PRINT_ID} />
+                        </Group>
                     </Group>
-                </Group>
 
-                <Divider my={5} />
-                <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab} >
-                    <Tabs.List data-html2canvas-ignore>
-                        {tabs}
-                        <Tabs.Tab value="new" aria-label="Add new simulation" onClick={() => addNewTab()}>
-                            <ActionIcon variant="transparent">
-                                <IconPlus size="1rem" />
-                            </ActionIcon>
-                        </Tabs.Tab>
-                    </Tabs.List>
-                    <ScrollArea.Autosize
-                        mah={mobileView ? height - 345 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
-                        type="scroll"
-                        offsetScrollbars
-                    >
-                        <Paper id={PRINT_ID}>
-                            {tabPanels}
-                        </Paper>
-                    </ScrollArea.Autosize>
-                </Tabs>
+                    <Divider my={5} />
+                    <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab} >
+                        <Tabs.List data-html2canvas-ignore>
+                            {tabs}
+                            <Tabs.Tab value="new" aria-label="Add new simulation" onClick={() => addNewTab()}>
+                                <ActionIcon variant="transparent">
+                                    <IconPlus size="1rem" />
+                                </ActionIcon>
+                            </Tabs.Tab>
+                        </Tabs.List>
+                        <ScrollArea.Autosize
+                            mah={mobileView ? height - 345 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
+                            type="scroll"
+                            offsetScrollbars
+                        >
+                            <Paper id={PRINT_ID}>
+                                {tabPanels}
+                            </Paper>
+                        </ScrollArea.Autosize>
+                    </Tabs>
 
-            </Paper>
-        </Container>
+                </Paper>
+            </Container>
+        </>
+
 
     )
 }
