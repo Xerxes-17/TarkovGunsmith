@@ -395,29 +395,23 @@ export default function Home(props: any) {
                     </Col>
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
-                            <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link disabled>
+                            <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
+                                <Nav.Link>
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
                             <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} alt="A damaged armor vest" />
                             <Card.Body>
                                 <Card.Text>
-                                    This feature is currently disabled and being worked on.
-                                </Card.Text>
-                                <Card.Text>
                                     Another area of somewhat arcane knowledge for the player base is
                                     how armor and characters take damage on hits from various bullets. After much testing
                                     it has now been worked out and it can be easily looked up on this page.
                                 </Card.Text>
                                 <Card.Text>
-                                    You can currently search by Armor name, Bullet name and set the starting
-                                    durability of the armor. Select one of the results of each and then request
-                                    the result.
+                                    You can search for an existing ammo type, armor module or make your own by adjusting the stat inputs.
                                 </Card.Text>
                                 <Card.Text>
-                                    There is also a custom mode too if you'd like to model some theoretical ideas, or
-                                    if I haven't kept up with some patch.
+                                    You can request either a single shot simulation with the current parameters, or use them as the starting point for iterating until the target zone reaches 0HP.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -434,18 +428,8 @@ export default function Home(props: any) {
                             <Card.Img style={{ maxHeight: '300px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas.png'} alt="A data table picture" />
                             <Card.Body>
                                 <Card.Text>
-                                    Info tables are now available in two types: data and stats.
-                                </Card.Text>
-                                <Card.Text>
-                                    Stats tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, includes hidden stats which are important.
+                                    Stats tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, can includes hidden stats which are important.
                                     Currently cover Ammo, Armor and Weapons.
-                                </Card.Text>
-                                <Card.Text>
-                                    There are three data tables, the first is my take on an ammo effectiveness chart, and the other are Ammo vs Armor and Armor vs Ammo. <br />
-                                    Eg: With Ammo vs Armor, you will see how that bullet fares against all armor items. With Armor vs Ammo, you will see how a given armor will perform against a selected range of rounds.
-                                </Card.Text>
-                                <Card.Text>
-                                    As the data tables are base upon data provided by simulating Tarkov game mechanics, they are more accurate than NoFoodAfterMidnight's commonly cited ammo effectiveness chart.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
