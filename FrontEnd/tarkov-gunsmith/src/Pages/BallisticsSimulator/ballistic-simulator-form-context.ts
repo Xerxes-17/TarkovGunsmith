@@ -1,6 +1,6 @@
 // form-context.ts file
 import { createFormContext } from '@mantine/form';
-import { ArmorMaterialDestructibilitySelect } from '../../Api/ArmorApiCalls';
+import { TargetZone } from './TargetUiAlternate';
 
 export interface FormArmorLayer{
   isPlate: boolean;
@@ -8,7 +8,7 @@ export interface FormArmorLayer{
   bluntDamageThroughput: number;
   durability: number;
   maxDurability: number;
-  armorMaterial: string;
+  armorMaterial: string; 
 }
 
 
@@ -16,9 +16,9 @@ export interface BallisticSimulatorFormValues {
   penetration: number;
   damage: number;
   armorDamagePercentage: number;
-
+  targetZone: TargetZone;
   hitPointsPool: number;
-
+  maxLayers: number;
   armorLayers: FormArmorLayer[];
 }
 

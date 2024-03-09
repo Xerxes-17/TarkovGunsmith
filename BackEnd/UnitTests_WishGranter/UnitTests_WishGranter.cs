@@ -13,9 +13,173 @@ using Newtonsoft.Json;
 using WishGranter.Statics;
 using WishGranter.AmmoEffectivenessChart;
 using System.Text.Json;
+using WishGranter.API_Methods;
 
 namespace WishGranterTests
 {
+    [TestClass]
+    public class CalculateMultiShotSeriesTesting
+    {
+        [TestMethod]
+        public void Test_MultiLayerSoftOnly()
+        {
+            ArmorLayer AR500 = new ArmorLayer
+            {
+                isPlate = true,
+                armorClass = 3,
+                bluntDamageThroughput = 18,
+                durability = 45,
+                maxDurability = 45,
+                armorMaterial = ArmorMaterial.ArmoredSteel
+            };
+            ArmorLayer Kirasa = new ArmorLayer
+            {
+                isPlate = false,
+                armorClass = 2,
+                bluntDamageThroughput = 33,
+                durability = 56,
+                maxDurability = 56,
+                armorMaterial = ArmorMaterial.Aramid
+            };
+
+            ArmorLayer[] layers = { AR500, Kirasa };
+
+            BallisticSimParametersV2 parameters = new BallisticSimParametersV2
+            {
+                penetration = 28,
+                damage = 53,
+                armorDamagePerc = 40,
+                initialHitPoints = 85,
+                targetZone = "Thorax",
+                armorLayers = layers
+            };
+
+            var result = Ballistics.CalculateMultiShotSeries(parameters);
+            
+            foreach(var iteration in result.hitSummaries)
+            {
+                Console.WriteLine(iteration.cumulativeChanceOfKill);
+                Console.WriteLine(iteration.specificChanceOfKill);
+                Console.WriteLine();
+            }
+            Console.WriteLine(result);
+        }
+
+    }
+    [TestClass]
+    public class HpProbabilitiesTesting
+    {
+        [TestMethod]
+        public void Test_MultiLayerSoftOnly()
+        {
+            List<LayerSummaryResult> layerSummaryResults = new List<LayerSummaryResult>();
+            LayerSummaryResult Kirasa = new LayerSummaryResult
+            {
+                isPlate = false,
+                prPen = .972f,
+                bluntThroughput = .33f,
+                damageBlock = 17.49f,
+                damagePen = 46.20f,
+            };
+
+            layerSummaryResults.Add(Kirasa);
+
+            HpProbabilities hpProbabilities = new(85);
+
+            hpProbabilities.updateProbabilities(layerSummaryResults);
+            hpProbabilities.printCurrentInternals();
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerPlateOnly()
+        {
+            List<LayerSummaryResult> layerSummaryResults = new List<LayerSummaryResult>();
+            LayerSummaryResult AR500 = new LayerSummaryResult
+            {
+                isPlate = true,
+                prPen = 0.658f,
+                bluntThroughput = .18f,
+                damageBlock = 8.92f,
+                damagePen = 35.18f,
+            };
+
+            layerSummaryResults.Add(AR500);
+
+            HpProbabilities hpProbabilities = new(85);
+
+            hpProbabilities.updateProbabilities(layerSummaryResults);
+            hpProbabilities.printCurrentInternals();
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerPlateAndSoft()
+        {
+            List<LayerSummaryResult> layerSummaryResults = new List<LayerSummaryResult>();
+            LayerSummaryResult AR500 = new LayerSummaryResult
+            {
+                isPlate = true,
+                prPen = 0.658f,
+                bluntThroughput = .18f,
+                damageBlock = 8.92f,
+                damagePen = 35.18f,
+            };
+            LayerSummaryResult Kirasa = new LayerSummaryResult
+            {
+                isPlate = false,
+                prPen = 0.7257334f,
+                bluntThroughput = .33f,
+                damageBlock = 11.08f,
+                damagePen = 21.110756f,
+            };
+
+            layerSummaryResults.Add(AR500);
+            layerSummaryResults.Add(Kirasa);
+
+            HpProbabilities hpProbabilities = new(85);
+
+            hpProbabilities.updateProbabilities(layerSummaryResults);
+            hpProbabilities.printCurrentInternals();
+        }
+
+        [TestMethod]
+        public void Test_MultiLayerFaceShieldMaskGlasses()
+        {
+            List<LayerSummaryResult> layerSummaryResults = new List<LayerSummaryResult>();
+            LayerSummaryResult layer1 = new LayerSummaryResult
+            {
+                isPlate = false,
+                prPen = 0.6576608f,
+                bluntThroughput = .148f,
+                damageBlock = 7.3315787f,
+                damagePen = 35.184593f,
+            };
+            LayerSummaryResult layer2 = new LayerSummaryResult
+            {
+                isPlate = false,
+                prPen = 0.7257334f,
+                bluntThroughput = .198f,
+                damageBlock = 6.646726f,
+                damagePen = 21.110756f,
+            };
+            LayerSummaryResult layer3 = new LayerSummaryResult
+            {
+                isPlate = false,
+                prPen = 0.94688076f,
+                bluntThroughput = .315f,
+                damageBlock = 6.649888f,
+                damagePen = 12.666453f,
+            };
+
+            layerSummaryResults.Add(layer1);
+            layerSummaryResults.Add(layer2);
+            layerSummaryResults.Add(layer3);
+
+            HpProbabilities hpProbabilities = new(35);
+
+            hpProbabilities.updateProbabilities(layerSummaryResults);
+            hpProbabilities.printCurrentInternals();
+        }
+    }
     [TestClass]
     public class NewBallisticsTesting
     {

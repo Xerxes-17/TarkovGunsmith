@@ -1,15 +1,11 @@
 import { ActionIcon, Button, Container, Divider, Group, HoverCard, Paper, Popover, ScrollArea, Space, Tabs, Text, TextInput, Title, Tooltip } from "@mantine/core"
-import { PenetrationAndDamageForm } from "./PenetrationAndDamageForm"
+import { SimulatorForm } from "./SimulatorForm"
 import { IconEdit, IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useState } from "react";
-import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
-import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
-import { BallisticSimulatorTitle } from "../../Components/Common/TextWithToolTips/BallisticSimulatorTitle";
-import { Helmet } from "react-helmet-async";
 import { SEO } from "../../Util/SEO";
 
-const PRINT_ID = "printMe";
+export const PRINT_ID = "printMe";
 
 /**
  * Let's make this one simple to start with, just a means of calling WishGranter for it to calculate a given penetration chance, the blunt damage, and so on.
@@ -21,22 +17,12 @@ export function BallisticsSimulator() {
     const [activeTab, setActiveTab] = useState<string | null>("Sim1");
 
     const mobileView = useMediaQuery('(max-width: 576px)');
-    const { height, width } = useViewportSize();
+    const { height, } = useViewportSize();
 
     const [countOfLayers, setCountOfLayers] = useState<number>(1);
     console.log(countOfLayers)
 
-    const containerSize = () => {
-        if (countOfLayers === 1) {
-            return "lg"
-        }
-        else if (countOfLayers === 2) {
-            return "xl"
-        }
-        else {
-            return "xxl"
-        }
-    }
+
 
     // console.log(mobileView)
 
@@ -128,27 +114,17 @@ export function BallisticsSimulator() {
 
     const tabPanels = tabTitles.map((title) => (
         <Tabs.Panel value={title} pl="xs">
-            <PenetrationAndDamageForm layerCountCb={setCountOfLayers} />
+            <SimulatorForm layerCountCb={setCountOfLayers} />
         </Tabs.Panel>
     ))
 
     return (
         <>
             <SEO url="https://tarkovgunsmith.com/ballistics_simulator" title={'Ballistics Simulator : Tarkov Gunsmith'}/>
-            <Container size={"xl"} px={0} mt={-3}>
-                <Space h={5} />
-                <Paper shadow="sm" p="md" id={PRINT_ID} >
-                    <Group>
-                        <BallisticSimulatorTitle />
-                        <Group ml={"auto"}>
-                            <DownloadElementImageButton targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
-                            <CopyElementImageButton targetElementId={PRINT_ID} />
-                        </Group>
-                    </Group>
-
-                    <Divider my={5} />
+            <Container size={1420} px={0} pt={3}>
+                <Paper shadow="sm" p={2} px={5} mt={0}>
                     <Tabs orientation="horizontal" value={activeTab} onTabChange={setActiveTab} >
-                        <Tabs.List data-html2canvas-ignore>
+                        <Tabs.List data-html2canvas-ignore >
                             {tabs}
                             <Tabs.Tab value="new" aria-label="Add new simulation" onClick={() => addNewTab()}>
                                 <ActionIcon variant="transparent">
@@ -157,7 +133,7 @@ export function BallisticsSimulator() {
                             </Tabs.Tab>
                         </Tabs.List>
                         <ScrollArea.Autosize
-                            mah={mobileView ? height - 345 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
+                            mah={mobileView ? height - 200 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
                             type="scroll"
                             offsetScrollbars
                         >

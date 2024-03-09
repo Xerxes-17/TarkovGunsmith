@@ -13,6 +13,7 @@ import { ArmorModule, ArmorModuleTableRow } from "../../Types/ArmorTypes";
 import { API_URL } from "../../Util/util";
 import { convertEnumValToArmorString } from "../../Components/ADC/ArmorData";
 import { createHitZoneValues } from "../../Components/Common/Helpers/ArmorHelpers";
+import { BluntThroughputInput } from "./BluntThroughputInput";
 
 interface ArmorLayerUiProps {
     index: number
@@ -75,7 +76,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
         x.bluntThroughput === form.values.armorLayers[index].bluntDamageThroughput / 100 &&
         x.maxDurability === form.values.armorLayers[index].maxDurability &&
         x.armorMaterial === form.values.armorLayers[index].armorMaterial &&
-        ( x.category === "Plate" ? form.values.armorLayers[index].isPlate === true : form.values.armorLayers[index].isPlate === false )
+        (x.category === "Plate" ? form.values.armorLayers[index].isPlate === true : form.values.armorLayers[index].isPlate === false)
     )
 
     return (
@@ -90,7 +91,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                             </Group>)} />
                         {matched ? (
                             <>
-                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.category === "Plate" ? matched.name :  matched.usedInNames}</Text>
+                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.category === "Plate" ? matched.name : matched.usedInNames}</Text>
                                 <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.hitZones.join(", ")}</Text>
                             </>
                         ) : (
@@ -99,18 +100,10 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                     </Stack>
 
                     <NumberAndSlider w={100} label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
-                    <NumberAndSliderPercentage
-                        w={130}
-                        label={<BluntThroughputWithToolTip />}
-                        property={`armorLayers.${index}.bluntDamageThroughput`}
-                        precision={2}
-                        step={1}
-                        description={<Checkbox label="Plate?" {...form.getInputProps(`armorLayers.${index}.isPlate`, { type: 'checkbox' })}/>}
-                    />
-                    { }
+                    <BluntThroughputInput index={index} w={130} />
                     <DurabilityAndMaxPair wMaxDura={125} index={index} />
-                    <ArmorMaterialSelect w={140} armorLayersIndex={index} />
-                    
+                    <ArmorMaterialSelect w={160} armorLayersIndex={index} />
+
                     {/* {index + 1 === form.values.armorLayers.length && (
                         <Group grow mt={"24.69px"}>
                             {form.values.armorLayers.length > 1 && (
@@ -125,48 +118,45 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                 </Group>
             )}
             {isMobile && (
-                <SimpleGrid w={"100%"}
-                    cols={4}
-                    spacing="xs"
-                    verticalSpacing={5}
-                    breakpoints={[
-                        { maxWidth: 850, cols: 2, spacing: 'xs' },
-                        { maxWidth: 500, cols: 1, spacing: 'xs' },
-                    ]}
-                >
+                <>
                     <Stack spacing={2}>
                         <Divider label={(
                             <Group spacing={8} >
                                 <Title order={4}>Armor Layer {index + 1}</Title>
                                 <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="armor" armorIndex={index} />
+                                {matched ? (
+                                    <>
+                                        {/* <Text maw={textMAW} style={{ whiteSpace: "break-spaces" }}>{matched.usedInNames}</Text> */}
+                                        <Text style={{ whiteSpace: "break-spaces" }}>{!matched.name.includes("ballistic plate") ? <>{matched.usedInNames} - {matched.hitZones}</> : matched.name }</Text>
+                                    </>
+                                ) : (
+                                    <Text>Custom/No match</Text>
+                                )}
                             </Group>)} />
-                        {matched ? (
-                            <>
-                                <Text maw={textMAW} style={{ whiteSpace: "break-spaces" }}>{matched.usedInNames}</Text>
-                                <Text maw={textMAW} style={{ whiteSpace: "break-spaces" }}>{matched.name}</Text>
-                            </>
-                        ) : (
-                            <Text>Custom/No match</Text>
-                        )}
+
                     </Stack>
-                    <NumberAndSlider w={"100%"} label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
-                    <NumberAndSliderPercentage
-                        w={"100%"}
-                        label={<BluntThroughputWithToolTip />}
-                        property={`armorLayers.${index}.bluntDamageThroughput`}
-                        precision={2}
-                        step={1}
-                        description={<Checkbox label="Plate?" {...form.getInputProps(`armorLayers.${index}.isPlate`, { type: 'checkbox' })}/>}
-                    />
-                    {addSpacer && (
-                        <>
-                            <Box></Box>
-                            <Box></Box>
-                        </>
-                    )}
-                    <DurabilityAndMaxPair wMaxDura={"100%"} index={index} />
-                    <ArmorMaterialSelect w={"100%"} armorLayersIndex={index} />
-                </SimpleGrid>
+                    <SimpleGrid w={"100%"}
+                        cols={3}
+                        spacing="xs"
+                        verticalSpacing={5}
+                        breakpoints={[
+                            { maxWidth: 850, cols: 2, spacing: 'xs' },
+                            { maxWidth: 500, cols: 1, spacing: 'xs' },
+                        ]}
+                    >
+
+                        <NumberAndSlider w={"100%"} label={"Armor Class"} property={`armorLayers.${index}.armorClass`} precision={2} max={6} min={1} step={1} />
+                        <BluntThroughputInput index={index} w={"100%"} />
+
+                        {addSpacer && (
+                            <>
+                                <Box></Box>
+                            </>
+                        )}
+                        <DurabilityAndMaxPair wMaxDura={"100%"} index={index} />
+                        <ArmorMaterialSelect w={"100%"} armorLayersIndex={index} />
+                    </SimpleGrid>
+                </>
             )}
 
         </>

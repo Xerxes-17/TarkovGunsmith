@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Force.DeepCloner;
 using WishGranter.API_Methods;
+using System.Linq;
 
 namespace WishGranter.Statics
 {
@@ -1013,6 +1014,71 @@ namespace WishGranter.Statics
             }
 
 
+            return results;
+        }
+        // Idea 1: change the structure of the sim result so that each property is an array of values, this way showing in the FE gets easier, and so does reading data.
+        // Idea 2: you can set the length of the arrays based on the number of layers, and access them by the index, so that layer 1 is always index 0.
+        // Idea 3: we could in fact make the sim result be the stats as lists, and then divide the results by "frames" as needed without the need for lists of objects.
+
+        public static BallisticSimResultV2 CalculateMultiShotSeries(BallisticSimParametersV2 inputs)
+        {
+            BallisticSimResultV2 results = new();
+            results.Inputs = inputs;
+            results.hitSummaries = new();
+
+            var inputPenetration = inputs.penetration;
+            var inputDamage = inputs.damage;
+            var inputArmorDamagePerc = inputs.armorDamagePerc;
+            ArmorLayer[] layersMemory = inputs.armorLayers;
+            HpProbabilities hpProbabilities = new HpProbabilities(inputs.initialHitPoints);
+            bool finished = false;
+
+            var iterationLimit = 50;
+            var iteration = 0;
+            while (!finished)
+            {
+                //! 1- A tempBSP because we still wnat to harness the code in the older CSS function
+                BallisticSimParameters interationBSP = new BallisticSimParameters
+                {
+                    penetration = inputPenetration,
+                    damage = inputDamage,
+                    armorDamagePerc = inputArmorDamagePerc,
+                    armorLayers = layersMemory,
+                    // No HP becuase it doesn't matter
+                };
+                List<BallisticSimResult> layeredResults = CalculateSingleShot(interationBSP);
+
+                //! 2- Then from the layeredResults, we update the hpProbabilities
+                List<LayerSummaryResult> summaryResults = new();
+                for (int i = 0; i < layeredResults.Count; i++)
+                {
+                    LayerSummaryResult layerSummaryResult = new LayerSummaryResult
+                    {
+                        isPlate = layersMemory[i].isPlate,
+                        bluntThroughput = layersMemory[i].bluntDamageThroughput,
+
+                        prPen = layeredResults[i].PenetrationChance,
+                        damageBlock = layeredResults[i].BluntDamage,
+                        damagePen = layeredResults[i].PenetrationDamage,
+                        damageMitigated = layeredResults[i].MitigatedDamage,
+                        averageRemainingDP = layeredResults[i].PostHitArmorDurability
+                    };
+                    summaryResults.Add(layerSummaryResult);
+                }
+
+                // ! 4- condense the data down and insert it into results
+                var iterationResult = hpProbabilities.updateProbabilities(summaryResults);
+                results.hitSummaries.Add(iterationResult);
+
+                // ! 4- Update the layers memory
+                for (int i = 0;i < layersMemory.Count(); i++)
+                {
+                    layersMemory[i].durability = layeredResults[i].PostHitArmorDurability;
+                }
+
+                finished = iterationResult.cumulativeChanceOfKill > 99.99f || iteration > iterationLimit;
+                iteration++;
+            }
             return results;
         }
     }

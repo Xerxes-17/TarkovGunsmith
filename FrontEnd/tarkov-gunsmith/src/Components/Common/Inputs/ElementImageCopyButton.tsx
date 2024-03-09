@@ -17,12 +17,13 @@ const handleCopyImage = async (elementId:string) => {
 
 interface DownloadElementImageButtonProps {
     targetElementId: string
+    disabled?: boolean
 }
 
-export function CopyElementImageButton({targetElementId}: DownloadElementImageButtonProps) {
+export function CopyElementImageButton({targetElementId, disabled}: DownloadElementImageButtonProps) {
     return (
         <Tooltip label="Copy simulation as image to clipboard" position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
-            <Button variant="outline" leftIcon={<IconCopy size="1.2rem" />} onClick={() => handleCopyImage(targetElementId)} data-html2canvas-ignore>
+            <Button disabled={disabled} variant="outline" leftIcon={<IconCopy size="1.2rem" />} onClick={() => handleCopyImage(targetElementId)} data-html2canvas-ignore>
                 Copy
             </Button>
         </Tooltip>

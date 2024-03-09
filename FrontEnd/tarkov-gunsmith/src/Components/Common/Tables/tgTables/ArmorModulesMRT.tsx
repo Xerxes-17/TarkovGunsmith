@@ -345,7 +345,7 @@ export function ArmorModulesMRT() {
 
     return (
         <>
-            <SEO url="https://tarkovgunsmith.com/datasheets/armor_modules" title={'Armor Modules : Tarkov Gunsmith'} />
+            <SEO url="https://tarkovgunsmith.com/datasheets/armor_modules" title={'Helmets : Tarkov Gunsmith'} />
             <MantineReactTable table={table} />
         </>
     )

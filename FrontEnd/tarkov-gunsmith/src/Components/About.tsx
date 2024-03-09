@@ -1,9 +1,11 @@
 import { Col, Card, Container } from "react-bootstrap";
+import { SEO } from "../Util/SEO";
 
 // Renders the home
 export default function About(props: any) {
     return (
         <Container className='main-app-container'>
+            <SEO url="https://tarkovgunsmith.com/about" title={'About : Tarkov Gunsmith'}/>
             <Col xl>
                 <Card bg="dark" border="secondary" text="light" className="xl">
 

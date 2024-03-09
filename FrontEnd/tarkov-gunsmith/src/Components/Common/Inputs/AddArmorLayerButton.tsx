@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "@mantine/core";
+import { Button, Tooltip, Space } from '@mantine/core';
 import { IconShieldPlus } from "@tabler/icons-react";
 import { useBallisticSimulatorFormContext } from "../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 
@@ -20,9 +20,9 @@ export function AddArmorLayerButton({index}: AddArmorLayerButtonProps){
     }
 
     return (
-        <Tooltip label="Add layer (max of 3)" position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
+        <Tooltip label={`max of ${form.values.maxLayers} layers`} position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
             <Button variant="light" onClick={() => handleAddLayer()} data-html2canvas-ignore>
-                <IconShieldPlus size="1.2rem" />
+                <IconShieldPlus size="1.2rem" />&nbsp;&nbsp;Add
             </Button>
         </Tooltip>
     )
