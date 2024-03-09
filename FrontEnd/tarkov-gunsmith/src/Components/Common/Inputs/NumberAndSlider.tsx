@@ -14,16 +14,17 @@ interface NumberAndSliderProps {
         label?: React.ReactNode;
     }[]
     w?: number | string
+    mb?: number | string
 }
 
 export function NumberAndSlider(props: NumberAndSliderProps) {
-    const { label, property, precision, max, min, step, marks, w} = props;
+    const { label, property, precision, max, min, step, marks, w, mb} = props;
     const form = useBallisticSimulatorFormContext();
 
     const marksPadding = marks ? 11.5 : 0
 
     return (
-        <Box w={w} >
+        <Box w={w} mb={mb}>
             <NumberInput
                 label={label}
                 precision={precision}

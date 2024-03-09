@@ -26,7 +26,7 @@ export function RemoveArmorLayerButton({index}: AddArmorLayerButtonProps){
     return (
         <Tooltip label="Remove this layer" position={"bottom"} transitionProps={{ transition: 'slide-up', duration: 300 }} data-html2canvas-ignore>
             <Button color="red" variant="light" onClick={() => handleRemoveLayer()} data-html2canvas-ignore>
-                <IconShieldMinus size="1.2rem" />
+                <IconShieldMinus size="1.2rem" />&nbsp;&nbsp;Remove
             </Button>
         </Tooltip>
     )

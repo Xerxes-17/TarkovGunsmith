@@ -168,6 +168,19 @@ async Task startAPIAsync()
             await context.Response.WriteAsync(JsonSerializer.Serialize(result));
         });
 
+    app.MapPost("/GetMultiShotBallisticSimulation",
+    async context =>
+    {
+        using var reader = new StreamReader(context.Request.Body);
+        var json = await reader.ReadToEndAsync();
+        var requestData = JsonSerializer.Deserialize<BallisticSimParametersV2>(json);
+        var result = API_BallisticSimulator.MultiShotSimulation(MyActivitySource, requestData);
+
+        context.Response.StatusCode = StatusCodes.Status200OK;
+
+        await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+    });
+
     //! ******* AEC *******
     app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();
     app.MapPut("/UpdateAmmoRatingsInAEC", () => API_AEC.UpdateRatingsAEC(MyActivitySource));

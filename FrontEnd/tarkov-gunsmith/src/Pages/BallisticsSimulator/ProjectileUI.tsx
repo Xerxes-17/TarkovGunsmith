@@ -9,6 +9,7 @@ import { useViewportSize } from "@mantine/hooks";
 import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../Types/AmmoTypes";
 import { useEffect, useState } from "react";
 import { getAmmoDataFromApi_TarkovDev } from "../../Api/AmmoApiCalls";
+import { TargetUiAlternate } from "./TargetUiAlternate";
 
 const MAX_PENETRATION = 90;
 const MAX_DAMAGE = 265;
@@ -63,32 +64,41 @@ export function ProjectileUI() {
                         precision={2}
                         step={1}
                     />
+                    <TargetUiAlternate />
                 </Group>
             )}
             {isMobile && (
-                <SimpleGrid w={"100%"}
-                    cols={4}
-                    spacing="xs"
-                    verticalSpacing={5}
-                    breakpoints={[
-                        { maxWidth: 850, cols: 2, spacing: 'xs' },
-                        { maxWidth: 500, cols: 1, spacing: 'xs' },
-                    ]}
-                >
-                    <Stack spacing={2}>
-                        <Divider mt={6} label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="ammo" /></Group>)} />
-                        <Text>{matchedString}</Text>
-                    </Stack>
-                    <NumberAndSlider w={"100%"} label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
-                    <NumberAndSlider w={"100%"} label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />
-                    <NumberLabelAndSliderPercentage
-                        label={<ArmorDamagePercentageWithToolTip />}
-                        description={effectiveDurabilityDamageDes}
-                        property={"armorDamagePercentage"}
-                        precision={2}
-                        step={1}
-                    />
-                </SimpleGrid>
+                <>
+                    <SimpleGrid w={"100%"}
+                        cols={3}
+                        spacing="xs"
+                        verticalSpacing={5}
+                        breakpoints={[
+                            { maxWidth: 850, cols: 2, spacing: 'xs' },
+                            { maxWidth: 565, cols: 1, spacing: 'xs' },
+                        ]}
+                    >
+                        <Stack spacing={2}>
+                            <Divider mt={6} label={(<Group spacing={8}><Title order={4}>Projectile Info</Title> <DrawerButton leftIcon={searchIcon} buttonLabel={"Search"} ammoOrArmor="ammo" /></Group>)} />
+                            <Text>{matchedString}</Text>
+                        </Stack>
+                        <NumberAndSlider w={"100%"} label={"Penetration"} property={"penetration"} precision={2} max={MAX_PENETRATION} min={1} step={1} />
+                        <NumberAndSlider w={"100%"} label={"Damage"} property={"damage"} precision={2} max={MAX_DAMAGE} min={1} step={1} />
+                        <NumberLabelAndSliderPercentage
+                            label={<ArmorDamagePercentageWithToolTip />}
+                            description={effectiveDurabilityDamageDes}
+                            property={"armorDamagePercentage"}
+                            precision={2}
+                            step={1}
+                        />
+                        {width >= 850 &&
+                            (<TargetUiAlternate w={"100%"} fullWidth={true} />)
+                        }
+                    </SimpleGrid>
+                    {width < 850 &&
+                        (<TargetUiAlternate w={"100%"} fullWidth={true} />)
+                    }
+                </>
             )}
         </>
 

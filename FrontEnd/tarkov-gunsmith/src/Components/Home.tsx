@@ -3,6 +3,7 @@ import { Pagination as ReactBootstrapPagination } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import { LINKS } from "../Util/links";
 import { SetStateAction, useState } from "react";
+import { SEO } from "../Util/SEO";
 
 
 // Renders the home
@@ -19,7 +20,7 @@ export default function Home(props: any) {
                             Hilarious, the last time I updated this blog part was on the 14th, 9 months ago. Anyway, new patch, new year, new bugs and issues for the site!<br /><br />
 
                             Sorry that it took me a while to get the site up and running again, but IRL was eating up a lot of my time and the new armor plate system has a lot of issues and I got a bit fixated on trying to work them out instead of get TG up and running again.<br /><br />
-                        
+
                             You may notice that a few parts of the site are now disabled. This is intentional while I update them, but that could be a while. In particular the new armor system is rather buggy in my opinion, and I don't see much point in working out a simulation on a system with "mistakes" especially when those mistakes will be a pain to mimic and eventually will be patched out.<br /><br />
 
                             Hop on the discord if you have any questions or suggestions, or would like to see me work my way through things. <br /><br />
@@ -323,40 +324,41 @@ export default function Home(props: any) {
     const Pagination = (props: PaginationProps) => {
         const { currentPage, itemsPerPage, totalItems, onPageChange } = props;
         const [activePage, setActivePage] = useState(currentPage);
-      
+
         const totalPages = Math.ceil(totalItems / itemsPerPage);
-      
+
         const handlePageChange = (page: number) => {
-          setActivePage(page);
-          onPageChange(page);
+            setActivePage(page);
+            onPageChange(page);
         };
-      
+
         return (
             <ReactBootstrapPagination
-            bsPrefix="dark"
-            className="my-custom-pagination"
-          >
-            <ReactBootstrapPagination.First onClick={() => handlePageChange(1)} disabled={activePage === 1} />
-            <ReactBootstrapPagination.Prev onClick={() => handlePageChange(activePage - 1)} disabled={activePage === 1} />
-      
-            {[...Array(totalPages)].map((_, page) => (
-              <ReactBootstrapPagination.Item
-                key={page + 1}
-                active={page + 1 === activePage}
-                onClick={() => handlePageChange(page + 1)}
-              >
-                {page + 1}
-              </ReactBootstrapPagination.Item>
-            ))}
-      
-            <ReactBootstrapPagination.Next onClick={() => handlePageChange(activePage + 1)} disabled={activePage === totalPages} />
-            <ReactBootstrapPagination.Last onClick={() => handlePageChange(totalPages)} disabled={activePage === totalPages} />
-          </ReactBootstrapPagination>
+                bsPrefix="dark"
+                className="my-custom-pagination"
+            >
+                <ReactBootstrapPagination.First onClick={() => handlePageChange(1)} disabled={activePage === 1} />
+                <ReactBootstrapPagination.Prev onClick={() => handlePageChange(activePage - 1)} disabled={activePage === 1} />
+
+                {[...Array(totalPages)].map((_, page) => (
+                    <ReactBootstrapPagination.Item
+                        key={page + 1}
+                        active={page + 1 === activePage}
+                        onClick={() => handlePageChange(page + 1)}
+                    >
+                        {page + 1}
+                    </ReactBootstrapPagination.Item>
+                ))}
+
+                <ReactBootstrapPagination.Next onClick={() => handlePageChange(activePage + 1)} disabled={activePage === totalPages} />
+                <ReactBootstrapPagination.Last onClick={() => handlePageChange(totalPages)} disabled={activePage === totalPages} />
+            </ReactBootstrapPagination>
         );
-      };
+    };
 
     return (
         <>
+            <SEO url="https://tarkovgunsmith.com/index.html" title={'Home : Tarkov Gunsmith'} />
             <Container className='main-app-container'>
                 <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                     <Card.Header as="h1">
@@ -400,7 +402,7 @@ export default function Home(props: any) {
                             </LinkContainer>
                             <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} alt="A damaged armor vest" />
                             <Card.Body>
-                            <Card.Text>
+                                <Card.Text>
                                     This feature is currently disabled and being worked on.
                                 </Card.Text>
                                 <Card.Text>

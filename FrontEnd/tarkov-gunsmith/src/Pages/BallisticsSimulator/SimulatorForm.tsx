@@ -2,14 +2,19 @@ import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, 
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator-form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
-import { Dispatch, SetStateAction, useState } from "react";
-import { BallisticSimParameters, BallisticSimResponse, requestSingleShotBallisticSim } from "./api-requests";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { BallisticSimParameters, BallisticSimParametersV2, BallisticSimResponse, BallisticSimResultV2, requestMultiShotBallisticSim, requestSingleShotBallisticSim } from "./api-requests";
 import { convertArmorStringToEnumVal } from "../../Components/ADC/ArmorData";
 import { LINKS } from "../../Util/links";
 import { BallisticSimulatorSingleShotGraph, ChartModes } from '../../Components/Common/Graphs/Charts/BallisticSimulatorSingleShotGraph';
 import { ReductionFactorWTT } from "../../Components/Common/TextWithToolTips/ReductionFactorWTT";
 import { RemoveArmorLayerButton } from "../../Components/Common/Inputs/RemoveArmorLayerButton";
 import { AddArmorLayerButton } from "../../Components/Common/Inputs/AddArmorLayerButton";
+import { DownloadElementImageButton } from "../../Components/Common/Inputs/ElementImageDownloadButton";
+import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementImageCopyButton";
+import { PRINT_ID } from "./BallisticsSimulator";
+import { BasicMultiShotResultsTable } from "../../Components/Common/Tables/tgTables/basic-multi-shot-results";
+import { BsMsLineChart } from "../../Components/Common/Graphs/Charts/BsMsLineChart";
 
 function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
@@ -19,14 +24,15 @@ interface PenAndDamFormProps {
     layerCountCb: Dispatch<SetStateAction<number>>;
 }
 
-export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
+export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
         initialValues: {
             penetration: 28,
             damage: 53,
             armorDamagePercentage: 40,
-
+            targetZone: "Thorax",
             hitPointsPool: 85,
+            maxLayers: 2,
 
             armorLayers: [{
                 isPlate: false,
@@ -40,6 +46,8 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
     });
 
     const [result, setResult] = useState<BallisticSimResponse[]>([]);
+    const [result2, setResult2] = useState<BallisticSimResultV2>();
+    console.log(result2)
     const [hasResult, setHasResult] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -132,37 +140,75 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
         </tr>
     ));
 
-    function handleSubmit(values: BallisticSimulatorFormValues) {
-        setIsLoading(true);
-        const requestDetails: BallisticSimParameters = {
-            penetration: values.penetration,
-            damage: values.damage,
-            armorDamagePerc: values.armorDamagePercentage,
-            hitPoints: values.hitPointsPool,
+    function handleSubmit(values: BallisticSimulatorFormValues, mode: "SingleShot" | "MultiShot") {
+        if (mode === "SingleShot") {
+            const requestDetails: BallisticSimParameters = {
+                penetration: values.penetration,
+                damage: values.damage,
+                armorDamagePerc: values.armorDamagePercentage,
+                hitPoints: values.hitPointsPool,
 
-            armorLayers: values.armorLayers.map(layer => {
-                return {
-                    isPlate: layer.isPlate,
-                    armorClass: layer.armorClass,
-                    bluntDamageThroughput: layer.bluntDamageThroughput,
-                    durability: layer.durability,
-                    maxDurability: layer.maxDurability,
-                    armorMaterial: convertArmorStringToEnumVal(layer.armorMaterial)
-                }
-            })
+                armorLayers: values.armorLayers.map(layer => {
+                    return {
+                        isPlate: layer.isPlate,
+                        armorClass: layer.armorClass,
+                        bluntDamageThroughput: layer.bluntDamageThroughput,
+                        durability: layer.durability,
+                        maxDurability: layer.maxDurability,
+                        armorMaterial: convertArmorStringToEnumVal(layer.armorMaterial)
+                    }
+                })
+            }
+
+            requestSingleShotBallisticSim(requestDetails).then(response => {
+                setResult(response)
+                setHasResult(true);
+                form.resetDirty();
+            }).catch(error => {
+                alert(`The error was: ${error}`);
+            });
+            setIsLoading(false);
+        }
+        else {
+            const requestDetails: BallisticSimParametersV2 = {
+                penetration: values.penetration,
+                damage: values.damage,
+                armorDamagePerc: values.armorDamagePercentage,
+                initialHitPoints: values.hitPointsPool,
+                targetZone: values.targetZone,
+
+                armorLayers: values.armorLayers.map(layer => {
+                    return {
+                        isPlate: layer.isPlate,
+                        armorClass: layer.armorClass,
+                        bluntDamageThroughput: layer.bluntDamageThroughput,
+                        durability: layer.durability,
+                        maxDurability: layer.maxDurability,
+                        armorMaterial: convertArmorStringToEnumVal(layer.armorMaterial)
+                    }
+                })
+            }
+
+            requestMultiShotBallisticSim(requestDetails).then(response => {
+                setResult2(response)
+                setHasResult(true);
+                form.resetDirty();
+            }).catch(error => {
+                alert(`The error was: ${error}`);
+            });
+            setIsLoading(false);
         }
 
-        requestSingleShotBallisticSim(requestDetails).then(response => {
-            setResult(response)
-            setHasResult(true);
-            form.resetDirty();
-        }).catch(error => {
-            alert(`The error was: ${error}`);
-        });
-        setIsLoading(false);
+    }
+    function onClickSingleShot() {
+        setResult2(undefined);
+        setIsLoading(true);
+        const values = form.getTransformedValues();
+        handleSubmit(values, "SingleShot");
     }
 
     function onClickIterate() {
+        setIsLoading(true);
         for (let index = 0; index < result.length; index++) {
             const element = result[index];
             form.setFieldValue(`armorLayers.${index}.durability`, element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0)
@@ -173,18 +219,37 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
             const element = result[index];
             values.armorLayers[index].durability = element.PostHitArmorDurability > 0 ? element.PostHitArmorDurability : 0;
         }
-        handleSubmit(values);
+        handleSubmit(values, "SingleShot");
     }
+    function onClickMultiShot() {
+        setIsLoading(true);
+        setResult([]);
+        setResult2(undefined);
+        const values = form.getTransformedValues();
+        handleSubmit(values, "MultiShot");
+    }
+    useEffect(() => {
+        if (!form.values.armorLayers[0].isPlate) {
+            return
+        }
+
+        if (form.values.armorLayers.length > 2) {
+            const newLayers = form.values.armorLayers.slice(0, 2);
+
+            form.setValues({ armorLayers: newLayers })
+        }
+    },
+        [form.values.armorLayers[0].isPlate])
 
     return (
-        <BallisticSimulatorFormProvider form={form}>
+        <BallisticSimulatorFormProvider form={form} >
             <form onSubmit={form.onSubmit((values) => {
                 // console.log(values);
                 setIsLoading(true);
-                handleSubmit(values);
+                handleSubmit(values, "SingleShot");
             })}>
                 <LoadingOverlay visible={isLoading} overlayBlur={2} />
-                <Stack spacing={2}>
+                <Stack spacing={2} mb={5}>
                     <ProjectileUI />
                     {form.values.armorLayers.map((_, index) => {
                         return (
@@ -195,19 +260,26 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                         {form.values.armorLayers.length > 1 && (
                             <RemoveArmorLayerButton index={form.values.armorLayers.length - 1} />
                         )}
-                        {form.values.armorLayers.length < 3 && (
+                        {((form.values.armorLayers.length < form.values.maxLayers)) && (
                             <AddArmorLayerButton index={form.values.armorLayers.length - 1} />
                         )}
-
                     </Group>
-                    <Grid gutter="xs">
+                    {result2 && (
+                        <Box pos="relative">
+                            {form.isDirty() && result2 !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                            <BasicMultiShotResultsTable result={result2} />
+                            <BsMsLineChart resultData={result2} />
+                        </Box>
+                    )}
+
+                    <Grid gutter="xs" hidden={result.length === 0}>
                         {/* Results */}
                         <Grid.Col span={12} md={6}>
                             <Box pos="relative" h={"100%"}>
                                 <Divider my="xs" label={(<Title order={4}>Results</Title>)} />
                                 <Box pos="relative">
 
-                                    {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                    {form.isDirty() && result.length > 0 && <Overlay color="#000" opacity={0.60} center />}
                                     <Table highlightOnHover withColumnBorders verticalSpacing="5px">
                                         <thead>
                                             <tr>
@@ -224,14 +296,14 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                                         )}
                                     </Table>
                                 </Box>
-                                {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
+
                             </Box>
                         </Grid.Col>
                         {/* Charts */}
                         <Grid.Col span={12} md={6}>
                             {result.length > 0 && (
                                 <Box pos="relative">
-                                    <Divider label={(
+                                    <Divider my={result.length > 1 ? 0 : "xs"} label={(
                                         <Group spacing={8} >
                                             <Title order={4}>Graph</Title>
                                             {result.length > 1 && (
@@ -252,7 +324,7 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
 
                                     )} />
                                     <Box pos="relative">
-                                        {form.isDirty() && result !== undefined && <Overlay color="#000" opacity={0.60} center />}
+                                        {form.isDirty() && result.length > 0 && <Overlay color="#000" opacity={0.60} center />}
                                         <BallisticSimulatorSingleShotGraph chartData={result} mode={chartMode} />
                                     </Box>
                                 </Box>
@@ -261,10 +333,20 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                     </Grid>
 
                 </Stack>
+                {form.isDirty() && result !== undefined && (<Text>Input changed, results will not match.</Text>)}
+                {(result.length > 0 || result2 !== undefined) && (
+                    <Text my="xs" color="gray.5" size={"sm"} >Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
+                )}
+                <Group position="right" >
+                    {(result.length > 0 || result2 !== undefined) && (
+                        <>
 
-                <Group position="right" mt="md">
-                    {result.length > 0 && (
-                        <Text color="gray.7" size={"sm"} mr={"auto"}>Time generated: {new Date().toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTICS_SIMULATOR}</Text>
+                            <DownloadElementImageButton disabled={form.isDirty() && result !== undefined} targetElementId={PRINT_ID} fileName="tarkovGunsmithBallisticSimulator" />
+                            <Box mr={"auto"}>
+                                <CopyElementImageButton disabled={form.isDirty() && result !== undefined} targetElementId={PRINT_ID} />
+                            </Box>
+
+                        </>
                     )}
 
                     {result.length > 0 && !form.isDirty() && (
@@ -272,9 +354,13 @@ export function PenetrationAndDamageForm({ layerCountCb }: PenAndDamFormProps) {
                             Iterate
                         </Button>
                     )}
-                    
-                    <Button type="submit" data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
-                        {result === undefined ? <>Single Shot</> : form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
+
+
+                    <Button onClick={onClickSingleShot} data-html2canvas-ignore disabled={result.length > 0 && !form.isDirty()}>
+                        {result === undefined ? <>Single Shot</> : result.length > 0 && !form.isDirty() ? <>Refresh Result</> : <>Single Shot</>}
+                    </Button>
+                    <Button onClick={onClickMultiShot} data-html2canvas-ignore disabled={result2 && !form.isDirty()}>
+                        {result2 === undefined ? <>Multi Shot</> : result2 && !form.isDirty() ? <>Refresh Result</> : <>Multi Shot</>}
                     </Button>
                 </Group>
             </form>

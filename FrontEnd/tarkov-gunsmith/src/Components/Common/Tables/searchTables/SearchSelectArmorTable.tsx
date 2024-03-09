@@ -7,7 +7,7 @@ import { useBaseSearchSelectTable } from "../BaseSearchSelectTable";
 import { useBallisticSimulatorFormContext } from "../../../../Pages/BallisticsSimulator/ballistic-simulator-form-context";
 import { API_URL } from "../../../../Util/util";
 import { ArmorModule, ArmorModuleTableRow } from "../../../../Types/ArmorTypes";
-import { createHitZoneValues } from "../../Helpers/ArmorHelpers";
+import { armorZoneOptions, createHitZoneValues, returnZonesFromTargetZone } from "../../Helpers/ArmorHelpers";
 import { ArmorType, MATERIALS, convertEnumValToArmorString } from "../../../ADC/ArmorData";
 import { lightShield, heavyShield, noneShield } from "../../tgIcons";
 import { BluntDamageCell } from "../TableCells/BluntDamageCell";
@@ -21,10 +21,11 @@ interface SearchSelectArmorTableProps {
     layerIndex: number
 }
 
-
 export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSelectArmorTableProps) {
     const form = useBallisticSimulatorFormContext();
-
+    const targetZone = form.values.targetZone;
+    const initialHitZones = returnZonesFromTargetZone(targetZone);
+    
     const { height } = useViewportSize();
 
     function calculatedTableHeight() {
@@ -132,7 +133,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
             },
             {
                 accessorKey: 'bluntThroughput',
-                accessorFn: (originalRow) => originalRow.bluntThroughput*100,
+                accessorFn: (originalRow) => originalRow.bluntThroughput * 100,
                 header: 'Blunt Throughput',
                 filterFn: "greaterThanOrEqualTo",
                 columnFilterModeOptions: ['between', 'lessThan', 'greaterThan', 'lessThanOrEqualTo', 'greaterThanOrEqualTo'],
@@ -160,8 +161,11 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
                 id: "hitZones",
                 accessorFn: (row) => row.hitZones.join(", "),
                 header: 'Hit Zones',
-                filterVariant: "text",
-                filterFn: "contains",
+                filterVariant: "multi-select",
+                filterFn: "arrIncludesSome",
+                mantineFilterMultiSelectProps: {
+                    data: armorZoneOptions as any,
+                },
                 columnFilterModeOptions: [],
                 Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
                 Header: HitZonesWTT()
@@ -169,7 +173,6 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
         ],
         [],
     );
-
     const table = useBaseSearchSelectTable<ArmorModuleTableRow>({
         columns,
         data: tableData,
@@ -180,6 +183,10 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
                 caliber: true,
             },
             density: "xs",
+            columnFilters: [{
+                id: "hitZones",
+                value: initialHitZones,
+            }],
 
             pagination: {
                 pageIndex: 0, pageSize: 15
