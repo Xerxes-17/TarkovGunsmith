@@ -182,12 +182,12 @@ async Task startAPIAsync()
     });
 
     //! ******* AEC *******
-    app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();
-    app.MapPut("/UpdateAmmoRatingsInAEC", () => API_AEC.UpdateRatingsAEC(MyActivitySource));
-    app.MapGet("/GetTimestampAEC", () => API_AEC.GetTimestampAEC());
+    //app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();
+    //app.MapPut("/UpdateAmmoRatingsInAEC", () => API_AEC.UpdateRatingsAEC(MyActivitySource));
+    //app.MapGet("/GetTimestampAEC", () => API_AEC.GetTimestampAEC());
 
-    app.MapGet("/GetArmorVsAmmo/{armorId}", (string armorId) => API_AEC.GetArmorVsArmmo(MyActivitySource, armorId));
-    app.MapGet("/GetAmmoVsArmor/{ammoId}", (string ammoId) => API_AEC.GetAmmoVsArmor(MyActivitySource, ammoId));
+    //app.MapGet("/GetArmorVsAmmo/{armorId}", (string armorId) => API_AEC.GetArmorVsArmmo(MyActivitySource, armorId));
+    //app.MapGet("/GetAmmoVsArmor/{ammoId}", (string ammoId) => API_AEC.GetAmmoVsArmor(MyActivitySource, ammoId));
 
     //! ******* Gunsmith *******
     app.MapPost("/getSingleWeaponBuild",
@@ -210,9 +210,9 @@ async Task startAPIAsync()
             await context.Response.WriteAsync(JsonSerializer.Serialize(result));
         });
 
-    app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{flea}",
-        (string presetID, string mode, string muzzleMode, bool flea) 
-        => API_Gunsmith.GetWeaponStatsCurve(MyActivitySource, presetID, mode, muzzleMode, flea));
+    //app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{flea}",
+    //    (string presetID, string mode, string muzzleMode, bool flea) 
+    //    => API_Gunsmith.GetWeaponStatsCurve(MyActivitySource, presetID, mode, muzzleMode, flea));
 
     app.Run();
     await host.RunAsync();
