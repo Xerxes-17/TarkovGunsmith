@@ -993,6 +993,34 @@ namespace WishGranterTests
     public class RatsStashTests
     {
         [TestMethod]
+        public void Test_GetSomething()
+        {
+            var result = StaticRatStash.DB.GetItems()
+                .Where(x => x is ArmoredEquipment)
+                .Where(x => x is not BuiltInInserts)
+                .Where(x => x is not ArmorPlate)
+                .Cast<ArmoredEquipment>()
+                .Where(x=>x.ArmorClass > 0 && x.ArmorClass < 7)
+                .ToList();
+
+            var faceCovers = result.Where(x => x is FaceCover).ToList();
+            var glasses = result.Where(x => x is VisObservDevice).ToList();
+            var headwear = result.Where(x => x is Headwear).ToList();
+            var armoredEquipment = result.Where(x => x is ArmoredEquipment).ToList();
+
+            var test = faceCovers[0].GetType().ToString();
+
+            var ArmoredChestRigs = StaticRatStash.DB.GetItems().Where(x => x is ChestRig).Cast<ChestRig>().ToList();
+            var plates = StaticRatStash.DB.GetItems().Where(x => x is ArmorPlate).ToList();
+            Console.WriteLine(result.Count);
+            foreach(var item in result)
+            {
+                Console.WriteLine(item.Name);
+            }
+
+        }
+
+        [TestMethod]
         public void Test_SomeMath()
         {
             var result = StaticRatStash.DB.GetItems().Where(x => x is ArmoredEquipment).Cast<ArmoredEquipment>().ToList();

@@ -7,9 +7,8 @@ import {
 } from 'mantine-react-table';
 import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { NewArmorTableRow } from '../../../../Types/HelmetTypes';
 import { MATERIALS, convertEnumValToArmorString } from '../../../ADC/ArmorData';
-import { joinArmorCollidersAsZones } from '../../../../Types/ArmorTypes';
+import { NewArmorTableRow, joinArmorCollidersAsZones } from '../../../../Types/ArmorTypes';
 import { getHelmetsDataFromApi_WishGranter } from '../../../../Api/ArmorApiCalls';
 import { ArmorTypeWithToolTip } from '../../TextWithToolTips/ArmorTypeWithToolTip';
 import { BluntThroughputWithToolTip } from '../../TextWithToolTips/BluntThroughputWithToolTip';

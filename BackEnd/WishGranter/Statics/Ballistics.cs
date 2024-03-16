@@ -784,7 +784,11 @@ namespace WishGranter.Statics
 
             double result = 0;
 
-            if (factor_a <= bulletPen)
+            if(armorDurabilityPerc == 0)
+            {
+                result = 1;
+            }
+            else if (factor_a <= bulletPen)
             {
                 result = (100 + (bulletPen / (.9 * factor_a - bulletPen))) / 100;
             }
@@ -1052,6 +1056,17 @@ namespace WishGranter.Statics
                 List<LayerSummaryResult> summaryResults = new();
                 for (int i = 0; i < layeredResults.Count; i++)
                 {
+                    var likelyChangeInDura = 0f;
+                    if (i == 0)
+                    {
+                        likelyChangeInDura = (layersMemory[i].durability - layeredResults[i].PostHitArmorDurability);
+                    }
+                    else
+                    {
+                        var duraDiff = (layersMemory[i].durability - layeredResults[i].PostHitArmorDurability);
+                        var prPenPreviousLayer = layeredResults[i - 1].PenetrationChance;
+                        likelyChangeInDura = duraDiff * prPenPreviousLayer;
+                    }
                     LayerSummaryResult layerSummaryResult = new LayerSummaryResult
                     {
                         isPlate = layersMemory[i].isPlate,
@@ -1061,7 +1076,7 @@ namespace WishGranter.Statics
                         damageBlock = layeredResults[i].BluntDamage,
                         damagePen = layeredResults[i].PenetrationDamage,
                         damageMitigated = layeredResults[i].MitigatedDamage,
-                        averageRemainingDP = layeredResults[i].PostHitArmorDurability
+                        averageRemainingDP = layersMemory[i].durability - likelyChangeInDura
                     };
                     summaryResults.Add(layerSummaryResult);
                 }
@@ -1073,7 +1088,17 @@ namespace WishGranter.Statics
                 // ! 4- Update the layers memory
                 for (int i = 0;i < layersMemory.Count(); i++)
                 {
-                    layersMemory[i].durability = layeredResults[i].PostHitArmorDurability;
+                    if (i == 0)
+                    {
+                        layersMemory[i].durability = layeredResults[i].PostHitArmorDurability;
+                    }
+                    else
+                    {
+                        var foo = (layersMemory[i].durability - layeredResults[i].PostHitArmorDurability);
+                        var bar = layeredResults[i - 1].PenetrationChance;
+                        var foobar = foo * bar;
+                        layersMemory[i].durability = layersMemory[i].durability - foobar;
+                    }
                 }
 
                 finished = iterationResult.cumulativeChanceOfKill > 99.99f || iteration > iterationLimit;

@@ -20,11 +20,29 @@ namespace WishGranter.Statics
         [Required]
         public string Name { get; set; } = "";
 
+
+        [Required]
+        public float Weight { get; set; }
+        [Required]
+        public int ErgonomicPenalty { get; set; }
+        [Required]
+        public float MoveSpeedPenalty { get; set; }
+        [Required]
+        public float TurnSpeedPenalty { get; set; }
+
+        [Required]
+        public bool IsLocked { get; set; }
+        [Required]
+        public bool IsDefault { get; set; }
+        [Required]
+        public bool IsIncluded { get; set; }
+
         [Required]
         public int ArmorClass { get; set; }
         [Required]
         public float BluntThroughput { get; set; }
-
+        [Required]
+        public float Durability { get; set; }
         [Required]
         public int MaxDurability { get; set; }
         [Required]
@@ -32,7 +50,12 @@ namespace WishGranter.Statics
         [Required]
         public ArmorMaterial ArmorMaterial { get; set; }
         [Required]
-        public float Weight { get; set; }
+        public RicochetParams RicochetParams { get; set; } = new();
+
+        [Required]
+        public List<ArmorCollider> ArmorColliders { get; set; } = new();
+        [Required]
+        public List<ArmorPlateCollider> ArmorPlateColliders { get; set; } = new();
 
         [Required]
         public List<string> UsedInNames { get; set;} = new();
@@ -40,15 +63,37 @@ namespace WishGranter.Statics
         [Required]
         public List<string> CompatibleWith { get; set; } = new();
 
-        [Required]
-        public RicochetParams RicochetParams { get; set; } = new();
-
-        [Required]
-        public List<ArmorPlateCollider> ArmorPlateColliders { get; set; } = new();
-
-        [Required]
-        public List<ArmorCollider> ArmorColliders { get; set; } = new();
         
+        [Required]
+        public List<ArmorModule> SubModules { get; set; } = new();
+
+
+        public static ArmorModule TransformArmoredEquipmentToArmorModule(ArmoredEquipment input, string category)
+        {
+            ArmorModule armorModule = new();
+            armorModule.Id = input.Id;
+            armorModule.Category = category;
+            armorModule.ArmorType = input.ArmorType;
+            armorModule.Name = input.Name;
+
+            armorModule.Weight = input.Weight;
+            armorModule.ErgonomicPenalty = input.WeaponErgonomicPenalty;
+            armorModule.MoveSpeedPenalty = input.SpeedPenaltyPercent;
+            armorModule.TurnSpeedPenalty = input.MousePenalty;
+
+            armorModule.ArmorClass = input.ArmorClass;
+            armorModule.BluntThroughput = input.BluntThroughput;
+            armorModule.Durability = input.Durability;
+            armorModule.MaxDurability = input.MaxDurability;
+            armorModule.MaxEffectiveDurability = Ballistics.GetEffectiveDurability(input.MaxDurability, input.ArmorMaterial);
+            armorModule.ArmorMaterial = input.ArmorMaterial;
+            armorModule.RicochetParams = input.RicochetParams;
+
+            armorModule.ArmorPlateColliders = input.ArmorPlateColliders;
+            armorModule.ArmorColliders = input.ArmorColliders;
+
+            return armorModule;
+        }
 
         public static Dictionary<string, List<string>> GetItemsPlatesAreCompatibleWith()
         {
@@ -99,7 +144,6 @@ namespace WishGranter.Statics
 
             return platesToAllowed;
         }
-
         public static List<(string armorId, string plateId)> GetDefaultUsedByPairs()
         {
             List<( string armorId, string plateId)> usedBy = new();
@@ -168,10 +212,18 @@ namespace WishGranter.Statics
             var PlateToArmorMap = CreatePlateToArmorMap(IdPairs);
             var platesCompatibleDict = GetItemsPlatesAreCompatibleWith();
 
-            List<ArmorModule> armorPlateOrInserts = new List<ArmorModule>();
+            List<ArmorModule> armorModules = new List<ArmorModule>();
 
             var armorPlates = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(ArmorPlate)).Cast<ArmorPlate>().ToList();
             var builtInInserts = StaticRatStash.DB.GetItems(x => x is BuiltInInserts).Cast<BuiltInInserts>().ToList();
+            //var builtInInserts = StaticRatStash.DB.GetItems(x => x is ArmoredEquipment).Cast<BuiltInInserts>().ToList();
+            var others = StaticRatStash.DB.GetItems()
+                .Where(x => x is ArmoredEquipment)
+                .Where(x => x is not BuiltInInserts)
+                .Where(x => x is not ArmorPlate)
+                .Cast<ArmoredEquipment>()
+                .Where(x => x.ArmorClass > 0 && x.ArmorClass < 7)
+                .ToList();
 
             armorPlates = armorPlates.Where(plate => plate.ArmorPlateColliders.Count > 0  && !plate.Name.Equals("")).ToList();
             builtInInserts = builtInInserts.Where(insert => insert.BluntThroughput > 0 && !insert.Name.Equals("")).ToList();
@@ -207,7 +259,7 @@ namespace WishGranter.Statics
                 item.ArmorPlateColliders = plate.ArmorPlateColliders;
                 item.ArmorColliders = plate.ArmorColliders;
 
-                armorPlateOrInserts.Add(item);
+                armorModules.Add(item);
             }
 
             foreach (var insert in builtInInserts)
@@ -241,10 +293,27 @@ namespace WishGranter.Statics
                 item.ArmorColliders = insert.ArmorColliders;
 
                 if (item.CompatibleWith != null && item.CompatibleWith.Count() > 0)
-                    armorPlateOrInserts.Add(item);
+                    armorModules.Add(item);
             }
 
-            return armorPlateOrInserts;
+            foreach (var item in others)
+            {
+                var itemCategory = item.GetType().ToString();
+                var category = "";
+                if (itemCategory.Equals("RatStash.FaceCover"))
+                    category = "FaceCover";
+                else if (itemCategory.Equals("RatStash.Headwear"))
+                    category = "Headwear";
+                else if (itemCategory.Equals("RatStash.VisObservDevice"))
+                    category = "Glasses";
+                else
+                    category = "ArmoredEquipment";
+
+                ArmorModule module = TransformArmoredEquipmentToArmorModule(item, category);
+                armorModules.Add(module);
+            }
+
+            return armorModules;
         }
 
         //public static ArmorItemStats GetArmorItemStatsByID(string Id)

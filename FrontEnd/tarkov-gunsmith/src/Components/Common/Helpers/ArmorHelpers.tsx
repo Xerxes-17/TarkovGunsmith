@@ -1,5 +1,4 @@
-import { ArmorModule } from "../../../Types/ArmorTypes";
-import { NewArmorTableRow } from "../../../Types/HelmetTypes";
+import { ArmorModule, NewArmorTableRow } from "../../../Types/ArmorTypes";
 import { ArmorPlateCollider, ArmorPlateZones, ArmorCollider, ArmorZones } from "../../ADC/ArmorData";
 
 export function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {

@@ -119,13 +119,7 @@ export function ArmorModulesMRT() {
     const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
 
         () => [
-            {
-                accessorFn: (row) => ArmorType[row.armorType],
-                id: 'armorType',
-                header: 'Type',
-                Header: ArmorTypeWithToolTip(),
-                ...tgMultiSelectColOptions
-            },
+
             {
                 accessorKey: 'category',
                 header: 'Category',
@@ -157,6 +151,13 @@ export function ArmorModulesMRT() {
                     </Box>
                 ),
                 ...tgNameColOptions
+            },
+            {
+                accessorFn: (row) => ArmorType[row.armorType],
+                id: 'armorType',
+                header: 'Type',
+                Header: ArmorTypeWithToolTip(),
+                ...tgMultiSelectColOptions
             },
             {
                 accessorKey: 'armorClass',

@@ -40,7 +40,7 @@ namespace WishGranter.Statics
             };
 
             //! We only care if the chance is more than 1 in a thousand
-            if (penetrateAllLayers.probability > .001)
+            if (penetrateAllLayers.probability > .000001)
             {
                 outcomes.Add(penetrateAllLayers);
             }

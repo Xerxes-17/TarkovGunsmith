@@ -95,7 +95,7 @@ export function BasicMultiShotResultsTable({ result }: MultiShotMultiLayerResult
             accessorKey: "averageRemainingHP",
             header: 'Average HP',
             Cell: ({ cell }) => {
-                return <div>{(cell.getValue<number>()).toFixed(0)} / {simParameters.initialHitPoints}</div>;
+                return <div>{(cell.getValue<number>()).toFixed(1)} / {simParameters.initialHitPoints}</div>;
             },
             mantineTableBodyCellProps: {
                 align: 'center',

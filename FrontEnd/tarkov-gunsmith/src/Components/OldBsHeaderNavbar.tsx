@@ -93,7 +93,7 @@ export function OldBsHeaderNavbar() {
 
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_ARMOR_MODULES}>
-                                        <Nav.Link>Armor Modules (Plates/Inserts)</Nav.Link>
+                                        <Nav.Link>Armor Modules</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
                             </NavDropdown>
