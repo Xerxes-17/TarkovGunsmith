@@ -8,7 +8,6 @@ import {
 } from 'mantine-react-table';
 import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { NewArmorTableRow } from '../../../../Types/HelmetTypes';
 import { convertEnumValToArmorString } from '../../../ADC/ArmorData';
 import { getArmorStatsDataFromApi_WishGranter } from '../../../../Api/ArmorApiCalls';
 import { ArmorZonesTableCell } from '../../ArmorZonesTableCell';
@@ -27,6 +26,7 @@ import { DirectPercentageCell } from '../TableCells/DirectPercentageCell';
 import { NameAndAvatarCell } from '../TableCells/NameAndAvatarCell';
 import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../use-tg-table';
 import { SEO } from '../../../../Util/SEO';
+import { NewArmorTableRow } from '../../../../Types/ArmorTypes';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];
@@ -137,10 +137,12 @@ export function ArmorMRT() {
                     id: "durability",
                     accessorKey: "durability",
                     header: "Durability",
-                    AggregatedCell: ({ cell }) => {
+                    AggregatedCell: ({ cell, row }) => {
+                        //todo extend on this and use it for getting stats for armor and helmets
+                        const aggValue = row.subRows?.reduce((acc, subRow) => acc + (subRow.original.isDefault ? subRow.original.durability : 0), 0) ?? cell.getValue<number>().toFixed(0);
                         return (
                             <div>
-                                <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                                <strong>{aggValue}</strong>
                             </div>
                         )
                     },
@@ -152,10 +154,12 @@ export function ArmorMRT() {
                     accessorKey: "effectiveDurability",
                     header: "Effective Durability",
                     size: 80,
-                    AggregatedCell: ({ cell }) => {
+                    AggregatedCell: ({ cell, row }) => {
+                        //todo extend on this and use it for getting stats for armor and helmets
+                        const aggValue = row.subRows?.reduce((acc, subRow) => acc + (subRow.original.isDefault ? subRow.original.effectiveDurability : 0), 0) ?? cell.getValue<number>().toFixed(0);
                         return (
                             <div>
-                                <strong>{cell.getValue<number>().toFixed(0)}</strong>
+                                <strong>{aggValue}</strong>
                             </div>
                         )
                     },

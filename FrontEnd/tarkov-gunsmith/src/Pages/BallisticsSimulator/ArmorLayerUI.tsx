@@ -91,7 +91,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                             </Group>)} />
                         {matched ? (
                             <>
-                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.category === "Plate" ? matched.name : matched.usedInNames}</Text>
+                                <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.category !== "Insert" ? matched.name : matched.usedInNames}</Text>
                                 <Text maw={180} style={{ whiteSpace: "break-spaces" }}>{matched.hitZones.join(", ")}</Text>
                             </>
                         ) : (
@@ -127,7 +127,7 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
                                 {matched ? (
                                     <>
                                         {/* <Text maw={textMAW} style={{ whiteSpace: "break-spaces" }}>{matched.usedInNames}</Text> */}
-                                        <Text style={{ whiteSpace: "break-spaces" }}>{!matched.name.includes("ballistic plate") ? <>{matched.usedInNames} - {matched.hitZones}</> : matched.name }</Text>
+                                        <Text style={{ whiteSpace: "break-spaces" }}>{matched.category === "Insert" ? <>{matched.usedInNames} - {matched.hitZones}</> : matched.name }</Text>
                                     </>
                                 ) : (
                                     <Text>Custom/No match</Text>

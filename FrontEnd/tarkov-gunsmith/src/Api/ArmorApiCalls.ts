@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { NewArmorTableRow } from "../Types/HelmetTypes";
 import { ApiResponse } from "../Types/AmmoTypes";
+import { NewArmorTableRow } from "../Types/ArmorTypes";
 
 export async function getHelmetsDataFromApi_WishGranter(): Promise<
   NewArmorTableRow[] | null
