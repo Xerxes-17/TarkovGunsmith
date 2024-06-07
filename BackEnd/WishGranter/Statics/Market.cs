@@ -25,7 +25,8 @@ namespace WishGranter.Statics
                 "Mechanic",
                 "Jaeger",
                 "Ragman",
-                "Therapist"
+                "Therapist",
+                "Ref"
             };
             return TraderNames;
         }
@@ -39,7 +40,8 @@ namespace WishGranter.Statics
                 { "Mechanic", new[] { 1, 20, 30, 40 } },
                 { "Jaeger", new[] { 1, 15, 22, 33 } },
                 { "Ragman", new[] { 1, 17, 32, 42 } },
-                { "Therapist", new[] { 1, 13, 24, 35 } }
+                { "Therapist", new[] { 1, 13, 24, 35 } },
+                { "Ref", new[] { 1, 15, 25, 35 } }
             };
 
             return LoyaltyLevelsByPlayerLevel;

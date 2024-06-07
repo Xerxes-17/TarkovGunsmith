@@ -159,7 +159,7 @@
     "PenetrationPower": 42,
     "ArmorDamagePerc": 60,
     "BaseArmorDamage": 25.200000762939453,
-    "TraderLevel": 5,
+    "TraderLevel": 6,
     "Value": "5f0596629e22f464da6bbdd9",
     "Label": ".366 TKM AP-M",
     "ImageLink": "https://assets.tarkov.dev/5f0596629e22f464da6bbdd9-icon.webp"
@@ -561,6 +561,17 @@
     "ImageLink": "https://assets.tarkov.dev/5d6e6a05a4b93618084f58d0-icon.webp"
   },
   {
+    "Caliber": "Caliber20x1mm",
+    "Damage": 1,
+    "PenetrationPower": 0,
+    "ArmorDamagePerc": 0,
+    "BaseArmorDamage": 0.0,
+    "TraderLevel": 1,
+    "Value": "6601546f86889319850bd566",
+    "Label": "20x1mm disk",
+    "ImageLink": "https://assets.tarkov.dev/6601546f86889319850bd566-icon.webp"
+  },
+  {
     "Caliber": "Caliber23x75",
     "Damage": 192,
     "PenetrationPower": 39,
@@ -665,7 +676,7 @@
     "PenetrationPower": 45,
     "ArmorDamagePerc": 46,
     "BaseArmorDamage": 20.700000762939453,
-    "TraderLevel": 5,
+    "TraderLevel": 6,
     "Value": "56dfef82d2720bbd668b4567",
     "Label": "5.45x39mm BP gs",
     "ImageLink": "https://assets.tarkov.dev/56dfef82d2720bbd668b4567-icon.webp"
@@ -1567,7 +1578,7 @@
     "PenetrationPower": 39,
     "ArmorDamagePerc": 55,
     "BaseArmorDamage": 21.450000762939453,
-    "TraderLevel": 6,
+    "TraderLevel": 4,
     "Value": "5efb0da7a29a85116f6ea05f",
     "Label": "9x19mm PBP gzh",
     "ImageLink": "https://assets.tarkov.dev/5efb0da7a29a85116f6ea05f-icon.webp"
