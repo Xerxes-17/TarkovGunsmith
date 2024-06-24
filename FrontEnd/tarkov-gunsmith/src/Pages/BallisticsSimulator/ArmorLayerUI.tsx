@@ -71,13 +71,19 @@ export function ArmorLayerUI({ index }: ArmorLayerUiProps) {
         getArmorData();
     }, [])
 
-    const matched = armorData.find(x =>
+    // Get all the items which match a given set of qualities
+    // if we have an ID set, see if that ID is in filtered
+    // if no, just choose from index 0, if yes then use that name
+    const isIdSet = form.values.armorLayers[index].id !== ''
+    const filtered = armorData.filter(x => 
         x.armorClass === form.values.armorLayers[index].armorClass &&
         x.bluntThroughput === form.values.armorLayers[index].bluntDamageThroughput / 100 &&
         x.maxDurability === form.values.armorLayers[index].maxDurability &&
         x.armorMaterial === form.values.armorLayers[index].armorMaterial &&
         (x.category === "Plate" ? form.values.armorLayers[index].isPlate === true : form.values.armorLayers[index].isPlate === false)
     )
+
+    const matched = isIdSet ? filtered.find(y => y.id === form.values.armorLayers[index].id) : filtered[0]
 
     return (
         <>

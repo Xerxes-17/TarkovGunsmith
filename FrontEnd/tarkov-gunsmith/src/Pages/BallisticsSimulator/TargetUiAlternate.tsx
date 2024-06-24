@@ -9,6 +9,7 @@ export interface TargetUIProps {
 export type TargetZone =  'Head' | 'Thorax' | 'Stomach' | 'Arm';
 
 const defaultHead:FormArmorLayer = {
+    id: "",
     isPlate: false,
     armorClass: 3,
     durability: 18,
@@ -18,6 +19,7 @@ const defaultHead:FormArmorLayer = {
 }
 
 const defaultThoraxStomach:FormArmorLayer = {
+    id: "",
     isPlate: false,
     armorClass: 4,
     durability: 44,
@@ -26,6 +28,7 @@ const defaultThoraxStomach:FormArmorLayer = {
     bluntDamageThroughput: 28,
 }
 const defaultArm:FormArmorLayer = {
+    id: "",
     isPlate: false,
     armorClass: 3,
     durability: 30,
