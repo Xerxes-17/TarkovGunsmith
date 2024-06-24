@@ -66,7 +66,6 @@ export function BasicMultiShotResultsTable({ result }: MultiShotMultiLayerResult
         return columnDef
     })
 
-    console.log("foo", foo)
 
     const standardCols: MRT_ColumnDef<BallisticSimHitSummary>[] = [
         {
@@ -120,7 +119,7 @@ export function BasicMultiShotResultsTable({ result }: MultiShotMultiLayerResult
         },
     ]
     const combined = standardCols.concat(foo);
-    console.log("combined", combined)
+
 
     function extractIds(columnDef: MRT_ColumnDef<BallisticSimHitSummary>): string[] {
         const ids: (string | undefined)[] = [columnDef.id];
@@ -137,7 +136,7 @@ export function BasicMultiShotResultsTable({ result }: MultiShotMultiLayerResult
         .map(extractIds)
         .flat();
 
-    console.log(combinedColsIds3);
+    // console.log(combinedColsIds3);
 
 
     const columns = useMemo<MRT_ColumnDef<BallisticSimHitSummary>[]>(
