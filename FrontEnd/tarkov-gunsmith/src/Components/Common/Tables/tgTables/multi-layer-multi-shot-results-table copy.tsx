@@ -50,6 +50,7 @@ const demoRow: MultiShotMultiLayerTableRow = {
         maxLayers: 2,
         armorLayers: [
             {
+                id: "",
                 isPlate: true,
                 armorClass: 4,
                 bluntDamageThroughput: 20,
@@ -58,6 +59,7 @@ const demoRow: MultiShotMultiLayerTableRow = {
                 armorMaterial: "Steel"
             },
             {
+                id: "",
                 isPlate: false,
                 armorClass: 2,
                 bluntDamageThroughput: 30,

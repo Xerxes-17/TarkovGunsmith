@@ -20,11 +20,6 @@ export function BallisticsSimulator() {
     const { height, } = useViewportSize();
 
     const [countOfLayers, setCountOfLayers] = useState<number>(1);
-    console.log(countOfLayers)
-
-
-
-    // console.log(mobileView)
 
     function addNewTab() {
         const newTabTitle = `Sim${tabTitles.length + 1}`

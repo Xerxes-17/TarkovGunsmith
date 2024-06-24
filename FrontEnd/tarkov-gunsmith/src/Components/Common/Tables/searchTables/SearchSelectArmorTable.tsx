@@ -75,6 +75,7 @@ export function SearchSelectArmorTable({ CloseDrawerCb, layerIndex }: SearchSele
     };
 
     function handleRowSelect(rowOriginal: ArmorModuleTableRow) {
+        form.setFieldValue(`armorLayers.${layerIndex}.id`, rowOriginal.id);
         form.setFieldValue(`armorLayers.${layerIndex}.isPlate`, rowOriginal.category === "Plate" ? true : false);
         form.setFieldValue(`armorLayers.${layerIndex}.armorClass`, rowOriginal.armorClass);
         form.setFieldValue(`armorLayers.${layerIndex}.bluntDamageThroughput`, rowOriginal.bluntThroughput * 100);

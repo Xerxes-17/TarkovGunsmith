@@ -3,6 +3,7 @@ import { createFormContext } from '@mantine/form';
 import { TargetZone } from './TargetUiAlternate';
 
 export interface FormArmorLayer{
+  id: string;
   isPlate: boolean;
   armorClass: number;
   bluntDamageThroughput: number;

@@ -35,6 +35,7 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
             maxLayers: 2,
 
             armorLayers: [{
+                id:"",
                 isPlate: false,
                 armorClass: 4,
                 durability: 44,
@@ -47,7 +48,7 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
 
     const [result, setResult] = useState<BallisticSimResponse[]>([]);
     const [result2, setResult2] = useState<BallisticSimResultV2>();
-    console.log(result2)
+
     const [hasResult, setHasResult] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
