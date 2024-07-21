@@ -128,7 +128,7 @@ async Task startAPIAsync()
 
     //! ******* Basics *******
     app.MapHealthChecks("/health");
-    app.MapGet("/", () => "Hello World! I use Swagger btw.");
+    app.MapGet("/", () => "Hello World! I use Swagger btw, suck it arch.");
 
     app.MapGet("/GetArmorOptionsList", () => API_Basics.GetArmorOptionsList(MyActivitySource));
     app.MapGet("/GetAmmoOptionsList", () => API_Basics.GetAmmoOptionsList(MyActivitySource));
