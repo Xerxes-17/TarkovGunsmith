@@ -144,3 +144,4 @@ BackEnd/WishGranter/.platform/nginx/nginx.conf.bak
 .vscode/settings.json
 /BackEnd/WishGranter/Migrations/MonolitMigrations
 BackEnd/WishGranter/monolit.db-wal
+nuget.config

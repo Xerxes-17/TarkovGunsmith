@@ -17,6 +17,9 @@ namespace WishGranter.Statics
         public DbSet<BallisticTest> BallisticTests { get; set; }
         public DbSet<BallisticDetails> BallisticDetails { get; set; }
         public DbSet<BallisticRating> BallisticRatings { get; set; }
+
+        public DbSet<BallisticTableRow> BallisticTableRows { get; set; }
+
         public DbSet<ArmorItemStats> ArmorItems { get; set; }
         public DbSet<Ammo_SQL> Ammos { get; set; }
 
@@ -55,6 +58,7 @@ namespace WishGranter.Statics
             modelBuilder.ApplyConfiguration(new BallisticTestEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BallisticDetailsEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BallisticRatingEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BallisticTableRowEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new WeaponEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BasePresetEntityTypeConfiguration());
@@ -79,6 +83,9 @@ namespace WishGranter.Statics
 
             // Make BallisticRatings
             BallisticRating.Generate_Save_All_BallisticRatings();
+
+            // Make BallisticRatings
+            BallisticTableRow.Generate_Save_All_BallisticTableRows();
 
             CreateGunsmithDBStuff();
 
