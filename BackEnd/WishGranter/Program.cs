@@ -40,6 +40,8 @@ var jsonOptions = new JsonSerializerOptions
 string jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
 
 
+
+
 //! All the builder stuff
 var builder = WebApplication.CreateBuilder(args);
 
