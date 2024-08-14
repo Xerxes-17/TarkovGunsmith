@@ -27,7 +27,7 @@
     <PackageReference Include="RatStash" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	  <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.1" />
-	  <PackageReference Include="Xerxes17.EFT.PBE" Version="0.0.2" />
+	  <PackageReference Include="Xerxes17.EFT.PBE" Version="0.0.4" />
   </ItemGroup>
 	
   <ItemGroup>
