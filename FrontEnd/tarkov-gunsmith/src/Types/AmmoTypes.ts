@@ -37,6 +37,7 @@ export const unwantedAmmos: string[] = [
   "Caliber40mmRU",
   "Caliber26x75",
   "Caliber40x46",
+  "Caliber20x1mm"
 ];
 
 export function mapAmmoCaliberFullNameToLabel(caliberKey: string): string {

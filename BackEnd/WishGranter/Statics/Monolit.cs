@@ -58,7 +58,9 @@ namespace WishGranter.Statics
             modelBuilder.ApplyConfiguration(new BallisticTestEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BallisticDetailsEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BallisticRatingEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new BallisticTableRowEntityTypeConfiguration());
+
+            //! Should not be used yet
+            //modelBuilder.ApplyConfiguration(new BallisticTableRowEntityTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new WeaponEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BasePresetEntityTypeConfiguration());
@@ -84,8 +86,9 @@ namespace WishGranter.Statics
             // Make BallisticRatings
             BallisticRating.Generate_Save_All_BallisticRatings();
 
-            // Make BallisticRatings
-            BallisticTableRow.Generate_Save_All_BallisticTableRows();
+            // Make BallisticCalculations
+            //! Should not be used yet
+            //BallisticTableRow.Generate_Save_All_BallisticTableRows();
 
             CreateGunsmithDBStuff();
 
