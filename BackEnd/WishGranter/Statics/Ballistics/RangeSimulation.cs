@@ -1,7 +1,12 @@
-﻿using RatStash;
+﻿using static Private_Ballistic_Engine.BallisticSimulation;
+using RatStash;
+using Vector3 = System.Numerics.Vector3;
+
+
 
 namespace WishGranter.Statics
 {
+
     public class RangeSimulation
     {
         // Maximum simulation iterations (*SHOULD* be enough for every round in the game)
@@ -104,6 +109,80 @@ namespace WishGranter.Statics
         };
 
 
+        (float out1, float out2, Vector3 out3 ) soemthing = Run(100f, 20f, 7f, .42f, 700);
+
+        public static List<BallisticTableRow> CalculateBallisticTableRows(Ammo ammo) 
+        {
+            // Select intervals based on ammo
+            int[] intervals = GetIntervalsFromAmmoCaliber(ammo);
+
+            // Results storage
+            List<BallisticTableRow> outputList = new();
+
+            // Perform calculations based on the bullet properties
+            float BW1 = ammo.BulletMass * 2f;
+            float BDW1 = ammo.BulletMass * 0.0014223f / (ammo.BulletDiameterMillimeters * ammo.BulletDiameterMillimeters * ammo.BallisticCoeficient);
+            float BDW2 = ammo.BulletDiameterMillimeters * ammo.BulletDiameterMillimeters * 3.1415927f / 4f;
+            float BDW3 = 1.2f * BDW2;
+
+            // Working vars
+            float lastDist = 0;
+            float lastVel = ammo.InitialSpeed;
+
+            int intervalsIndex = 0;
+
+            for (int i = 1; i < _maxIterations; i++)
+            {
+                // Calc drag
+                float dragCoef = CalculateDragCoefficient(lastVel) * BDW1;
+
+                // Create offset
+                float offset = BDW3 * -dragCoef * lastVel * lastVel / BW1;
+
+                // Set current distance
+                float currDist = lastDist + lastVel * _simTimeStep + 5e-05f * offset;
+                float currVel = lastVel + offset * _simTimeStep;
+                float currentTimeMS = (i * _simTimeStep) / 10; // to get time in MS
+
+                // Is it the first point the bullet goes over an inverval value?
+                if (currDist >= intervals[intervalsIndex])
+                {
+                    var damageAndPen = GetDamageAndPenetrationAtSpeed(currVel, ammo.InitialSpeed, ammo.Damage, ammo.PenetrationPower);
+
+                    BallisticTableRow intervalDetails = new BallisticTableRow
+                    {
+                        AmmoId = ammo.Id,
+                        Ammo = ammo,
+                        Distance = intervals[intervalsIndex],
+                        Damage = damageAndPen.finalDamage,
+                        Penetration = damageAndPen.finalPenetration,
+                        Speed = currVel,
+                        TimeOfFlightMS = (int) currentTimeMS,
+                        DropMM = -1, //todo 
+                    };
+
+                    outputList.Add(intervalDetails);
+
+                    intervalsIndex++;
+                    lastDist = currDist;
+                    lastVel = currVel;
+                }
+                // If not, update and continue.
+                else
+                {
+                    lastDist = currDist;
+                    lastVel = currVel;
+                }
+                // If we exhaust our desired intervals, break loop
+                if (intervalsIndex == intervals.Length)
+                {
+                    i = _maxIterations + 1;
+                }
+            }
+
+            return outputList;
+        }
+        
         public static List<BallisticDetails> CalculateBallisticDetailsAtIntervals(Ammo ammo)
         {
             // Select intervals based on ammo

@@ -1,6 +1,8 @@
-﻿using RatStash;
+﻿using Private_Ballistic_Engine;
+using RatStash;
 using System.Diagnostics;
 using WishGranter.Statics;
+using static WishGranter.Statics.BallisticComputah;
 
 namespace WishGranter.API_Methods
 {
@@ -111,6 +113,15 @@ namespace WishGranter.API_Methods
 
     public class API_BallisticSimulator
     {
+        public static List<SimulationToCalibrationDistancePair> BallisticCalculation(ActivitySource myActivitySource, BallisticComputahInput input)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request for BallisticCalculation");
+            myActivity?.SetTag("ammoId", input.defaultAmmoInput.AmmoId);
+            myActivity?.SetTag("penetration", input.defaultAmmoInput.Penetration);
+            myActivity?.SetTag("damage", input.defaultAmmoInput.Damage);
+            return CreateDropTable(input);
+        }
+
         public static List<BallisticSimResult> SingleShotSimulation(ActivitySource myActivitySource, BallisticSimParameters simParams)
         {
             using var myActivity = myActivitySource.StartActivity("Request for BallisticSim-SingleShot");

@@ -1006,7 +1006,7 @@
     "PenetrationPower": 36,
     "ArmorDamagePerc": 49,
     "BaseArmorDamage": 17.639999389648438,
-    "TraderLevel": 3,
+    "TraderLevel": 5,
     "Value": "6529302b8c26af6326029fb7",
     "Label": "6.8x51mm SIG FMJ",
     "ImageLink": "https://assets.tarkov.dev/6529302b8c26af6326029fb7-icon.webp"
@@ -1699,7 +1699,7 @@
     "PenetrationPower": 54,
     "ArmorDamagePerc": 69,
     "BaseArmorDamage": 37.2599983215332,
-    "TraderLevel": 4,
+    "TraderLevel": 6,
     "Value": "5c0d688c86f77413ae3407b2",
     "Label": "9x39mm BP gs",
     "ImageLink": "https://assets.tarkov.dev/5c0d688c86f77413ae3407b2-icon.webp"

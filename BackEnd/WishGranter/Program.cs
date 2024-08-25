@@ -12,6 +12,8 @@ using OpenTelemetry;
 using WishGranter.AmmoEffectivenessChart;
 using WishGranter.Statics;
 using WishGranter.API_Methods;
+using Private_Ballistic_Engine;
+using static WishGranter.Statics.BallisticComputah;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -32,12 +34,12 @@ logger.LogInformation("Wishgranter-API is starting.");
 using var db = new Monolit();
 Console.WriteLine($"Database path: {db.DbPath}.");
 
-AEC AmmoEffectivenessChart = new AEC();
-var jsonOptions = new JsonSerializerOptions
-{
-    WriteIndented = true
-};
-string jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
+//AEC AmmoEffectivenessChart = new AEC();
+//var jsonOptions = new JsonSerializerOptions
+//{
+//    WriteIndented = true
+//};
+//string jsonAmmoEffectivenessChart = System.Text.Json.JsonSerializer.Serialize(AmmoEffectivenessChart, jsonOptions);
 
 
 
@@ -132,8 +134,8 @@ async Task startAPIAsync()
     app.MapHealthChecks("/health");
     app.MapGet("/", () => "Hello World! I use Swagger btw, suck it arch.");
 
-    app.MapGet("/GetArmorOptionsList", () => API_Basics.GetArmorOptionsList(MyActivitySource));
-    app.MapGet("/GetAmmoOptionsList", () => API_Basics.GetAmmoOptionsList(MyActivitySource));
+    //app.MapGet("/GetArmorOptionsList", () => API_Basics.GetArmorOptionsList(MyActivitySource));
+    //app.MapGet("/GetAmmoOptionsList", () => API_Basics.GetAmmoOptionsList(MyActivitySource));
     app.MapGet("/GetWeaponOptionsList", () => API_Basics.GetWeaponOptionsList(MyActivitySource));
 
     app.MapGet("/GetWeaponDataSheetData", () => API_Basics.GetWeaponsDataSheet(MyActivitySource));
@@ -143,6 +145,8 @@ async Task startAPIAsync()
     app.MapGet("/GetArmorDataSheetData", () => API_Basics.GetArmorDataSheet(MyActivitySource));
     app.MapGet("/GetHelmetsDataSheetData", () => API_Basics.GetHelmetsDataSheet(MyActivitySource));
     app.MapGet("/GetGetNewArmorStatSheetData", () => API_Basics.GetNewArmorStatSheet(MyActivitySource));
+
+    app.MapGet("/GetDopeTableOptions", () => API_Basics.GetDopeTableOptions(MyActivitySource));
 
 
 
@@ -182,6 +186,20 @@ async Task startAPIAsync()
 
         await context.Response.WriteAsync(JsonSerializer.Serialize(result));
     });
+
+    //! ******* Ballistic Calculator *******
+    app.MapPost("/GetBallisticCalculation",
+        async context =>
+        {
+            using var reader = new StreamReader(context.Request.Body);
+            var json = await reader.ReadToEndAsync();
+            var requestData = JsonSerializer.Deserialize<BallisticComputahInput>(json);
+
+            // TODO: Make use of the maxDist and veloMod
+            var result = API_BallisticSimulator.BallisticCalculation(MyActivitySource, requestData);
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+        });
 
     //! ******* AEC *******
     //app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();

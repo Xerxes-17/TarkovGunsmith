@@ -3,12 +3,13 @@ import { Drawer, Button, Group, Title, Tooltip } from '@mantine/core';
 import { ReactNode } from 'react';
 import { SearchSelectAmmoTable } from '../Tables/searchTables/SearchSelectAmmoTable';
 import { SearchSelectArmorTable } from '../Tables/searchTables/SearchSelectArmorTable';
+import { SearchSelectAmmoTable_Calc } from '../Tables/searchTables/SearchSelectAmmoTable_calculator';
 
 
 export interface DrawerButtonProps {
     buttonLabel: string | ReactNode
     leftIcon?: ReactNode
-    ammoOrArmor: "ammo" | "armor"
+    ammoOrArmor: "ammo" | "armor" | "calc_ammo"
     armorIndex?: number
 }
 
@@ -22,6 +23,17 @@ export function DrawerButton({ leftIcon, ammoOrArmor, armorIndex }: DrawerButton
             </Drawer.Header>
             <Drawer.Body>
                 <SearchSelectAmmoTable CloseDrawerCb={close} />
+            </Drawer.Body>
+        </>
+    )
+
+    const calcAmmoContent = (
+        <>
+            <Drawer.Header>
+                <Drawer.Title><Title order={4}>Search Projectile - Click to select</Title></Drawer.Title>
+            </Drawer.Header>
+            <Drawer.Body>
+                <SearchSelectAmmoTable_Calc CloseDrawerCb={close} />
             </Drawer.Body>
         </>
     )
@@ -47,6 +59,9 @@ export function DrawerButton({ leftIcon, ammoOrArmor, armorIndex }: DrawerButton
                     )}
                     {ammoOrArmor === "armor" && (
                         armorContent
+                    )}
+                    {ammoOrArmor === "calc_ammo" && (
+                        calcAmmoContent
                     )}
                 </Drawer.Content>
             </Drawer.Root>

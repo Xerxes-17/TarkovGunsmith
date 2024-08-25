@@ -34,6 +34,21 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
+      - name: Create nuget.config
+        run: |
+          echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>" > nuget.config
+          echo "<configuration>" >> nuget.config
+          echo "  <packageSources>" >> nuget.config
+          echo "    <add key=\"GitHub\" value=\"https://nuget.pkg.github.com/Xerxes-17/index.json\" />" >> nuget.config
+          echo "  </packageSources>" >> nuget.config
+          echo "  <packageSourceCredentials>" >> nuget.config
+          echo "    <GitHub>" >> nuget.config
+          echo "      <add key=\"Username\" value=\"${{ github.actor }}\" />" >> nuget.config
+          echo "      <add key=\"ClearTextPassword\" value=\"${{ secrets.GH_PACKAGES_TOKEN }}\" />" >> nuget.config
+          echo "    </GitHub>" >> nuget.config
+          echo "  </packageSourceCredentials>" >> nuget.config
+          echo "</configuration>" >> nuget.config
+
       - name: Restore dependencies
         run: dotnet restore ./WishGranter.sln
         working-directory: ./BackEnd/WishGranter

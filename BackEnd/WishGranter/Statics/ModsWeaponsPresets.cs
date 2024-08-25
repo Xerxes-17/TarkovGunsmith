@@ -235,10 +235,10 @@ namespace WishGranter.Statics
             }
             ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
 
-            for (int i = 0; i < ReturnedPresets.Count; i++)
-            {
-                Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
-            }
+            //for (int i = 0; i < ReturnedPresets.Count; i++)
+            //{
+            //    Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
+            //}
             //In case any duplicates snuck in
             return ReturnedPresets.Distinct().ToList();
         }
@@ -253,6 +253,8 @@ namespace WishGranter.Statics
             var contents = preset.SelectTokens("$..containsItems..item.id");
             List<string> containedIDs = new();
 
+            
+
             foreach (var result in contents)
             {
                 containedIDs.Add(result.ToString());
@@ -263,6 +265,13 @@ namespace WishGranter.Statics
             foreach (var ItemId in containedIDs)
             {
                 items.Add(StaticRatStash.DB.GetItem(ItemId));
+            }
+
+            if(items.Count == 0)
+            {
+                var lol = new List<BasePreset>();
+                Console.WriteLine($"No containedIds for {name}, ruh-roh");
+                return lol; 
             }
 
             // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
