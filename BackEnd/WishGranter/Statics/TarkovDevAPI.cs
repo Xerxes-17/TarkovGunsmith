@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace WishGranter.Statics
 {
+    
     public static class TarkovDevAPI
     {
         private static async Task<JObject> TarkovDevQueryAsync(string queryDetails, string filename)
@@ -32,16 +34,47 @@ namespace WishGranter.Statics
             }
             return result;
         }
-        // Get all of the gun presets with thier vendor information included
         public static JObject GetAllWeaponPresets()
         {
-            // We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presests.
-            JObject DefaultPresestsJSON = TarkovDevQueryAsync("{ items(type: gun) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesWeapon { presets { id name containsItems { item { id name } count } bartersFor{ trader{ name } level requiredItems{ quantity item{ id name buyFor{ priceRUB vendor{ name } } } } } buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesPreset { default } } } } } } }", "NewPresets").Result;
+            try
+            {
+                // We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presets.
+                JObject DefaultPresestsJSON = TarkovDevQueryAsync("{ items(type: gun) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesWeapon { presets { id name containsItems { item { id name } count } bartersFor{ trader{ name } level requiredItems{ quantity item{ id name buyFor{ priceRUB vendor{ name } } } } } buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } properties { ... on ItemPropertiesPreset { default } } } } } } }", "NewPresets").Result;
 
-            Console.WriteLine("DefaultPresetsJSON returned.");
+                Console.WriteLine("DefaultPresetsJSON returned.");
 
-            return DefaultPresestsJSON;
+                return DefaultPresestsJSON;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception message
+                Console.WriteLine($"An error occurred while fetching the presets: {ex.Message}");
+
+                try
+                {
+                    // Use a relative path assuming the application starts in the project root
+                    string localJsonPath = @"TarkovDev_jsons\NewPresets.json";
+
+                    // Read the JSON content from the relative file path
+                    string localJsonContent = File.ReadAllText(localJsonPath);
+                    JObject localPresetsJSON = JObject.Parse(localJsonContent);
+
+                    Console.WriteLine("Local JSON file used as fallback.");
+
+                    return localPresetsJSON;
+                }
+
+                catch (Exception fileEx)
+                {
+                    // Log the exception message related to reading the file
+                    Console.WriteLine($"An error occurred while reading the local JSON file: {fileEx.Message}");
+
+                    // Return an empty JObject as a last resort
+                    return new JObject();
+                }
+            }
         }
+
         public static JObject GetAllGunBaseStats()
         {
             // We get a big JSON from tarkov-dev which provides all of the info needed for constructing the weapon presests.
@@ -72,10 +105,43 @@ namespace WishGranter.Statics
 
         public static JObject GetAllMarketData()
         {
-            // Get *all* of the offers for *any* item.
-            JObject MarketDataJSON = TarkovDevQueryAsync("{ items(types: [ any ]) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } bartersFor { level requiredItems { quantity item { id name buyFor { priceRUB vendor { name } } } } trader{ name } } sellFor { priceRUB vendor { name } } } }", "MarketData_Any").Result;
-            Console.WriteLine("MarketDataJSON returned.");
-            return MarketDataJSON;
+            
+
+            try
+            {
+                // Get *all* of the offers for *any* item.
+                JObject MarketDataJSON = TarkovDevQueryAsync("{ items(types: [ any ]) { id name buyFor { price currency priceRUB vendor { name ... on TraderOffer { minTraderLevel } } } bartersFor { level requiredItems { quantity item { id name buyFor { priceRUB vendor { name } } } } trader{ name } } sellFor { priceRUB vendor { name } } } }", "MarketData_Any").Result;
+                Console.WriteLine("MarketDataJSON returned.");
+                return MarketDataJSON;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception message
+                Console.WriteLine($"An error occurred while fetching the GetAllMarketData: {ex.Message}");
+
+                try
+                {
+                    // Use a relative path assuming the application starts in the project root
+                    string localJsonPath = @"TarkovDev_jsons\MarketData_Any.json";
+
+                    // Read the JSON content from the relative file path
+                    string localJsonContent = File.ReadAllText(localJsonPath);
+                    JObject localMarketDataJSON = JObject.Parse(localJsonContent);
+
+                    Console.WriteLine("Local JSON file used as fallback.");
+
+                    return localMarketDataJSON;
+                }
+
+                catch (Exception fileEx)
+                {
+                    // Log the exception message related to reading the file
+                    Console.WriteLine($"An error occurred while reading the local JSON file: {fileEx.Message}");
+
+                    // Return an empty JObject as a last resort
+                    return new JObject();
+                }
+            }
         }
 
         public static JObject GetFleaMarketData()
