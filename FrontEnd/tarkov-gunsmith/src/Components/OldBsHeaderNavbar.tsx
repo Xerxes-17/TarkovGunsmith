@@ -8,7 +8,7 @@ import { LINKS } from '../Util/links';
 export function OldBsHeaderNavbar() {
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{zIndex:20}}>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ zIndex: 20 }}>
                 <Container >
                     <LinkContainer to={LINKS.HOME}>
                         <Navbar.Brand>
@@ -29,13 +29,29 @@ export function OldBsHeaderNavbar() {
                                 <Nav.Link>Modded Weapon Builder</Nav.Link>
                             </LinkContainer>
 
-                            {/* <LinkContainer to={LINKS.DAMAGE_SIMULATOR}>
-                                <Nav.Link>Terminal Ballistics Simulator</Nav.Link>
-                            </LinkContainer> */}
-
                             <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
-                                        <Nav.Link >Ballistics Simulator</Nav.Link>
+                                <Nav.Link>Ballistics Simulator</Nav.Link>
                             </LinkContainer>
+
+                            <LinkContainer to={LINKS.BALLISTIC_CALCULATOR}>
+                                <Nav.Link >Ballistic Drop Calculator</Nav.Link>
+                            </LinkContainer>
+
+                            {/* <NavDropdown title="Ballistics" id="ballistics-dropdown" style={{ color: "black" }}>
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>
+                                        <Nav.Link >Ballistics Simulator</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+                                
+                                <NavDropdown.Item>
+                                    <LinkContainer to={LINKS.BALLISTIC_CALCULATOR}>
+                                        <Nav.Link >Ballistic Calculator</Nav.Link>
+                                    </LinkContainer>
+                                </NavDropdown.Item>
+
+                            </NavDropdown> */}
+
 
 
                             {/* <NavDropdown title="Ballistics Simulators" id="data-dropdown" style={{ color: "black" }}>
@@ -78,7 +94,7 @@ export function OldBsHeaderNavbar() {
                                         <Nav.Link>Ammo</Nav.Link>
                                     </LinkContainer>
                                 </NavDropdown.Item>
-                                
+
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_ARMOR}>
                                         <Nav.Link >Armor</Nav.Link>

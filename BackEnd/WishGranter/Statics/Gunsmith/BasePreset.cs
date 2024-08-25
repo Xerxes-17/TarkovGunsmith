@@ -17,6 +17,8 @@ namespace WishGranter.Statics
         public float Recoil_Vertical { get; set; }
         public float Weight { get; set; } // CZTL tells me this is very important for the ADS speed and time
 
+        public float Velocity { get; set; }
+
         [NotMapped]
         public Weapon Weapon { get; set; } = new();
         [NotMapped]
@@ -64,11 +66,13 @@ namespace WishGranter.Statics
             var ergoBonus = 0f;
             var recoilBonus = 0f;
             var weightSum = 0f;
+            var velocitySum = weapon.Velocity;
             foreach (var weaponMod in weaponMods)
             {
                 ergoBonus += weaponMod.Ergonomics;
                 recoilBonus += weaponMod.Recoil;
                 weightSum += weaponMod.Weight;
+                velocitySum += weaponMod.Velocity;
             }
 
             Ergonomics = weapon.Ergonomics + ergoBonus;
@@ -76,6 +80,8 @@ namespace WishGranter.Statics
             Recoil_Vertical = weapon.RecoilForceUp + (weapon.RecoilForceUp * (recoilBonus / 100));
 
             Weight = weapon.Weight + weightSum;
+
+            Velocity = velocitySum;
         }
 
 

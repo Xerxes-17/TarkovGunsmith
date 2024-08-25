@@ -26,7 +26,7 @@ export const useTgTable = <T extends {}>(tableOptions: MRT_TableOptions<T>) => {
         enableStickyHeader: true,
         enableGlobalFilter: true,
         enableColumnFilterModes: true,
-
+        
         layoutMode: "semantic",
 
         enableColumnOrdering: true,

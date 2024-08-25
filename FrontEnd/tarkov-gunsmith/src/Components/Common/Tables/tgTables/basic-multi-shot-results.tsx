@@ -15,6 +15,7 @@ export function BasicMultiShotResultsTable({ result }: MultiShotMultiLayerResult
     const [tableData, setTableData] = useState<BallisticSimHitSummary[]>(result.hitSummaries);
 
     const [visibility, setVisibility] = useState<Record<string, boolean>>({ caliber: false, });
+    
     const foo = result.Inputs.armorLayers.map((layer, index) => {
         const subColumns: MRT_ColumnDef<BallisticSimHitSummary>[] = [
             {

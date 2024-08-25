@@ -9,10 +9,11 @@ namespace WishGranter
         private static List<Ammo> ConstructCleanedList()
         {
             List<Ammo> Ammo = StaticRatStash.DB.GetItems(x => x.GetType() == typeof(Ammo)).Cast<Ammo>().ToList();
-
+            
             Ammo.RemoveAll(x => x.Name.Contains("Zvezda"));
             Ammo.RemoveAll(x => x.Name.Contains("flare"));
             Ammo.RemoveAll(x => x.Name.Contains("patron_30x29_vog_30"));
+            Ammo.RemoveAll(x => x.Name.Contains("Caliber20x1mm")); // blicky disk
 
             Ammo.RemoveAll(x => x.Id.Equals("5943d9c186f7745a13413ac9"));  //Shrapnel
             Ammo.RemoveAll(x => x.Name.Contains("F1 Shrapnel"));
@@ -29,6 +30,8 @@ namespace WishGranter
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M3"));
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M4"));
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M5"));
+
+            Ammo.RemoveAll(x => x.Name.Contains("40x46mm"));
 
             Ammo.RemoveAll(x => x.Id.Equals("5e85aac65505fa48730d8af2"));  //Some dev thing
             Ammo.RemoveAll(x => x.Id.Equals("5f647fd3f6e4ab66c82faed6"));  //Some dev thing

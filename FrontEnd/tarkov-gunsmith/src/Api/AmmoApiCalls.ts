@@ -26,6 +26,9 @@ export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] 
                             initialSpeed
                             fragmentationChance
                             tracer
+                            bulletMassGrams
+                            bulletDiameterMilimeters
+                            ballisticCoeficient
                         }
                     }
                 }
@@ -65,6 +68,9 @@ export function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): A
         tracer: properties ? properties.tracer : false, 
         price: -1, 
         traderLevel: -1,
+        bulletDiameterMilimeters: properties ? properties.bulletDiameterMilimeters : -1,
+        bulletMassGrams: properties ? properties.bulletMassGrams : -1,
+        ballisticCoeficient: properties ? properties.ballisticCoeficient: -1
     };
 }
 

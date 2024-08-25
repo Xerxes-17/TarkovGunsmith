@@ -5,13 +5,14 @@ using Newtonsoft.Json;
 using WishGranter.Statics;
 using System.Diagnostics;
 using WishGranterProto;
+using static WishGranter.Statics.DopeTable;
 
 namespace WishGranter.API_Methods
 {
     public static class API_Basics
     {
-        private static List<SelectionArmor> ArmorOptionsList = WriteArmorOptionsList();
-        private static List<SelectionAmmo> AmmoOptionsList = WriteAmmoOptionsList();
+        //private static List<SelectionArmor> ArmorOptionsList = WriteArmorOptionsList();
+        //private static List<SelectionAmmo> AmmoOptionsList = WriteAmmoOptionsList();
         private static List<SelectionWeapon> WeaponOptionsList = WriteWeaponOptionsList();
 
         private static List<WeaponTableRow> WeaponsDataSheet = WriteWeaponsDataSheet();
@@ -23,21 +24,23 @@ namespace WishGranter.API_Methods
         private static List<NewArmorTableRow> NewHelmets = WriteHelmetsDataSheet();
         private static List<NewArmorTableRow> NewArmorStatsSheet = WriteNewArmorStatsSheet();
 
+        private static DopeTableUI_Options DopeTableUI_Options = constructDopeOptions();
+
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
             return WeaponOptionsList;
         }
-        public static List<SelectionArmor> GetArmorOptionsList(ActivitySource myActivitySource)
-        {
-            using var myActivity = myActivitySource.StartActivity("Request for ArmorOptionList");
-            return ArmorOptionsList;
-        }
-        public static List<SelectionAmmo> GetAmmoOptionsList(ActivitySource myActivitySource)
-        {
-            using var myActivity = myActivitySource.StartActivity("Request for AmmoOptionList");
-            return AmmoOptionsList;
-        }
+        //public static List<SelectionArmor> GetArmorOptionsList(ActivitySource myActivitySource)
+        //{
+        //    using var myActivity = myActivitySource.StartActivity("Request for ArmorOptionList");
+        //    return ArmorOptionsList;
+        //}
+        //public static List<SelectionAmmo> GetAmmoOptionsList(ActivitySource myActivitySource)
+        //{
+        //    using var myActivity = myActivitySource.StartActivity("Request for AmmoOptionList");
+        //    return AmmoOptionsList;
+        //}
 
 
         public static List<WeaponTableRow> GetWeaponsDataSheet(ActivitySource myActivitySource)
@@ -74,6 +77,14 @@ namespace WishGranter.API_Methods
             using var myActivity = myActivitySource.StartActivity("Request for NewArmorStatsSheet");
             return NewArmorStatsSheet;
         }
+
+        public static DopeTableUI_Options GetDopeTableOptions(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request forDopeTableOptions");
+
+            return DopeTableUI_Options;
+        }
+
 
         public static List<SelectionArmor> WriteArmorOptionsList()
         {

@@ -14,6 +14,7 @@ using WishGranter.Statics;
 using WishGranter.AmmoEffectivenessChart;
 using System.Text.Json;
 using WishGranter.API_Methods;
+using System.Collections.Immutable;
 
 namespace WishGranterTests
 {
@@ -1271,6 +1272,84 @@ namespace WishGranterTests
             foreach (WeaponMod mod in result)
             {
                 Console.WriteLine($"{mod.Name}, {mod.Id}");
+            }
+        }
+
+        [TestMethod]
+        public void Test_GetVelocityOf_M700()
+        {
+            string weapon_id = StaticRatStash.DB.GetItem(x => x.Name.Contains("Remington Model 700 7.62x51 bolt-action sniper rifle")).Id;
+            
+            var m700 = ModsWeaponsPresets.BasePresets.Find(x=>x.WeaponId == weapon_id && x.PurchaseOffer.OfferType == OfferType.Cash);
+
+            var velocity = m700.Velocity;
+
+            Console.WriteLine($"velocity m700: {velocity}");
+        }
+
+        [TestMethod]
+        public void Test_GetAllOpticCalibrations()
+        {
+            var stuff = StaticRatStash.DB.GetItems().Where(x => x is Sights).Cast<Sights>().ToList();
+            Console.WriteLine($"{stuff.Count}");
+            HashSet<int> intervals = new HashSet<int>();
+            stuff.ForEach(x =>
+            {
+                var foo = x.CalibrationDistances[0];
+                Console.WriteLine($"{x.Name}, [{String.Join(", ", foo)}]");
+                intervals.UnionWith(foo);
+            });
+            var sorted = intervals.ToImmutableSortedSet();
+            Console.WriteLine($"unique intervals: {String.Join(", ", sorted)}");
+        }
+
+        [TestMethod]
+        public void Test_GetDefaultAmmosByWeapon()
+        {
+            var defaultAmmoDictionary = ModsWeaponsPresets.CleanedWeapons
+                .GroupBy(x => Ammos.Cleaned?.Find(ammo => ammo?.Id == x?.DefAmmo)?.Name ?? x.Id)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(x => x.ShortName)
+                    );
+            foreach (var item in defaultAmmoDictionary)
+            {
+                var valueString = String.Join(", ", item.Value);
+                Console.WriteLine($"{item.Key}: {valueString}");
+            }
+        }
+
+
+        [TestMethod]
+        public void Test_GetDefaultAmmos_AndVelocityModifiers()
+        {
+            var defaultAmmoDictionary = ModsWeaponsPresets.BasePresets
+                .GroupBy(x => Ammos.Cleaned?.Find(ammo => ammo?.Id == x.Weapon?.DefAmmo)?.Name ?? x.Id)
+                .ToDictionary(
+                    group => group.Key,
+                    group => 
+                    { 
+                        var list = group.GroupBy(y => y.Velocity).ToList();
+                        var sublistStrings = list.Select(subList =>
+                        {
+                            var subStart = subList.Key.ToString();
+                            var subEnd = subList.Select(x => x.Weapon.ShortName).ToHashSet();
+                            var subGroupString = string.Join(", ", subEnd);
+                            return $"{subStart}:[{subGroupString}]";
+                        });
+
+                        var groupedValueString = string.Join(", " , sublistStrings);
+
+                        return $"{{{groupedValueString}}}";
+                    }  
+                ) ;
+
+            var sortedDictionary = new SortedDictionary<string, string>(defaultAmmoDictionary);
+
+            foreach (var item in sortedDictionary)
+            {
+                var valueJoin = String.Join(", ", item.Value);
+                Console.WriteLine($"{item.Key}, {valueJoin}");
             }
         }
     }

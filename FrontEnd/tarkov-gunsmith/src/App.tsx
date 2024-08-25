@@ -20,6 +20,7 @@ import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModule
 import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimulator';
 import { HelmetProvider } from 'react-helmet-async';
 import { SEO } from './Util/SEO';
+import { BallisticCalculator } from './Pages/BallisticCalculator/BallisticCalculator';
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
 
                 <Route path={LINKS.BALLISTICS_SIMULATOR} element={<BallisticsSimulator />} />
 
+                <Route path={LINKS.BALLISTIC_CALCULATOR} element={<BallisticCalculator />} />
 
                 {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${LINKS.ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />

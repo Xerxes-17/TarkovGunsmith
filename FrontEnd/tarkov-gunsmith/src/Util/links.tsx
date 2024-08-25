@@ -16,5 +16,6 @@ export const LINKS = {
     AMMO_VS_ARMOR: `${DATA_SHEETS}/ammo_vs_armor`,
     AMMO_EFFECTIVENESS_CHART: `${DATA_SHEETS}/ammo_effectiveness`,
 
-    BALLISTICS_SIMULATOR: `/ballistics_simulator`
+    BALLISTICS_SIMULATOR: `/ballistics_simulator`,
+    BALLISTIC_CALCULATOR: `/ballistic_calculator`
 }

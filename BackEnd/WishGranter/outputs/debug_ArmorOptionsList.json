@@ -1038,7 +1038,7 @@
     "MaxDurability": 50,
     "ArmorMaterial": 6,
     "EffectiveDurability": 121,
-    "TraderLevel": 4,
+    "TraderLevel": -1,
     "Type": "Helmet",
     "Value": "5f60c74e3b85f6263c145586",
     "Label": "Rys-T bulletproof helmet",
