@@ -67,7 +67,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         yAxisId="left-speed"
                         orientation="right"
                         stroke="#3BC9DB"
-                        unit="m/s"
+                        unit=" m/s"
                         domain={[0, "dataMax"]}
                     />
                     <Line
@@ -77,7 +77,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         dataKey={(row: BallisticSimDataPoint) => (row.Speed).toFixed(2)}
                         stroke="#3BC9DB"
                         strokeWidth={2}
-                        unit="m/s"
+                        unit=" m/s"
                     />
 
                     <Tooltip
