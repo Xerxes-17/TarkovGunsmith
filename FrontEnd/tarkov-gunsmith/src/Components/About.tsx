@@ -31,11 +31,12 @@ export default function About(props: any) {
                         </p>
                         <h4>Orchestration</h4>
                         <p>
-                            Currently have the FE CI/CD pipeline running, but still working on the BE. 😅
+                            Currently have CI/CD pipelines for both FE and BE.
                         </p>
 
                         <h4>Links</h4>
                         <ul>
+                            <li><a href="https://ko-fi.com/tarkovgunsmith">☕ Ko-fi</a></li>
                             <li><a href="https://discord.gg/F7GZE4H7fq">📧 Discord</a></li>
                             <li><a href="https://github.com/Xerxes-17/TarkovGunsmith">📓 GitHub repo</a></li>
                             <li><a href="https://www.youtube.com/channel/UC2Kk3-weS6XZeJ4yDwiKKrA">📷 YouTube</a></li>
@@ -44,6 +45,7 @@ export default function About(props: any) {
 
                         <h4>Special thanks to the following people:</h4>
                         <ul>
+                            <li><strong>sw_tower</strong> For helping me out significantly with the ballistic drop calculator.</li>
                             <li><strong>What's for dinner</strong> for his immense help with AWS, CI/CD orchestration and more. Really helped me get past some major roadblocks.</li>
                             <li><strong>Night Shade</strong> for sharing his expertise in C# on many occasions, and providing the Chance of Kill and Cumulative Chance of Kill functions; saved me a lot of trouble with that and provided a major feature.</li>
                             <li><strong>RatherLogical</strong> for providing the base code for some ballistics functions. Thanks to him we can account for distance on this site, which is a huge!</li>

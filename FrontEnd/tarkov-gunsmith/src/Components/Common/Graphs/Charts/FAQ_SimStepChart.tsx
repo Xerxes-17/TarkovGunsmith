@@ -1,5 +1,4 @@
 import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine } from "recharts";
-import { BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
 import { Box } from "@mantine/core";
 
 interface SimStepChartExample {
@@ -95,8 +94,8 @@ export function FAQ_SimStepChart() {
   };
 
   return (
-    <Box w={450} h={200}>
-      <ResponsiveContainer minHeight={200} minWidth={450} >
+    <Box maw={560} miw={250} w={550} mih={210}>
+      <ResponsiveContainer minHeight={210} minWidth={250}>
         <ComposedChart
           data={chartData}
           margin={{
@@ -136,7 +135,7 @@ export function FAQ_SimStepChart() {
             yAxisId="speed"
             orientation="right"
             stroke="#3BC9DB"
-            unit="m/s"
+            unit=" m/s"
             domain={[700, 1000]}
           />
           <Line
@@ -146,6 +145,7 @@ export function FAQ_SimStepChart() {
             dataKey={(row: SimStepChartExample) => (row.speed).toFixed(2)}
             stroke="#3BC9DB"
             strokeWidth={2}
+            unit=" m/s"
           />
 
           <ReferenceLine yAxisId="speed" x={10} label={NstepCustomLabel} stroke="red"/>

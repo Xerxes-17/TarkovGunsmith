@@ -1,5 +1,4 @@
 import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine } from "recharts";
-import { BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
 import { Box, Input } from "@mantine/core";
 
 interface DropChartExampleShotty {
@@ -273,8 +272,8 @@ export function FAQ_DropChartShotties() {
   };
 
   return (
-    <Box w={550} h={200}>
-      <ResponsiveContainer minHeight={200} >
+    <Box maw={560} miw={250} w={365} h={250} mih={210}>
+      <ResponsiveContainer minHeight={210} >
         <ComposedChart
           data={chartData}
           margin={{
@@ -287,6 +286,7 @@ export function FAQ_DropChartShotties() {
 
         >
           <CartesianGrid strokeDasharray={1} />
+          
           <XAxis
             type="category"
             dataKey={(row: DropChartExampleShotty) => (row.distance)}
@@ -299,8 +299,9 @@ export function FAQ_DropChartShotties() {
             dataKey={(row: DropChartExampleShotty) => (row.dropAP20 * 100)}
             unit={"cm"}
           />
+
           <Line
-            name="7mmBS(defAmmo)"
+            name="7mmBS(d)"
             yAxisId="drop"
             type="linear"
             dataKey={(row: DropChartExampleShotty) => (row.drop7mmBS * 100).toFixed(2)}
@@ -327,8 +328,8 @@ export function FAQ_DropChartShotties() {
             unit={"cm"}
           />
 
-          <ReferenceLine yAxisId="drop" y={0} label={lineOfSightCustomLabel} stroke="red" position="start" />
-          <ReferenceLine yAxisId="drop" x={calibrationNumber} label={calibrationCustomLabel} stroke="red" position="end" />
+          <ReferenceLine yAxisId="drop" y={0} label={lineOfSightCustomLabel} stroke="red" />
+          <ReferenceLine yAxisId="drop" x={calibrationNumber} label={calibrationCustomLabel} stroke="red" />
 
           <Tooltip
             allowEscapeViewBox={{ x: false, y: true }}

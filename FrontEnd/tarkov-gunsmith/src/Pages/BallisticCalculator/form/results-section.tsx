@@ -1,8 +1,8 @@
 import { BallisticSimDataPoint, SimulationToCalibrationDistancePair } from "../types";
-import { Box,  Grid, Group, Loader, Select, Stack, Text } from "@mantine/core";
+import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
-import { BallisticDropLineChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
+import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
 import { useState } from "react";
 
 
@@ -35,8 +35,9 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
     return (
         <Grid>
             <Grid.Col span={12}>
-                <Group>
+                <Flex align={"center"} >
                     <Select
+                        miw={140}
                         w={140}
                         label="Calibration Distance"
                         placeholder="Select"
@@ -50,32 +51,21 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
                             }
                         }}
                     />
-                    <Text pt={24}>{resultString}</Text>
-                </Group>
-            </Grid.Col>
-            
-            <Grid.Col span={6}>
-                <Stack spacing={2}>
-                    {selectedData && (
-                        <BallisticCalculatorResultTable result={selectedData} />
-                    )}
-
-                </Stack >
+                    <Text pl={5}>{resultString}</Text>
+                </Flex>
             </Grid.Col>
 
-            <Grid.Col span={6}>
-                <Stack spacing={2}>
-                    <Group>
-                        <Box w={600} h={400}>
-                            {selectedData && (
-                                <BallisticDropLineChart resultData={selectedData} selectedCalibration={selectedCalibration} />
-                            )}
-                        </Box>
-                        <Box w={640} h={300}>
-                            <BallisticEnergyChart resultData={result?.[0].output} />
-                        </Box>
-                    </Group>
-                </Stack >
+            <Grid.Col span={12} lg={7} xl={6} >
+                {selectedData && (
+                    <BallisticCalculatorResultTable result={selectedData} />
+                )}
+            </Grid.Col>
+
+            <Grid.Col span={12} lg={5} xl={6} >
+                {selectedData && (
+                    <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} />
+                )}
+                <BallisticEnergyChart resultData={result?.[0].output} />
             </Grid.Col>
         </Grid>
     )

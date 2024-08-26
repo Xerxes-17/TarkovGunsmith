@@ -19,7 +19,7 @@ export function FAQ_AnglesTable() {
     ));
 
     return (
-        <Box w={370} h={"auto"}>
+        <Box miw={200} w={370} h={"auto"}>
             <Table highlightOnHover withBorder withColumnBorders fontSize={"xs"}>
                 <thead>
                     <tr>

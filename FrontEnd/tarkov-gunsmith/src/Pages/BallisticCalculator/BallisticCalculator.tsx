@@ -1,7 +1,6 @@
-import { Container, Loader, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import { Container, Loader, Paper, Stack, Text } from "@mantine/core";
 import { SEO } from "../../Util/SEO";
 import { CalculatorForm } from "./CalculatorForm";
-import { useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { DopeTableUI_Options } from "./types";
 import {  IconDatabaseX } from "@tabler/icons-react";
@@ -11,9 +10,6 @@ import { API_URL } from "../../Util/util";
 
 
 export function BallisticCalculator() {
-    const mobileView = useMediaQuery('(max-width: 576px)');
-    const { height, } = useViewportSize();
-
     const [dopeOptions, setDopeOptions] = useState<DopeTableUI_Options>();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,14 +44,8 @@ export function BallisticCalculator() {
     return (
         <>
             <SEO url="https://tarkovgunsmith.com/ballistic_calculator" title={'Ballistic Calculator : Tarkov Gunsmith'} />
-            <Container size={"100%"} px={0} pt={3}>
+            <Container size={"99.5%"} px={0} pt={3}>
                 <Paper shadow="sm" p={2} px={5} mt={0}>
-                    <ScrollArea.Autosize
-                        mah={mobileView ? height - 200 : "100%"} // sets the max size before the scroll area appears, will need top play with it more
-                        mx="auto"
-                        type="scroll"
-                        offsetScrollbars
-                    >
                         {isLoading && dopeOptions === undefined && (
                             <Stack spacing={2} mb={5} align="center">
                                 <Loader size="xl" variant="bars" />
@@ -73,11 +63,8 @@ export function BallisticCalculator() {
                         {dopeOptions !== undefined && (
                             <CalculatorForm dopeOptions={dopeOptions} />
                         )}
-
-                    </ScrollArea.Autosize>
                 </Paper>
             </Container>
-
         </>
     )
 }

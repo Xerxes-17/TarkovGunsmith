@@ -1,6 +1,7 @@
-import { Grid, Group, TextInput } from "@mantine/core";
+import { Grid, Group,Text, TextInput } from "@mantine/core";
 import { SelectCalculationDopeAmmo } from "../components/select-calculation-ammo";
 import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { useMediaQuery } from "@mui/material";
 
 
 export function RowCalculationAmmo() {
@@ -8,15 +9,17 @@ export function RowCalculationAmmo() {
     const ammo = form.values.dopeTableSelections.calculationAmmoObj;
     const fVM = form.values.finalVelocityModifier;
     
+    const useSmallLabels = useMediaQuery('(max-width: 1540px)');
+    
     return (
         <>
             <Grid gutter={4}>
-                <Grid.Col span={6}>
+                <Grid.Col span={12} xs={6} >
                     <Group grow spacing={4}>
                         <SelectCalculationDopeAmmo />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6} >
+                <Grid.Col span={12} xs={6} >
                     <Group grow spacing={4}>
                         <TextInput
                             disabled
@@ -32,29 +35,29 @@ export function RowCalculationAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
-                    <Group spacing={4} grow>
+                <Grid.Col span={12} xl={6}>
+                    <Group spacing={4} grow align="end" >
                         <TextInput
                             disabled
-                            w={90}
+                            w={85}
                             label={"Initial Speed"}
                             value={ammo ? `${(ammo?.stats.initialSpeed * fVM).toFixed(1)} m/s` : "n/a"}
                         />
                         <TextInput
                             disabled
-                            miw={130}
+                            miw={85}
                             w={130}
-                            label={"Ballistic Coefficient"}
+                            label={<Text size={useSmallLabels ? 12 : 10}>Ballistic Coefficient</Text>}
                             value={ammo?.stats.ballisticCoefficient ?? "n/a"}
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
-                    <Group grow spacing={4}>
+                <Grid.Col span={12} xl={6}>
+                    <Group grow spacing={4} align="end">
                         <TextInput
                             disabled
                             w={100}
-                            label={"Bullet Diameter"}
+                            label={<Text size={useSmallLabels ? 12 : 11}>Bullet Diameter</Text>}
                             value={ammo ? `${ammo?.stats.bulletDiameterMillimeters} mm` : "n/a"}
                         />
                         <TextInput
