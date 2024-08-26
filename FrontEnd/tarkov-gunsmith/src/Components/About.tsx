@@ -45,6 +45,7 @@ export default function About(props: any) {
 
                         <h4>Special thanks to the following people:</h4>
                         <ul>
+                            <li><strong>sw_tower</strong> For helping me out significantly with the ballistic drop calculator.</li>
                             <li><strong>What's for dinner</strong> for his immense help with AWS, CI/CD orchestration and more. Really helped me get past some major roadblocks.</li>
                             <li><strong>Night Shade</strong> for sharing his expertise in C# on many occasions, and providing the Chance of Kill and Cumulative Chance of Kill functions; saved me a lot of trouble with that and provided a major feature.</li>
                             <li><strong>RatherLogical</strong> for providing the base code for some ballistics functions. Thanks to him we can account for distance on this site, which is a huge!</li>
