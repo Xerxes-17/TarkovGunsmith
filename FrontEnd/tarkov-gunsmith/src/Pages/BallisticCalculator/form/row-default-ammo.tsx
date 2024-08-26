@@ -9,7 +9,7 @@ export function RowDefaultAmmo() {
     return (
         <>
             <Grid gutter={4}>
-                <Grid.Col span={6}>
+                <Grid.Col span={12} xs={6}>
                     <Group grow spacing={4}>
                         <TextInput
                             disabled
@@ -19,7 +19,7 @@ export function RowDefaultAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12} xs={6}>
                     <Group grow spacing={4}>
                         <TextInput
                             disabled
@@ -35,7 +35,7 @@ export function RowDefaultAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Group grow spacing={4}>
                         <TextInput
                             disabled
@@ -52,7 +52,7 @@ export function RowDefaultAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Group grow spacing={4}>
                         <TextInput
                             disabled

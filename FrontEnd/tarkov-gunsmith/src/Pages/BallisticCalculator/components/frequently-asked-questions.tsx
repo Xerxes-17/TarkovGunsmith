@@ -1,4 +1,4 @@
-import { Center, Grid, Text } from "@mantine/core";
+import { Center, Flex, Grid, Text } from "@mantine/core";
 import { FAQ_SimStepChart } from "../../../Components/Common/Graphs/Charts/FAQ_SimStepChart";
 import { FAQ_AnglesTable } from '../../../Components/Common/Tables/calculator-tables/faq-angles-table';
 import { FAQ_DropChart } from "../../../Components/Common/Graphs/Charts/FAQ_DropChart";
@@ -11,7 +11,7 @@ export function FrequentlyAskedQuestions() {
             <Grid>
                 <Grid.Col span={12}>
                     <Grid>
-                        <Grid.Col span={6}>
+                        <Grid.Col span={12} xl={8}>
                             <Text size={15} fw={700} >
                                 How does ballistics work in Tarkov? <br />
                             </Text>
@@ -25,7 +25,7 @@ export function FrequentlyAskedQuestions() {
                                 However, bullets fired by Ai are anti-gravity; they don't experience any drop at all! They still bleed energy over distance and thus speed, penetration and damage.
                             </Text>
                         </Grid.Col>
-                        <Grid.Col span={6}>
+                        <Grid.Col span={12} xl={4}>
                             <Center mx="auto">
                                 <FAQ_SimStepChart />
                             </Center>
@@ -35,7 +35,7 @@ export function FrequentlyAskedQuestions() {
                 </Grid.Col>
                 <Grid.Col span={12}>
                     <Grid>
-                        <Grid.Col span={6}>
+                        <Grid.Col span={12} xl={8}>
                             <Text size={15} fw={700} >
                                 How is a zero/calibration distance angle made? <br />
                             </Text>
@@ -48,30 +48,21 @@ export function FrequentlyAskedQuestions() {
                             <br />
                             <Text size={13}>
                                 But remember, this is only for the <b>default ammo</b> of a weapon, so what the game/we are producing is the <strong>calibration distance angle</strong> for the <i>default ammo only</i>, so not really a "zero".
-                                So when you select a "zero" in Tarkov, you're really selecting this <strong>calibration distance angle</strong>. 
+                                So when you select a "zero" in Tarkov, you're really selecting this <strong>calibration distance angle</strong>.
                                 Also keep in mind that for distances at or below 50m you will have a "close zero" (1st intersection LoS) and above that you will have a "far zero" (2nd intersection LoS).
                             </Text>
                         </Grid.Col>
-                        <Grid.Col span={6} >
-                            <Center mx="auto">
+                        <Grid.Col span={12} xl={4} >
+                            <Center>
                                 <FAQ_AnglesTable />
                             </Center>
                         </Grid.Col>
                     </Grid>
-
-                </Grid.Col>
-                <Grid.Col span={12}>
-                    <Grid>
-                        <Grid.Col span={6}>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                        </Grid.Col>
-                    </Grid>
                 </Grid.Col>
 
                 <Grid.Col span={12}>
                     <Grid>
-                        <Grid.Col span={6}>
+                        <Grid.Col span={12} xl={5}>
                             <Text size={15} fw={700} >
                                 So how does this impact my shot? <br />
                             </Text>
@@ -81,19 +72,21 @@ export function FrequentlyAskedQuestions() {
                                 Likewise, if the default ammo is slower than the ammo that you're using, your shots will go high at your calibrated distance and your "true zero" is further away than labelled.
                                 This would be why your long distance sniping shots don't match your expectations in many cases, and is particularly felt by weapons with slow and arcing ammo like the VSS, or calibers with high variance in their initial velocity, such as shotguns.
                             </Text>
-                            <br />
-                            <Text size={15} fw={700} >
-                                That seems kinda dumb? <br />
-                            </Text>
-                            <Text size={13}>
-                                Yeah it is, Nikita plz fix. I have suggestions!
-                            </Text>
                         </Grid.Col>
-                        <Grid.Col span={6}>
-                            <Center mx="auto">
+                        <Grid.Col span={12} xl={7}>
+                            {/* <Center mx="auto"> */}
+                            <Flex
+                                gap={"md"}
+                                justify="center"
+                                align="center"
+                                direction="row"
+                                wrap="wrap"
+                            >
                                 <FAQ_DropChart />
-                                <FAQ_DropChartShotties/>
-                            </Center>
+                                <FAQ_DropChartShotties />
+                            </Flex>
+
+                            {/* </Center> */}
                         </Grid.Col>
                     </Grid>
                 </Grid.Col>

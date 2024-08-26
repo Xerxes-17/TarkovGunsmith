@@ -11,12 +11,12 @@ export function RowCalculationAmmo() {
     return (
         <>
             <Grid gutter={4}>
-                <Grid.Col span={6}>
+                <Grid.Col span={12} xs={6} >
                     <Group grow spacing={4}>
                         <SelectCalculationDopeAmmo />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6} >
+                <Grid.Col span={12} xs={6} >
                     <Group grow spacing={4}>
                         <TextInput
                             disabled
@@ -32,7 +32,7 @@ export function RowCalculationAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Group spacing={4} grow>
                         <TextInput
                             disabled
@@ -49,7 +49,7 @@ export function RowCalculationAmmo() {
                         />
                     </Group>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={12}>
                     <Group grow spacing={4}>
                         <TextInput
                             disabled

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { balCalYupValidator, BallisticCalculatorFormProvider, BallisticSimInput, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
-import { Box, Button, Divider, Grid, Group, Input, Loader, Modal, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Divider, Grid, Group, Input, Modal, Stack, Text, Title } from "@mantine/core";
 
 import { requestBallisticCalculation } from "./api-requests";
 import { DopeTableUI_Options, DropCalculatorInput, SimulationToCalibrationDistancePair } from "./types";
@@ -41,8 +41,8 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
     const [resultString, setResultString] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const mobileView = useMediaQuery('(max-width: 1887px)');
-    console.log("mobileView", mobileView)
+    // const mobileView = useMediaQuery('(max-width: 1887px)');
+    // console.log("mobileView", mobileView)
 
     function onClickGenerate() {
         const validation = form.validate();
@@ -107,21 +107,21 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
     const calibrationRangesJoin = form.values.dopeTableOptions.calibrationRanges.filter(x => x <= form.values.maxDistance).join(", ")
 
-    if (mobileView) {
-        return (
-            <Stack spacing={2} mb={5} align="center">
-                <IconBarrierBlock size={"5em"} color="#f5b042" />
-                <IconDeviceMobileOff size={"5em"} color="#961e1a" />                
-                <Text>Sorry, still making the mobile version. <br/>Coming soon™.</Text>
-            </Stack>
-        )
-    }
+    // if (mobileView) {
+    //     return (
+    //         <Stack spacing={2} mb={5} align="center">
+    //             <IconBarrierBlock size={"5em"} color="#f5b042" />
+    //             <IconDeviceMobileOff size={"5em"} color="#961e1a" />                
+    //             <Text>Sorry, still making the mobile version. <br/>Coming soon™.</Text>
+    //         </Stack>
+    //     )
+    // }
 
     return (
         <BallisticCalculatorFormProvider form={form}>
             <form >
                 <Grid columns={24} px={4}>
-                    <Grid.Col span={6}>
+                    <Grid.Col span={24} lg={10} xl={6} >
                         <Divider label="Weapon" labelPosition="center" />
                         <Stack spacing={"xs"}>
                             <Grid gutter={4}>
@@ -132,7 +132,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                     </Group>
                                 </Grid.Col>
                                 <Grid.Col span={12}>
-                                    <Group grow spacing={4}>
+                                    <Group grow spacing={4} align="center">
                                         <SelectDopeBarrel />
                                         <AdditionalVelocityModifier />
                                     </Group>
@@ -179,7 +179,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                     </Grid.Col>
 
-                    <Grid.Col span={18}>
+                    <Grid.Col span={24} lg={14} xl={18} >
                         {!result && (
                             <Box>
                                 <Divider label="Frequently Asked Questions" labelPosition="center" />

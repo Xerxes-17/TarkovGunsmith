@@ -26,7 +26,7 @@ export function AdditionalVelocityModifier() {
             stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
             description={
                 <Text size="sm">
-                    Combined: <b>{currentTotal.toFixed(1)} / 100  = {multiplier.toFixed(3)}</b>
+                    Total: {currentTotal.toFixed(1)} / 100  = <b>{multiplier.toFixed(3)}</b>
                 </Text>
             }
             {...form.getInputProps("additionalVelocityModifier")}
