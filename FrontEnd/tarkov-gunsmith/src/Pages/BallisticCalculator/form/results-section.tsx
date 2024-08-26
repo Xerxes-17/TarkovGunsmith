@@ -1,10 +1,9 @@
 import { BallisticSimDataPoint, SimulationToCalibrationDistancePair } from "../types";
-import { Box, Flex, Grid, Group, Loader, Select, Stack, Text } from "@mantine/core";
+import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
 import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
 
 
 export function DopeResultSection({ result, isLoading, resultString }: { result: SimulationToCalibrationDistancePair[], isLoading: boolean, resultString: string }) {

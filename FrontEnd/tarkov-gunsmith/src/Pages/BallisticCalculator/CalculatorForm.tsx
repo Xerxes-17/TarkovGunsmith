@@ -41,12 +41,10 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
     const [resultString, setResultString] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // const mobileView = useMediaQuery('(max-width: 1887px)');
-    // console.log("mobileView", mobileView)
-
     function onClickGenerate() {
         const validation = form.validate();
         if (validation.hasErrors) {
+            scrollIntoViewInputs();
             return;
         }
 
@@ -111,8 +109,13 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
         offset: 60,
         easing: (t) => 1, // easeInOutQuint
-      });
-    
+    });
+
+    const { scrollIntoView: scrollIntoViewInputs, targetRef: targetRefInputs } = useScrollIntoView<HTMLDivElement>({
+        offset: 60,
+        easing: (t) => 1, // easeInOutQuint
+    });
+
 
     return (
         <MantineProvider
@@ -132,7 +135,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                 <form >
                     <Grid columns={24} px={4}>
                         <Grid.Col span={24} sm={12} md={10} lg={8} xl={6} >
-                            <Divider label="Weapon" labelPosition="center" />
+                            <Divider ref={targetRefInputs} label="Weapon" labelPosition="center" />
                             <Stack spacing={"xs"}>
                                 <Grid gutter={4}>
                                     <Grid.Col span={12}>
@@ -180,7 +183,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                                 Frequently Asked Questions
                                             </Button>
                                         </Group>
-                                        <Modal opened={openedFAQ} onClose={closeFAQ} title={<Title order={3}>Frequently Asked Questions</Title>} size="auto">
+                                        <Modal opened={openedFAQ} onClose={closeFAQ} title={<Title order={3}>Frequently Asked Questions</Title>}>
                                             <FrequentlyAskedQuestions />
                                         </Modal>
                                     </>

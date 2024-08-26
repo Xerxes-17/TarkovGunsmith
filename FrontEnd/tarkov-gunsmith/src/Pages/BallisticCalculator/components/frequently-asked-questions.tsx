@@ -1,8 +1,9 @@
-import { Center, Flex, Grid, Text } from "@mantine/core";
+import { Box, Center, Flex, Grid, Text } from "@mantine/core";
 import { FAQ_SimStepChart } from "../../../Components/Common/Graphs/Charts/FAQ_SimStepChart";
 import { FAQ_AnglesTable } from '../../../Components/Common/Tables/calculator-tables/faq-angles-table';
 import { FAQ_DropChart } from "../../../Components/Common/Graphs/Charts/FAQ_DropChart";
 import { FAQ_DropChartShotties } from "../../../Components/Common/Graphs/Charts/FAQ_DropChartShotguns";
+import { overflow } from "html2canvas/dist/types/css/property-descriptors/overflow";
 
 
 export function FrequentlyAskedQuestions() {
@@ -53,9 +54,12 @@ export function FrequentlyAskedQuestions() {
                             </Text>
                         </Grid.Col>
                         <Grid.Col span={12} xl={4} >
-                            <Center>
-                                <FAQ_AnglesTable />
-                            </Center>
+                            <Box style={{overflow:"scroll"}} >
+                                <Center>
+                                    <FAQ_AnglesTable />
+                                </Center>
+                            </Box>
+
                         </Grid.Col>
                     </Grid>
                 </Grid.Col>

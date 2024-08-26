@@ -1,7 +1,6 @@
-import { Container, Loader, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import { Container, Loader, Paper, Stack, Text } from "@mantine/core";
 import { SEO } from "../../Util/SEO";
 import { CalculatorForm } from "./CalculatorForm";
-import { useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { DopeTableUI_Options } from "./types";
 import {  IconDatabaseX } from "@tabler/icons-react";
@@ -11,9 +10,6 @@ import { API_URL } from "../../Util/util";
 
 
 export function BallisticCalculator() {
-    const mobileView = useMediaQuery('(max-width: 576px)');
-    const { height, } = useViewportSize();
-
     const [dopeOptions, setDopeOptions] = useState<DopeTableUI_Options>();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
