@@ -31,11 +31,12 @@ export default function About(props: any) {
                         </p>
                         <h4>Orchestration</h4>
                         <p>
-                            Currently have the FE CI/CD pipeline running, but still working on the BE. 😅
+                            Currently have CI/CD pipelines for both FE and BE.
                         </p>
 
                         <h4>Links</h4>
                         <ul>
+                            <li><a href="https://ko-fi.com/tarkovgunsmith">☕ Ko-fi</a></li>
                             <li><a href="https://discord.gg/F7GZE4H7fq">📧 Discord</a></li>
                             <li><a href="https://github.com/Xerxes-17/TarkovGunsmith">📓 GitHub repo</a></li>
                             <li><a href="https://www.youtube.com/channel/UC2Kk3-weS6XZeJ4yDwiKKrA">📷 YouTube</a></li>

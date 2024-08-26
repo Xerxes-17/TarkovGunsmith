@@ -54,7 +54,7 @@ export function FrequentlyAskedQuestions() {
                             </Text>
                         </Grid.Col>
                         <Grid.Col span={12} xl={4} >
-                            <Box style={{overflow:"scroll"}} >
+                            <Box style={{overflow:"auto"}} >
                                 <Center>
                                     <FAQ_AnglesTable />
                                 </Center>
@@ -99,7 +99,7 @@ export function FrequentlyAskedQuestions() {
                         Why are your numbers are different to Tarkov-Ballistics? <br />
                     </Text>
                     <Text size={13}>
-                        First, TB is no long maintained so quite a few numbers are outdated there. Second, from what I can infer from the development of my ballistic simulator, the way they've saved distance/time numbers isn't
+                        First, TB is no longer maintained so quite a few numbers are outdated there. Second, from what I can infer from the development of my ballistic simulator, the way they've saved distance/time numbers isn't
                         interpolated within a step and they just use the end of step's time, and the way they transform their data results in perfect parabolas which is incorrect. Absolutely not hating on them, they did a decent enough job, but I
                         can say with confidence my system is more accurate. Third, calculated results have been tested and verified in game with the assistance of sw_tower, a known sniping ballistics man; so trust, fam.
                     </Text>
