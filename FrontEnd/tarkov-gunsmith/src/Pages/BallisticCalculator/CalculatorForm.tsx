@@ -113,7 +113,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
     const { scrollIntoView: scrollIntoViewInputs, targetRef: targetRefInputs } = useScrollIntoView<HTMLDivElement>({
         offset: 60,
-        easing: (t) => 1, // easeInOutQuint
+        easing: (t) => 3, // easeInOutQuint
     });
 
 
@@ -192,7 +192,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                         </Grid.Col>
 
-                        <Grid.Col span={24} sm={12} md={14} lg={16} xl={18} >
+                        <Grid.Col ref={targetRef} span={24} sm={12} md={14} lg={16} xl={18} >
                             {!result && (
                                 <Box>
                                     <Divider label="Frequently Asked Questions" labelPosition="center" />
@@ -201,7 +201,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                             )}
                             {result && (
                                 <>
-                                    <Divider ref={targetRef} label="Result" labelPosition="center" />
+                                    <Divider label="Result" labelPosition="center" />
                                     <DopeResultSection isLoading={isLoading} result={result} resultString={resultString} />
                                 </>
                             )}
