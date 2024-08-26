@@ -135,7 +135,7 @@ export function FAQ_SimStepChart() {
             yAxisId="speed"
             orientation="right"
             stroke="#3BC9DB"
-            unit="m/s"
+            unit=" m/s"
             domain={[700, 1000]}
           />
           <Line
@@ -145,6 +145,7 @@ export function FAQ_SimStepChart() {
             dataKey={(row: SimStepChartExample) => (row.speed).toFixed(2)}
             stroke="#3BC9DB"
             strokeWidth={2}
+            unit=" m/s"
           />
 
           <ReferenceLine yAxisId="speed" x={10} label={NstepCustomLabel} stroke="red"/>

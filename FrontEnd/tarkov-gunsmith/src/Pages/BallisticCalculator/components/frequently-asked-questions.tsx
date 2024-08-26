@@ -62,7 +62,7 @@ export function FrequentlyAskedQuestions() {
 
                 <Grid.Col span={12}>
                     <Grid>
-                        <Grid.Col span={12} xl={5}>
+                        <Grid.Col span={12} xl={4}>
                             <Text size={15} fw={700} >
                                 So how does this impact my shot? <br />
                             </Text>
@@ -73,7 +73,7 @@ export function FrequentlyAskedQuestions() {
                                 This would be why your long distance sniping shots don't match your expectations in many cases, and is particularly felt by weapons with slow and arcing ammo like the VSS, or calibers with high variance in their initial velocity, such as shotguns.
                             </Text>
                         </Grid.Col>
-                        <Grid.Col span={12} xl={7}>
+                        <Grid.Col span={12} xl={8}>
                             {/* <Center mx="auto"> */}
                             <Flex
                                 gap={"md"}

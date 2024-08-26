@@ -3,6 +3,7 @@ import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, M
 import { useMemo } from "react";
 import { Flex } from "@mantine/core";
 import { BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
+import { useMediaQuery } from "@mui/material";
 
 export function BallisticCalculatorResultTable({ result: tableData }: {result: BallisticSimDataPoint[]}) {
     const columns = useMemo<MRT_ColumnDef<BallisticSimDataPoint>[]>(
@@ -61,11 +62,13 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
         [],
     );
 
+    const mobileView = useMediaQuery('(max-width: 766px)');
+
     const table = useTgTable({
         columns,
         data: tableData,
 
-        layoutMode: "grid",
+        layoutMode: "semantic",
         
         enableColumnFilters: false,
         enableColumnActions: false,
@@ -79,7 +82,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
             }
             ,
             columnPinning: {
-                left: ['mrt-row-expand']
+                left: ['Distance']
             },
         },
 
@@ -90,13 +93,14 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
         },
         mantinePaperProps:{
             style:{
-                width: 650,
-                // height: 800
+                height: mobileView ? 300 : undefined
             }
             
         },
         mantineTableContainerProps: { 
-            className: "tgDopeTableInAppShell"
+            style:{
+                height: mobileView ? 300 : undefined
+            }
         },
         mantineTableHeadProps: {
             sx: {

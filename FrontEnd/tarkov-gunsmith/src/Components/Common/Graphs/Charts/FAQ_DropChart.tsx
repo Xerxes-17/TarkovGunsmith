@@ -672,7 +672,7 @@ export function FAQ_DropChart() {
   };
 
   return (
-    <Box maw={560} miw={250} w={360} h={250} mih={210}>
+    <Box maw={560} miw={250} w={365} h={250} mih={210}>
       <ResponsiveContainer minHeight={210} >
         <ComposedChart
           data={chartData}
