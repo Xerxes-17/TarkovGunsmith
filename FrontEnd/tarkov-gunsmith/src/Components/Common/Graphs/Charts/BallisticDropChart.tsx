@@ -19,9 +19,6 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
 
   const calibrationNumber = parseInt(selectedCalibration) ?? -1
 
-  const lengthOfArray = chartData.length;
-  const intInterval = Math.floor(lengthOfArray / 4) - 1;
-
   const calibrationCustomLabel = (props: {
     viewBox: { x: string | number | undefined; y: string | number | undefined; };
   }) => {
@@ -69,16 +66,14 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
         >
           <CartesianGrid strokeDasharray={1} />
           <XAxis
-            type="category"
+            type="number"
             dataKey={(row: BallisticSimDataPoint) => (row.Distance)}
-            interval={intInterval}
             unit={"m"}
           />
           <XAxis
             xAxisId={"time"}
-            type="category"
+            type="number"
             dataKey={(row: BallisticSimDataPoint) => (row.TimeOfFlight).toFixed(2)}
-            interval={intInterval}
             unit={"s"}
           />
           <YAxis

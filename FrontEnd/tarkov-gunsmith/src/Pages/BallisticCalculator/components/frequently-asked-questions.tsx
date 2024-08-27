@@ -3,8 +3,6 @@ import { FAQ_SimStepChart } from "../../../Components/Common/Graphs/Charts/FAQ_S
 import { FAQ_AnglesTable } from '../../../Components/Common/Tables/calculator-tables/faq-angles-table';
 import { FAQ_DropChart } from "../../../Components/Common/Graphs/Charts/FAQ_DropChart";
 import { FAQ_DropChartShotties } from "../../../Components/Common/Graphs/Charts/FAQ_DropChartShotguns";
-import { overflow } from "html2canvas/dist/types/css/property-descriptors/overflow";
-
 
 export function FrequentlyAskedQuestions() {
     return (
@@ -50,7 +48,7 @@ export function FrequentlyAskedQuestions() {
                             <Text size={13}>
                                 But remember, this is only for the <b>default ammo</b> of a weapon, so what the game/we are producing is the <strong>calibration distance angle</strong> for the <i>default ammo only</i>, so not really a "zero".
                                 So when you select a "zero" in Tarkov, you're really selecting this <strong>calibration distance angle</strong>.
-                                Also keep in mind that for distances at or below 50m you will have a "close zero" (1st intersection LoS) and above that you will have a "far zero" (2nd intersection LoS).
+                                Also keep in mind that for distances at or below 50m you will have a "close zero" (1st intersection LoS) and above that you will have a "far zero" (2nd intersection LoS). Current height over bore is assumed to be 1.5"/3.81cm.
                             </Text>
                         </Grid.Col>
                         <Grid.Col span={12} xl={4} >
