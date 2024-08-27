@@ -104,7 +104,8 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
         mantineTableContainerProps: { 
             style:{
                 height: mobileView ? 300 : undefined
-            }
+            },
+            className: "tgMainTableInAppShell"
         },
         mantineTableHeadProps: {
             sx: {
