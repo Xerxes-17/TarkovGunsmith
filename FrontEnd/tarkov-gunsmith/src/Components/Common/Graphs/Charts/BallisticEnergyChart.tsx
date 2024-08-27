@@ -1,4 +1,4 @@
-import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line } from "recharts";
+import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine } from "recharts";
 import { BallisticSimDataPoint, BallisticSimOutput } from "../../../../Pages/BallisticCalculator/types";
 import { Box } from "@mantine/core";
 
@@ -16,6 +16,19 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
 
     const lengthOfArray = chartData.length;
     const intInterval = Math.floor(lengthOfArray / 4) - 1;
+
+
+    const speedOfSoundLabel = (props: {
+        viewBox: { x: number | undefined; y: string | number | undefined; };
+      }) => {
+        return (
+          <g>
+            <text x={props.viewBox.x} y={props.viewBox.y} fill="#ffffff" dy={-10} dx={(props.viewBox.x ?? 0) + -90}>
+              Speed of Sound
+            </text>
+          </g>
+        );
+      };
 
     return (
         <Box miw={200} maw={650} h={300} mih={210} mb={20}>
@@ -64,7 +77,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                     />
 
                     <YAxis
-                        yAxisId="left-speed"
+                        yAxisId="speed"
                         orientation="right"
                         stroke="#3BC9DB"
                         unit=" m/s"
@@ -72,13 +85,15 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                     />
                     <Line
                         name="Speed"
-                        yAxisId="left-speed"
+                        yAxisId="speed"
                         type="linear"
                         dataKey={(row: BallisticSimDataPoint) => (row.Speed).toFixed(2)}
                         stroke="#3BC9DB"
                         strokeWidth={2}
                         unit=" m/s"
                     />
+
+                    <ReferenceLine yAxisId="speed" y={343} label={speedOfSoundLabel} stroke="yellow" position="start" />
 
                     <Tooltip
                         allowEscapeViewBox={{ x: false, y: true }}

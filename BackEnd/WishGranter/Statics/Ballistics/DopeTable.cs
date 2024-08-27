@@ -21,8 +21,8 @@ namespace WishGranter.Statics
             return new DopeTableUI_Options()
             {
                 Calibers = ConstructDopeCalibers(),
-                CalibrationRanges = new List<int>() { 50, 100, 150, 200, 250, 300, 400, 450 },
-                MaxMaxDistance = 1000
+                CalibrationRanges = new List<int>() { 25, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450 },
+                MaxMaxDistance = 1600
             };
         }
 

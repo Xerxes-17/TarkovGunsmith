@@ -16,8 +16,9 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
     }) ?? [];
 
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
+    console.log(selectedCalibration)
 
-    const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.[0].output.DataPoints);
+    const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.[1].output.DataPoints);
 
     if (isLoading) {
         return (

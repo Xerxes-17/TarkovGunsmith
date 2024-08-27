@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { balCalYupValidator, BallisticCalculatorFormProvider, BallisticSimInput, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
-import { Box, Button, Divider, Grid, Group, Input, MantineProvider, Modal, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Center, Divider, Grid, Group, Input, Loader, MantineProvider, Modal, Stack, Text, Title } from "@mantine/core";
 
 import { requestBallisticCalculation } from "./api-requests";
 import { DopeTableUI_Options, DropCalculatorInput, SimulationToCalibrationDistancePair } from "./types";
@@ -13,7 +13,7 @@ import { AdditionalVelocityModifier } from "./components/input-additional-veloci
 import { InputMaxDistance } from "./components/input-max-distance";
 import { DopeResultSection } from "./form/results-section";
 import { FrequentlyAskedQuestions } from "./components/frequently-asked-questions";
-import { IconHelp } from "@tabler/icons-react";
+import { IconDatabase, IconHelp } from "@tabler/icons-react";
 import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
 
 export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Options }) {
@@ -47,6 +47,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             scrollIntoViewInputs();
             return;
         }
+        setIsLoading(true);
 
         const formValues = form.getTransformedValues();
         const defaultAmmo = formValues.dopeTableSelections.defaultAmmo?.stats;
@@ -170,7 +171,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                                 </Group>
                                 <Group grow>
-                                    <Button fullWidth ml={10} mr={10} onClick={onClickGenerate}>
+                                    <Button fullWidth ml={10} mr={10} onClick={onClickGenerate} disabled={isLoading}>
                                         Generate Drop Table
                                     </Button>
                                 </Group>
@@ -193,13 +194,23 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                         </Grid.Col>
 
                         <Grid.Col ref={targetRef} span={24} sm={12} md={14} lg={16} xl={18} >
-                            {!result && (
+                            {isLoading && (
+                                <Center mih={250}>
+                                    <Stack spacing={2} py={10} mb={5} align="center">
+                                        <Loader size="xl" />
+                                        <Text>Prayers sent to WishGranter, Слава моноліту!!</Text>
+                                        <IconDatabase size="5rem" color="#3e9eed" />
+                                    </Stack>
+                                </Center>
+                            )}
+
+                            {!result && !isLoading && (
                                 <Box>
                                     <Divider label="Frequently Asked Questions" labelPosition="center" />
                                     <FrequentlyAskedQuestions />
                                 </Box>
                             )}
-                            {result && (
+                            {result && !isLoading && (
                                 <>
                                     <Divider label="Result" labelPosition="center" />
                                     <DopeResultSection isLoading={isLoading} result={result} resultString={resultString} />

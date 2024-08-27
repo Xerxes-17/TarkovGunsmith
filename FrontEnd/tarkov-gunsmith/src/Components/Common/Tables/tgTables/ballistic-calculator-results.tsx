@@ -12,6 +12,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
                 id: "Distance",
                 accessorKey: "Distance",
                 header: 'Distance',
+                size:25,
                 Cell: ({ cell }) => {
                     return <div>{cell.getValue<number>()} m</div>;
                 }
@@ -29,6 +30,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
                 id: "Damage",
                 accessorKey: "Damage",
                 header: 'Damage',
+                size:25,
                 Cell: ({ cell }) => {
                     return <div>{(cell.getValue<number>()).toFixed(1)} </div>;
                 }
@@ -37,6 +39,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
                 id: "Speed",
                 accessorKey: "Speed",
                 header: 'Speed',
+                size:25,
                 Cell: ({ cell }) => {
                     return <div>{(cell.getValue<number>()).toFixed(1)} m/s</div>;
                 }
@@ -45,6 +48,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
                 id: "Drop",
                 accessorKey: "Drop",
                 header: 'Drop',
+                size:45,
                 Cell: ({ cell }) => {
                     return <div>{(cell.getValue<number>() * 100).toFixed(3)} cm</div>;
                 }
@@ -100,7 +104,8 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
         mantineTableContainerProps: { 
             style:{
                 height: mobileView ? 300 : undefined
-            }
+            },
+            className: "tgMainTableInAppShell"
         },
         mantineTableHeadProps: {
             sx: {
