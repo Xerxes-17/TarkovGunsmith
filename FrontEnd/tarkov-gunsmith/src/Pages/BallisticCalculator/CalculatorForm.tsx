@@ -171,7 +171,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                                 </Group>
                                 <Group grow>
-                                    <Button fullWidth ml={10} mr={10} onClick={onClickGenerate}>
+                                    <Button fullWidth ml={10} mr={10} onClick={onClickGenerate} disabled={isLoading}>
                                         Generate Drop Table
                                     </Button>
                                 </Group>
