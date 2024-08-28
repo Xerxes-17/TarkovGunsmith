@@ -93,7 +93,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         unit=" m/s"
                     />
 
-                    <ReferenceLine yAxisId="speed" y={343} label={speedOfSoundLabel} stroke="yellow" position="start" />
+                    {/* <ReferenceLine yAxisId="speed" y={343} label={speedOfSoundLabel} stroke="yellow" position="start" /> */}
 
                     <Tooltip
                         allowEscapeViewBox={{ x: false, y: true }}
