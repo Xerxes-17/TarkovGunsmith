@@ -1206,6 +1206,56 @@ namespace WishGranter.Statics
             }
             return result;
         }
+        public static HashSet<string> GetWeaponModsRecursively(string id)
+        {
+            HashSet<string> newIds = new HashSet<string>
+            {
+                id
+            };
+            var next = StaticRatStash.DB.GetItem(id) as CompoundItem;
+            if (next != null)
+            {
+                foreach (var slot in next.Slots)
+                {
+                    foreach (var whiteId in slot.Filters[0].Whitelist)
+                    {
+                        var nextSet = GetWeaponModsRecursively(whiteId);
+                        newIds = newIds.Union(nextSet).ToHashSet();
+                    }
+                }
+            }
+            return newIds;
+        }
+
+        public static List<CompoundItem> TurnHashSetIdsIntoItems(HashSet<string> ids)
+        {
+            var items = StaticRatStash.DB.GetItems().Where(x => ids.Contains( x.Id) ).Cast<CompoundItem>().ToList();
+            return items;
+        }
+
+        public static List<CompoundItem> FilterOutSights(List<CompoundItem> compoundItems)
+        {
+            // Setup the filters for things that I don't think are relevant, but we also remove the Mounts so they can be added in clean later
+            List<Type> ModsFilter = new List<Type>() {
+                typeof(IronSight), typeof(CompactCollimator), typeof(Collimator),
+                typeof(OpticScope), typeof(NightVision), typeof(ThermalVision),
+                typeof(AssaultScope), typeof(SpecialScope), typeof(Magazine),
+                typeof(CombTactDevice), typeof(Flashlight), typeof(LaserDesignator),
+                typeof(Mount), typeof(Launcher)};
+
+            // Apply that filter
+            var temp = compoundItems.Where(mod => !ModsFilter.Contains(mod.GetType())).ToList();
+
+            // Need to add in the AUG A1 scope as it is a receiver too
+            var AUG_A1_Scope = compoundItems.Find(x => x.Id.Equals("62ea7c793043d74a0306e19f"));
+            if (AUG_A1_Scope != null)
+            {
+                temp.Add(AUG_A1_Scope);
+            }
+
+            return temp;
+        }
+
 
 
     }

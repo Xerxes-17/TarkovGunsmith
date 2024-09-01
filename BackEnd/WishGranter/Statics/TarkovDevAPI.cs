@@ -34,6 +34,7 @@ namespace WishGranter.Statics
             }
             return result;
         }
+
         public static JObject GetAllWeaponPresets()
         {
             try
