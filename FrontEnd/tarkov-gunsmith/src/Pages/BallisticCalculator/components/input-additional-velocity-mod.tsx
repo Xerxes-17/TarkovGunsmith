@@ -6,9 +6,12 @@ export function AdditionalVelocityModifier() {
 
     const weaponVelo = form.values.dopeTableSelections.weaponObj?.velocityModifier ?? 0;
     const barrelVelo = form.values.dopeTableSelections.barrelObj?.velocityModifier ?? 0;
-    const addedVelo = form.values.additionalVelocityModifier;
+    const avm = form.values.additionalVelocityModifier;
 
-    const currentTotal = 100 + weaponVelo + barrelVelo + addedVelo
+    const addedVelo = !avm || typeof(avm) !== 'number' ? 0  : avm ;
+
+    const currentTotal = 100 + weaponVelo + barrelVelo + addedVelo;
+
     const multiplier = currentTotal / 100
     if(multiplier !== form.values.finalVelocityModifier){
         form.setFieldValue("finalVelocityModifier", multiplier)
