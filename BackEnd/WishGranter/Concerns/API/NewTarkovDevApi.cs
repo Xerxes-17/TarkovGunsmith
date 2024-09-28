@@ -84,7 +84,7 @@ namespace WishGranter.Concerns.API
         /// </summary>
         public static async Task<JObject> RobustGetTraderBaseInfo()
         {
-            string queryString = "{ traders { id name imageLink levels { level requiredPlayerLevel requiredReputation requiredCommerce } } }";
+            string queryString = "{ traders (gameMode: regular lang: en) { id name imageLink levels { level requiredPlayerLevel requiredReputation requiredCommerce } } }";
             string queryName = "traderBaseInfo";
 
             JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);
@@ -96,7 +96,7 @@ namespace WishGranter.Concerns.API
         /// </summary>
         public static async Task<JObject> RobustGetTraderCashOffers()
         {
-            string queryString = "{ traders { id cashOffers { item { id name } priceRUB price currency buyLimit minTraderLevel taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } } } }";
+            string queryString = "{ traders (gameMode: regular lang: en) { id cashOffers { item { id name } priceRUB price currency buyLimit minTraderLevel taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } } } }";
             string queryName = "traderCashOffers";
 
             JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);
@@ -108,7 +108,7 @@ namespace WishGranter.Concerns.API
         /// </summary>
         public static async Task<JObject> RobustGetTraderBarterOffers()
         {
-            string queryString = "{ traders { id barters { id level buyLimit taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } requiredItems { item { id name } count quantity } rewardItems { item { id name } count quantity } } } }";
+            string queryString = "{ traders (gameMode: regular lang: en) { id barters { id level buyLimit taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } requiredItems { item { id name } count quantity } rewardItems { item { id name } count quantity } } } }";
             string queryName = "traderBarterOffers";
 
             JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);

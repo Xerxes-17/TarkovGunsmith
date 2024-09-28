@@ -5,43 +5,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WishGranter.Concerns.API;
+using WishGranter.Concerns.MarketData;
 using WishGranter.Statics;
 
 namespace WishGranterTests
 {
     [TestClass]
-    public class NewTarkovDevApiTests
+    public class NewMarketTests
     {
         [TestMethod]
-        public async Task Test_RobustGetTraderBaseInfoAsync()
+        public async Task Test_GetTraders()
         {
-            var result = await NewTarkovDevApi.RobustGetTraderBaseInfo();
+            var result = await NewMarket.GetTraders();
 
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task Test_RobustGetTraderCashOffersAsync()
+        public async Task Test_GetFleaMarketOffers()
         {
-            var result = await NewTarkovDevApi.RobustGetTraderCashOffers();
+            var result = await NewMarket.GetFleaMarketOffers();
 
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task Test_RobustGetTraderBarterOffers()
+        public async Task Test_GetCashOffers()
         {
-            var result = await NewTarkovDevApi.RobustGetTraderBarterOffers();
+            var result = await NewMarket.GetCashOffers();
 
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task Test_RobustGetFleaMarketOffers()
+        public async Task Test_GetBarterOffers()
         {
-            var result = await NewTarkovDevApi.RobustGetFleaMarketOffers();
+            var result = await NewMarket.GetBarterOffers();
 
             Assert.IsNotNull(result);
         }
     }
+
 }
