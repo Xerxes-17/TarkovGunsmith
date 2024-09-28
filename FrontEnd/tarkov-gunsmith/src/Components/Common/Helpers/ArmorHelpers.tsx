@@ -40,45 +40,45 @@ export function enumArmorZonesToStrings() {
 
 const makeArmorZoneOptions: string[] = enumArmorPlateZonesToStrings().concat(enumArmorZonesToStrings());
 
-export const armorZoneOptions = 
-[
-    "*SAPI front",
-    "*SAPI back",
-    "*SAPI left high",
-    "*SAPI left low",
-    "*SAPI right high",
-    "*SAPI right low",
-    "*Korund chest",
-    "*6B13 back",
-    "*Korund left high",
-    "*Korund left low",
-    "*Korund right high",
-    "*Korund right low",
+export const armorZoneOptions =
+    [
+        "*SAPI front",
+        "*SAPI back",
+        "*SAPI left high",
+        "*SAPI left low",
+        "*SAPI right high",
+        "*SAPI right low",
+        "*Korund chest",
+        "*6B13 back",
+        "*Korund left high",
+        "*Korund left low",
+        "*Korund right high",
+        "*Korund right low",
 
-    "Thorax",
-    "Stomach",
-    "Groin",
+        "Thorax",
+        "Stomach",
+        "Groin",
 
-    "UpperBack",
-    "LowerBack",
-    "Buttocks",
+        "UpperBack",
+        "LowerBack",
+        "Buttocks",
 
-    "LeftSide",
-    "RightSide",
-    "LeftShoulder",
-    "RightShoulder",
+        "LeftSide",
+        "RightSide",
+        "LeftShoulder",
+        "RightShoulder",
 
-    "Throat",
-    "Neck",
-    "HeadTop",
-    "Nape",
-    "Ears",
-    "Eyes",
-    "Face",
-    "Jaws",
-]
+        "Throat",
+        "Neck",
+        "HeadTop",
+        "Nape",
+        "Ears",
+        "Eyes",
+        "Face",
+        "Jaws",
+    ]
 
-export function returnZonesFromTargetZone(targetZone: string){
+export function returnZonesFromTargetZone(targetZone: string) {
     switch (targetZone) {
         case 'Head':
             return headArmorZones;
@@ -88,57 +88,61 @@ export function returnZonesFromTargetZone(targetZone: string){
             return stomachArmorZones;
         case 'Arm':
             return armArmorZones;
+        case 'Legs':
+            return legArmorZones;
         default:
             throw new Error('Invalid Target Zone');
     }
 }
 
-export const headArmorZones = 
-[
-    "Throat",
-    "Neck",
-    "HeadTop",
-    "Nape",
-    "Ears",
-    "Eyes",
-    "Face",
-    "Jaws",
-]
+export const headArmorZones =
+    [
+        "Throat",
+        "Neck",
+        "HeadTop",
+        "Nape",
+        "Ears",
+        "Eyes",
+        "Face",
+        "Jaws",
+    ]
 
-export const thoraxArmorZones = 
-[
-    "*SAPI front",
-    "*SAPI back",
-    "*Korund chest",
-    "*6B13 back",
+export const thoraxArmorZones =
+    [
+        "*SAPI front",
+        "*SAPI back",
+        "*Korund chest",
+        "*6B13 back",
 
-    "Thorax",
-    "UpperBack",
-]
-export const stomachArmorZones = 
-[
-    "*SAPI front",
-    "*SAPI back",
-    "*SAPI left high",
-    "*SAPI left low",
-    "*SAPI right high",
-    "*SAPI right low",
-    "*Korund chest",
-    "*6B13 back",
-    "*Korund left high",
-    "*Korund left low",
-    "*Korund right high",
-    "*Korund right low",
+        "Thorax",
+        "UpperBack",
+    ]
+export const stomachArmorZones =
+    [
+        "*SAPI front",
+        "*SAPI back",
+        "*SAPI left high",
+        "*SAPI left low",
+        "*SAPI right high",
+        "*SAPI right low",
+        "*Korund chest",
+        "*6B13 back",
+        "*Korund left high",
+        "*Korund left low",
+        "*Korund right high",
+        "*Korund right low",
 
-    "Stomach",
-    "Groin",
-    "LowerBack",
-    "Buttocks",
-]
+        "Stomach",
+        "Groin",
+        "LowerBack",
+        "Buttocks",
+    ]
 
-export const armArmorZones = 
-[
-    "LeftShoulder",
-    "RightShoulder",
-]
+export const armArmorZones =
+    [
+        "LeftShoulder",
+        "RightShoulder",
+    ]
+
+export const legArmorZones = []
 
