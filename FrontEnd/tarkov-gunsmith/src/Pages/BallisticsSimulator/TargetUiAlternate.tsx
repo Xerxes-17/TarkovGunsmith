@@ -1,4 +1,4 @@
-import { Input, SegmentedControl, Stack } from "@mantine/core";
+import { Group, Input, NumberInput, SegmentedControl, Stack } from "@mantine/core";
 import { FormArmorLayer, useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
 
 export interface TargetUIProps {
@@ -6,9 +6,9 @@ export interface TargetUIProps {
     fullWidth?: boolean
 }
 
-export type TargetZone =  'Head' | 'Thorax' | 'Stomach' | 'Arm';
+export type TargetZone = 'Head' | 'Thorax' | 'Stomach' | 'Arm';
 
-const defaultHead:FormArmorLayer = {
+const defaultHead: FormArmorLayer = {
     id: "",
     isPlate: false,
     armorClass: 3,
@@ -18,7 +18,7 @@ const defaultHead:FormArmorLayer = {
     bluntDamageThroughput: 17.26,
 }
 
-const defaultThoraxStomach:FormArmorLayer = {
+const defaultThoraxStomach: FormArmorLayer = {
     id: "",
     isPlate: false,
     armorClass: 4,
@@ -27,7 +27,7 @@ const defaultThoraxStomach:FormArmorLayer = {
     armorMaterial: "Ceramic",
     bluntDamageThroughput: 28,
 }
-const defaultArm:FormArmorLayer = {
+const defaultArm: FormArmorLayer = {
     id: "",
     isPlate: false,
     armorClass: 3,
@@ -40,7 +40,7 @@ const defaultArm:FormArmorLayer = {
 export function TargetUiAlternate(props: TargetUIProps) {
     const form = useBallisticSimulatorFormContext();
 
-    function TargetZoneToMaxLayers(value: TargetZone){
+    function TargetZoneToMaxLayers(value: TargetZone) {
         switch (value) {
             case 'Head':
                 return 3;
@@ -55,7 +55,7 @@ export function TargetUiAlternate(props: TargetUIProps) {
         }
     }
 
-    function TargetZoneToHp(value: TargetZone){
+    function TargetZoneToHp(value: TargetZone) {
         switch (value) {
             case 'Head':
                 return 35;
@@ -70,7 +70,7 @@ export function TargetUiAlternate(props: TargetUIProps) {
         }
     }
 
-    function armorLayerDefault(value: TargetZone){
+    function armorLayerDefault(value: TargetZone) {
         switch (value) {
             case 'Head':
                 return defaultHead;
@@ -97,6 +97,7 @@ export function TargetUiAlternate(props: TargetUIProps) {
                     { label: 'Thorax', value: 'Thorax' },
                     { label: 'Stomach', value: 'Stomach' },
                     { label: 'Arm', value: 'Arm' },
+                    // { label: 'Legs', value: 'Legs' },  // todo: need to expand FE to include total HP pool input. Thought: add "Target Info" which defaults to PMC but allows for input of individual zones and thus, changing the total.
                 ]}
                 {...form.getInputProps("targetZone")}
                 onChange={(value => {
@@ -108,9 +109,23 @@ export function TargetUiAlternate(props: TargetUIProps) {
                     form.setFieldValue("maxLayers", TargetZoneToMaxLayers(zone))
                 })}
             />
-            <Input.Description>
-                Hit points: {form.values.hitPointsPool}
-            </Input.Description>
+            <Group>
+                <Input.Description>
+                    Hit points:
+                </Input.Description>
+                <NumberInput 
+                    size="xs" 
+                    w={80}
+                    precision={0}
+                    max={999}
+                    min={1}
+                    step={1}
+                    stepHoldDelay={200}
+                    stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
+                    {...form.getInputProps("hitPointsPool")} />
+            </Group>
+
+
         </Stack>
 
     )
