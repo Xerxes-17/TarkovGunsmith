@@ -1,9 +1,10 @@
 import { BallisticSimDataPoint, SimulationToCalibrationDistancePair } from "../types";
-import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
+import { Box, Button, Collapse, Flex, Grid, Group, Input, Loader, NumberInput, RangeSlider, Select, Stack, Switch, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
 import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
 
 
 export function DopeResultSection({ result, isLoading, resultString }: { result: SimulationToCalibrationDistancePair[], isLoading: boolean, resultString: string }) {
@@ -16,7 +17,9 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
     }) ?? [];
 
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
-    console.log(selectedCalibration)
+
+    const [opened, { toggle }] = useDisclosure(false);
+    const [checked, setChecked] = useState(false);
 
     const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.[1].output.DataPoints);
 
@@ -35,7 +38,7 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
 
     return (
         <Grid>
-            <Grid.Col span={12}>
+            <Grid.Col span={12} lg={7} xl={6} >
                 <Flex align={"center"} >
                     <Select
                         miw={140}
@@ -57,12 +60,33 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
             </Grid.Col>
 
             <Grid.Col span={12} lg={7} xl={6} >
+                <Box maw={700} mx="auto">
+                    <Input.Label>
+                        Distance Filter
+                    </Input.Label>
+                    <Group grow>
+                        <NumberInput maw={80} />
+                        <NumberInput maw={80} />
+                        <RangeSlider maw={"100%"} defaultValue={[20, 80]} />
+                    </Group>
+                </Box>
+            </Grid.Col>
+
+            <Grid.Col span={12} lg={7} xl={6} >
                 {selectedData && (
                     <BallisticCalculatorResultTable result={selectedData} />
                 )}
             </Grid.Col>
 
             <Grid.Col span={12} lg={5} xl={6} >
+                <Input.Label>
+                    Y-Scale
+                </Input.Label>
+                <Group grow>
+                    <NumberInput maw={80} />
+                    <NumberInput maw={80} />
+                    <RangeSlider maw={"100%"} defaultValue={[20, 80]} />
+                </Group>
                 {selectedData && (
                     <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} />
                 )}
