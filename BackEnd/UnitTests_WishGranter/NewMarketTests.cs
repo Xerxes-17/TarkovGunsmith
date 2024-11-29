@@ -1,12 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WishGranter.Concerns.API;
 using WishGranter.Concerns.MarketData;
-using WishGranter.Statics;
 
 namespace WishGranterTests
 {
@@ -44,6 +39,14 @@ namespace WishGranterTests
 
             Assert.IsNotNull(result);
         }
-    }
 
+        [TestMethod]
+        public async Task Test_GetBuyBackOffers()
+        {
+            var result = await NewMarket.GetBuyBackOffers();
+            Console.WriteLine($"BuyBackOffers.Count: {result.Count}");
+
+            Assert.IsNotNull(result);
+        }
+    }
 }

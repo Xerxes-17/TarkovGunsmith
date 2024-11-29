@@ -10,8 +10,6 @@ namespace WishGranter.Concerns.MarketData
             ItemName = itemName;
         }
 
-        public string? Id { get; set; }
-        public string? Name { get; set;}
         public string ItemId { get; }
         public string ItemName { get; }
     }
@@ -39,9 +37,10 @@ namespace WishGranter.Concerns.MarketData
 
     public class CashOffer
     {
-        public CashOffer(IdNameTuple item, int? priceRUB, int? price, string currency, int? buyLimit, int? minTraderLevel)
+        public CashOffer(IdNameTuple item, string traderId,  int? priceRUB, int? price, string currency, int? buyLimit, int? minTraderLevel)
         {
             Item = item;
+            TraderId = traderId;
             PriceRUB = priceRUB;
             Price = price;
             Currency = currency;
@@ -49,11 +48,12 @@ namespace WishGranter.Concerns.MarketData
             MinTraderLevel = minTraderLevel;
         }
 
-        public CashOffer(IdNameTuple item, int? priceRUB, int? price, string currency, int? buyLimit, int? minTraderLevel, UnlockTask unlockTask) : this(item, priceRUB, price, currency, buyLimit, minTraderLevel)
+        public CashOffer(IdNameTuple item, string traderId, int? priceRUB, int? price, string currency, int? buyLimit, int? minTraderLevel, UnlockTask unlockTask) : this(item, traderId, priceRUB, price, currency, buyLimit, minTraderLevel)
         {
             UnlockTask = unlockTask;
         }
 
+        public string? TraderId { get; set; }
         public int? PriceRUB { get; set; }
         public int? Price { get; set; }
         public IdNameTuple? Item { get; set; }

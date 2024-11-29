@@ -5,6 +5,32 @@ namespace WishGranter.Concerns.API
     public class NewTarkovDevApi
     {
         /// <summary>
+        /// Extracted out the local file backup access so that it can be unit-tested.
+        /// </summary>
+        public static Task<JObject> TryQueryLocalBackup(string fullPath, string relativePath) 
+        {
+            try
+            {
+                // Read the JSON content from the relative file path
+                string localJsonContent = File.ReadAllText(relativePath);
+                JObject localPresetsJSON = JObject.Parse(localJsonContent);
+
+                Console.WriteLine($"Fallback file '{fullPath}' loaded successfully.");
+
+                return Task.FromResult(localPresetsJSON);
+            }
+
+            catch (Exception fileEx)
+            {
+                // Log the exception message related to reading the file
+                Console.WriteLine($"Fallback file '{fullPath}' failed to load: {fileEx.Message}");
+
+                // Return an empty JObject as a last resort
+                return Task.FromResult(new JObject());
+            }
+        }
+
+        /// <summary>
         /// Send a query to TarkovDev's GraphQL endpoint, with error handling done for you.
         /// </summary>
         /// <param name="queryString">Query string in GraphQL format.</param>
@@ -56,25 +82,7 @@ namespace WishGranter.Concerns.API
                 // Log the exception message
                 Console.WriteLine($"An error occurred while fetching & parsing {queryName}: {ex.Message}");
 
-                try
-                {
-                    // Read the JSON content from the relative file path
-                    string localJsonContent = File.ReadAllText(relativePath);
-                    JObject localPresetsJSON = JObject.Parse(localJsonContent);
-
-                    Console.WriteLine($"Fallback file '{fullPath}' loaded successfully.");
-
-                    return localPresetsJSON;
-                }
-
-                catch (Exception fileEx)
-                {
-                    // Log the exception message related to reading the file
-                    Console.WriteLine($"Fallback file '{fullPath}' failed to load: {fileEx.Message}");
-
-                    // Return an empty JObject as a last resort
-                    return new JObject();
-                }
+                return await TryQueryLocalBackup(fullPath, relativePath);
 
             }
         }
@@ -96,7 +104,7 @@ namespace WishGranter.Concerns.API
         /// </summary>
         public static async Task<JObject> RobustGetTraderCashOffers()
         {
-            string queryString = "{ traders (gameMode: regular lang: en) { id cashOffers { item { id name } priceRUB price currency buyLimit minTraderLevel taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } } } }";
+            string queryString = "{ traders (gameMode: regular lang: en) { id name cashOffers { item { id name } priceRUB price currency buyLimit minTraderLevel taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } } } }";
             string queryName = "traderCashOffers";
 
             JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);
@@ -108,7 +116,7 @@ namespace WishGranter.Concerns.API
         /// </summary>
         public static async Task<JObject> RobustGetTraderBarterOffers()
         {
-            string queryString = "{ traders (gameMode: regular lang: en) { id barters { id level buyLimit taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } requiredItems { item { id name } count quantity } rewardItems { item { id name } count quantity } } } }";
+            string queryString = "{ traders (gameMode: regular lang: en) { id name barters { id level buyLimit taskUnlock { id trader{ id name } name minPlayerLevel name wikiLink } requiredItems { item { id name } count quantity } rewardItems { item { id name } count quantity } } } }";
             string queryName = "traderBarterOffers";
 
             JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);
@@ -127,6 +135,16 @@ namespace WishGranter.Concerns.API
             return result;
         }
 
+        /// <summary>
+        /// Fetch the flea market offers of all items.
+        /// </summary>
+        public static async Task<JObject> RobustGetBuyBackOffers()
+        {
+            string queryString = "query BuyBackOffers { items(types: [any]) { id name sellFor { vendor { name ... on FleaMarket { foundInRaidRequired enabled } } price currency priceRUB } } }";
+            string queryName = "buyBackOffers";
 
+            JObject result = await RobustTarkovDevQueryAsync(queryString, queryName);
+            return result;
+        }
     }
 }

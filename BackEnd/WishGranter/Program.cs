@@ -9,10 +9,8 @@ using System.Diagnostics;
 using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
-using WishGranter.AmmoEffectivenessChart;
 using WishGranter.Statics;
 using WishGranter.API_Methods;
-using Private_Ballistic_Engine;
 using static WishGranter.Statics.BallisticComputah;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -106,8 +106,6 @@ namespace WishGranter.Statics
 
         public static JObject GetAllMarketData()
         {
-            
-
             try
             {
                 // Get *all* of the offers for *any* item.

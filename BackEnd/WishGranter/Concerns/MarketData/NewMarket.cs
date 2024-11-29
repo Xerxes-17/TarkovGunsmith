@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using OpenTelemetry.Trace;
 using RatStash;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using WishGranter.Concerns.API;
+using WishGranterProto;
 
 namespace WishGranter.Concerns.MarketData
 {
@@ -16,7 +19,7 @@ namespace WishGranter.Concerns.MarketData
 
     // process item cash offers from API or SQL
 
-    // process barter offers from API opr SQL
+    // process barter offers from API or SQL
 
     public class NewMarket
     {
@@ -28,6 +31,8 @@ namespace WishGranter.Concerns.MarketData
         private static List<CashOffer> _cashOffers { get; set; } = new List<CashOffer>();
 
         private static List<BarterOffer> _barterOffers { get; set; } = new List<BarterOffer>();
+
+        public static List<BuyBackOffer> _buyBackOffers { get; set; } = new List<BuyBackOffer>();
 
         public static async Task<List<Trader>> GetTraders()
         {
@@ -121,19 +126,53 @@ namespace WishGranter.Concerns.MarketData
             return _barterOffers;
         }
 
+        public static async Task<List<BuyBackOffer>> GetBuyBackOffers()
+        {
+            if (initialised)
+            {
+                return _buyBackOffers;
+            }
+
+            await _initLock.WaitAsync();
+            try
+            {
+                if (!initialised)
+                {
+                    await InitNewMarketAsync();
+                }
+            }
+            finally
+            {
+                _initLock.Release();
+            }
+
+            return _buyBackOffers;
+        }
+
+
         public static async Task InitNewMarketAsync()
         {
+            await InitTraderBaseInfo();
+
             List<Task> tasks = new()
             {
-                InitTraderBaseInfo(),
                 InitFleaMarketOffers(),
                 InitTraderCashOffers(),
-                InitTraderBarterOffers()
+                InitTraderBarterOffers(),
+                InitBuyBackOffers(),
             };
 
             await Task.WhenAll(tasks);
 
-            if (_traders.Count > 0)
+            bool isGreatSuccess =
+                _traders.Count > 0 &&
+                _barterOffers.Count > 0 &&
+                _cashOffers.Count > 0 &&
+                _fleaMarketOffers.Count > 0 &&
+                _buyBackOffers.Count > 0;
+                
+
+            if (isGreatSuccess)
             {
                 initialised = true;
             }
@@ -215,10 +254,10 @@ namespace WishGranter.Concerns.MarketData
         {
             List<BarterOffer> barterOffers = new();
 
-            var cashOfferInfo = await NewTarkovDevApi.RobustGetTraderBarterOffers();
+            var offersInfo = await NewTarkovDevApi.RobustGetTraderBarterOffers();
             string searchJSONpath = "$.data.traders[*]";
 
-            var traders = cashOfferInfo.SelectTokens(searchJSONpath).ToList();
+            var traders = offersInfo.SelectTokens(searchJSONpath).ToList();
             if (traders == null || traders.Count == 0)
             {
                 return;
@@ -302,22 +341,22 @@ namespace WishGranter.Concerns.MarketData
         {
             List<CashOffer> cashOffers = new();
 
-            var cashOfferInfo = await NewTarkovDevApi.RobustGetTraderCashOffers();
+            var offersInfo = await NewTarkovDevApi.RobustGetTraderCashOffers();
             string searchJSONpath = "$.data.traders[*]";
 
-            var traders = cashOfferInfo.SelectTokens(searchJSONpath).ToList();
+            var traders = offersInfo.SelectTokens(searchJSONpath).ToList();
 
             if (traders == null || traders.Count == 0)
             {
                 return;
             }
 
-            foreach (JToken trader in traders)
+            foreach (JToken traderToken in traders)
             {
-                var traderId = trader.SelectToken("id").ToString();
+                var traderId = traderToken.SelectToken("id").ToString();
 
                 string searchTraderPath = "$.data.traders[*]";
-                var tokens = trader.SelectTokens(searchTraderPath).ToList();
+                var tokens = traderToken.SelectTokens(searchTraderPath).ToList();
 
                 foreach (JToken token in tokens)
                 {
@@ -336,7 +375,7 @@ namespace WishGranter.Concerns.MarketData
                     var taskUnlockToken = token.SelectToken("$.taskUnlock");
                     if (taskUnlockToken == null)
                     {
-                        CashOffer cashOffer = new CashOffer(item, priceRUB, price, currency, buyLimit, minTraderLevel);
+                        CashOffer cashOffer = new CashOffer(item, traderId, priceRUB, price, currency, buyLimit, minTraderLevel);
                         cashOffers.Add(cashOffer);
                     }
                     else
@@ -353,13 +392,127 @@ namespace WishGranter.Concerns.MarketData
 
                         UnlockTask unlockTask = new UnlockTask(taskTrader, taskId, taskName, minPlayerLevel, wikiLink);
 
-                        CashOffer cashOffer = new CashOffer(item, priceRUB, price, currency, buyLimit, minTraderLevel, unlockTask);
+                        CashOffer cashOffer = new CashOffer(item, traderId, priceRUB, price, currency, buyLimit, minTraderLevel, unlockTask);
                         cashOffers.Add(cashOffer);
                     }
                 }
             }
 
             _cashOffers = cashOffers;
+        }
+
+        public static async Task InitBuyBackOffers()
+        {
+            List<BuyBackOffer> buyBackOffers = new();
+
+            var offersInfo = await NewTarkovDevApi.RobustGetBuyBackOffers();
+            string searchJSONpath = "$.data.items[*]";
+
+            var items = offersInfo.SelectTokens(searchJSONpath).ToList();
+
+            if (items == null || items.Count == 0)
+            {
+                return;
+            }
+
+            foreach (JToken itemToken in items)
+            {
+                var itemId = itemToken.SelectToken("id").ToString();
+                var itemName = itemToken.SelectToken("name").ToString();
+
+                string searchItemPath = "$.sellFor[*]";
+                var sellTokens = itemToken.SelectTokens(searchItemPath).ToList();
+
+                foreach (JToken token in sellTokens)
+                {
+                    var vendorName = token.SelectToken("$.vendor.name").ToString();
+                    if (vendorName.Equals("Flea Market"))
+                    {
+                        continue;
+                    }
+
+                    var vendorId = _traders.Find(t => t.Name.Equals(vendorName))?.Id ?? "NOT_FOUND";
+                    if (vendorId.Equals("NOT_FOUND"))
+                    {
+                        // TODO: Add a warning log here
+                        continue;
+                    }
+
+                    var priceRUB = token.SelectToken("$.priceRUB").ToObject<int>();
+                    var price = token.SelectToken("$.price").ToObject<int>();
+                    var currency = token.SelectToken("$.currency").ToString();
+
+                    BuyBackOffer buyBackOffer = new BuyBackOffer(
+                        itemId,
+                        vendorId,
+                        price,
+                        currency,
+                        priceRUB
+                        );
+
+                    buyBackOffers.Add( buyBackOffer );
+                }
+            }
+
+
+
+            _buyBackOffers = buyBackOffers;
+        }
+
+        /// <summary>
+        /// Since we're going to only be dealing with weapon mods here, we know by definition it's always gonna be mechanic.
+        /// If it can't find a BuyBack, returns -1.
+        /// </summary>
+        public static int FindBestBuyBackValue(string itemId)
+        {
+            var offers = _buyBackOffers.FindAll(x => x.ItemId == itemId).ToList();
+            var maxValue = offers?.Max(x => x.PriceRUB) ?? -1;
+
+            return maxValue;
+        }
+
+        /// <summary>
+        /// As an intermediate step, we're going to create the old MarketEntry style data from the new approach. Hopefully I rediscover my 
+        /// past intent!
+        /// Todo: Replace this with whatever I was supposed to.
+        /// Actually, shouldn't be using this for anything. delete it.
+        /// </summary>
+        public static List<MarketEntry> ConstructMarketData_Old()
+        {
+            List<MarketEntry> CompiledMarketDataList = new();
+
+            foreach (var entry in _cashOffers)
+            {
+                var vendor = _traders.Find(t => t.Id.Equals(entry.TraderId));
+                if (vendor == null)
+                {
+                    Console.WriteLine($"Warning: trader (id:{entry.TraderId}) not found in ConstructMarketData_Old()");
+                    continue; 
+                }
+                var vendorId = vendor.Id ?? "ERR: MISSING";
+                var vendorName = vendor.Name ;
+                var minTraderLevel = entry.MinTraderLevel ?? 1;
+                var reqPlayerLevel = vendor.Levels[minTraderLevel - 1].RequiredPlayerLevel;
+
+                PurchaseOffer purchaseOffer = new(
+                    entry.PriceRUB ?? -1,
+                    entry.Price ?? -1,
+                    entry.Currency ?? "",
+                    vendorName ?? "",
+                    entry.MinTraderLevel ?? -1,
+                    reqPlayerLevel,
+                    OfferType.Cash
+                    );
+
+                MarketEntry marketEntry = new MarketEntry();
+                marketEntry.Id = vendorId;
+                marketEntry.Name = vendorName ?? "ERR: MISSING";
+                marketEntry.PurchaseOffer = purchaseOffer;
+
+                CompiledMarketDataList.Add(marketEntry);
+            }
+
+            return CompiledMarketDataList;
         }
     }
 }
