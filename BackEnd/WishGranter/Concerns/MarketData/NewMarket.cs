@@ -2,6 +2,7 @@
 using OpenTelemetry.Trace;
 using RatStash;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using WishGranter.Concerns.API;
 using WishGranterProto;
@@ -170,7 +171,7 @@ namespace WishGranter.Concerns.MarketData
                 _cashOffers.Count > 0 &&
                 _fleaMarketOffers.Count > 0 &&
                 _buyBackOffers.Count > 0;
-                
+
 
             if (isGreatSuccess)
             {
@@ -450,7 +451,7 @@ namespace WishGranter.Concerns.MarketData
                         priceRUB
                         );
 
-                    buyBackOffers.Add( buyBackOffer );
+                    buyBackOffers.Add(buyBackOffer);
                 }
             }
 
@@ -471,6 +472,66 @@ namespace WishGranter.Concerns.MarketData
             return maxValue;
         }
 
+        public static int FindBestFleaMarketOffer(string itemId)
+        {
+            var offers = _fleaMarketOffers.FindAll(x => x.Id == itemId).ToList();
+            var maxValue = offers?.Max(x => x.Avg24hPrice) ?? -1;
+
+            return maxValue;
+        }
+
+        public static int GetBarterOfferFleaCost(BarterOffer barterOffer)
+        {
+            int sum = 0;
+            barterOffer.RequiredItems.ForEach(reqItem =>
+            {
+                int result = FindBestFleaMarketOffer(reqItem.Item.ItemId);
+                if (result > 0)
+                {
+                    sum += result;
+                }
+            });
+
+            return sum;
+        }
+
+        public static BarterOffer? FindBestBarterOffer(string itemId)
+        {
+            var offers = _barterOffers
+                .Where(x => x.RewardItems.Any(y => y.Item.ItemId == itemId))
+                .ToList();
+
+            // If no offers exist, return 0 (or any other default value).
+            if (!offers.Any())
+                return null;
+
+            // Sort offers by their calculated flea market cost using GetBarterOfferFleaCost.
+            var bestOffer = offers
+                .OrderBy(GetBarterOfferFleaCost) // Sorts by the flea market cost of required items
+                .First();
+
+            // Return the flea market cost of the best offer.
+            return bestOffer;
+        }
+
+        public static CashOffer? FindBestCashOffer(string itemId)
+        {
+            var offers = _cashOffers
+                .Where(x => x.Item.ItemId.Equals(itemId))
+                .ToList();
+
+            if (!offers.Any())
+                return null;
+
+            var bestOffer = offers
+                .OrderBy(x => x.PriceRUB)
+                .First();
+
+            return bestOffer;
+        }
+
+
+
         /// <summary>
         /// As an intermediate step, we're going to create the old MarketEntry style data from the new approach. Hopefully I rediscover my 
         /// past intent!
@@ -487,10 +548,10 @@ namespace WishGranter.Concerns.MarketData
                 if (vendor == null)
                 {
                     Console.WriteLine($"Warning: trader (id:{entry.TraderId}) not found in ConstructMarketData_Old()");
-                    continue; 
+                    continue;
                 }
                 var vendorId = vendor.Id ?? "ERR: MISSING";
-                var vendorName = vendor.Name ;
+                var vendorName = vendor.Name;
                 var minTraderLevel = entry.MinTraderLevel ?? 1;
                 var reqPlayerLevel = vendor.Levels[minTraderLevel - 1].RequiredPlayerLevel;
 
