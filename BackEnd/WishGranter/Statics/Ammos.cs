@@ -52,7 +52,7 @@ namespace WishGranter
             return Cleaned.Where(x=>x.Caliber.Equals(ammoCaliber)).ToList();
         }
 
-        public static Ammo GetAmmoById(string Id)
+        public static Ammo? GetAmmoById(string Id)
         {
             return Cleaned.Find(x=>x.Id.Equals(Id));
         }

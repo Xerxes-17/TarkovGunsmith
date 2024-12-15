@@ -82,6 +82,10 @@ export function OldBsHeaderNavbar() {
                                 </NavDropdown.Item>
                             </NavDropdown> */}
 
+                            <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
+                                <Nav.Link >Ammo Effectiveness</Nav.Link>
+                            </LinkContainer>
+
                             <NavDropdown title="Stats Tables" id="stats-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.DATA_SHEETS_WEAPONS}>

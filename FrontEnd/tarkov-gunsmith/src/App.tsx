@@ -21,6 +21,7 @@ import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimul
 import { HelmetProvider } from 'react-helmet-async';
 import { SEO } from './Util/SEO';
 import { BallisticCalculator } from './Pages/BallisticCalculator/BallisticCalculator';
+import { AEC_Mk3 } from './Pages/AmmoEffectivenessChart';
 
 function App() {
   return (
@@ -80,13 +81,16 @@ function App() {
 
                 <Route path={LINKS.BALLISTIC_CALCULATOR} element={<BallisticCalculator />} />
 
+                <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AEC_Mk3/>} />
+
                 {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${LINKS.ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
 
             <Route path={LINKS.AMMO_VS_ARMOR} element={<DataSheetEffectivenessAmmo />} />
             <Route path={`${LINKS.AMMO_VS_ARMOR}/:id_ammo`} element={<DataSheetEffectivenessAmmo />} />
 
-            <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessChartPage/>} /> */}
+
+             */}
 
                 {/* Page not found */}
                 <Route path='*' element={<PageNotFound />} />

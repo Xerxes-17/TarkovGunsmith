@@ -316,6 +316,8 @@ namespace WishGranter.Statics
             return armorModules;
         }
 
+        
+
         //public static ArmorItemStats GetArmorItemStatsByID(string Id)
         //{
         //    using var db = new Monolit();
