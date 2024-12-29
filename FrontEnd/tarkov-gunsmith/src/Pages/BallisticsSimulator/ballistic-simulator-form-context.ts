@@ -12,7 +12,6 @@ export interface FormArmorLayer{
   armorMaterial: string; 
 }
 
-
 export interface BallisticSimulatorFormValues {
   penetration: number;
   damage: number;
@@ -23,6 +22,5 @@ export interface BallisticSimulatorFormValues {
   armorLayers: FormArmorLayer[];
 }
 
-// You can give context variables any name
 export const [BallisticSimulatorFormProvider, useBallisticSimulatorFormContext, useBallisticSimulatorForm] =
   createFormContext<BallisticSimulatorFormValues>();

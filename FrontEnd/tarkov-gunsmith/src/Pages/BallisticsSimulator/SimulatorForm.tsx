@@ -15,6 +15,7 @@ import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementIm
 import { PRINT_ID } from "./BallisticsSimulator";
 import { BasicMultiShotResultsTable } from "../../Components/Common/Tables/tgTables/basic-multi-shot-results";
 import { BsMsLineChart } from "../../Components/Common/Graphs/Charts/BsMsLineChart";
+import { TargetZone } from './TargetUiAlternate';
 
 function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
@@ -22,28 +23,31 @@ function camelCaseToWords(str: string) {
 
 interface PenAndDamFormProps {
     layerCountCb: Dispatch<SetStateAction<number>>;
+    _initialValues?: BallisticSimulatorFormValues
 }
 
-export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
-    const form = useBallisticSimulatorForm({
-        initialValues: {
-            penetration: 28,
-            damage: 53,
-            armorDamagePercentage: 40,
-            targetZone: "Thorax",
-            hitPointsPool: 85,
-            maxLayers: 2,
+const defaultInitialValues = {
+    penetration: 28,
+    damage: 53,
+    armorDamagePercentage: 40,
+    targetZone: "Thorax" as TargetZone,
+    hitPointsPool: 85,
+    maxLayers: 2,
 
-            armorLayers: [{
-                id:"",
-                isPlate: false,
-                armorClass: 4,
-                durability: 44,
-                maxDurability: 44,
-                armorMaterial: "Ceramic",
-                bluntDamageThroughput: 28,
-            }]
-        }
+    armorLayers: [{
+        id:"",
+        isPlate: false,
+        armorClass: 4,
+        durability: 44,
+        maxDurability: 44,
+        armorMaterial: "Ceramic",
+        bluntDamageThroughput: 28,
+    }]
+}
+
+export function SimulatorForm({ layerCountCb, _initialValues }: PenAndDamFormProps) {
+    const form = useBallisticSimulatorForm({
+        initialValues: _initialValues ?? defaultInitialValues 
     });
 
     const [result, setResult] = useState<BallisticSimResponse[]>([]);
@@ -56,29 +60,6 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
 
     const layerCount = form.values.armorLayers.length;
     layerCountCb(layerCount);
-
-    //todo compare with other sim
-    // interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-    //     image: string;
-    //     label: string;
-    //     destructibility: string;
-    //     explosionDestructibility: string;
-    // }
-
-    // const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-    //     ({ image, label, destructibility, ...others }: ItemProps, ref) => (
-    //         <div ref={ref} {...others}>
-    //             <Group noWrap>
-    //                 <div>
-    //                     <Text size="sm">{label}</Text>
-    //                     <Text size="xs" opacity={0.65}>
-    //                         Destructibility: {destructibility}
-    //                     </Text>
-    //                 </div>
-    //             </Group>
-    //         </div>
-    //     )
-    // );
 
     const layers = result?.length ?? 1;
 

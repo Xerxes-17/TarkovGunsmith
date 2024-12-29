@@ -17,10 +17,10 @@ import { HelmetsMRT } from './Components/Common/Tables/tgTables/HelmetsMRT';
 import { ArmorMRT } from './Components/Common/Tables/tgTables/ArmorMRT';
 import { TgAppShell } from './Components/Common/TgAppShell';
 import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModulesMRT';
-import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimulator';
 import { HelmetProvider } from 'react-helmet-async';
 import { SEO } from './Util/SEO';
 import { BallisticCalculator } from './Pages/BallisticCalculator/BallisticCalculator';
+import { BallisticsSimulator } from './V2/Pages/BallisticsSimulator';
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Container, Divider, Group, HoverCard, Paper, Popover, ScrollArea, Space, Tabs, Text, TextInput, Title, Tooltip } from "@mantine/core"
 import { SimulatorForm } from "./SimulatorForm"
-import { IconEdit, IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
+import { IconCopy, IconEdit, IconGraph, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useState } from "react";
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { SEO } from "../../Util/SEO";
@@ -42,7 +42,6 @@ export function BallisticsSimulator() {
                 setActiveTab(lastItem)
             }
         }
-
     }
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewTabTitle(event.target.value);
@@ -137,7 +136,6 @@ export function BallisticsSimulator() {
                             </Paper>
                         </ScrollArea.Autosize>
                     </Tabs>
-
                 </Paper>
             </Container>
         </>
