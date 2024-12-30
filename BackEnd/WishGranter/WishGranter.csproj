@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	  <RuntimeIdentifiers>win10-x64;linux-x64</RuntimeIdentifiers>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>b1db2b3f-a2a2-4299-a70a-1bdabc1c8b33</UserSecretsId>
