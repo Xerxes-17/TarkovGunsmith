@@ -11,8 +11,6 @@ namespace WishGranter.Statics
         Ergonomics
     }
 
-
-
     // This class will handle all of the fittings logic
     public static class Gunsmith
     {
