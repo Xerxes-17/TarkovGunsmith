@@ -22,7 +22,8 @@ namespace WishGranter.API_Methods
         //todo This will let me skip past the "big DB update issue" for the moment.
         public static string GetSingleWeaponBuild(ActivitySource myActivitySource, string presetID, string priority, string muzzleMode, int playerLevel, bool fleaMarket, string[] excludedIds)
         {
-            Monolit db = new();
+            //! hacky remove of monolit-db
+            //Monolit db = new();
 
             GunsmithParameters parameters = new GunsmithParameters(
                 (FittingPriority)Enum.Parse(typeof(FittingPriority), priority),
@@ -44,19 +45,23 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("excludedIds", excludedIds);
             Console.WriteLine($"Request to Gunsmith for single weapon: [{presetID}, {priority}, {muzzleMode}, {playerLevel} ({fleaMarket})]");
 
-            GunsmithParameters fromDbParameters = GunsmithParameters.GetGunsmithParametersFromDB(parameters, db);
-            Fitting theFitting = new Fitting();
+            //! hacky removal of monolit-db
+            //GunsmithParameters fromDbParameters = GunsmithParameters.GetGunsmithParametersFromDB(parameters, db);
+            //Fitting theFitting = new Fitting();
 
-            if (excludedIds.Length > 0)
-            {
-                theFitting = new Fitting(basePreset, parameters, db);
-            }
-            else
-            {
-                theFitting = db.Fittings.FirstOrDefault(fitting =>
-                    fitting.BasePresetId == presetID && fromDbParameters.Id == fitting.GunsmithParametersId)
-                    ?? new Fitting(basePreset, fromDbParameters, db);
-            }
+
+            //if (excludedIds.Length > 0)
+            //{
+            //    theFitting = new Fitting(basePreset, parameters, db);
+            //}
+            //else
+            //{
+            //    theFitting = db.Fittings.FirstOrDefault(fitting =>
+            //        fitting.BasePresetId == presetID && fromDbParameters.Id == fitting.GunsmithParametersId)
+            //        ?? new Fitting(basePreset, fromDbParameters, db);
+            //}
+
+            Fitting theFitting = new Fitting(basePreset, parameters);
 
             myActivity?.SetTag("valid", theFitting.IsValid);
             myActivity?.SetTag("validityString", theFitting.ValidityString);

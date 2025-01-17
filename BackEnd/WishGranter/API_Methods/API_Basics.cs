@@ -20,7 +20,10 @@ namespace WishGranter.API_Methods
 
 
         private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet();
-        private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
+
+        //? Is this old?
+        //private static List<ArmorTableRow> ArmorDataSheet = WriteArmorDataSheet();
+
         private static List<NewArmorTableRow> NewHelmets = WriteHelmetsDataSheet();
         private static List<NewArmorTableRow> NewArmorStatsSheet = WriteNewArmorStatsSheet();
 
@@ -61,11 +64,11 @@ namespace WishGranter.API_Methods
             return ArmorModulesDataSheet;
         }
 
-        public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
-        {
-            using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
-            return ArmorDataSheet;
-        }
+        //public static List<ArmorTableRow> GetArmorDataSheet(ActivitySource myActivitySource)
+        //{
+        //    using var myActivity = myActivitySource.StartActivity("Request for ArmorDataSheet");
+        //    return ArmorDataSheet;
+        //}
 
         public static List<NewArmorTableRow> GetHelmetsDataSheet(ActivitySource myActivitySource)
         {
@@ -85,92 +88,6 @@ namespace WishGranter.API_Methods
             return DopeTableUI_Options;
         }
 
-
-        public static List<SelectionArmor> WriteArmorOptionsList()
-        {
-            var db = new Monolit();
-            List<SelectionArmor> result = new();
-
-            db.ArmorItems.ToList().ForEach(armorItem =>
-            {
-                SelectionArmor armorOption = new SelectionArmor();
-                armorOption.Value = armorItem.Id;
-                armorOption.Label = armorItem.Name;
-                armorOption.SetImageLinkWithId(armorItem.Id);
-                armorOption.ArmorClass = armorItem.ArmorClass;
-                armorOption.MaxDurability = armorItem.MaxDurability;
-                armorOption.ArmorMaterial = armorItem.ArmorMaterial;
-                armorOption.EffectiveDurability = Ballistics.GetEffectiveDurability(armorItem.MaxDurability, armorItem.ArmorMaterial);
-
-                var traderCheck = Market.GetEarliestCheapestTraderPurchaseOffer(armorItem.Id);
-                if(traderCheck != null)
-                {
-                    armorOption.TraderLevel = traderCheck.PurchaseOffer.MinVendorLevel;
-                }
-                else
-                {
-                    armorOption.TraderLevel = -1;
-                }
-                armorOption.Type = armorItem.Type;
-
-                result.Add(armorOption);
-            });
-
-            using StreamWriter writetext = new("outputs\\debug_ArmorOptionsList.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
-            writetext.Close();
-
-            return result;
-        }
-        public static List<SelectionAmmo> WriteAmmoOptionsList()
-        {
-            List<SelectionAmmo> result = new();
-
-            IEnumerable<Ammo> All_Ammo = Ammos.Cleaned;
-
-            foreach (var ammo in All_Ammo)
-            {
-                SelectionAmmo sOption = new SelectionAmmo();
-
-                sOption.Value = ammo.Id;
-                sOption.Label = ammo.Name;
-                sOption.SetImageLinkWithId(ammo.Id);
-
-                sOption.Caliber = ammo.Caliber;
-                sOption.Damage = ammo.Damage;
-                sOption.PenetrationPower = ammo.PenetrationPower;
-                sOption.ArmorDamagePerc = ammo.ArmorDamage;
-                sOption.BaseArmorDamage = ammo.PenetrationPower * ((float) ammo.ArmorDamage / 100);
-
-
-                var traderCheck = Market.GetEarliestCheapestTraderPurchaseOffer(ammo.Id);
-                if (traderCheck != null)
-                {
-                    sOption.TraderLevel = traderCheck.PurchaseOffer.MinVendorLevel;
-
-                }
-                else
-                {
-                    if (ammo.CanSellOnRagfair == true)
-                    {
-                        sOption.TraderLevel = 5; // Can buy on Flea.
-                    }
-                    else if (ammo.CanSellOnRagfair == false)
-                    {
-                        sOption.TraderLevel = 6;
-                    }
-                }
-                result.Add(sOption);
-            }
-
-            result = result.OrderBy(x => x.Label).ToList();
-
-            using StreamWriter writetext = new("outputs\\debug_AmmoOptionsList.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
-            writetext.Close();
-
-            return result;
-        }
         public static List<SelectionWeapon> WriteWeaponOptionsList()
         {
             var DefaultWeaponPresets = ModsWeaponsPresets.BasePresets;
