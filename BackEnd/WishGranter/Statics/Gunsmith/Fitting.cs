@@ -169,6 +169,36 @@ namespace WishGranter.Statics
         public PurchasedAmmo? PurchasedAmmo { get; set; } = new();
 
         public Fitting() { }
+        public Fitting(BasePreset basePreset, GunsmithParameters gunsmithParameters)
+        {
+            WeaponId = basePreset.WeaponId;
+            BasePresetId = basePreset.Id;
+            BasePreset = basePreset;
+            GunsmithParameters = gunsmithParameters;
+            GunsmithParametersId = GunsmithParameters.Id;
+
+
+            var gunsmithOutput = Gunsmith.GetPurchasedMods(BasePreset, GunsmithParameters);
+
+            //! Hacky remvoe of monolit-db, the db was a parameter
+            //var purchasedMods = db.PurchasedMods.SingleOrDefault(x => x.HashId.Equals(gunsmithOutput.HashId));
+
+            //if (purchasedMods != null)
+            //{
+            //    PurchasedMods = purchasedMods;
+            //}
+            //else
+            //{
+            //    PurchasedMods = gunsmithOutput;
+            //}
+
+            //PurchasedModsHashId = PurchasedMods.HashId;
+            
+            UpdateSummaryFields(basePreset, gunsmithOutput);
+
+            PurchasedAmmo = PurchasedAmmo.GetBestPurchasedAmmo(basePreset, GunsmithParameters);
+        }
+        //! this is the old constructor that used the monolit-db
         public Fitting(BasePreset basePreset, GunsmithParameters gunsmithParameters, Monolit db)
         {
             WeaponId = basePreset.WeaponId;
@@ -179,6 +209,8 @@ namespace WishGranter.Statics
 
 
             var gunsmithOutput = Gunsmith.GetPurchasedMods(BasePreset, GunsmithParameters);
+
+            //! Hacky remvoe of monolit-db, the db was a parameter
             var purchasedMods = db.PurchasedMods.SingleOrDefault(x => x.HashId.Equals(gunsmithOutput.HashId));
 
             if (purchasedMods != null)
@@ -190,9 +222,7 @@ namespace WishGranter.Statics
                 PurchasedMods = gunsmithOutput;
             }
 
-            PurchasedModsHashId = PurchasedMods.HashId;
-            
-            UpdateSummaryFields(basePreset, PurchasedMods);
+            UpdateSummaryFields(basePreset, gunsmithOutput);
 
             PurchasedAmmo = PurchasedAmmo.GetBestPurchasedAmmo(basePreset, GunsmithParameters);
         }

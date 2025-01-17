@@ -9,10 +9,7 @@ using System.Diagnostics;
 using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
-using WishGranter.AmmoEffectivenessChart;
-using WishGranter.Statics;
 using WishGranter.API_Methods;
-using Private_Ballistic_Engine;
 using static WishGranter.Statics.BallisticComputah;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -31,8 +28,8 @@ var logger = host.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("Host created.");
 logger.LogInformation("Wishgranter-API is starting.");
 
-using var db = new Monolit();
-Console.WriteLine($"Database path: {db.DbPath}.");
+// using var db = new Monolit();
+// Console.WriteLine($"Database path: {db.DbPath}.");
 
 //AEC AmmoEffectivenessChart = new AEC();
 //var jsonOptions = new JsonSerializerOptions
@@ -134,18 +131,18 @@ async Task startAPIAsync()
 
     //app.MapGet("/GetArmorOptionsList", () => API_Basics.GetArmorOptionsList(MyActivitySource));
     //app.MapGet("/GetAmmoOptionsList", () => API_Basics.GetAmmoOptionsList(MyActivitySource));
+    //app.MapGet("/GetArmorDataSheetData", () => API_Basics.GetArmorDataSheet(MyActivitySource));
+
     app.MapGet("/GetWeaponOptionsList", () => API_Basics.GetWeaponOptionsList(MyActivitySource));
 
     app.MapGet("/GetWeaponDataSheetData", () => API_Basics.GetWeaponsDataSheet(MyActivitySource));
     app.MapGet("/GetAmmoDataSheetData", () => API_Basics.GetAmmoDataSheet(MyActivitySource));
 
     app.MapGet("/GetArmorModulesData", () => API_Basics.GetArmorModulesDataSheet(MyActivitySource));
-    app.MapGet("/GetArmorDataSheetData", () => API_Basics.GetArmorDataSheet(MyActivitySource));
     app.MapGet("/GetHelmetsDataSheetData", () => API_Basics.GetHelmetsDataSheet(MyActivitySource));
     app.MapGet("/GetGetNewArmorStatSheetData", () => API_Basics.GetNewArmorStatSheet(MyActivitySource));
 
     app.MapGet("/GetDopeTableOptions", () => API_Basics.GetDopeTableOptions(MyActivitySource));
-
 
 
     //! ******* TBS *******

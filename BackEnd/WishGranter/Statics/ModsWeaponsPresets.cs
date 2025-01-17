@@ -205,7 +205,7 @@ namespace WishGranter.Statics
         //! In fact, we might need to switch over to saving the BPs with blob objects in the DB instead
         public static List<BasePreset> ConstructBasePresets()
         {
-            using var db = new Monolit();
+            //using var db = new Monolit();
 
             List<BasePreset> ReturnedPresets = new();
 
@@ -217,21 +217,24 @@ namespace WishGranter.Statics
             // Now for each token, lets get the details of them, so the Id, the name, and the contents of the preset
             foreach (var preset in filtering)
             {
-                var id = preset.SelectToken("$.id").ToString();
+                //var id = preset.SelectToken("$.id").ToString();
 
                 // Split this here between full build from JSON and DB+JSON
-                var check = db.BasePresets.Any(x => x.Id == id);
+                //var check = db.BasePresets.Any(x => x.Id == id);
 
-                if (check)
-                {
-                    BasePreset FromDB = db.BasePresets.First(x => x.Id == id);
-                    ReturnedPresets.AddRange(ConstructBasePresetFromDBandJson(preset, FromDB));
-                }
-                else
-                {
-                    ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
-                }
-                
+                //if (check)
+                //{
+                //    BasePreset FromDB = db.BasePresets.First(x => x.Id == id);
+                //    ReturnedPresets.AddRange(ConstructBasePresetFromDBandJson(preset, FromDB));
+                //}
+                //else
+                //{
+                //    ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
+                //}
+
+                //! hacky side-step around monolit-db
+                ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
+
             }
             ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
 

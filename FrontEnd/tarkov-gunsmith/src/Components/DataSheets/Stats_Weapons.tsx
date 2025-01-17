@@ -119,7 +119,7 @@ export default function DataSheetWeapons(props: any) {
     function transformDevTarkovWeaponToWeaponsTableRow(weaponItem: DevTarkovWeaponItem): WeaponsTableRow {
         const properties = weaponItem.properties;
 
-        return {
+        const tableRow: WeaponsTableRow = {
             id: weaponItem.id,
             name: weaponItem.name,
             imageLink: properties?.defaultPreset?.id 
@@ -136,13 +136,22 @@ export default function DataSheetWeapons(props: any) {
             deviationCurve: properties ? properties.deviationCurve : -1,
             deviationMax: properties ? properties.deviationMax : -1,
 
-            defaultErgonomics: properties ? properties.defaultErgonomics : -1,
-            defaultRecoil: properties ? properties.defaultRecoilVertical : -1,
+            defaultErgonomics: properties ? properties.defaultErgonomics ?? properties.ergonomics : -1,
+            defaultRecoil: properties ? properties.defaultRecoilVertical ?? properties.recoilVertical : -1,
 
             price: -1, // You need to provide the actual price or adjust this accordingly
             traderLevel: -1, // You need to provide the actual trader level or adjust this accordingly
             fleaPrice: -1, // You need to provide the actual flea price or adjust this accordingly
         };
+
+        if (properties?.defaultErgonomics === null){
+            tableRow.defaultErgonomics = properties.ergonomics
+        }
+        if(properties?.defaultRecoilVertical === null){
+            tableRow.defaultRecoil = properties.recoilVertical
+        }
+
+        return tableRow
     }
 
     async function getDataFromApi_TarkovDev() {
