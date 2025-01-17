@@ -141,9 +141,8 @@ async Task startAPIAsync()
     app.MapGet("/GetArmorModulesData", () => API_Basics.GetArmorModulesDataSheet(MyActivitySource));
     app.MapGet("/GetHelmetsDataSheetData", () => API_Basics.GetHelmetsDataSheet(MyActivitySource));
     app.MapGet("/GetGetNewArmorStatSheetData", () => API_Basics.GetNewArmorStatSheet(MyActivitySource));
-
+  
     app.MapGet("/GetDopeTableOptions", () => API_Basics.GetDopeTableOptions(MyActivitySource));
-
 
     //! ******* TBS *******
     app.MapGet("/CalculateArmorVsBulletSeries/{armorId}/{startingDuraPerc}/{bulletId}", (string armorId, float startingDuraPerc, string bulletId) =>
