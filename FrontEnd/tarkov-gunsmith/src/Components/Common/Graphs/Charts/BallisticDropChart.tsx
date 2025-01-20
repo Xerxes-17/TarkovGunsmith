@@ -50,11 +50,27 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
     );
   };
 
+  const xMin = 90
+  const xMax = 500
+
+  const filtered = chartData.filter(item => item.Distance >= xMin && item.Distance <= xMax)
+
+  const dropMax = (filtered.reduce((max, item) => {
+    return item.Drop > max.Drop ? item : max;
+  }, filtered[0]).Drop * 100).toFixed(3) + 1
+
+  const dropMin = (filtered.reduce((min, item) => {
+    return item.Drop < min.Drop ? item : min;
+  }, filtered[0]).Drop * 100).toFixed(3)
+
+  console.log("dropMin: ", dropMin)
+  console.log("dropMax: ", dropMax)
+
   return (
     <Box miw={200} maw={650} h={300} mih={210}>
       <ResponsiveContainer width={"100%"} >
         <ComposedChart
-          data={chartData}
+          data={filtered}
           margin={{
             top: 0,
             right: 90,
@@ -69,18 +85,22 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
             type="number"
             dataKey={(row: BallisticSimDataPoint) => (row.Distance)}
             unit={"m"}
+            allowDataOverflow = {false}
+            domain={[xMin, xMax]}
           />
           <XAxis
             xAxisId={"time"}
             type="number"
             dataKey={(row: BallisticSimDataPoint) => (row.TimeOfFlight).toFixed(2)}
             unit={"s"}
+            domain={['dataMin', 'dataMax']}
           />
           <YAxis
             yAxisId="left-drop"
             orientation="left"
             dataKey={(row: BallisticSimDataPoint) => (row.Drop * 100)}
             unit={"cm"}
+             domain={[-28, 1.3]}
           />
 
           <ReferenceLine yAxisId="left-drop" y={0} label={lineOfSightCustomLabel} stroke="red" position="start" />

@@ -57,6 +57,24 @@ export interface BallisticSimDataPoint {
   TimeOfFlight: number;
 }
 
+export interface BallisticCalculatorTableRow extends BallisticSimDataPoint {
+  MilliradiansOfDrop: number
+}
+
+export function ConvertBSDPtoBCTR(input: BallisticSimDataPoint): BallisticCalculatorTableRow {
+
+  if(input.Distance === 0)
+    return {...input, MilliradiansOfDrop: 0 }
+
+  const milliradiansFactor: number = input.Distance / 10; 
+  const dropInCm: number = input.Drop * 100; // Drop is in M
+
+  const milliradiansOfDrop: number = dropInCm / milliradiansFactor
+
+  const output: BallisticCalculatorTableRow = {...input, MilliradiansOfDrop: milliradiansOfDrop }
+  return output
+}
+
 export interface BallisticSimOutput {
   AmmoId: string;
   DataPoints: BallisticSimDataPoint[];

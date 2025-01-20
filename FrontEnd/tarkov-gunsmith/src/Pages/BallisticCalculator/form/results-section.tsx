@@ -1,4 +1,4 @@
-import { BallisticSimDataPoint, SimulationToCalibrationDistancePair } from "../types";
+import { BallisticCalculatorTableRow, BallisticSimDataPoint, ConvertBSDPtoBCTR, SimulationToCalibrationDistancePair } from "../types";
 import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
@@ -16,9 +16,9 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
     }) ?? [];
 
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
-    console.log(selectedCalibration)
 
     const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.[1].output.DataPoints);
+    const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item))
 
     if (isLoading) {
         return (
@@ -52,13 +52,16 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
                             }
                         }}
                     />
-                    <Text pl={5}>{resultString}</Text>
+                    <Stack spacing={3}>
+                        <Text pl={5}>{resultString}</Text>
+                        <Text pl={5}>Reminder: <strong>Mils in most scopes in-game are currently not to scale</strong>.</Text>
+                    </Stack>
                 </Flex>
             </Grid.Col>
 
             <Grid.Col span={12} lg={7} xl={6} >
                 {selectedData && (
-                    <BallisticCalculatorResultTable result={selectedData} />
+                    <BallisticCalculatorResultTable result={displayed} />
                 )}
             </Grid.Col>
 
