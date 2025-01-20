@@ -2,11 +2,11 @@ import { useTgTable } from "../use-tg-table"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo } from "react";
 import { Flex } from "@mantine/core";
-import { BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
+import { BallisticCalculatorTableRow } from "../../../../Pages/BallisticCalculator/types";
 import { useMediaQuery } from "@mui/material";
 
-export function BallisticCalculatorResultTable({ result: tableData }: {result: BallisticSimDataPoint[]}) {
-    const columns = useMemo<MRT_ColumnDef<BallisticSimDataPoint>[]>(
+export function BallisticCalculatorResultTable({ result: tableData }: {result: BallisticCalculatorTableRow[]}) {
+    const columns = useMemo<MRT_ColumnDef<BallisticCalculatorTableRow>[]>(
         () => [
             {
                 id: "Distance",
@@ -42,6 +42,15 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
                 size:25,
                 Cell: ({ cell }) => {
                     return <div>{(cell.getValue<number>()).toFixed(1)} m/s</div>;
+                }
+            },
+            {
+                id: "Mils",
+                accessorKey: "MilliradiansOfDrop",
+                header: 'Mils',
+                size:35,
+                Cell: ({ cell }) => {
+                    return <div>{(cell.getValue<number>()).toFixed(2)}</div>;
                 }
             },
             {
