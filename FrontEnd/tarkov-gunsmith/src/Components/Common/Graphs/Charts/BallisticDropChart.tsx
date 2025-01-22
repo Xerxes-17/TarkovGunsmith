@@ -11,14 +11,6 @@ export interface BallisticCalculatorGraphProps {
 
 export function BallisticDropChart({ resultData: chartData, selectedCalibration }: BallisticCalculatorGraphProps) {
 
-  // const foo = chartData.map((x) => {
-  //   return {
-  //     // distance: x.Distance,
-  //     dropSlug: x.Drop,
-  //   }
-  // })
-  // console.log("foo", foo)
-
   const calibrationNumber = parseInt(selectedCalibration) ?? -1
 
   const calibrationCustomLabel = (props: {
