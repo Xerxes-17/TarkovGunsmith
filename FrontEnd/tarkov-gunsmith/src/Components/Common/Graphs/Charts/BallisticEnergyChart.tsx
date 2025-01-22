@@ -31,7 +31,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
       };
 
     return (
-        <Box miw={200} maw={650} h={300} mih={210} mb={20}>
+        <Box miw={200} maw={650} h={285} mih={210} mb={20}>
             <ResponsiveContainer width={"100%"} >
                 <ComposedChart
                     data={chartData}
@@ -67,6 +67,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         dataKey={(row: BallisticSimDataPoint) => (row.Penetration).toFixed(2)}
                         stroke="#FAB005"
                         strokeWidth={2}
+                        dot={false}
                     />
                     <Line
                         name="Damage"
@@ -74,6 +75,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         dataKey={(row: BallisticSimDataPoint) => (row.Damage).toFixed(2)}
                         stroke="#E03131"
                         strokeWidth={2}
+                        dot={false}
                     />
 
                     <YAxis
@@ -91,6 +93,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         stroke="#3BC9DB"
                         strokeWidth={2}
                         unit=" m/s"
+                        dot={false}
                     />
 
                     {/* <ReferenceLine yAxisId="speed" y={343} label={speedOfSoundLabel} stroke="yellow" position="start" /> */}
