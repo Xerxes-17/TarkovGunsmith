@@ -66,12 +66,9 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
     return item.Drop < min.Drop ? item : min;
   }, filtered[0]).Drop * 100
 
-  console.log("dropMin: ", dropMin)
-  console.log("dropMax: ", dropMax)
-
   const [opened, { toggle }] = useDisclosure(false);
-  const [yDomainMin, setYDomainMin] = useState<number>(((dropMin + 100) % 10) * 100);
-  const [yDomainMax, setYDomainMax] = useState<number>(((dropMax + 100) % 10) * 100);
+  const [yDomainMin, setYDomainMin] = useState<number>((Math.ceil(dropMin - 1)));
+  const [yDomainMax, setYDomainMax] = useState<number>((Math.ceil(dropMax + 1)));
 
   return (
     <>
