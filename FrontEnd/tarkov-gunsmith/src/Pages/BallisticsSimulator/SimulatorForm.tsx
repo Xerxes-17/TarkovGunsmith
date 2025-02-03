@@ -35,25 +35,25 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
             maxLayers: 2,
 
             armorLayers: [
-            {
-                id:"656fad8c498d1b7e3e071da0",
-                isPlate: true,
-                armorClass: 4,
-                durability: 40,
-                maxDurability: 40,
-                armorMaterial: "UHMWPE",
-                bluntDamageThroughput: 26,
-            },
-            {
-                id:"6570e025615f54368b04fcb0",
-                isPlate: false,
-                armorClass: 3,
-                durability: 50,
-                maxDurability: 50,
-                armorMaterial: "Aramid",
-                bluntDamageThroughput: 33,
-            },
-        ]
+                {
+                    id:"656fad8c498d1b7e3e071da0",
+                    isPlate: true,
+                    armorClass: 4,
+                    durability: 40,
+                    maxDurability: 40,
+                    armorMaterial: "UHMWPE",
+                    bluntDamageThroughput: 26,
+                },
+                {
+                    id:"6570e025615f54368b04fcb0",
+                    isPlate: false,
+                    armorClass: 3,
+                    durability: 50,
+                    maxDurability: 50,
+                    armorMaterial: "Aramid",
+                    bluntDamageThroughput: 33,
+                },
+            ]
         }
     });
 
@@ -118,7 +118,6 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
             }
         });
     });
-
 
     const elements = [
         { name: 'Penetration Chance', Value: "-", Id: 'Penetration Chance' },
