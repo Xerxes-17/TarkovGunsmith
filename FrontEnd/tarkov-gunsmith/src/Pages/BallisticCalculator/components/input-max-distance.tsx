@@ -11,7 +11,7 @@ export function InputMaxDistance() {
                 w={140}
                 label={"Max Distance (m)"}
                 precision={0}
-                max={1600}
+                max={2000}
                 min={minMaxDistance}
                 step={10}
                 stepHoldDelay={500}
