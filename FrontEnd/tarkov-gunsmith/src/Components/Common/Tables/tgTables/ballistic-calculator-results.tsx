@@ -91,7 +91,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: {result: B
         initialState: {
             density: "xs",
             pagination: {
-                pageIndex: 0, pageSize: 200
+                pageIndex: 0, pageSize: 250
             }
             ,
             columnPinning: {

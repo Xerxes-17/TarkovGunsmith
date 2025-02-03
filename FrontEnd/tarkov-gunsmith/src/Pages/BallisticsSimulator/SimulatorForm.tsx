@@ -28,21 +28,32 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
     const form = useBallisticSimulatorForm({
         initialValues: {
             penetration: 28,
-            damage: 53,
+            damage: 56,
             armorDamagePercentage: 40,
             targetZone: "Thorax",
             hitPointsPool: 85,
             maxLayers: 2,
 
-            armorLayers: [{
-                id:"",
-                isPlate: false,
+            armorLayers: [
+            {
+                id:"656fad8c498d1b7e3e071da0",
+                isPlate: true,
                 armorClass: 4,
-                durability: 44,
-                maxDurability: 44,
-                armorMaterial: "Ceramic",
-                bluntDamageThroughput: 28,
-            }]
+                durability: 40,
+                maxDurability: 40,
+                armorMaterial: "UHMWPE",
+                bluntDamageThroughput: 26,
+            },
+            {
+                id:"6570e025615f54368b04fcb0",
+                isPlate: false,
+                armorClass: 3,
+                durability: 50,
+                maxDurability: 50,
+                armorMaterial: "Aramid",
+                bluntDamageThroughput: 33,
+            },
+        ]
         }
     });
 
