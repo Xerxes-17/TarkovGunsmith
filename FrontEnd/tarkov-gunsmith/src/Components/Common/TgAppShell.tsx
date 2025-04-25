@@ -17,9 +17,9 @@ export function TgAppShell(props: any) {
                   paddingTop:0
                 },
               }}
-            footer={
+              footer={
                 <Footer className='tgAppShellFooter' height={{ base: 85, "539px": 65, "1002px": 40}} p="xs">
-                    &copy; Copyright 2023. Created by Xerxes17.
+                    &copy; Copyright 2022 - {new Date().getFullYear()}. Created by Xerxes17.
                     Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.
                 </Footer>
             }

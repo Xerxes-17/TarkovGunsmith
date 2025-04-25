@@ -1,5 +1,5 @@
 import { BallisticCalculatorTableRow, BallisticSimDataPoint, ConvertBSDPtoBCTR, SimulationToCalibrationDistancePair } from "../types";
-import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
+import { Flex, Grid, Loader, NumberInput, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
@@ -35,7 +35,7 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
 
     return (
         <Grid>
-            <Grid.Col span={12}>
+            <Grid.Col span={12} pb={0}>
                 <Flex align={"center"} >
                     <Select
                         miw={140}
@@ -54,14 +54,15 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
                     />
                     <Stack spacing={3}>
                         <Text pl={5}>{resultString}</Text>
-                        <Text pl={5}>Reminder: <strong>Mils in most scopes in-game are currently not to scale</strong>.</Text>
                     </Stack>
                 </Flex>
             </Grid.Col>
 
             <Grid.Col span={12} lg={7} xl={6} >
                 {selectedData && (
-                    <BallisticCalculatorResultTable result={displayed} />
+                    <>
+                        <BallisticCalculatorResultTable result={displayed} />
+                    </>
                 )}
             </Grid.Col>
 

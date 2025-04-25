@@ -81,7 +81,7 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
           icon={<Text>&gt;&#61;</Text>}
         />
 
-        <NumberInput maw={80}
+        <NumberInput maw={100}
           label="Distance Max"
           size="xs"
           value={xAxisFilterMax}
@@ -131,7 +131,7 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
         <NumberInput
           label="Drop Min"
           size="xs"
-          maw={80}
+          maw={100}
           value={yDomainMin}
           max={yDomainMax - 5}
           onChange={(value) => {
