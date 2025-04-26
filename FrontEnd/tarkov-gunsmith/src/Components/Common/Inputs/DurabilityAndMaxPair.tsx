@@ -52,7 +52,7 @@ export function DurabilityAndMaxPair({ index, wDura, wMaxDura }: DurabilityAndMa
                     label="Max Durability"
                     type="number"
                     precision={2}
-                    max={90}
+                    max={200}
                     min={6}
                     step={1}
                     {...form.getInputProps(`armorLayers.${index}.maxDurability`)}
@@ -73,7 +73,7 @@ export function DurabilityAndMaxPair({ index, wDura, wMaxDura }: DurabilityAndMa
                 <Slider
                     label={null}
                     precision={2}
-                    max={90}
+                    max={200}
                     min={6}
                     step={1}
                     {...form.getInputProps(`armorLayers.${index}.maxDurability`)}
