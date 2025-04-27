@@ -185,7 +185,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: { result: 
                         inputWrapperOrder={['label', 'description', 'input', 'error']}
                         label="Scope Mils Multiplier"
                         precision={2}
-                        max={2}
+                        max={5}
                         min={.01}
                         step={.01}
                     />
