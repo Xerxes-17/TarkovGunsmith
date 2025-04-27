@@ -190,7 +190,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: { result: 
                         step={.01}
                     />
                 </Box>
-                <Input.Description pl={5}>In-game scope mils are not to scale. Set the multiplier for the adjusted mils column here.<br />From .01 to 2.00, step is .01.</Input.Description>
+                <Input.Description pl={5}>In-game scope mils are not to scale. Set the multiplier for the adjusted mils column here.<br />From .01 to 5.00, step is .01.</Input.Description>
             </Group>
 
             <MantineReactTable table={table} />
