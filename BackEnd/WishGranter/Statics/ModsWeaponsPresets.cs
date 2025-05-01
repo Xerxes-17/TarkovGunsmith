@@ -280,124 +280,128 @@ namespace WishGranter.Statics
             // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
             Weapon weapon = (Weapon)items[0];
 
-            // Remove it so we can do a smooth cast in the next method
-            items.RemoveAt(0);
-
-            // We don't need to fit the weapon anymore, so we jsut save the list of them
-            List<WeaponMod> weaponMods = items.Where(x => x is WeaponMod).Cast<WeaponMod>().ToList();
-
-            // Summarize 
-            //StatsSummary statsSummary = new StatsSummary();
-            //statsSummary.SummarizeFromObjects(weapon, weaponMods);
-
-            //Now we need to process the cashOffers, if any
-            var cashOffers = preset.SelectTokens("$.buyFor.[*]");
-            foreach (var cashOffer in cashOffers)
+            // add a guard clause for if the weapon can't be found
+            if(weapon != null)
             {
-                var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
-                var currency = cashOffer.SelectToken("$.currency").ToString();
-                var price = cashOffer.SelectToken("$.price").ToObject<int>();
-                var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
-                var minTraderLevel = -1;
-                var offerType = OfferType.Cash;
+                // Remove it so we can do a smooth cast in the next method
+                items.RemoveAt(0);
 
-                int reqPlayerLevel;
-                if (vendor != "Flea Market")
+                // We don't need to fit the weapon anymore, so we jsut save the list of them
+                List<WeaponMod> weaponMods = items.Where(x => x is WeaponMod).Cast<WeaponMod>().ToList();
+
+                // Summarize 
+                //StatsSummary statsSummary = new StatsSummary();
+                //statsSummary.SummarizeFromObjects(weapon, weaponMods);
+
+                //Now we need to process the cashOffers, if any
+                var cashOffers = preset.SelectTokens("$.buyFor.[*]");
+                foreach (var cashOffer in cashOffers)
                 {
-                    minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
-                    reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[vendor][minTraderLevel - 1];
+                    var priceRUB = cashOffer.SelectToken("$.priceRUB").ToObject<int>();
+                    var currency = cashOffer.SelectToken("$.currency").ToString();
+                    var price = cashOffer.SelectToken("$.price").ToObject<int>();
+                    var vendor = cashOffer.SelectToken("$.vendor.name").ToString();
+                    var minTraderLevel = -1;
+                    var offerType = OfferType.Cash;
 
-                }
-                else
-                {
-                    minTraderLevel = 5;
-                    reqPlayerLevel = 15;
-                    offerType = OfferType.Flea;
-                }
-
-                PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
-                BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
-
-                //using var db = new Monolit();
-                //db.Attach(PresetForReturned);
-                //db.SaveChanges();
-                if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
-                {
-                    ReturnedPresets.Add(PresetForReturned);
-                    //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
-                }
-
-
-                //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
-
-                //if(!hackyProhibit.Any(x=> name.Contains(x)))
-                //{
-                //    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
-
-                //    //using var db = new Monolit();
-                //    //db.Attach(PresetForReturned);
-                //    //db.SaveChanges();
-                //    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
-                //    {
-                //        ReturnedPresets.Add(PresetForReturned);
-                //        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
-                //    }
-                //}
-            }
-
-            // Let's also process the barter offers, if any.
-            var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
-
-            foreach (var barterOffer in barterOffers)
-            {
-                var trader = barterOffer.SelectToken("$.trader.name").ToString();
-                var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
-                var reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[trader][minTraderLevel - 1];
-
-
-                var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
-                var barterTotalCost = -1;
-                foreach (var requiredItem in requiredItems)
-                {
-                    var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
-                    var barterName = requiredItem.SelectToken("$.item.name").ToString();
-
-                    var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
-
-                    int priceRUB_value = -1;
-                    if (priceRUB != null)
+                    int reqPlayerLevel;
+                    if (vendor != "Flea Market")
                     {
-                        priceRUB_value = priceRUB.Value<int>();
+                        minTraderLevel = cashOffer.SelectToken("$.vendor.minTraderLevel").ToObject<int>();
+                        reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[vendor][minTraderLevel - 1];
+
+                    }
+                    else
+                    {
+                        minTraderLevel = 5;
+                        reqPlayerLevel = 15;
+                        offerType = OfferType.Flea;
                     }
 
-                    if (priceRUB_value != -1)
-                    {
-                        barterTotalCost += (quantity * priceRUB_value);
-                    }
-                }
-                var offerType = OfferType.Barter;
-                // If the barter wants something that isn't buyable on the flea, we disregard it
-                if (barterTotalCost != -1)
-                {
-                    PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                    PurchaseOffer purchaseOffer = new(priceRUB, price, currency, vendor, minTraderLevel, reqPlayerLevel, offerType);
                     BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
 
-                    ReturnedPresets.Add(PresetForReturned);
+                    //using var db = new Monolit();
+                    //db.Attach(PresetForReturned);
+                    //db.SaveChanges();
+                    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
+                    {
+                        ReturnedPresets.Add(PresetForReturned);
+                        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
+                    }
+
+
+                    //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+
+                    //if(!hackyProhibit.Any(x=> name.Contains(x)))
+                    //{
+                    //    BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                    //    //using var db = new Monolit();
+                    //    //db.Attach(PresetForReturned);
+                    //    //db.SaveChanges();
+                    //    if (!ReturnedPresets.Any(x => x.Id.Equals(PresetForReturned.Id)))
+                    //    {
+                    //        ReturnedPresets.Add(PresetForReturned);
+                    //        //! Added this because there was a Mosin from Prapor that was a duplciate from somewhere
+                    //    }
+                    //}
                 }
 
-                //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
-                //if (!hackyProhibit.Any(x => name.Contains(x)))
-                //{
-                //    // If the barter wants something that isn't buyable on the flea, we disregard it
-                //    if (barterTotalCost != -1)
-                //    {
-                //        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
-                //        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+                // Let's also process the barter offers, if any.
+                var barterOffers = preset.SelectTokens("$.bartersFor.[*]");
 
-                //        ReturnedPresets.Add(PresetForReturned);
-                //    }
-                //}
+                foreach (var barterOffer in barterOffers)
+                {
+                    var trader = barterOffer.SelectToken("$.trader.name").ToString();
+                    var minTraderLevel = barterOffer.SelectToken("$.level").ToObject<int>();
+                    var reqPlayerLevel = Market.LoyaltyLevelsByPlayerLevel[trader][minTraderLevel - 1];
 
+
+                    var requiredItems = barterOffer.SelectTokens("$.requiredItems[*]");
+                    var barterTotalCost = -1;
+                    foreach (var requiredItem in requiredItems)
+                    {
+                        var quantity = requiredItem.SelectToken("$.quantity").ToObject<int>();
+                        var barterName = requiredItem.SelectToken("$.item.name").ToString();
+
+                        var priceRUB = requiredItem.SelectToken("$..buyFor.[0].priceRUB");
+
+                        int priceRUB_value = -1;
+                        if (priceRUB != null)
+                        {
+                            priceRUB_value = priceRUB.Value<int>();
+                        }
+
+                        if (priceRUB_value != -1)
+                        {
+                            barterTotalCost += (quantity * priceRUB_value);
+                        }
+                    }
+                    var offerType = OfferType.Barter;
+                    // If the barter wants something that isn't buyable on the flea, we disregard it
+                    if (barterTotalCost != -1)
+                    {
+                        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                        ReturnedPresets.Add(PresetForReturned);
+                    }
+
+                    //string[] hackyProhibit = { "SVT", "AVT", "PKM", "PKP", "sawed-off double-barrel", "AK-12" };
+                    //if (!hackyProhibit.Any(x => name.Contains(x)))
+                    //{
+                    //    // If the barter wants something that isn't buyable on the flea, we disregard it
+                    //    if (barterTotalCost != -1)
+                    //    {
+                    //        PurchaseOffer purchaseOffer = new(barterTotalCost, barterTotalCost, "RUB", trader, minTraderLevel, reqPlayerLevel, offerType);
+                    //        BasePreset PresetForReturned = new(name, id, weapon, purchaseOffer, weaponMods);
+
+                    //        ReturnedPresets.Add(PresetForReturned);
+                    //    }
+                    //}
+
+                }
             }
 
             return ReturnedPresets;
