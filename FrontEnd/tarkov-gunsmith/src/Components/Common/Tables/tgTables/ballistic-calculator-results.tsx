@@ -1,7 +1,7 @@
 import { useTgTable } from "../use-tg-table"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo, useState } from "react";
-import { Box, Flex, Group, Input, NumberInput, Text } from "@mantine/core";
+import { Box, Flex, Group, Input, NumberInput } from "@mantine/core";
 import { BallisticCalculatorTableRow } from "../../../../Pages/BallisticCalculator/types";
 import { useMediaQuery } from "@mui/material";
 
