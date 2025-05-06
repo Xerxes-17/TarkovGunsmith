@@ -4,6 +4,7 @@ export interface DropCalculatorInput {
   defaultAmmoInput: BallisticSimInput;
   secondAmmoInput: BallisticSimInput;
   calibrationDistances: number[];
+  lineOfSightOverBore: number;
 }
 
 export interface DopeTableUI_Options {

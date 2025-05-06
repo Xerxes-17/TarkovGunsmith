@@ -15,6 +15,7 @@ import { DopeResultSection } from "./form/results-section";
 import { FrequentlyAskedQuestions } from "./components/frequently-asked-questions";
 import { IconDatabase, IconHelp } from "@tabler/icons-react";
 import { useDisclosure, useScrollIntoView } from "@mantine/hooks";
+import { InputHeightOverBore } from "./components/input-height-over-bore";
 
 export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Options }) {
     const [openedFAQ, { open: openFAQ, close: closeFAQ }] = useDisclosure(false);
@@ -31,7 +32,8 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             },
             maxDistance: 200,
             additionalVelocityModifier: 0,
-            finalVelocityModifier: 1
+            finalVelocityModifier: 1,
+            lineOfSightOverBore: 68.58
         },
         validate: balCalYupValidator,
     })
@@ -80,15 +82,18 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             Penetration: secondAmmo.penetration
         }
 
-        const calibrationDistances = formValues.dopeTableOptions.calibrationRanges.filter(x => x <= formValues.maxDistance)
+        const calibrationDistances = formValues.dopeTableOptions.calibrationRanges.filter(x => x <= formValues.maxDistance);
+
+        const lineOfSightOverBore = formValues.lineOfSightOverBore / 1000; //to convert FE mm to BE m
 
         const dropCalculatorInput: DropCalculatorInput = {
             defaultAmmoInput,
             secondAmmoInput,
-            calibrationDistances
+            calibrationDistances,
+            lineOfSightOverBore
         }
 
-        setResultString(`${formValues.dopeTableSelections.weaponObj?.shortName} (defAmmo: ${formValues.dopeTableSelections.defaultAmmo?.ammoLabel}) with ${formValues.dopeTableSelections.calculationAmmoObj?.ammoLabel} @ ${formValues.finalVelocityModifier.toFixed(3)} velocity multiplier.`)
+        setResultString(`${formValues.dopeTableSelections.weaponObj?.shortName} (defAmmo: ${formValues.dopeTableSelections.defaultAmmo?.ammoLabel}) with ${formValues.dopeTableSelections.calculationAmmoObj?.ammoLabel} @ ${formValues.finalVelocityModifier.toFixed(3)} velocity multiplier and ${formValues.lineOfSightOverBore.toFixed(2)}mm height over bore.`)
 
         handleSubmit(dropCalculatorInput);
     }
@@ -160,16 +165,36 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                                 <Divider label="Misc" labelPosition="center" />
 
-                                <Group pl={5} spacing={5} mb={5}>
+                                {/* I don't know why, but if it's not in a group, then slow render cycle issues happen, and if the input is added to a grid.col, then the padding grows with the text somehow?*/}
+                                <Group pl={5} spacing={5}>
                                     <InputMaxDistance />
-                                    <Grid pl={10} grow>
-                                        <Grid.Col pl={5} span={12}>
+                                    <Grid pl={8} grow>
+                                        <Grid.Col pl={5} span={6}>
                                             <Input.Label >Calibrations: </Input.Label>
                                             <Text pt={6} pb={6}>{calibrationRangesJoin}.</Text>
                                         </Grid.Col>
                                     </Grid>
-
                                 </Group>
+
+                                {/* need a group, otherwise the render slows down on input change, no idea why */}
+                                <Group pl={5} spacing={5}>
+
+                                    <Grid pl={8} grow>
+
+                                        <Grid.Col pl={0} span={3}>
+                                            <InputHeightOverBore />
+                                        </Grid.Col>
+
+                                        <Grid.Col pt={12} pl={5} span={7}>
+                                            <Input.Description>
+                                                The distance in mm between the bore axis and sight axis of your weapon.
+                                                <br />A usual 2.7" distance is 68.58mm.
+                                                <br />Don't know what this is? Don't touch it.
+                                            </Input.Description>
+                                        </Grid.Col>
+                                    </Grid>
+                                </Group>
+
                                 <Group grow>
                                     <Button fullWidth ml={10} mr={10} onClick={onClickGenerate} disabled={isLoading}>
                                         Generate Drop Table

@@ -9,7 +9,8 @@ namespace WishGranter.Statics
         (
             BallisticSimInput defaultAmmoInput,
             BallisticSimInput secondAmmoInput,
-            List<int> calibrationDistances
+            List<int> calibrationDistances,
+            float lineOfSightOverBore = 0.0381f
         );
 
         public static BallisticSimOutput Simulate(Ammo ammo, int maxDistance = 200, float velocityModifier = 0)
@@ -42,7 +43,7 @@ namespace WishGranter.Statics
 
         public static List<SimulationToCalibrationDistancePair> CreateDropTable(BallisticComputahInput input)
         {
-            return BallisticSimulation.CreateCalibratedDropTableForAmmo(input.defaultAmmoInput, input.secondAmmoInput, input.calibrationDistances);
+            return BallisticSimulation.CreateCalibratedDropTableForAmmo(input.defaultAmmoInput, input.secondAmmoInput, input.calibrationDistances, input.lineOfSightOverBore);
         }
     }
 }

@@ -189,7 +189,6 @@ async Task startAPIAsync()
             var json = await reader.ReadToEndAsync();
             var requestData = JsonSerializer.Deserialize<BallisticComputahInput>(json);
 
-            // TODO: Make use of the maxDist and veloMod
             var result = API_BallisticSimulator.BallisticCalculation(MyActivitySource, requestData);
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(result));
