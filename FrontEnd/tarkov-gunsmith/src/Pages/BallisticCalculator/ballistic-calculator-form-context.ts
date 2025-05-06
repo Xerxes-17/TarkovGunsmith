@@ -69,6 +69,7 @@ export interface BallisticCalculatorFormValues {
   maxDistance: number;
   additionalVelocityModifier: number;
   finalVelocityModifier: number;
+  lineOfSightOverBore: number;
 }
 
 export const [
