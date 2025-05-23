@@ -111,6 +111,41 @@ namespace WishGranter.API_Methods
 
     };
 
+    public record struct CalculateRowAECInput
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int? distance { get; init; }
+    };
+
+    public record struct SimpleHitSummary
+    {
+        public int hitNum { get; init; }
+        public float specificChanceOfKill { get; init; }
+        public float cumulativeChanceOfKill { get; init; }
+    }
+
+    public record struct CalculateRowAECOutput
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public int? distance { get; init; }
+
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public int plateArmorClass { get; init; }
+
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int insertArmorClass { get; init; }
+
+        public List<SimpleHitSummary> hitSummaries { get; set; }
+    };
+
     public class API_BallisticSimulator
     {
         public static List<SimulationToCalibrationDistancePair> BallisticCalculation(ActivitySource myActivitySource, BallisticComputahInput input)

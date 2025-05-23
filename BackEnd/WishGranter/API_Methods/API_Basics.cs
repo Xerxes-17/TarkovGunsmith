@@ -29,6 +29,10 @@ namespace WishGranter.API_Methods
 
         private static DopeTableUI_Options DopeTableUI_Options = constructDopeOptions();
 
+        private static List<CalculateRowAECOutput> NewAECData = constructAECData();
+
+        
+
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
             using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
@@ -86,6 +90,13 @@ namespace WishGranter.API_Methods
             using var myActivity = myActivitySource.StartActivity("Request forDopeTableOptions");
 
             return DopeTableUI_Options;
+        }
+
+        public static List<CalculateRowAECOutput> GetNewAECData(ActivitySource myActivitySource)
+        {
+            using var myActivity = myActivitySource.StartActivity("Request new AEC data");
+
+            return NewAECData;
         }
 
         public static List<SelectionWeapon> WriteWeaponOptionsList()
@@ -309,6 +320,11 @@ namespace WishGranter.API_Methods
             }
 
             return dataSheet;
+        }
+
+        private static List<CalculateRowAECOutput> constructAECData()
+        {
+            return Ballistics.GenerateAECdata();
         }
     }
 }

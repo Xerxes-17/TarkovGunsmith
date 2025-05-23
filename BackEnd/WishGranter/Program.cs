@@ -11,6 +11,8 @@ using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
 using WishGranter.API_Methods;
 using static WishGranter.Statics.BallisticComputah;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -79,6 +81,17 @@ async Task startAPIAsync()
 {
     const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+    builder.Services.AddResponseCompression(options =>
+    {
+        options.EnableForHttps = true;
+        options.Providers.Add<GzipCompressionProvider>();
+    });
+
+    builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+    {
+        options.Level = CompressionLevel.SmallestSize;
+    });
+
     builder.Services.AddOpenTelemetry().WithTracing(tracerProviderBuilder =>
     {
         tracerProviderBuilder
@@ -115,6 +128,8 @@ async Task startAPIAsync()
     });
 
     var app = builder.Build();
+
+    app.UseResponseCompression();
 
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -195,7 +210,9 @@ async Task startAPIAsync()
         });
 
     //! ******* AEC *******
-    //app.MapGet("/GetAmmoEffectivenessChart", () => API_AEC.GetAmmoEffectivenessChart(MyActivitySource)).Produces<AEC>();
+    app.MapGet("/GetAmmoEffectivenessChart", 
+        () => API_Basics.GetNewAECData(MyActivitySource));
+
     //app.MapPut("/UpdateAmmoRatingsInAEC", () => API_AEC.UpdateRatingsAEC(MyActivitySource));
     //app.MapGet("/GetTimestampAEC", () => API_AEC.GetTimestampAEC());
 
