@@ -37,6 +37,10 @@ export function OldBsHeaderNavbar() {
                                 <Nav.Link >Ballistic Drop Calculator</Nav.Link>
                             </LinkContainer>
 
+                            <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
+                                <Nav.Link >Ammo Effectiveness</Nav.Link>
+                            </LinkContainer>
+
                             {/* <NavDropdown title="Ballistics" id="ballistics-dropdown" style={{ color: "black" }}>
                                 <NavDropdown.Item>
                                     <LinkContainer to={LINKS.BALLISTICS_SIMULATOR}>

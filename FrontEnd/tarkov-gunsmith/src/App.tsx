@@ -1,10 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
-import { Helmet } from "react-helmet-async"
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
-// import {Header} from './Components/Header';
 import Home from './Components/Home';
 import PageNotFound from './Components/PageNotFound';
 import About from './Components/About';
@@ -21,6 +19,7 @@ import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimul
 import { HelmetProvider } from 'react-helmet-async';
 import { SEO } from './Util/SEO';
 import { BallisticCalculator } from './Pages/BallisticCalculator/BallisticCalculator';
+import { AmmoEffectivenessPage } from './Pages/AEC_mk2';
 
 function App() {
   return (
@@ -80,13 +79,15 @@ function App() {
 
                 <Route path={LINKS.BALLISTIC_CALCULATOR} element={<BallisticCalculator />} />
 
+                <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessPage/>} />
+
                 {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${LINKS.ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
 
             <Route path={LINKS.AMMO_VS_ARMOR} element={<DataSheetEffectivenessAmmo />} />
             <Route path={`${LINKS.AMMO_VS_ARMOR}/:id_ammo`} element={<DataSheetEffectivenessAmmo />} />
 
-            <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessChartPage/>} /> */}
+             */}
 
                 {/* Page not found */}
                 <Route path='*' element={<PageNotFound />} />
