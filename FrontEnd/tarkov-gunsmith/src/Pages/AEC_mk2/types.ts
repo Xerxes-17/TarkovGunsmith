@@ -4,7 +4,7 @@ export interface SimpleHitSummary {
   cumulativeChanceOfKill: number;
 }
 
-export interface CalculateRowAECOutput {
+export interface AecAmmoAndPlate {
   ammoId: string;
   ammoName: string;
   distance: number;
@@ -17,14 +17,39 @@ export interface CalculateRowAECOutput {
   hitSummaries: SimpleHitSummary[];
 }
 
+export interface SimulatedAmmoStats {
+  ammoId: string;
+  ammoName: string;
+  caliber: string;
+  distance: number;
+  armorDamagePerc: number;
+  penetrationPower: number;
+  damage: number;
+}
+
+export interface ArmorClassData{
+  minHTK: number,
+  avgHTK: number,
+  maxHTK: number
+}
+
 export interface DisplayRowAEC {
   ammoId: string;
   ammoName: string;
+  caliber: string;
+  armorDamagePerc: number;
+  penetrationPower: number;
+  damage: number;
 
-  avgHtkAc3: number;
-  avgHtkAc4: number;
-  avgHtkAc5: number;
-  avgHtkAc6: number;
+  htkAc3: ArmorClassData;
+  htkAc4: ArmorClassData;
+  htkAc5: ArmorClassData;
+  htkAc6: ArmorClassData;
+}
+
+export interface AecData {
+  simulatedAmmoStats: SimulatedAmmoStats[];
+  aecAmmoAndPlateList: AecAmmoAndPlate[];
 }
 
 function sumWithReduce(arr: number[]): number {
@@ -34,7 +59,9 @@ function sumWithReduce(arr: number[]): number {
   );
 }
 
-export function ConvertAecRawToDisplay(rawData: CalculateRowAECOutput[]): DisplayRowAEC[] {
+// Yeah this has bugs
+// todo: fix the bugs here, use the browser dev mode 
+export function ConvertAecRawToDisplay(rawData: AecData, confidence: number): DisplayRowAEC[] {
   // Many ammos, to a few Armor Classes (plate)
   //* Find all entries of a given ammo.
   //* search row outputs by plateArmorClass between 3 and 6
@@ -44,22 +71,42 @@ export function ConvertAecRawToDisplay(rawData: CalculateRowAECOutput[]): Displa
   //* present that number for the class's AC score
   // that array could also provide the min and max for that AC too.
 
-  //! to start with, just do MVP of the average HTK with >75% confidence
-  const averageConfidenceLevel = 0.75;
+  const platesAndAmmos = rawData.aecAmmoAndPlateList;
+  const ammoStats = rawData.simulatedAmmoStats;
 
-  const uniqueAmmoIds = [...new Set(rawData.map((item) => item.ammoId))];
+  //! to start with, just do MVP of the average HTK with >75% confidence
+  const minConfidenceLevel = 10;
+  const averageConfidenceLevel = confidence;
+  const maxConfidenceLevel = 95;
+
+  const uniqueAmmoIds = [...new Set(platesAndAmmos.map((item) => item.ammoId))];
 
   const mappedDisplayRows = uniqueAmmoIds.map((ammoId) => {
-    const ammoName =
-      rawData.find((entry) => entry.ammoId === ammoId)?.ammoName ?? "NOT FOUND";
+
+    const ammoInfo = ammoStats.find(entry => entry.ammoId === ammoId)
+
+    const ammoName = ammoInfo?.ammoName ?? "NOT FOUND";
+    const caliber = ammoInfo?.caliber ?? "NOT FOUND";
+    const armorDamagePerc = ammoInfo?.armorDamagePerc ?? -1;
+    const penetrationPower = ammoInfo?.penetrationPower ?? -1;
+    const damage = ammoInfo?.damage ?? -1;
+    
 
     //* Find all entries of a given ammo.
-    const entriesThisAmmo = rawData.filter((entry) => entry.ammoId === ammoId);
+    const entriesThisAmmo = platesAndAmmos.filter((entry) => entry.ammoId === ammoId);
 
     const averageHTKsByAcIndex: number[] = [0, 0, 0]; // For the moment we're just doing plates
+    const minHTKsByAcIndex: number[] = [0, 0, 0];
+    const maxHTKsByAcIndex: number[] = [0, 0, 0];
 
     //* search row outputs by plateArmorClass between 3 and 6
     for (let index = 3; index < 7; index++) {
+
+      
+      const minHtkThisAc: number [] = []
+      const midHtkThisAc: number [] = []
+      const maxHtkThisAc: number [] = []
+
       const entriesThisACandAmmo = entriesThisAmmo.filter(
         (entry) => entry.plateArmorClass === index
       );
@@ -71,8 +118,6 @@ export function ConvertAecRawToDisplay(rawData: CalculateRowAECOutput[]): Displa
         continue;
       }
 
-      const HtkArray: number[] = [];
-
       //* with  objects that match, find the hit for a given HTK confidence
       //? Maybe I want to make it a map??
       entriesThisACandAmmo.forEach((entry) => {
@@ -80,31 +125,78 @@ export function ConvertAecRawToDisplay(rawData: CalculateRowAECOutput[]): Displa
           (hit) => hit.cumulativeChanceOfKill > averageConfidenceLevel
         );
 
+        const firstMinConfidentHit = entry.hitSummaries.find(
+          (hit) => hit.cumulativeChanceOfKill > minConfidenceLevel
+        );
+
+        const firstMaxConfidentHit = entry.hitSummaries.find(
+          (hit) => hit.cumulativeChanceOfKill > maxConfidenceLevel
+        );
+
         if (firstConfidentHit) {
           //* add that hitNum to a result array
-          HtkArray.push(firstConfidentHit.hitNum);
+          midHtkThisAc.push(firstConfidentHit.hitNum);
         } else {
           console.warn(
             `No hit found with required confidence of kill (${averageConfidenceLevel}), this really shouldn't happen!`
           );
         }
 
+        if (firstMinConfidentHit) {
+          minHtkThisAc.push(firstMinConfidentHit.hitNum);
+        } else {
+          console.warn(
+            `No hit found with required confidence of kill (${averageConfidenceLevel}), this really shouldn't happen!`
+          );
+        }
+
+        if (firstMaxConfidentHit) {
+            maxHtkThisAc.push(firstMaxConfidentHit.hitNum);
+        } else {
+          console.warn(
+            `No hit found with required confidence of kill (${averageConfidenceLevel}), this really shouldn't happen!`
+          );
+        }
+      });
         //* average out that array to find avgHTK for confidence value
-        const averageHtkForConfidence = sumWithReduce(HtkArray)/HtkArray.length;
+        const averageHtkForConfidence = sumWithReduce(midHtkThisAc)/midHtkThisAc.length;
+        const minAvgHtkForConfidence = sumWithReduce(minHtkThisAc)/minHtkThisAc.length;
+        const maxAvgHtkForConfidence = sumWithReduce(maxHtkThisAc)/maxHtkThisAc.length;
 
         //* present that number for the class's AC score
         averageHTKsByAcIndex.push(averageHtkForConfidence);
-      });
+        minHTKsByAcIndex.push(minAvgHtkForConfidence);
+        maxHTKsByAcIndex.push(maxAvgHtkForConfidence);
     }
 
     const result: DisplayRowAEC = {
       ammoId,
       ammoName,
+      caliber,
+      armorDamagePerc,
+      penetrationPower,
+      damage,
 
-      avgHtkAc3: averageHTKsByAcIndex[3],
-      avgHtkAc4: averageHTKsByAcIndex[4],
-      avgHtkAc5: averageHTKsByAcIndex[5],
-      avgHtkAc6: averageHTKsByAcIndex[6],
+      htkAc3: {
+        avgHTK: averageHTKsByAcIndex[3],
+        minHTK: minHTKsByAcIndex[3],
+        maxHTK: maxHTKsByAcIndex[3]
+      },
+      htkAc4: {
+        avgHTK: averageHTKsByAcIndex[4],
+        minHTK: minHTKsByAcIndex[4],
+        maxHTK: maxHTKsByAcIndex[4]
+      },
+      htkAc5: {
+        avgHTK: averageHTKsByAcIndex[5],
+        minHTK: minHTKsByAcIndex[5],
+        maxHTK: maxHTKsByAcIndex[5]
+      },
+      htkAc6: {
+        avgHTK: averageHTKsByAcIndex[6],
+        minHTK: minHTKsByAcIndex[6],
+        maxHTK: maxHTKsByAcIndex[6]
+      },
     };
 
     return result;

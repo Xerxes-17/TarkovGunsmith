@@ -4,6 +4,8 @@ using WishGranter.Statics;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RatStash;
+using WishGranter;
 
 namespace WishGranterTests
 {
@@ -22,7 +24,17 @@ namespace WishGranterTests
             using StreamWriter writetext = new("NewAECdata.json");
             writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
 
-            Console.WriteLine($"result: {result.Count}");
+            Console.WriteLine($"result: {result.AecAmmoAndPlateList.Count}");
+        }
+
+        [TestMethod]
+        public void Test_GetDamageAndPenetrationAtDistance()
+        {
+
+            Ammo ammo = (Ammo)StaticRatStash.DB.GetItem("668fe62ac62660a5d8071446");
+            var result = RangeSimulation.GetDamageAndPenetrationAtDistance(15, ammo);
+
+            Console.WriteLine("done");
         }
     }
 }

@@ -1037,12 +1037,12 @@ namespace WishGranter.Statics
             HpProbabilities hpProbabilities = new HpProbabilities(inputs.initialHitPoints);
             bool finished = false;
 
-            var iterationLimit = 50;
+            var iterationLimit = 100;
             var iteration = 0;
             while (!finished)
             {
                 //! 1- A tempBSP because we still want to harness the code in the older CSS function
-                BallisticSimParameters interationBSP = new BallisticSimParameters
+                BallisticSimParameters iterationBSP = new BallisticSimParameters
                 {
                     penetration = inputPenetration,
                     damage = inputDamage,
@@ -1050,7 +1050,7 @@ namespace WishGranter.Statics
                     armorLayers = layersMemory,
                     // No HP becuase it doesn't matter
                 };
-                List<BallisticSimResult> layeredResults = CalculateSingleShot(interationBSP);
+                List<BallisticSimResult> layeredResults = CalculateSingleShot(iterationBSP);
 
                 //! 2- Then from the layeredResults, we update the hpProbabilities
                 List<LayerSummaryResult> summaryResults = new();
@@ -1108,7 +1108,7 @@ namespace WishGranter.Statics
         }
 
         // We've got the hitSummaries included here, because we want to do some math in the FE.
-        public static CalculateRowAECOutput CalculateRowAEC(BallisticSimParametersV2 inputs, CalculateRowAECInput details)
+        public static AecAmmoAndPlate CalculateRowAEC(BallisticSimParametersV2 inputs, CalculateRowAECInput details)
         {
             // Do the simulation
             var simResults = CalculateMultiShotSeries(inputs);
@@ -1124,7 +1124,7 @@ namespace WishGranter.Statics
                     }
                 ).ToList();
 
-            var output = new CalculateRowAECOutput
+            var output = new AecAmmoAndPlate
             {
                 ammoId = details.ammoId,
                 ammoName = details.ammoName,
@@ -1145,8 +1145,11 @@ namespace WishGranter.Statics
             return output;
         }
 
-        public static List<CalculateRowAECOutput> GenerateAECdata()
+        public static AecData GenerateAECdata()
         {
+            // going to make it fixed at 15m for now
+            int distance = 15;
+
             // get the trooper insert
             var trooperSoftInsert = ArmorModules.FetchTrooperThoraxInsert();
             var trooperLayer = new ArmorLayer {
@@ -1164,10 +1167,32 @@ namespace WishGranter.Statics
             // get all ammo types
             var ammos = Ammos.Cleaned;
 
-            ammos.RemoveAll(ammo => ammo.PenetrationPower < 20);
+            ammos.RemoveAll(ammo => ammo.PenetrationPower < 10);
+
+            // simulate all ammos at 15m distance
+
+            List<SimulatedAmmoStats> simulatedAmmos = new();
+            foreach (var ammo in ammos)
+            {
+                var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(distance, ammo);
+
+                SimulatedAmmoStats updated = new SimulatedAmmoStats
+                {
+                    AmmoId = ammo.Id,
+                    AmmoName = ammo.Name,
+                    Caliber = ammo.Caliber,
+                    ArmorDamagePerc = ammo.ArmorDamage,
+
+                    Distance = distance,
+                    PenetrationPower = simulated.finalPenetration,
+                    Damage = simulated.finalDamage 
+                };
+
+                simulatedAmmos.Add(updated);
+            }
 
             // do calcs and save rows
-            var output = new List<CalculateRowAECOutput>();
+            var AecAmmoAndPlateList = new List<AecAmmoAndPlate>();
 
             foreach(var plate in plates)
             {
@@ -1181,7 +1206,7 @@ namespace WishGranter.Statics
                     armorMaterial = plate.ArmorMaterial
                 };
 
-                foreach (var ammo in ammos)
+                foreach (var ammo in simulatedAmmos)
                 {
                     ArmorLayer[] layers = { plateLayer, trooperLayer };
 
@@ -1189,7 +1214,7 @@ namespace WishGranter.Statics
                     {
                         penetration = ammo.PenetrationPower,
                         damage = ammo.Damage,
-                        armorDamagePerc = ammo.ArmorDamage,
+                        armorDamagePerc =  ammo.ArmorDamagePerc,
                         initialHitPoints = 85, //magic number is fine for now because we're only doing PMC thorax for now.
                         targetZone = "Thorax",
                         armorLayers = layers,
@@ -1197,8 +1222,8 @@ namespace WishGranter.Statics
 
                     var details = new CalculateRowAECInput
                     {
-                        ammoId = ammo.Id,
-                        ammoName = ammo.Name,
+                        ammoId = ammo.AmmoId,
+                        ammoName = ammo.AmmoName,
                         plateId = plate.Id,
                         plateName = plate.Name,
                         insertId = trooperSoftInsert.Id,
@@ -1207,12 +1232,18 @@ namespace WishGranter.Statics
                     };
 
                     var result = CalculateRowAEC(inputs, details);
-                    output.Add(result);
+                    AecAmmoAndPlateList.Add(result);
                 }
                 //Console.WriteLine($"Ammo effectiveness vs {plate.Name} calculated.");
             }
 
             //Console.WriteLine($"{output.Count} comparisons made.");
+
+            var output = new AecData
+            {
+                SimulatedAmmoStats = simulatedAmmos,
+                AecAmmoAndPlateList = AecAmmoAndPlateList,
+            };
 
             return output;
         }

@@ -293,7 +293,6 @@ export default function AmmoMRT() {
             ,
             columnPinning: {
                 left: ['mrt-row-expand']
-                // left: ['mrt-row-expand']
             },
             sorting: [{ id: 'penetrationPower', desc: true }],
         },

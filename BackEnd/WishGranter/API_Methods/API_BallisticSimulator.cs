@@ -44,7 +44,7 @@ namespace WishGranter.API_Methods
         public float PostArmorPenetration { get; init; }
 
     };
-    
+
     public record struct ArmorLayersV2
     {
         //? Won't need this one I think
@@ -129,7 +129,19 @@ namespace WishGranter.API_Methods
         public float cumulativeChanceOfKill { get; init; }
     }
 
-    public record struct CalculateRowAECOutput
+    public record struct SimulatedAmmoStats
+    {
+        public string AmmoId { get; init; }
+        public string AmmoName { get; init; }
+        public string Caliber { get; init; }
+        public int ArmorDamagePerc { get; init; }
+
+        public int Distance { get; init; }
+        public float PenetrationPower { get; init; }
+        public float Damage { get; init; }
+    }
+
+    public record struct AecAmmoAndPlate
     {
         public string ammoId { get; init; }
         public string ammoName { get; init; }
@@ -145,6 +157,13 @@ namespace WishGranter.API_Methods
 
         public List<SimpleHitSummary> hitSummaries { get; set; }
     };
+    public record struct AecData 
+    {
+        public List<SimulatedAmmoStats> SimulatedAmmoStats { get; set; }
+        public List<AecAmmoAndPlate> AecAmmoAndPlateList { get; set; }
+
+    }
+
 
     public class API_BallisticSimulator
     {
@@ -166,7 +185,7 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("HitPoints", simParams.hitPoints);
 
             myActivity?.SetTag("ArmorLayers", simParams.armorLayers.Length);
-            for(int i = 0; i < simParams.armorLayers.Length; i++)
+            for (int i = 0; i < simParams.armorLayers.Length; i++)
             {
                 myActivity?.SetTag($"isPlate.{i}", simParams.armorLayers[i].isPlate);
                 myActivity?.SetTag($"ArmorClass.{i}", simParams.armorLayers[i].armorClass);
@@ -175,7 +194,7 @@ namespace WishGranter.API_Methods
                 myActivity?.SetTag($"MaxDurability.{i}", simParams.armorLayers[i].maxDurability);
                 myActivity?.SetTag($"material.{i}", simParams.armorLayers[i].armorMaterial);
             }
-            
+
 
             return Ballistics.CalculateSingleShot(simParams);
         }

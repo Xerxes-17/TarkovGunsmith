@@ -13,15 +13,15 @@ namespace WishGranter.Statics
         public float Recoil_Vertical { get; set; }
         public float Weight { get; set; } // CZTL tells me this is very important for the ADS speed and time
 
-        public StatsSummary() {}
+        public StatsSummary() { }
 
-        public StatsSummary(BasePreset basePreset, List<WeaponMod> weaponMods) 
+        public StatsSummary(BasePreset basePreset, List<WeaponMod> weaponMods)
         {
             WeaponId = basePreset.Weapon.Id;
             PresetId = basePreset.Id;
             SummarizeFromObjects(basePreset.Weapon, weaponMods);
         }
-        public StatsSummary(Weapon weapon, string presetId,  List<WeaponMod> weaponMods)
+        public StatsSummary(Weapon weapon, string presetId, List<WeaponMod> weaponMods)
         {
             WeaponId = weapon.Id;
             PresetId = presetId;
@@ -33,7 +33,7 @@ namespace WishGranter.Statics
             var ergoBonus = 0f;
             var recoilBonus = 0f;
             var weightSum = 0f;
-            foreach(var weaponMod in weaponMods)
+            foreach (var weaponMod in weaponMods)
             {
                 ergoBonus += weaponMod.Ergonomics;
                 recoilBonus += weaponMod.Recoil;
@@ -51,28 +51,28 @@ namespace WishGranter.Statics
     }
 
     public class StatsSummaryConfiguration : IEntityTypeConfiguration<StatsSummary>
-{
-    public void Configure(EntityTypeBuilder<StatsSummary> builder)
     {
-        builder.ToTable("StatsSummaries");
+        public void Configure(EntityTypeBuilder<StatsSummary> builder)
+        {
+            builder.ToTable("StatsSummaries");
 
-        builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .HasColumnName("Id")
-            .IsRequired();
+            builder.Property(x => x.Id)
+                .HasColumnName("Id")
+                .IsRequired();
 
-        builder.Property(x => x.Ergonomics)
-            .HasColumnName("Ergonomics")
-            .IsRequired();
+            builder.Property(x => x.Ergonomics)
+                .HasColumnName("Ergonomics")
+                .IsRequired();
 
-        builder.Property(x => x.Recoil_Vertical)
-            .HasColumnName("Recoil_Vertical")
-            .IsRequired();
+            builder.Property(x => x.Recoil_Vertical)
+                .HasColumnName("Recoil_Vertical")
+                .IsRequired();
 
-        builder.Property(x => x.Weight)
-            .HasColumnName("Weight")
-            .IsRequired();
+            builder.Property(x => x.Weight)
+                .HasColumnName("Weight")
+                .IsRequired();
 
             builder.HasOne<BasePreset>()
                 .WithOne()
@@ -83,6 +83,6 @@ namespace WishGranter.Statics
             .WithMany()
             .HasForeignKey(b => b.WeaponId)
             .IsRequired();
+        }
     }
-}
 }
