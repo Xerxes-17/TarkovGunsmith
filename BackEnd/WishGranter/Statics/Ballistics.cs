@@ -1,10 +1,6 @@
 ﻿using RatStash;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Force.DeepCloner;
 using WishGranter.API_Methods;
-using System.Linq;
 
 namespace WishGranter.Statics
 {
@@ -1185,7 +1181,10 @@ namespace WishGranter.Statics
 
                     Distance = distance,
                     PenetrationPower = simulated.finalPenetration,
-                    Damage = simulated.finalDamage 
+                    Damage = simulated.finalDamage,
+
+                    OriginalPenetrationPower = ammo.PenetrationPower,
+                    OriginalDamage = ammo.Damage
                 };
 
                 simulatedAmmos.Add(updated);

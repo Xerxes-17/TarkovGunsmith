@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Input, NumberInput } from "@mantine/core";
+import { ActionIcon, Group, Input, NumberInput, Text } from "@mantine/core";
 import { IconRefresh } from "@tabler/icons-react";
 import { useState } from "react";
 
@@ -18,7 +18,7 @@ export function HtkConfidenceInput({onClick} : HtkConfidenceInputProps) {
 
     return (
         <Group>
-            <Input.Label>Required HTK Confidence</Input.Label>
+            <Text fw={600}>Required HTK Confidence</Text>
             <NumberInput
                 w={100}
                 precision={2}

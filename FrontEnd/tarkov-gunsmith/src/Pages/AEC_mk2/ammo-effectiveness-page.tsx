@@ -1,45 +1,26 @@
-import { ActionIcon, Container, Group, Input, Loader, NumberInput, Paper, Stack, Text, Title } from '@mantine/core';
+import { Container, Loader, Paper, Stack, Text } from '@mantine/core';
 import { SEO } from "../../Util/SEO";
 import { useEffect, useState } from "react";
 import { requestAmmoEffectivenessChart } from "./api-requests";
-import { IconDatabaseX, IconRefresh } from "@tabler/icons-react";
-import { AecData, ConvertAecRawToDisplay, DisplayRowAEC } from "./types";
+import { IconDatabaseX } from "@tabler/icons-react";
+import { AecData } from "./types";
 import { AmmoEffectivenessTable } from "./ammo-effectiveness-table";
-import { HtkConfidenceInput } from './htk-confidence-input';
 
 export function AmmoEffectivenessPage() {
     const [ammoEffectivenessData, setAmmoEffectivenessData] = useState<AecData>();
-
-    const [processedAmmoData, setProcessedAmmoData] = useState<DisplayRowAEC[]>();
-
+    
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function getAmmoEffectivenessData() {
         const response_WishGranter = await requestAmmoEffectivenessChart();
         if (response_WishGranter !== null) {
             setAmmoEffectivenessData(response_WishGranter);
-            console.log("response data:", response_WishGranter)
-
-            const processedTableData = ConvertAecRawToDisplay(response_WishGranter, 75)
-            setProcessedAmmoData(processedTableData)
-
             setIsLoading(false)
             return;
         }
         setIsLoading(false)
         console.error("Error: WishGranter failed to respond.")
     }
-
-    function onClickRefreshConfidence(value: number) {
-        if (!ammoEffectivenessData) {
-            return
-        }
-
-        const valueAsNum = typeof value !== 'string' ? value : 75
-        const processedTableData = ConvertAecRawToDisplay(ammoEffectivenessData, valueAsNum)
-        setProcessedAmmoData(processedTableData)
-    }
-
 
     useEffect(() => {
         setIsLoading(true)
@@ -65,20 +46,12 @@ export function AmmoEffectivenessPage() {
                         </Stack>
                     )}
 
-                    {processedAmmoData !== undefined && (
+                    {ammoEffectivenessData !== undefined && (
                         <>
-                            <Stack>
-                                <Group>
-                                    <HtkConfidenceInput onClick={onClickRefreshConfidence}/>
-                                </Group>
-
-                                <AmmoEffectivenessTable tableData={processedAmmoData} />
-                            </Stack>
-
+                            <AmmoEffectivenessTable tableData={ammoEffectivenessData} />
                         </>
                     )}
                 </Paper>
-
             </Container>
         </>
     )

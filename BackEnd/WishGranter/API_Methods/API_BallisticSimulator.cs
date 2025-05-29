@@ -139,6 +139,9 @@ namespace WishGranter.API_Methods
         public int Distance { get; init; }
         public float PenetrationPower { get; init; }
         public float Damage { get; init; }
+
+        public float OriginalPenetrationPower { get; init; }
+        public float OriginalDamage { get; init; }
     }
 
     public record struct AecAmmoAndPlate

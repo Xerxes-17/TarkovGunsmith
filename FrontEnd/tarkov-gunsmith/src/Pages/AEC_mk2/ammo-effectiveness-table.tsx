@@ -1,12 +1,29 @@
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { tgMultiSelectColOptions, tgNameColOptions, useTgTable } from "../../Components/Common/Tables/use-tg-table";
-import { DisplayRowAEC } from "./types";
-import { Avatar, Box, Button, Flex, Group, Text } from "@mantine/core";
+import { AecData, ConvertAecRawToDisplay, DisplayRowAEC } from "./types";
+import { Avatar, Button, Flex, Group, Text } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton } from "mantine-react-table";
 import { useMemo, useState } from "react";
 import { mapAmmoCaliberFullNameToLabel } from "../../Types/AmmoTypes";
+import { HtkConfidenceInput } from "./htk-confidence-input";
 
-export function AmmoEffectivenessTable({ tableData: data }: { tableData: DisplayRowAEC[] }) {
+export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
+
+    const [processedAmmoData, setProcessedAmmoData] = useState<DisplayRowAEC[]>(ConvertAecRawToDisplay(tableData, 75));
+
+    const [lastConfidence, setLastConfidence] = useState<number>(75)
+
+    function onClickRefreshConfidence(value: number) {
+        if (!tableData) {
+            return
+        }
+
+        const valueAsNum = typeof value !== 'string' ? value : 75
+        setLastConfidence(valueAsNum)
+
+        const processedTableData = ConvertAecRawToDisplay(tableData, valueAsNum)
+        setProcessedAmmoData(processedTableData)
+    }
 
     const [pix, pixHandlers] = useDisclosure(true);
 
@@ -65,12 +82,30 @@ export function AmmoEffectivenessTable({ tableData: data }: { tableData: Display
             },
 
             {
+                id: "originalDamage",
+                accessorKey: "originalDamage",
+                header: 'Base Damage',
+                Cell: ({ cell }) => {
+                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
+                }
+            },
+            {
+                id: "originalPenetrationPower",
+                accessorKey: "originalPenetrationPower",
+                header: 'Base Penetration',
+                Cell: ({ cell }) => {
+                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
+                }
+            },
+            
+
+            {
                 id: "damage",
                 accessorKey: "damage",
                 header: 'Damage',
                 size: 30,
                 Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>()).toFixed(1)} </div>;
+                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
                 }
             },
             {
@@ -79,7 +114,7 @@ export function AmmoEffectivenessTable({ tableData: data }: { tableData: Display
                 header: 'Penetration',
                 size: 30,
                 Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>()).toFixed(1)} </div>;
+                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
                 }
             },
             {
@@ -98,155 +133,53 @@ export function AmmoEffectivenessTable({ tableData: data }: { tableData: Display
             },
 
             {
-                id: "ac3.avg",
-                header: "AC 3",
-                size: 10,
-                accessorFn(originalRow) {
-                    return originalRow.htkAc3.avgHTK.toFixed(1)
-                },
-            },
-            {
-                id: "ac4.avg",
-                header: "AC 4",
-                size: 10,
-                accessorFn(originalRow) {
-                    return originalRow.htkAc4.avgHTK.toFixed(1)
-                },
-            },
-            {
-                id: "ac5.avg",
-                header: "AC 5",
-                size: 10,
-                accessorFn(originalRow) {
-                    return originalRow.htkAc5.avgHTK.toFixed(1)
-                },
-            },
-            {
-                id: "ac6.avg",
-                header: "AC 6", 
-                size: 10,
-                accessorFn(originalRow) {
-                    return originalRow.htkAc6.avgHTK.toFixed(1)
-                },
-            },
-
-            // {
-            //     id: "AC 3",
-            //     header: 'AC 3',
-            //     columns: [
-            //         {
-            //             id: "ac3.avg",
-            //             header: "Avg",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc3.avgHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac3.min",
-            //             header: "Min",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc3.minHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac3.max",
-            //             header: "Max",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc3.maxHTK.toFixed(1)
-            //             },
-            //         }
-            //     ]
-            // },
-            // {
-            //     id: "AC 4",
-            //     header: 'AC 4',
-            //     columns: [
-            //         {
-            //             id: "ac4.avg",
-            //             header: "Avg",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc4.avgHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac4.min",
-            //             header: "Min",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc4.minHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac4.max",
-            //             header: "Max",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc4.maxHTK.toFixed(1)
-            //             },
-            //         }
-            //     ]
-            // },
-            // {
-            //     id: "AC 5",
-            //     header: 'AC 5',
-            //     columns: [
-            //         {
-            //             id: "ac5.avg",
-            //             header: "Avg",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc5.avgHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac5.min",
-            //             header: "Min",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc5.minHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac5.max",
-            //             header: "Max",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc5.maxHTK.toFixed(1)
-            //             },
-            //         }
-            //     ],
-            // },
-            // {
-            //     id: "AC 6",
-            //     header: 'AC 6',
-            //     columns: [
-            //         {
-            //             id: "ac6.avg",
-            //             header: "Avg",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc6.avgHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac6.min",
-            //             header: "Min",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc6.minHTK.toFixed(1)
-            //             },
-            //         },
-            //         {
-            //             id: "ac6.max",
-            //             header: "Max",
-            //             accessorFn(originalRow) {
-            //                 return originalRow.htkAc6.maxHTK.toFixed(1)
-            //             },
-            //         }
-            //     ]
-            // },
+                id: "htks",
+                header: `Hits to Kill Thorax @ 15m distance with >${lastConfidence}% confidence`,
+                columns: [
+                    {
+                        id: "ac3.avg",
+                        header: "AC 3",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc3.avgHTK.toFixed(1)
+                        },
+                        
+                    },
+                    {
+                        id: "ac4.avg",
+                        header: "AC 4",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc4.avgHTK.toFixed(1)
+                        },
+                    },
+                    {
+                        id: "ac5.avg",
+                        header: "AC 5",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc5.avgHTK.toFixed(1)
+                        },
+                    },
+                    {
+                        id: "ac6.avg",
+                        header: "AC 6",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc6.avgHTK.toFixed(1)
+                        },
+                    },
+                ]
+            }
         ]
-        , [manualGrouping.length, pix]
+        , [manualGrouping.length, pix, lastConfidence]
     );
 
     const mobileView = useMediaQuery('(max-width: 766px)');
 
     const table = useTgTable({
         columns,
-        data: data,
+        data: processedAmmoData,
 
         layoutMode: "semantic",
 
@@ -336,9 +269,10 @@ export function AmmoEffectivenessTable({ tableData: data }: { tableData: Display
                     direction="row"
                     wrap="wrap"
                 >
-                    <Text fw={700}>Toggles</Text>
+                    <Text fw={600}>Toggles</Text>
                     <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
                     <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    <HtkConfidenceInput onClick={onClickRefreshConfidence} />
                 </Flex>
 
             </Flex>
