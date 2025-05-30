@@ -30,6 +30,9 @@ export function getPresets(): BallisticPreset[] {
 
 export function savePreset(preset: BallisticPreset) {
   const presets = getPresets();
+  if (presets.some(p => p.name === preset.name && p.id !== preset.id)) {
+    throw new Error("Preset name already exists");
+  }
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...presets, preset]));
 }
 
