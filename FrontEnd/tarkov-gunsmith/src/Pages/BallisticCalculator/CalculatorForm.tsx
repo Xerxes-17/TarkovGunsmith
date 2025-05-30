@@ -17,7 +17,6 @@ import { useDisclosure, useScrollIntoView, useHover } from "@mantine/hooks";
 import { InputHeightOverBore } from "./components/input-height-over-bore";
 import { PresetManager } from "./components/preset-manager";
 import { DropCalculatorInputWithMeta } from "./types";
-import { Notifications } from '@mantine/notifications';
 
 export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Options }) {
     const [openedFAQ, { open: openFAQ, close: closeFAQ }] = useDisclosure(false);
@@ -162,7 +161,6 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                     xl: '1540px',
                 },
             }}>
-            <Notifications position="top-right" zIndex={2077} />
             <BallisticCalculatorFormProvider form={form}>
                 <form>
                     <Grid columns={24} px={4}>
