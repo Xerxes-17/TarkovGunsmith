@@ -4,7 +4,6 @@ import { Button, TextInput, Group, Stack, Text, ActionIcon, Drawer, Divider, Pop
 import { IconTrash, IconEdit, IconUpload, IconFolder, IconCheck, IconX } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import { BallisticFormState } from "../presets";
-import { notifications } from "@mantine/notifications";
 
 export function PresetManager({
     onLoad,
