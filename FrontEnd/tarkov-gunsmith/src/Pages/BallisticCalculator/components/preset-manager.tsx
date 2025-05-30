@@ -35,17 +35,6 @@ export function PresetManager({
         return "";
     };
 
-    const showNotification = (message: string, color: "green" | "red") => {
-        notifications.show({
-            title: color === "green" ? "Success" : "Error",
-            message,
-            color,
-            icon: color === "green" ? <IconCheck size={18} /> : <IconX size={18} />,
-            withBorder: true,
-            autoClose: 3000,
-        });
-    };
-
     const handleSave = () => {
         const error = validateName(presetName);
         if (error) {
@@ -66,11 +55,9 @@ export function PresetManager({
             setPresets(getPresets());
             setPresetName("");
             setNameError("");
-            showNotification(`"${newPreset.name}" has been saved successfully`, "green");
 
         } catch (error: any) {
             setNameError(error.message || "Failed to save preset");
-            showNotification(error.message || "Failed to save preset", "red");
         }
     };
 
@@ -92,8 +79,6 @@ export function PresetManager({
         deletePreset(preset.id);
         setPresets(getPresets());
         setDeleteTargetId(null);
-
-        // showNotification(`"${preset.name}" has been deleted`, "green");
     };
 
     const startRename = (preset: BallisticPreset) => {
@@ -122,7 +107,6 @@ export function PresetManager({
         setRenamingPresetId(null);
         setNewName("");
         setNewNameError("");
-        // showNotification(`"${updatedPreset.name}" has been updated`, "green");
     };
 
     const handleExport = (preset: BallisticPreset) => {
@@ -161,11 +145,9 @@ export function PresetManager({
 
                 savePreset(newPreset);
                 setPresets(getPresets());
-                // showNotification(`Preset "${newPreset.name}" imported successfully!`, "green");
 
             } catch (error) {
                 console.error("Import error:", error);
-                // showNotification("Failed to import preset. Invalid file format.", "red");
             }
         };
         reader.readAsText(file);
