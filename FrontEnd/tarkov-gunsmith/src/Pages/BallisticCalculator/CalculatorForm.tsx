@@ -44,7 +44,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [presetLoaded, setPresetLoaded] = useState(false);
-    const { hovered: presetSavedHovered, ref: presetSavedRef } = useHover(); 
+    const { hovered: presetSavedHovered, ref: presetSavedRef } = useHover();
 
     useEffect(() => {
         if (presetLoaded && form.isValid()) {
@@ -215,6 +215,24 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                 </Group>
 
                                 <Group grow>
+                                    <PresetManager
+                                        onLoad={(presetData) => {
+                                            form.reset();
+                                            form.setValues({
+                                                ...form.values,
+                                                ...presetData,
+                                                dopeTableSelections: {
+                                                    ...form.values.dopeTableSelections,
+                                                    ...presetData.dopeTableSelections,
+                                                    defaultAmmo: presetData.dopeTableSelections.defaultAmmo,
+                                                    calculationAmmoObj: presetData.dopeTableSelections.calculationAmmoObj
+                                                }
+                                            });
+                                            setPresetLoaded(true);
+                                            onClickGenerate()
+                                        }}
+                                        getCurrentState={getCurrentFormState}
+                                    />
                                     <Button
                                         fullWidth
                                         ml={10}
@@ -224,6 +242,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                     >
                                         Generate Drop Table
                                     </Button>
+
                                 </Group>
                                 <Portal>
                                     <HoverCard
@@ -254,23 +273,6 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                         </HoverCard.Dropdown>
                                     </HoverCard>
                                 </Portal>
-                                <PresetManager
-                                    onLoad={(presetData) => {
-                                        form.reset();
-                                        form.setValues({
-                                            ...form.values,
-                                            ...presetData,
-                                            dopeTableSelections: {
-                                                ...form.values.dopeTableSelections,
-                                                ...presetData.dopeTableSelections,
-                                                defaultAmmo: presetData.dopeTableSelections.defaultAmmo,
-                                                calculationAmmoObj: presetData.dopeTableSelections.calculationAmmoObj
-                                            }
-                                        });
-                                        setPresetLoaded(true);
-                                    }}
-                                    getCurrentState={getCurrentFormState}
-                                />
                                 {presetNotification && (
                                     <div style={{
                                         position: 'fixed',

@@ -157,15 +157,14 @@ export function PresetManager({
 
     return (
         <>
-            <Group position="center" mt="md">
-                <Button
-                    leftIcon={<IconFolder size={16} />}
-                    variant="light"
-                    onClick={() => setDrawerOpened(true)}
-                >
-                    Manage Presets
-                </Button>
-            </Group>
+            <Button
+                leftIcon={<IconFolder size={16} />}
+                variant="light"
+                onClick={() => setDrawerOpened(true)}
+            >
+                Manage Presets
+            </Button>
+
 
             <Drawer
                 opened={drawerOpened}
