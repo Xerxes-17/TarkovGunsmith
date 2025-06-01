@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { balCalYupValidator, BallisticCalculatorFormProvider, BallisticSimInput, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
+import { balCalYupValidator, BallisticCalculatorFormProvider, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
 import { Box, Button, Center, Divider, Grid, Group, Input, Loader, MantineProvider, Modal, Stack, Text, Title, HoverCard, Portal } from "@mantine/core";
 import { requestBallisticCalculation } from "./api-requests";
 import { DopeTableUI_Options, DropCalculatorInput, SimulationToCalibrationDistancePair } from "./types";
@@ -12,7 +12,7 @@ import { AdditionalVelocityModifier } from "./components/input-additional-veloci
 import { InputMaxDistance } from "./components/input-max-distance";
 import { DopeResultSection } from "./form/results-section";
 import { FrequentlyAskedQuestions } from "./components/frequently-asked-questions";
-import { IconDatabase, IconHelp, IconCheck, IconX } from "@tabler/icons-react";
+import { IconDatabase, IconHelp } from "@tabler/icons-react";
 import { useDisclosure, useScrollIntoView, useHover } from "@mantine/hooks";
 import { InputHeightOverBore } from "./components/input-height-over-bore";
 import { PresetManager } from "./components/preset-manager";
