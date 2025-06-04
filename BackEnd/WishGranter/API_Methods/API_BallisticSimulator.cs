@@ -121,6 +121,16 @@ namespace WishGranter.API_Methods
         public string insertName { get; init; }
         public int? distance { get; init; }
     };
+    public record struct CalculateLegacyRowAECInput
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int? distance { get; init; }
+    };
 
     public record struct SimpleHitSummary
     {
@@ -142,7 +152,21 @@ namespace WishGranter.API_Methods
 
         public float OriginalPenetrationPower { get; init; }
         public float OriginalDamage { get; init; }
+        public int ProjectileCount { get; init; }
     }
+
+    public record struct AecAmmoAndLegacy
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public int? distance { get; init; }
+
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int insertArmorClass { get; init; }
+
+        public List<SimpleHitSummary> hitSummaries { get; set; }
+    };
 
     public record struct AecAmmoAndPlate
     {
@@ -164,7 +188,7 @@ namespace WishGranter.API_Methods
     {
         public List<SimulatedAmmoStats> SimulatedAmmoStats { get; set; }
         public List<AecAmmoAndPlate> AecAmmoAndPlateList { get; set; }
-
+        public List<AecAmmoAndLegacy> AecAmmoAndLegacyList { get; set; }
     }
 
 

@@ -65,6 +65,42 @@ namespace WishGranterTests
             Console.WriteLine(result);
         }
 
+        [TestMethod]
+        public void Test_LegacyLayerOnly()
+        {
+            ArmorLayer paca = new ArmorLayer
+            {
+                isPlate = false,
+                armorClass = 2,
+                bluntDamageThroughput = 35,
+                durability = 40,
+                maxDurability = 40,
+                armorMaterial = ArmorMaterial.Aramid
+            };
+
+            ArmorLayer[] layers = { paca };
+
+            BallisticSimParametersV2 parameters = new BallisticSimParametersV2
+            {
+                penetration = 15,
+                damage = 67,
+                armorDamagePerc = 31,
+                initialHitPoints = 85,
+                targetZone = "Thorax",
+                armorLayers = layers
+            };
+
+            var result = Ballistics.CalculateMultiShotSeries(parameters);
+
+            foreach (var iteration in result.hitSummaries)
+            {
+                Console.WriteLine(iteration.cumulativeChanceOfKill);
+                Console.WriteLine(iteration.specificChanceOfKill);
+                Console.WriteLine();
+            }
+            Console.WriteLine(result);
+        }
+
     }
     [TestClass]
     public class HpProbabilitiesTesting

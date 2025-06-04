@@ -1141,6 +1141,39 @@ namespace WishGranter.Statics
             return output;
         }
 
+        public static AecAmmoAndLegacy CalculateLegacyRowAEC(BallisticSimParametersV2 inputs, CalculateLegacyRowAECInput details)
+        {
+            // Do the simulation
+            var simResults = CalculateMultiShotSeries(inputs);
+
+            // Collate fields from input into output format
+            var simpleHitSummaries =
+                simResults.hitSummaries.Select(summary =>
+                    new SimpleHitSummary
+                    {
+                        hitNum = summary.hitNum,
+                        specificChanceOfKill = summary.specificChanceOfKill,
+                        cumulativeChanceOfKill = summary.cumulativeChanceOfKill,
+                    }
+                ).ToList();
+
+            var output = new AecAmmoAndLegacy
+            {
+                ammoId = details.ammoId,
+                ammoName = details.ammoName,
+                distance = details.distance,
+
+                insertId = details.insertId,
+                insertName = details.insertName,
+                insertArmorClass = inputs.armorLayers[0].armorClass,
+
+                hitSummaries = simpleHitSummaries,
+            };
+
+            // Return the output data...
+            return output;
+        }
+
         public static AecData GenerateAECdata()
         {
             // going to make it fixed at 15m for now
@@ -1151,7 +1184,7 @@ namespace WishGranter.Statics
             var trooperLayer = new ArmorLayer {
                 isPlate = false,
                 armorClass = trooperSoftInsert.ArmorClass,
-                bluntDamageThroughput = trooperSoftInsert.BluntThroughput,
+                bluntDamageThroughput = trooperSoftInsert.BluntThroughput * 100,
                 durability = trooperSoftInsert.MaxDurability,
                 maxDurability = trooperSoftInsert.MaxDurability,
                 armorMaterial = trooperSoftInsert.ArmorMaterial
@@ -1161,14 +1194,14 @@ namespace WishGranter.Statics
             var plates = ArmorModules.FetchAllFrontPlates();
 
             // get all ammo types
-            var ammos = Ammos.Cleaned;
+            var allAmmo = Ammos.Cleaned;
 
-            ammos.RemoveAll(ammo => ammo.PenetrationPower < 10);
-
-            // simulate all ammos at 15m distance
+            var lowPenAmmo = allAmmo.Where(ammo => ammo.PenetrationPower < 10).ToList();
+            var penetratingAmmos = allAmmo.Where(ammo => ammo.PenetrationPower >= 10);
 
             List<SimulatedAmmoStats> simulatedAmmos = new();
-            foreach (var ammo in ammos)
+
+            foreach (var ammo in penetratingAmmos)
             {
                 var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(distance, ammo);
 
@@ -1184,7 +1217,8 @@ namespace WishGranter.Statics
                     Damage = simulated.finalDamage,
 
                     OriginalPenetrationPower = ammo.PenetrationPower,
-                    OriginalDamage = ammo.Damage
+                    OriginalDamage = ammo.Damage,
+                    ProjectileCount = ammo.ProjectileCount
                 };
 
                 simulatedAmmos.Add(updated);
@@ -1199,7 +1233,7 @@ namespace WishGranter.Statics
                 {
                     isPlate = true,
                     armorClass = plate.ArmorClass,
-                    bluntDamageThroughput = plate.BluntThroughput,
+                    bluntDamageThroughput = plate.BluntThroughput * 100,
                     durability = plate.MaxDurability,
                     maxDurability = plate.MaxDurability,
                     armorMaterial = plate.ArmorMaterial
@@ -1236,12 +1270,84 @@ namespace WishGranter.Statics
                 //Console.WriteLine($"Ammo effectiveness vs {plate.Name} calculated.");
             }
 
+            foreach (var ammo in lowPenAmmo)
+            {
+                var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(distance, ammo);
+                SimulatedAmmoStats updated = new SimulatedAmmoStats
+                {
+                    AmmoId = ammo.Id,
+                    AmmoName = ammo.Name,
+                    Caliber = ammo.Caliber,
+                    ArmorDamagePerc = ammo.ArmorDamage,
+
+                    Distance = distance,
+                    PenetrationPower = simulated.finalPenetration,
+                    Damage = simulated.finalDamage,
+
+                    OriginalPenetrationPower = ammo.PenetrationPower,
+                    OriginalDamage = ammo.Damage,
+                    ProjectileCount = ammo.ProjectileCount
+                };
+                simulatedAmmos.Add(updated);
+            }
+
+
+            var legacyArmors = ArmorModules.FetchAllLegacyArmorThoraxInserts();
+            var AecAmmoAndLegacyList = new List<AecAmmoAndLegacy>();
+            // kinda jank to do it this way, splitting, simulating and then reconsolidating, but it'll work
+            foreach (var ammo in simulatedAmmos)
+            {
+                foreach (var legacy in legacyArmors)
+                {
+                    var thoraxLayer = new ArmorLayer
+                    {
+                        isPlate = false,
+                        armorClass = legacy.ArmorClass,
+                        bluntDamageThroughput = legacy.BluntThroughput * 100,
+                        durability = legacy.MaxDurability,
+                        maxDurability = legacy.MaxDurability,
+                        armorMaterial = legacy.ArmorMaterial
+                    };
+
+                    ArmorLayer[] layers = { thoraxLayer };
+
+
+                    var inputs = new BallisticSimParametersV2
+                    {
+                        penetration = ammo.PenetrationPower,
+                        damage = ammo.Damage,
+                        armorDamagePerc = ammo.ArmorDamagePerc,
+                        initialHitPoints = 85, //magic number is fine for now because we're only doing PMC thorax for now.
+                        targetZone = "Thorax",
+                        armorLayers = layers,
+                    };
+
+                    var details = new CalculateLegacyRowAECInput
+                    {
+                        ammoId = ammo.AmmoId,
+                        ammoName = ammo.AmmoName,
+                        insertId = legacy.Id,
+                        insertName = legacy.Name,
+                        distance = -1
+                    };
+                    var result = CalculateLegacyRowAEC(inputs, details);
+
+                    if (details.ammoId.Equals("56dff421d2720b5f5a8b4567") && details.insertId.Equals("65702f87722744627e05cdb8"))
+                    {
+                        Console.WriteLine("hey");
+                    }
+
+                    AecAmmoAndLegacyList.Add(result);
+                }
+            }
+
             //Console.WriteLine($"{output.Count} comparisons made.");
 
             var output = new AecData
             {
                 SimulatedAmmoStats = simulatedAmmos,
                 AecAmmoAndPlateList = AecAmmoAndPlateList,
+                AecAmmoAndLegacyList = AecAmmoAndLegacyList,
             };
 
             return output;

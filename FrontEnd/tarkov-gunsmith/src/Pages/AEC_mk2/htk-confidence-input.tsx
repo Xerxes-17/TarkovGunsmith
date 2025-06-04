@@ -17,7 +17,7 @@ export function HtkConfidenceInput({onClick} : HtkConfidenceInputProps) {
     }
 
     return (
-        <Group>
+        <Group spacing="xs">
             <Text fw={600}>Required HTK Confidence</Text>
             <NumberInput
                 w={100}

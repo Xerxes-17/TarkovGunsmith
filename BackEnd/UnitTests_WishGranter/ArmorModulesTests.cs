@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using RatStash;
 using WishGranter.Statics;
-using WishGranter.AmmoEffectivenessChart;
 
 namespace WishGranterTests
 {
@@ -28,6 +26,14 @@ namespace WishGranterTests
             Console.WriteLine(result.Count);
         }
 
+        [TestMethod]
+        public void Test_FetchAllLegacyArmorThoraxInserts()
+        {
+            var result = ArmorModules.FetchAllLegacyArmorThoraxInserts();
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Count == 9); // patch 16.0.0 number of legacy inserts, can't imagine them adding any
+            Console.WriteLine(result.Count);
+        }
 
     }
 }

@@ -1,14 +1,14 @@
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { tgMultiSelectColOptions, tgNameColOptions, useTgTable } from "../../Components/Common/Tables/use-tg-table";
-import { AecData, ConvertAecRawToDisplay, DisplayRowAEC } from "./types";
-import { Avatar, Button, Flex, Group, Text } from "@mantine/core";
+import { AecData, AvatarNameCellProps, ConvertAecRawToDisplay, CustomHtkCellProps, DisplayRowAEC, findArmHTK, findLegHTK } from "./types";
+import { Avatar, Button, Flex, Group, Switch, Text } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton } from "mantine-react-table";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { mapAmmoCaliberFullNameToLabel } from "../../Types/AmmoTypes";
 import { HtkConfidenceInput } from "./htk-confidence-input";
+import { HtkBadge } from "./htk-badge";
 
 export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
-
     const [processedAmmoData, setProcessedAmmoData] = useState<DisplayRowAEC[]>(ConvertAecRawToDisplay(tableData, 75));
 
     const [lastConfidence, setLastConfidence] = useState<number>(75)
@@ -43,6 +43,31 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
         }
     };
 
+    const customHtkCell = useCallback(({ value, projectileCount }: CustomHtkCellProps) => {
+        return (
+            <HtkBadge value={value} projectileCount={projectileCount} />
+        );
+    }, []);
+
+    const avatarNameCell = useCallback(({ renderedCellValue, row }: AvatarNameCellProps) => {
+        return (
+            <Group align="center">
+                <Avatar
+                    alt="avatar"
+                    size={'md'}
+                    src={`https://assets.tarkov.dev/${row.original.ammoId}-icon.webp`}
+                    style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
+                >
+                    TG
+                </Avatar>
+                {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
+                <span>{renderedCellValue}</span>
+            </Group>
+        );
+    }, [pix, manualGrouping.length]);
+
+
+
     const columns = useMemo<MRT_ColumnDef<DisplayRowAEC>[]>(
         () => [
             {
@@ -53,20 +78,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                 Header: ({ column, header }) => (
                     <div style={{ width: "100%" }}>Name</div>),
                 AggregatedCell: ({ row }) => row.renderValue("caliber"),
-                Cell: ({ renderedCellValue, row }) => (
-                    <Group align="center">
-                        <Avatar
-                            alt="avatar"
-                            size={'md'}
-                            src={`https://assets.tarkov.dev/${row.original.ammoId}-icon.webp`}
-                            style={{ display: pix && manualGrouping.length === 0 ? "block" : "none" }}
-                        >
-                            TG
-                        </Avatar>
-                        {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
-                        <span>{renderedCellValue}</span>
-                    </Group>
-                ),
+                Cell: ({ renderedCellValue, row }) => avatarNameCell({ renderedCellValue, row }),
                 ...tgNameColOptions
             },
 
@@ -82,22 +94,31 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
             },
 
             {
-                id: "originalDamage",
-                accessorKey: "originalDamage",
-                header: 'Base Damage',
+                id: "projectiles",
+                accessorKey: "projectileCount",
+                header: 'Projectiles',
                 Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
+                    return <div>{(cell.getValue<number>()).toFixed(0)}</div>;
                 }
             },
-            {
-                id: "originalPenetrationPower",
-                accessorKey: "originalPenetrationPower",
-                header: 'Base Penetration',
-                Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
-                }
-            },
-            
+
+            // {
+            //     id: "originalDamage",
+            //     accessorKey: "originalDamage",
+            //     header: 'Base Damage',
+            //     Cell: ({ cell }) => {
+            //         return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
+            //     }
+            // },
+            // {
+            //     id: "originalPenetrationPower",
+            //     accessorKey: "originalPenetrationPower",
+            //     header: 'Base Penetration',
+            //     Cell: ({ cell }) => {
+            //         return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
+            //     }
+            // },
+
 
             {
                 id: "damage",
@@ -109,6 +130,11 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                 }
             },
             {
+                id: "damageDelta",
+                header: "Damage Δ(15m)",
+                accessorFn: (row) => { return (row.damage - row.originalDamage).toFixed(1) }
+            },
+            {
                 id: "penetrationPower",
                 accessorKey: "penetrationPower",
                 header: 'Penetration',
@@ -116,6 +142,11 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                 Cell: ({ cell }) => {
                     return <div>{(cell.getValue<number>()).toFixed(1)}</div>;
                 }
+            },
+            {
+                id: "penetrationDelta",
+                header: "Penetration Δ(15m)",
+                accessorFn: (row) => { return (row.penetrationPower - row.originalPenetrationPower).toFixed(1) }
             },
             {
                 id: "armorDamagePerc",
@@ -131,11 +162,51 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                     return (originalRow.penetrationPower * (originalRow.armorDamagePerc / 100)).toFixed(1)
                 },
             },
+            {
+                id: "htkLeg",
+                header: "HTK Leg",
+                size: 10,
+                accessorFn(row) {
+                    return (findLegHTK(row.damage)).toFixed(1)
+                },
+                // Cell: ({ row }) => <HtkBadge value={findLegHTK(row.original.damage)} projectileCount={row.original.projectileCount} />,
+                Cell: ({ row }) => customHtkCell({ value: findLegHTK(row.original.damage), projectileCount: row.original.projectileCount }),
+            },
+            {
+                id: "htkArm",
+                header: "HTK Arm",
+                size: 10,
+                accessorFn(row) {
+                    return (findArmHTK(row.damage)).toFixed(1)
+                },
+                // Cell: ({ row }) => <HtkBadge value={findArmHTK(row.original.damage)} projectileCount={row.original.projectileCount} />,
+                Cell: ({ row }) => customHtkCell({ value: findArmHTK(row.original.damage), projectileCount: row.original.projectileCount }),
+            },
 
             {
                 id: "htks",
                 header: `Hits to Kill Thorax @ 15m distance with >${lastConfidence}% confidence`,
                 columns: [
+                    {
+                        id: "ac2.avg",
+                        header: "AC 2",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc2.avgHTK.toFixed(1)
+                        },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc2.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc2.avgHTK, projectileCount: row.original.projectileCount }),
+                    },
+                    {
+                        id: "ac3Legacy.avg",
+                        header: "AC 3 (Legacy)",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc3Legacy.avgHTK.toFixed(1)
+                        },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc3Legacy.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc3Legacy.avgHTK, projectileCount: row.original.projectileCount }),
+                    },
                     {
                         id: "ac3.avg",
                         header: "AC 3",
@@ -143,7 +214,18 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                         accessorFn(originalRow) {
                             return originalRow.htkAc3.avgHTK.toFixed(1)
                         },
-                        
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc3.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc3.avgHTK, projectileCount: row.original.projectileCount }),
+                    },
+                    {
+                        id: "ac4Legacy.avg",
+                        header: "AC 4 (Legacy)",
+                        size: 10,
+                        accessorFn(originalRow) {
+                            return originalRow.htkAc4Legacy.avgHTK.toFixed(1)
+                        },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc4Legacy.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc4Legacy.avgHTK, projectileCount: row.original.projectileCount }),
                     },
                     {
                         id: "ac4.avg",
@@ -152,6 +234,8 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                         accessorFn(originalRow) {
                             return originalRow.htkAc4.avgHTK.toFixed(1)
                         },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc4.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc4.avgHTK, projectileCount: row.original.projectileCount }),
                     },
                     {
                         id: "ac5.avg",
@@ -160,6 +244,8 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                         accessorFn(originalRow) {
                             return originalRow.htkAc5.avgHTK.toFixed(1)
                         },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc5.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc5.avgHTK, projectileCount: row.original.projectileCount }),
                     },
                     {
                         id: "ac6.avg",
@@ -168,14 +254,17 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                         accessorFn(originalRow) {
                             return originalRow.htkAc6.avgHTK.toFixed(1)
                         },
+                        // Cell: ({ row }) => <HtkBadge value={row.original.htkAc6.avgHTK} projectileCount={row.original.projectileCount} />,
+                        Cell: ({ row }) => customHtkCell({ value: row.original.htkAc6.avgHTK, projectileCount: row.original.projectileCount }),
                     },
                 ]
             }
         ]
-        , [manualGrouping.length, pix, lastConfidence]
+        , [lastConfidence, avatarNameCell, customHtkCell]
     );
 
     const mobileView = useMediaQuery('(max-width: 766px)');
+    const { height:vpHeight, width: vpWidth } = useViewportSize();
 
     const table = useTgTable({
         columns,
@@ -196,7 +285,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
             }
             ,
             columnPinning: {
-                left: ['mrt-row-expand']
+                left: ['mrt-row-expand', 'name']
             },
             sorting: [{ id: 'penetrationPower', desc: true }],
         },
@@ -208,13 +297,13 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
         },
         mantinePaperProps: {
             style: {
-                height: mobileView ? 300 : undefined
+                height: mobileView ? vpHeight - 225 : undefined
             }
 
         },
         mantineTableContainerProps: {
             style: {
-                height: mobileView ? 300 : undefined
+                height: mobileView ? vpHeight - 225 : undefined
             },
             className: "tgMainTableInAppShell"
         },
@@ -255,7 +344,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
         //todo make this  have a multi-select for calibers
         renderTopToolbarCustomActions: ({ table }) => (
             <Flex
-                gap="md"
+                gap="lg"
                 justify="flex-start"
                 align="center"
                 direction="row"
@@ -269,10 +358,14 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                     direction="row"
                     wrap="wrap"
                 >
-                    <Text fw={600}>Toggles</Text>
-                    <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
-                    <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    <Group spacing={'xs'}>
+                        <Text fw={600}>Toggles</Text>
+                        <Button size={'xs'} compact variant={manualGrouping.length > 0 ? 'filled' : 'light'} onClick={handleToggleCaliber} >Group Calibers</Button>
+                        <Button size={'xs'} compact variant={pix ? 'filled' : 'light'} onClick={() => pixHandlers.toggle()} >Images</Button>
+                    </Group>
+
                     <HtkConfidenceInput onClick={onClickRefreshConfidence} />
+
                 </Flex>
 
             </Flex>
