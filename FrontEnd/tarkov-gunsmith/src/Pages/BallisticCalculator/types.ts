@@ -7,6 +7,12 @@ export interface DropCalculatorInput {
   lineOfSightOverBore: number;
 }
 
+export interface DropCalculatorInputWithMeta extends DropCalculatorInput {
+    caliberName: string;
+    weaponId: string;
+    barrelId: string;
+}
+
 export interface DopeTableUI_Options {
   calibers: DopeTableUI_Caliber[];
   calibrationRanges: number[];
