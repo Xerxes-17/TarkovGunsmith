@@ -1,5 +1,5 @@
 import { BallisticCalculatorTableRow, BallisticSimDataPoint, ConvertBSDPtoBCTR, SimulationToCalibrationDistancePair } from "../types";
-import { Flex, Grid, Loader, NumberInput, Select, Stack, Text } from "@mantine/core";
+import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";

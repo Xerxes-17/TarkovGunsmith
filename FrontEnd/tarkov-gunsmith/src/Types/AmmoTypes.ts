@@ -4,7 +4,7 @@ export const MAX_DAMAGE = 265;
 
 export const ammoCaliberFullNameMap: Record<string, string> = {
   Caliber20x1mm: "Blicky Disk",
-  Caliber86x70: "8.6x70mm",
+  Caliber86x70: ".338 LM",
   Caliber127x55: "12.7x55mm",
   Caliber127x33: ".50 AE",
   Caliber762x54R: "7.62x54R",

@@ -212,7 +212,6 @@ export function deltaToolTipElement(current: number, initial: number, element: J
             Initial: {initial.toFixed(0)} <br />
             Δ: {(current - initial).toFixed(2)} <br />
             Current: {current.toFixed(2)}
-
         </Tooltip>
     );
 

@@ -182,17 +182,6 @@ export function MultiShotMultiLayerResultsTable({result}: MultiShotMultiLayerRes
         return columnDef
     })
 
-    const bar: MRT_ColumnDef<MultiShotMultiLayerTableRow> = {
-        header: 'Layers',
-        id: 'Layers',
-        columns: foo,
-        // mantineTableHeadCellProps:{
-        //     sx:{backgroundColor: "green"}
-        // }
-    }
-
-    console.log("foo", foo)
-
     const standardCols: MRT_ColumnDef<MultiShotMultiLayerTableRow>[] = [
         {
             id: "hitNum",
@@ -241,49 +230,46 @@ export function MultiShotMultiLayerResultsTable({result}: MultiShotMultiLayerRes
         },
     ]
 
-    const insertIndex = standardCols.length - 2;
-
-    // const combined = Array.prototype.splice.apply(standardCols, [insertIndex, 0].concat(foo));
-    // const combined = standardCols.splice(insertIndex, 0, bar);
     const combined = standardCols.concat(foo);
-    console.log("combined", combined)
-    const combinedColsIds: string[] = combined.map(column => column.id).filter(id => id !== undefined) as string[];
-    console.log("combinedColsIds", combinedColsIds)
+    //! dev/debug stuff
+    // console.log("combined", combined)
+    // const combinedColsIds: string[] = combined.map(column => column.id).filter(id => id !== undefined) as string[];
+    // console.log("combinedColsIds", combinedColsIds)
 
-    const combinedColsIds2: string[] = combined
-        .map(columnDef => {
-            const ids: (string | undefined)[] = [columnDef.id];
+    // const combinedColsIds2: string[] = combined
+    //     .map(columnDef => {
+    //         const ids: (string | undefined)[] = [columnDef.id];
 
-            if (columnDef.columns) {
-                columnDef.columns.forEach(subColumn => {
-                    if (subColumn.id !== undefined) {
-                        ids.push(subColumn.id);
-                    }
-                });
-            }
+    //         if (columnDef.columns) {
+    //             columnDef.columns.forEach(subColumn => {
+    //                 if (subColumn.id !== undefined) {
+    //                     ids.push(subColumn.id);
+    //                 }
+    //             });
+    //         }
 
-            return ids.filter(id => id !== undefined) as string[];
-        })
-        .flat();
+    //         return ids.filter(id => id !== undefined) as string[];
+    //     })
+    //     .flat();
 
-    console.log("combinedColsIds2", combinedColsIds2)
+    // console.log("combinedColsIds2", combinedColsIds2)
 
-    function extractIds(columnDef: MRT_ColumnDef<MultiShotMultiLayerTableRow>): string[] {
-        const ids: (string | undefined)[] = [columnDef.id];
+    // function extractIds(columnDef: MRT_ColumnDef<MultiShotMultiLayerTableRow>): string[] {
+    //     const ids: (string | undefined)[] = [columnDef.id];
 
-        if (columnDef.columns) {
-            columnDef.columns.forEach(subColumn => {
-                ids.push(...extractIds(subColumn));
-            });
-        }
+    //     if (columnDef.columns) {
+    //         columnDef.columns.forEach(subColumn => {
+    //             ids.push(...extractIds(subColumn));
+    //         });
+    //     }
 
-        return ids.filter(id => id !== undefined) as string[];
-    }
-    const combinedColsIds3: string[] = combined
-        .map(extractIds)
-        .flat();
+    //     return ids.filter(id => id !== undefined) as string[];
+    // }
+    // const combinedColsIds3: string[] = combined
+    //     .map(extractIds)
+    //     .flat();
 
-    console.log(combinedColsIds3);
+    // console.log(combinedColsIds3);
 
 
     const columns = useMemo<MRT_ColumnDef<MultiShotMultiLayerTableRow>[]>(

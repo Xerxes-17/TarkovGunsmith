@@ -44,7 +44,7 @@ namespace WishGranter.API_Methods
         public float PostArmorPenetration { get; init; }
 
     };
-    
+
     public record struct ArmorLayersV2
     {
         //? Won't need this one I think
@@ -111,6 +111,87 @@ namespace WishGranter.API_Methods
 
     };
 
+    public record struct CalculateRowAECInput
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int? distance { get; init; }
+    };
+    public record struct CalculateLegacyRowAECInput
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int? distance { get; init; }
+    };
+
+    public record struct SimpleHitSummary
+    {
+        public int hitNum { get; init; }
+        public float specificChanceOfKill { get; init; }
+        public float cumulativeChanceOfKill { get; init; }
+    }
+
+    public record struct SimulatedAmmoStats
+    {
+        public string AmmoId { get; init; }
+        public string AmmoName { get; init; }
+        public string Caliber { get; init; }
+        public int ArmorDamagePerc { get; init; }
+
+        public int Distance { get; init; }
+        public float PenetrationPower { get; init; }
+        public float Damage { get; init; }
+
+        public float OriginalPenetrationPower { get; init; }
+        public float OriginalDamage { get; init; }
+        public int ProjectileCount { get; init; }
+    }
+
+    public record struct AecAmmoAndLegacy
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public int? distance { get; init; }
+
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int insertArmorClass { get; init; }
+
+        public List<SimpleHitSummary> hitSummaries { get; set; }
+    };
+
+    public record struct AecAmmoAndPlate
+    {
+        public string ammoId { get; init; }
+        public string ammoName { get; init; }
+        public int? distance { get; init; }
+
+        public string plateId { get; init; }
+        public string plateName { get; init; }
+        public int plateArmorClass { get; init; }
+
+        public string insertId { get; init; }
+        public string insertName { get; init; }
+        public int insertArmorClass { get; init; }
+
+        public List<SimpleHitSummary> hitSummaries { get; set; }
+    };
+    public record struct AecData 
+    {
+        public List<SimulatedAmmoStats> SimulatedAmmoStats { get; set; }
+        public List<AecAmmoAndPlate> AecAmmoAndPlateList { get; set; }
+        public List<AecAmmoAndLegacy> AecAmmoAndLegacyList { get; set; }
+    }
+
+
     public class API_BallisticSimulator
     {
         public static List<SimulationToCalibrationDistancePair> BallisticCalculation(ActivitySource myActivitySource, BallisticComputahInput input)
@@ -131,7 +212,7 @@ namespace WishGranter.API_Methods
             myActivity?.SetTag("HitPoints", simParams.hitPoints);
 
             myActivity?.SetTag("ArmorLayers", simParams.armorLayers.Length);
-            for(int i = 0; i < simParams.armorLayers.Length; i++)
+            for (int i = 0; i < simParams.armorLayers.Length; i++)
             {
                 myActivity?.SetTag($"isPlate.{i}", simParams.armorLayers[i].isPlate);
                 myActivity?.SetTag($"ArmorClass.{i}", simParams.armorLayers[i].armorClass);
@@ -140,7 +221,7 @@ namespace WishGranter.API_Methods
                 myActivity?.SetTag($"MaxDurability.{i}", simParams.armorLayers[i].maxDurability);
                 myActivity?.SetTag($"material.{i}", simParams.armorLayers[i].armorMaterial);
             }
-            
+
 
             return Ballistics.CalculateSingleShot(simParams);
         }

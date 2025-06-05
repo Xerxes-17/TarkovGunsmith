@@ -1,10 +1,6 @@
 ﻿using RatStash;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Force.DeepCloner;
 using WishGranter.API_Methods;
-using System.Linq;
 
 namespace WishGranter.Statics
 {
@@ -533,7 +529,7 @@ namespace WishGranter.Statics
                 //todo restructure with guard clauses
 
                 //! no armor remaining
-                if(PlateCurrentDurability == 0 && SoftCurrentDurability == 0)
+                if (PlateCurrentDurability == 0 && SoftCurrentDurability == 0)
                 {
                     //currentHpProbabilities = NightShade_CalculateNextHpProbabilities(currentHpProbabilities, parameters.Damage, parameters.Damage, 100); //todo check if 100 or 1
 
@@ -565,7 +561,7 @@ namespace WishGranter.Statics
                 }
 
                 //! only soft armor remaining
-                if(PlateCurrentDurability == 0 && SoftCurrentDurability > 0)
+                if (PlateCurrentDurability == 0 && SoftCurrentDurability > 0)
                 {
                     float softDurabilityPercentage = (SoftCurrentDurability / parameters.PlateMaxDurability) * 100;
                     float softPenetrationChance = (float)PenetrationChance(parameters.SoftArmorClass, parameters.Penetration, softDurabilityPercentage);
@@ -608,7 +604,7 @@ namespace WishGranter.Statics
 
                     PlateCurrentDurability = PlateCurrentDurability - expectedPlateDurabilityDamage > 0 ? PlateCurrentDurability - expectedPlateDurabilityDamage : 0;
 
-                    Console.WriteLine($"platePenetrationChance: {platePenetrationChance*100}%");
+                    Console.WriteLine($"platePenetrationChance: {platePenetrationChance * 100}%");
 
                     if (platePenetrationChance > 0.01 && SoftCurrentDurability > 0)
                     {
@@ -631,16 +627,16 @@ namespace WishGranter.Statics
                         float shotPenetrating = (float)PenetrationDamage(softDurabilityPercentage, parameters.SoftArmorClass, postPlateDamage, postPlatePenetrationPower);
                         var AverageDamage = (shotBlunt * (1 - softPenetrationChance)) + (shotPenetrating * softPenetrationChance);
 
-                        Console.WriteLine($"postPlate_softPenetrationChance: {softPenetrationChance*100}%");
+                        Console.WriteLine($"postPlate_softPenetrationChance: {softPenetrationChance * 100}%");
                         Console.WriteLine($"postPlateAndSoft_DamagePenetrating: {shotPenetrating}");
                         Console.WriteLine($"postPlateAndSoft_DamageBlunt: {shotBlunt}");
 
-                        if(platePenetrationChance > 0.01)
+                        if (platePenetrationChance > 0.01)
                         {
                             SoftCurrentDurability = SoftCurrentDurability - expectedSoftDurabilityDamage > 0 ? SoftCurrentDurability - expectedSoftDurabilityDamage : 0;
                         }
 
-                        
+
                     }
 
 
@@ -717,14 +713,14 @@ namespace WishGranter.Statics
             return hits;
         }
 
-        
+
 
         //helper function for getting that reduction multiplier as used for damage and penetration, aka "damage mitigation"
         public static double CalculateReductionFactor(double penetrationPower, double armorDurabilityPerc, int armorClass)
         {
-            float factor_A = (float) CalculateFactor_A(armorDurabilityPerc, armorClass);
+            float factor_A = (float)CalculateFactor_A(armorDurabilityPerc, armorClass);
 
-            float reductionMultiplier = (float) Math.Clamp(penetrationPower / ((factor_A + 12f)), 0.6f, 1f);
+            float reductionMultiplier = (float)Math.Clamp(penetrationPower / ((factor_A + 12f)), 0.6f, 1f);
 
             return reductionMultiplier;
         }
@@ -784,7 +780,7 @@ namespace WishGranter.Statics
 
             double result = 0;
 
-            if(armorDurabilityPerc == 0)
+            if (armorDurabilityPerc == 0)
             {
                 result = 1;
             }
@@ -809,7 +805,7 @@ namespace WishGranter.Statics
             //double A_Factor = CalculateFactor_A(armorDurability, armor_class);
 
             //! 1.1 max is shown in test result of 5.45 BT vs Usec Trooper. .6 min is shown in rest results of 5.45 T vs a Korund and a Slick plate.
-            double result = 
+            double result =
                 bullet_penetration *
                 armorDamagePercentage_dbl *
                 Math.Clamp(bullet_penetration / armor_class * 10, .6d, 1.1d) *
@@ -829,8 +825,8 @@ namespace WishGranter.Statics
             //double A_Factor = CalculateFactor_A(armorDurability, armor_class);
 
             //! .9 max is shown in test result of ignolnik vs PACA, Zhuk-3, etc. .5 min is shown in rest results of 5.45 T vs pretty much everything lmao.
-            double result = 
-                bullet_penetration * 
+            double result =
+                bullet_penetration *
                 armorDamagePercentage_dbl *
                 Math.Clamp(bullet_penetration / armor_class * 10, .5d, .9d) *
                 armor_destructability;
@@ -844,7 +840,7 @@ namespace WishGranter.Statics
         {
             var blocked = DamageToArmorBlock(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
             var penned = DamageToArmorPenetration(armor_class, armor_material, bullet_penetration, bullet_armorDamagePercentage, armorDurability);
-          
+
             double probabilityOfPenetration = PenetrationChance(armor_class, (float)bullet_penetration, (float)armorDurability);
 
             return (probabilityOfPenetration * penned) + ((1 - probabilityOfPenetration) * blocked);
@@ -963,7 +959,7 @@ namespace WishGranter.Statics
             float currentPenetration = bsp.penetration;
             float currentDamage = bsp.damage;
 
-            foreach(var layer in layers)
+            foreach (var layer in layers)
             {
                 float armorDurabilityPercent = layer.durability / layer.maxDurability * 100;
                 var penetrationChance = PenetrationChance(layer.armorClass, currentPenetration, armorDurabilityPercent);
@@ -991,9 +987,9 @@ namespace WishGranter.Statics
                 var blockArmorDamage = DamageToArmorBlock(layer.armorClass, layer.armorMaterial, currentPenetration, bsp.armorDamagePerc, armorDurabilityPercent);
 
                 var averageArmorDamage = (penetrationArmorDamage * penetrationChance) + (blockArmorDamage * (1 - penetrationChance));
-                var PostHitArmorDurability = layer.durability - averageArmorDamage > 0 ? layer.durability - averageArmorDamage : 0 ;
+                var PostHitArmorDurability = layer.durability - averageArmorDamage > 0 ? layer.durability - averageArmorDamage : 0;
 
-                float reductionFactor = (float) CalculateReductionFactor(currentPenetration, armorDurabilityPercent, layer.armorClass);
+                float reductionFactor = (float)CalculateReductionFactor(currentPenetration, armorDurabilityPercent, layer.armorClass);
                 currentPenetration *= reductionFactor;
                 currentDamage *= reductionFactor;
 
@@ -1037,12 +1033,12 @@ namespace WishGranter.Statics
             HpProbabilities hpProbabilities = new HpProbabilities(inputs.initialHitPoints);
             bool finished = false;
 
-            var iterationLimit = 50;
+            var iterationLimit = 100;
             var iteration = 0;
             while (!finished)
             {
-                //! 1- A tempBSP because we still wnat to harness the code in the older CSS function
-                BallisticSimParameters interationBSP = new BallisticSimParameters
+                //! 1- A tempBSP because we still want to harness the code in the older CSS function
+                BallisticSimParameters iterationBSP = new BallisticSimParameters
                 {
                     penetration = inputPenetration,
                     damage = inputDamage,
@@ -1050,7 +1046,7 @@ namespace WishGranter.Statics
                     armorLayers = layersMemory,
                     // No HP becuase it doesn't matter
                 };
-                List<BallisticSimResult> layeredResults = CalculateSingleShot(interationBSP);
+                List<BallisticSimResult> layeredResults = CalculateSingleShot(iterationBSP);
 
                 //! 2- Then from the layeredResults, we update the hpProbabilities
                 List<LayerSummaryResult> summaryResults = new();
@@ -1086,7 +1082,7 @@ namespace WishGranter.Statics
                 results.hitSummaries.Add(iterationResult);
 
                 // ! 4- Update the layers memory
-                for (int i = 0;i < layersMemory.Count(); i++)
+                for (int i = 0; i < layersMemory.Count(); i++)
                 {
                     if (i == 0)
                     {
@@ -1105,6 +1101,256 @@ namespace WishGranter.Statics
                 iteration++;
             }
             return results;
+        }
+
+        // We've got the hitSummaries included here, because we want to do some math in the FE.
+        public static AecAmmoAndPlate CalculateRowAEC(BallisticSimParametersV2 inputs, CalculateRowAECInput details)
+        {
+            // Do the simulation
+            var simResults = CalculateMultiShotSeries(inputs);
+
+            // Collate fields from input into output format
+            var simpleHitSummaries =
+                simResults.hitSummaries.Select(summary =>
+                    new SimpleHitSummary
+                    {
+                        hitNum = summary.hitNum,
+                        specificChanceOfKill = summary.specificChanceOfKill,
+                        cumulativeChanceOfKill = summary.cumulativeChanceOfKill,
+                    }
+                ).ToList();
+
+            var output = new AecAmmoAndPlate
+            {
+                ammoId = details.ammoId,
+                ammoName = details.ammoName,
+                distance = details.distance,
+
+                plateId = details.plateId,
+                plateName = details.plateName,
+                plateArmorClass = inputs.armorLayers[0].armorClass, // going to dangerously assume we're only doing Thorax calcs for now
+
+                insertId = details.insertId,
+                insertName = details.insertName,
+                insertArmorClass = inputs.armorLayers[1].armorClass,
+
+                hitSummaries = simpleHitSummaries,
+            };
+
+            // Return the output data...
+            return output;
+        }
+
+        public static AecAmmoAndLegacy CalculateLegacyRowAEC(BallisticSimParametersV2 inputs, CalculateLegacyRowAECInput details)
+        {
+            // Do the simulation
+            var simResults = CalculateMultiShotSeries(inputs);
+
+            // Collate fields from input into output format
+            var simpleHitSummaries =
+                simResults.hitSummaries.Select(summary =>
+                    new SimpleHitSummary
+                    {
+                        hitNum = summary.hitNum,
+                        specificChanceOfKill = summary.specificChanceOfKill,
+                        cumulativeChanceOfKill = summary.cumulativeChanceOfKill,
+                    }
+                ).ToList();
+
+            var output = new AecAmmoAndLegacy
+            {
+                ammoId = details.ammoId,
+                ammoName = details.ammoName,
+                distance = details.distance,
+
+                insertId = details.insertId,
+                insertName = details.insertName,
+                insertArmorClass = inputs.armorLayers[0].armorClass,
+
+                hitSummaries = simpleHitSummaries,
+            };
+
+            // Return the output data...
+            return output;
+        }
+
+        public static AecData GenerateAECdata()
+        {
+            // going to make it fixed at 15m for now
+            int distance = 15;
+
+            // get the trooper insert
+            var trooperSoftInsert = ArmorModules.FetchTrooperThoraxInsert();
+            var trooperLayer = new ArmorLayer {
+                isPlate = false,
+                armorClass = trooperSoftInsert.ArmorClass,
+                bluntDamageThroughput = trooperSoftInsert.BluntThroughput * 100,
+                durability = trooperSoftInsert.MaxDurability,
+                maxDurability = trooperSoftInsert.MaxDurability,
+                armorMaterial = trooperSoftInsert.ArmorMaterial
+            };
+
+            // get all of the plates with front SAPI or Korund hitbox
+            var plates = ArmorModules.FetchAllFrontPlates();
+
+            // get all ammo types
+            var allAmmo = Ammos.Cleaned;
+
+            var lowPenAmmo = allAmmo.Where(ammo => ammo.PenetrationPower < 10).ToList();
+            var penetratingAmmos = allAmmo.Where(ammo => ammo.PenetrationPower >= 10);
+
+            List<SimulatedAmmoStats> simulatedAmmos = new();
+
+            foreach (var ammo in penetratingAmmos)
+            {
+                var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(distance, ammo);
+
+                SimulatedAmmoStats updated = new SimulatedAmmoStats
+                {
+                    AmmoId = ammo.Id,
+                    AmmoName = ammo.ShortName,
+                    Caliber = ammo.Caliber,
+                    ArmorDamagePerc = ammo.ArmorDamage,
+
+                    Distance = distance,
+                    PenetrationPower = simulated.finalPenetration,
+                    Damage = simulated.finalDamage,
+
+                    OriginalPenetrationPower = ammo.PenetrationPower,
+                    OriginalDamage = ammo.Damage,
+                    ProjectileCount = ammo.ProjectileCount
+                };
+
+                simulatedAmmos.Add(updated);
+            }
+
+            // do calcs and save rows
+            var AecAmmoAndPlateList = new List<AecAmmoAndPlate>();
+
+            foreach(var plate in plates)
+            {
+                var plateLayer = new ArmorLayer
+                {
+                    isPlate = true,
+                    armorClass = plate.ArmorClass,
+                    bluntDamageThroughput = plate.BluntThroughput * 100,
+                    durability = plate.MaxDurability,
+                    maxDurability = plate.MaxDurability,
+                    armorMaterial = plate.ArmorMaterial
+                };
+
+                foreach (var ammo in simulatedAmmos)
+                {
+                    ArmorLayer[] layers = { plateLayer, trooperLayer };
+
+                    var inputs = new BallisticSimParametersV2
+                    {
+                        penetration = ammo.PenetrationPower,
+                        damage = ammo.Damage,
+                        armorDamagePerc =  ammo.ArmorDamagePerc,
+                        initialHitPoints = 85, //magic number is fine for now because we're only doing PMC thorax for now.
+                        targetZone = "Thorax",
+                        armorLayers = layers,
+                    };
+
+                    var details = new CalculateRowAECInput
+                    {
+                        ammoId = ammo.AmmoId,
+                        ammoName = ammo.AmmoName,
+                        plateId = plate.Id,
+                        plateName = plate.Name,
+                        insertId = trooperSoftInsert.Id,
+                        insertName = "USEC Trooper Insert (Chest)",
+                        distance = -1
+                    };
+
+                    var result = CalculateRowAEC(inputs, details);
+                    AecAmmoAndPlateList.Add(result);
+                }
+                //Console.WriteLine($"Ammo effectiveness vs {plate.Name} calculated.");
+            }
+
+            foreach (var ammo in lowPenAmmo)
+            {
+                var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(distance, ammo);
+                SimulatedAmmoStats updated = new SimulatedAmmoStats
+                {
+                    AmmoId = ammo.Id,
+                    AmmoName = ammo.ShortName,
+                    Caliber = ammo.Caliber,
+                    ArmorDamagePerc = ammo.ArmorDamage,
+
+                    Distance = distance,
+                    PenetrationPower = simulated.finalPenetration,
+                    Damage = simulated.finalDamage,
+
+                    OriginalPenetrationPower = ammo.PenetrationPower,
+                    OriginalDamage = ammo.Damage,
+                    ProjectileCount = ammo.ProjectileCount
+                };
+                simulatedAmmos.Add(updated);
+            }
+
+
+            var legacyArmors = ArmorModules.FetchAllLegacyArmorThoraxInserts();
+            var AecAmmoAndLegacyList = new List<AecAmmoAndLegacy>();
+            // kinda jank to do it this way, splitting, simulating and then reconsolidating, but it'll work
+            foreach (var ammo in simulatedAmmos)
+            {
+                foreach (var legacy in legacyArmors)
+                {
+                    var thoraxLayer = new ArmorLayer
+                    {
+                        isPlate = false,
+                        armorClass = legacy.ArmorClass,
+                        bluntDamageThroughput = legacy.BluntThroughput * 100,
+                        durability = legacy.MaxDurability,
+                        maxDurability = legacy.MaxDurability,
+                        armorMaterial = legacy.ArmorMaterial
+                    };
+
+                    ArmorLayer[] layers = { thoraxLayer };
+
+
+                    var inputs = new BallisticSimParametersV2
+                    {
+                        penetration = ammo.PenetrationPower,
+                        damage = ammo.Damage,
+                        armorDamagePerc = ammo.ArmorDamagePerc,
+                        initialHitPoints = 85, //magic number is fine for now because we're only doing PMC thorax for now.
+                        targetZone = "Thorax",
+                        armorLayers = layers,
+                    };
+
+                    var details = new CalculateLegacyRowAECInput
+                    {
+                        ammoId = ammo.AmmoId,
+                        ammoName = ammo.AmmoName,
+                        insertId = legacy.Id,
+                        insertName = legacy.Name,
+                        distance = -1
+                    };
+                    var result = CalculateLegacyRowAEC(inputs, details);
+
+                    if (details.ammoId.Equals("56dff421d2720b5f5a8b4567") && details.insertId.Equals("65702f87722744627e05cdb8"))
+                    {
+                        Console.WriteLine("hey");
+                    }
+
+                    AecAmmoAndLegacyList.Add(result);
+                }
+            }
+
+            //Console.WriteLine($"{output.Count} comparisons made.");
+
+            var output = new AecData
+            {
+                SimulatedAmmoStats = simulatedAmmos,
+                AecAmmoAndPlateList = AecAmmoAndPlateList,
+                AecAmmoAndLegacyList = AecAmmoAndLegacyList,
+            };
+
+            return output;
         }
     }
 }

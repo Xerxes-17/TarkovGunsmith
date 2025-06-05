@@ -13,13 +13,15 @@ namespace WishGranter
             Ammo.RemoveAll(x => x.Name.Contains("Zvezda"));
             Ammo.RemoveAll(x => x.Name.Contains("flare"));
             Ammo.RemoveAll(x => x.Name.Contains("patron_30x29_vog_30"));
-            Ammo.RemoveAll(x => x.Name.Contains("Caliber20x1mm")); // blicky disk
+            Ammo.RemoveAll(x => x.Caliber.Contains("Caliber20x1mm")); // blicky disk
 
             Ammo.RemoveAll(x => x.Id.Equals("5943d9c186f7745a13413ac9"));  //Shrapnel
             Ammo.RemoveAll(x => x.Name.Contains("F1 Shrapnel"));
             Ammo.RemoveAll(x => x.Name.Contains("RGD-5 Shrapnel"));
             Ammo.RemoveAll(x => x.Name.Contains("M67 Shrapnel"));
             Ammo.RemoveAll(x => x.Name.Contains("MON-50 Shrapnel"));
+            Ammo.RemoveAll(x => x.Name.Contains("V40 shrapnel"));
+            Ammo.RemoveAll(x => x.Name.Contains("O-832DU Shrapnel"));
 
             Ammo.RemoveAll(x => x.Name.Contains("Airsoft 6mm BB"));
             Ammo.RemoveAll(x => x.Name.Contains("40mm VOG-25 grenade"));
@@ -27,6 +29,7 @@ namespace WishGranter
             Ammo.RemoveAll(x => x.Name.Contains("12.7x108mm"));
 
             Ammo.RemoveAll(x => x.Name.Contains("40x46mm"));
+            Ammo.RemoveAll(x => x.Name.Contains("!!!DO NOT USE!!!40x46 mm M716(Smoke)"));
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M3"));
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M4"));
             //Ammo.RemoveAll(x => x.Name.Contains("40x46mm M5"));

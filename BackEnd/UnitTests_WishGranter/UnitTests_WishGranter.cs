@@ -11,7 +11,6 @@ using System.IO;
 using WishGranter;
 using Newtonsoft.Json;
 using WishGranter.Statics;
-using WishGranter.AmmoEffectivenessChart;
 using System.Text.Json;
 using WishGranter.API_Methods;
 using System.Collections.Immutable;
@@ -58,6 +57,42 @@ namespace WishGranterTests
             var result = Ballistics.CalculateMultiShotSeries(parameters);
             
             foreach(var iteration in result.hitSummaries)
+            {
+                Console.WriteLine(iteration.cumulativeChanceOfKill);
+                Console.WriteLine(iteration.specificChanceOfKill);
+                Console.WriteLine();
+            }
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public void Test_LegacyLayerOnly()
+        {
+            ArmorLayer paca = new ArmorLayer
+            {
+                isPlate = false,
+                armorClass = 2,
+                bluntDamageThroughput = 35,
+                durability = 40,
+                maxDurability = 40,
+                armorMaterial = ArmorMaterial.Aramid
+            };
+
+            ArmorLayer[] layers = { paca };
+
+            BallisticSimParametersV2 parameters = new BallisticSimParametersV2
+            {
+                penetration = 15,
+                damage = 67,
+                armorDamagePerc = 31,
+                initialHitPoints = 85,
+                targetZone = "Thorax",
+                armorLayers = layers
+            };
+
+            var result = Ballistics.CalculateMultiShotSeries(parameters);
+
+            foreach (var iteration in result.hitSummaries)
             {
                 Console.WriteLine(iteration.cumulativeChanceOfKill);
                 Console.WriteLine(iteration.specificChanceOfKill);
@@ -1114,49 +1149,6 @@ namespace WishGranterTests
             var param = new GunsmithParameters(FittingPriority.MetaRecoil, MuzzleType.Loud, 15, true, new List<string>());
             PurchasedAmmo.GetBestPurchasedAmmo(preset, param);
         }
-    }
-
-    [TestClass]
-    public class AECTests
-    {
-        [TestMethod]
-        public void Test_Constructor()
-        {
-            AEC AEC = new();
-
-            Console.WriteLine($"AEC.Rows.Count: {AEC.Rows.Count}");
-        }
-
-        [TestMethod]
-        public void Test_BallsiticThing()
-        {
-            SimulationParameters parameters = new SimulationParameters
-            {
-                ArmorClass = 2,
-                MaxDurability = 38,
-                StartingDurabilityPerc = 100,
-                BluntThroughput = .22f,
-                ArmorMaterial = ArmorMaterial.Aramid,
-                TargetZone = TargetZone.Thorax,
-                Penetration = 15f,
-                Damage = 87,
-                ArmorDamagePerc = 20
-            };
-
-            var result = Ballistics.SimulateHitSeries_Engine(parameters);
-
-            Console.WriteLine($"result.Count: {result.Count}");
-            Console.WriteLine($"result[0].PenetrationDamage: {result[0].PenetrationDamage}");
-            Console.WriteLine($"result[0].BluntDamage: {result[0].BluntDamage}");
-        }
-        [TestMethod]
-        public void Test_BallsiticThing2()
-        {
-            var result = Ballistics.PenetrationDamage(100, 4, 35.425 , 44.702);
-
-            Console.WriteLine($"result: {result}");
-        }
-
     }
 
     [TestClass]

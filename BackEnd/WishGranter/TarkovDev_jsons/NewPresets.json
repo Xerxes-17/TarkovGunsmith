@@ -293,8 +293,8 @@
               ]
             },
             {
-              "id": "5ebbff0841a637322117a5fb",
-              "name": "Colt M4A1 5.56x45 assault rifle USASOC-II",
+              "id": "5a32808386f774764a3226d9",
+              "name": "Colt M4A1 5.56x45 assault rifle 2k17 NY",
               "bartersFor": [],
               "properties": {
                 "default": false
@@ -311,8 +311,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "571659bb2459771fb2755a12",
-                    "name": "AR-15 Damage Industries ECS pistol grip (FDE)"
+                    "id": "59db3a1d86f77429e05b4e92",
+                    "name": "AR-15 Naroh Arms GRAL-S pistol grip"
                   }
                 },
                 {
@@ -325,15 +325,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "55d355e64bdc2d962f8b4569",
-                    "name": "M4A1 5.56x45 upper receiver"
+                    "id": "59bfe68886f7746004266202",
+                    "name": "AR-15 Vltor MUR-1S 5.56x45 upper receiver"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5c0a2cec0db834001b7ce47d",
-                    "name": "EOTech HHS-1 hybrid sight (Tan)"
+                    "id": "57adff4f24597737f373b6e6",
+                    "name": "SIG Sauer BRAVO4 4x30 scope"
                   }
                 },
                 {
@@ -346,15 +346,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ea172e498dacb342978818e",
-                    "name": "AR-15 SureFire SF4P 5.56x45 flash hider"
+                    "id": "59bffc1f86f77435b128b872",
+                    "name": "SilencerCo Hybrid 46 Direct Thread Mount adapter"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ea17bbc09aa976f2e7a51cd",
-                    "name": "SureFire SOCOM556-RC2 5.56x45 sound suppressor"
+                    "id": "59bffbb386f77435b379b9c2",
+                    "name": "SilencerCo Hybrid 46 multi-caliber sound suppressor"
                   }
                 },
                 {
@@ -367,61 +367,97 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ea16ada09aa976f2e7a51be",
-                    "name": "AR-15 Geissele SMR MK16 13.5 inch M-LOK handguard (DDC)"
+                    "id": "595cf16b86f77427440c32e2",
+                    "name": "AR-15 War Sport LVOA-S handguard (Black)"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5c06595c0db834001a66af6c",
-                    "name": "L3Harris LA-5B/PEQ tactical device"
+                    "id": "5649a2464bdc2d91118b45a8",
+                    "name": "NcSTAR MPR45 Backup mount"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5c17804b2e2216152006c02f",
-                    "name": "KAC Folding front sight"
+                    "id": "58d39d3d86f77445bb794ae7",
+                    "name": "Aimpoint Micro Standard Mount"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5c1780312e221602b66cc189",
-                    "name": "KAC Folding rear sight"
+                    "id": "58d399e486f77442e0016fe7",
+                    "name": "Aimpoint Micro T-1 reflex sight"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5649be884bdc2d79388b4577",
-                    "name": "AR-15 Colt Carbine buffer tube"
+                    "id": "59e0bed186f774156f04ce84",
+                    "name": "Vltor CASV KeyMod 6 inch rail"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ae30c9a5acfc408fb139a03",
-                    "name": "AR-15 LMT SOPMOD stock"
+                    "id": "59f8a37386f7747af3328f06",
+                    "name": "Fortis Shift tactical foregrip"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ea16d4d5aad6446a939753d",
-                    "name": "AR-15 Geissele ACH charging handle (DDC)"
+                    "id": "59e0bdb186f774156f04ce82",
+                    "name": "Vltor CASV KeyMod 2 inch rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "56def37dd2720bec348b456a",
+                    "name": "SureFire X400 Ultra tactical flashlight with laser"
+                  }
+                },
+                {
+                  "count": 2,
+                  "item": {
+                    "id": "59e0be5d86f7742d48765bd2",
+                    "name": "Vltor CASV KeyMod 4 inch rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "544909bb4bdc2d6f028b4577",
+                    "name": "L3Harris AN/PEQ-15 tactical device"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5947e98b86f774778f1448bc",
+                    "name": "AR-15 Magpul UBR GEN2 stock (Black)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "56ea7165d2720b6e518b4583",
+                    "name": "AR-15 Badger Ordnance Tactical Charging Handle Latch"
                   }
                 }
               ]
             },
             {
-              "id": "5af08cc686f77424a61595f2",
-              "name": "Colt M4A1 5.56x45 assault rifle SOPMOD I",
+              "id": "5bbf1c5a88a45017bb03d7aa",
+              "name": "Colt M4A1 5.56x45 assault rifle LVOA",
               "bartersFor": [],
               "properties": {
                 "default": false
               },
+              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -433,8 +469,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "55d4b9964bdc2d1d4e8b456e",
-                    "name": "AR-15 Colt A2 pistol grip"
+                    "id": "57c55efc2459772d2c6271e7",
+                    "name": "Hogue OverMolded Rubber Grip (Black)"
                   }
                 },
                 {
@@ -447,8 +483,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "55d355e64bdc2d962f8b4569",
-                    "name": "M4A1 5.56x45 upper receiver"
+                    "id": "55d3632e4bdc2d972f8b4569",
+                    "name": "AR-15 5.56x45 14.5 inch barrel"
                   }
                 },
                 {
@@ -461,36 +497,36 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "544a38634bdc2d58388b4568",
-                    "name": "AR-15 Colt USGI A2 5.56x45 flash hider"
+                    "id": "56eabcd4d2720b66698b4574",
+                    "name": "AR-15 Daniel Defense MK12 Low Profile Gas Block"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ae30e795acfc408fb139a0b",
-                    "name": "M4A1 front sight with gas block"
+                    "id": "595cfa8b86f77427437e845b",
+                    "name": "AR-15 War Sport LVOA-C handguard (Black)"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "55d459824bdc2d892f8b4573",
-                    "name": "AR-15 KAC RIS handguard"
+                    "id": "59e0bed186f774156f04ce84",
+                    "name": "Vltor CASV KeyMod 6 inch rail"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "637f57b78d137b27f70c496a",
-                    "name": "AR-15 KAC RIS lower handguard"
+                    "id": "59e0be5d86f7742d48765bd2",
+                    "name": "Vltor CASV KeyMod 4 inch rail"
                   }
                 },
                 {
-                  "count": 1,
+                  "count": 2,
                   "item": {
-                    "id": "55d5f46a4bdc2d1b198b4567",
-                    "name": "AR-15 Colt A2 rear sight"
+                    "id": "59e0bdb186f774156f04ce82",
+                    "name": "Vltor CASV KeyMod 2 inch rail"
                   }
                 },
                 {
@@ -503,8 +539,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ae30c9a5acfc408fb139a03",
-                    "name": "AR-15 LMT SOPMOD stock"
+                    "id": "5b39f8db5acfc40016387a1b",
+                    "name": "AR-15 Vltor EMOD stock"
                   }
                 },
                 {
@@ -617,8 +653,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5649be884bdc2d79388b4577",
-                    "name": "AR-15 Colt Carbine buffer tube"
+                    "id": "5c06595c0db834001a66af6c",
+                    "name": "L3Harris LA-5B/PEQ tactical device"
                   }
                 },
                 {
@@ -1116,164 +1152,6 @@
               ]
             },
             {
-              "id": "62875103af0a053a6672c234",
-              "name": "Colt M4A1 5.56x45 assault rifle Your-Ex",
-              "bartersFor": [],
-              "properties": {
-                "default": false
-              },
-              "buyFor": [],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5447a9cd4bdc2dbd208b4567",
-                    "name": "Colt M4A1 5.56x45 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a339805c4a2826c6e06d73d",
-                    "name": "AR-15 Magpul MIAD pistol grip (FDE)"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5aaa5dfee5b5b000140293d3",
-                    "name": "AR-15 5.56x45 Magpul PMAG 30 GEN M3 STANAG 30-round magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "55d355e64bdc2d962f8b4569",
-                    "name": "M4A1 5.56x45 upper receiver"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c7d55f52e221644f31bff6a",
-                    "name": "Aimpoint CompM4/PRO LRP mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c7d560b2e22160bc12c6139",
-                    "name": "Aimpoint Standard Spacer"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c7d55de2e221644f31bff68",
-                    "name": "Aimpoint CompM4 reflex sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "55d35ee94bdc2d61338b4568",
-                    "name": "AR-15 5.56x45 10.3 inch barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c6d710d2e22165df16b81e7",
-                    "name": "AR-15 SureFire WarComp 5.56x45 flash hider"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "55d6190f4bdc2d87028b4567",
-                    "name": "SureFire SOCOM556-MINI MONSTER 5.56x45 sound suppressor"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "56eabcd4d2720b66698b4574",
-                    "name": "AR-15 Daniel Defense MK12 Low Profile Gas Block"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5ea16acdfadf1d18c87b0784",
-                    "name": "AR-15 Geissele SMR MK16 9.5 inch M-LOK handguard (DDC)"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b7be47f5acfc400170e2dd2",
-                    "name": "Magpul M-LOK 2.5 inch rail"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5cc9c20cd7f00c001336c65d",
-                    "name": "NcSTAR Tactical Blue Laser"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b7be4895acfc400170e2dd5",
-                    "name": "Magpul M-LOK 4.1 inch rail"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c7fc87d2e221644f31c0298",
-                    "name": "BCM GUNFIGHTER MOD 3 vertical foregrip"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c17804b2e2216152006c02f",
-                    "name": "KAC Folding front sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c1780312e221602b66cc189",
-                    "name": "KAC Folding rear sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5649be884bdc2d79388b4577",
-                    "name": "AR-15 Colt Carbine buffer tube"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5d135ecbd7ad1a21c176542e",
-                    "name": "AR-15 Magpul CTR Carbine stock (FDE)"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b2240bf5acfc40dc528af69",
-                    "name": "AR-15 Radian Weapons Raptor charging handle (FDE)"
-                  }
-                }
-              ]
-            },
-            {
               "id": "5a8ae73886f7747b2e6e1416",
               "name": "Colt M4A1 5.56x45 assault rifle SOPMOD II",
               "properties": {
@@ -1281,9 +1159,9 @@
               },
               "buyFor": [
                 {
-                  "price": 250000,
+                  "price": 240000,
                   "currency": "RUB",
-                  "priceRUB": 250000,
+                  "priceRUB": 240000,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -1307,8 +1185,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "55802d5f4bdc2dac148b458e",
-                    "name": "AR-15 5.56x45 Magpul PMAG 30 GEN M3 W STANAG 30-round magazine"
+                    "id": "5aaa5dfee5b5b000140293d3",
+                    "name": "AR-15 5.56x45 Magpul PMAG 30 GEN M3 STANAG 30-round magazine"
                   }
                 },
                 {
@@ -1342,8 +1220,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "57da93632459771cb65bf83f",
-                    "name": "KAC QDSS NT4 5.56x45 sound suppressor (Black)"
+                    "id": "55d35ee94bdc2d61338b4568",
+                    "name": "AR-15 5.56x45 10.3 inch barrel"
                   }
                 },
                 {
@@ -1421,6 +1299,191 @@
                   "item": {
                     "id": "58d2912286f7744e27117493",
                     "name": "Magpul MOE Carbine rubber buttpad"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "55d44fd14bdc2d962f8b456e",
+                    "name": "AR-15 Colt charging handle"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 2,
+                  "trader": {
+                    "name": "Mechanic"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 2,
+                      "item": {
+                        "id": "5c1267ee86f77416ec610f72",
+                        "name": "Chain with Prokill medallion",
+                        "buyFor": [
+                          {
+                            "priceRUB": 83419,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "62875103af0a053a6672c234",
+              "name": "Colt M4A1 5.56x45 assault rifle Your-Ex",
+              "bartersFor": [],
+              "properties": {
+                "default": false
+              },
+              "buyFor": [
+                {
+                  "price": 250000,
+                  "currency": "RUB",
+                  "priceRUB": 250000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5447a9cd4bdc2dbd208b4567",
+                    "name": "Colt M4A1 5.56x45 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a339805c4a2826c6e06d73d",
+                    "name": "AR-15 Magpul MIAD pistol grip (FDE)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "55802d5f4bdc2dac148b458e",
+                    "name": "AR-15 5.56x45 Magpul PMAG 30 GEN M3 W STANAG 30-round magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "55d355e64bdc2d962f8b4569",
+                    "name": "M4A1 5.56x45 upper receiver"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c7d55f52e221644f31bff6a",
+                    "name": "Aimpoint CompM4/PRO LRP mount"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "55d35ee94bdc2d61338b4568",
+                    "name": "AR-15 5.56x45 10.3 inch barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c7d55de2e221644f31bff68",
+                    "name": "Aimpoint CompM4 reflex sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "57da93632459771cb65bf83f",
+                    "name": "KAC QDSS NT4 5.56x45 sound suppressor (Black)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c6d710d2e22165df16b81e7",
+                    "name": "AR-15 SureFire WarComp 5.56x45 flash hider"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "55d6190f4bdc2d87028b4567",
+                    "name": "SureFire SOCOM556-MINI MONSTER 5.56x45 sound suppressor"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "56eabcd4d2720b66698b4574",
+                    "name": "AR-15 Daniel Defense MK12 Low Profile Gas Block"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5ea16acdfadf1d18c87b0784",
+                    "name": "AR-15 Geissele SMR MK16 9.5 inch M-LOK handguard (DDC)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5b7be47f5acfc400170e2dd2",
+                    "name": "Magpul M-LOK 2.5 inch rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5cc9c20cd7f00c001336c65d",
+                    "name": "NcSTAR Tactical Blue Laser"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5b7be4895acfc400170e2dd5",
+                    "name": "Magpul M-LOK 4.1 inch rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c7fc87d2e221644f31c0298",
+                    "name": "BCM GUNFIGHTER MOD 3 vertical foregrip"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c17804b2e2216152006c02f",
+                    "name": "KAC Folding front sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5c1780312e221602b66cc189",
+                    "name": "KAC Folding rear sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5649be884bdc2d79388b4577",
+                    "name": "AR-15 Colt Carbine buffer tube"
                   }
                 },
                 {
@@ -6622,13 +6685,12 @@
               ]
             },
             {
-              "id": "618aae5a4dc2d41d5c30264b",
-              "name": "Kalashnikov AKS-74UN 5.45x39 assault rifle Recon",
+              "id": "584147ed2459775a77263501",
+              "name": "Kalashnikov AKS-74UN 5.45x39 assault rifle Default",
               "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
-              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -6640,8 +6702,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "57e3dba62459770f0c32322b",
-                    "name": "AKS-74U bakelite pistol grip"
+                    "id": "5649ad3f4bdc2df8348b4585",
+                    "name": "AK-74 bakelite pistol grip"
                   }
                 },
                 {
@@ -6661,8 +6723,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "57ffb0e42459777d047111c5",
-                    "name": "AKS-74U PBS-4 5.45x39 sound suppressor"
+                    "id": "57dc324a24597759501edc20",
+                    "name": "AKS-74U 5.45x39 muzzle brake"
                   }
                 },
                 {
@@ -6670,13 +6732,6 @@
                   "item": {
                     "id": "57dc334d245977597164366f",
                     "name": "AKS-74U dust cover"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5947db3f86f77447880cf76f",
-                    "name": "Axion Kobra EKP-8-02 reflex sight (Dovetail)"
                   }
                 },
                 {
@@ -6691,6 +6746,25 @@
                   "item": {
                     "id": "57dc32dc245977596d4ef3d3",
                     "name": "AKS-74U wooden handguard"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 35475,
+                  "currency": "RUB",
+                  "priceRUB": 35475,
+                  "vendor": {
+                    "minTraderLevel": 1,
+                    "name": "Prapor"
+                  }
+                },
+                {
+                  "price": 43806,
+                  "currency": "RUB",
+                  "priceRUB": 43806,
+                  "vendor": {
+                    "name": "Flea Market"
                   }
                 }
               ]
@@ -8724,13 +8798,11 @@
         "properties": {
           "presets": [
             {
-              "id": "618aafe23c1dcf601e0327db",
-              "name": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) SD Spec",
-              "bartersFor": [],
+              "id": "59411aa786f7747aeb37f9a5",
+              "name": "HK MP5 9x19 submachine gun (Navy 3 Round Burst) Default",
               "properties": {
-                "default": false
+                "default": true
               },
-              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -8756,15 +8828,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5d19cd96d7ad1a4a992c9f52",
-                    "name": "HK MP5 PTR Tri-Rail handguard"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "558032614bdc2de7118b4585",
-                    "name": "TangoDown Stubby BGV-MK46K foregrip (Black)"
+                    "id": "5926c36d86f77467a92a8629",
+                    "name": "HK MP5 Wide Tropical polymer handguard"
                   }
                 },
                 {
@@ -8777,36 +8842,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5926d40686f7740f152b6b7e",
-                    "name": "HK MP5 A3 old model stock"
+                    "id": "5926d3c686f77410de68ebc8",
+                    "name": "HK MP5 A2 stock"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5c0000c00db834001a6697fc",
-                    "name": "HK MP5 Navy Style 3-lug suppressor adapter"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5c6165902e22160010261b28",
-                    "name": "SIG Sauer SRD9 9x19 sound suppressor"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5926dad986f7741f82604363",
-                    "name": "HK MP5 MFI HK universal low profile scope mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "591c4efa86f7741030027726",
-                    "name": "Axion Kobra EKP-8-18 reflex sight"
+                    "id": "5926e16e86f7742f5a0f7ecb",
+                    "name": "HK MP5 3-lug muzzle adapter"
                   }
                 },
                 {
@@ -8815,6 +8859,65 @@
                     "id": "5926c32286f774616e42de99",
                     "name": "HK MP5 cocking handle"
                   }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 290,
+                  "currency": "USD",
+                  "priceRUB": 37762,
+                  "vendor": {
+                    "minTraderLevel": 1,
+                    "name": "Peacekeeper"
+                  }
+                },
+                {
+                  "price": 61329,
+                  "currency": "RUB",
+                  "priceRUB": 61329,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 1,
+                  "trader": {
+                    "name": "Peacekeeper"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 1,
+                      "item": {
+                        "id": "54491bb74bdc2d09088b4567",
+                        "name": "ER FULCRUM BAYONET",
+                        "buyFor": [
+                          {
+                            "priceRUB": 15553,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "quantity": 2,
+                      "item": {
+                        "id": "57e26fc7245977162a14b800",
+                        "name": "Bars A-2607 95Kh18 knife",
+                        "buyFor": [
+                          {
+                            "priceRUB": 13632,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -8948,6 +9051,7 @@
               "properties": {
                 "default": false
               },
+              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -9822,6 +9926,80 @@
               ]
             },
             {
+              "id": "5ba3a078d4351e00334c96ca",
+              "name": "Kalashnikov AKM 7.62x39 assault rifle (AKMB)",
+              "bartersFor": [],
+              "properties": {
+                "default": false
+              },
+              "buyFor": [],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d6088586f774275f37482f",
+                    "name": "Kalashnikov AKM 7.62x39 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d64ec286f774171d1e0a42",
+                    "name": "AKM gas tube"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d64f2f86f77417193ef8b3",
+                    "name": "AKM wooden handguard"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a0d63621526d8dba31fe3bf",
+                    "name": "AKM PBS-1 7.62x39 sound suppressor"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59e62cc886f77440d40b52a1",
+                    "name": "AKM bakelite pistol grip"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d6507c86f7741b846413a2",
+                    "name": "AKM dust cover"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a0eb980fcdbcb001a3b00a6",
+                    "name": "AKMB system rear sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d6514b86f774171a068a08",
+                    "name": "AKM wooden stock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59d625f086f774661516605d",
+                    "name": "AK 7.62x39 30-round magazine (issued '55 or later)"
+                  }
+                }
+              ]
+            },
+            {
               "id": "5a327f9086f77475187e50a9",
               "name": "Kalashnikov AKM 7.62x39 assault rifle 2k17 NY",
               "bartersFor": [],
@@ -9961,80 +10139,6 @@
                   "item": {
                     "id": "5656d7c34bdc2d9d198b4587",
                     "name": "7.62x39mm PS gzh"
-                  }
-                }
-              ]
-            },
-            {
-              "id": "5ba3a078d4351e00334c96ca",
-              "name": "Kalashnikov AKM 7.62x39 assault rifle (AKMB)",
-              "bartersFor": [],
-              "properties": {
-                "default": false
-              },
-              "buyFor": [],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d6088586f774275f37482f",
-                    "name": "Kalashnikov AKM 7.62x39 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d64ec286f774171d1e0a42",
-                    "name": "AKM gas tube"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d64f2f86f77417193ef8b3",
-                    "name": "AKM wooden handguard"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a0d63621526d8dba31fe3bf",
-                    "name": "AKM PBS-1 7.62x39 sound suppressor"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59e62cc886f77440d40b52a1",
-                    "name": "AKM bakelite pistol grip"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d6507c86f7741b846413a2",
-                    "name": "AKM dust cover"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a0eb980fcdbcb001a3b00a6",
-                    "name": "AKMB system rear sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d6514b86f774171a068a08",
-                    "name": "AKM wooden stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59d625f086f774661516605d",
-                    "name": "AK 7.62x39 30-round magazine (issued '55 or later)"
                   }
                 }
               ]
@@ -12487,8 +12591,8 @@
               ]
             },
             {
-              "id": "5a88ae4a86f77457fd2c0dae",
-              "name": "Glock 17 9x19 pistol Viper",
+              "id": "5a88b1f686f774159949926e",
+              "name": "Glock 17 9x19 pistol Spartan",
               "properties": {
                 "default": false
               },
@@ -12497,6 +12601,175 @@
                   "price": 74999,
                   "currency": "RUB",
                   "priceRUB": 74999,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7ae0c351dfba0017554310",
+                    "name": "Glock 17 9x19 pistol"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a6b5b8a8dc32e001207faf3",
+                    "name": "Glock 9x19 Lone Wolf AlphaWolf 114mm threaded barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a6b59a08dc32e000b452fb7",
+                    "name": "Glock SAI 9x19 thread protector"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a71e4f48dc32e001207fb26",
+                    "name": "Glock ZEV Tech HEX Spartan RMR pistol slide"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7d912f159bd400165484f3",
+                    "name": "Glock TruGlo TFX rear sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7d9104159bd400134c8c21",
+                    "name": "Glock TruGlo TFX front sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a71e1868dc32e00094b97f3",
+                    "name": "Glock ZEV Tech sight mount cap"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a718b548dc32e000d46d262",
+                    "name": "Glock 9x19 17-round magazine"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 2,
+                  "trader": {
+                    "name": "Mechanic"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 2,
+                      "item": {
+                        "id": "590a391c86f774385a33c404",
+                        "name": "Magnet",
+                        "buyFor": [
+                          {
+                            "priceRUB": 7097,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "628754510c9eb3366b5218f8",
+              "name": "Glock 17 9x19 pistol Jackie",
+              "bartersFor": [],
+              "properties": {
+                "default": false
+              },
+              "buyFor": [
+                {
+                  "price": 45000,
+                  "currency": "RUB",
+                  "priceRUB": 45000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7ae0c351dfba0017554310",
+                    "name": "Glock 17 9x19 pistol"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a6b5f868dc32e000a311389",
+                    "name": "Glock 17 9x19 114mm barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a71e4f48dc32e001207fb26",
+                    "name": "Glock ZEV Tech HEX Spartan RMR pistol slide"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a71e0fb8dc32e00094b97f2",
+                    "name": "Glock ZEV Tech rear sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a71e0048dc32e000c52ecc8",
+                    "name": "Glock ZEV Tech front sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a32aa8bc4a2826c6e06d737",
+                    "name": "Trijicon RMR reflex sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7ad2e851dfba0016153692",
+                    "name": "Glock 9x19 \"Big Stick\" 33-round magazine"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "5a88ae4a86f77457fd2c0dae",
+              "name": "Glock 17 9x19 pistol Viper",
+              "properties": {
+                "default": false
+              },
+              "buyFor": [
+                {
+                  "price": 40000,
+                  "currency": "RUB",
+                  "priceRUB": 40000,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -12572,113 +12845,6 @@
                       "item": {
                         "id": "5d1b392c86f77425243e98fe",
                         "name": "Light bulb",
-                        "buyFor": [
-                          {
-                            "priceRUB": 7097,
-                            "vendor": {
-                              "name": "Flea Market"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "5a88ad7b86f77479aa7226af",
-              "name": "Glock 17 9x19 pistol Tac 3",
-              "properties": {
-                "default": false
-              },
-              "buyFor": [
-                {
-                  "price": 45000,
-                  "currency": "RUB",
-                  "priceRUB": 45000,
-                  "vendor": {
-                    "name": "Flea Market"
-                  }
-                }
-              ],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a7ae0c351dfba0017554310",
-                    "name": "Glock 17 9x19 pistol"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a6b5f868dc32e000a311389",
-                    "name": "Glock 17 9x19 114mm barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a7b4960e899ef197b331a2d",
-                    "name": "Glock Pachmayr Tactical Grip Glove"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a6f5e048dc32e00094b97da",
-                    "name": "Glock 17 pistol slide"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a71e0fb8dc32e00094b97f2",
-                    "name": "Glock ZEV Tech rear sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a71e0048dc32e000c52ecc8",
-                    "name": "Glock ZEV Tech front sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a7b32a2e899ef00135e345a",
-                    "name": "Glock 9x19 Strike Industries G4 SlideComp compensator"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a718f958dc32e00094b97e7",
-                    "name": "Glock 9x19 SGM Tactical 50-round drum magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5a7b483fe899ef0016170d15",
-                    "name": "SureFire XC1 tactical flashlight"
-                  }
-                }
-              ],
-              "bartersFor": [
-                {
-                  "level": 1,
-                  "trader": {
-                    "name": "Mechanic"
-                  },
-                  "requiredItems": [
-                    {
-                      "quantity": 3,
-                      "item": {
-                        "id": "5aa2b9ede5b5b000137b758b",
-                        "name": "Kinda cowboy hat",
                         "buyFor": [
                           {
                             "priceRUB": 34775,
@@ -12997,8 +13163,8 @@
               ]
             },
             {
-              "id": "5a88af5086f77411a871682c",
-              "name": "Glock 17 9x19 pistol Tac 2",
+              "id": "5a88ad7b86f77479aa7226af",
+              "name": "Glock 17 9x19 pistol Tac 3",
               "properties": {
                 "default": false
               },
@@ -13030,8 +13196,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5a32a064c4a28200741e22de",
-                    "name": "SilencerCo Osprey 9 9x19 sound suppressor"
+                    "id": "5a7b4960e899ef197b331a2d",
+                    "name": "Glock Pachmayr Tactical Grip Glove"
                   }
                 },
                 {
@@ -13044,44 +13210,51 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5a718da68dc32e000d46d264",
-                    "name": "Glock 9x19 Magpul PMAG GL9 21-round magazine"
+                    "id": "5a71e0fb8dc32e00094b97f2",
+                    "name": "Glock ZEV Tech rear sight"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5a7ad4af51dfba0013379717",
-                    "name": "Glock Aimtech mount base"
+                    "id": "5a71e0048dc32e000c52ecc8",
+                    "name": "Glock ZEV Tech front sight"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "577d128124597739d65d0e56",
-                    "name": "Burris FastFire Weaver Base"
+                    "id": "5a7b32a2e899ef00135e345a",
+                    "name": "Glock 9x19 Strike Industries G4 SlideComp compensator"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "577d141e24597739c5255e01",
-                    "name": "Burris FastFire 3 reflex sight"
+                    "id": "5a718f958dc32e00094b97e7",
+                    "name": "Glock 9x19 SGM Tactical 50-round drum magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5a7b483fe899ef0016170d15",
+                    "name": "SureFire XC1 tactical flashlight"
                   }
                 }
               ],
               "bartersFor": [
                 {
-                  "level": 2,
+                  "level": 1,
                   "trader": {
                     "name": "Mechanic"
                   },
                   "requiredItems": [
                     {
-                      "quantity": 2,
+                      "quantity": 3,
                       "item": {
-                        "id": "56742c324bdc2d150f8b456d",
-                        "name": "Broken GPhone smartphone",
+                        "id": "5aa2b9ede5b5b000137b758b",
+                        "name": "Kinda cowboy hat",
                         "buyFor": [
                           {
                             "priceRUB": 15157,
@@ -13342,6 +13515,16 @@
               "properties": {
                 "default": false
               },
+              "buyFor": [
+                {
+                  "price": 260000,
+                  "currency": "RUB",
+                  "priceRUB": 260000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
               "containsItems": [
                 {
                   "count": 1,
@@ -13353,8 +13536,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5aaf8a0be5b5b00015693243",
-                    "name": "M1A 7.62x51 20-round magazine"
+                    "id": "5addccf45acfc400185c2989",
+                    "name": "M14 7.62x51 X Products X-14 50-round drum magazine"
                   }
                 },
                 {
@@ -13576,71 +13759,6 @@
                   "vendor": {
                     "name": "Flea Market"
                   }
-                }
-              ],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5aafa857e5b5b00018480968",
-                    "name": "Springfield Armory M1A 7.62x51 rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5addccf45acfc400185c2989",
-                    "name": "M14 7.62x51 X Products X-14 50-round drum magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5ab372a310e891001717f0d8",
-                    "name": "M14 TROY S.A.S.S. Chassis stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "588226dd24597767ad33f789",
-                    "name": "Magpul AFG tactical foregrip (FDE)"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b3b6dc75acfc47a8773fb1e",
-                    "name": "Armasight Vulcan universal base"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b3b6e495acfc4330140bd88",
-                    "name": "Armasight Vulcan MG 3.5x Bravo night vision scope"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5649a2464bdc2d91118b45a8",
-                    "name": "NcSTAR MPR45 Backup mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "577d128124597739d65d0e56",
-                    "name": "Burris FastFire Weaver Base"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "577d141e24597739c5255e01",
-                    "name": "Burris FastFire 3 reflex sight"
-                  }
                 },
                 {
                   "count": 1,
@@ -13768,9 +13886,118 @@
                   }
                 },
                 {
-                  "price": 110000,
+                  "price": 140000,
                   "currency": "RUB",
-                  "priceRUB": 110000,
+                  "priceRUB": 140000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 3,
+                  "trader": {
+                    "name": "Mechanic"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 18,
+                      "item": {
+                        "id": "573476f124597737e04bf328",
+                        "name": "Wilston cigarettes",
+                        "buyFor": [
+                          {
+                            "priceRUB": 10401,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "5af08c4486f774223b094223",
+              "name": "Springfield Armory M1A 7.62x51 rifle SASS",
+              "properties": {
+                "default": false
+              },
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5aafa857e5b5b00018480968",
+                    "name": "Springfield Armory M1A 7.62x51 rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5aaf8a0be5b5b00015693243",
+                    "name": "M1A 7.62x51 20-round magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5ab372a310e891001717f0d8",
+                    "name": "M14 TROY S.A.S.S. Chassis stock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "571659bb2459771fb2755a12",
+                    "name": "AR-15 Damage Industries ECS pistol grip (FDE)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5649be884bdc2d79388b4577",
+                    "name": "AR-15 Colt Carbine buffer tube"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "58d2946386f774496974c37e",
+                    "name": "AR-15 Magpul MOE Carbine stock (FDE)"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5addbac75acfc400194dbc56",
+                    "name": "M1A 7.62x51 22 inch barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5addbbb25acfc40015621bd9",
+                    "name": "M14 Yankee Hill Phantom 7.62x51 flash hider"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 110664,
+                  "currency": "RUB",
+                  "priceRUB": 110664,
+                  "vendor": {
+                    "minTraderLevel": 4,
+                    "name": "Mechanic"
+                  }
+                },
+                {
+                  "price": 250000,
+                  "currency": "RUB",
+                  "priceRUB": 250000,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14357,11 +14584,160 @@
         "properties": {
           "presets": [
             {
+              "id": "5bbf1c1c88a45017144d28c5",
+              "name": "Kalashnikov AK-74M 5.45x39 assault rifle Zenitco",
+              "properties": {
+                "default": false
+              },
+              "buyFor": [
+                {
+                  "price": 50000,
+                  "currency": "RUB",
+                  "priceRUB": 50000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5ac4cd105acfc40016339859",
+                    "name": "Kalashnikov AK-74M 5.45x39 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59c6633186f7740cf0493bb9",
+                    "name": "AK-74 gas tube"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5648b4534bdc2d3d1c8b4580",
+                    "name": "AK Zenit B-10M handguard with B-19 upper mount"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5649ab884bdc2ded0b8b457f",
+                    "name": "AK Zenit DTK-1 7.62x39/5.45x39 muzzle brake-compensator"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5649ae4a4bdc2d1b2b8b4588",
+                    "name": "AK Zenit RK-3 pistol grip"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5649af884bdc2d1b2b8b4589",
+                    "name": "AK Zenit B-33 dust cover"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5ac72e475acfc400180ae6fe",
+                    "name": "AK-74M rear sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5ac78eaf5acfc4001926317a",
+                    "name": "AK-74M/AK-100 Zenit PT Lock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "59ecc3dd86f7746dc827481c",
+                    "name": "AK Zenit PT-3 \"Klassika\" stock"
+                  }
+                },
+                {
+                  "price": 39037,
+                  "currency": "RUB",
+                  "priceRUB": 39037,
+                  "vendor": {
+                    "minTraderLevel": 3,
+                    "name": "Prapor"
+                  }
+                },
+                {
+                  "price": 65586,
+                  "currency": "RUB",
+                  "priceRUB": 65586,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 3,
+                  "trader": {
+                    "name": "Mechanic"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 4,
+                      "item": {
+                        "id": "573476d324597737da2adc13",
+                        "name": "Malboro Cigarettes",
+                        "buyFor": [
+                          {
+                            "priceRUB": 17476,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "quantity": 1,
+                      "item": {
+                        "id": "5d0375ff86f774186372f685",
+                        "name": "Military cable",
+                        "buyFor": [
+                          {
+                            "priceRUB": 33446,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "id": "5acf7db286f7743a9c7092e3",
               "name": "Kalashnikov AK-74M 5.45x39 assault rifle Default",
               "properties": {
                 "default": true
               },
+              "buyFor": [
+                {
+                  "price": 27999,
+                  "currency": "RUB",
+                  "priceRUB": 27999,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
               "containsItems": [
                 {
                   "count": 1,
@@ -14438,9 +14814,9 @@
                   }
                 },
                 {
-                  "price": 65586,
+                  "price": 55969,
                   "currency": "RUB",
-                  "priceRUB": 65586,
+                  "priceRUB": 55969,
                   "vendor": {
                     "name": "Flea Market"
                   }
@@ -14458,120 +14834,6 @@
                       "item": {
                         "id": "573475fb24597737fb1379e1",
                         "name": "Apollo Soyuz cigarettes",
-                        "buyFor": [
-                          {
-                            "priceRUB": 17476,
-                            "vendor": {
-                              "name": "Flea Market"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "5bbf1c1c88a45017144d28c5",
-              "name": "Kalashnikov AK-74M 5.45x39 assault rifle Zenitco",
-              "properties": {
-                "default": false
-              },
-              "buyFor": [
-                {
-                  "price": 27999,
-                  "currency": "RUB",
-                  "priceRUB": 27999,
-                  "vendor": {
-                    "name": "Flea Market"
-                  }
-                }
-              ],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5ac4cd105acfc40016339859",
-                    "name": "Kalashnikov AK-74M 5.45x39 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59c6633186f7740cf0493bb9",
-                    "name": "AK-74 gas tube"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5648b4534bdc2d3d1c8b4580",
-                    "name": "AK Zenit B-10M handguard with B-19 upper mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5649ab884bdc2ded0b8b457f",
-                    "name": "AK Zenit DTK-1 7.62x39/5.45x39 muzzle brake-compensator"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5649ae4a4bdc2d1b2b8b4588",
-                    "name": "AK Zenit RK-3 pistol grip"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5649af884bdc2d1b2b8b4589",
-                    "name": "AK Zenit B-33 dust cover"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5ac72e475acfc400180ae6fe",
-                    "name": "AK-74M rear sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5ac78eaf5acfc4001926317a",
-                    "name": "AK-74M/AK-100 Zenit PT Lock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "59ecc3dd86f7746dc827481c",
-                    "name": "AK Zenit PT-3 \"Klassika\" stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5648ac824bdc2ded0b8b457d",
-                    "name": "AK Zenit RP-1 charging handle"
-                  }
-                }
-              ],
-              "bartersFor": [
-                {
-                  "level": 3,
-                  "trader": {
-                    "name": "Mechanic"
-                  },
-                  "requiredItems": [
-                    {
-                      "quantity": 4,
-                      "item": {
-                        "id": "573476d324597737da2adc13",
-                        "name": "Malboro Cigarettes",
                         "buyFor": [
                           {
                             "priceRUB": 5123,
@@ -15647,7 +15909,7 @@
               "name": "Mosin 7.62x54R bolt-action rifle (Sniper) Carbine",
               "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
               "buyFor": [],
               "containsItems": [
@@ -15772,8 +16034,9 @@
               ]
             },
             {
-              "id": "5c0c208886f7743e5335d279",
-              "name": "Mosin 7.62x54R bolt-action rifle (Sniper) Obrez M",
+              "id": "5c0c1f2b86f77455912eaefc",
+              "name": "Mosin 7.62x54R bolt-action rifle (Sniper) Carbine",
+              "bartersFor": [],
               "properties": {
                 "default": false
               },
@@ -15805,22 +16068,22 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bfd36290db834001966869a",
-                    "name": "Mosin Rifle sawed-off sniper stock"
+                    "id": "5bfd37c80db834001d23e842",
+                    "name": "Mosin Rifle sniper carbine stock"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bfd4cd60db834001c38f095",
-                    "name": "Mosin Rifle 7.62x54R sawed-off 220mm threaded barrel"
+                    "id": "5bfd4cbe0db834001b73449f",
+                    "name": "Mosin Carbine 7.62x54R 514mm barrel"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bbdb811d4351e45020113c7",
-                    "name": "Mosin Rifle AIM Sports Tri-Rail mount"
+                    "id": "5ae099875acfc4001714e593",
+                    "name": "Mosin Rifle front sight"
                   }
                 }
               ],
@@ -16220,12 +16483,13 @@
               ]
             },
             {
-              "id": "5b83f23a86f7746d3d190a73",
-              "name": "DS Arms SA58 7.62x51 assault rifle BEL",
+              "id": "618ab08919394179c84fa57c",
+              "name": "DS Arms SA58 7.62x51 assault rifle OSW",
               "bartersFor": [],
               "properties": {
                 "default": false
               },
+              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -16237,57 +16501,57 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7d678a5acfc4001a5c4022",
-                    "name": "SA58 pistol grip"
+                    "id": "5b099b965acfc400186331e6",
+                    "name": "SA58 SAW-style pistol grip (Black)"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7bef5d5acfc43bca7067a3",
-                    "name": "SA58/FAL 7.62x51 30-round magazine"
+                    "id": "5b7d37845acfc400170e2f87",
+                    "name": "SA58/FAL/SLR 7.62x51 30-round magazine"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7d671b5acfc43d82528ddd",
-                    "name": "SA58/FAL Belgian Style handguard"
+                    "id": "5b099a9d5acfc47a8607efe7",
+                    "name": "SA58 quad rail handguard"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7be1265acfc400161d0798",
-                    "name": "SA58 7.62x51 21 inch barrel"
+                    "id": "558032614bdc2de7118b4585",
+                    "name": "TangoDown Stubby BGV-MK46K foregrip (Black)"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7d68af5acfc400170e30c3",
-                    "name": "SA58 Austrian Style 7.62x51 muzzle brake"
+                    "id": "5b099a765acfc47a8607efe3",
+                    "name": "SA58 7.62x51 11 inch barrel"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b0bc22d5acfc47a8607f085",
-                    "name": "SA58 Holland Type rear sight"
+                    "id": "5dfa3cd1b33c0951220c079b",
+                    "name": "AR-10 KAC QDC 7.62x51 Flash Suppressor Kit"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7d6c105acfc40015109a5f",
-                    "name": "FAL standard dust cover"
+                    "id": "5b099bb25acfc400186331e8",
+                    "name": "SA58 Extreme Duty dust cover"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b7d63cf5acfc4001876c8df",
-                    "name": "SA58 folding stock"
+                    "id": "5b30b0dc5acfc400153b7124",
+                    "name": "Holosun HS401G5 reflex sight"
                   }
                 }
               ],
@@ -16458,8 +16722,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5b099ac65acfc400186331e1",
-                    "name": "SA58/FAL 7.62x51 20-round magazine"
+                    "id": "5b7bef5d5acfc43bca7067a3",
+                    "name": "SA58/FAL 7.62x51 30-round magazine"
                   }
                 },
                 {
@@ -18698,6 +18962,7 @@
               "properties": {
                 "default": true
               },
+              "buyFor": [],
               "containsItems": [
                 {
                   "count": 1,
@@ -18891,11 +19156,21 @@
         "properties": {
           "presets": [
             {
-              "id": "5c0c1d6586f7743e5335d264",
-              "name": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
+              "id": "5d38517786f7742a1468cf6a",
+              "name": "Remington Model 700 7.62x51 bolt-action sniper rifle MRS",
               "properties": {
-                "default": true
+                "default": false
               },
+              "buyFor": [
+                {
+                  "price": 139999,
+                  "currency": "RUB",
+                  "priceRUB": 139999,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
               "containsItems": [
                 {
                   "count": 1,
@@ -18907,22 +19182,22 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bfea7ad0db834001c38f1ee",
-                    "name": "M700 7.62x51 Wyatt's Outdoor 5-round magazine"
+                    "id": "5d25a6538abbc306c62e630d",
+                    "name": "M700 7.62x51 AI AICS 10-round magazine"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bfeb32b0db834001a6694d9",
-                    "name": "M700 Hogue Overmolded Ghillie stock"
+                    "id": "5cde739cd7f00c0010373bd3",
+                    "name": "M700 AB Arms MOD*X GEN 3 chassis"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5bfebc320db8340019668d79",
-                    "name": "M700 7.62x51 20 inch threaded barrel"
+                    "id": "5a33ca0fc4a282000d72292f",
+                    "name": "AR-15 Colt A2 buffer tube"
                   }
                 },
                 {
@@ -18954,16 +19229,16 @@
               ],
               "bartersFor": [
                 {
-                  "level": 2,
+                  "level": 4,
                   "trader": {
                     "name": "Jaeger"
                   },
                   "requiredItems": [
                     {
-                      "quantity": 2,
+                      "quantity": 1,
                       "item": {
-                        "id": "5e2aef7986f7746d3f3c33f5",
-                        "name": "Repellent",
+                        "id": "5d1b317c86f7742523398392",
+                        "name": "Hand drill",
                         "buyFor": [
                           {
                             "priceRUB": 31246,
@@ -19116,14 +19391,29 @@
                           }
                         ]
                       }
+                    },
+                    {
+                      "quantity": 1,
+                      "item": {
+                        "id": "5e2af37686f774755a234b65",
+                        "name": "SurvL Survivor Lighter",
+                        "buyFor": [
+                          {
+                            "priceRUB": 25820,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
               ]
             },
             {
-              "id": "5d383f5d86f7742a15793872",
-              "name": "Remington Model 700 7.62x51 bolt-action sniper rifle PRO",
+              "id": "5d383e1a86f7742a1468ce63",
+              "name": "Remington Model 700 7.62x51 bolt-action sniper rifle AICS",
               "bartersFor": [],
               "properties": {
                 "default": false
@@ -19139,43 +19429,22 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5ce69cbad7f00c00b61c5098",
-                    "name": "M700 7.62x51 Magpul PMAG AC 5-round magazine"
+                    "id": "5d25a4a98abbc30b917421a4",
+                    "name": "M700 7.62x51 AI AICS 5-round magazine"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cdeac22d7f00c000f26168f",
-                    "name": "M700 Magpul Pro 700 chassis"
+                    "id": "5d25d0ac8abbc3054f3e61f7",
+                    "name": "M700 AI AT AICS polymer chassis"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cdeac42d7f00c000d36ba73",
-                    "name": "M700 Magpul Pro 700 folding stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5cdeac5cd7f00c000f261694",
-                    "name": "M700 Magpul Pro 700 pistol grip"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5cdeaca5d7f00c00b61c4b70",
-                    "name": "M700 Magpul Pro 700 chassis inline mount"
-                  }
-                },
-                {
-                  "count": 3,
-                  "item": {
-                    "id": "5b7be47f5acfc400170e2dd2",
-                    "name": "Magpul M-LOK 2.5 inch rail"
+                    "id": "671126a210d67adb5b08e925",
+                    "name": "AI AXMC KeySlot Harris bipod mount"
                   }
                 },
                 {
@@ -19195,11 +19464,11 @@
               ],
               "buyFor": [
                 {
-                  "price": 72728,
+                  "price": 70198,
                   "currency": "RUB",
-                  "priceRUB": 72728,
+                  "priceRUB": 70198,
                   "vendor": {
-                    "minTraderLevel": 4,
+                    "minTraderLevel": 3,
                     "name": "Jaeger"
                   }
                 },
@@ -19299,7 +19568,14 @@
                     "name": "Flea Market"
                   }
                 }
-              ],
+              ]
+            },
+            {
+              "id": "5c0c1d6586f7743e5335d264",
+              "name": "Remington Model 700 7.62x51 bolt-action sniper rifle Default",
+              "properties": {
+                "default": true
+              },
               "containsItems": [
                 {
                   "count": 1,
@@ -19332,29 +19608,27 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5a34fd2bc4a282329a73b4c5",
-                    "name": "AR-10 AAC Blackout 51T 7.62x51 flash hider"
+                    "id": "5d270b3c8abbc3105335cfb8",
+                    "name": "M700 thread protector"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 377,
+                  "currency": "USD",
+                  "priceRUB": 49007,
+                  "vendor": {
+                    "minTraderLevel": 3,
+                    "name": "Peacekeeper"
                   }
                 },
                 {
-                  "count": 1,
-                  "item": {
-                    "id": "5a34fe59c4a282000b1521a2",
-                    "name": "AAC 762-SDN-6 multi-caliber sound suppressor"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5bfebc5e0db834001a6694e5",
-                    "name": "M700 30mm integral ring scope mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5b2388675acfc4771e1be0be",
-                    "name": "Burris FullField TAC30 1-4x24 30mm riflescope"
+                  "price": 66016,
+                  "currency": "RUB",
+                  "priceRUB": 66016,
+                  "vendor": {
+                    "name": "Flea Market"
                   }
                 }
               ],
@@ -19362,7 +19636,7 @@
                 {
                   "level": 2,
                   "trader": {
-                    "name": "Mechanic"
+                    "name": "Jaeger"
                   },
                   "requiredItems": [
                     {
@@ -19383,8 +19657,8 @@
                     {
                       "quantity": 2,
                       "item": {
-                        "id": "5d0375ff86f774186372f685",
-                        "name": "Military cable",
+                        "id": "5e2aef7986f7746d3f3c33f5",
+                        "name": "Repellent",
                         "buyFor": [
                           {
                             "priceRUB": 38697,
@@ -21027,10 +21301,11 @@
               ]
             },
             {
-              "id": "5d2340e986f77461496241bc",
-              "name": "FN P90 5.7x28 submachine gun CWDG",
+              "id": "5d23376786f77459bb77d838",
+              "name": "FN P90 5.7x28 submachine gun Default",
+              "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
               "buyFor": [
                 {
@@ -21060,8 +21335,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cebec10d7f00c065703d185",
-                    "name": "FN PS90 stock"
+                    "id": "5cc700b9e4a949000f0f0f25",
+                    "name": "FN P90 stock"
                   }
                 },
                 {
@@ -21081,15 +21356,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cc7015ae4a949001152b4c6",
-                    "name": "FN P90 upper receiver top rail"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "584924ec24597768f12ae244",
-                    "name": "EOTech XPS3-2 holographic sight"
+                    "id": "5cebec38d7f00c00110a652a",
+                    "name": "FN P90 Ring Sight reflex sight"
                   }
                 },
                 {
@@ -21123,8 +21391,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cc6ea78e4a949000e1ea3c1",
-                    "name": "FN P90 charging handle"
+                    "id": "5cc82d76e24e8d00134b4b83",
+                    "name": "FN P90 5.7x28 submachine gun"
                   }
                 }
               ],
@@ -21315,12 +21583,21 @@
               ]
             },
             {
-              "id": "5d23376786f77459bb77d838",
-              "name": "FN P90 5.7x28 submachine gun Default",
-              "bartersFor": [],
+              "id": "5d2340e986f77461496241bc",
+              "name": "FN P90 5.7x28 submachine gun CWDG",
               "properties": {
-                "default": true
+                "default": false
               },
+              "buyFor": [
+                {
+                  "price": 120000,
+                  "currency": "RUB",
+                  "priceRUB": 120000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
               "containsItems": [
                 {
                   "count": 1,
@@ -21339,8 +21616,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cc700b9e4a949000f0f0f25",
-                    "name": "FN P90 stock"
+                    "id": "5cebec10d7f00c065703d185",
+                    "name": "FN PS90 stock"
                   }
                 },
                 {
@@ -21360,8 +21637,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "5cebec38d7f00c00110a652a",
-                    "name": "FN P90 Ring Sight reflex sight"
+                    "id": "5cc7015ae4a949001152b4c6",
+                    "name": "FN P90 upper receiver top rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "584924ec24597768f12ae244",
+                    "name": "EOTech XPS3-2 holographic sight"
                   }
                 },
                 {
@@ -21388,12 +21672,19 @@
                 {
                   "count": 1,
                   "item": {
+                    "id": "5cebec00d7f00c065c53522a",
+                    "name": "FN P90 Attenuator 5.7x28 sound suppressor"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
                     "id": "5cc6ea78e4a949000e1ea3c1",
                     "name": "FN P90 charging handle"
                   }
                 }
               ],
-              "buyFor": [
+              "bartersFor": [
                 {
                   "price": 971,
                   "currency": "USD",
@@ -23711,6 +24002,113 @@
         "properties": {
           "presets": [
             {
+              "id": "5f6771214ef1ca4f4e1b8a06",
+              "name": "TOZ KS-23M 23x75mm pump-action shotgun Default",
+              "properties": {
+                "default": true
+              },
+              "buyFor": [],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5e848cc2988a8701445df1e8",
+                    "name": "TOZ KS-23M 23x75mm pump-action shotgun"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5e848d2eea0a7c419c2f9bfd",
+                    "name": "KS-23 23x75 700mm barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5e848d51e4dbc5266a4ec63b",
+                    "name": "KS-23M forestock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5e848d99865c0f329958c83b",
+                    "name": "KS-23M pistol grip"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5e848dc4e4dbc5266a4ec63d",
+                    "name": "KS-23M wire stock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "5f647d9f8499b57dc40ddb93",
+                    "name": "KS-23M 23x75 3-shell magazine cap"
+                  }
+                }
+              ],
+              "bartersFor": [
+                {
+                  "level": 4,
+                  "trader": {
+                    "name": "Prapor"
+                  },
+                  "requiredItems": [
+                    {
+                      "quantity": 1,
+                      "item": {
+                        "id": "59e35cbb86f7741778269d83",
+                        "name": "Corrugated hose",
+                        "buyFor": [
+                          {
+                            "priceRUB": 20218,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "quantity": 1,
+                      "item": {
+                        "id": "619cbf476b8a1b37a54eebf8",
+                        "name": "Military corrugated tube",
+                        "buyFor": [
+                          {
+                            "priceRUB": 22596,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "quantity": 5,
+                      "item": {
+                        "id": "590c2c9c86f774245b1f03f2",
+                        "name": "Construction measuring tape",
+                        "buyFor": [
+                          {
+                            "priceRUB": 14815,
+                            "vendor": {
+                              "name": "Flea Market"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "id": "5f6770f839a13e712a1dff54",
               "name": "TOZ KS-23M 23x75mm pump-action shotgun Drozd",
               "properties": {
@@ -23775,7 +24173,7 @@
                         "name": "T-Shaped plug",
                         "buyFor": [
                           {
-                            "priceRUB": 20218,
+                            "priceRUB": 7802,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -23790,7 +24188,7 @@
                         "name": "USB Adapter",
                         "buyFor": [
                           {
-                            "priceRUB": 22596,
+                            "priceRUB": 15538,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -23805,92 +24203,7 @@
                         "name": "Construction measuring tape",
                         "buyFor": [
                           {
-                            "priceRUB": 14815,
-                            "vendor": {
-                              "name": "Flea Market"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "5f6771214ef1ca4f4e1b8a06",
-              "name": "TOZ KS-23M 23x75mm pump-action shotgun Default",
-              "properties": {
-                "default": true
-              },
-              "buyFor": [],
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5e848cc2988a8701445df1e8",
-                    "name": "TOZ KS-23M 23x75mm pump-action shotgun"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5e848d2eea0a7c419c2f9bfd",
-                    "name": "KS-23 23x75 700mm barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5e848d51e4dbc5266a4ec63b",
-                    "name": "KS-23M forestock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5f647d9f8499b57dc40ddb93",
-                    "name": "KS-23M 23x75 3-shell magazine cap"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "5e848db4681bea2ada00daa9",
-                    "name": "KS-23 wooden stock"
-                  }
-                }
-              ],
-              "bartersFor": [
-                {
-                  "level": 4,
-                  "trader": {
-                    "name": "Prapor"
-                  },
-                  "requiredItems": [
-                    {
-                      "quantity": 1,
-                      "item": {
-                        "id": "59e35cbb86f7741778269d83",
-                        "name": "Corrugated hose",
-                        "buyFor": [
-                          {
-                            "priceRUB": 7802,
-                            "vendor": {
-                              "name": "Flea Market"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "quantity": 1,
-                      "item": {
-                        "id": "619cbf476b8a1b37a54eebf8",
-                        "name": "Military corrugated tube",
-                        "buyFor": [
-                          {
-                            "priceRUB": 15538,
+                            "priceRUB": 19343,
                             "vendor": {
                               "name": "Flea Market"
                             }
@@ -24233,12 +24546,22 @@
         "properties": {
           "presets": [
             {
-              "id": "62874ff7a4a8431af4739d25",
-              "name": "Colt M45A1 .45 ACP pistol Mew-mew",
+              "id": "5f6762e964af6a2aa319deeb",
+              "name": "Colt M45A1 .45 ACP pistol Default",
               "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
+              "buyFor": [
+                {
+                  "price": 21874,
+                  "currency": "RUB",
+                  "priceRUB": 21874,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ],
               "containsItems": [
                 {
                   "count": 1,
@@ -24336,7 +24659,7 @@
               "name": "Colt M45A1 .45 ACP pistol Default",
               "bartersFor": [],
               "properties": {
-                "default": true
+                "default": false
               },
               "buyFor": [
                 {
@@ -24417,6 +24740,25 @@
                   "item": {
                     "id": "5f3e777688ca2d00ad199d25",
                     "name": "M45A1 slide lock"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 197,
+                  "currency": "USD",
+                  "priceRUB": 25580,
+                  "vendor": {
+                    "minTraderLevel": 2,
+                    "name": "Peacekeeper"
+                  }
+                },
+                {
+                  "price": 18299,
+                  "currency": "RUB",
+                  "priceRUB": 18299,
+                  "vendor": {
+                    "name": "Flea Market"
                   }
                 }
               ]
@@ -28666,7 +29008,7 @@
               "name": "FN SCAR-L 5.56x45 assault rifle (FDE) CQC",
               "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
               "containsItems": [
                 {
@@ -29230,8 +29572,8 @@
               ]
             },
             {
-              "id": "619d276ca4712949ff3159b9",
-              "name": "HK USP .45 ACP pistol Expert",
+              "id": "619d270836b5be1f3236f9c5",
+              "name": "HK USP .45 ACP pistol Tactical",
               "bartersFor": [],
               "properties": {
                 "default": false
@@ -29254,8 +29596,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "6194f5722d2c397d6600348f",
-                    "name": "HK USP Expert .45 ACP pistol slide"
+                    "id": "6194f1f918a3974e5e7421e4",
+                    "name": "HK USP Tactical thread protector"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "6194f41f9fb0c665d5490e75",
+                    "name": "HK USP Tactical .45 ACP pistol slide"
                   }
                 },
                 {
@@ -29299,16 +29648,23 @@
                     "id": "6193d5d4f8ee7e52e4210a1b",
                     "name": "HK USP slide lock"
                   }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "6196255558ef8c428c287d1c",
+                    "name": "HK USP rail adapter"
+                  }
                 }
               ],
               "buyFor": [
                 {
-                  "price": 23450,
-                  "currency": "RUB",
-                  "priceRUB": 23450,
+                  "price": 231,
+                  "currency": "USD",
+                  "priceRUB": 29994,
                   "vendor": {
                     "minTraderLevel": 2,
-                    "name": "Mechanic"
+                    "name": "Peacekeeper"
                   }
                 },
                 {
@@ -29326,7 +29682,7 @@
               "name": "HK USP .45 ACP pistol Tactical",
               "bartersFor": [],
               "properties": {
-                "default": false
+                "default": true
               },
               "containsItems": [
                 {
@@ -29360,22 +29716,22 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "6194f2df645b5d229654ad77",
-                    "name": "HK USP Tactical rear sight"
+                    "id": "6194f2912d2c397d6600348d",
+                    "name": "HK USP rear sight"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "6194f3286db0f2477964e67d",
-                    "name": "HK USP Tactical front sight"
+                    "id": "6194f35c18a3974e5e7421e6",
+                    "name": "HK USP front sight"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "6193d3149fb0c665d5490e32",
-                    "name": "HK USP Tactical .45 ACP 12-round magazine"
+                    "id": "6193d338de3cdf1d2614a6fc",
+                    "name": "HK USP .45 ACP 12-round magazine"
                   }
                 },
                 {
@@ -29733,131 +30089,11 @@
         "properties": {
           "presets": [
             {
-              "id": "629774055c32d414f8797477",
-              "name": "HK G36 5.56x45 assault rifle C",
+              "id": "6297738b9f1b474e440c45b5",
+              "name": "HK G36 5.56x45 assault rifle Default",
               "bartersFor": [],
               "properties": {
-                "default": false
-              },
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "623063e994fc3f7b302a9696",
-                    "name": "HK G36 5.56x45 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62307b7b10d2321fa8741921",
-                    "name": "HK G36 5.56x45 30-round magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f140da5958f63c67f1735",
-                    "name": "HK G36 polymer stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622b379bf9cfc87d675d2de5",
-                    "name": "HK G36 5.56x45 228mm barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f0ee47762f55aaa68ac87",
-                    "name": "HK G36C 5.56x45 4-prong flash hider"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622b327b267a1b13a44abea3",
-                    "name": "HK G36 gas block"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62386b2adf47d66e835094b2",
-                    "name": "HK G36 2-vent handguard"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62444cb99f47004c781903eb",
-                    "name": "HK G36 bottom handguard rail"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f16a1a5958f63c67f1737",
-                    "name": "HK G36 hand stop"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f02437762f55aaa68ac85",
-                    "name": "HK G36 magwell"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622b3c081b89c677a33bcda6",
-                    "name": "HK G36 sight mount"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "623166e08c43374ca1567195",
-                    "name": "HK G36 front sight"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "6231670f0b8aa5472d060095",
-                    "name": "HK G36 rear sight"
-                  }
-                }
-              ],
-              "buyFor": [
-                {
-                  "price": 532,
-                  "currency": "USD",
-                  "priceRUB": 69104,
-                  "vendor": {
-                    "minTraderLevel": 2,
-                    "name": "Peacekeeper"
-                  }
-                },
-                {
-                  "price": 44999,
-                  "currency": "RUB",
-                  "priceRUB": 44999,
-                  "vendor": {
-                    "name": "Flea Market"
-                  }
-                }
-              ]
-            },
-            {
-              "id": "6297743d005016781231ab76",
-              "name": "HK G36 5.56x45 assault rifle E",
-              "bartersFor": [],
-              "properties": {
-                "default": false
+                "default": true
               },
               "containsItems": [
                 {
@@ -29914,6 +30150,106 @@
                   "item": {
                     "id": "622f02437762f55aaa68ac85",
                     "name": "HK G36 magwell"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b4d7df9cfc87d675d2ded",
+                    "name": "HK G36 Hensoldt HKV 3x carry handle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622efbcb99f4ea1a4d6c9a15",
+                    "name": "Hensoldt RV red dot sight"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 532,
+                  "currency": "USD",
+                  "priceRUB": 69104,
+                  "vendor": {
+                    "minTraderLevel": 3,
+                    "name": "Peacekeeper"
+                  }
+                },
+                {
+                  "price": 44999,
+                  "currency": "RUB",
+                  "priceRUB": 44999,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "6297743d005016781231ab76",
+              "name": "HK G36 5.56x45 assault rifle E",
+              "bartersFor": [],
+              "properties": {
+                "default": false
+              },
+              "buyFor": [],
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "623063e994fc3f7b302a9696",
+                    "name": "HK G36 5.56x45 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62307b7b10d2321fa8741921",
+                    "name": "HK G36 5.56x45 30-round magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f14e899892a7f9e08f6c5",
+                    "name": "HK G36 KV adjustable stock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b3858034a3e17ad0b81f5",
+                    "name": "HK G36 5.56x45 318mm barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f128cec80d870d349b4e8",
+                    "name": "HK G36 5.56x45 4-prong flash hider"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b327b267a1b13a44abea3",
+                    "name": "HK G36 gas block"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62386b7153757417e93a4e9f",
+                    "name": "HK G36 4-vent handguard"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f16a1a5958f63c67f1737",
+                    "name": "HK G36 hand stop"
                   }
                 },
                 {
@@ -30075,15 +30411,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "622f140da5958f63c67f1735",
-                    "name": "HK G36 polymer stock"
+                    "id": "622f14e899892a7f9e08f6c5",
+                    "name": "HK G36 KV adjustable stock"
                   }
                 },
                 {
                   "count": 1,
                   "item": {
-                    "id": "622b38c56762c718e457e246",
-                    "name": "HK G36 5.56x45 480mm barrel"
+                    "id": "622b3858034a3e17ad0b81f5",
+                    "name": "HK G36 5.56x45 318mm barrel"
                   }
                 },
                 {
@@ -30103,8 +30439,15 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "6231654c71b5bc3baa1078e5",
-                    "name": "HK G36 6-vent handguard"
+                    "id": "62386b7153757417e93a4e9f",
+                    "name": "HK G36 4-vent handguard"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f16a1a5958f63c67f1737",
+                    "name": "HK G36 hand stop"
                   }
                 },
                 {
@@ -30135,7 +30478,7 @@
                   "currency": "USD",
                   "priceRUB": 80982,
                   "vendor": {
-                    "minTraderLevel": 3,
+                    "minTraderLevel": 4,
                     "name": "Peacekeeper"
                   }
                 },
@@ -30217,22 +30560,135 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "622b4d7df9cfc87d675d2ded",
-                    "name": "HK G36 Hensoldt HKV 3x carry handle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622efbcb99f4ea1a4d6c9a15",
-                    "name": "Hensoldt RV red dot sight"
+                    "id": "622b4f54dc8dcc0ba8742f85",
+                    "name": "HK G36 Hensoldt HKV ZF 1.5x carry handle"
                   }
                 }
               ]
             },
             {
-              "id": "629775539f1b474e440c45c1",
-              "name": "HK G36 5.56x45 assault rifle KV1",
+              "id": "629774055c32d414f8797477",
+              "name": "HK G36 5.56x45 assault rifle C",
+              "bartersFor": [],
+              "properties": {
+                "default": false
+              },
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "623063e994fc3f7b302a9696",
+                    "name": "HK G36 5.56x45 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62307b7b10d2321fa8741921",
+                    "name": "HK G36 5.56x45 30-round magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f140da5958f63c67f1735",
+                    "name": "HK G36 polymer stock"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b379bf9cfc87d675d2de5",
+                    "name": "HK G36 5.56x45 228mm barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f0ee47762f55aaa68ac87",
+                    "name": "HK G36C 5.56x45 4-prong flash hider"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b327b267a1b13a44abea3",
+                    "name": "HK G36 gas block"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62386b2adf47d66e835094b2",
+                    "name": "HK G36 2-vent handguard"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62444cb99f47004c781903eb",
+                    "name": "HK G36 bottom handguard rail"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f16a1a5958f63c67f1737",
+                    "name": "HK G36 hand stop"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622f02437762f55aaa68ac85",
+                    "name": "HK G36 magwell"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "622b3c081b89c677a33bcda6",
+                    "name": "HK G36 sight mount"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "623166e08c43374ca1567195",
+                    "name": "HK G36 front sight"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "6231670f0b8aa5472d060095",
+                    "name": "HK G36 rear sight"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 532,
+                  "currency": "USD",
+                  "priceRUB": 69104,
+                  "vendor": {
+                    "minTraderLevel": 2,
+                    "name": "Peacekeeper"
+                  }
+                },
+                {
+                  "price": 49000,
+                  "currency": "RUB",
+                  "priceRUB": 49000,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "629774d35c32d414f8797486",
+              "name": "HK G36 5.56x45 assault rifle K",
               "bartersFor": [],
               "properties": {
                 "default": false
@@ -30256,8 +30712,8 @@
                 {
                   "count": 1,
                   "item": {
-                    "id": "622f14e899892a7f9e08f6c5",
-                    "name": "HK G36 KV adjustable stock"
+                    "id": "622f140da5958f63c67f1735",
+                    "name": "HK G36 polymer stock"
                   }
                 },
                 {
@@ -30286,13 +30742,6 @@
                   "item": {
                     "id": "62386b7153757417e93a4e9f",
                     "name": "HK G36 4-vent handguard"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f16a1a5958f63c67f1737",
-                    "name": "HK G36 hand stop"
                   }
                 },
                 {
@@ -30307,86 +30756,6 @@
                   "item": {
                     "id": "622b4d7df9cfc87d675d2ded",
                     "name": "HK G36 Hensoldt HKV 3x carry handle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622efdf8ec80d870d349b4e5",
-                    "name": "Hensoldt RIS top rail"
-                  }
-                }
-              ]
-            },
-            {
-              "id": "6297757b2aecda1b350da2a3",
-              "name": "HK G36 5.56x45 assault rifle KV2",
-              "bartersFor": [],
-              "properties": {
-                "default": false
-              },
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "623063e994fc3f7b302a9696",
-                    "name": "HK G36 5.56x45 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62307b7b10d2321fa8741921",
-                    "name": "HK G36 5.56x45 30-round magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f14e899892a7f9e08f6c5",
-                    "name": "HK G36 KV adjustable stock"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622b3858034a3e17ad0b81f5",
-                    "name": "HK G36 5.56x45 318mm barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f128cec80d870d349b4e8",
-                    "name": "HK G36 5.56x45 4-prong flash hider"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622b327b267a1b13a44abea3",
-                    "name": "HK G36 gas block"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62386b7153757417e93a4e9f",
-                    "name": "HK G36 4-vent handguard"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f16a1a5958f63c67f1737",
-                    "name": "HK G36 hand stop"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "622f02437762f55aaa68ac85",
-                    "name": "HK G36 magwell"
                   }
                 },
                 {
@@ -32263,91 +32632,6 @@
               ]
             },
             {
-              "id": "63986752a28b76105a33c095",
-              "name": "Steyr AUG A3 5.56x45 assault rifle Default",
-              "bartersFor": [],
-              "properties": {
-                "default": true
-              },
-              "containsItems": [
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "63171672192e68c5460cebc5",
-                    "name": "Steyr AUG A3 5.56x45 assault rifle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62e7c98b550c8218d602cbb4",
-                    "name": "Steyr AUG 5.56x45 30-round magazine"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62ebbc53e3c1e1ec7c02c44f",
-                    "name": "Steyr AUG A3 charging handle"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62e7c72df68e7a0676050c77",
-                    "name": "Steyr AUG A3 5.56x45 receiver"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62e7c7f3c34ea971710c32fc",
-                    "name": "Steyr AUG A1 5.56x45 20 inch barrel"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "630f28f0cadb1fe05e06f004",
-                    "name": "Steyr AUG A3 5.56x45 closed flash hider"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "634e61b0767cb15c4601a877",
-                    "name": "Steyr AUG vertical foregrip"
-                  }
-                },
-                {
-                  "count": 1,
-                  "item": {
-                    "id": "62ebd290c427473eff0baafb",
-                    "name": "Steyr AUG A3 M1 1.5x optic sight"
-                  }
-                }
-              ],
-              "buyFor": [
-                {
-                  "price": 647,
-                  "currency": "USD",
-                  "priceRUB": 84071,
-                  "vendor": {
-                    "minTraderLevel": 3,
-                    "name": "Peacekeeper"
-                  }
-                },
-                {
-                  "price": 70204,
-                  "currency": "RUB",
-                  "priceRUB": 70204,
-                  "vendor": {
-                    "name": "Flea Market"
-                  }
-                }
-              ]
-            },
-            {
               "id": "639867ca90c8ca7156504f75",
               "name": "Steyr AUG A3 5.56x45 assault rifle CIV",
               "bartersFor": [],
@@ -32396,6 +32680,91 @@
                   "item": {
                     "id": "630f291b9f66a28b37094bb8",
                     "name": "Steyr AUG A3 5.56x45 muzzle brake"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "634e61b0767cb15c4601a877",
+                    "name": "Steyr AUG vertical foregrip"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62ebd290c427473eff0baafb",
+                    "name": "Steyr AUG A3 M1 1.5x optic sight"
+                  }
+                }
+              ],
+              "buyFor": [
+                {
+                  "price": 647,
+                  "currency": "USD",
+                  "priceRUB": 84071,
+                  "vendor": {
+                    "minTraderLevel": 3,
+                    "name": "Peacekeeper"
+                  }
+                },
+                {
+                  "price": 70204,
+                  "currency": "RUB",
+                  "priceRUB": 70204,
+                  "vendor": {
+                    "name": "Flea Market"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "639867ca90c8ca7156504f75",
+              "name": "Steyr AUG A3 5.56x45 assault rifle CIV",
+              "bartersFor": [],
+              "properties": {
+                "default": true
+              },
+              "containsItems": [
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "63171672192e68c5460cebc5",
+                    "name": "Steyr AUG A3 5.56x45 assault rifle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "630e1adbbd357927e4007c09",
+                    "name": "Steyr AUG 5.56x45 10-round magazine"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62ebbc53e3c1e1ec7c02c44f",
+                    "name": "Steyr AUG A3 charging handle"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62e7c72df68e7a0676050c77",
+                    "name": "Steyr AUG A3 5.56x45 receiver"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "62e7c7f3c34ea971710c32fc",
+                    "name": "Steyr AUG A1 5.56x45 20 inch barrel"
+                  }
+                },
+                {
+                  "count": 1,
+                  "item": {
+                    "id": "630f28f0cadb1fe05e06f004",
+                    "name": "Steyr AUG A3 5.56x45 closed flash hider"
                   }
                 },
                 {
