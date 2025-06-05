@@ -1,7 +1,7 @@
 import { useDisclosure, useMediaQuery, useViewportSize } from "@mantine/hooks";
 import { tgMultiSelectColOptions, tgNameColOptions, useTgTable } from "../../Components/Common/Tables/use-tg-table";
 import { AecData, AvatarNameCellProps, ConvertAecRawToDisplay, CustomHtkCellProps, DisplayRowAEC, findArmHTK, findLegHTK } from "./types";
-import { Avatar, Box, Button, Flex, Group, Switch, Text } from "@mantine/core";
+import { Avatar, Box, Button, Flex, Group, Text } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton } from "mantine-react-table";
 import { useCallback, useMemo, useState } from "react";
 import { mapAmmoCaliberFullNameToLabel } from "../../Types/AmmoTypes";
@@ -181,7 +181,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
             },
             {
                 id: "htkLeg",
-                header: "HTK Leg",
+                header: "HTK Legs",
                 size: 15,
                 filterFn: "lessThanOrEqualTo",
                 columnFilterModeOptions: ["greaterThan", "greaterThanOrEqualTo", "between", "betweenInclusive", "lessThan", "lessThanOrEqualTo", "equals", "notEquals"],
@@ -193,7 +193,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
             },
             {
                 id: "htkArm",
-                header: "HTK Arm",
+                header: "HTK Arms",
                 size: 15,
                 filterFn: "lessThanOrEqualTo",
                 columnFilterModeOptions: ["greaterThan", "greaterThanOrEqualTo", "between", "betweenInclusive", "lessThan", "lessThanOrEqualTo", "equals", "notEquals"],
