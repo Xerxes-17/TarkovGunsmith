@@ -297,10 +297,11 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
         columns,
         data: processedAmmoData,
 
-        layoutMode: "grid",
+        layoutMode: mobileView ? "semantic" : "grid",
         //! needs to be semantic, otherwise the `mrt-row-expand` column gets misaligned.
         //? However, semantic then breaks multi-row headers, which are fine in grid...
         // Grid will work however if you override the mrt-row-expand->[mantineTableBodyCellProps, mantineTableHeadCellProps] styles and set a size
+        // Grid gets broken to fuck on mobile.... siiiigh
 
         enableColumnFilters: true,
         enableColumnActions: false,
