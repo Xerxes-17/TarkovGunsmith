@@ -72,7 +72,7 @@ export function AmmoEffectivenessPage() {
                                 <br />
                                 Currently the process for plate carriers is the following:
                                 <ul>
-                                    <li>Get all ammos and simulate them to 15m distance.</li>
+                                    <li>Get all ammos with and simulate them to 15m distance.</li>
                                     <li>Get all armor plates, and the USEC Trooper aramid layer.</li>
                                     <li>For each plate, pair it with the trooper aramid and simulate it against all ammos with &gt;10 base penetration. We're skipping these because it's known that they will not be performant.</li>
                                     <li>Save the resulting hit series information for that combination.</li>
@@ -83,14 +83,21 @@ export function AmmoEffectivenessPage() {
                                 Non-plate carrier armors, such as the PACA, the Uley, etc, are similar, but are compared
                                 against all ammo types, and are saved to AC 2 and AC 3/4 (Legacy), as in these armor
                                 items are obsolete legacy types. They are in a separate categories from the plate-carrier
-                                 AC 3/4 because they have distinctly different mechanics, such as blunt damage being far 
-                                 more effective against them. AC 1 is not included as there are no thorax armors of 
+                                AC 3/4 because they have distinctly different mechanics, such as blunt damage being far
+                                more effective against them. AC 1 is not included as there are no thorax armors of
                                 this level.
                                 <br />
                                 <br />
-                                Fourth, fragmentation chance is not listed as that gameplay mechanic has been disabled 
-                                since patch ~14.1.0, and other modifiers such as bleed chance are also skipped, as the 
-                                focus of this table is raw hits-to-kill performance.
+                                Fourth, fragmentation chance is not listed as that gameplay mechanic has been disabled
+                                since patch ~14.1.0, and other modifiers such as bleed chance are also skipped, as the
+                                focus of this table is raw hits-to-kill performance, also velocity isn't going to matter at 15m.
+                                <br />
+                                <br />
+                                Fifth, single shot ammos HTK display is capped at 30 rounds, because if it takes more
+                                than a full standard magazine to kill a target through armor, it's clearly ineffective.
+                                Likewise multi-projectile ammo is capped at 64, because that'd be the equivalent of 8
+                                shots of the usual 8 pellet loads and again, if it doesn't work by that point it's
+                                clearly bad!
                             </Accordion.Panel>
                         </Accordion.Item>
                     </Accordion>

@@ -1208,7 +1208,7 @@ namespace WishGranter.Statics
                 SimulatedAmmoStats updated = new SimulatedAmmoStats
                 {
                     AmmoId = ammo.Id,
-                    AmmoName = ammo.Name,
+                    AmmoName = ammo.ShortName,
                     Caliber = ammo.Caliber,
                     ArmorDamagePerc = ammo.ArmorDamage,
 
@@ -1276,7 +1276,7 @@ namespace WishGranter.Statics
                 SimulatedAmmoStats updated = new SimulatedAmmoStats
                 {
                     AmmoId = ammo.Id,
-                    AmmoName = ammo.Name,
+                    AmmoName = ammo.ShortName,
                     Caliber = ammo.Caliber,
                     ArmorDamagePerc = ammo.ArmorDamage,
 

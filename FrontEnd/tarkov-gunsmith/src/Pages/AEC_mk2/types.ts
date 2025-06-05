@@ -280,30 +280,15 @@ export function ConvertAecRawToDisplay(
           (hit) => hit.cumulativeChanceOfKill > averageConfidenceLevel
         );
 
-        if (ammoId === "56dff421d2720b5f5a8b4567") {
-          console.log("legacyAC:", index);
-          console.log("hit summaries:", entry.hitSummaries);
-        }
-
         if (firstConfidentHit) {
           //* add that hitNum to a result array
           midHtkThisAc.push(firstConfidentHit.hitNum);
-          if (ammoId === "56dff421d2720b5f5a8b4567") {
-            console.log("entry:", entry);
-            console.log("firstConfidentHit:", firstConfidentHit);
-          }
         } else {
           console.warn(
             `No legacy hit found with required confidence of kill (${averageConfidenceLevel}), this really shouldn't happen!`
           );
         }
       });
-
-      if (ammoId === "56dff421d2720b5f5a8b4567") {
-        console.log("legacyAC:", index);
-        console.log("htks:", midHtkThisAc);
-      }
-
       const averageHtkForConfidence =
         sumWithReduce(midHtkThisAc) / midHtkThisAc.length;
 
