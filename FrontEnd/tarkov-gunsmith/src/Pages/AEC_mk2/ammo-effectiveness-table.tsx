@@ -407,7 +407,7 @@ export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
                         width: 42
                     }
                 },
-                //! needed to fix the expand row alignment issues
+                //! needed to fix the expand row alignment issues in grid mode
 
                 Cell: ({ cell, row, table }) => {
                     const isAggregated = cell.getIsAggregated();
