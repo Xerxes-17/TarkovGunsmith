@@ -25,12 +25,15 @@ function App() {
   return (
     <>
       <HelmetProvider>
-        <SEO url="https://tarkovgunsmith.com" title={'Tarkov Gunsmith'}/>
+        <SEO url="https://tarkovgunsmith.com" title={'Tarkov Gunsmith'} />
         <MantineProvider
           withGlobalStyles
           withNormalizeCSS
           theme={{
             colorScheme: 'dark',
+            colors: {
+              'blurple': ['#e5e8ff', '#b7befd', '#8892f7', '#5966f2', '#2c3bed', '#1421d4', '#0d1aa6', '#071277', '#030a4a', '#00031e'],
+            },
             breakpoints: {
               xs: '30em', // 480
               sm: '48em', // 766
@@ -79,7 +82,7 @@ function App() {
 
                 <Route path={LINKS.BALLISTIC_CALCULATOR} element={<BallisticCalculator />} />
 
-                <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessPage/>} />
+                <Route path={LINKS.AMMO_EFFECTIVENESS_CHART} element={<AmmoEffectivenessPage />} />
 
                 {/* <Route path={LINKS.ARMOR_VS_AMMO} element={<DataSheetEffectivenessArmor />} />
             <Route path={`${LINKS.ARMOR_VS_AMMO}/:id_armor`} element={<DataSheetEffectivenessArmor />} />
