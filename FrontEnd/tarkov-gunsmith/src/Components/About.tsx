@@ -4,7 +4,7 @@ import { SEO } from "../Util/SEO";
 // Renders the home
 export default function About(props: any) {
     return (
-        <Container className='main-app-container'>
+        <Container className='main-app-container' style={{ paddingTop: "4px"}}>
             <SEO url="https://tarkovgunsmith.com/about" title={'About : Tarkov Gunsmith'}/>
             <Col xl>
                 <Card bg="dark" border="secondary" text="light" className="xl">

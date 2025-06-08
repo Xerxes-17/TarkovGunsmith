@@ -359,8 +359,8 @@ export default function Home(props: any) {
     return (
         <>
             <SEO url="https://tarkovgunsmith.com/index.html" title={'Home : Tarkov Gunsmith'} />
-            <Container className='main-app-container'>
-                <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
+            <Container className='main-app-container'style={{ paddingTop: "4px"}}>
+                <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%"}}>
                     <Card.Header as="h1">
                         Welcome to Tarkov Gunsmith!
                     </Card.Header>

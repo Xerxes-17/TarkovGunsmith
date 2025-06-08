@@ -4,11 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { LINKS } from '../Util/links';
+import { useMediaQuery } from '@mantine/hooks';
+import { SocialMediaIcons } from './social-media-icons';
 
 export function OldBsHeaderNavbar() {
+
+    const mobileView = useMediaQuery('(max-width: 766px)');
+
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top" style={{ zIndex: 20 }}>
+            <Navbar collapseOnSelect expand="xxl" bg="dark" variant="dark" fixed="top" style={{ zIndex: 20 }}>
                 <Container >
                     <LinkContainer to={LINKS.HOME}>
                         <Navbar.Brand>
@@ -22,7 +27,11 @@ export function OldBsHeaderNavbar() {
                             Tarkov Gunsmith
                         </Navbar.Brand>
                     </LinkContainer>
+
+
+
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav id="nav-dropdown">
                             <LinkContainer to={LINKS.MODDED_WEAPON_BUILDER}>
@@ -117,12 +126,15 @@ export function OldBsHeaderNavbar() {
                                     </LinkContainer>
                                 </NavDropdown.Item>
                             </NavDropdown>
-
-                            <LinkContainer to={LINKS.ABOUT}>
+                            <LinkContainer to={LINKS.ABOUT} style={{ paddingRight: "14px" }}>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
+                            <SocialMediaIcons />
+
+
                         </Nav>
                     </Navbar.Collapse>
+
                 </Container>
             </Navbar>
         </>
