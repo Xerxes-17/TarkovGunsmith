@@ -421,15 +421,15 @@ export default function Home(props: any) {
                     <Col xl>
                         <Card bg="dark" border="secondary" text="light" className="mb-2" style={{ height: "100%" }}>
                             <LinkContainer to={LINKS.AMMO_EFFECTIVENESS_CHART}>
-                                <Nav.Link disabled>
+                                <Nav.Link>
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
-                            <Card.Img style={{ maxHeight: '300px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas.png'} alt="A data table picture" />
+                            <Card.Img style={{ maxHeight: '300px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas2.png'} alt="A data table picture" />
                             <Card.Body>
                                 <Card.Text>
                                     Stats tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, can includes hidden stats which are important.
-                                    Currently cover Ammo, Armor and Weapons.
+                                    Currently cover Ammo effectiveness and the stats of Ammo, Armor and Weapons.
                                 </Card.Text>
                             </Card.Body>
                         </Card>
