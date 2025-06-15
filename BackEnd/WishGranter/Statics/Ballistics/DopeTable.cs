@@ -90,7 +90,8 @@ namespace WishGranter.Statics
             float BulletDiameterMillimeters,
             float BulletMass,
             int Penetration,
-            int Damage
+            int Damage,
+            float AccuracyModifier
         );
         private static List<DopeTableUI_Ammo> ConstructDopeAmmosByIds(List<string> ids)
         {
@@ -109,6 +110,7 @@ namespace WishGranter.Statics
                     BulletMass = ammo.BulletMass,
                     Penetration = ammo.PenetrationPower,
                     Damage = ammo.Damage,
+                    AccuracyModifier = ammo.AmmoAccuracy
                 };
 
                 var dopeAmmo = new DopeTableUI_Ammo() { AmmoLabel = ammo.ShortName, Stats = dopeStats };
@@ -123,6 +125,7 @@ namespace WishGranter.Statics
             string Id,
             string ShortName,
             float VelocityModifier,
+            float CenterOfImpact,
             DopeTableUI_Ammo DefaultAmmo,
             List<DopeTableUI_Barrel> PossibleBarrels
         );
@@ -200,6 +203,7 @@ namespace WishGranter.Statics
                     ShortName = weapon.ShortName,
                     DefaultAmmo = dopeDefAmmo,
                     VelocityModifier = weapon.Velocity,
+                    CenterOfImpact = weapon.CenterOfImpact,
                     PossibleBarrels = ConstructDopeBarrelsById(weapon.Id),
                 };
 
@@ -212,7 +216,8 @@ namespace WishGranter.Statics
         (
             string Id,
             string ShortName,
-            float VelocityModifier
+            float VelocityModifier,
+            float CenterOfImpact
         );
 
         private static List<DopeTableUI_Barrel> ConstructDopeBarrelsById(string id)
@@ -228,7 +233,8 @@ namespace WishGranter.Statics
                 {
                     Id = barrel.Id,
                     ShortName = barrel.Id.Equals("5d2703038abbc3105103d94c") ? barrel.ShortName+" stainless steel" : barrel.ShortName,
-                    VelocityModifier = barrel.Velocity
+                    VelocityModifier = barrel.Velocity,
+                    CenterOfImpact = barrel.CenterOfImpact,
                 };
                 dopeBarrels.Add(dopeBarrel);
             };

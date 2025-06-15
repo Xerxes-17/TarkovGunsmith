@@ -1,4 +1,4 @@
-import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine } from "recharts";
+import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine, Area, Brush } from "recharts";
 import { BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
 import { Box, Checkbox, Group, NumberInput, RangeSlider, Text } from "@mantine/core";
 import { useState } from "react";
@@ -6,11 +6,12 @@ import { useDisclosure } from "@mantine/hooks";
 
 export interface BallisticCalculatorGraphProps {
   selectedCalibration: string;
+  totalWeaponAccuracyCRads: number;
   resultData: BallisticSimDataPoint[]
 }
 
-export function BallisticDropChart({ resultData: chartData, selectedCalibration }: BallisticCalculatorGraphProps) {
-
+export function BallisticDropChart({ resultData: chartData, selectedCalibration, totalWeaponAccuracyCRads }: BallisticCalculatorGraphProps) {
+  const weaponAccuracyCRads = totalWeaponAccuracyCRads;
   const calibrationNumber = parseInt(selectedCalibration) ?? -1
 
   const calibrationCustomLabel = (props: {
@@ -151,7 +152,7 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
           onChange={() => toggle()}
         />
       </Group>
-      <Box miw={200} maw={650} h={300} mih={210}>
+      <Box miw={200} maw={650} h={350} mih={210}>
         <ResponsiveContainer width={"100%"} >
           <ComposedChart
             data={filtered}
@@ -162,14 +163,14 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
               bottom: 0,
             }}
             style={{ zIndex: 10, color: "white" }}
-
+            // syncId="anyId"
           >
             <CartesianGrid strokeDasharray={1} />
             <XAxis
               type="number"
               dataKey={(row: BallisticSimDataPoint) => (row.Distance)}
               unit={"m"}
-              allowDataOverflow={opened ? true : false}
+              allowDataOverflow={true}
               domain={['dataMin', 'dataMax']}
             />
             <XAxis
@@ -188,6 +189,40 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
               allowDataOverflow={opened ? true : false}
               domain={opened ? [yDomainMin, yDomainMax] : [0, 'auto']}
             />
+
+            <Area
+              name="Head (16cm)"
+              type="monotone"
+              dataKey={(row: BallisticSimDataPoint) => ([
+                ((row.Drop * 100) - 8).toFixed(2),
+                ((row.Drop * 100) + 8).toFixed(2),
+              ])}
+              unit={"cm"}
+              stroke="#e4f5ea"
+              yAxisId="left-drop"
+              fill="#5f656b"
+              
+              dot={false}
+              activeDot={false}
+            />
+
+            <Area
+              name="Danger Space"
+              type="monotone"
+              dataKey={(row: BallisticSimDataPoint) => ([
+                ((row.Drop * 100) - (row.Distance * weaponAccuracyCRads)).toFixed(2),
+                ((row.Drop * 100) + (row.Distance * weaponAccuracyCRads)).toFixed(2),
+              ])}
+              unit={"cm"}
+              stroke="none"
+              yAxisId="left-drop"
+              // fill="#598c51"
+              fill="#6c88a8"
+              dot={false}
+              activeDot={false}
+            />
+
+            
 
             <ReferenceLine yAxisId="left-drop" y={0} label={lineOfSightCustomLabel} stroke="red" position="start" />
             <ReferenceLine yAxisId="left-drop" x={calibrationNumber} label={calibrationCustomLabel} stroke="red" position="end" />
@@ -211,7 +246,14 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration 
               strokeWidth={2}
               unit={"cm"}
               dot={false}
+              z={100}
+              // activeDot={{
+              //   r: 16,
+              // }}
             />
+
+            {/* <Brush dataKey={(row: BallisticSimDataPoint) => (row.Distance)} startIndex={0} height={30} stroke="#1864ab" fill="#35373b"/> */}
+
           </ComposedChart>
         </ResponsiveContainer>
       </Box>

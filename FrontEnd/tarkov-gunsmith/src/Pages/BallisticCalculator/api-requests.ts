@@ -3,8 +3,6 @@ import { API_URL } from "../../Util/util";
 import { DropCalculatorInput } from "./types";
 
 
-
-
 export async function requestDopeTableOptions() {
     let response = null;
     try {

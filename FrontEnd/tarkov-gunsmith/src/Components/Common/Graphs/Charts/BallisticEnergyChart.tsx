@@ -1,4 +1,4 @@
-import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine } from "recharts";
+import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine, Brush } from "recharts";
 import { BallisticSimDataPoint, BallisticSimOutput } from "../../../../Pages/BallisticCalculator/types";
 import { Box } from "@mantine/core";
 
@@ -31,7 +31,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
       };
 
     return (
-        <Box miw={200} maw={650} h={285} mih={210} mb={20}>
+        <Box miw={200} maw={650} h={325} mih={210} mb={20}>
             <ResponsiveContainer width={"100%"} >
                 <ComposedChart
                     data={chartData}
@@ -42,6 +42,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         bottom: 0,
                     }}
                     style={{ zIndex: 10 }}
+                    // syncId="anyId"
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
@@ -107,6 +108,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
                         layout='horizontal'
                         verticalAlign="top"
                     />
+                    {/* <Brush dataKey={(row: BallisticSimDataPoint) => (row.Distance)} startIndex={0} height={30} stroke="#1864ab" fill="#35373b"/> */}
                 </ComposedChart>
             </ResponsiveContainer>
         </Box>
