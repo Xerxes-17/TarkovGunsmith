@@ -325,7 +325,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                                 Frequently Asked Questions
                                             </Button>
                                         </Group>
-                                        <Modal opened={openedFAQ} onClose={closeFAQ} title={<Title order={3}>Frequently Asked Questions</Title>}>
+                                        <Modal opened={openedFAQ} onClose={closeFAQ} size={1400} title={<Title order={3}>Frequently Asked Questions</Title>}>
                                             <FrequentlyAskedQuestions />
                                         </Modal>
                                     </>
