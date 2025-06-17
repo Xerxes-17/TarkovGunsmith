@@ -1,15 +1,17 @@
 import { BallisticCalculatorTableRow, BallisticSimDataPoint, BDC_Result, ConvertBSDPtoBCTR } from "../types";
-import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
+import { Grid, Loader, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { LINKS } from "../../../Util/links";
 
 
 export function DopeResultSection(
-    { result, isLoading, resultString }:
-        { result: BDC_Result, isLoading: boolean, resultString: string }
+    { result, isLoading, timeStampRefreshHack }:
+        { result: BDC_Result, isLoading: boolean, timeStampRefreshHack: number }
 ) {
+    const resultString = result.resultString;
     const totalWeaponAccuracyCRads = result.totalWeaponAccuracyCRads;
     const calibrations = result?.dataPoints.map(x => x.Distance);
     const options = calibrations?.map(value => {
@@ -22,7 +24,29 @@ export function DopeResultSection(
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
 
     const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.dataPoints[1].output.DataPoints);
+
     const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item, totalWeaponAccuracyCRads))
+
+    function handleOnChange(value: string | null) {
+        if (typeof (value) === "string") {
+            setSelectedCalibration(value);
+            var index = options.findIndex(x => x.value === value);
+            if (index === -1) {
+                index = 1
+            }
+            setSelectedData(result?.dataPoints[index].output.DataPoints);
+        }
+    }
+
+
+    useEffect(() => {
+        var index = options.findIndex(x => x.value === selectedCalibration);
+        if (index === -1) {
+            index = 1
+            setSelectedCalibration("50")
+        }
+        setSelectedData(result?.dataPoints[index].output.DataPoints)
+    }, [result])
 
     if (isLoading) {
         return (
@@ -39,30 +63,19 @@ export function DopeResultSection(
 
     return (
         <Grid columns={24}>
-            <Grid.Col  span={24} lg={14} xl={14} >
-                <Flex align={"center"} gap={10}>
-                    <Select
-                        miw={140}
-                        w={140}
-                        label="Calibration Distance"
-                        placeholder="Select"
-                        data={options}
-                        value={selectedCalibration}
-                        onChange={(value) => {
-                            if (typeof (value) === "string") {
-                                setSelectedCalibration(value);
-                                const index = options.findIndex(x => x.value === value) ?? 0;
-                                setSelectedData(result?.dataPoints[index].output.DataPoints);
-                            }
-                        }}
-                    />
-                    <Stack spacing={3}>
-                        <Text size={"md"} pl={5}>{resultString}</Text>
-                    </Stack>
-                </Flex>
+            <Grid.Col span={24} lg={14} xl={14} >
+                <Stack spacing={3}>
+                    <Text size={"md"} pl={5}>{resultString}</Text>
+                </Stack>
                 {selectedData && (
                     <>
-                        <BallisticCalculatorResultTable result={displayed} />
+                        <BallisticCalculatorResultTable
+                            result={displayed}
+                            options={options}
+                            selectedCalibration={selectedCalibration}
+                            handleOnChange={handleOnChange}
+                        />
+                        <Text color="gray.5" size={"xs"} >Time generated: {new Date(timeStampRefreshHack).toUTCString()} and is from https://tarkovgunsmith.com{LINKS.BALLISTIC_CALCULATOR}</Text>
                     </>
                 )}
             </Grid.Col>

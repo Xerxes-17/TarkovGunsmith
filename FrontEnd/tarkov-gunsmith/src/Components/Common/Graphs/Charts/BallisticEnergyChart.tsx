@@ -1,4 +1,4 @@
-import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine, Brush } from "recharts";
+import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ComposedChart, Line, ReferenceLine, } from "recharts";
 import { BallisticSimDataPoint, BallisticSimOutput } from "../../../../Pages/BallisticCalculator/types";
 import { Box } from "@mantine/core";
 
@@ -31,7 +31,7 @@ export function BallisticEnergyChart({ resultData }: BallisticCalculatorGraphPro
       };
 
     return (
-        <Box miw={200} maw={650} h={325} mih={210} mb={20}>
+        <Box miw={200} maw={650} h={315} mih={210} mb={20}>
             <ResponsiveContainer width={"100%"} >
                 <ComposedChart
                     data={chartData}

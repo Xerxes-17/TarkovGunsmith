@@ -1,12 +1,24 @@
 import { useTgTable } from "../use-tg-table"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo, useState } from "react";
-import { Box, Flex, Group, Input, NumberInput } from "@mantine/core";
-import { BallisticCalculatorTableRow } from "../../../../Pages/BallisticCalculator/types";
+import { Box, Flex, Group, Input, NumberInput, Select, Text} from "@mantine/core";
+import { BallisticCalculatorTableRow, BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
 import { useMediaQuery } from "@mui/material";
+import { LINKS } from "../../../../Util/links";
 
-export function BallisticCalculatorResultTable({ result: tableData }: { result: BallisticCalculatorTableRow[] }) {
-
+export function BallisticCalculatorResultTable(
+    { 
+        result: tableData,
+        options,
+        selectedCalibration,
+        handleOnChange,
+    }: 
+    { 
+        result: BallisticCalculatorTableRow[], 
+        options: any,
+        selectedCalibration: string,
+        handleOnChange: (value: string|null) => void
+    }) {
     const [valueAdjustment, setValueAdjustment] = useState<number | ''>(1.00);
 
     const columns = useMemo<MRT_ColumnDef<BallisticCalculatorTableRow>[]>(
@@ -91,7 +103,7 @@ export function BallisticCalculatorResultTable({ result: tableData }: { result: 
                 header: 'Danger Space',
                 size: 25,
                 Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>()*2).toFixed(2)} cm</div>;
+                    return <div>{(cell.getValue<number>() * 2).toFixed(2)} cm</div>;
                 }
             },
 
@@ -198,20 +210,30 @@ export function BallisticCalculatorResultTable({ result: tableData }: { result: 
 
     return (
         <>
-            <Group spacing="sm" noWrap pb={4}>
-                <Box w={140}>
-                    <NumberInput
-                        value={valueAdjustment} onChange={setValueAdjustment}
-                        inputWrapperOrder={['label', 'description', 'input', 'error']}
-                        label="Scope Mils Multiplier"
-                        precision={2}
-                        max={5}
-                        min={.01}
-                        step={.01}
-                    />
-                </Box>
+            <Flex align={"center"} gap={10} pl={5} pb={8} wrap={"wrap"}>
+                <Select
+                    miw={140}
+                    w={140}
+                    label="Calibration Distance"
+                    placeholder="Select"
+                    data={options}
+                    value={selectedCalibration}
+                    onChange={(value) => {
+                        handleOnChange(value)
+                    }}
+                />
+                <NumberInput
+                    w={140}
+                    value={valueAdjustment} onChange={setValueAdjustment}
+                    inputWrapperOrder={['label', 'description', 'input', 'error']}
+                    label="Scope Mils Multiplier"
+                    precision={2}
+                    max={5}
+                    min={.01}
+                    step={.01}
+                />
                 <Input.Description pl={5}>In-game scope mils are not to scale. Set the multiplier for the adjusted mils column here.<br />From .01 to 5.00, step is .01.</Input.Description>
-            </Group>
+            </Flex>
 
             <MantineReactTable table={table} />
         </>
