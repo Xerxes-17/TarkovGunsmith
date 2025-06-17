@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { balCalYupValidator, BallisticCalculatorFormProvider, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
 import { Button, Divider, Grid, Group, Input, Stack, Text, HoverCard, Portal, ScrollArea } from "@mantine/core";
 import { requestBallisticCalculation } from "./api-requests";
@@ -10,7 +10,7 @@ import { RowCalculationAmmo } from "./form/row-calculation-ammo";
 import { RowDefaultAmmo } from "./form/row-default-ammo";
 import { AdditionalVelocityModifier } from "./components/input-additional-velocity-mod";
 import { InputMaxDistance } from "./components/input-max-distance";
-import { useScrollIntoView, useHover, useViewportSize } from "@mantine/hooks";
+import { useScrollIntoView, useHover, useViewportSize, useMediaQuery } from "@mantine/hooks";
 import { InputHeightOverBore } from "./components/input-height-over-bore";
 import { PresetManager } from "./components/preset-manager";
 import { DropCalculatorInputWithMeta } from "./types";
@@ -45,6 +45,7 @@ export function CalculatorForm({ dopeOptions, setResult, setTimeStampRefreshHack
     const [presetLoaded, setPresetLoaded] = useState(false);
     const { hovered: presetSavedHovered, ref: presetSavedRef } = useHover();
 
+    const mobileView = useMediaQuery('(max-width: 766px)');
     const { height } = useViewportSize();
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export function CalculatorForm({ dopeOptions, setResult, setTimeStampRefreshHack
         const validation = form.validate();
         if (validation.hasErrors) {
             scrollIntoViewInputs();
+            // scrollToTop();
             return;
         }
         setIsLoading(true);
@@ -150,7 +152,7 @@ export function CalculatorForm({ dopeOptions, setResult, setTimeStampRefreshHack
             })
             .finally(() => {
                 setIsLoading(false);
-                scrollIntoView();
+                // scrollIntoView();
             });
     }
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({ offset: 60 });
@@ -164,11 +166,14 @@ export function CalculatorForm({ dopeOptions, setResult, setTimeStampRefreshHack
         lineOfSightOverBore: form.values.lineOfSightOverBore
     });
 
+    const viewport = useRef<HTMLDivElement>(null);
+    const scrollToTop = () => viewport.current?.scrollTo({ top: 0, behavior: 'smooth' });
+
     return (
         <BallisticCalculatorFormProvider form={form}>
 
             <form>
-                <ScrollArea.Autosize offsetScrollbars mah={height - 200} >
+                <ScrollArea.Autosize offsetScrollbars mah={ !mobileView ? height - 200 : "100%"} viewportRef={viewport} >
                     <Divider ref={targetRefInputs} label="Weapon" labelPosition="center" />
                     <Stack spacing={"xs"}>
                         <Grid gutter={4}>

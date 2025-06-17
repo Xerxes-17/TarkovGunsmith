@@ -10,8 +10,6 @@ import { DopeResultSection } from "./form/results-section";
 import { FrequentlyAskedQuestions } from "./components/frequently-asked-questions";
 import { useDisclosure } from "@mantine/hooks";
 
-
-
 export function BallisticCalculator() {
     const [dopeOptions, setDopeOptions] = useState<DopeTableUI_Options>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +24,6 @@ export function BallisticCalculator() {
 
         try {
             response = await axios.get(API_URL + `/GetDopeTableOptions`);
-            console.log("options:", response)
         } catch (error) {
             setIsLoading(false)
             throw error;
@@ -97,7 +94,7 @@ export function BallisticCalculator() {
 
                             {dopeOptions !== undefined && (
                                 <Grid.Col span={24} sm={12} md={10} lg={8} xl={6}>
-                                    <CalculatorForm dopeOptions={dopeOptions} setResult={setResult} setTimeStampRefreshHack={setTimeStampRefreshHack}/>
+                                    <CalculatorForm dopeOptions={dopeOptions} setResult={setResult} setTimeStampRefreshHack={setTimeStampRefreshHack} />
                                     {result && (
                                         <>
                                             <Group position="center">
