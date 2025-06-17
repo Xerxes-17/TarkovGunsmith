@@ -78,7 +78,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                 : form.values.dopeTableSelections.weaponObj?.centerOfImpact) ?? 0;
         const ammoAccuracy = form.values.dopeTableSelections.calculationAmmoObj?.stats.accuracyModifier ?? 0;
         const aam = form.values.additionalAccuracyModifier;
-        const aamMult = ((100 + (-1 *aam)) / 100);
+        const aamMult = ((100 + (-1 * aam)) / 100);
         const modifiedCRad = getModifiedCRadForResults(baseAccuracy, ammoAccuracy, aamMult);
 
         const calibrationDistances = formValues.dopeTableOptions.calibrationRanges.filter(x => x <= formValues.maxDistance);
@@ -148,11 +148,6 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                 scrollIntoView();
             });
     }
-
-    const calibrationRangesJoin = form.values.dopeTableOptions.calibrationRanges
-        .filter(x => x <= form.values.maxDistance)
-        .join(", ");
-
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({ offset: 60 });
     const { scrollIntoView: scrollIntoViewInputs, targetRef: targetRefInputs } = useScrollIntoView<HTMLDivElement>({ offset: 60 });
 
@@ -179,9 +174,10 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                 },
             }}>
             <BallisticCalculatorFormProvider form={form}>
-                <form>
-                    <Grid columns={24} px={4}>
-                        <Grid.Col span={24} sm={12} md={10} lg={8} xl={6}>
+
+                <Grid columns={24} px={4}>
+                    <Grid.Col span={24} sm={12} md={10} lg={8} xl={6}>
+                        <form>
                             <Divider ref={targetRefInputs} label="Weapon" labelPosition="center" />
                             <Stack spacing={"xs"}>
                                 <Grid gutter={4}>
@@ -325,38 +321,38 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                     </>
                                 )}
                             </Stack>
-                        </Grid.Col>
+                        </form>
+                    </Grid.Col>
 
-                        <Grid.Col ref={targetRef} span={24} sm={12} md={14} lg={16} xl={18}>
-                            {isLoading && (
-                                <Center mih={250}>
-                                    <Stack spacing={2} py={10} mb={5} align="center">
-                                        <Loader size="xl" />
-                                        <Text>Prayers sent to WishGranter, Слава моноліту!!</Text>
-                                        <IconDatabase size="5rem" color="#3e9eed" />
-                                    </Stack>
-                                </Center>
-                            )}
+                    <Grid.Col ref={targetRef} span={24} sm={12} md={14} lg={16} xl={18}>
+                        {isLoading && (
+                            <Center mih={250}>
+                                <Stack spacing={2} py={10} mb={5} align="center">
+                                    <Loader size="xl" />
+                                    <Text>Prayers sent to WishGranter, Слава моноліту!!</Text>
+                                    <IconDatabase size="5rem" color="#3e9eed" />
+                                </Stack>
+                            </Center>
+                        )}
 
-                            {!result && !isLoading && (
-                                <Box>
-                                    <Divider label="Frequently Asked Questions" labelPosition="center" />
-                                    <FrequentlyAskedQuestions />
-                                </Box>
-                            )}
-                            {result && !isLoading && (
-                                <>
-                                    <Divider label="Result" labelPosition="center" />
-                                    <DopeResultSection
-                                        isLoading={isLoading}
-                                        result={result}
-                                        resultString={resultString}
-                                    />
-                                </>
-                            )}
-                        </Grid.Col>
-                    </Grid>
-                </form>
+                        {!result && !isLoading && (
+                            <Box>
+                                <Divider label="Frequently Asked Questions" labelPosition="center" />
+                                <FrequentlyAskedQuestions />
+                            </Box>
+                        )}
+                        {result && !isLoading && (
+                            <>
+                                <Divider label="Result" labelPosition="center" />
+                                <DopeResultSection
+                                    isLoading={isLoading}
+                                    result={result}
+                                    resultString={resultString}
+                                />
+                            </>
+                        )}
+                    </Grid.Col>
+                </Grid>
             </BallisticCalculatorFormProvider>
         </MantineProvider>
     )
