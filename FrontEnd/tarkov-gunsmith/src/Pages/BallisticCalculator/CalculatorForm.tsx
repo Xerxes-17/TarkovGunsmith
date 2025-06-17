@@ -78,7 +78,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                 : form.values.dopeTableSelections.weaponObj?.centerOfImpact) ?? 0;
         const ammoAccuracy = form.values.dopeTableSelections.calculationAmmoObj?.stats.accuracyModifier ?? 0;
         const aam = form.values.additionalAccuracyModifier;
-        const aamMult = ((100 + aam) / 100) * -1;
+        const aamMult = ((100 + (-1 *aam)) / 100);
         const modifiedCRad = getModifiedCRadForResults(baseAccuracy, ammoAccuracy, aamMult);
 
         const calibrationDistances = formValues.dopeTableOptions.calibrationRanges.filter(x => x <= formValues.maxDistance);

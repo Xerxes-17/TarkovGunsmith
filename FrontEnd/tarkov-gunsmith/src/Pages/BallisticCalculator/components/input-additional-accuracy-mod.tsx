@@ -12,7 +12,7 @@ export function AdditionalAccuracyModifier() {
     const usingBarrelBaseAccuracy: boolean = form.values.dopeTableSelections.barrelObj ? true : false
     const ammoAccuracy = form.values.dopeTableSelections.calculationAmmoObj?.stats.accuracyModifier ?? 0;
     const aam = form.values.additionalAccuracyModifier
-    const aamMult = ((100 + aam) / 100) * -1;
+    const aamMult = ((100 + (-1 *aam)) / 100);
     const radiusCm100m = -1 * (100 * baseAccuracy * bsgAmmoFactor(ammoAccuracy) * aamMult)
     const tarkovMOA = -1 * (getTarkovMOA(baseAccuracy, ammoAccuracy, aamMult));
     const realMils = (tarkovMOA * 2) * .2909;
