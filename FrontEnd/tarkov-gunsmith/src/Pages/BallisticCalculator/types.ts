@@ -101,6 +101,7 @@ export interface SimulationToCalibrationDistancePair{
 }
 
 export interface BDC_Result{
+  resultString: string,
   totalWeaponAccuracyCRads: number;
   dataPoints: SimulationToCalibrationDistancePair[];
 }

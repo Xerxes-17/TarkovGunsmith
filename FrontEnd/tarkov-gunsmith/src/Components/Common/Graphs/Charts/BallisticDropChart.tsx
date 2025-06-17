@@ -152,7 +152,7 @@ export function BallisticDropChart({ resultData: chartData, selectedCalibration,
           onChange={() => toggle()}
         />
       </Group>
-      <Box miw={200} maw={650} h={350} mih={210}>
+      <Box miw={200} maw={650} h={340} mih={210}>
         <ResponsiveContainer width={"100%"} >
           <ComposedChart
             data={filtered}
