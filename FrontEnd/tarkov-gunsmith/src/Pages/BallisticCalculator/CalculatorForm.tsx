@@ -211,12 +211,6 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
 
                                 <Group pl={5} spacing={5}>
                                     <InputMaxDistance />
-                                    <Grid pl={8} grow>
-                                        <Grid.Col pl={5} span={6}>
-                                            <Input.Label>Calibrations: </Input.Label>
-                                            <Text pt={6} pb={6}>{calibrationRangesJoin}.</Text>
-                                        </Grid.Col>
-                                    </Grid>
                                 </Group>
 
                                 <Group pl={5} spacing={5}>
