@@ -68,6 +68,7 @@ export interface BallisticCalculatorFormValues {
   };
   maxDistance: number;
   additionalVelocityModifier: number;
+  additionalAccuracyModifier: number;
   finalVelocityModifier: number;
   lineOfSightOverBore: number;
 }

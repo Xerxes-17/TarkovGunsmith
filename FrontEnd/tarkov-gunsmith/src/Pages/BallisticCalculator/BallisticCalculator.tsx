@@ -19,6 +19,7 @@ export function BallisticCalculator() {
     
         try {
             response = await axios.get(API_URL + `/GetDopeTableOptions`);
+            console.log("options:", response)
         } catch (error) {
             setIsLoading(false)
             throw error;
@@ -36,6 +37,7 @@ export function BallisticCalculator() {
         setIsLoading(false)
         console.error("Error: Both WishGranter and ApiTarkovDev failed to respond (correctly).")
     }
+    
     useEffect(() => {
         setIsLoading(true)
         getDopeOptions();

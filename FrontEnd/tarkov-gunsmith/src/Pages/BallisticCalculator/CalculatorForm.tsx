@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { balCalYupValidator, BallisticCalculatorFormProvider, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
 import { Box, Button, Center, Divider, Grid, Group, Input, Loader, MantineProvider, Modal, Stack, Text, Title, HoverCard, Portal } from "@mantine/core";
 import { requestBallisticCalculation } from "./api-requests";
-import { DopeTableUI_Options, DropCalculatorInput, SimulationToCalibrationDistancePair } from "./types";
+import { BDC_Result, DopeTableUI_Options, DropCalculatorInput, getModifiedCRadForResults } from "./types";
 import { SelectDopeCaliber } from "./components/select-caliber";
 import { SelectDopeWeapon } from "./components/select-weapon";
 import { SelectDopeBarrel } from "./components/select-barrel";
@@ -17,6 +17,7 @@ import { useDisclosure, useScrollIntoView, useHover } from "@mantine/hooks";
 import { InputHeightOverBore } from "./components/input-height-over-bore";
 import { PresetManager } from "./components/preset-manager";
 import { DropCalculatorInputWithMeta } from "./types";
+import { AdditionalAccuracyModifier } from "./components/input-additional-accuracy-mod";
 
 export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Options }) {
     const [openedFAQ, { open: openFAQ, close: closeFAQ }] = useDisclosure(false);
@@ -33,13 +34,14 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             },
             maxDistance: 200,
             additionalVelocityModifier: 0,
+            additionalAccuracyModifier: 0,
             finalVelocityModifier: 1,
             lineOfSightOverBore: 68.58
         },
         validate: balCalYupValidator,
     })
 
-    const [result, setResult] = useState<SimulationToCalibrationDistancePair[]>();
+    const [result, setResult] = useState<BDC_Result>();
     const [resultString, setResultString] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -70,6 +72,15 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             return;
         }
 
+        const baseAccuracy =
+            (form.values.dopeTableSelections.barrelObj
+                ? form.values.dopeTableSelections.barrelObj.centerOfImpact
+                : form.values.dopeTableSelections.weaponObj?.centerOfImpact) ?? 0;
+        const ammoAccuracy = form.values.dopeTableSelections.calculationAmmoObj?.stats.accuracyModifier ?? 0;
+        const aam = form.values.additionalAccuracyModifier;
+        const aamMult = ((100 + (-1 *aam)) / 100);
+        const modifiedCRad = getModifiedCRadForResults(baseAccuracy, ammoAccuracy, aamMult);
+
         const calibrationDistances = formValues.dopeTableOptions.calibrationRanges.filter(x => x <= formValues.maxDistance);
         const lineOfSightOverBore = formValues.lineOfSightOverBore / 1000; // Convert mm to m
 
@@ -98,7 +109,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             lineOfSightOverBore,
             caliberName: form.values.dopeTableSelections.caliberName,
             weaponId: form.values.dopeTableSelections.weaponId,
-            barrelId: form.values.dopeTableSelections.barrelId
+            barrelId: form.values.dopeTableSelections.barrelId,
         };
 
         setResultString(
@@ -109,7 +120,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
             `and ${formValues.lineOfSightOverBore.toFixed(2)}mm height over bore.`
         );
 
-        handleSubmit(dropCalculatorInput);
+        handleSubmit(dropCalculatorInput, modifiedCRad);
     }
 
     const [presetNotification, setPresetNotification] = useState<{
@@ -117,10 +128,16 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
         color: string;
     } | null>(null);
 
-    function handleSubmit(values: DropCalculatorInput) {
+    function handleSubmit(values: DropCalculatorInput, accuracyAsCRads: number) {
         requestBallisticCalculation(values)
             .then(response => {
-                setResult(response);
+                const bundledResponse: BDC_Result =
+                {
+                    totalWeaponAccuracyCRads: accuracyAsCRads,
+                    dataPoints: response
+                }
+
+                setResult(bundledResponse);
                 form.resetDirty();
             })
             .catch(error => {
@@ -179,6 +196,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                             <SelectDopeBarrel />
                                             <AdditionalVelocityModifier />
                                         </Group>
+
                                     </Grid.Col>
                                 </Grid>
 
@@ -187,16 +205,12 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                 <Divider label="Calculation Ammo" labelPosition="center" />
                                 <RowCalculationAmmo />
 
+                                <AdditionalAccuracyModifier />
+
                                 <Divider label="Misc" labelPosition="center" />
 
                                 <Group pl={5} spacing={5}>
                                     <InputMaxDistance />
-                                    <Grid pl={8} grow>
-                                        <Grid.Col pl={5} span={6}>
-                                            <Input.Label>Calibrations: </Input.Label>
-                                            <Text pt={6} pb={6}>{calibrationRangesJoin}.</Text>
-                                        </Grid.Col>
-                                    </Grid>
                                 </Group>
 
                                 <Group pl={5} spacing={5}>
@@ -305,7 +319,7 @@ export function CalculatorForm({ dopeOptions }: { dopeOptions: DopeTableUI_Optio
                                                 Frequently Asked Questions
                                             </Button>
                                         </Group>
-                                        <Modal opened={openedFAQ} onClose={closeFAQ} title={<Title order={3}>Frequently Asked Questions</Title>}>
+                                        <Modal opened={openedFAQ} onClose={closeFAQ} size={1400} title={<Title order={3}>Frequently Asked Questions</Title>}>
                                             <FrequentlyAskedQuestions />
                                         </Modal>
                                     </>

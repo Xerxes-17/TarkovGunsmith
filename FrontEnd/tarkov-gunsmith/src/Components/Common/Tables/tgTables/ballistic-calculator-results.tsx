@@ -72,9 +72,29 @@ export function BallisticCalculatorResultTable({ result: tableData }: { result: 
                 header: 'Drop',
                 size: 45,
                 Cell: ({ cell }) => {
-                    return <div>{(cell.getValue<number>() * 100).toFixed(3)} cm</div>;
+                    return <div>{(cell.getValue<number>() * 100).toFixed(2)} cm</div>;
                 }
             },
+            {
+                id: "MaxDispersion",
+                accessorKey: "MaxDispersion",
+                header: 'Max Dispersion Radius',
+                size: 25,
+                Cell: ({ cell }) => {
+                    return <div>{(cell.getValue<number>()).toFixed(2)} cm</div>;
+                }
+            },
+
+            {
+                id: "DangerSpace",
+                accessorKey: "MaxDispersion",
+                header: 'Danger Space',
+                size: 25,
+                Cell: ({ cell }) => {
+                    return <div>{(cell.getValue<number>()*2).toFixed(2)} cm</div>;
+                }
+            },
+
             {
                 id: "TimeOfFlight",
                 accessorKey: "TimeOfFlight",

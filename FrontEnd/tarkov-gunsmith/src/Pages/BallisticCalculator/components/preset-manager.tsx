@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { getPresets, savePreset, deletePreset, overwritePreset, BallisticPreset } from "../presets";
 import { Button, TextInput, Group, Stack, Text, ActionIcon, Drawer, Divider, Popover } from "@mantine/core";
-import { IconTrash, IconEdit, IconUpload, IconFolder, IconCheck, IconX } from "@tabler/icons-react";
+import { IconTrash, IconEdit, IconUpload, IconFolder } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import { BallisticFormState } from "../presets";
 

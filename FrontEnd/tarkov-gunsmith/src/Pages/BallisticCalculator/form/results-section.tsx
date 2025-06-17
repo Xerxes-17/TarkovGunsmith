@@ -1,4 +1,4 @@
-import { BallisticCalculatorTableRow, BallisticSimDataPoint, ConvertBSDPtoBCTR, SimulationToCalibrationDistancePair } from "../types";
+import { BallisticCalculatorTableRow, BallisticSimDataPoint, BDC_Result, ConvertBSDPtoBCTR } from "../types";
 import { Flex, Grid, Loader, Select, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
@@ -6,8 +6,12 @@ import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/Bal
 import { useState } from "react";
 
 
-export function DopeResultSection({ result, isLoading, resultString }: { result: SimulationToCalibrationDistancePair[], isLoading: boolean, resultString: string }) {
-    const calibrations = result?.map(x => x.Distance);
+export function DopeResultSection(
+    { result, isLoading, resultString }:
+        { result: BDC_Result, isLoading: boolean, resultString: string }
+) {
+    const totalWeaponAccuracyCRads = result.totalWeaponAccuracyCRads;
+    const calibrations = result?.dataPoints.map(x => x.Distance);
     const options = calibrations?.map(value => {
         return {
             value: value.toString(),
@@ -17,8 +21,8 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
 
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
 
-    const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.[1].output.DataPoints);
-    const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item))
+    const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.dataPoints[1].output.DataPoints);
+    const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item, totalWeaponAccuracyCRads))
 
     if (isLoading) {
         return (
@@ -34,9 +38,9 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
     }
 
     return (
-        <Grid>
-            <Grid.Col span={12} pb={0}>
-                <Flex align={"center"} >
+        <Grid columns={24}>
+            <Grid.Col  span={24} lg={14} xl={14} >
+                <Flex align={"center"} gap={10}>
                     <Select
                         miw={140}
                         w={140}
@@ -48,17 +52,14 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
                             if (typeof (value) === "string") {
                                 setSelectedCalibration(value);
                                 const index = options.findIndex(x => x.value === value) ?? 0;
-                                setSelectedData(result?.[index].output.DataPoints);
+                                setSelectedData(result?.dataPoints[index].output.DataPoints);
                             }
                         }}
                     />
                     <Stack spacing={3}>
-                        <Text pl={5}>{resultString}</Text>
+                        <Text size={"md"} pl={5}>{resultString}</Text>
                     </Stack>
                 </Flex>
-            </Grid.Col>
-
-            <Grid.Col span={12} lg={7} xl={6} >
                 {selectedData && (
                     <>
                         <BallisticCalculatorResultTable result={displayed} />
@@ -66,11 +67,11 @@ export function DopeResultSection({ result, isLoading, resultString }: { result:
                 )}
             </Grid.Col>
 
-            <Grid.Col span={12} lg={5} xl={6} >
+            <Grid.Col span={24} lg={10} xl={10} >
                 {selectedData && (
-                    <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} />
+                    <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} totalWeaponAccuracyCRads={totalWeaponAccuracyCRads} />
                 )}
-                <BallisticEnergyChart resultData={result?.[0].output} />
+                <BallisticEnergyChart resultData={result?.dataPoints[0].output} />
             </Grid.Col>
         </Grid>
     )
