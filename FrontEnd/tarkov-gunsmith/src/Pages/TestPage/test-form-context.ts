@@ -5,6 +5,11 @@ import * as yup from "yup";
 export interface TestFormValues {
     stringField: string;
     numberField: number;
+    dropCm: number;
+    dispersionCm: number;
+    zoom: number;
+    milsMultiplier: number;
+    reticleType: string;
 }
 
 export const testFormValidationSchema = yup.object({
