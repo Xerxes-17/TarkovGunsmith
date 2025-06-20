@@ -26,6 +26,7 @@ export function DopeResultSection(
     const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.dataPoints[1].output.DataPoints);
 
     const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item, totalWeaponAccuracyCRads))
+    console.log(displayed)
 
     function handleOnChange(value: string | null) {
         if (typeof (value) === "string") {

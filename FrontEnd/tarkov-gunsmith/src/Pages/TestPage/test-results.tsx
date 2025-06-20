@@ -7,7 +7,7 @@ export function TestResults({ result }: { result: TestFormValues | undefined }) 
             {result && (
                 <Stack spacing={"xs"} w={400}>
                     <Divider label="Results" labelPosition="center" />
-                    <Text>When you clicked submit, you had a string of "{result.stringField}" and a number of "{result.numberField}".</Text>
+                    <Text>When you clicked submit, you had a string of "{result.stringField}" and a number of "{result.distance}".</Text>
                 </Stack>
             )}
             {!result && (

@@ -4,7 +4,8 @@ import * as yup from "yup";
 
 export interface TestFormValues {
     stringField: string;
-    numberField: number;
+    distance: number;
+    selectedDistance: string
     dropCm: number;
     dispersionCm: number;
     zoom: number;
