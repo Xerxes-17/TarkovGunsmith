@@ -865,7 +865,9 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             dropCm: 7.14,
             zoom: 1,
             milsMultiplier: 1,
-            reticleType: "Mil Lines"
+            reticleType: "Mil Lines",
+            shiftX: 0,
+            shiftY: 0,
         },
         validate: testFormYupValidator
     })
@@ -892,7 +894,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
         const paddingLeft = 40 * zoom
         const paddingTop = 100 * zoom
 
-        const milAt100mInCm = 2.909;
+        const moaAt100mInCm = 2.909;
 
         const ruleOfThumb = 600 * (100 / distanceM);
         const distanceVisMult = ruleOfThumb / 600
@@ -953,13 +955,152 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             ctx.fillRect(centerlinePlacement, centerlinePlacement, apparentSizePx, apparentSizePx)
         }
 
+        function drawReferenceTorsoBox(ctx: CanvasRenderingContext2D) {
+            const widthInCm = 48;
+            const heightInCm = 70;
+
+            const apparentWidthInCm = widthInCm * pixelsPerCmAtCurrentDistanceAndZoom;
+            const apparentHeightInCm = heightInCm * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            const centerlinePlacement = CANVAS_CENTERLINE_X - (apparentWidthInCm / 2);
+            const offsetFromHorizontalPlacement = CANVAS_CENTERLINE_Y + (8 * pixelsPerCmAtCurrentDistanceAndZoom); // half of the head box size
+            ctx.fillStyle = 'rgb(117, 167, 120)';
+            ctx.fillRect(centerlinePlacement, offsetFromHorizontalPlacement, apparentWidthInCm, apparentHeightInCm)
+        }
+
+        function drawReferenceLegsBox(ctx: CanvasRenderingContext2D) {
+            const widthInCm = 32;
+            const heightInCm = 170 - (16 + 70);
+
+            const apparentWidthInCm = widthInCm * pixelsPerCmAtCurrentDistanceAndZoom;
+            const apparentHeightInCm = heightInCm * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            const centerlinePlacement = CANVAS_CENTERLINE_X - (apparentWidthInCm / 2);
+            const offsetFromHorizontalPlacement = CANVAS_CENTERLINE_Y + ((8 + 70) * pixelsPerCmAtCurrentDistanceAndZoom); // half of the head box size + tosro
+            ctx.fillStyle = 'rgb(117, 167, 163)';
+            ctx.fillRect(centerlinePlacement, offsetFromHorizontalPlacement, apparentWidthInCm, apparentHeightInCm)
+        }
+
+        function drawReferenceSKS(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string) {
+            const lengthSksCm = 100;
+            const lengthSksPx = lengthSksCm * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            const pixels30cm = 30 * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            ctx.strokeStyle = strokeStyle;
+            ctx.fillStyle = strokeStyle;
+
+            // center line
+            ctx.beginPath();
+            ctx.moveTo(x - 20, y - (lengthSksPx / 2));
+            ctx.lineTo(x - 20, y + (lengthSksPx / 2));
+            ctx.stroke();
+
+            // top line
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y - (lengthSksPx / 2));
+            ctx.lineTo(x - 10, y - (lengthSksPx / 2));
+            ctx.stroke();
+
+            // front thrid line
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y - (lengthSksPx / 2) + pixels30cm);
+            ctx.lineTo(x - 10, y - (lengthSksPx / 2) + pixels30cm);
+            ctx.stroke();
+
+            // front thrid line
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y + (lengthSksPx / 2) - pixels30cm);
+            ctx.lineTo(x - 10, y + (lengthSksPx / 2) - pixels30cm);
+            ctx.stroke();
+
+            // end line
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y + (lengthSksPx / 2));
+            ctx.lineTo(x - 10, y + (lengthSksPx / 2));
+            ctx.stroke();
+
+            ctx.fillText(`SKS (~1m)`, x - 100, y - (lengthSksPx / 2) - 10);
+        }
+
+        function drawDropReferenceLine(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string, dropCm: number) {
+            //todo draw a reference line aligned with the crosshair which will show how much drop occuring visually
+            ctx.strokeStyle = strokeStyle;
+            ctx.fillStyle = strokeStyle;
+
+            const majorCrosshatchSize = 10;
+
+            const dropInPixels = dropCm * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            const twoMilsRightOfCenter = 3 * pixelsPerMilAtCurrentDistanceAndZoom;
+
+            // Vertical line
+            ctx.beginPath();
+            ctx.moveTo(x + twoMilsRightOfCenter, y);
+            ctx.lineTo(x + twoMilsRightOfCenter, y - dropInPixels);
+            ctx.stroke();
+
+            // Horizontal line
+            ctx.beginPath();
+            ctx.moveTo(x + twoMilsRightOfCenter - majorCrosshatchSize, y - dropInPixels);
+            ctx.lineTo(x + twoMilsRightOfCenter + majorCrosshatchSize, y - dropInPixels);
+            ctx.stroke();
+
+            const fontSizePx = 1.7 * pixelsPerMilAtCurrentDistanceAndZoom;
+
+            ctx.font = `${fontSizePx}px Arial`;
+
+            ctx.fillText(`Drop: ${dropCm.toFixed(1)}cm`, x + twoMilsRightOfCenter + majorCrosshatchSize + 3, y - dropInPixels + 10);
+        }
+
+        function drawPmcHeightRefScale(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string, dropCm: number) {
+            //todo draw a reference line aligned with the crosshair which will show how much drop occuring visually
+            ctx.strokeStyle = strokeStyle;
+            ctx.fillStyle = strokeStyle;
+
+            const dropInPixels = dropCm * pixelsPerCmAtCurrentDistanceAndZoom;
+            const foo = ((16 * pixelsPerCmAtCurrentDistanceAndZoom) / 2) 
+
+            const majorCrosshatchSize = .5 * pixelsPerMilAtCurrentDistanceAndZoom;
+
+            const lengthPx = 170 * pixelsPerCmAtCurrentDistanceAndZoom;
+
+            const milsFromCenterPx = 3 * pixelsPerMilAtCurrentDistanceAndZoom;
+
+            const localX = x - milsFromCenterPx
+            const localY = y - foo - dropInPixels;
+
+            // Vertical line
+            ctx.beginPath();
+            ctx.moveTo(localX, localY);
+            ctx.lineTo(localX, localY + lengthPx);
+            ctx.stroke();
+
+            // Horizontal lines
+            // Top
+            ctx.beginPath();
+            ctx.moveTo(localX - majorCrosshatchSize, localY);
+            ctx.lineTo(localX + majorCrosshatchSize, localY);
+            ctx.stroke();
+
+            // Bottom
+            ctx.beginPath();
+            ctx.moveTo(localX - majorCrosshatchSize, localY + lengthPx);
+            ctx.lineTo(localX + majorCrosshatchSize, localY + lengthPx);
+            ctx.stroke();
+
+            const fontSizePx = 1.7 * pixelsPerMilAtCurrentDistanceAndZoom;
+            ctx.font = `${fontSizePx}px Arial`;
+            ctx.fillText(`170cm`, localX - (7* majorCrosshatchSize), localY + lengthPx + (2 * pixelsPerMilAtCurrentDistanceAndZoom));
+        }
+
         function drawReferenceScale5cm(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string) {
             ctx.strokeStyle = strokeStyle;
             ctx.fillStyle = strokeStyle;
 
             const minorCrosshatchSize = 5;
             const majorCrosshatchSize = 10;
-            const fontSizePx = .75 * pixelsPerCmAtCurrentDistanceAndZoom;
+            const fontSizePx = 1.7 * pixelsPerCmAtCurrentDistanceAndZoom;
 
             ctx.font = `${fontSizePx}px Arial`;
 
@@ -983,7 +1124,13 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
 
             // Crosshatching
             for (let i = 1; i <= scaleLengthCm / divisions; i++) {
-                const crossHatchSize = i % 5 !== 0 ? minorCrosshatchSize : majorCrosshatchSize
+                var crossHatchSize = minorCrosshatchSize;
+                if (i % 50 === 0) {
+                    crossHatchSize = majorCrosshatchSize * 2;
+                }
+                else if (i % 5 === 0) {
+                    crossHatchSize = majorCrosshatchSize;
+                }
 
                 // Horizontal
                 // Left
@@ -1045,12 +1192,12 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
 
             const localPixelsPerMilAtCurrentDistanceAndZoom = pixelsPerMilAtCurrentDistanceAndZoom * multiplier;
 
-            const milsCount = 15;
+            const milsCount = 30;
             const lengthCrosshairs = localPixelsPerMilAtCurrentDistanceAndZoom * milsCount;
 
             const minorCrosshatchSize = .25 * localPixelsPerMilAtCurrentDistanceAndZoom;
             const majorCrosshatchSize = .5 * localPixelsPerMilAtCurrentDistanceAndZoom;
-            const fontSizePx = .75 * localPixelsPerMilAtCurrentDistanceAndZoom;
+            const fontSizePx = 1.7 * localPixelsPerMilAtCurrentDistanceAndZoom;
 
             ctx.font = `${fontSizePx}px Arial`;
 
@@ -1078,7 +1225,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
                 ctx.lineTo(x - iterationPixels, y + crossHatchSize);
                 ctx.stroke();
                 if (i % 5 === 0) {
-                    ctx.fillText(`${i}`, x - iterationPixels, y + ((crossHatchSize) * 2.5));
+                    ctx.fillText(`${i}`, x - iterationPixels, y + ((crossHatchSize) * 3.7));
                 }
 
                 // Right
@@ -1087,7 +1234,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
                 ctx.lineTo(x + iterationPixels, y + crossHatchSize);
                 ctx.stroke();
                 if (i % 5 === 0) {
-                    ctx.fillText(`${i}`, x + iterationPixels, y + ((crossHatchSize) * 2.5));
+                    ctx.fillText(`${i}`, x + iterationPixels, y + ((crossHatchSize) * 3.7));
                 }
 
                 // Vertical
@@ -1118,8 +1265,8 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
 
             const milsCount = 15;
 
-            const milSpacing = milAt100mInCm * pixelsPerCm * zoom * multiplier
-            const crosshairLength = milAt100mInCm * pixelsPerCm * milsCount * zoom * multiplier;
+            const milSpacing = moaAt100mInCm * pixelsPerCm * zoom * multiplier
+            const crosshairLength = moaAt100mInCm * pixelsPerCm * milsCount * zoom * multiplier;
             const offset = 2 * zoom;
 
             ctx.strokeStyle = strokeStyle;
@@ -1186,8 +1333,8 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
         function drawMilDotCrosshair(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string, multiplier: number) {
             const milsCount = 4;
 
-            const milSpacing = milAt100mInCm * pixelsPerCm * zoom * multiplier
-            const crosshairLength = milAt100mInCm * pixelsPerCm * (milsCount + 1) * zoom * multiplier;
+            const milSpacing = moaAt100mInCm * pixelsPerCm * zoom * multiplier
+            const crosshairLength = moaAt100mInCm * pixelsPerCm * (milsCount + 1) * zoom * multiplier;
 
             const offset = 1.8 * zoom;
             const recBarSize = 7.5 * zoom
@@ -1238,7 +1385,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
         function drawUnfilledMilDotCrosshair(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyleInner: string, multiplier: number) {
             const milsCount = 4;
 
-            const milSpacing = milAt100mInCm * pixelsPerCm * zoom * multiplier
+            const milSpacing = moaAt100mInCm * pixelsPerCm * zoom * multiplier
 
             const offset = 1.4 * zoom;
             const recBarSize = 7.5 * zoom
@@ -1388,8 +1535,17 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
         const dispersionCm = form.values.dispersionCm;
 
         image.onload = () => {
+
+            //! For getting a scope circle in, but need a good way to find the FoV
+            // ctx.fillStyle = 'rgb(0,0,0)'
+            // ctx.fillRect(0, 0, canvas.width, canvas.height)
+            // ctx.beginPath();
+            // ctx.fillStyle = 'rgb(20, 26, 34)';
+            // ctx.arc(CANVAS_CENTERLINE_X, superElevationYPx, 13 * 100 * pixelsPerCmAtCurrentDistanceAndZoom, 0, 2 * Math.PI);
+            // ctx.fill();
+
             ctx.fillStyle = 'rgb(20, 26, 34)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
+            ctx.fillRect(0, 0, canvas.width, canvas.height) 
 
             console.log(ruleOfThumb)
             // ctx.drawImage(
@@ -1401,8 +1557,12 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             // ); // Draw the image to fill the canvas
 
             drawReferenceHeadBox(ctx);
+            drawReferenceTorsoBox(ctx);
+            drawReferenceLegsBox(ctx);
             console.log("dispersionRadiusCm", dispersionRadiusCm)
             drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(0, 110, 255, 0.90)');
+
+            drawReferenceSKS(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, 'rgba(255, 0, 0, 0.90)')
 
 
 
@@ -1450,9 +1610,9 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             // ctx.lineTo(centerOfFaceX, centerOfFaceY + crosshairLength);
             // ctx.stroke();
 
-            drawReferenceScale5cm(ctx, CANVAS_CENTERLINE_X, superElevationYPx, "purple")
+            // drawReferenceScale5cm(ctx, CANVAS_CENTERLINE_X, superElevationYPx, "purple")
 
-            new_drawMilCrosshatchCrosshair(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 0, 221, 0.25)', 1)
+            new_drawMilCrosshatchCrosshair(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 0, 221, 0.75)', 1)
 
             // drawMilCrosshatchCrosshair(ctx, centerLine, droppedY, 'rgba(255, 0, 221, 0.25)', 1);
             if (form.values.reticleType === "Mil Lines") {
@@ -1464,6 +1624,9 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             else if (form.values.reticleType === "Unfilled Mil Dots") {
                 drawUnfilledMilDotCrosshair(ctx, centerLine, droppedY, 'rgb(255, 0, 0)', milsMultiplier);
             }
+
+            drawDropReferenceLine(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgb(0, 0, 255)', dropCM)
+            drawPmcHeightRefScale(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 255, 255, 1)', dropCM)
 
             ctx.fillStyle = 'white';        // Set text color to white
             ctx.font = '18px Arial';        // Set font and size

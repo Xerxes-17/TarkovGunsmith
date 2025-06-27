@@ -11,6 +11,8 @@ export interface TestFormValues {
     zoom: number;
     milsMultiplier: number;
     reticleType: string;
+    shiftX: number;
+    shiftY: number;
 }
 
 export const testFormValidationSchema = yup.object({
