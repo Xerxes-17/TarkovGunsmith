@@ -6,6 +6,7 @@ export const ammoCaliberFullNameMap: Record<string, string> = {
   Caliber20x1mm: "Blicky Disk",
   Caliber86x70: ".338 LM",
   Caliber127x55: "12.7x55mm",
+  Caliber127x99: ".50 BMG",
   Caliber127x33: ".50 AE",
   Caliber762x54R: "7.62x54R",
   Caliber762x51: "7.62x51mm",
