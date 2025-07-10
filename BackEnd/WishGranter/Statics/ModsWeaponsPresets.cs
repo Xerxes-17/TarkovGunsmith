@@ -30,6 +30,7 @@ namespace WishGranter.Statics
             result.RemoveAll(x => x.Id.Equals("5d52cc5ba4b9367408500062")); // AGS
             result.RemoveAll(x => x.Id.Equals("5ae083b25acfc4001a5fc702")); // MasterHand
 
+
             // Making the base sort to be by name will make looking for things at other times in debug nicer.
             result = result.OrderBy(x => x.Name).ToList();
 
@@ -277,6 +278,11 @@ namespace WishGranter.Statics
                 return lol; 
             }
 
+            if (items[0].Id.Equals("676bf44c5539167c3603e869"))
+            {
+                // Skip over the RShG-2
+                return ReturnedPresets;
+            }
             // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
             Weapon weapon = (Weapon)items[0];
 

@@ -123,7 +123,9 @@ namespace WishGranter.API_Methods
             prohibited.Add("RSP-30 reactive signal cartridge (Red)");
             prohibited.Add("RSP-30 reactive signal cartridge (Yellow)");
 
-            IEnumerable<BasePreset> shortList = DefaultWeaponPresets.Where(x => !prohibited.Contains(x.Name));
+            prohibited.Add("RShG-2 72.5mm rocket launcher Default");
+
+            IEnumerable <BasePreset> shortList = DefaultWeaponPresets.Where(x => !prohibited.Contains(x.Name));
 
             foreach (BasePreset preset in shortList)
             {
