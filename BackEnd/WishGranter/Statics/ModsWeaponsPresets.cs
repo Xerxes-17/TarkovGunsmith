@@ -234,8 +234,11 @@ namespace WishGranter.Statics
                 //}
 
                 //! hacky side-step around monolit-db
-                ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
-
+                var aPreset = ConstructBasePresetFromJson(preset);
+                if(aPreset != null)
+                {
+                    ReturnedPresets.AddRange(aPreset);
+                }
             }
             ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
 
@@ -247,7 +250,7 @@ namespace WishGranter.Statics
             return ReturnedPresets.Distinct().ToList();
         }
 
-        private static List<BasePreset> ConstructBasePresetFromJson(JToken preset)
+        private static List<BasePreset>? ConstructBasePresetFromJson(JToken preset)
         {
             List<BasePreset> ReturnedPresets = new();
 
@@ -278,12 +281,18 @@ namespace WishGranter.Statics
                 return lol; 
             }
 
+            if (items[0] == null)
+            {
+                // Just skip it for now
+                return null;
+            }
+
             if (items[0].Id.Equals("676bf44c5539167c3603e869"))
             {
                 // Skip over the RShG-2
                 return ReturnedPresets;
             }
-            // Kind of danmgerous to assume that the first item is a weapon core, but the assumption holds for now.
+            // Kind of dangerous to assume that the first item is a weapon core, but the assumption holds for now.
             Weapon weapon = (Weapon)items[0];
 
             // add a guard clause for if the weapon can't be found
