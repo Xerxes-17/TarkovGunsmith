@@ -4,8 +4,6 @@ import { useEffect, useRef } from "react";
 
 
 export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetStateAction<TestFormValues | undefined>> }) {
-
-
     const testData = [
         {
             "Distance": 0,
@@ -1024,7 +1022,6 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
         }
 
         function drawDropReferenceLine(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string, dropCm: number) {
-            //todo draw a reference line aligned with the crosshair which will show how much drop occuring visually
             ctx.strokeStyle = strokeStyle;
             ctx.fillStyle = strokeStyle;
 
@@ -1032,29 +1029,28 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
 
             const dropInPixels = dropCm * pixelsPerCmAtCurrentDistanceAndZoom;
 
-            const twoMilsRightOfCenter = 3 * pixelsPerMilAtCurrentDistanceAndZoom;
+            const milsToRightOfCenter = 5 * pixelsPerMilAtCurrentDistanceAndZoom;
 
             // Vertical line
             ctx.beginPath();
-            ctx.moveTo(x + twoMilsRightOfCenter, y);
-            ctx.lineTo(x + twoMilsRightOfCenter, y - dropInPixels);
+            ctx.moveTo(x + milsToRightOfCenter, y);
+            ctx.lineTo(x + milsToRightOfCenter, y - dropInPixels);
             ctx.stroke();
 
             // Horizontal line
             ctx.beginPath();
-            ctx.moveTo(x + twoMilsRightOfCenter - majorCrosshatchSize, y - dropInPixels);
-            ctx.lineTo(x + twoMilsRightOfCenter + majorCrosshatchSize, y - dropInPixels);
+            ctx.moveTo(x + milsToRightOfCenter - majorCrosshatchSize, y - dropInPixels);
+            ctx.lineTo(x + milsToRightOfCenter + majorCrosshatchSize, y - dropInPixels);
             ctx.stroke();
 
             const fontSizePx = 1.7 * pixelsPerMilAtCurrentDistanceAndZoom;
 
             ctx.font = `${fontSizePx}px Arial`;
 
-            ctx.fillText(`Drop: ${dropCm.toFixed(1)}cm`, x + twoMilsRightOfCenter + majorCrosshatchSize + 3, y - dropInPixels + 10);
+            ctx.fillText(`Drop: ${dropCm.toFixed(1)}cm`, x + milsToRightOfCenter + majorCrosshatchSize + 3, y - dropInPixels + 10);
         }
 
         function drawPmcHeightRefScale(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string, dropCm: number) {
-            //todo draw a reference line aligned with the crosshair which will show how much drop occuring visually
             ctx.strokeStyle = strokeStyle;
             ctx.fillStyle = strokeStyle;
 
@@ -1065,9 +1061,13 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
 
             const lengthPx = 170 * pixelsPerCmAtCurrentDistanceAndZoom;
 
-            const milsFromCenterPx = 3 * pixelsPerMilAtCurrentDistanceAndZoom;
+            const widthInCm = 48;
+            const apparentWidthInCm = widthInCm * pixelsPerCmAtCurrentDistanceAndZoom;
+            const torsoBoxX = CANVAS_CENTERLINE_X - (apparentWidthInCm / 2);;
 
-            const localX = x - milsFromCenterPx
+            const milsFromCenterPx = 1 * pixelsPerMilAtCurrentDistanceAndZoom;
+
+            const localX = torsoBoxX - (milsFromCenterPx)
             const localY = y - foo - dropInPixels;
 
             // Vertical line
@@ -1556,13 +1556,14 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             //     canvas.height * zoom * distanceVisMult
             // ); // Draw the image to fill the canvas
 
+            
             drawReferenceHeadBox(ctx);
             drawReferenceTorsoBox(ctx);
             drawReferenceLegsBox(ctx);
             console.log("dispersionRadiusCm", dispersionRadiusCm)
             drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(0, 110, 255, 0.90)');
 
-            drawReferenceSKS(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, 'rgba(255, 0, 0, 0.90)')
+            // drawReferenceSKS(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, 'rgba(255, 0, 0, 0.90)')
 
 
 
@@ -1615,7 +1616,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
             new_drawMilCrosshatchCrosshair(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 0, 221, 0.75)', 1)
 
             // drawMilCrosshatchCrosshair(ctx, centerLine, droppedY, 'rgba(255, 0, 221, 0.25)', 1);
-            if (form.values.reticleType === "Mil Lines") {
+            if (form.values.reticleType === "MOA Lines") {
                 new_drawMilCrosshatchCrosshair(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 255, 255, 1)', milsMultiplier)
             }
             else if (form.values.reticleType === "Mil Dots") {
@@ -1625,7 +1626,10 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
                 drawUnfilledMilDotCrosshair(ctx, centerLine, droppedY, 'rgb(255, 0, 0)', milsMultiplier);
             }
 
-            drawDropReferenceLine(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgb(0, 0, 255)', dropCM)
+            
+            if(Math.abs(dropCM) > 1){
+                drawDropReferenceLine(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgb(0, 0, 255)', dropCM)
+            }
             drawPmcHeightRefScale(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 255, 255, 1)', dropCM)
 
             ctx.fillStyle = 'white';        // Set text color to white
@@ -1699,7 +1703,7 @@ export function TestForm({ setResult }: { setResult: React.Dispatch<React.SetSta
                             />
 
                             <Select
-                                data={["Mil Lines", "Mil Dots", "Unfilled Mil Dots"]}
+                                data={["MOA Lines", "Mil Dots", "Unfilled Mil Dots"]}
                                 {...form.getInputProps("reticleType")}
                             />
                             {/* <Button

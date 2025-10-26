@@ -1,10 +1,12 @@
 import { BallisticCalculatorTableRow, BallisticSimDataPoint, BDC_Result, ConvertBSDPtoBCTR } from "../types";
-import { Grid, Loader, Stack, Text } from "@mantine/core";
+import { Box, Center, Grid, Loader, SegmentedControl, Stack, Text } from "@mantine/core";
 import { BallisticCalculatorResultTable } from "../../../Components/Common/Tables/tgTables/ballistic-calculator-results";
 import { BallisticEnergyChart } from "../../../Components/Common/Graphs/Charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../../../Components/Common/Graphs/Charts/BallisticDropChart";
 import { useEffect, useState } from "react";
 import { LINKS } from "../../../Util/links";
+import { IconChartLine, IconEye } from "@tabler/icons-react";
+import { ScopeVisualizerBox } from "../scopeVisualizer/scope-visualiser-box";
 
 
 export function DopeResultSection(
@@ -21,12 +23,14 @@ export function DopeResultSection(
         }
     }) ?? [];
 
+    const [displayMode, setDisplayMode] = useState('charts');
+    const [distanceMemory, setDistanceMemory] = useState(400);
+
     const [selectedCalibration, setSelectedCalibration] = useState<string>("50");
 
     const [selectedData, setSelectedData] = useState<BallisticSimDataPoint[]>(result?.dataPoints[1].output.DataPoints);
 
     const displayed: BallisticCalculatorTableRow[] = selectedData.map(item => ConvertBSDPtoBCTR(item, totalWeaponAccuracyCRads))
-    console.log(displayed)
 
     function handleOnChange(value: string | null) {
         if (typeof (value) === "string") {
@@ -82,10 +86,43 @@ export function DopeResultSection(
             </Grid.Col>
 
             <Grid.Col span={24} lg={10} xl={10} >
-                {selectedData && (
-                    <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} totalWeaponAccuracyCRads={totalWeaponAccuracyCRads} />
+                <SegmentedControl
+                    onChange={setDisplayMode}
+                    data={[
+                        {
+                            value: 'charts',
+                            label: (
+                                <Center>
+                                    <IconChartLine size="1rem" />
+                                    <Box ml={10}>Charts</Box>
+                                </Center>
+                            ),
+                        },
+                        {
+                            value: 'visualizer',
+                            label: (
+                                <Center>
+                                    <IconEye size="1rem" />
+                                    <Box ml={10}>Visualizer</Box>
+                                </Center>
+                            ),
+                        },
+                    ]}
+                />
+                {selectedData && displayMode === "charts" && (
+                    <>
+                        <BallisticDropChart resultData={selectedData} selectedCalibration={selectedCalibration} totalWeaponAccuracyCRads={totalWeaponAccuracyCRads} />
+                        <BallisticEnergyChart resultData={result?.dataPoints[0].output} />
+                    </>
                 )}
-                <BallisticEnergyChart resultData={result?.dataPoints[0].output} />
+                {selectedData && displayMode === "visualizer" && (
+                    <ScopeVisualizerBox 
+                        resultData={displayed} 
+                        selectedCalibration={selectedCalibration}
+                        distanceMemory={distanceMemory}
+                        setDistanceMemory={setDistanceMemory}
+                    />
+                )}
             </Grid.Col>
         </Grid>
     )
