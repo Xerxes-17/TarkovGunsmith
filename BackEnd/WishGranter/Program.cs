@@ -29,7 +29,7 @@ IHost host = CreateHostBuilder(args).Build();
 var logger = host.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("Host created.");
 logger.LogInformation("Wishgranter-API is starting.");
-
+// AWS be sappin my backend
 // using var db = new Monolit();
 // Console.WriteLine($"Database path: {db.DbPath}.");
 
