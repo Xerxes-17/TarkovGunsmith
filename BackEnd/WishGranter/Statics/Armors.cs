@@ -101,7 +101,7 @@ namespace WishGranter
             var assembled = GetAssembledHelmets();
             
             assembled.RemoveAll(x => x.Id == "59ef13ca86f77445fd0e2483"); //No Jacks
-            assembled.RemoveAll(x => x.Id == "5a16bb52fcdbcb001a3b00dc"); //No No wilcox
+            assembled.RemoveAll(x => x.Id == "5a16bb52fcdbcb001a3b00dc"); //No wilcox
             assembled.RemoveAll(x => x.Id == "5c066ef40db834001966a595"); //No armasight
 
             foreach (var assembledHelm in assembled)
