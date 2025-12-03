@@ -3,6 +3,8 @@ export const MAX_DAMAGE = 265;
 
 
 export const ammoCaliberFullNameMap: Record<string, string> = {
+  Caliber93x64: "9.3x64mm",
+  Caliber784x49: ".308 ME",
   Caliber20x1mm: "Blicky Disk",
   Caliber86x70: ".338 LM",
   Caliber127x55: "12.7x55mm",
@@ -44,7 +46,7 @@ export const unwantedAmmos: string[] = [
 export function mapAmmoCaliberFullNameToLabel(caliberKey: string): string {
   const result = ammoCaliberFullNameMap[caliberKey];
   if (result !== undefined) return result;
-  else return "Caliber-Label missing";
+  else return `Caliber-Label missing: ${caliberKey}`;
 }
 
 export const ammoCaliberMap: Record<string, string> = {
