@@ -4,7 +4,15 @@ import * as yup from "yup";
 
 export interface TestFormValues {
     stringField: string;
-    numberField: number;
+    distance: number;
+    selectedDistance: string
+    dropCm: number;
+    dispersionCm: number;
+    zoom: number;
+    milsMultiplier: number;
+    reticleType: string;
+    shiftX: number;
+    shiftY: number;
 }
 
 export const testFormValidationSchema = yup.object({

@@ -1,10 +1,9 @@
 import { useTgTable } from "../use-tg-table"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo, useState } from "react";
-import { Box, Flex, Group, Input, NumberInput, Select, Text} from "@mantine/core";
-import { BallisticCalculatorTableRow, BallisticSimDataPoint } from "../../../../Pages/BallisticCalculator/types";
+import { Flex, Input, NumberInput, Select} from "@mantine/core";
+import { BallisticCalculatorTableRow } from "../../../../Pages/BallisticCalculator/types";
 import { useMediaQuery } from "@mui/material";
-import { LINKS } from "../../../../Util/links";
 
 export function BallisticCalculatorResultTable(
     { 

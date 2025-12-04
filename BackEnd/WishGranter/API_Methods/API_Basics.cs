@@ -18,7 +18,6 @@ namespace WishGranter.API_Methods
         private static List<WeaponTableRow> WeaponsDataSheet = WriteWeaponsDataSheet();
         private static List<AmmoTableRow> AmmoDataSheet = WriteAmmoDataSheet();
 
-
         private static List<ArmorModule> ArmorModulesDataSheet = WriteArmorModulesDataSheet();
 
         //? Is this old?
