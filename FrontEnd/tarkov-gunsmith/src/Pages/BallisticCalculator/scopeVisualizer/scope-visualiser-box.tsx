@@ -1,4 +1,4 @@
-import { Box, Button, Group, NumberInput, Select, Stack, Switch } from "@mantine/core";
+import { Box, Button, Group, NumberInput, Select, Stack, Switch, Text } from "@mantine/core";
 import { BallisticCalculatorTableRow } from "../types";
 import { useScopeVisualizerForm, scopeVisualizerFormYupValidator } from './scope-visualizer-form-context';
 import { useEffect, useRef } from "react";
@@ -469,6 +469,7 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
 
     return (
         <Box w={boxWidth}>
+            <Text color="gray.5" size={"xs"} >Feature currently in development, feedback is appreciated on the discord!</Text>
             <Stack spacing={"xs"}>
                 <Group>
                     <Select
