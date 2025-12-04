@@ -1,7 +1,7 @@
-import { Box, Group, NumberInput, Select, Stack, Switch } from "@mantine/core";
+import { Box, Button, Group, NumberInput, Select, Stack, Switch } from "@mantine/core";
 import { BallisticCalculatorTableRow } from "../types";
 import { useScopeVisualizerForm, scopeVisualizerFormYupValidator } from './scope-visualizer-form-context';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export interface ScopeVisualizerBoxProps {
     selectedCalibration: string;
@@ -45,16 +45,16 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
             zoom: 1,
             opticMarkFudgeFactor: 1.42,
             reticleType: "MOA lines",
-            showRealMoaScale: true
+            showRealMoaScale: false
         },
         validate: scopeVisualizerFormYupValidator
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         form.setFieldValue("dropCm", (selectedData?.Drop ?? data100mFallback.Drop) * 100)
-    },[selectedData])
+    }, [selectedData])
 
-    
+
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -86,7 +86,7 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
 
         const superElevationYPx = CANVAS_CENTERLINE_Y + (dropCM * pixelsPerCmAtCurrentDistanceAndZoom);
 
-        function drawReferenceScale5cm(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string){
+        function drawReferenceScale5cm(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string) {
             ctx.strokeStyle = strokeStyle;
             ctx.fillStyle = strokeStyle;
 
@@ -282,25 +282,43 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
 
             const fontSizePx = 1.7 * pixelsPerMilAtCurrentDistanceAndZoom;
 
-            ctx.font = `${fontSizePx}px Arial`;
+            const dropOrRise = Math.sign(dropCM) > 0 ? "Rise" : "Drop";
+            const fillTextStr = `${dropOrRise}: ${dropCm.toFixed(1)}cm`
+            const strLength = fillTextStr.length;
 
-            ctx.fillText(`Drop: ${dropCm.toFixed(1)}cm`, x + milsToRightOfCenter + majorCrosshatchSize + 3, y - dropInPixels + 10);
-            
+            drawTextBackgroundBox(ctx, x + milsToRightOfCenter + majorCrosshatchSize + 1, y - dropInPixels + 15, (fontSizePx * .62) * (strLength - 1), -(fontSizePx + 3));
+
+            // ctx.font = `${fontSizePx}px Arial`;
+
+            ctx.font = `${fontSizePx}px 'Consolas', 'Courier New', monospace`;
+
+            ctx.fillText(fillTextStr, x + milsToRightOfCenter + majorCrosshatchSize + 3, y - dropInPixels + 10);
+
 
             const dropInMOA_real = dropCM / cmPerMOAAtCurrentDistance;
             const dropInMOA_adjusted = dropCM / (cmPerMOAAtCurrentDistance * multiplier)
 
             const dropInMIL_real = dropCM / cmPerMILAtCurrentDistance
             const dropInMIL_adjusted = dropInMIL_real * 2.41
-            
-            
+
+
             console.log("dropInMOA_real", dropInMOA_real)
             console.log("dropInMOA_adjusted", dropInMOA_adjusted)
 
             console.log("dropInMIL_real", dropInMIL_real)
             console.log("dropInMIL_adjusted", dropInMIL_adjusted)
 
-            console.log("targetHeightsOfDrop", dropCM/170)
+            console.log("targetHeightsOfDrop", dropCM / 170)
+        }
+
+        function drawTextBackgroundBox(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+            const originalFill = ctx.fillStyle;
+
+            ctx.fillStyle = 'rgba(0, 0, 0, .4)';
+
+            ctx.fillRect(x, y, w, h);
+
+            ctx.fillStyle = originalFill
         }
 
         function drawDeadAssSimpleCrosshair(ctx: CanvasRenderingContext2D, x: number, y: number, strokeStyle: string) {
@@ -406,12 +424,16 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (dispersionRadiusCm > 9) {
-            drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(255, 253, 111, 0.9)');
+            drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(255, 253, 111, 0.8)');
         }
 
         drawReferenceHeadBox(ctx);
         drawReferenceTorsoBox(ctx);
         drawReferenceLegsBox(ctx);
+
+        if (dispersionRadiusCm > 9) {
+            drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(255, 253, 111, 0.2)');
+        }
 
         if (dispersionRadiusCm <= 9) {
             drawDispersionCircle(ctx, CANVAS_CENTERLINE_X, CANVAS_CENTERLINE_Y, dispersionRadiusCm, 'rgba(0, 110, 255, 0.90)');
@@ -435,7 +457,7 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
         }
 
         if (Math.abs(dropCM) > 1) {
-            drawDropReferenceLine(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgb(0, 0, 255)', dropCM, milsMultiplier)
+            drawDropReferenceLine(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(102, 216, 56, 1)', dropCM, milsMultiplier)
         }
         drawPmcHeightRefScale(ctx, CANVAS_CENTERLINE_X, superElevationYPx, 'rgba(255, 255, 255, 1)', dropCM)
 
@@ -473,6 +495,59 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
 
                         }}
                     />
+                    <Button.Group orientation="vertical" pt={22}>
+                        <Button 
+                            variant="light" 
+                            size="19px" 
+                            pl={2}
+                            w={40}
+                            {...form.getInputProps("selectedDistance")}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                const newDistance = form.values.distance - 10
+
+                                const foo = chartDataWithoutZeroM.find(x => x.Distance === newDistance)
+                                if (!foo) {
+                                    return
+                                }
+                                form.setFieldValue('dispersionCm', foo.MaxDispersion)
+                                form.setFieldValue('dropCm', foo.Drop * 100)
+
+                                form.setFieldValue('distance', newDistance)
+                                setDistanceMemory(newDistance)
+
+                                form.setFieldValue('selectedDistance', `${newDistance}`)
+                            }}
+                        >
+                            -
+                        </Button>
+
+                        <Button 
+                            variant="light" 
+                            size="19px" 
+                            pl={2}
+                            w={40}
+                            {...form.getInputProps("selectedDistance")}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                const newDistance = form.values.distance + 10
+
+                                const foo = chartDataWithoutZeroM.find(x => x.Distance === newDistance)
+                                if (!foo) {
+                                    return
+                                }
+                                form.setFieldValue('dispersionCm', foo.MaxDispersion)
+                                form.setFieldValue('dropCm', foo.Drop * 100)
+
+                                form.setFieldValue('distance', newDistance)
+                                setDistanceMemory(newDistance)
+
+                                form.setFieldValue('selectedDistance', `${newDistance}`)
+                            }}
+                        >
+                            +
+                        </Button>
+                    </Button.Group>
                     <NumberInput
                         w={100}
                         label="Drop cm"
@@ -494,6 +569,7 @@ export function ScopeVisualizerBox({ resultData: chartData, selectedCalibration,
                         label="Zoom"
                         precision={2}
                         step={.1}
+                        min={.1}
                         {...form.getInputProps("zoom")}
                     />
                     <NumberInput

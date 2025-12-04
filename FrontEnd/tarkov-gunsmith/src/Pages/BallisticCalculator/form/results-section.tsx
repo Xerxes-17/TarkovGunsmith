@@ -103,7 +103,7 @@ export function DopeResultSection(
                             label: (
                                 <Center>
                                     <IconEye size="1rem" />
-                                    <Box ml={10}>Visualizer</Box>
+                                    <Box ml={10}>Visualizer (Beta!)</Box>
                                 </Center>
                             ),
                         },
