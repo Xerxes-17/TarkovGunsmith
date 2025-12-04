@@ -48,8 +48,8 @@ export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] 
 
 export function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): AmmoTableRow {
     const properties = item.properties;
-
-    return {
+    
+    const tableRow = {
         id: item.id,
         name: item.name,
         shortName: item.shortName,
@@ -71,7 +71,14 @@ export function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): A
         bulletDiameterMilimeters: properties ? properties.bulletDiameterMilimeters : -1,
         bulletMassGrams: properties ? properties.bulletMassGrams : -1,
         ballisticCoeficient: properties ? properties.ballisticCoeficient: -1
-    };
+    }
+
+    const isMarlinExpress = item.shortName === "ME" || item.shortName === "LOKT";
+    if(isMarlinExpress){
+        tableRow.caliber = "Caliber784x49";
+    }
+
+    return tableRow;
 }
 
 export async function getAmmoDataFromApi_TarkovDev(){

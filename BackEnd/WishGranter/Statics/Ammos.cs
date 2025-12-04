@@ -1,4 +1,5 @@
 ﻿using RatStash;
+using System.Xml.Linq;
 
 namespace WishGranter
 {
@@ -46,6 +47,14 @@ namespace WishGranter
             //{
             //    Console.WriteLine($"{item.Name}, {item.Id} ");
             //}
+
+            foreach (var item in Ammo)
+            {
+                if(item.ShortName.Equals("ME") || item.ShortName.Equals("LOKT"))
+                {
+                    item.Caliber = "Caliber784x49";
+                }
+            }
 
             return Ammo.ToList();
         }

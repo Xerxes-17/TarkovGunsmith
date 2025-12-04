@@ -99,8 +99,10 @@ namespace WishGranter
             var allArmoredEquipment = StaticRatStash.DB.GetItems(x => typeof(ArmoredEquipment) == x.GetType()).Cast<ArmoredEquipment>().Where(x => x.ArmorClass > 0).ToList();
 
             var assembled = GetAssembledHelmets();
-
+            
             assembled.RemoveAll(x => x.Id == "59ef13ca86f77445fd0e2483"); //No Jacks
+            assembled.RemoveAll(x => x.Id == "5a16bb52fcdbcb001a3b00dc"); //No wilcox
+            assembled.RemoveAll(x => x.Id == "5c066ef40db834001966a595"); //No armasight
 
             foreach (var assembledHelm in assembled)
             {
@@ -118,7 +120,11 @@ namespace WishGranter
                 var foo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count > 0).ToList();
                 var notFoo = assembledHelm.Slots.Where(x => x.Filters[0].ArmorColliders.Count == 0).ToList();
 
-                var isLocked = foo[0].Filters[0].Locked; //todo use this
+                bool isLocked = false;
+                if(foo.Count > 0)
+                {
+                    isLocked = foo[0].Filters[0].Locked; //todo use this
+                }
 
                 var temp = (ArmoredEquipment)StaticRatStash.DB.GetItem(foo[0].ContainedItem.Id);
                 int countOfDefaults = assembledHelm.Slots.Where(x => x.ContainedItem != null).Count();
