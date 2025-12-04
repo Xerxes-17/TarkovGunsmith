@@ -114,6 +114,7 @@ async Task startAPIAsync()
         options.AddPolicy(name: MyAllowSpecificOrigins,
                           builder =>
                           {
+                              // Why would there be a problem?
                               builder.AllowAnyOrigin();
                               builder.AllowAnyHeader();
                               builder.AllowAnyMethod();
