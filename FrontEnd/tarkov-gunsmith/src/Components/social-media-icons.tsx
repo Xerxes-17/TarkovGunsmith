@@ -1,8 +1,6 @@
 import { Group, Center, UnstyledButton, ActionIcon } from "@mantine/core";
 import { IconBrandDiscordFilled, IconBrandGithubFilled, IconBrandXFilled } from "@tabler/icons-react";
 
-
-{/* <li><a href="https://ko-fi.com/tarkovgunsmith">☕ Ko-fi</a></li> */}
 export function SocialMediaIcons() {
 
     return (
