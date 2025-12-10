@@ -31,6 +31,9 @@ namespace WishGranter.Statics
             result.RemoveAll(x => x.Id.Equals("5ae083b25acfc4001a5fc702")); // MasterHand
 
 
+            // result.RemoveAll(x => x.Id.Equals("5447a9cd4bdc2dbd208b4567")); // M4A1
+            // result.RemoveAll(x => x.Id.Equals("5c07c60e0db834002330051f")); // ADAR
+
             // Making the base sort to be by name will make looking for things at other times in debug nicer.
             result = result.OrderBy(x => x.Name).ToList();
 
