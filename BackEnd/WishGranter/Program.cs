@@ -221,25 +221,25 @@ async Task startAPIAsync()
     //app.MapGet("/GetAmmoVsArmor/{ammoId}", (string ammoId) => API_AEC.GetAmmoVsArmor(MyActivitySource, ammoId));
 
     //! ******* Gunsmith *******
-    app.MapPost("/getSingleWeaponBuild",
-        async context =>
-        {
-            using var reader = new StreamReader(context.Request.Body);
-            var json = await reader.ReadToEndAsync();
-            var requestData = JsonSerializer.Deserialize<WeaponBuildRequest>(json);
-            var result = API_Gunsmith.GetSingleWeaponBuild(
-            MyActivitySource,
-            requestData.PresetId,
-            requestData.Priority,
-            requestData.MuzzleMode,
-            requestData.PlayerLevel,
-            requestData.Flea,
-            requestData.ExcludedIds);
+    //app.MapPost("/getSingleWeaponBuild",
+    //    async context =>
+    //    {
+    //        using var reader = new StreamReader(context.Request.Body);
+    //        var json = await reader.ReadToEndAsync();
+    //        var requestData = JsonSerializer.Deserialize<WeaponBuildRequest>(json);
+    //        var result = API_Gunsmith.GetSingleWeaponBuild(
+    //        MyActivitySource,
+    //        requestData.PresetId,
+    //        requestData.Priority,
+    //        requestData.MuzzleMode,
+    //        requestData.PlayerLevel,
+    //        requestData.Flea,
+    //        requestData.ExcludedIds);
 
-            context.Response.StatusCode = StatusCodes.Status200OK;
+    //        context.Response.StatusCode = StatusCodes.Status200OK;
 
-            await context.Response.WriteAsync(JsonSerializer.Serialize(result));
-        });
+    //        await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+    //    });
 
     //app.MapGet("/GetWeaponStatsCurve/{presetID}/{mode}/{muzzleMode}/{flea}",
     //    (string presetID, string mode, string muzzleMode, bool flea) 

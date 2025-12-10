@@ -1332,10 +1332,10 @@ namespace WishGranter.Statics
                     };
                     var result = CalculateLegacyRowAEC(inputs, details);
 
-                    if (details.ammoId.Equals("56dff421d2720b5f5a8b4567") && details.insertId.Equals("65702f87722744627e05cdb8"))
-                    {
-                        Console.WriteLine("hey");
-                    }
+                    //if (details.ammoId.Equals("56dff421d2720b5f5a8b4567") && details.insertId.Equals("65702f87722744627e05cdb8"))
+                    //{
+                    //    Console.WriteLine("hey");
+                    //}
 
                     AecAmmoAndLegacyList.Add(result);
                 }

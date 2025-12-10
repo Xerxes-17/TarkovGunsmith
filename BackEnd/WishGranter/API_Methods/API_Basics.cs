@@ -34,8 +34,8 @@ namespace WishGranter.API_Methods
 
         public static List<SelectionWeapon> GetWeaponOptionsList(ActivitySource myActivitySource)
         {
-            using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
-            return WeaponOptionsList;
+           using var myActivity = myActivitySource.StartActivity("Request for WeaponOptionList");
+           return WeaponOptionsList;
         }
         //public static List<SelectionArmor> GetArmorOptionsList(ActivitySource myActivitySource)
         //{
@@ -93,9 +93,9 @@ namespace WishGranter.API_Methods
 
         public static AecData GetNewAECData(ActivitySource myActivitySource)
         {
-            using var myActivity = myActivitySource.StartActivity("Request new AEC data");
+           using var myActivity = myActivitySource.StartActivity("Request new AEC data");
 
-            return NewAECData;
+           return NewAECData;
         }
 
         public static List<SelectionWeapon> WriteWeaponOptionsList()
@@ -123,6 +123,9 @@ namespace WishGranter.API_Methods
             prohibited.Add("RSP-30 reactive signal cartridge (Yellow)");
 
             prohibited.Add("RShG-2 72.5mm rocket launcher Default");
+
+            // prohibited.Add("ADAR 2-15 5.56x45 carbine");
+            // prohibited.Add("Colt M4A1 5.56x45 assault rifle");
 
             IEnumerable <BasePreset> shortList = DefaultWeaponPresets.Where(x => !prohibited.Contains(x.Name));
 
