@@ -158,9 +158,10 @@ namespace WishGranter.API_Methods
             }
             result = result.OrderBy(x => x.Label).ToList();
 
-            using StreamWriter writetext = new("outputs\\debug_WeaponOptionsList.json"); // This is here as a debug/verify
-            writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
-            writetext.Close();
+            using (StreamWriter writetext = new("outputs\\debug_WeaponOptionsList.json")) // This is here as a debug/verify
+            {
+                writetext.Write(JToken.Parse(JsonConvert.SerializeObject(result)));
+            }
 
             return result;
 
