@@ -214,43 +214,51 @@ namespace WishGranter.Statics
             List<BasePreset> ReturnedPresets = new();
 
             var DefaultPresetsJSON = TarkovDevAPI.GetAllWeaponPresets();
-            // We're handed the Default Prests JSON, so let's break that down into a set of tokens
-            string searchJSONpath = "$.data.items..properties.presets.[*]";
-            var filtering = DefaultPresetsJSON.SelectTokens(searchJSONpath).ToList();
-
-            // Now for each token, lets get the details of them, so the Id, the name, and the contents of the preset
-            foreach (var preset in filtering)
+            try
             {
-                //var id = preset.SelectToken("$.id").ToString();
+                // We're handed the Default Prests JSON, so let's break that down into a set of tokens
+                string searchJSONpath = "$.data.items..properties.presets.[*]";
+                var filtering = DefaultPresetsJSON.SelectTokens(searchJSONpath).ToList();
 
-                // Split this here between full build from JSON and DB+JSON
-                //var check = db.BasePresets.Any(x => x.Id == id);
-
-                //if (check)
-                //{
-                //    BasePreset FromDB = db.BasePresets.First(x => x.Id == id);
-                //    ReturnedPresets.AddRange(ConstructBasePresetFromDBandJson(preset, FromDB));
-                //}
-                //else
-                //{
-                //    ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
-                //}
-
-                //! hacky side-step around monolit-db
-                var aPreset = ConstructBasePresetFromJson(preset);
-                if(aPreset != null)
+                // Now for each token, lets get the details of them, so the Id, the name, and the contents of the preset
+                foreach (var preset in filtering)
                 {
-                    ReturnedPresets.AddRange(aPreset);
-                }
-            }
-            ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
+                    //var id = preset.SelectToken("$.id").ToString();
 
-            //for (int i = 0; i < ReturnedPresets.Count; i++)
-            //{
-            //    Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
-            //}
-            //In case any duplicates snuck in
-            return ReturnedPresets.Distinct().ToList();
+                    // Split this here between full build from JSON and DB+JSON
+                    //var check = db.BasePresets.Any(x => x.Id == id);
+
+                    //if (check)
+                    //{
+                    //    BasePreset FromDB = db.BasePresets.First(x => x.Id == id);
+                    //    ReturnedPresets.AddRange(ConstructBasePresetFromDBandJson(preset, FromDB));
+                    //}
+                    //else
+                    //{
+                    //    ReturnedPresets.AddRange(ConstructBasePresetFromJson(preset));
+                    //}
+
+                    //! hacky side-step around monolit-db
+                    var aPreset = ConstructBasePresetFromJson(preset);
+                    if(aPreset != null)
+                    {
+                        ReturnedPresets.AddRange(aPreset);
+                    }
+                }
+                ReturnedPresets.RemoveAll(x => x.Name.Contains("grenade launcher"));
+
+                //for (int i = 0; i < ReturnedPresets.Count; i++)
+                //{
+                //    Console.WriteLine($"{i}.{ReturnedPresets[i].Name}");
+                //}
+                //In case any duplicates snuck in
+                return ReturnedPresets.Distinct().ToList();
+            }
+            finally
+            {
+                // Explicitly help GC by clearing large JObject references
+                DefaultPresetsJSON = null;
+            }
         }
 
         private static List<BasePreset>? ConstructBasePresetFromJson(JToken preset)
