@@ -1,5 +1,6 @@
-﻿using RatStash;
+using RatStash;
 using Force.DeepCloner;
+using System.Collections.Concurrent;
 using WishGranter.API_Methods;
 
 namespace WishGranter.Statics
@@ -1351,6 +1352,136 @@ namespace WishGranter.Statics
             };
 
             return output;
+        }
+
+        //! ******* TTK Matrix *******
+        // Weapons never enter the ballistic simulation, they only contribute a caliber and a fire
+        // rate. So ranking every gun against every ammo is not a cross product of simulations, it is
+        // one simulation per ammo joined against the weapon list by caliber on the client.
+
+        private const int TtkCacheEntryLimit = 200;
+
+        private static readonly ConcurrentDictionary<string, TtkMatrixResult> TtkMatrixCache = new();
+
+        public static TtkMatrixResult GenerateTtkMatrix(TtkMatrixParameters inputs)
+        {
+            var cacheKey = BuildTtkCacheKey(inputs);
+            if (TtkMatrixCache.TryGetValue(cacheKey, out var cachedResult))
+            {
+                return cachedResult;
+            }
+
+            var allAmmo = Ammos.Cleaned;
+            var ammoResults = new TtkAmmoResult[allAmmo.Count];
+
+            Parallel.For(0, allAmmo.Count, index =>
+            {
+                ammoResults[index] = SimulateTtkAmmo(allAmmo[index], inputs);
+            });
+
+            var result = new TtkMatrixResult
+            {
+                inputs = inputs,
+                ammo = ammoResults.ToList(),
+                weapons = GetTtkWeaponList(),
+            };
+
+            // Durability is a free-form input, so the key space is unbounded. Rather than evict
+            // cleverly, just start over once it gets large.
+            if (TtkMatrixCache.Count > TtkCacheEntryLimit)
+            {
+                TtkMatrixCache.Clear();
+            }
+            TtkMatrixCache.TryAdd(cacheKey, result);
+
+            return result;
+        }
+
+        private static TtkAmmoResult SimulateTtkAmmo(Ammo ammo, TtkMatrixParameters inputs)
+        {
+            var simulated = RangeSimulation.GetDamageAndPenetrationAtDistance(inputs.distance, ammo);
+
+            var simParameters = new BallisticSimParametersV2
+            {
+                penetration = simulated.finalPenetration,
+                damage = simulated.finalDamage,
+                armorDamagePerc = ammo.ArmorDamage,
+                initialHitPoints = inputs.initialHitPoints,
+                targetZone = inputs.targetZone,
+
+                //! CalculateMultiShotSeries writes durability back into the array it is given, so
+                //! every ammo needs its own copy or results bleed across ammo and across threads.
+                armorLayers = inputs.armorLayers.ToArray(),
+            };
+
+            var simResults = CalculateMultiShotSeries(simParameters);
+
+            var hitSummaries = simResults.hitSummaries
+                .Take(inputs.maxHits)
+                .Select(summary => new SimpleHitSummary
+                {
+                    hitNum = summary.hitNum,
+                    specificChanceOfKill = summary.specificChanceOfKill,
+                    cumulativeChanceOfKill = summary.cumulativeChanceOfKill,
+                })
+                .ToList();
+
+            return new TtkAmmoResult
+            {
+                ammoId = ammo.Id,
+                ammoName = ammo.Name,
+                ammoShortName = ammo.ShortName,
+                caliber = ammo.Caliber,
+
+                penetration = simulated.finalPenetration,
+                damage = simulated.finalDamage,
+
+                originalPenetration = ammo.PenetrationPower,
+                originalDamage = ammo.Damage,
+
+                armorDamagePerc = ammo.ArmorDamage,
+                projectileCount = ammo.ProjectileCount,
+
+                firstShotPenChance = simResults.hitSummaries[0].prPenetration,
+
+                hitSummaries = hitSummaries,
+            };
+        }
+
+        private static List<TtkWeaponEntry> GetTtkWeaponList()
+        {
+            return ModsWeaponsPresets.CleanedWeapons
+                .Select(weapon =>
+                {
+                    // 9x18 PMM chambered weapons feed standard 9x18 PM ammo, as per Fitting.GetBestPurchasedAmmo.
+                    var caliber = weapon.AmmoCaliber;
+                    if (caliber.Equals("Caliber9x18PMM"))
+                    {
+                        caliber = "Caliber9x18PM";
+                    }
+
+                    return new TtkWeaponEntry
+                    {
+                        weaponId = weapon.Id,
+                        weaponName = weapon.Name,
+                        shortName = weapon.ShortName,
+                        caliber = caliber,
+
+                        bFirerate = weapon.BFirerate,
+                        singleFireRate = weapon.SingleFireRate,
+                        fireModes = weapon.WeaponFireType.Select(mode => mode.ToString()).ToArray(),
+                    };
+                })
+                .OrderBy(entry => entry.weaponName)
+                .ToList();
+        }
+
+        private static string BuildTtkCacheKey(TtkMatrixParameters inputs)
+        {
+            var layerKeys = inputs.armorLayers.Select(layer =>
+                $"{layer.isPlate}|{layer.armorClass}|{layer.bluntDamageThroughput}|{layer.durability}|{layer.maxDurability}|{(int)layer.armorMaterial}");
+
+            return $"{inputs.targetZone}|{inputs.initialHitPoints}|{inputs.distance}|{inputs.maxHits}|{string.Join(";", layerKeys)}";
         }
     }
 }
