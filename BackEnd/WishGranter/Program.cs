@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Models;
 using System.Text.Json;
 
 using OpenTelemetry.Resources;
@@ -10,7 +10,9 @@ using OpenTelemetry.Exporter;
 using Honeycomb.OpenTelemetry;
 using OpenTelemetry;
 using WishGranter.API_Methods;
+#if PRIVATE_BALLISTIC_ENGINE
 using static WishGranter.Statics.BallisticComputah;
+#endif
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 
@@ -197,7 +199,22 @@ async Task startAPIAsync()
         await context.Response.WriteAsync(JsonSerializer.Serialize(result));
     });
 
+    //! ******* TTK Matrix *******
+    app.MapPost("/GetTtkMatrix",
+    async context =>
+    {
+        using var reader = new StreamReader(context.Request.Body);
+        var json = await reader.ReadToEndAsync();
+        var requestData = JsonSerializer.Deserialize<TtkMatrixParameters>(json);
+        var result = API_Ttk.GetTtkMatrix(MyActivitySource, requestData);
+
+        context.Response.StatusCode = StatusCodes.Status200OK;
+
+        await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+    });
+
     //! ******* Ballistic Calculator *******
+#if PRIVATE_BALLISTIC_ENGINE
     app.MapPost("/GetBallisticCalculation",
         async context =>
         {
@@ -209,6 +226,7 @@ async Task startAPIAsync()
 
             await context.Response.WriteAsync(JsonSerializer.Serialize(result));
         });
+#endif
 
     //! ******* AEC *******
     app.MapGet("/GetAmmoEffectivenessChart", 
