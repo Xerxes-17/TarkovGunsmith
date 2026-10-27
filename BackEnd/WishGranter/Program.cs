@@ -13,6 +13,7 @@ using WishGranter.API_Methods;
 using static WishGranter.Statics.BallisticComputah;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using WishGranter.Endpoints;
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -149,7 +150,8 @@ async Task startAPIAsync()
     //app.MapGet("/GetAmmoOptionsList", () => API_Basics.GetAmmoOptionsList(MyActivitySource));
     //app.MapGet("/GetArmorDataSheetData", () => API_Basics.GetArmorDataSheet(MyActivitySource));
 
-    app.MapGet("/GetWeaponOptionsList", () => API_Basics.GetWeaponOptionsList(MyActivitySource));
+    //app.MapGet("/GetWeaponOptionsList", () => API_Basics.GetWeaponOptionsList(MyActivitySource));
+    app.MapWeaponsEndpoints(MyActivitySource);
 
     app.MapGet("/GetWeaponDataSheetData", () => API_Basics.GetWeaponsDataSheet(MyActivitySource));
     app.MapGet("/GetAmmoDataSheetData", () => API_Basics.GetAmmoDataSheet(MyActivitySource));
@@ -198,17 +200,19 @@ async Task startAPIAsync()
     });
 
     //! ******* Ballistic Calculator *******
-    app.MapPost("/GetBallisticCalculation",
-        async context =>
-        {
-            using var reader = new StreamReader(context.Request.Body);
-            var json = await reader.ReadToEndAsync();
-            var requestData = JsonSerializer.Deserialize<BallisticComputahInput>(json);
+    app.MapBallisticsEndpoints(MyActivitySource);
 
-            var result = API_BallisticSimulator.BallisticCalculation(MyActivitySource, requestData);
+    //app.MapPost("/GetBallisticCalculation",
+    //    async context =>
+    //    {
+    //        using var reader = new StreamReader(context.Request.Body);
+    //        var json = await reader.ReadToEndAsync();
+    //        var requestData = JsonSerializer.Deserialize<BallisticComputahInput>(json);
 
-            await context.Response.WriteAsync(JsonSerializer.Serialize(result));
-        });
+    //        var result = API_BallisticSimulator.BallisticCalculation(MyActivitySource, requestData);
+
+    //        await context.Response.WriteAsync(JsonSerializer.Serialize(result));
+    //    });
 
     //! ******* AEC *******
     app.MapGet("/GetAmmoEffectivenessChart", 
@@ -221,6 +225,8 @@ async Task startAPIAsync()
     //app.MapGet("/GetAmmoVsArmor/{ammoId}", (string ammoId) => API_AEC.GetAmmoVsArmor(MyActivitySource, ammoId));
 
     //! ******* Gunsmith *******
+    app.MapGunsmithEndpoints(MyActivitySource);
+
     //app.MapPost("/getSingleWeaponBuild",
     //    async context =>
     //    {

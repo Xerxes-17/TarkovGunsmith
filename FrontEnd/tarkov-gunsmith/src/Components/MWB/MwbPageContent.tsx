@@ -23,7 +23,7 @@ export const MwbPageContent = () => {
                     spacing="xs"
                     verticalSpacing="sm"
                 >
-                    <ManCard shadow="sm" padding="md" radius="md" withBorder bg={"#212529"} style={{ overflow: "auto" }}>
+                    {/* <ManCard shadow="sm" padding="md" radius="md" withBorder bg={"#212529"} style={{ overflow: "auto" }}>
                             <Text>
                                 Sorry everyone, I've had to take this page down as there's a bug that kills the entire BE in it that I need to fix.
                                 <br/>
@@ -31,10 +31,10 @@ export const MwbPageContent = () => {
                                 <br/>
                                 - Xerxes17
                             </Text>
-                    </ManCard>
+                    </ManCard> */}
                     
-                    {/* <MwbControlsCard />
-                    <ResultCard /> */}
+                    <MwbControlsCard />
+                    <ResultCard />
                 </SimpleGrid>
             </Container>
         </ThemeProvider>
