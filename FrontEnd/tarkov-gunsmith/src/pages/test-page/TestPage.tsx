@@ -1,9 +1,9 @@
 import { Container, Paper } from "@mantine/core";
 import { SEO } from "../../app/SEO";
-import { TestForm } from "./test-form";
-import { TestResults } from "./test-results";
+import { TestForm } from "./TestForm";
+import { TestResults } from "./TestResults";
 import { useState } from "react";
-import { TestFormValues } from "./test-form-context";
+import { TestFormValues } from "./testFormContext";
 
 
 export function TestPage() {

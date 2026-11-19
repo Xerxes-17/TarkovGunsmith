@@ -1,10 +1,10 @@
 import { Accordion, Container, Loader, Paper, Stack, Text, useMantineTheme, rem } from '@mantine/core';
 import { SEO } from "../../app/SEO";
 import { useEffect, useState } from "react";
-import { requestAmmoEffectivenessChart } from "./api-requests";
+import { requestAmmoEffectivenessChart } from "./apiRequests";
 import { IconDatabaseX, IconInfoCircle } from "@tabler/icons-react";
 import { AecData } from "./types";
-import { AmmoEffectivenessTable } from "./ammo-effectiveness-table";
+import { AmmoEffectivenessTable } from "./AmmoEffectivenessTable";
 
 export function AmmoEffectivenessPage() {
     const theme = useMantineTheme();

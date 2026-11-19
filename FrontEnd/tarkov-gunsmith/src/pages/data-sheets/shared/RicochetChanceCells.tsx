@@ -1,5 +1,5 @@
 import { MRT_Cell } from "mantine-react-table";
-import { RicochetParams } from "../../../types/ArmorTypes";
+import { RicochetParams } from "../../../types/armorTypes";
 
 
 export function RicochetChanceCell<T extends {}>(cell: MRT_Cell<T>, rowRicochetParams: RicochetParams){

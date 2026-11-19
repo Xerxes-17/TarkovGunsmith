@@ -1,6 +1,6 @@
 import { Select } from "@mantine/core";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
-import { AmmoSelectItem } from "./ammo-select-item";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
+import { AmmoSelectItem } from "./AmmoSelectItem";
 
 
 export function SelectCalculationDopeAmmo() {

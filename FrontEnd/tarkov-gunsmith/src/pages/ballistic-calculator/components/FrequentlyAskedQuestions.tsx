@@ -1,8 +1,8 @@
 import { Box, Center, Flex, Grid, Text } from "@mantine/core";
-import { FAQ_SimStepChart } from "../charts/FAQ_SimStepChart";
-import { FAQ_AnglesTable } from './faq-angles-table';
-import { FAQ_DropChart } from "../charts/FAQ_DropChart";
-import { FAQ_DropChartShotties } from "../charts/FAQ_DropChartShotguns";
+import { FAQ_SimStepChart } from "../charts/FaqSimStepChart";
+import { FAQ_AnglesTable } from './FaqAnglesTable';
+import { FAQ_DropChart } from "../charts/FaqDropChart";
+import { FAQ_DropChartShotties } from "../charts/FaqDropChartShotguns";
 
 export function FrequentlyAskedQuestions() {
     return (

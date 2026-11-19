@@ -1,14 +1,14 @@
 import { Divider, Stack, Title, Text, Group, SimpleGrid } from "@mantine/core";
 import { NumberAndSlider } from "./inputs/NumberAndSlider";
 import { NumberLabelAndSliderPercentage } from "./inputs/NumberLabelAndSliderPercentage";
-import { useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
+import { useBallisticSimulatorFormContext } from "./ballisticSimulatorFormContext";
 import { DrawerButton } from "./inputs/DrawerButton";
 import { IconSearch } from "@tabler/icons-react";
 import { ArmorDamagePercentageWithToolTip } from "./ArmorDamagePercentage";
 import { useViewportSize } from "@mantine/hooks";
-import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../types/AmmoTypes";
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../types/ammoTypes";
 import { useEffect, useState } from "react";
-import { getAmmoDataFromApi_TarkovDev } from "../../api/AmmoApiCalls";
+import { getAmmoDataFromApi_TarkovDev } from "../../api/ammoApiCalls";
 import { TargetUiAlternate } from "./TargetUiAlternate";
 
 const MAX_PENETRATION = 90;

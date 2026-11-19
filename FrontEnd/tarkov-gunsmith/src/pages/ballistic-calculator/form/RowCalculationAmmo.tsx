@@ -1,6 +1,6 @@
 import { Grid, Group,Text, TextInput } from "@mantine/core";
-import { SelectCalculationDopeAmmo } from "../components/select-calculation-ammo";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { SelectCalculationDopeAmmo } from "../components/SelectCalculationAmmo";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 import { useMediaQuery } from "@mui/material";
 
 

@@ -1,9 +1,9 @@
 import { Group, Select, Text } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../ballistic-simulator-form-context";
+    "../ballisticSimulatorFormContext";
 
 import { forwardRef } from "react";
-import { mockMaterials } from "../../../types/ArmorTypes";
+import { mockMaterials } from "../../../types/armorTypes";
 import { ArmorMaterialWithToolTip } from "../../../components/tooltips/ArmorMaterialWithToolTip";
 
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {

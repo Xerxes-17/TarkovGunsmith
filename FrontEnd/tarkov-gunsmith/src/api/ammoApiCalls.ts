@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../utils/util";
-import { AmmoTableRow, DevTarkovAmmoItem } from "../types/AmmoTypes";
-import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./TarkovDevJson";
+import { AmmoTableRow, DevTarkovAmmoItem } from "../types/ammoTypes";
+import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./tarkovDevJson";
 
 type AmmoProperties = NonNullable<DevTarkovAmmoItem["properties"]>;
 

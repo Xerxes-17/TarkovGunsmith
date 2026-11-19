@@ -1,5 +1,5 @@
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip } from "recharts";
-import { BallisticSimResponse } from "../api-requests";
+import { BallisticSimResponse } from "../apiRequests";
 import { BallisticSimulatorSingleShotGraphProps } from "./BallisticSimulatorSingleShotGraph";
 
 

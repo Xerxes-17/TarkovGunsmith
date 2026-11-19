@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../utils/util";
-import { DevTarkovWeaponItem, WeaponsTableRow } from "../types/WeaponTypes";
-import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./TarkovDevJson";
+import { DevTarkovWeaponItem, WeaponsTableRow } from "../types/weaponTypes";
+import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./tarkovDevJson";
 
 /** Weapon properties as they appear in the json.tarkov.dev dump (only the fields we read). */
 interface DumpWeaponProperties {

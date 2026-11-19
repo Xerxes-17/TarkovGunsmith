@@ -1,5 +1,5 @@
 import { Grid, Group, Input, NumberInput, Text } from "@mantine/core";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 
 export function InputMaxDistance() {
     const form = useBallisticCalculatorFormContext();

@@ -8,8 +8,8 @@ import {
 } from 'mantine-react-table';
 import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { convertEnumValToArmorString } from '../../types/ArmorData';
-import { getArmorStatsDataFromApi_WishGranter } from '../../api/ArmorApiCalls';
+import { convertEnumValToArmorString } from '../../types/armorData';
+import { getArmorStatsDataFromApi_WishGranter } from '../../api/armorApiCalls';
 import { ArmorZonesTableCell } from './shared/ArmorZonesTableCell';
 import { MaxRicochetColHeader } from './shared/MaxRicochetColHeader';
 import { MinRicochetColHeader } from './shared/MinRicochetColHeader';
@@ -18,15 +18,15 @@ import { ArmorMaterialWithToolTip } from '../../components/tooltips/ArmorMateria
 import { BluntThroughputWithToolTip } from '../../components/tooltips/BluntThroughputWithToolTip';
 import { ArmorTypeWithToolTip } from './shared/ArmorTypeWithToolTip';
 import { HitZonesWTT } from '../../components/tooltips/HitZonesWTT';
-import { createHitZoneValues_ArmorTableRow } from '../../utils/ArmorHelpers';
+import { createHitZoneValues_ArmorTableRow } from '../../utils/armorHelpers';
 import { ArmorBluntDamageCell } from './shared/ArmorBluntDamageCell';
 import { RicochetAngleCell } from './shared/RicochetAngleCell';
 import { RicochetChanceCell } from './shared/RicochetChanceCells';
 import { DirectPercentageCell } from './shared/DirectPercentageCell';
 import { NameAndAvatarCell } from './shared/NameAndAvatarCell';
-import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../../components/tables/use-tg-table';
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../../components/tables/useTgTable';
 import { SEO } from '../../app/SEO';
-import { NewArmorTableRow } from '../../types/ArmorTypes';
+import { NewArmorTableRow } from '../../types/armorTypes';
 
 export function ArmorMRT() {
     const initialData: NewArmorTableRow[] = [];

@@ -1,4 +1,4 @@
-import { BallisticSimInput } from "./ballistic-calculator-form-context";
+import { BallisticSimInput } from "./ballisticCalculatorFormContext";
 
 export interface DropCalculatorInput {
   defaultAmmoInput: BallisticSimInput;

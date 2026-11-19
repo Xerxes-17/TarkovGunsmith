@@ -19,8 +19,8 @@ import { BallisticsSimulator } from './pages/ballistics-simulator/BallisticsSimu
 import { HelmetProvider } from 'react-helmet-async';
 import { SEO } from './app/SEO';
 import { BallisticCalculator } from './pages/ballistic-calculator/BallisticCalculator';
-import { AmmoEffectivenessPage } from './pages/ammo-effectiveness/ammo-effectiveness-page';
-import { TestPage } from './pages/test-page/test-page';
+import { AmmoEffectivenessPage } from './pages/ammo-effectiveness/AmmoEffectivenessPage';
+import { TestPage } from './pages/test-page/TestPage';
 
 function App() {
   return (

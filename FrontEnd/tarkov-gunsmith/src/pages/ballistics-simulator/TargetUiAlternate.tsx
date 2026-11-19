@@ -1,5 +1,5 @@
 import { Group, Input, NumberInput, SegmentedControl, Stack } from "@mantine/core";
-import { FormArmorLayer, useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
+import { FormArmorLayer, useBallisticSimulatorFormContext } from "./ballisticSimulatorFormContext";
 
 export interface TargetUIProps {
     w?: number | string

@@ -9,12 +9,12 @@ import {
     MRT_ToggleFullScreenButton,
     MRT_ExpandButton
 } from 'mantine-react-table';
-import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from '../../types/AmmoTypes';
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from '../../types/ammoTypes';
 
 import { Box, Button, Flex, Text, Avatar, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { getAmmoDataFromApi_TarkovDev } from "../../api/AmmoApiCalls";
-import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/use-tg-table";
+import { getAmmoDataFromApi_TarkovDev } from "../../api/ammoApiCalls";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/useTgTable";
 import { SEO } from "../../app/SEO";
 
 

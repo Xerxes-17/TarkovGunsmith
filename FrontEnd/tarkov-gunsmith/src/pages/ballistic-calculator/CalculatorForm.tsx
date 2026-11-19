@@ -1,20 +1,20 @@
 import { useState, useEffect, useRef } from "react";
-import { balCalYupValidator, BallisticCalculatorFormProvider, useBallisticCalculatorForm } from "./ballistic-calculator-form-context";
+import { balCalYupValidator, BallisticCalculatorFormProvider, useBallisticCalculatorForm } from "./ballisticCalculatorFormContext";
 import { Button, Divider, Grid, Group, Input, Stack, Text, HoverCard, Portal, ScrollArea } from "@mantine/core";
-import { requestBallisticCalculation } from "./api-requests";
+import { requestBallisticCalculation } from "./apiRequests";
 import { BDC_Result, DopeTableUI_Options, DropCalculatorInput, getModifiedCRadForResults, getTarkovMOA } from "./types";
-import { SelectDopeCaliber } from "./components/select-caliber";
-import { SelectDopeWeapon } from "./components/select-weapon";
-import { SelectDopeBarrel } from "./components/select-barrel";
-import { RowCalculationAmmo } from "./form/row-calculation-ammo";
-import { RowDefaultAmmo } from "./form/row-default-ammo";
-import { AdditionalVelocityModifier } from "./components/input-additional-velocity-mod";
-import { InputMaxDistance } from "./components/input-max-distance";
+import { SelectDopeCaliber } from "./components/SelectCaliber";
+import { SelectDopeWeapon } from "./components/SelectWeapon";
+import { SelectDopeBarrel } from "./components/SelectBarrel";
+import { RowCalculationAmmo } from "./form/RowCalculationAmmo";
+import { RowDefaultAmmo } from "./form/RowDefaultAmmo";
+import { AdditionalVelocityModifier } from "./components/InputAdditionalVelocityMod";
+import { InputMaxDistance } from "./components/InputMaxDistance";
 import { useScrollIntoView, useHover, useViewportSize, useMediaQuery } from "@mantine/hooks";
-import { InputHeightOverBore } from "./components/input-height-over-bore";
-import { PresetManager } from "./components/preset-manager";
+import { InputHeightOverBore } from "./components/InputHeightOverBore";
+import { PresetManager } from "./components/PresetManager";
 import { DropCalculatorInputWithMeta } from "./types";
-import { AdditionalAccuracyModifier } from "./components/input-additional-accuracy-mod";
+import { AdditionalAccuracyModifier } from "./components/InputAdditionalAccuracyMod";
 
 export function CalculatorForm({ dopeOptions, setResult, setTimeStampRefreshHack }: {
     dopeOptions: DopeTableUI_Options,

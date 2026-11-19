@@ -1,10 +1,10 @@
 import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
-import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator-form-context";
+import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballisticSimulatorFormContext";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { BallisticSimParameters, BallisticSimParametersV2, BallisticSimResponse, BallisticSimResultV2, requestMultiShotBallisticSim, requestSingleShotBallisticSim } from "./api-requests";
-import { convertArmorStringToEnumVal } from "../../types/ArmorData";
+import { BallisticSimParameters, BallisticSimParametersV2, BallisticSimResponse, BallisticSimResultV2, requestMultiShotBallisticSim, requestSingleShotBallisticSim } from "./apiRequests";
+import { convertArmorStringToEnumVal } from "../../types/armorData";
 import { LINKS } from "../../app/links";
 import { BallisticSimulatorSingleShotGraph, ChartModes } from './charts/BallisticSimulatorSingleShotGraph';
 import { ReductionFactorWTT } from "./ReductionFactorWTT";
@@ -13,7 +13,7 @@ import { AddArmorLayerButton } from "./inputs/AddArmorLayerButton";
 import { DownloadElementImageButton } from "./inputs/ElementImageDownloadButton";
 import { CopyElementImageButton } from "./inputs/ElementImageCopyButton";
 import { PRINT_ID } from "./BallisticsSimulator";
-import { BasicMultiShotResultsTable } from "./basic-multi-shot-results";
+import { BasicMultiShotResultsTable } from "./BasicMultiShotResults";
 import { BsMsLineChart } from "./charts/BsMsLineChart";
 
 function camelCaseToWords(str: string) {

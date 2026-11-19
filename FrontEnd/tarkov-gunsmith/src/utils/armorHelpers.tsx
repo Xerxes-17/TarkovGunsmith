@@ -1,5 +1,5 @@
-import { ArmorModule, NewArmorTableRow } from "../types/ArmorTypes";
-import { ArmorPlateCollider, ArmorPlateZones, ArmorCollider, ArmorZones } from "../types/ArmorData";
+import { ArmorModule, NewArmorTableRow } from "../types/armorTypes";
+import { ArmorPlateCollider, ArmorPlateZones, ArmorCollider, ArmorZones } from "../types/armorData";
 
 export function plateCollidersToStrings(colliders: ArmorPlateCollider[]) {
     return colliders.map((val) => `*${ArmorPlateZones[val]}`)

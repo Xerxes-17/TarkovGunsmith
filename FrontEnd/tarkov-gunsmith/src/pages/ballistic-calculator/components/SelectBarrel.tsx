@@ -1,5 +1,5 @@
 import { Select, Text } from "@mantine/core";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 
 export function SelectDopeBarrel() {
     const form = useBallisticCalculatorFormContext();

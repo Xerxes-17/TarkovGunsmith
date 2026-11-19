@@ -1,5 +1,5 @@
 import { Divider, Stack, Text } from "@mantine/core";
-import { TestFormValues } from "./test-form-context";
+import { TestFormValues } from "./testFormContext";
 
 export function TestResults({ result }: { result: TestFormValues | undefined }) {
     return (

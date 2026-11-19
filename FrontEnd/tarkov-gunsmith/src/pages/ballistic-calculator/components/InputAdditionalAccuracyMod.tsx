@@ -1,5 +1,5 @@
 import { Divider, Group, HoverCard, Input, NumberInput, Stack, Text } from "@mantine/core";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 import { bsgAmmoFactor, getTarkovMOA } from "../types";
 
 export function AdditionalAccuracyModifier() {

@@ -12,11 +12,11 @@ import {
 
 import { Box, Button, Flex, Text, Avatar, MultiSelect, Group } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { WeaponsTableRow } from "../../types/WeaponTypes";
-import { getDataFromApi_TarkovDev } from "../../api/WeaponApiCalls";
-import { ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../types/AmmoTypes';
+import { WeaponsTableRow } from "../../types/weaponTypes";
+import { getDataFromApi_TarkovDev } from "../../api/weaponApiCalls";
+import { ammoCaliberFullNameMap, mapAmmoCaliberFullNameToLabel, unwantedAmmos } from '../../types/ammoTypes';
 import ImageWithDefaultFallback from "../../components/ImageWithFallBack";
-import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/use-tg-table";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/useTgTable";
 import { SEO } from "../../app/SEO";
 
 export function WeaponMRT() {

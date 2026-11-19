@@ -1,7 +1,7 @@
 import { Checkbox } from "@mantine/core";
 import { NumberAndSliderPercentage } from "./inputs/NumberAndSliderPercentage";
 import { BluntThroughputWithToolTip } from "../../components/tooltips/BluntThroughputWithToolTip";
-import { useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
+import { useBallisticSimulatorFormContext } from "./ballisticSimulatorFormContext";
 import { TargetZone } from "./TargetUiAlternate";
 
 export interface BluntThroughputInputProps {

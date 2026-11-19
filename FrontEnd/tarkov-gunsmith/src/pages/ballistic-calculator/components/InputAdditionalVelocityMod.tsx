@@ -1,5 +1,5 @@
 import { NumberInput, Text } from "@mantine/core";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 
 export function AdditionalVelocityModifier() {
     const form = useBallisticCalculatorFormContext();

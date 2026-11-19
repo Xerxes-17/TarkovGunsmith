@@ -1,8 +1,8 @@
 import { Button, Flex, Text } from "@mantine/core"
-import { useTgTable } from "../../components/tables/use-tg-table"
+import { useTgTable } from "../../components/tables/useTgTable"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo, useState } from "react";
-import { BallisticSimHitSummary, BallisticSimResultV2 } from "./api-requests";
+import { BallisticSimHitSummary, BallisticSimResultV2 } from "./apiRequests";
 
 
 

@@ -1,6 +1,6 @@
 import { Box, Button, Group, NumberInput, Select, Stack, Switch, Text } from "@mantine/core";
 import { BallisticCalculatorTableRow } from "../types";
-import { useScopeVisualizerForm, scopeVisualizerFormYupValidator } from './scope-visualizer-form-context';
+import { useScopeVisualizerForm, scopeVisualizerFormYupValidator } from './scopeVisualizerFormContext';
 import { useEffect, useRef } from "react";
 
 export interface ScopeVisualizerBoxProps {

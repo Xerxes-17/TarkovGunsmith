@@ -1,6 +1,6 @@
 import { Button, Tooltip } from "@mantine/core";
 import { IconShieldMinus, IconShieldPlus } from "@tabler/icons-react";
-import { useBallisticSimulatorFormContext } from "../ballistic-simulator-form-context";
+import { useBallisticSimulatorFormContext } from "../ballisticSimulatorFormContext";
 
 interface AddArmorLayerButtonProps{
     index: number

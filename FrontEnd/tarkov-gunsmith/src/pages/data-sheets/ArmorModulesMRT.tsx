@@ -1,11 +1,11 @@
 import { Box, Avatar, Flex } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
-import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MATERIALS } from "../../types/ArmorData";
+import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MATERIALS } from "../../types/armorData";
 import { lightShield, heavyShield, noneShield } from "../../components/tgIcons";
-import { ArmorModule, ArmorModuleTableRow } from "../../types/ArmorTypes";
+import { ArmorModule, ArmorModuleTableRow } from "../../types/armorTypes";
 import { API_URL } from "../../utils/util";
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
-import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/use-tg-table";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/useTgTable";
 import { useFocusTrap } from "@mantine/hooks";
 import { ArmorTypeWithToolTip } from "./shared/ArmorTypeWithToolTip";
 import { BluntThroughputWithToolTip } from "../../components/tooltips/BluntThroughputWithToolTip";
@@ -13,7 +13,7 @@ import { ArmorMaterialWithToolTip } from "../../components/tooltips/ArmorMateria
 import { MaxRicochetColHeader } from "./shared/MaxRicochetColHeader";
 import { MinAngleRicochetColHeader } from "./shared/MinAngleRicochetColHeader";
 import { MinRicochetColHeader } from "./shared/MinRicochetColHeader";
-import { createHitZoneValues } from "../../utils/ArmorHelpers";
+import { createHitZoneValues } from "../../utils/armorHelpers";
 import { HitZonesWTT } from "../../components/tooltips/HitZonesWTT";
 import { RicochetAngleCell } from "./shared/RicochetAngleCell";
 import { RicochetChanceCell } from "./shared/RicochetChanceCells";

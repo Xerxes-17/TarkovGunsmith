@@ -14,7 +14,7 @@ import {
 import { MwbContext } from "./ContextMWB";
 import React, { forwardRef, useContext } from 'react';
 
-import { OfferType } from './AEC_Interfaces';
+import { OfferType } from './aecInterfaces';
 
 
 

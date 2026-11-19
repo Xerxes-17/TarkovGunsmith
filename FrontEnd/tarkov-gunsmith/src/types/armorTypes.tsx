@@ -1,5 +1,5 @@
-import { ArmorMaterialDestructibilitySelect } from "../api/ArmorApiCalls"
-import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorZones } from "./ArmorData"
+import { ArmorMaterialDestructibilitySelect } from "../api/armorApiCalls"
+import { ArmorType, MaterialType, ArmorPlateCollider, ArmorCollider, ArmorZones } from "./armorData"
 
 export interface NewArmorTableRow {
     id: string;

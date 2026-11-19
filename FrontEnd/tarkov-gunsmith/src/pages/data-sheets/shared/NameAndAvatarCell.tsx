@@ -1,8 +1,8 @@
 import { MRT_Cell, MRT_Row } from "mantine-react-table";
-import { createHitZoneValues_ArmorTableRow } from "../../../utils/ArmorHelpers";
+import { createHitZoneValues_ArmorTableRow } from "../../../utils/armorHelpers";
 import { Avatar, Box } from "@mantine/core";
 import { lightShield, heavyShield, noneShield } from "../../../components/tgIcons";
-import { NewArmorTableRow } from "../../../types/ArmorTypes";
+import { NewArmorTableRow } from "../../../types/armorTypes";
 
 export function NameAndAvatarCell(
     renderedCellValue: React.ReactNode,

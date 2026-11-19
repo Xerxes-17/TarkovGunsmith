@@ -1,6 +1,6 @@
 import { Select, Text } from "@mantine/core";
-import { mapAmmoCaliberFullNameToLabel } from "../../../types/AmmoTypes";
-import { useBallisticCalculatorFormContext } from "../ballistic-calculator-form-context";
+import { mapAmmoCaliberFullNameToLabel } from "../../../types/ammoTypes";
+import { useBallisticCalculatorFormContext } from "../ballisticCalculatorFormContext";
 import {  IconSearch } from "@tabler/icons-react";
 
 export function SelectDopeCaliber() {

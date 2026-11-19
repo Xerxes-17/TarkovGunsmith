@@ -1,12 +1,12 @@
 import { BallisticCalculatorTableRow, BallisticSimDataPoint, BDC_Result, ConvertBSDPtoBCTR } from "../types";
 import { Box, Center, Grid, Loader, SegmentedControl, Stack, Text } from "@mantine/core";
-import { BallisticCalculatorResultTable } from "../components/ballistic-calculator-results";
+import { BallisticCalculatorResultTable } from "../components/BallisticCalculatorResults";
 import { BallisticEnergyChart } from "../charts/BallisticEnergyChart";
 import { BallisticDropChart } from "../charts/BallisticDropChart";
 import { useEffect, useState } from "react";
 import { LINKS } from "../../../app/links";
 import { IconChartLine, IconEye } from "@tabler/icons-react";
-import { ScopeVisualizerBox } from "../scope-visualizer/scope-visualiser-box";
+import { ScopeVisualizerBox } from "../scope-visualizer/ScopeVisualiserBox";
 
 
 export function DopeResultSection(

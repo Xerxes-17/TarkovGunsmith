@@ -1,7 +1,7 @@
 import { MRT_Cell, MRT_Row } from "mantine-react-table";
-import { createHitZoneValues_ArmorTableRow } from "../../../utils/ArmorHelpers";
+import { createHitZoneValues_ArmorTableRow } from "../../../utils/armorHelpers";
 import { HoverCard, Text } from "@mantine/core";
-import { NewArmorTableRow } from "../../../types/ArmorTypes";
+import { NewArmorTableRow } from "../../../types/armorTypes";
 
 export function ArmorBluntDamageCell<T extends {}>(cell: MRT_Cell<T>, row: MRT_Row<NewArmorTableRow>) {
     const isChilde = row.getParentRow() !== undefined;

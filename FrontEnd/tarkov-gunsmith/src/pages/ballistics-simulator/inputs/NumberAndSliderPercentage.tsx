@@ -1,6 +1,6 @@
 import { Box, Input, NumberInput, Slider } from "@mantine/core";
 import { useBallisticSimulatorFormContext } from
-    "../ballistic-simulator-form-context";
+    "../ballisticSimulatorFormContext";
 import { ReactNode } from "react";
 
 interface NumberAndSliderPercentageProps {

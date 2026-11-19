@@ -3,16 +3,16 @@ import { DurabilityAndMaxPair } from "./inputs/DurabilityAndMaxPair";
 import { NumberAndSlider } from "./inputs/NumberAndSlider";
 import { NumberAndSliderPercentage } from "./inputs/NumberAndSliderPercentage";
 import { ArmorMaterialSelect } from "./inputs/SelectArmorMaterial";
-import { useBallisticSimulatorFormContext } from "./ballistic-simulator-form-context";
+import { useBallisticSimulatorFormContext } from "./ballisticSimulatorFormContext";
 import { DrawerButton } from "./inputs/DrawerButton";
 import { IconSearch } from "@tabler/icons-react";
 import { BluntThroughputWithToolTip } from "../../components/tooltips/BluntThroughputWithToolTip";
 import { useViewportSize } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { ArmorModule, ArmorModuleTableRow } from "../../types/ArmorTypes";
+import { ArmorModule, ArmorModuleTableRow } from "../../types/armorTypes";
 import { API_URL } from "../../utils/util";
-import { convertEnumValToArmorString } from "../../types/ArmorData";
-import { createHitZoneValues } from "../../utils/ArmorHelpers";
+import { convertEnumValToArmorString } from "../../types/armorData";
+import { createHitZoneValues } from "../../utils/armorHelpers";
 import { BluntThroughputInput } from "./BluntThroughputInput";
 
 interface ArmorLayerUiProps {

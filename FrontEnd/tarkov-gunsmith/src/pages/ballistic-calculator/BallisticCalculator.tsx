@@ -6,8 +6,8 @@ import { BDC_Result, DopeTableUI_Options } from "./types";
 import { IconDatabase, IconDatabaseX, IconHelp } from "@tabler/icons-react";
 import axios from "axios";
 import { API_URL } from "../../utils/util";
-import { DopeResultSection } from "./form/results-section";
-import { FrequentlyAskedQuestions } from "./components/frequently-asked-questions";
+import { DopeResultSection } from "./form/ResultsSection";
+import { FrequentlyAskedQuestions } from "./components/FrequentlyAskedQuestions";
 import { useDisclosure } from "@mantine/hooks";
 
 export function BallisticCalculator() {

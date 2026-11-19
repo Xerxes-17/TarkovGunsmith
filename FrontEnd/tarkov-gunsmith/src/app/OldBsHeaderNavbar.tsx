@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { LINKS } from './links';
 import { useMediaQuery } from '@mantine/hooks';
-import { SocialMediaIcons } from './social-media-icons';
+import { SocialMediaIcons } from './SocialMediaIcons';
 
 export function OldBsHeaderNavbar() {
 

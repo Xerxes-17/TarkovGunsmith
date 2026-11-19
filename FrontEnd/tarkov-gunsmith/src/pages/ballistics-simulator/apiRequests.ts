@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../../utils/util";
-import { MaterialType } from "../../types/ArmorData";
+import { MaterialType } from "../../types/armorData";
 import { TargetZone } from "./TargetUiAlternate";
 
 

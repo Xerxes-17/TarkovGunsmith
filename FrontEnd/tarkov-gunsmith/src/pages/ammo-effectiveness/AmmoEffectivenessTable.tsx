@@ -1,12 +1,12 @@
 import { useDisclosure, useMediaQuery, useViewportSize } from "@mantine/hooks";
-import { tgMultiSelectColOptions, tgNameColOptions, useTgTable } from "../../components/tables/use-tg-table";
+import { tgMultiSelectColOptions, tgNameColOptions, useTgTable } from "../../components/tables/useTgTable";
 import { AecData, AvatarNameCellProps, ConvertAecRawToDisplay, CustomHtkCellProps, DisplayRowAEC, findArmHTK, findLegHTK } from "./types";
 import { Avatar, Box, Button, Flex, Group, Text } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef, MRT_ExpandButton, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton } from "mantine-react-table";
 import { useCallback, useMemo, useState } from "react";
-import { mapAmmoCaliberFullNameToLabel } from "../../types/AmmoTypes";
-import { HtkConfidenceInput } from "./htk-confidence-input";
-import { HtkBadge } from "./htk-badge";
+import { mapAmmoCaliberFullNameToLabel } from "../../types/ammoTypes";
+import { HtkConfidenceInput } from "./HtkConfidenceInput";
+import { HtkBadge } from "./HtkBadge";
 
 export function AmmoEffectivenessTable({ tableData }: { tableData: AecData }) {
     const [processedAmmoData, setProcessedAmmoData] = useState<DisplayRowAEC[]>(ConvertAecRawToDisplay(tableData, 75));

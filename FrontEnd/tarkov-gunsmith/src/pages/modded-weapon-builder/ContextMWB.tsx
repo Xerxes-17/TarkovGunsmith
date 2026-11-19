@@ -1,9 +1,9 @@
 import React, { createContext, useState, useMemo, useEffect, useCallback } from 'react';
-import { requestWeaponBuild } from './Requests';
+import { requestWeaponBuild } from './requests';
 import { API_URL } from '../../utils/util';
-import { OfferType } from './AEC_Interfaces';
+import { OfferType } from './aecInterfaces';
 import { WeaponOption, CurveDataPoint, fitPriority, MuzzleType, RowSelection } from './types';
-import { Fitting } from './WeaponData';
+import { Fitting } from './weaponData';
 
 
 

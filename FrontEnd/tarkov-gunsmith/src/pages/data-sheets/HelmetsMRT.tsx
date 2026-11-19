@@ -7,9 +7,9 @@ import {
 } from 'mantine-react-table';
 import { Button, Flex, Text } from '@mantine/core'
 import { useDisclosure } from "@mantine/hooks";
-import { MATERIALS, convertEnumValToArmorString } from '../../types/ArmorData';
-import { NewArmorTableRow, joinArmorCollidersAsZones } from '../../types/ArmorTypes';
-import { getHelmetsDataFromApi_WishGranter } from '../../api/ArmorApiCalls';
+import { MATERIALS, convertEnumValToArmorString } from '../../types/armorData';
+import { NewArmorTableRow, joinArmorCollidersAsZones } from '../../types/armorTypes';
+import { getHelmetsDataFromApi_WishGranter } from '../../api/armorApiCalls';
 import { ArmorTypeWithToolTip } from './shared/ArmorTypeWithToolTip';
 import { BluntThroughputWithToolTip } from '../../components/tooltips/BluntThroughputWithToolTip';
 import { MaxRicochetColHeader } from './shared/MaxRicochetColHeader';
@@ -20,9 +20,9 @@ import { RicochetChanceCell } from './shared/RicochetChanceCells';
 import { RicochetAngleCell } from './shared/RicochetAngleCell';
 import { DirectPercentageCell } from './shared/DirectPercentageCell';
 import { BluntDamageCell } from '../../components/tables/BluntDamageCell';
-import { armorCollidersToStrings } from '../../utils/ArmorHelpers';
+import { armorCollidersToStrings } from '../../utils/armorHelpers';
 import { NameAndAvatarCell } from './shared/NameAndAvatarCell';
-import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../../components/tables/use-tg-table';
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from '../../components/tables/useTgTable';
 import { ArmorMaterialWithToolTip } from '../../components/tooltips/ArmorMaterialWithToolTip';
 import { SEO } from '../../app/SEO';
 

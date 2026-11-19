@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../../types/AmmoTypes";
-import { getAmmoDataFromApi_TarkovDev } from "../../../api/AmmoApiCalls";
+import { AmmoTableRow, filterNonBulletsOut, mapAmmoCaliberFullNameToLabel } from "../../../types/ammoTypes";
+import { getAmmoDataFromApi_TarkovDev } from "../../../api/ammoApiCalls";
 import { MRT_ColumnDef, MantineReactTable } from "mantine-react-table";
 import { Avatar, Group, Tooltip, Text, CloseButton } from '@mantine/core';
 import { useViewportSize } from "@mantine/hooks";
-import { useBaseSearchSelectTable } from "./BaseSearchSelectTable";
-import { useBallisticCalculatorFormContext } from "../../ballistic-calculator/ballistic-calculator-form-context";
+import { useBaseSearchSelectTable } from "./useBaseSearchSelectTable";
+import { useBallisticCalculatorFormContext } from "../../ballistic-calculator/ballisticCalculatorFormContext";
 
 interface SearchSelectAmmoTableProps {
     CloseDrawerCb: () => void

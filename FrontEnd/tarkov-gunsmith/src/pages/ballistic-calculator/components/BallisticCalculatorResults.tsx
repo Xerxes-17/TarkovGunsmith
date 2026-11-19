@@ -1,4 +1,4 @@
-import { useTgTable } from "../../../components/tables/use-tg-table"
+import { useTgTable } from "../../../components/tables/useTgTable"
 import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table"
 import { useMemo, useState } from "react";
 import { Flex, Input, NumberInput, Select} from "@mantine/core";

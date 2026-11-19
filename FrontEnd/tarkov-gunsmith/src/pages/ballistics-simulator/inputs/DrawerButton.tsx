@@ -3,7 +3,7 @@ import { Drawer, Button, Group, Title, Tooltip } from '@mantine/core';
 import { ReactNode } from 'react';
 import { SearchSelectAmmoTable } from '../search-tables/SearchSelectAmmoTable';
 import { SearchSelectArmorTable } from '../search-tables/SearchSelectArmorTable';
-import { SearchSelectAmmoTable_Calc } from '../search-tables/SearchSelectAmmoTable_calculator';
+import { SearchSelectAmmoTable_Calc } from '../search-tables/SearchSelectAmmoTableCalculator';
 
 
 export interface DrawerButtonProps {
