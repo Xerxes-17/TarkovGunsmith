@@ -97,7 +97,7 @@ export default function Home(props: any) {
 
                             <a href="https://twitter.com/TarkovGunsmith">I've now got a twitter!</a> Follow so you can keep updated about TG, and boost me in the algorithm. <br /><br />
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_aec_2.png'} style={{ maxWidth: 1058, maxHeight: 1130 }} alt="devBlog image" />
+                        <Card.Img variant="bottom" src={'/blog_dt_aec_2.png'} style={{ maxWidth: 1058, maxHeight: 1130 }} alt="devBlog image" />
                     </Card.Body>
                 </Card>
             </Col>
@@ -118,7 +118,7 @@ export default function Home(props: any) {
                             As a part of this table and the other ones I've added, I've had to expand and update the functionality of the Armor Damage Calculator to be beyond its initial scope, so now I've changed the name to
                             "Terminal Ballistics Simulator". Since this function now encompasses both armor and character damage as a focus, I think this name better reflects its new capabilities. I still gotta update the custom mode though.<br /><br />
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_aec_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} alt="devBlog image" />
+                        <Card.Img variant="bottom" src={'/blog_dt_aec_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} alt="devBlog image" />
                     </Card.Body>
                 </Card>
             </Col>
@@ -140,7 +140,7 @@ export default function Home(props: any) {
                             These tables can be made full-screen and some columns start out hidden, which you can change, in addition to being filterable and sortable. I will probably add more features as
                             I learn more about Material React Table.<br /><br />
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_dt_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} alt="devBlog image" />
+                        <Card.Img variant="bottom" src={'/blog_dt_1.png'} style={{ maxWidth: 957, maxHeight: 1044 }} alt="devBlog image" />
                     </Card.Body>
                 </Card>
             </Col>
@@ -166,7 +166,7 @@ export default function Home(props: any) {
                             Fourth, Probably a bunch of smaller backend changes I can't remember.
 
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_mwb_curves.png'} style={{ maxHeight: 485, maxWidth: 939 }} alt="devBlog image" />
+                        <Card.Img variant="bottom" src={'/blog_mwb_curves.png'} style={{ maxHeight: 485, maxWidth: 939 }} alt="devBlog image" />
                     </Card.Body>
                 </Card>
             </Col>
@@ -187,7 +187,7 @@ export default function Home(props: any) {
 
                             I've also added download and copy to clipboard buttons to the ADC to make sharing easier.
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_adc_2.png'} />
+                        <Card.Img variant="bottom" src={'/blog_adc_2.png'} />
                     </Card.Body>
                 </Card>
             </Col>
@@ -223,7 +223,7 @@ export default function Home(props: any) {
 
                             With that done, it's time for a big code-cleanup pass before I add any more features.
                         </Card.Text>
-                        <Card.Img variant="bottom" src={process.env.PUBLIC_URL + '/blog_adc_1.png'} />
+                        <Card.Img variant="bottom" src={'/blog_adc_1.png'} />
                     </Card.Body>
                 </Card>
             </Col>
@@ -373,7 +373,7 @@ export default function Home(props: any) {
                                     <Card.Header as="h5">Modded Weapon Builder</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
-                            <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/WeaponBuilderInfoPic.png'} alt="A cool looking gun!" />
+                            <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={'/WeaponBuilderInfoPic.png'} alt="A cool looking gun!" />
                             <Card.Body>
                                 <Card.Text>
                                     For many players of the hit looter-shooter Escape from Tarkov, the gunplay and
@@ -400,7 +400,7 @@ export default function Home(props: any) {
                                     <Card.Header as="h5">Terminal Ballistics Simulator</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
-                            <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/ArmorDamageInfoPic.png'} alt="A damaged armor vest" />
+                            <Card.Img style={{ maxHeight: '214px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={'/ArmorDamageInfoPic.png'} alt="A damaged armor vest" />
                             <Card.Body>
                                 <Card.Text>
                                     Another area of somewhat arcane knowledge for the player base is
@@ -425,7 +425,7 @@ export default function Home(props: any) {
                                     <Card.Header as="h5">Info Tables</Card.Header>
                                 </Nav.Link>
                             </LinkContainer>
-                            <Card.Img style={{ maxHeight: '300px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={process.env.PUBLIC_URL + '/datas2.png'} alt="A data table picture" />
+                            <Card.Img style={{ maxHeight: '300px', objectFit: 'contain', marginTop: "5px" }} variant="top" src={'/datas2.png'} alt="A data table picture" />
                             <Card.Body>
                                 <Card.Text>
                                     Stats tables will provide in-game information in a simple format. Useful for looking up a detail or a set of items quickly, can includes hidden stats which are important.

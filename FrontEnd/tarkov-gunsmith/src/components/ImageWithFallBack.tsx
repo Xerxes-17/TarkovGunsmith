@@ -13,7 +13,7 @@ export default function ImageWithDefaultFallback( props:ImageWithDefaultFallback
   const [imageSrc, setImageSrc] = useState(props.src);
 
   const handleImageError = () => {
-    setImageSrc(process.env.PUBLIC_URL + '/TG_ImageFallback.png');
+    setImageSrc('/TG_ImageFallback.png');
   };
 
   return <img src={imageSrc} hidden={props.hidden} onError={handleImageError} alt={props.alt} height={props.height} loading={props.loading} />;

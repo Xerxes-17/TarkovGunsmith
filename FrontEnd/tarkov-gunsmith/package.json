@@ -2,6 +2,12 @@
   "name": "tarkov-gunsmith",
   "version": "0.1.0",
   "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:development": "tsc --noEmit && vite build --mode development",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -12,19 +18,10 @@
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@tabler/icons-react": "^2.32.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.11",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "copy-image-clipboard": "^2.1.2",
     "dayjs": "^1.11.9",
-    "env-cmd": "^10.1.0",
     "html2canvas": "^1.4.1",
     "mantine-react-table": "^1.3.4",
     "material-react-table": "^1.11.0",
@@ -34,52 +31,24 @@
     "react-helmet-async": "^2.0.4",
     "react-router-bootstrap": "^0.26.2",
     "react-router-dom": "^6.6.2",
-    "react-scripts": "5.0.1",
     "recharts": "^2.4.3",
-    "sass": "^1.58.0",
-    "typescript": "^4.9.4",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
-    "build:development": "env-cmd -f .env.development npm run build",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.21.0",
+    "@types/node": "^22.19.0",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
     "@types/react-router-bootstrap": "^0.24.5",
+    "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^10.0.0",
-    "babel-jest": "^26.6.3"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "axios": "axios/dist/node/axios.cjs"
-    }
+    "@vitejs/plugin-react": "^6.3.0",
+    "sass": "^1.58.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8"
   },
   "engines": {
-    "npm": ">=8.0.0 <9.0.0",
-    "node": ">=16.0.0 <17.0.0"
+    "node": "^20.19.0 || >=22.12.0"
   }
 }
