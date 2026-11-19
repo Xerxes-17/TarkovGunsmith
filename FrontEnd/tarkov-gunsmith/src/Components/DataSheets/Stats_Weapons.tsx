@@ -8,6 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Card, Col } from "react-bootstrap";
 import ImageWithDefaultFallback from '../Common/ImageWithFallBack';
 import axios, { AxiosResponse } from 'axios';
+import { getDataFromApi_TarkovDev } from '../../Api/WeaponApiCalls';
 
 interface WeaponsTableRow {
     id: string
@@ -32,140 +33,8 @@ interface WeaponsTableRow {
     fleaPrice: number
 }
 
-interface DevTarkovWeaponItem {
-    id: string;
-    name: string;
-
-    properties: {
-        caliber: string;
-
-        fireRate: number;
-        ergonomics: number;
-        recoilVertical: number;
-
-        recoilDispersion: number;
-        recoilAngle: number;
-        deviationCurve: number
-        deviationMax: number
-
-        defaultErgonomics: number;
-        defaultRecoilVertical: number;
-        defaultPreset: {
-            id: string;
-            name: string;
-        };
-    } | null;
-}
-
-interface ApiResponse {
-    data: {
-        items: DevTarkovWeaponItem[];
-    };
-}
-
 export default function DataSheetWeapons(props: any) {
     const [WeaponTableData, setWeaponTableData] = useState<WeaponsTableRow[]>([]);
-
-    async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovWeaponItem[] | null> {
-        try {
-            const response: AxiosResponse<ApiResponse> = await axios.post("https://api.tarkov.dev/graphql", {
-                query: `
-                {
-                    items(types: [gun]) {
-                        id
-                        name
-                        properties {
-                            ... on ItemPropertiesWeapon {
-                                caliber
-        
-                                fireRate
-                                ergonomics
-                                recoilVertical
-                                
-                                recoilDispersion
-                                convergence
-                                recoilAngle
-                                cameraRecoil
-                                
-                                cameraSnap
-                                centerOfImpact
-                                deviationCurve
-                                deviationMax
-                                
-                                defaultErgonomics
-                                defaultRecoilVertical
-                                defaultPreset{
-                                    id
-                                    name
-                                }
-                            }
-                        }
-                    }
-                }
-            `,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-            });
-            return response.data.data.items;
-        } catch (error) {
-            console.error('Error in fetching from api.tarkov.dev:', error);
-            return null;
-        }
-    };
-
-    function transformDevTarkovWeaponToWeaponsTableRow(weaponItem: DevTarkovWeaponItem): WeaponsTableRow {
-        const properties = weaponItem.properties;
-
-        const tableRow: WeaponsTableRow = {
-            id: weaponItem.id,
-            name: weaponItem.name,
-            imageLink: properties?.defaultPreset?.id 
-            ? `https://assets.tarkov.dev/${properties?.defaultPreset.id}-icon.webp` 
-            : `https://assets.tarkov.dev/${weaponItem.id}-icon.webp`,
-
-            caliber: properties ? properties.caliber : "",
-            rateOfFire: properties ? properties.fireRate : -1,
-            baseErgonomics: properties ? properties.ergonomics : -1,
-            baseRecoil: properties ? properties.recoilVertical : -1,
-
-            recoilDispersion: properties ? properties.recoilDispersion : -1,
-            recoilAngle: properties ? properties.recoilAngle : -1,
-            deviationCurve: properties ? properties.deviationCurve : -1,
-            deviationMax: properties ? properties.deviationMax : -1,
-
-            defaultErgonomics: properties ? properties.defaultErgonomics ?? properties.ergonomics : -1,
-            defaultRecoil: properties ? properties.defaultRecoilVertical ?? properties.recoilVertical : -1,
-
-            price: -1, // You need to provide the actual price or adjust this accordingly
-            traderLevel: -1, // You need to provide the actual trader level or adjust this accordingly
-            fleaPrice: -1, // You need to provide the actual flea price or adjust this accordingly
-        };
-
-        if (properties?.defaultErgonomics === null){
-            tableRow.defaultErgonomics = properties.ergonomics
-        }
-        if(properties?.defaultRecoilVertical === null){
-            tableRow.defaultRecoil = properties.recoilVertical
-        }
-
-        return tableRow
-    }
-
-    async function getDataFromApi_TarkovDev() {
-        const fetched = await fetchDataFromApi_TarkovDev();
-        if (fetched === null) {
-            console.error("Something went wrong fetching ammo data from api.tarkov.dev")
-            return null;
-        }
-        
-        const transformed = fetched.map(item => transformDevTarkovWeaponToWeaponsTableRow(item));
-
-        return transformed;
-    }
-
 
     async function getDataFromApi_WishGranter(): Promise<WeaponsTableRow[] | null> {
         try {

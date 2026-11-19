@@ -1,49 +1,42 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { AmmoTableRow, ApiResponse, DevTarkovAmmoItem } from "../Types/AmmoTypes";
+import { AmmoTableRow, DevTarkovAmmoItem } from "../Types/AmmoTypes";
+import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./TarkovDevJson";
+
+type AmmoProperties = NonNullable<DevTarkovAmmoItem["properties"]>;
+
+/** Keeps only the fields the rest of the app expects, matching the old GraphQL query. */
+function toDevTarkovAmmoItem(item: TarkovDevRawItem, translate: (key: string) => string): DevTarkovAmmoItem {
+    const p = (item.properties ?? {}) as Partial<AmmoProperties>;
+    return {
+        id: item.id,
+        name: translate(item.name),
+        shortName: translate(item.shortName),
+        properties: {
+            penetrationPowerDeviation: p.penetrationPowerDeviation ?? 0,
+            penetrationPower: p.penetrationPower ?? 0,
+            damage: p.damage ?? 0,
+            caliber: p.caliber ?? "",
+            armorDamage: p.armorDamage ?? 0,
+            projectileCount: p.projectileCount ?? 1,
+            recoilModifier: p.recoilModifier ?? 0,
+            heavyBleedModifier: p.heavyBleedModifier ?? 0,
+            lightBleedModifier: p.lightBleedModifier ?? 0,
+            accuracyModifier: p.accuracyModifier ?? 0,
+            initialSpeed: p.initialSpeed ?? 0,
+            fragmentationChance: p.fragmentationChance ?? 0,
+            tracer: p.tracer ?? false,
+            bulletMassGrams: p.bulletMassGrams ?? 0,
+            bulletDiameterMilimeters: p.bulletDiameterMilimeters ?? 0,
+            ballisticCoeficient: p.ballisticCoeficient ?? 0,
+        },
+    };
+}
 
 export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null> {
-    try {
-        const response: AxiosResponse<ApiResponse> = await axios.post("https://api.tarkov.dev/graphql", {
-            query: `
-            {
-                items(types: [ammo]) {
-                    id
-                    name
-                    shortName
-                    properties {
-                        ... on ItemPropertiesAmmo {
-                            penetrationPowerDeviation
-                            penetrationPower
-                            damage
-                            caliber
-                            armorDamage
-                            projectileCount
-                            recoilModifier
-                            heavyBleedModifier
-                            lightBleedModifier
-                            accuracyModifier
-                            initialSpeed
-                            fragmentationChance
-                            tracer
-                            bulletMassGrams
-                            bulletDiameterMilimeters
-                            ballisticCoeficient
-                        }
-                    }
-                }
-            }`
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-        });
-        return response.data.data.items;
-    } catch (error) {
-        console.error("Error in fetching from api.tarkov.dev:", error);
-        return null;
-    }
+    const result = await getTarkovDevItemsOfType("ammo", "ItemPropertiesAmmo");
+    if (result === null) return null;
+    return result.items.map(item => toDevTarkovAmmoItem(item, result.translate));
 }
 
 export function transformTarkovDevItemToAmmoTableRow(item: DevTarkovAmmoItem): AmmoTableRow {
@@ -85,7 +78,7 @@ export async function getAmmoDataFromApi_TarkovDev(){
     const fetched = await fetchDataFromApi_TarkovDev();
 
     if(fetched === null){
-        console.error("Something went wrong fetching ammo data from api.tarkov.dev")
+        console.error("Something went wrong fetching ammo data from json.tarkov.dev")
         return null;
     }
     const transformed = fetched.map(item => transformTarkovDevItemToAmmoTableRow(item));
