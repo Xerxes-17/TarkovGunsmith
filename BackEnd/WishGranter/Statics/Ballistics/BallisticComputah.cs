@@ -1,4 +1,5 @@
-﻿using Private_Ballistic_Engine;
+#if PRIVATE_BALLISTIC_ENGINE
+using Private_Ballistic_Engine;
 using RatStash;
 
 namespace WishGranter.Statics
@@ -47,3 +48,4 @@ namespace WishGranter.Statics
         }
     }
 }
+#endif

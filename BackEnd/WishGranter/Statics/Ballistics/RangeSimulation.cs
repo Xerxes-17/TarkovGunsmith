@@ -1,6 +1,8 @@
-﻿using static Private_Ballistic_Engine.BallisticSimulation;
 using RatStash;
 using Vector3 = System.Numerics.Vector3;
+#if PRIVATE_BALLISTIC_ENGINE
+using static Private_Ballistic_Engine.BallisticSimulation;
+#endif
 
 
 
@@ -109,7 +111,9 @@ namespace WishGranter.Statics
         };
 
 
+#if PRIVATE_BALLISTIC_ENGINE
         (float out1, float out2, Vector3 out3 ) soemthing = Run(100f, 20f, 7f, .42f, 700);
+#endif
 
         public static List<BallisticTableRow> CalculateBallisticTableRows(Ammo ammo) 
         {

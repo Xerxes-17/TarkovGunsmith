@@ -1,4 +1,4 @@
-import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack } from "@mantine/core";
+import { Button, Text, Group, Grid, Divider, Title, LoadingOverlay, Box, Table, Overlay, Center, SegmentedControl, Stack, Paper } from "@mantine/core";
 import { BallisticSimulatorFormProvider, BallisticSimulatorFormValues, useBallisticSimulatorForm } from "./ballistic-simulator-form-context";
 import { ArmorLayerUI } from "./ArmorLayerUI";
 import { ProjectileUI } from "./ProjectileUI";
@@ -15,6 +15,7 @@ import { CopyElementImageButton } from "../../Components/Common/Inputs/ElementIm
 import { PRINT_ID } from "./BallisticsSimulator";
 import { BasicMultiShotResultsTable } from "../../Components/Common/Tables/tgTables/basic-multi-shot-results";
 import { BsMsLineChart } from "../../Components/Common/Graphs/Charts/BsMsLineChart";
+import { TtkSection } from "./ttk/ttk-section";
 
 function camelCaseToWords(str: string) {
     return str.replace(/([A-Z])/g, ' $1').trim();
@@ -64,6 +65,8 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [chartMode, setChartMode] = useState<ChartModes>('bar');
+
+    const [ttkOpened, setTtkOpened] = useState<boolean>(false);
 
     const layerCount = form.values.armorLayers.length;
     layerCountCb(layerCount);
@@ -374,6 +377,29 @@ export function SimulatorForm({ layerCountCb }: PenAndDamFormProps) {
                         {result2 === undefined ? <>Multi Shot</> : result2 && !form.isDirty() ? <>Refresh Result</> : <>Multi Shot</>}
                     </Button>
                 </Group>
+
+                <Divider my="lg" size="sm" />
+
+                <Paper p="sm" withBorder data-html2canvas-ignore>
+                    <Group position="apart" align="center" spacing="md">
+                        <Box maw={620}>
+                            <Title order={4}>Every gun and ammo, ranked</Title>
+                            <Text size="sm" color="dimmed">
+                                Everything above simulates the one projectile entered at the top of the
+                                page. This instead takes every round in the game, fires it at the armor
+                                configured above, and ranks each weapon that chambers it by time to kill.
+                            </Text>
+                        </Box>
+                        <Button
+                            onClick={() => setTtkOpened(!ttkOpened)}
+                            variant={ttkOpened ? "outline" : "filled"}
+                        >
+                            {ttkOpened ? <>Hide ranking</> : <>Rank guns by TTK</>}
+                        </Button>
+                    </Group>
+                </Paper>
+
+                <TtkSection opened={ttkOpened} />
             </form>
         </BallisticSimulatorFormProvider>
     )

@@ -1,7 +1,9 @@
-﻿using Private_Ballistic_Engine;
 using RatStash;
 using System.Collections.Generic;
 using System.Linq;
+#if PRIVATE_BALLISTIC_ENGINE
+using Private_Ballistic_Engine;
+#endif
 
 namespace WishGranter.Statics
 {
@@ -243,12 +245,14 @@ namespace WishGranter.Statics
 
 
 
+#if PRIVATE_BALLISTIC_ENGINE
         public record struct DopeTableInput
         (
             BallisticSimInput input,
             int maxDistance,
             float velocityModifier
         );
+#endif
 
     }
 }
