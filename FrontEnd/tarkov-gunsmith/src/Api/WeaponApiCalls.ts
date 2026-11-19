@@ -51,12 +51,19 @@ function toDevTarkovWeaponItem(
   };
 }
 
+/** Weapons not relevant to the gunsmith tables, excluded by caliber. */
+const unwantedWeaponCalibers: string[] = [
+  "Caliber725", // RShG-2 72.5mm rocket launcher
+];
+
 async function fetchDataFromApi_TarkovDev(): Promise<
   DevTarkovWeaponItem[] | null
 > {
   const result = await getTarkovDevItemsOfType("gun", "ItemPropertiesWeapon");
   if (result === null) return null;
-  return result.items.map((item) => toDevTarkovWeaponItem(item, result.translate));
+  return result.items
+    .map((item) => toDevTarkovWeaponItem(item, result.translate))
+    .filter((weapon) => !unwantedWeaponCalibers.includes(weapon.properties?.caliber ?? ""));
 }
 
 function transformDevTarkovWeaponToWeaponsTableRow(
