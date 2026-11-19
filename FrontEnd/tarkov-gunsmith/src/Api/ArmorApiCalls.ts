@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { ApiResponse } from "../Types/AmmoTypes";
 import { NewArmorTableRow } from "../Types/ArmorTypes";
 
 export async function getHelmetsDataFromApi_WishGranter(): Promise<
@@ -41,12 +40,6 @@ export interface ArmorMaterialStats {
   maxRepairKitDegradation: number;
 }
 
-export interface ApiResponseArmorMaterialStats {
-  data: {
-    items: ArmorMaterialStats[];
-  };
-}
-
 export interface ArmorMaterialDestructibility {
   name: string;
   destructibility: number;
@@ -60,39 +53,3 @@ export interface ArmorMaterialDestructibilitySelect {
     destructibility: number;
     explosionDestructibility: number;
   }
-
-async function fetchArmorMaterialsFromApi_TarkovDev(): Promise<
-  ArmorMaterialStats[] | null
-> {
-  try {
-    const response: AxiosResponse<ApiResponseArmorMaterialStats> =
-      await axios.post(
-        "https://api.tarkov.dev/graphql",
-        {
-          query: `
-        query materials {
-            armorMaterials {
-              name
-              destructibility
-              explosionDestructibility
-              minRepairDegradation
-              maxRepairDegradation
-              minRepairKitDegradation
-              maxRepairKitDegradation
-            }
-          }
-            `,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-    return response.data.data.items;
-  } catch (error) {
-    console.error("Error in fetching from api.tarkov.dev:", error);
-    return null;
-  }
-}

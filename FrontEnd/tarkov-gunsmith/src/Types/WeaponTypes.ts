@@ -42,6 +42,6 @@ export interface WeaponsTableRow {
       defaultPreset: {
         id: string;
         name: string;
-      };
+      } | null;
     } | null;
   }

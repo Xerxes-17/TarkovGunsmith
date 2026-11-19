@@ -1,67 +1,62 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
 import { DevTarkovWeaponItem, WeaponsTableRow } from "../Types/WeaponTypes";
+import { getTarkovDevItemsOfType, TarkovDevRawItem } from "./TarkovDevJson";
 
-interface ApiResponse {
-  data: {
-    items: DevTarkovWeaponItem[];
+/** Weapon properties as they appear in the json.tarkov.dev dump (only the fields we read). */
+interface DumpWeaponProperties {
+  caliber?: string;
+  fireRate?: number;
+  ergonomics?: number;
+  recoilVertical?: number;
+  recoilDispersion?: number;
+  recoilAngle?: number;
+  deviationCurve?: number;
+  deviationMax?: number;
+  /** null when the weapon has no default preset stats. */
+  defaultErgonomics?: number | null;
+  defaultRecoilVertical?: number | null;
+  /** In the dump this is a preset item id string (GraphQL returned an { id, name } object). */
+  defaultPreset?: string | null;
+}
+
+/** Maps a dump item to the shape the old GraphQL query returned, so the transform below is unchanged. */
+function toDevTarkovWeaponItem(
+  item: TarkovDevRawItem,
+  translate: (key: string) => string
+): DevTarkovWeaponItem {
+  const p = (item.properties ?? {}) as DumpWeaponProperties;
+  const ergonomics = p.ergonomics ?? 0;
+  const recoilVertical = p.recoilVertical ?? 0;
+
+  return {
+    id: item.id,
+    name: translate(item.name),
+    properties: {
+      caliber: p.caliber ?? "",
+      fireRate: p.fireRate ?? 0,
+      ergonomics,
+      recoilVertical,
+      recoilDispersion: p.recoilDispersion ?? 0,
+      recoilAngle: p.recoilAngle ?? 0,
+      deviationCurve: p.deviationCurve ?? 0,
+      deviationMax: p.deviationMax ?? 0,
+      // Same fallback the transform applies for nulls: use the base stat.
+      defaultErgonomics: p.defaultErgonomics ?? ergonomics,
+      defaultRecoilVertical: p.defaultRecoilVertical ?? recoilVertical,
+      defaultPreset: p.defaultPreset
+        ? { id: p.defaultPreset, name: translate(`${p.defaultPreset} Name`) }
+        : null,
+    },
   };
 }
 
 async function fetchDataFromApi_TarkovDev(): Promise<
   DevTarkovWeaponItem[] | null
 > {
-  try {
-    const response: AxiosResponse<ApiResponse> = await axios.post(
-      "https://api.tarkov.dev/graphql",
-      {
-        query: `
-                {
-                    items(types: [gun]) {
-                        id
-                        name
-                        properties {
-                            ... on ItemPropertiesWeapon {
-                                caliber
-        
-                                fireRate
-                                ergonomics
-                                recoilVertical
-                                
-                                recoilDispersion
-                                convergence
-                                recoilAngle
-                                cameraRecoil
-                                
-                                cameraSnap
-                                centerOfImpact
-                                deviationCurve
-                                deviationMax
-                                
-                                defaultErgonomics
-                                defaultRecoilVertical
-                                defaultPreset{
-                                    id
-                                    name
-                                }
-                            }
-                        }
-                    }
-                }
-            `,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
-    return response.data.data.items;
-  } catch (error) {
-    console.error("Error in fetching from api.tarkov.dev:", error);
-    return null;
-  }
+  const result = await getTarkovDevItemsOfType("gun", "ItemPropertiesWeapon");
+  if (result === null) return null;
+  return result.items.map((item) => toDevTarkovWeaponItem(item, result.translate));
 }
 
 function transformDevTarkovWeaponToWeaponsTableRow(
@@ -73,7 +68,7 @@ function transformDevTarkovWeaponToWeaponsTableRow(
     id: weaponItem.id,
     name: weaponItem.name,
     imageLink: properties?.defaultPreset?.id
-      ? `https://assets.tarkov.dev/${properties?.defaultPreset.id}-icon.webp`
+      ? `https://assets.tarkov.dev/${properties.defaultPreset.id}-icon.webp`
       : `https://assets.tarkov.dev/${weaponItem.id}-icon.webp`,
 
     caliber: properties ? properties.caliber : "",
@@ -112,7 +107,7 @@ export async function getDataFromApi_TarkovDev() {
   const fetched = await fetchDataFromApi_TarkovDev();
   if (fetched === null) {
     console.error(
-      "Something went wrong fetching ammo data from api.tarkov.dev"
+      "Something went wrong fetching weapon data from json.tarkov.dev"
     );
     return null;
   }
