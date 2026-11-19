@@ -1,8 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { AmmoTableRow, DevTarkovAmmoItem, DevTarkovJsonItem, DevTarkovJsonItemsResponse } from "../Types/AmmoTypes";
+import {
+    AmmoTableRow,
+    DevTarkovAmmoItem,
+    DevTarkovJsonItem,
+    DevTarkovJsonItemsResponse,
+    DevTarkovJsonTranslationsResponse,
+} from "../Types/AmmoTypes";
 
 const TARKOV_DEV_ITEMS_URL = "https://json.tarkov.dev/pvp-season/items";
+// The items dump holds translation keys ("<id> Name", "<id> ShortName"); display strings live here.
+const TARKOV_DEV_ITEMS_EN_URL = "https://json.tarkov.dev/pvp-season/items_en";
 
 /**
  * Parses the response body. Normally the server sends Content-Encoding: gzip and the
@@ -32,13 +40,18 @@ function isAmmoItem(item: DevTarkovJsonItem): boolean {
         && item.properties?.propertiesType === "ItemPropertiesAmmo";
 }
 
+/** Looks a translation key up in the dictionary; falls back to the raw value if it's missing. */
+function translate(value: string, translations: Record<string, string>): string {
+    return translations[value] ?? value;
+}
+
 /** Keeps only the fields the rest of the app expects, matching the old GraphQL query. */
-function toDevTarkovAmmoItem(item: DevTarkovJsonItem): DevTarkovAmmoItem {
+function toDevTarkovAmmoItem(item: DevTarkovJsonItem, translations: Record<string, string>): DevTarkovAmmoItem {
     const p = item.properties!;
     return {
         id: item.id,
-        name: item.name,
-        shortName: item.shortName,
+        name: translate(item.name, translations),
+        shortName: translate(item.shortName, translations),
         properties: {
             penetrationPowerDeviation: p.penetrationPowerDeviation ?? 0,
             penetrationPower: p.penetrationPower ?? 0,
@@ -74,12 +87,32 @@ export function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null
     return ammoFetchPromise;
 }
 
+async function fetchTarkovDevJson<T>(url: string): Promise<T> {
+    const response: AxiosResponse<ArrayBuffer> = await axios.get(url, { responseType: "arraybuffer" });
+    return parseMaybeGzippedJson<T>(response.data);
+}
+
+/** Missing translations shouldn't take the whole table down, so this degrades to an empty dictionary. */
+async function fetchItemTranslations(): Promise<Record<string, string>> {
+    try {
+        const json = await fetchTarkovDevJson<DevTarkovJsonTranslationsResponse>(TARKOV_DEV_ITEMS_EN_URL);
+        if (!json?.data) {
+            console.warn("Unexpected response shape from json.tarkov.dev items_en: missing data");
+            return {};
+        }
+        return json.data;
+    } catch (error) {
+        console.warn("Error fetching item translations from json.tarkov.dev; names will show as keys:", error);
+        return {};
+    }
+}
+
 async function fetchAmmoFromItemsDump(): Promise<DevTarkovAmmoItem[] | null> {
     try {
-        const response: AxiosResponse<ArrayBuffer> = await axios.get(TARKOV_DEV_ITEMS_URL, {
-            responseType: "arraybuffer",
-        });
-        const json = await parseMaybeGzippedJson<DevTarkovJsonItemsResponse>(response.data);
+        const [json, translations] = await Promise.all([
+            fetchTarkovDevJson<DevTarkovJsonItemsResponse>(TARKOV_DEV_ITEMS_URL),
+            fetchItemTranslations(),
+        ]);
 
         const items = json?.data?.items;
         if (!items) {
@@ -90,7 +123,7 @@ async function fetchAmmoFromItemsDump(): Promise<DevTarkovAmmoItem[] | null> {
         // items is a map keyed by id; Object.values also copes if it's ever an array.
         return Object.values(items)
             .filter(isAmmoItem)
-            .map(toDevTarkovAmmoItem);
+            .map(item => toDevTarkovAmmoItem(item, translations));
     } catch (error) {
         console.error("Error in fetching from json.tarkov.dev:", error);
         return null;

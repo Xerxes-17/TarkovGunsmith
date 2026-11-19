@@ -143,6 +143,11 @@ export interface DevTarkovJsonItem extends Omit<DevTarkovAmmoItem, "properties">
   properties: (Partial<NonNullable<DevTarkovAmmoItem["properties"]>> & { propertiesType?: string }) | null;
 }
 
+/** Shape of https://json.tarkov.dev/<mode>/items_<lang> — translation key ("<id> Name") to display string. */
+export interface DevTarkovJsonTranslationsResponse {
+  data: Record<string, string>;
+}
+
 /** Shape of https://json.tarkov.dev/<mode>/items — items is a map keyed by item id. */
 export interface DevTarkovJsonItemsResponse {
   data: {
