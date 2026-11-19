@@ -37,4 +37,4 @@ Live: tarkovgunsmith.com · API: api.tarkovgunsmith.com (dev: api.dev.tarkovguns
 - The Modded Weapon Builder (`src/pages/modded-weapon-builder`) is due for a rework. Don't refactor it in unrelated tasks.
   Known broken: the "See in Ammo vs Armor" link in `AmmoInfoCard.tsx` points to a route that no longer exists.
 - Public assets are referenced as `'/x.png'`. Don't prefix `import.meta.env.BASE_URL` (it's `"/"`, giving a protocol-relative `//x.png`).
-- The README's "update `Util\util.tsx` to run locally" step is outdated. Set the API URL in `.env.development` instead.
+- To point the dev server at a local backend, use a gitignored `.env.development.local` (see README). Don't edit the committed `.env.development`.
