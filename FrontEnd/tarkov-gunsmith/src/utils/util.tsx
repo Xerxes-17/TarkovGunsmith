@@ -14,9 +14,9 @@
 //     // console.log(`${envVar}: ${process.env[envVar]}`);
 //   }
 
-// // console.log(process.env.REACT_APP_WISHGRANTER_API_URL);
+// // console.log(import.meta.env.VITE_WISHGRANTER_API_URL);
 
-var api: string = process.env.REACT_APP_WISHGRANTER_API_URL ?? ''
+var api: string = import.meta.env.VITE_WISHGRANTER_API_URL ?? ''
 var API: string = '';
 
 var AEC_LocalStorage_Key = 'TarkovGunsmith_AEC_Default';
