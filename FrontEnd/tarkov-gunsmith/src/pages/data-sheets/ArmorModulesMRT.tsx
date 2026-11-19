@@ -1,0 +1,353 @@
+import { Box, Avatar, Flex } from "@mantine/core";
+import { useEffect, useMemo, useState } from "react";
+import { convertEnumValToArmorString, ArmorPlateZones, ArmorZones, ArmorType, MATERIALS } from "../../types/ArmorData";
+import { lightShield, heavyShield, noneShield } from "../../components/tgIcons";
+import { ArmorModule, ArmorModuleTableRow } from "../../types/ArmorTypes";
+import { API_URL } from "../../utils/util";
+import { MRT_ColumnDef, MRT_GlobalFilterTextInput, MRT_ToggleFullScreenButton, MantineReactTable } from "mantine-react-table";
+import { tgMultiSelectColOptions, tgNameColOptions, tgNumColOptions, useTgTable } from "../../components/tables/use-tg-table";
+import { useFocusTrap } from "@mantine/hooks";
+import { ArmorTypeWithToolTip } from "./shared/ArmorTypeWithToolTip";
+import { BluntThroughputWithToolTip } from "../../components/tooltips/BluntThroughputWithToolTip";
+import { ArmorMaterialWithToolTip } from "../../components/tooltips/ArmorMaterialWithToolTip";
+import { MaxRicochetColHeader } from "./shared/MaxRicochetColHeader";
+import { MinAngleRicochetColHeader } from "./shared/MinAngleRicochetColHeader";
+import { MinRicochetColHeader } from "./shared/MinRicochetColHeader";
+import { createHitZoneValues } from "../../utils/ArmorHelpers";
+import { HitZonesWTT } from "../../components/tooltips/HitZonesWTT";
+import { RicochetAngleCell } from "./shared/RicochetAngleCell";
+import { RicochetChanceCell } from "./shared/RicochetChanceCells";
+import { BluntDamageCell } from "../../components/tables/BluntDamageCell";
+import { SEO } from "../../app/SEO";
+
+
+export function namesDisplay(input: string) {
+    return (
+        <>
+            {input.split(",").map((name) => {
+                return <>{name}<br /></>
+            })}
+        </>
+    )
+}
+
+export function hitZonesDisplay(row: ArmorModuleTableRow) {
+    return (
+        <>
+            {row.hitZones.map((zone) => {
+                return <>{zone}<br /></>
+            })}
+        </>
+    )
+}
+
+export function ArmorModulesMRT() {
+    const initialData: ArmorModuleTableRow[] = [];
+    const [TableData, setTableData] = useState<ArmorModuleTableRow[]>(initialData);
+    const focusTrapRef = useFocusTrap();
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(API_URL + '/GetArmorModulesData');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data: ArmorModule[] = await response.json();
+
+            const rows: ArmorModuleTableRow[] = data.map(row => ({
+                id: row.id,
+                category: row.category,
+                armorType: row.armorType,
+                name: row.name,
+                armorClass: row.armorClass,
+                bluntThroughput: row.bluntThroughput,
+                maxDurability: row.maxDurability,
+                maxEffectiveDurability: row.maxEffectiveDurability,
+                armorMaterial: convertEnumValToArmorString(row.armorMaterial),
+                weight: row.weight,
+                ricochetParams: row.ricochetParams,
+                usedInNames: row.usedInNames.join(","),
+                compatibleWith: row.compatibleWith.join(","),
+                hitZones: createHitZoneValues(row),
+            }));
+
+            setTableData(rows);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    // This useEffect will update the ArmorOptions with the result from the async API call
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+
+
+    function combinedCollidersDisplay(row: ArmorModule) {
+        return (
+            <span>
+                {armorPlateCollidersDisplay(row)}
+                {armorCollidersDisplay(row)}
+            </span>
+        )
+
+    }
+
+    function armorPlateCollidersDisplay(row: ArmorModule) {
+        return (
+            <>
+                {row.armorPlateColliders.map((enumVal) => {
+                    return <>&nbsp;&nbsp;{ArmorPlateZones[enumVal]}<br /></>
+                })}
+            </>
+        )
+    }
+
+    function armorCollidersDisplay(row: ArmorModule) {
+        return (
+            <>
+                {row.armorColliders.map((enumVal) => {
+                    return <>&nbsp;&nbsp;{ArmorZones[enumVal]}<br /></>
+                })}
+            </>
+        )
+    }
+
+    //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
+    const columns = useMemo<MRT_ColumnDef<ArmorModuleTableRow>[]>(
+
+        () => [
+
+            {
+                accessorKey: 'category',
+                header: 'Category',
+                ...tgMultiSelectColOptions
+            },
+            {
+                accessorKey: 'name',
+                header: 'Name',
+                size: 50,
+                enableSorting: true,
+                Cell: ({ renderedCellValue, row }) => (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '1rem',
+                        }}
+                    >
+                        <Avatar
+                            alt="avatar"
+                            size={'md'}
+                            src={`https://assets.tarkov.dev/${row.original.id}-icon.webp`}
+                        >
+                            {row.original.armorType === ArmorType.Light && lightShield}
+                            {row.original.armorType === ArmorType.Heavy && heavyShield}
+                            {row.original.armorType === ArmorType.None && noneShield}
+                        </Avatar>
+                        <span>{renderedCellValue}</span>
+                    </Box>
+                ),
+                ...tgNameColOptions
+            },
+            {
+                accessorFn: (row) => ArmorType[row.armorType],
+                id: 'armorType',
+                header: 'Type',
+                Header: ArmorTypeWithToolTip(),
+                ...tgMultiSelectColOptions
+            },
+            {
+                accessorKey: 'armorClass',
+                header: 'Armor Class',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 50,
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'bluntThroughput',
+                accessorFn: (originalRow) => originalRow.bluntThroughput * 100,
+                header: 'Blunt Throughput',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                Cell: ({ cell, row }) => BluntDamageCell(cell, row.original.hitZones),
+                Header: BluntThroughputWithToolTip(),
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'maxDurability',
+                header: 'Durability',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 50,
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'maxEffectiveDurability',
+                header: 'Effective Durability',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                size: 10,
+                Cell: ({ cell }) => (
+                    <span>{(cell.getValue<number>()).toLocaleString()}</span>
+                ),
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'armorMaterial',
+                header: 'Material',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                filterSelectOptions: MATERIALS,
+                Header: ArmorMaterialWithToolTip(),
+                ...tgMultiSelectColOptions
+            },
+            {
+                accessorKey: 'weight',
+                header: 'Weight (kg)',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'ricochetParams.x',
+                header: 'Max Ricochet Chance',
+                size: 80,
+                Header: MaxRicochetColHeader(),
+                accessorFn: (originalRow) => originalRow.ricochetParams.x * 100,
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'ricochetParams.y',
+                header: 'Min Ricochet Chance',
+                size: 80,
+                Header: MinRicochetColHeader(),
+                accessorFn: (originalRow) => originalRow.ricochetParams.y * 100,
+                Cell: ({ cell, row }) => RicochetChanceCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'ricochetParams.z',
+                header: 'Min Ricochet Angle',
+                size: 80,
+                Header: MinAngleRicochetColHeader(),
+                Cell: ({ cell, row }) => RicochetAngleCell(cell, row.original.ricochetParams),
+                ...tgNumColOptions
+            },
+            {
+                accessorKey: 'usedInNames',
+                id: 'usedInNames',
+                header: 'Default used by',
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.usedInNames)),
+                ...tgNameColOptions
+            },
+            {
+                accessorKey: 'compatibleWith',
+                id: 'compatibleWith',
+                header: 'Compatible with',
+
+                Cell: ({ cell }) => (namesDisplay(cell.row.original.compatibleWith)),
+                ...tgNameColOptions
+            },
+            {
+                accessorKey: 'hitZones',
+                header: 'Hit Zones',
+                muiTableHeadCellProps: { sx: { color: 'white' } },
+                Cell: ({ cell }) => (hitZonesDisplay(cell.row.original)),
+                Header: HitZonesWTT(),
+                ...tgNameColOptions
+            },
+        ],
+        [],
+    );
+
+    const table = useTgTable({
+        columns,
+        data: TableData,
+        initialState: {
+            density: 'xs',
+            pagination: {
+                pageIndex: 0, pageSize: 200
+            },
+            columnVisibility: {
+                compatibleWith: false,
+                ricochetParams: false
+            },
+            columnPinning: {
+                left: ['mrt-row-expand']
+            },
+            grouping: ['category'],
+            expanded: true,
+            sorting: [{ id: 'category', desc: true }, { id: 'armorClass', desc: true }, { id: 'name', desc: false }],
+        },
+
+        state: {
+            showGlobalFilter: true,
+        },
+
+        mantineTableHeadProps: {
+            sx: {
+                tableLayout: 'fixed',
+            },
+        },
+        mantineTopToolbarProps: {
+            sx: {
+                verticalAlign: "bottom"
+            }
+        },
+
+        mantineTableHeadCellProps: {
+            style: {
+                verticalAlign: "bottom"
+            },
+            sx: {
+                // '& .mantine-Paper-root': {
+                //     verticalAlign: "bottom",
+                // },
+                // ! Did these two to get the actions group ahead of the label
+                // '& .mantine-TableHeadCell-Content': {
+                //     display: 'flex',
+                //     flexDirection:"column-reverse",
+                //     whiteSpace: "normal"
+                // },
+                // '& .mantine-TableHeadCell-Content-Actions': {
+                //     alignSelf:"flex-start",
+                // },
+
+                '& .mantine-TableHeadCell-Content-Wrapper': {
+                    width: "100%",
+                    whiteSpace: "normal"
+                },
+                '& .mantine-TableHeadCell-Content-Labels': {
+                    // justifyContent: 'space-between',
+                    display: 'flex',
+                    flexWrap: 'wrap'
+                },
+            },
+        },
+        renderTopToolbarCustomActions: ({ table }) => (
+            <Flex
+                gap="md"
+                justify="flex-start"
+                align="center"
+                direction="row"
+                wrap="wrap"
+                ref={focusTrapRef}
+            >
+                <MRT_GlobalFilterTextInput table={table} data-autofocus />
+            </Flex>
+        ),
+
+        renderToolbarInternalActions: ({ table }) => (
+            <>
+                {/* <MRT_TablePagination table={table} /> */}
+                <MRT_ToggleFullScreenButton table={table} />
+            </>
+        )
+    })
+
+    return (
+        <>
+            <SEO url="https://tarkovgunsmith.com/datasheets/armor_modules" title={'Armor Modules : Tarkov Gunsmith'} />
+            <MantineReactTable table={table} />
+        </>
+    )
+}

@@ -3,24 +3,24 @@ import './App.scss';
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
-import Home from './Components/Home';
-import PageNotFound from './Components/PageNotFound';
-import About from './Components/About';
-import { LINKS } from './Util/links';
-import MwbBasePage from './Components/MWB/MwbBasePage';
+import Home from './pages/home/Home';
+import PageNotFound from './pages/not-found/PageNotFound';
+import About from './pages/about/About';
+import { LINKS } from './app/links';
+import MwbBasePage from './pages/modded-weapon-builder/MwbBasePage';
 import { MantineProvider } from '@mantine/core';
-import AmmoMRT from './Components/Common/Tables/tgTables/AmmoMRT';
-import { WeaponMRT } from './Components/Common/Tables/tgTables/WeaponMRT';
-import { HelmetsMRT } from './Components/Common/Tables/tgTables/HelmetsMRT';
-import { ArmorMRT } from './Components/Common/Tables/tgTables/ArmorMRT';
-import { TgAppShell } from './Components/Common/TgAppShell';
-import { ArmorModulesMRT } from './Components/Common/Tables/tgTables/ArmorModulesMRT';
-import { BallisticsSimulator } from './Pages/BallisticsSimulator/BallisticsSimulator';
+import AmmoMRT from './pages/data-sheets/AmmoMRT';
+import { WeaponMRT } from './pages/data-sheets/WeaponMRT';
+import { HelmetsMRT } from './pages/data-sheets/HelmetsMRT';
+import { ArmorMRT } from './pages/data-sheets/ArmorMRT';
+import { TgAppShell } from './app/TgAppShell';
+import { ArmorModulesMRT } from './pages/data-sheets/ArmorModulesMRT';
+import { BallisticsSimulator } from './pages/ballistics-simulator/BallisticsSimulator';
 import { HelmetProvider } from 'react-helmet-async';
-import { SEO } from './Util/SEO';
-import { BallisticCalculator } from './Pages/BallisticCalculator/BallisticCalculator';
-import { AmmoEffectivenessPage } from './Pages/AEC_mk2/ammo-effectiveness-page';
-import { TestPage } from './Pages/TestPage/test-page';
+import { SEO } from './app/SEO';
+import { BallisticCalculator } from './pages/ballistic-calculator/BallisticCalculator';
+import { AmmoEffectivenessPage } from './pages/ammo-effectiveness/ammo-effectiveness-page';
+import { TestPage } from './pages/test-page/test-page';
 
 function App() {
   return (
