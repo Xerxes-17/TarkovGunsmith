@@ -28,9 +28,10 @@ namespace WishGranter.Statics
                 result = JObject.Parse(responseContent);
 
                 // Save the result as a local JSON
-                using StreamWriter writetext = new("TarkovDev_jsons\\" + filename + ".json"); // This is here as a debug/verify
-                writetext.Write(result);
-                writetext.Close();
+                using (StreamWriter writetext = new("TarkovDev_jsons\\" + filename + ".json")) // This is here as a debug/verify
+                {
+                    writetext.Write(result);
+                }
             }
             return result;
         }
