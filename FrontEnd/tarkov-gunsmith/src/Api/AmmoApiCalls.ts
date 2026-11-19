@@ -1,47 +1,98 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../Util/util";
-import { AmmoTableRow, ApiResponse, DevTarkovAmmoItem } from "../Types/AmmoTypes";
+import { AmmoTableRow, DevTarkovAmmoItem, DevTarkovJsonItem, DevTarkovJsonItemsResponse } from "../Types/AmmoTypes";
 
-export async function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null> {
-    try {
-        const response: AxiosResponse<ApiResponse> = await axios.post("https://api.tarkov.dev/graphql", {
-            query: `
-            {
-                items(types: [ammo]) {
-                    id
-                    name
-                    shortName
-                    properties {
-                        ... on ItemPropertiesAmmo {
-                            penetrationPowerDeviation
-                            penetrationPower
-                            damage
-                            caliber
-                            armorDamage
-                            projectileCount
-                            recoilModifier
-                            heavyBleedModifier
-                            lightBleedModifier
-                            accuracyModifier
-                            initialSpeed
-                            fragmentationChance
-                            tracer
-                            bulletMassGrams
-                            bulletDiameterMilimeters
-                            ballisticCoeficient
-                        }
-                    }
-                }
-            }`
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
+const TARKOV_DEV_ITEMS_URL = "https://json.tarkov.dev/pvp-season/items";
+
+/**
+ * Parses the response body. Normally the server sends Content-Encoding: gzip and the
+ * browser decompresses transparently, but if we get a raw gzip payload (magic bytes 1f 8b)
+ * we decompress it ourselves with DecompressionStream.
+ */
+async function parseMaybeGzippedJson<T>(buffer: ArrayBuffer): Promise<T> {
+    const bytes = new Uint8Array(buffer);
+    const isGzip = bytes.length > 2 && bytes[0] === 0x1f && bytes[1] === 0x8b;
+
+    if (!isGzip) {
+        return JSON.parse(new TextDecoder().decode(bytes)) as T;
+    }
+
+    // Accessed via globalThis so this compiles on TS versions whose DOM lib predates DecompressionStream.
+    const DecompressionStreamCtor = (globalThis as any).DecompressionStream;
+    if (!DecompressionStreamCtor) {
+        throw new Error("Received a gzip payload but this browser has no DecompressionStream support");
+    }
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStreamCtor("gzip"));
+    const text = await new Response(stream).text();
+    return JSON.parse(text) as T;
+}
+
+function isAmmoItem(item: DevTarkovJsonItem): boolean {
+    return (item.types?.includes("ammo") ?? false)
+        && item.properties?.propertiesType === "ItemPropertiesAmmo";
+}
+
+/** Keeps only the fields the rest of the app expects, matching the old GraphQL query. */
+function toDevTarkovAmmoItem(item: DevTarkovJsonItem): DevTarkovAmmoItem {
+    const p = item.properties!;
+    return {
+        id: item.id,
+        name: item.name,
+        shortName: item.shortName,
+        properties: {
+            penetrationPowerDeviation: p.penetrationPowerDeviation ?? 0,
+            penetrationPower: p.penetrationPower ?? 0,
+            damage: p.damage ?? 0,
+            caliber: p.caliber ?? "",
+            armorDamage: p.armorDamage ?? 0,
+            projectileCount: p.projectileCount ?? 1,
+            recoilModifier: p.recoilModifier ?? 0,
+            heavyBleedModifier: p.heavyBleedModifier ?? 0,
+            lightBleedModifier: p.lightBleedModifier ?? 0,
+            accuracyModifier: p.accuracyModifier ?? 0,
+            initialSpeed: p.initialSpeed ?? 0,
+            fragmentationChance: p.fragmentationChance ?? 0,
+            tracer: p.tracer ?? false,
+            bulletMassGrams: p.bulletMassGrams ?? 0,
+            bulletDiameterMilimeters: p.bulletDiameterMilimeters ?? 0,
+            ballisticCoeficient: p.ballisticCoeficient ?? 0,
+        },
+    };
+}
+
+// The full item dump is several MB and several components ask for ammo on the same page,
+// so share one in-flight request per page load. Cleared on failure so a retry can happen.
+let ammoFetchPromise: Promise<DevTarkovAmmoItem[] | null> | null = null;
+
+export function fetchDataFromApi_TarkovDev(): Promise<DevTarkovAmmoItem[] | null> {
+    if (ammoFetchPromise === null) {
+        ammoFetchPromise = fetchAmmoFromItemsDump().then(result => {
+            if (result === null) ammoFetchPromise = null;
+            return result;
         });
-        return response.data.data.items;
+    }
+    return ammoFetchPromise;
+}
+
+async function fetchAmmoFromItemsDump(): Promise<DevTarkovAmmoItem[] | null> {
+    try {
+        const response: AxiosResponse<ArrayBuffer> = await axios.get(TARKOV_DEV_ITEMS_URL, {
+            responseType: "arraybuffer",
+        });
+        const json = await parseMaybeGzippedJson<DevTarkovJsonItemsResponse>(response.data);
+
+        const items = json?.data?.items;
+        if (!items) {
+            console.error("Unexpected response shape from json.tarkov.dev: missing data.items");
+            return null;
+        }
+
+        // items is a map keyed by id; Object.values also copes if it's ever an array.
+        return Object.values(items)
+            .filter(isAmmoItem)
+            .map(toDevTarkovAmmoItem);
     } catch (error) {
-        console.error("Error in fetching from api.tarkov.dev:", error);
+        console.error("Error in fetching from json.tarkov.dev:", error);
         return null;
     }
 }

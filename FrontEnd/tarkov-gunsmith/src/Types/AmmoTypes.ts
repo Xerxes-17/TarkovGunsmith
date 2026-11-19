@@ -137,6 +137,19 @@ export interface ApiResponse {
   };
 }
 
+/** An item from the json.tarkov.dev dump. Only the fields we read are typed. */
+export interface DevTarkovJsonItem extends Omit<DevTarkovAmmoItem, "properties"> {
+  types?: string[];
+  properties: (Partial<NonNullable<DevTarkovAmmoItem["properties"]>> & { propertiesType?: string }) | null;
+}
+
+/** Shape of https://json.tarkov.dev/<mode>/items — items is a map keyed by item id. */
+export interface DevTarkovJsonItemsResponse {
+  data: {
+    items: Record<string, DevTarkovJsonItem> | DevTarkovJsonItem[];
+  };
+}
+
 export function filterNonBulletsOut(input: AmmoTableRow[]) {
   const result = input.filter((x) => !unwantedAmmos.includes(x.caliber));
   return result;
